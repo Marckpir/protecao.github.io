@@ -1,0 +1,182 @@
+body {
+   font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    text-align: center;
+   
+}
+
+button {
+    color: rgb(227, 224, 64);
+    font-size: 10px;
+    margin-bottom: 10px black;
+    margin: 20px black ;
+    border: #34335c solid 2px;
+    background-color: #02680a;
+    width: 100px;
+    height: 50px;
+    line-height: 1px;
+    border-radius: 10px;
+    
+}
+button:hover {
+    background-color: #cf0808;
+}
+
+canvas {
+    background-color: rgb(247, 247, 197);
+    border: 5px solid black; 
+    max-width: 700px;
+    max-height: 550px;
+}
+
+.grafico-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#grafico {
+    width: 400px; 
+    height: 400px;
+}
+
+#botaoSalvar {
+    margin-top: 15px; 
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.conteiner-geral {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    
+}
+
+.tabela-containerfase{
+    table-layout: fixed;
+    background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0px;
+    color: rgb(224, 248, 6);
+    font-size: 12px;
+    border: none;
+    border-collapse: collapse; 
+    margin-left: 0px;
+}
+
+th {
+    border: 3px solid rgb(0, 0, 0);
+    padding: 1px;
+    text-align: auto;
+}
+
+td{
+    text-align: auto;
+    border: 3px solid rgb(0, 0, 0);
+    padding: 1px;
+    text-align: auto;
+}
+
+#tabelafase {
+    width: 100%; /* Garante que a tabela ocupe toda a largura disponível */
+    table-layout: fixed; /* Mantém colunas com largura uniforme */
+    border-collapse: collapse; /* Elimina espaços extras entre células */
+    
+}
+
+#tabelafase th, #tabelafase td {
+    width: 100%; /* Ajusta cada coluna para ocupar 25% da largura total */
+
+    padding: 3px; /* Adiciona espaçamento interno */
+    text-align: left; /* Centraliza o conteúdo */
+    border: 3px solid #000; /* Mantém bordas visíveis */
+    background-color: rgb(186, 59, 59);
+}
+
+#tabelafase .input-container input,
+#tabelafase .input-container label {
+    width: 90%; /* Faz com que os inputs e labels ocupem toda a célula */
+    display: block; /* Garante alinhamento uniforme */
+}
+
+.tabela-containerneutro{
+    table-layout: fixed;
+    background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0px;
+    color: rgb(224, 248, 6);
+    font-size: 12px;
+    border: none;
+    border-collapse: collapse; 
+    margin-left: 0px;
+}
+
+th {
+    border: 3px solid rgb(0, 0, 0);
+    padding: 1px;
+    text-align: auto;
+}
+
+td{
+    text-align: auto;
+    border: 3px solid rgb(0, 0, 0);
+    padding: 1px;
+    text-align: auto;
+}
+
+#tabelaneutro {
+    width: 100%; /* Garante que a tabela ocupe toda a largura disponível */
+    table-layout: fixed; /* Mantém colunas com largura uniforme */
+    border-collapse: collapse; /* Elimina espaços extras entre células */
+}
+
+#tabelaneutro th, #tabelaneutro td {
+    width: 100%; /* Ajusta cada coluna para ocupar 25% da largura total */
+    padding: 3px; /* Adiciona espaçamento interno */
+    text-align: left; /* Centraliza o conteúdo */
+    border: 3px solid #000; /* Mantém bordas visíveis */
+    background-color: rgb(84, 91, 194);
+}
+
+#tabelaneutro .input-container input,
+#tabelaneutro .input-container label {
+    width: 90%; /* Faz com que os inputs e labels ocupem toda a célula */
+    display: block; /* Garante alinhamento uniforme */
+}
+
+ select { 
+    text-align: auto;
+    width: 100%;
+    height:25px;
+    margin-left: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

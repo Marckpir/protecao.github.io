@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <link rel="stylesheet" href="estudos.css" type="text/css">
+    <script src="estudos.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTUDOS</title>
+
+</head>
+<body>
+    <h1>
+    <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+    <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
+    <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+    <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+    <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
+    <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+    <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+    <button id="botaoreserva3html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+    </h1>
+
+
+    <h1>MODELO DE COORDENOGRAMA DE CARGA</h1>
+
+    <h2>Objetivo</h2>
+    <p>Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente de carga ao sistema CEMIG, incluindo dados elétricos, cálculos de impacto e ajustes das proteções.</p>
+
+    <h2>Informações do Ponto de Conexão</h2>
+    <table>
+        <tr><th>Tensão de Atendimento</th><td>13,80 kV</td></tr>
+        <tr><th>Demanda Contratada</th><td>300,00 kW</td></tr>
+        <tr><th>Fator de Potência</th><td>92,0%</td></tr>
+        <tr><th>Icc 3∅ Ponto de Conexão</th><td>5000,00 A</td></tr>
+        <tr><th>Relé de Proteção</th><td>SIEMENS-7SR1004-GD</td></tr>
+        <tr><th>Gerador a Diesel</th><td>0,00 kVA</td></tr>
+    </table>
+
+    <h2>Transformadores</h2>
+    <p><strong>In TRF01:</strong> S = 500 kVA</p>
+    <p><strong>Corrente:</strong> 20,92 A</p>
+    <p><strong>Tensão:</strong> 13,8 × √3 kV</p>
+
+      <h1>Transformadores</h1>
+    <table>
+        <tr><th>Trafo</th><th>Potência (kVA)</th><th>Qtde</th><th>Z(%)</th><th>IM/IN</th><th>T(s)</th><th>IN (A)</th><th>I ANSI</th><th>I NANSI</th></tr>
+        <tr><td>TRF01</td><td>500</td><td>1</td><td>5</td><td>8,00</td><td>3,00</td><td>20,92</td><td>418,37</td><td>242,65</td></tr>
+        <tr><td>TRF02</td><td>0</td><td>5</td><td>5</td><td>8,00</td><td>3,00</td><td>0,00</td><td>0,00</td><td>0,00</td></tr>
+        <tr><td>TRF03</td><td>0</td><td>6</td><td>5</td><td>8,00</td><td>3,00</td><td>0,00</td><td>0,00</td><td>0,00</td></tr>
+        <tr><td>TRF04</td><td>0</td><td>5</td><td>5</td><td>8,00</td><td>3,00</td><td>0,00</td><td>0,00</td><td>0,00</td></tr>
+        <tr><td>TRF05</td><td>0</td><td>1</td><td>5</td><td>8,00</td><td>3,00</td><td>0,00</td><td>0,00</td><td>0,00</td></tr>
+        <tr><td>TRF06</td><td>0</td><td>1</td><td>5</td><td>8,00</td><td>3,00</td><td>0,00</td><td>0,00</td><td>0,00</td></tr>
+        <tr><td>TRF07</td><td>0</td><td>1</td><td>5</td><td>8,00</td><td>3,00</td><td>0,00</td><td>0,00</td><td>0,00</td></tr>
+    </table>
+<div id="memorialdecalculo"></div>
+        <h2>Cálculo Corrente de Magnetização Total</h2>
+        <p>IN maior trafo × M = 20,92 × 8,00 = <strong>167,35 A</strong></p>
+        <p>Imag total = 167,35 A</p>
+
+        <h2>Cálculo de Magnetização Real (Bibliografia Técnica)</h2>
+        <p>Fórmula simplificada com impedâncias:</p>
+        <p><strong>I<sub>inrush-real</sub> = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">1</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">
+                                1/I<sub>cc3∅</sub> + 1/I<sub>inrush</sub>
+                        </span>
+                </span>
+        </strong></p>
+        <p>Substituindo: 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">1</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">
+                                1/5000 + 1/167,35
+                        </span>
+                </span>
+                = <strong>161,93 A</strong>
+        </p>
+
+        <h2>Dimensionamento do TC de Proteção</h2>
+        <p><strong>1) Saturação da ICC:</strong> TC = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">5000</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">50</span>
+                </span>
+                = <strong>100 A</strong>
+        </p>
+        <p><strong>2) Sensibilidade para Corrente de Partida:</strong> Ip = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">315</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 × 0,92</span>
+                </span>
+                = <strong>14,32 A</strong>
+        </p>
+        <p><strong>3) Cobertura da Corrente de Magnetização:</strong> TC = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">167,35</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">20</span>
+                </span>
+                = <strong>8,37 A</strong>
+        </p>
+
+        <h2>4) Critério de Cobertura da Corrente de Partida</h2>
+        <p>O TC deve possuir capacidade de medição superior à corrente de partida:</p>
+        <p><strong>Corrente de partida (IN + 5%) = 14,32 A</strong></p>
+
+        <h2>5) Critério Normativo</h2>
+        <p>Conforme a ND-5.3 e a ABNT NBR 6856, o TC deve ter no mínimo a seguinte especificação:</p>
+        <p><strong>Classificação: 12,5 VA 10P20</strong></p>
+
+        <h2>Cálculo de Saturação dos TCs (Curto-Circuito Trifásico 5000 A)</h2>
+        <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> × Z<sub>total</sub></p>
+        <p><strong>I<sub>cc</sub> =</strong> 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">I<sub>cc3∅</sub></span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">RTC</span>
+                </span>
+                = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">5000</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">50</span>
+                </span>
+                = <strong>100,00 A</strong>
+        </p>
+
+        <h2>Impedância do Relé (Z<sub>relé</sub>)</h2>
+        <p>Relé: SIEMENS-7SR1004-GD, Consumo: 0,20 VA / 5 A (Fase e Neutro)</p>
+        <p>Z<sub>relé</sub> = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">0,2</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">5²</span>
+                </span>
+                + 3 × 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">0,2</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">5²</span>
+                </span>
+                = 0,008 + 0,024 = <strong>0,0320 Ω</strong>
+        </p>
+
+        <h2>Impedância dos Condutores (Z<sub>fiação</sub>)</h2>
+        <p>Condutores de cobre de 2,5 mm² com 3 metros:</p>
+        <p>Z<sub>fiação</sub> = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">0,02 × 3</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">2,5</span>
+                </span>
+                = <strong>0,0240 Ω</strong>
+        </p>
+
+        <h2>Impedância do TC (Z<sub>TC</sub>)</h2>
+        <p>Utilizado 20% de ZC = 1 Ω:</p>
+        <p>Z<sub>TC</sub> = 0,20 × 1 = <strong>0,2000 Ω</strong></p>
+
+        <h2>Impedância Total</h2>
+        <p>Z<sub>total</sub> = 0,0240 + 0,0320 + 0,2000 = <strong>0,2560 Ω</strong></p>
+
+        <h2>Cálculo da Tensão de Saturação</h2>
+        <p>V<sub>sat</sub> = 100 A × 0,2560 Ω = <strong>25,6 V</strong></p>
+
+        <h2>Conclusão</h2>
+        <p>O transformador de corrente deve ser especificado como:</p>
+        <p><strong>TC: 100 : 5 A – 12,5 VA 10P20</strong></p>
+        <p>Como a tensão de saturação calculada está abaixo da máxima permitida, o TC atenderá todos os critérios definidos.</p>
+
+        <h2>Dimensionamento TP de Proteção</h2>
+        <p><strong>TP:</strong> 120 : 1 V</p>
+        <p><strong>Fechamento:</strong> Y-Y</p>
+        <p><strong>Tensão Primária F-N:</strong> 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">13,8</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">√3</span>
+                </span>
+                V
+        </p>
+        <p><strong>Tensão Secundária F-N:</strong> 115,0 V</p>
+
+        <h3>Características Técnicas Mínimas do TP</h3>
+        <ul>
+                <li>Atender à ABNT NBR 6855</li>
+                <li>Potência térmica de 400 VA</li>
+                <li>Classe de exatidão 0,6P75</li>
+        </ul>
+
+        <h2>Cálculo e Parametrização Função 51 - Fase</h2>
+        <h3>1º Estágio</h3>
+        <p><strong>In Fase:</strong> 13,64 A</p>
+        <p><strong>Ip Fase (+5%):</strong> 14,32 A</p>
+        <p><strong>Ip Fase em P.U:</strong> 0,14 P.U</p>
+        <p><strong>Curva de Atuação:</strong> IEC-M.I</p>
+
+        <h3>Parâmetros Considerados</h3>
+        <p>Tipo de Curva: IEC-M.I</p>
+        <p>Fator α (alfa): 1</p>
+        <p>Fator β (beta): 13,5</p>
+        <p>Tempo de magnetização t: 0,10 s</p>
+        <p>Imag: 167,35 A &nbsp;&nbsp;|&nbsp;&nbsp; In: 13,64 A &nbsp;&nbsp;|&nbsp;&nbsp; M = 12,27</p>
+        <p>Constante k: 1</p>
+
+        <p><strong>Dial calculado:</strong> 1,62</p>
+        <p><strong>Dial real parametrizado:</strong> 0,1</p>
+        <p><strong>Tempo máximo real de magnetização:</strong> 1,94 s (1942,5 ms)</p>
+
+        <h3>2º Estágio - Sobrecorrente de Fase Instantânea (50)</h3>
+        <p><strong>I<sub>inst</sub> fase:</strong> 175,72 A</p>
+        <p><strong>I<sub>inst</sub> fase P.U:</strong> 1,76</p>
+        <p><strong>Tempo de atuação:</strong> 0,01 s</p>
+
+        <h2>Função 51N - Neutro</h2>
+        <h3>1º Estágio - Temporizado</h3>
+        <p><strong>Ipn:</strong> 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">Ip fase</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">3</span>
+                </span>
+                = 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">14,32</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">3</span>
+                </span>
+                = 4,77 A
+        </p>
+        <p><strong>Ipn em P.U:</strong> 0,05</p>
+        <p><strong>Tempo de atuação:</strong> 2,00 s</p>
+        <p><strong>Curva:</strong> Tempo Definido</p>
+
+        <h3>2º Estágio - Instantânea (50N)</h3>
+        <p><strong>I<sub>inst</sub> neutro:</strong> 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">33,3%</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">de 175,72 A</span>
+                </span>
+                = 58,57 A
+        </p>
+        <p><strong>I<sub>inst</sub> neutro P.U:</strong> 0,59</p>
+        <p><strong>Tempo de atuação:</strong> 0,01 s</p>
+
+        <h2>Cálculo e Parametrização - Gerador Diesel</h2>
+        <p>A instalação possui um gerador a Diesel que entrará em operação em horário de ponta em paralelismo momentâneo com a rede CEMIG. Abaixo seguem os cálculos de seus parâmetros:</p>
+
+        <h3>Dados Considerados</h3>
+        <p><strong>Potência aparente:</strong> 0 kVA</p>
+        <p><strong>Fator de Potência:</strong> 80%</p>
+        <p><strong>Potência ativa:</strong> S × FP = 0 × 0,80 = <strong>0,00 kW</strong></p>
+        <p><strong>P ajuste:</strong> 0,00 × 5% = <strong>0,00 W</strong></p>
+        <p><strong>P ajuste P.U:</strong> 
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">0,00</span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">13800 × √3 × 100</span>
+                </span>
+                = <strong>0,00 P.U</strong>
+        </p>
+        <p><strong>Tempo de ajuste:</strong> 15 segundos</p>
+
+        <h2>Resumo de Parâmetros - Consumidor Carga</h2>
+        <p><strong>TP:</strong> 120 : 1</p>
+        <p><strong>TC:</strong> 100 : 5</p>
+
+        <table>
+                <tr>
+                        <th>Descrição</th>
+                        <th>Ajuste Absoluto</th>
+                        <th>Ajuste P.U</th>
+                </tr>
+                <tr>
+                        <td>Sobrecorrente temporizada (ANSI 51)</td>
+                        <td>Corrente: 14,32 A<br>Curva: IEC-M.I<br>Dial: 1,62</td>
+                        <td>0,14 P.U</td>
+                </tr>
+                <tr>
+                        <td>Sobrecorrente instantânea (ANSI 50)</td>
+                        <td>Corrente: 175,72 A<br>Tempo: 0,01 s</td>
+                        <td>1,76 P.U</td>
+                </tr>
+                <tr>
+                        <td>Sobrecorrente neutro temporizada (ANSI 51N)</td>
+                        <td>
+                                Corrente: 
+                                <span style="display:inline-block; vertical-align:middle;">
+                                        <span style="display:block; text-align:center;">14,32</span>
+                                        <span style="border-top:1px solid; display:block; text-align:center;">3</span>
+                                </span>
+                                = 4,77 A<br>
+                                Curva: Tempo Definido<br>
+                                Dial: 2,00 s
+                        </td>
+                        <td>0,05 P.U</td>
+                </tr>
+                <tr>
+                        <td>Sobrecorrente neutro instantânea (ANSI 50N)</td>
+                        <td>
+                                Corrente: 
+                                <span style="display:inline-block; vertical-align:middle;">
+                                        <span style="display:block; text-align:center;">33,3%</span>
+                                        <span style="border-top:1px solid; display:block; text-align:center;">de 175,72 A</span>
+                                </span>
+                                = 58,57 A<br>
+                                Tempo: 0,01 s
+                        </td>
+                        <td>0,59 P.U</td>
+                </tr>
+                <tr>
+                        <td>Direcional de potência (ANSI 32)</td>
+                        <td>Potência reversa: 0,0 W<br>Tempo: 15,00 s</td>
+                        <td>0,00 P.U</td>
+                </tr>
+        </table>
+
+        <br><br>
+        <!-- Gráfico reproduzido de protecaoajuste.html -->
+        <canvas id="curvaProtecao" width="600" height="400" style="background-color: #fff;"></canvas>
+        <script>
+        // Assegure-se de usar exatamente as mesmas variáveis do protecaoajuste.html
+        // Exemplo: copie as variáveis de lá, mantendo nomes e valores idênticos
+        document.addEventListener("DOMContentLoaded", function() {
+                // Copiado de protecaoajuste.html:
+                var labelsProtecao = ['0', '0.5', '1', '1.5', '2', '2.5', '3'];
+                var dadosCurvaProtecao = [2, 1.2, 0.7, 0.4, 0.25, 0.15, 0.1];
+
+                if (window.Chart) {
+                        new Chart(document.getElementById('curvaProtecao').getContext('2d'), {
+                                type: 'line',
+                                data: {
+                                        labels: labelsProtecao,
+                                        datasets: [{
+                                                label: 'Curva de Atuação 51',
+                                                data: dadosCurvaProtecao,
+                                                borderColor: 'blue',
+                                                backgroundColor: 'rgba(0,0,255,0.1)',
+                                                fill: true,
+                                                tension: 0.4,
+                                                pointRadius: 3
+                                        }]
+                                },
+                                options: {
+                                        responsive: false,
+                                        plugins: {
+                                                legend: { display: true }
+                                        },
+                                        scales: {
+                                                x: {
+                                                        title: { display: true, text: 'Corrente (pu)' }
+                                                },
+                                                y: {
+                                                        title: { display: true, text: 'Tempo (s)' },
+                                                        min: 0
+                                                }
+                                        }
+                                }
+                        });
+                } else {
+                        var msg = document.createElement('p');
+                        msg.textContent = "Biblioteca Chart.js não carregada. O gráfico não pôde ser exibido.";
+                        document.getElementById('curvaProtecao').replaceWith(msg);
+                }
+        });
+        </script>
+        <!-- Certifique-se de incluir Chart.js no <head> ou antes deste script -->
+                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                 <script src="estudos.js"></script>
+                 
+        
+</div>
+
+
+
+
+
+
+<body>
+    
+<html>
