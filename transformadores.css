@@ -25,7 +25,7 @@ table {
 th, td {
     border: 1px solid white;
     padding: 5px;
-    text-align: ;
+    text-align: center;
 }
 
 button {
@@ -133,4 +133,39 @@ td input[type="text"] {
 }
 #botaoSalvar:hover {
     background-color: #cf0808;
+}
+
+
+
+/* Responsividade para telas pequenas (celulares) */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+        padding: 0;
+    }
+    table {
+        width: 100%;
+        font-size: 10px;
+    }
+    th, td {
+        font-size: 10px;
+        padding: 2px;
+    }
+    input {
+        width: 90%;
+        font-size: 12px;
+    }
+    button, #botaoSalvar {
+        width: 90vw;
+        max-width: 200px; /* Limita a largura máxima */
+        min-width: 120px;
+        height: 40px;
+        font-size: 14px;
+        margin: 10px auto;
+        display: block;
+    }
+    .input-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

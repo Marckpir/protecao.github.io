@@ -159,6 +159,57 @@ td{
 
 
 
+/* Adaptação para telas pequenas (celulares) */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+        padding: 0;
+    }
+    .conteiner-geral {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .tabela-containerfase,
+    .tabela-containerneutro {
+        font-size: 10px;
+        margin-left: 0;
+    }
+    #tabelafase, #tabelaneutro {
+        font-size: 10px;
+    }
+    #tabelafase th, #tabelafase td,
+    #tabelaneutro th, #tabelaneutro td {
+        padding: 2px;
+        font-size: 10px;
+    }
+    #grafico {
+        width: 100vw !important;
+        height: 250px !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+    }
+    canvas {
+        max-width: 100vw;
+        max-height: 250px;
+    }
+    button, #botaoSalvar {
+        width: 90vw;
+        min-width: 120px;
+        height: 40px;
+        font-size: 14px;
+        margin: 10px auto;
+        display: block;
+    }
+    .input-container input,
+    .input-container label {
+        width: 100%;
+        font-size: 12px;
+    }
+}
+
+
+
+
 
 
 
