@@ -15,7 +15,7 @@
     }
 
     .container {
-      background-color: rgb(235, 226, 153);
+      background-color: rgb(250, 238, 150);
       padding: 40px;
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -55,18 +55,67 @@
     button:hover {
       background-color: #3b3fc1;
     }
+
+        svg {
+      width: 600px;
+      height: 400px;
+    }
+    .eixo {
+      stroke: #aaa;
+      stroke-width: 2;
+    }
+    .curva-definida {
+      fill: none;
+      stroke: #00ff88;
+      stroke-width: 3;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: desenhar 4s linear infinite;
+    }
+    .curva-inversa {
+      fill: none;
+      stroke: #ff0080;
+      stroke-width: 3;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: desenhar 4s linear infinite reverse;
+    }
+    @keyframes desenhar {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>APLICAÇÃO WEB</h2>
-    <form onsubmit="return verificarLogin()">
-      <label>Usuário:</label>
-      <input type="text" id="usuario" required>
-      <label>Senha:</label>
-      <input type="password" id="senha" required>
-      <button type="submit">Entrar</button>
-    </form>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div id="icon-corner" style="width: 60px; height: 40px; margin-bottom: 10px;"></div>
+        <svg viewBox="0 0 600 400" style="width: 100%; height: 100%;">
+          <!-- Eixos -->
+          <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+          <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+          <!-- Curva de tempo definido -->
+          <path class="curva-definida"
+                d="M50,100 
+                   C150,200 250,50 350,150 
+                   S550,250 550,350" />
+          <!-- Curva de tempo inverso -->
+          <path class="curva-inversa"
+                d="M50,50 
+                   C150,150 250,0 350,100 
+                   S550,200 550,350" />
+        </svg>
+      </div>
+      <h2>COORDINATION WEB</h2>
+      <form onsubmit="return verificarLogin()">
+        <label>Usuário:</label>
+        <input type="text" id="usuario" required>
+        <label>Senha:</label>
+        <input type="password" id="senha" required>
+        <button type="submit">Entrar</button>
+      </form>
+    </div>
   </div>
 
   <script>
@@ -75,7 +124,6 @@
       const pass = document.getElementById("senha").value;
 
       if (user === "admin" && pass === "12345") {
-        
         window.location.href = "Protecao_parametros.html";
         return false;
       } else {
