@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico Logarítmico</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        canvas {
+            max-width: 600px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="grafico"></canvas>
+
+    <div>
+        <label for="corrente">Corrente (Eixo X): </label>
+        <input type="number" id="corrente" value="1" step="0.1">
+        
+        <label for="tempo">Tempo (Eixo Y): </label>
+        <input type="number" id="tempo" value="0.01" step="0.01">
+        
+        <button onclick="atualizarGrafico()">Atualizar</button>
+    </div>
+
+    <script>
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        let correnteIp=175;
+        let correntenominal=10;
+        let tempomag=0,1;
+        let eixoy
+        let eixox
+        let i=0;
+        let passo= (correnteIp-correntenominal)/1000;
+        let alfa=80;
+        let beta=2;
+
+
+        for( i=correnteIp; i>correntenominal; i++){
+            y = d * (k /((imag/ip)^alfa)-1)
+
+
+
+        }
+
+
+
+        let dadosX = [1, 2, 5, 10, 20, 50, 100]; 
+        let dadosY = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1];
+
+        let grafico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dadosX,
+                datasets: [{
+                    label: 'Gráfico Logarítmico',
+                    data: dadosY,
+                    borderColor: 'blue',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { type: 'logarithmic', title: { display: true, text: 'Corrente' } },
+                    y: { type: 'logarithmic', title: { display: true, text: 'Tempo' } }
+                }
+            }
+        });
+
+        function atualizarGrafico() {
+            let corrente = parseFloat(document.getElementById('corrente').value);
+            let tempo = parseFloat(document.getElementById('tempo').value);
+
+            dadosX.push(corrente);
+            dadosY.push(tempo);
+
+            grafico.data.labels = dadosX;
+            grafico.data.datasets[0].data = dadosY;
+            grafico.update();
+        }
+    </script>
+</body>
+</html>

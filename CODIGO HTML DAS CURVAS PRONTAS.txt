@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico Logarítmico</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        canvas {
+            max-width: 600px;
+            max-height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="grafico"></canvas>
+
+    <script>
+    // Definição das variáveis comuns
+    let dial1 = 0.1;
+    let alfa1 = 2;
+    let beta1 = 80;
+    let k1 = 1;
+
+    // Primeira curva
+    let imag1 = 175;
+    let ip1 = 20;
+    let x1 = [175];
+    let y1 = [0.01];
+    let passo1 = (imag1 - ip1) / 10000;
+
+    for (let i = 0; imag1 >= ip1; i++) {
+        let z1 = dial1 * (beta1 / (Math.pow(imag1 / ip1, alfa1) - k1));
+        x1.push(imag1);
+        y1.push(Math.min(z1, 1500));
+        imag1 -= passo1;
+    }
+
+    // Segunda curva
+    // Definição das variáveis comuns
+    let dial2 = 3;
+    let alfa2 = 0;
+    let beta2 = 1;
+    let k2 = 0;
+
+    let imag2 = 58;
+    let ip2 = 3;
+    let x2 = [imag2];
+    let y2 = [0.01];
+    
+    let passo2 = (imag2 - ip2) / 1000;
+
+for (let i = 0; imag2 >= 0.01; i++) {
+    let z2;
+
+    if (imag2 < 3) {
+        z2 = 1100; // Para valores menores que 3, sempre será 1000
+    } else {
+        z2 = dial2 * (beta2 / (Math.pow(imag2 / ip2, alfa2) - k2));
+    }
+
+    x2.push(imag2);
+    y2.push(Math.min(z2, 1500));
+
+    imag2 -= passo2;
+}
+
+
+
+    // Configuração do gráfico logarítmico
+    let ctx = document.getElementById('grafico').getContext('2d');
+    let grafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [
+                {
+                    label: 'Curva 50/51 fase ',
+                    data: x1.map((val, index) => ({ x: val, y: y1[index] })),
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Curva 50N/51N Neutro',
+                    data: x2.map((val, index) => ({ x: val, y: y2[index] })),
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                 {
+                    label: 'I mag fase',
+                    data: [{ x: 160, y: 0.1 }],
+                    backgroundColor: 'red',
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointStyle: 'circle',
+                    showLine: false // só o ponto, sem linha
+                },
+            {
+                    label: 'I mag neutro',
+                    data: [{ x: 40, y: 0.1 }],
+                    backgroundColor: 'blue',
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointStyle: 'circle',
+                    showLine: false // só o ponto, sem linha
+                },
+                {
+                    label: 'ICC Trifásica',
+                    data: [{ x: 5000, y: 0.02 }],
+                    backgroundColor: 'black',
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointStyle: 'rect',
+                    showLine: false // só o ponto, sem linha
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'logarithmic',
+                    title: { display: true, text: 'Corrente' },
+                    min: 1,
+                    max: 10000
+                },
+                y: {
+                    type: 'logarithmic',
+                    title: { display: true, text: 'Tempo' },
+                    min: 0.01,
+                    max: 1000
+                }
+            }
+        }
+    });
+    </script>
+</body>
+</html>

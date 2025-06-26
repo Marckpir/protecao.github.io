@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+
+    <head>
 
     <link rel="stylesheet" href="Protecao_parametros.css" type="text/css">
-    
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROTECAO</title>
 
-</head>
-<body>
+    </head>
+
+    <body>
     <h1>
-    <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-    <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
-    <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-    <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
-    <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
-    <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-    <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-    <button id="botaoreserva3html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaoreserva3html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
     </h1>
     <br>
     <div class="tabela-container"></div>
-         <table>
+    <table>
         <caption style="font-weight: bold; color: rgb(0, 0, 0); font-size: 20px;">
-        TABELA DE PARÂMETROS ELÉTRICOS<br><br>
-    </caption>
+            TABELA DE PARÂMETROS ELÉTRICOS<br>
+        </caption>
 
-        
+
         <tr>
             <td>TENSÃO PRIMÁRIA:</td>
 
             <td>
-            <select id="tensaoprimaria" size="1">
-            <option>13.8</option>      
-            <option>22.0</option>    
-            <option>34.5</option>   
-            <!-- <option>0,22 kV</option> 
-            <option>0,38 kV</option>             -->
-            </select> <span class="unidade">kV</span><br>
+                <select id="tensaoprimaria" size="1">
+                    <option>13.8</option>
+                    <option>22.0</option>
+                    <option>34.5</option>
+                    <option>0.220</option> 
+                    <option>0.380</option>
+                    <option>0.440</option>             
+                </select> <span class="unidade">kV</span><br>
             </td>
-            
+
         </tr>
 
         <tr>
             <td>DEMANDA CONSUMO:</td>
             <td>
-            <div class="input-container" style="display: flex; align-items: center;">
-                <input id="demandaConsumo" type="number" placeholder="Digite um valor" style="margin-right: 4px;">
-                <span class="unidade">kW</span>
-            </div>
+                <div class="input-container" style="display: flex; align-items: center;">
+                    <input id="demandaConsumo" type="number" placeholder="Digite um valor" style="margin-right: 4px;">
+                    <span class="unidade">kW</span>
+                </div>
             </td>
         </tr>
 
-         <!-- <tr>
+        <!-- <tr>
             <td>DEMANDA GERAÇÃO(GD):</td>
             <td><div class="input-container">
             <input type="number" id="potencia" placeholder="Digite um valor">
@@ -62,29 +70,33 @@
             </div></td>
         </tr> -->
 
-         <tr>
+        <tr>
             <td>FATOR DE POTÊNCIA:</td>
-            <td><input id="fatorPotencia" type="text" placeholder="Digite um valor"></td>
-        </tr>
-
-         <tr>
-            <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
-            <td><div class="input-container">
-            <input type="number" id="desequilibrio" placeholder="Digite um valor">
-            <span class="unidade">%</span>
-            </div></td>
-        </tr>
-
-         <tr>
-            <td>ICC TRIFÁSICA:</td>
-            <td><div class="input-container">
-            <input id="icctrifasica" type="number" placeholder="Digite um valor">
-            <span class="unidade">A</span>
-            </div></td>
+            <td><input id="fatorPotencia" type="text" placeholder="Digite um valor">%</td>
         </tr>
 
         <tr>
-            <td>RTC DE PROTEÇÃO:</td>
+            <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
+            <td>
+                <div class="input-container">
+                    <input type="number" id="desequilibrio" placeholder="Digite um valor">
+                    <span class="unidade">%</span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>ICC TRIFÁSICA:</td>
+            <td>
+                <div class="input-container">
+                    <input id="icctrifasica" type="number" placeholder="Digite um valor">
+                    <span class="unidade">A</span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>TC DE PROTEÇÃO:</td>
             <td>
                 <div class="input-container" style="display: flex; align-items: center;">
                     <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
@@ -92,46 +104,33 @@
                 </div>
             </td>
 
-            <!-- <td style="font-size: 14px; color: #000000; background-color: rgb(248, 255, 47);">
-                <div style="display: flex">
-                    <span><b>TC ideal:</b></span>
-                    <label id="tcdeProtecaoideal" type="text"></label>
-                    <span class="unidade">:5 A</span>
-                </div>
-            </td> -->
-
-            
-
-            <td style="font-size: 14px; color: #000000; background-color: rgb(248, 255, 47);">
+            <td style="font-size: 14px; color: #f0ed47; background-color: rgb(21, 75, 0);">
                 <div class="label-container">
-                    <span><b>TC ideal:</b></span>
-                    <label id="tcdeProtecaoideal" type="text"></label>
+                    <span><b>RTC:</b></span><br>
+                    <label id="RTChtml" type="text" style="display: block; text-align: center;"></label>
                     <span class="unidade"></span>
                 </div>
             </td>
 
-
-
-            <!-- <td>
-                <div class="input-container">Tolerância (%)
-                    <input type="number" id="IPpercentualhtml">
+            <td style="font-size: 14px; color: #000000; background-color: rgb(248, 255, 47);">
+                <div class="label-container">
+                    <span><b>TC ideal:</b></span><br>
+                    <label id="tcdeProtecaoideal" type="text" style="display: block; text-align: center;"></label>
                     <span class="unidade"></span>
                 </div>
-            </td> -->
-           
-
+            </td>
 
             <td style="font-size: 14px; color: #000000; background-color: rgb(248, 255, 47);">
                 <div class="label-container">
-                    <span><b>Potência mínima de sensibilidade:</b></span><br>
-                    <label id="potenciaMinimahtml" type="text"></label>
+                    <span><b>Potência 10% Prim TC:</b></span><br>
+                    <label id="potenciaMinimahtml" type="text" style="display: block; text-align: center;"></label>
                     <span class="unidade"></span>
                 </div>
             </td>
         </tr>
 
         <tr>
-            <td>RTP DE PROTEÇÃO:</td>
+            <td>TP DE PROTEÇÃO:</td>
             <td>
                 <div class="input-container" style="display: flex; align-items: center;">
                     <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor" style="margin-right: 4px;">
@@ -139,15 +138,33 @@
                 </div>
             </td>
 
-           
+
         </tr>
-    
-        </table>
-        </div>
 
-       <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+        <tr>
+            <td>TP AUXILIAR ALIMENTAÇÃO:</td>
+            <td>
+                <div class="input-container" style="display: flex; align-items: center;">
+                    <input id="TPauxiliarhtml" type="number" placeholder="Digite um valor" style="margin-right: 4px;">
+                    <span class="unidade">:1V</span>
+                </div>
+            </td>
+        </tr>
 
-       <script src="Protecao_parametros.js"></script>
-<body>
-    
+        <tr>
+            <td style="color: rgb(255, 255, 255);"><b>SALVAR PARÂMETROS:</b></td>
+            <td>
+                <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+            </td>
+        </tr>
+
+    </table>
+    </div>
+
+
+
+    <script src="Protecao_parametros.js"></script>
+
+    <body>
+
 <html>

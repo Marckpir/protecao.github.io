@@ -59,11 +59,11 @@
         <label for="seletorTabela">Escolha uma tabela:</label>
         <select id="seletorTabela" onchange="mostrarTabela()">
                 <option value=""></option>
-                <option value="tabela1">Tabela 1</option>
-                <option value="tabela2">Tabela 2</option>
+                <option value="1-PEXTRON-URP7104">1-PEXTRON-URP7104</option>
+                <option value="2-PEXTRON-URP1439">2-PEXTRON-URP1439</option>
                 <option value="tabela3">Tabela 3</option>
                 <option value="tabela4">Tabela 4</option>
-                <option value="tabela5">Tabela 5</option>
+                <option value="5-SIEMENS-7SR1004">5-SIEMENS-7SR1004</option>
                 <option value="tabela6">Tabela 6</option>
                 <option value="tabela7">Tabela 7</option>
                 <option value="tabela8">Tabela 8</option>
@@ -86,7 +86,7 @@
 
 
 
-        <div id="tabela1" class="tabela">
+        <div id="1-PEXTRON-URP7104" class="tabela">
                 <h2>PEXTRON URP 7104/6104</h2>
                 <table style="font-size: 0.92em; max-width: 900px; margin: 0 auto;">
                         <thead>
@@ -170,7 +170,7 @@
                                         <td>D.T.</td>
                                         <td>Ajuste do dial de tempo para fase</td>
                                         <td>0,10 ... 2,00 s</td>
-                                        <td class="ajuste-dt-neutro">Máximo</td>
+                                        <td class="">Máximo</td>
                                 </tr>
                                 <tr>
                                         <td>I def.</td>
@@ -182,7 +182,7 @@
                                         <td>T def.</td>
                                         <td>Tempo da unidade definido de fase</td>
                                         <td>0,10 ... 240 s</td>
-                                        <td class="ajuste-tdef-neutro"></td>
+                                        <td class="ajuste-dt-neutro"></td>
                                 </tr>
                                 <tr>
                                         <td>I inst.</td>
@@ -194,7 +194,7 @@
                 </table>
         </div>
 
-        <div id="tabela2" class="tabela">
+        <div id="2-PEXTRON-URP1439" class="tabela">
 
 <h2>PEXTRON URP 1439T</h2>
 <table style="font-size:0.95em; max-width:1100px; margin:0 auto; border-collapse:collapse;">
@@ -213,7 +213,7 @@
                         <td>TP ABC (RTP)</td>
                         <td>Constante de multiplicação do voltímetro. RTP</td>
                         <td>1,00 ... 360</td>
-                        <td class="ajuste-tp-abc">120</td>
+                        <td class="ajuste-tp-abc"></td>
                 </tr>
                 <tr>
                         <td>TC ABC</td>
@@ -244,13 +244,13 @@
                         <td>I def.</td>
                         <td>Partida tempo definido de fase I&gt;&gt;. 51</td>
                         <td>0,25... 100A x RTC</td>
-                        <td class="ajuste-idef-fase">2000A(Máximo)</td>
+                        <td class="ajuste-idef-fase">Máximo</td>
                 </tr>
                 <tr>
                         <td>T def.</td>
                         <td>Tempo definido de fase I&gt;&gt;. 51</td>
                         <td>0,10 ... 240s</td>
-                        <td class="ajuste-tdef-fase">240(Máximo)</td>
+                        <td class="ajuste-tdef-fase">Máximo</td>
                 </tr>
                 <tr>
                         <td>I inst.</td>
@@ -263,7 +263,7 @@
                         <td>I Partida</td>
                         <td>Corrente de partida da unidade de temporização curva inversa</td>
                         <td>0,15 ... 6,50A x RTC</td>
-                        <td class="ajuste-i-partida-neutro">320A(Máximo)</td>
+                        <td class=>Máximo</td>
                 </tr>
                 <tr>
                         <td>Curva</td>
@@ -275,19 +275,19 @@
                         <td>D.T.</td>
                         <td>Ajuste do dial de tempo para neutro</td>
                         <td>0,10 ... 2,00 s</td>
-                        <td class="ajuste-dt-neutro">2,00(Máximo)</td>
+                        <td class="">Máximo</td>
                 </tr>
                 <tr>
                         <td>I def.</td>
                         <td>Partida tempo definido de neutro_GS I&gt;&gt;. 51N_GS</td>
                         <td>0,15 ... 50A x RTC</td>
-                        <td class="ajuste-idef-neutro">27,85 A</td>
+                        <td class="ajuste-i-partida-neutro"></td>
                 </tr>
                 <tr>
                         <td>T def.</td>
                         <td>Tempo definido de neutro_GS I&gt;&gt;. 51N_GS</td>
                         <td>0,10 ... 240s</td>
-                        <td class="ajuste-tdef-neutro">2,00</td>
+                        <td class="ajuste-dt-neutro"></td>
                 </tr>
                 <tr>
                         <td>I inst.</td>
@@ -891,8 +891,8 @@
 
         </div>
 
-        <div id="tabela5" class="tabela">
-                <h2>SIEMENS 7SR 1004 - Parâmetros Principais</h2>
+        <div id="5-SIEMENS-7SR1004" class="tabela">
+                <h2>SIEMENS 7SR 1004</h2>
                 <table style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <tr>
@@ -902,34 +902,34 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr><td>Phase Nom Voltage</td><td>40 a 160</td><td>66,4 V</td></tr>
-                                <tr><td>Phase Voltage Config</td><td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td><td>Van, Vbn, Vcn</td></tr>
-                                <tr><td>Phase VT Ratio Prim</td><td>até 6 caracteres numérico (V)</td><td>7967,4 V</td></tr>
-                                <tr><td>Phase VT Ratio Sec</td><td>40 a 160 (V)</td><td>66,4 V</td></tr>
-                                <tr><td>Phase CT Ratio Prim</td><td>até 6 caracteres numérico (V)</td><td>100,00 A</td></tr>
-                                <tr><td>Phase CT Ratio Sec</td><td>1A / 5A</td><td>5,00 A</td></tr>
-                                <tr><td>Gn 51-1 Element</td><td>Disabled / Enabled</td><td>Enabled</td></tr>
-                                <tr><td>Gn 51-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td>Non-Dir</td></tr>
-                                <tr><td>Gn 51-1 Setting</td><td>0.05 a 2.5 (xIn)</td><td>0,14 xIn</td></tr>
-                                <tr><td>Gn 51-1 Char</td><td>IEC-EI, IEC-MI</td><td>IEC-M.I</td></tr>
-                                <tr><td>GN 51-1 Time Mult</td><td>0.01 a 100</td><td>0,20</td></tr>
-                                <tr><td>Gn 50-1 Element</td><td>Disabled / Enabled</td><td>Enabled</td></tr>
-                                <tr><td>Gn 50-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td>Non-Dir</td></tr>
-                                <tr><td>Gn 50-1 Setting</td><td>0.05 a 50 (xIn)</td><td>1,76 xIn</td></tr>
-                                <tr><td>GN 50-1 Delay</td><td>0 a 14400 (s)</td><td>0,00 s</td></tr>
-                                <tr><td>Gn 51N-1 Element</td><td>Disabled / Enabled</td><td>Enabled</td></tr>
-                                <tr><td>Gn 51N-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td>Non-Dir</td></tr>
-                                <tr><td>Gn 51N-1 Setting</td><td>0.05 a 2.5 (xIn)</td><td>0,05 xIn</td></tr>
-                                <tr><td>GN 51N-1 Char</td><td>DTL..ANSI-EI</td><td>DTL</td></tr>
-                                <tr><td>GN 51N-1 Delay</td><td>0 a 14400 (s)</td><td>2,00 s</td></tr>
-                                <tr><td>Gn 50N-1 Element</td><td>Disabled / Enabled</td><td>Enabled</td></tr>
-                                <tr><td>Gn 50N-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td>Non-Dir</td></tr>
-                                <tr><td>Gn 50N-1 Setting</td><td>0.05 a 50 (xIn)</td><td>0,59 xIn</td></tr>
-                                <tr><td>GN 50N-1 Delay</td><td>0 a 14400 (s)</td><td>0,00 s</td></tr>
-                                <tr><td>Gn 32-1 Element</td><td>Disabled / Enabled</td><td>Enabled</td></tr>
-                                <tr><td>Gn 32-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td>Reverse</td></tr>
-                                <tr><td>Gn 32-1 Settings</td><td>0.05 a 2 (xSn)</td><td>0,05 xSn</td></tr>
-                                <tr><td>Gn 32-1 Delay</td><td>0 a 14400 (s)</td><td>15,00 s</td></tr>
+                                <tr><td>Phase Nom Voltage</td><td>40 a 160</td><td class="ajuste-phase-nom-voltage">66,4 V</td></tr>
+                                <tr><td>Phase Voltage Config</td><td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td><td class="ajuste-phase-voltage-config">Van, Vbn, Vcn</td></tr>
+                                <tr><td>Phase VT Ratio Prim</td><td>até 6 caracteres numérico (V)</td><td class="ajuste-phase-vt-ratio-prim">7967,4 V</td></tr>
+                                <tr><td>Phase VT Ratio Sec</td><td>40 a 160 (V)</td><td class="ajuste-phase-vt-ratio-sec">66,4 V</td></tr>
+                                <tr><td>Phase CT Ratio Prim</td><td>até 6 caracteres numérico (V)</td><td class="ajuste-phase-ct-ratio-prim">100,00 A</td></tr>
+                                <tr><td>Phase CT Ratio Sec</td><td>1A / 5A</td><td class="ajuste-phase-ct-ratio-sec">5,00 A</td></tr>
+                                <tr><td>Gn 51-1 Element</td><td>Disabled / Enabled</td><td class="">Enabled</td></tr>
+                                <tr><td>Gn 51-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td class="">Non-Dir</td></tr>
+                                <tr><td>Gn 51-1 Setting</td><td>0.05 a 2.5 (xIn)</td><td class="ajuste-ip-pu">0,14 xIn</td></tr>
+                                <tr><td>Gn 51-1 Char</td><td>IEC-EI, IEC-VI</td><td class="ajuste-curva-fase">IEC-M.I</td></tr>
+                                <tr><td>GN 51-1 Time Mult</td><td>0.01 a 100</td><td class="ajuste-dt-fase">0,20</td></tr>
+                                <tr><td>Gn 50-1 Element</td><td>Disabled / Enabled</td><td class="">Enabled</td></tr>
+                                <tr><td>Gn 50-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td class="">Non-Dir</td></tr>
+                                <tr><td>Gn 50-1 Setting</td><td>0.05 a 50 (xIn)</td><td class="ajuste-iinst-pu"></td></tr>
+                                <tr><td>GN 50-1 Delay</td><td>0 a 14400 (s)</td><td class="">0,00 s</td></tr>
+                                <tr><td>Gn 51N-1 Element</td><td>Disabled / Enabled</td><td class="t">Enabled</td></tr>
+                                <tr><td>Gn 51N-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td class="">Non-Dir</td></tr>
+                                <tr><td>Gn 51N-1 Setting</td><td>0.05 a 2.5 (xIn)</td><td class="ajuste-ipneutro-pu"></td></tr>
+                                <tr><td>GN 51N-1 Char</td><td>DTL..ANSI-EI</td><td class="">DTL</td></tr>
+                                <tr><td>GN 51N-1 Delay</td><td>0 a 14400 (s)</td><td class="ajuste-dt-neutro"></td></tr>
+                                <tr><td>Gn 50N-1 Element</td><td>Disabled / Enabled</td><td class="">Enabled</td></tr>
+                                <tr><td>Gn 50N-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td class="">Non-Dir</td></tr>
+                                <tr><td>Gn 50N-1 Setting</td><td>0.05 a 50 (xIn)</td><td class="ajuste-instneutro-pu"></td></tr>
+                                <tr><td>GN 50N-1 Delay</td><td>0 a 14400 (s)</td><td class="">0,00 s</td></tr>
+                                <tr><td>Gn 32-1 Element</td><td>Disabled / Enabled</td><td class="ajuste-gn-32-1-element">Enabled</td></tr>
+                                <tr><td>Gn 32-1 Dir. Control</td><td>Non-Dir/Forward/Reverse</td><td class="ajuste-gn-32-1-dir-control">Reverse</td></tr>
+                                <tr><td>Gn 32-1 Settings</td><td>0.05 a 2 (xSn)</td><td class="ajuste-gn-32-1-settings">0,05 xSn</td></tr>
+                                <tr><td>Gn 32-1 Delay</td><td>0 a 14400 (s)</td><td class="ajuste-gn-32-1-delay">15,00 s</td></tr>
                         </tbody>
                 </table>
         </div>

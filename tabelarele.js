@@ -53,7 +53,18 @@ window.onload = function () {
 
         // Atualiza TODOS os campos com a classe ajuste-tc-abc em todas as tabelas
         document.querySelectorAll('.ajuste-tc-abc').forEach(function(inputTc) {
-            inputTc.textContent = valorAjusteTc + ""
+            inputTc.textContent = valorAjusteTc + "";
+        });
+    }
+
+    // Novo trecho para TPdeprotecaoSelecionada
+    let valorAjusteTp = dados['TPdeprotecaoSelecionada'];
+    if (valorAjusteTp !== null && valorAjusteTp !== undefined) {
+        valorAjusteTp = parseFloat(valorAjusteTp).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tp-abc em todas as tabelas
+        document.querySelectorAll('.ajuste-tp-abc').forEach(function(inputTp) {
+            inputTp.textContent = valorAjusteTp + "";
         });
     }
 
@@ -111,9 +122,9 @@ window.onload = function () {
     }
 
     // Dial de neutro
-    let dialNeutro = dados['dialNeutro'];
+    let dialNeutro = dados['dialneutroSelecionada'];
     if (dialNeutro !== null && dialNeutro !== undefined) {
-        document.querySelectorAll('.dial-neutro').forEach(function(el) {
+        document.querySelectorAll('.ajuste-dt-neutro').forEach(function(el) {
             el.textContent = dialNeutro;
         });
     }
@@ -126,13 +137,48 @@ window.onload = function () {
             el.textContent = tempoDefinidoNeutro + " s";
         });
     }
-
     // Inst de neutro
     let instNeutro = dados['IinstneutroSelecionada'];
     if (instNeutro !== null && instNeutro !== undefined) {
         instNeutro = parseFloat(instNeutro).toFixed(2);
         document.querySelectorAll('.ajuste-iinst-neutro').forEach(function(el) {
             el.textContent = instNeutro + " A";
+        });
+    }
+
+    // Ip PU Selecionada
+    let ipPU = dados['ipPUSelecionada'];
+    if (ipPU !== null && ipPU !== undefined) {
+        ipPU = parseFloat(ipPU).toFixed(2) + " x In";
+        document.querySelectorAll('.ajuste-ip-pu').forEach(function(el) {
+            el.textContent = ipPU;
+        });
+    }
+
+    // Iinst PU Selecionada
+    let iinstPU = dados['iinstPUSelecionada'];
+    if (iinstPU !== null && iinstPU !== undefined) {
+        iinstPU = parseFloat(iinstPU).toFixed(2) + " x In";
+        document.querySelectorAll('.ajuste-iinst-pu').forEach(function(el) {
+            el.textContent = iinstPU;
+        });
+    }
+
+    // Ip Neutro PU Selecionada
+    let ipneutroPU = dados['ipneutroPUSelecionada'];
+    if (ipneutroPU !== null && ipneutroPU !== undefined) {
+        ipneutroPU = parseFloat(ipneutroPU).toFixed(2) + " x In";
+        document.querySelectorAll('.ajuste-ipneutro-pu').forEach(function(el) {
+            el.textContent = ipneutroPU;
+        });
+    }
+
+    // Inst Neutro PU Selecionada
+    let instneutrouPU = dados['instneutroPUSelecionada'];
+    if (instneutrouPU !== null && instneutrouPU !== undefined) {
+        instneutrouPU = parseFloat(instneutrouPU).toFixed(2) + " x In";
+        document.querySelectorAll('.ajuste-instneutro-pu').forEach(function(el) {
+            el.textContent = instneutrouPU;
         });
     }
 

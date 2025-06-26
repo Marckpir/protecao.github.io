@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <link rel="stylesheet" href="protecao.css" type="text/css">
+    <script src="protecao.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROTECAO</title>
+
+</head>
+<body>
+    <h1>
+    <button class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+    <button class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
+    <button class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+    <button class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+    <button class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+    </h1>
+    
+    
+    
+    
+    
+    <div class="container">
+        <div class="header">
+            <h2>Inserir pontos</h2>
+        </div>
+        <div class="form-section">
+            <table>
+                <tr>
+                    <tr>
+                    <th rowspan="2">Tensão:</th>
+                    <tr>
+
+                        <tr>
+                            <th rowspan="2">Potência consumo:</th>
+                            <tr>
+                                <tr>
+                                    <th rowspan="2">Potência gerador:</th>
+                                    <tr>
+                        <tr>
+                    </tr>
+                    
+                    <th rowspan="1">Potência injeção</th>
+
+
+
+                </tr>
+                <tr>
+                   </tr>
+                <tr>
+                    <div class="parametros">
+
+                    </td>
+                    <input type="text" id="aluno">
+                    <input type="text" id="html">
+                    <input type="text" id="css">
+                    <input type="text" id="javascript">
+                    <rowspan="4" style="text-align: center;">
+                    <td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <button onclick="adicionar()">Adicionar</button>
+                    </td>
+                </tr>
+
+            </table>
+            
+        </div>
+        
+        <div class="grades-title">Notas</div>
+
+        <div class="grades">
+            
+            <table id="tabelaNotas">
+                <tr>
+                    <th>Aluno</th>
+                    <th>Total</th>
+                    <th>Média</th>
+                    <th>Resultado</th>
+                </tr>
+            </table>
+            
+        </div>
+
+        <button onclick="salvar()">Salvar no Browser</button>
+    </div>
+</body>
+</html>

@@ -59,7 +59,7 @@ function salvarOpcao(){
     
     //-----------------------------------------------------------------------------------------
     const fatorPotencia = document.getElementById("fatorPotencia");
-    const fatorPotenciaSelecionada = fatorPotencia.value;
+    const fatorPotenciaSelecionada = fatorPotencia.value/100;
     localStorage.setItem("fatorPotenciaSelecionada", fatorPotenciaSelecionada);
     
     //-----------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ function salvarOpcao(){
     // Codigo para definir o TC Ideal
     const valoresTC = [
         15, 20, 25, 30, 35, 40, 50, 75, 100,
-        150, 200, 250, 300, 400
+        150, 200, 250, 300, 400, 600, 800, 1000, 1200, 1500, 2000
     ];
 
     let inominalDemanda = 0;
@@ -209,7 +209,7 @@ window.onload = function () {
     const fatorp = document.getElementById("fatorPotencia");
     const fatorpSalva = localStorage.getItem("fatorPotenciaSelecionada");
     if (fatorpSalva) {
-        fatorp.value = fatorpSalva;
+        fatorp.value = fatorpSalva*100;
     }
 //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
@@ -230,6 +230,13 @@ window.onload = function () {
         TC.value = TCSalva;
     }
 //-----------------------------------------------------------------------------------------
+// Recupera o valor do RTCselecionado do localStorage e define no campo correspondente
+    const RTC = document.getElementById("RTChtml");
+    const RTCSalva = localStorage.getItem("RTCselecionado");
+    if (RTC && RTCSalva) {
+        RTC.textContent = RTCSalva;
+    }
+//-----------------------------------------------------------------------------------------
     const TP = document.getElementById("TPdeprotecaohtml");
     const TPSalva = localStorage.getItem("TPdeprotecaoSelecionada");
     if (TPSalva) {
@@ -248,7 +255,7 @@ if (tcProtecaoIdeal) {
     tcProtecaoIdeal.textContent = valorTCSelecionado !== null ? valorTCSelecionado + " :5" : "";
 }
 
-}
+
 
 
 //Recupera o valor da potência mínima do localStorage e exibe no elemento HTML
@@ -259,3 +266,4 @@ if (potenciaMinimaElement) {
 }
 
 
+}

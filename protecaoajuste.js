@@ -476,8 +476,13 @@ for (let i = 0; Iinst1 >= ip1; i++) {
     let y2 = [0.01];
     let idefneutro = idefneutroArmazenada;
     let tdefneutro = tdefneutroArmazenada;
+    
 
     let passo2 = (Iinst2 - ip2) / 1000;
+    // Se dial2 não tiver valor, considera 1000
+    if (!dial2 || isNaN(dial2)) {
+        dial2 = 1000;
+    }
 
     for (let i = 0; Iinst2 >= ip2; i++) {
         const idefValidoNeutro = !isNaN(idefneutro) && idefneutro !== null && idefneutro !== undefined;
@@ -720,7 +725,10 @@ x: {
     type: 'logarithmic',
     title: { display: true, text: 'Corrente (A)' },
     min: 1,
-    max: curtoArmazenada + 1000,
+    max: Math.max(
+                    curtoArmazenada || 0,
+                    parseFloat(localStorage.getItem("Instfaseconsumo")) || 0
+                    ) + 1000,
     grid: {
         display: true,
         // Ativa linhas principais
@@ -741,6 +749,21 @@ x: {
             title: { display: true, text: 'Tempo (s)' },
             min: 0.01,
             max: 1000,
+            
+        grid: {
+        display: true,
+        // Ativa linhas principais
+        color: 'rgba(0,0,0,0.1)',
+        // Ativa linhas secundárias (menores)
+        drawTicks: true,
+        borderDash: [2, 2],
+        // Configura as linhas secundárias
+        minor: {
+            display: true,
+            color: 'rgba(0,0,0,0.05)', // cor mais clara para secundárias
+            borderDash: [1, 1]
+        }
+    }
         }
     }
 }

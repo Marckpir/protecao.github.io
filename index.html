@@ -1,28 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Meu App Electron</title>
-  </head>
-  <body>
-    <h1>
-    <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-    <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
-    <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-    <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
-    <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
-    <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-    <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-    <button id="botaoreserva3html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-    </h1>
-    <br>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #8fbc8f, #1c641c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
+    .container {
+      background-color: rgb(235, 226, 153);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
 
+    h2 {
+      color: #009200;
+    }
 
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
 
-    <h1>Informações de versão</h1>
-    <p>Chrome: <span id="chrome-version"></span></p>
-    <p>Node: <span id="node-version"></span></p>
-    <p>Electron: <span id="electron-version"></span></p>
-  </body>
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #045819;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #3b3fc1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>APLICAÇÃO WEB</h2>
+    <form onsubmit="return verificarLogin()">
+      <label>Usuário:</label>
+      <input type="text" id="usuario" required>
+      <label>Senha:</label>
+      <input type="password" id="senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <script>
+    function verificarLogin() {
+      const user = document.getElementById("usuario").value;
+      const pass = document.getElementById("senha").value;
+
+      if (user === "c057514" && pass === "cemigempe" || user === "admin" && pass === "12345") {
+        
+        window.location.href = "Protecao_parametros.html";
+        return false;
+      } else {
+        alert("Login ou senha incorretos.");
+        return false;
+      }
+    }
+  </script>
+</body>
 </html>
