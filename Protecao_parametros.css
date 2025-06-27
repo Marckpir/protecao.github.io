@@ -1,7 +1,7 @@
 /* Estilizando o corpo da página */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    background: linear-gradient(to bottom, #8fbc8f, #1c641c);
     text-align: center;
 }
 /* .container {
@@ -131,3 +131,6 @@ th, td{
 #botaoSalvar:hover {
     background-color: #cf0808;
 }
+
+
+

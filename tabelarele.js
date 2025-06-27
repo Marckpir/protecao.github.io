@@ -33,19 +33,6 @@ window.onload = function () {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
     salvarOpcao(); // Chama a função para importar as variáveis do localStorage
-
-    // // Verifica se a biblioteca html2pdf está carregada
-    // // let valorArmazenado = localStorage.getItem('Ipdeconsumo');
-    // let valorArmazenado = dados['Ipdeconsumo'];
-    // if (valorArmazenado !== null) {
-    //     valorArmazenado = parseFloat(valorArmazenado).toFixed(2);
-
-    //     const input = document.getElementById('ajuste-i-partida-fase');
-    //     if (input) {
-    //         input.textContent = valorArmazenado + " A";
-    //     }
-    // }
-
     // Novo trecho para ajuste-tc-abc
     let valorAjusteTc = dados['RTCselecionado'];
     if (valorAjusteTc !== null && valorAjusteTc !== undefined) {
@@ -57,6 +44,19 @@ window.onload = function () {
         });
     }
 
+    // Novo trecho para ajuste-tc-protecao
+    let valorAjusteTcProtecao = dados['TCdeprotecaoSelecionada'];
+    if (valorAjusteTcProtecao !== null && valorAjusteTcProtecao !== undefined) {
+        valorAjusteTcProtecao = parseFloat(valorAjusteTcProtecao).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
+        document.querySelectorAll('.ajuste-tc-protecao').forEach(function(inputTcProt) {
+            inputTcProt.textContent = valorAjusteTcProtecao + "";
+        });
+    }
+
+
+
     // Novo trecho para TPdeprotecaoSelecionada
     let valorAjusteTp = dados['TPdeprotecaoSelecionada'];
     if (valorAjusteTp !== null && valorAjusteTp !== undefined) {
@@ -67,6 +67,48 @@ window.onload = function () {
             inputTp.textContent = valorAjusteTp + "";
         });
     }
+
+    // Novo trecho para status-funcao32
+    let statusFuncao32 = dados['statusfuncao32diesel'];
+    if (statusFuncao32 !== null && statusFuncao32 !== undefined) {
+        document.querySelectorAll('.status-funcao32').forEach(function(el) {
+            el.textContent = statusFuncao32;
+        });
+    }
+    
+    
+    // Verifica o status da função 32 e exibe ou oculta os parâmetros correspond
+    //foi criada a classe para tr com nome parametrosfuncao32diesel para que seja possível ocultar ou exibir os parâmetros
+    // de acordo com o status da função 32
+    if (statusFuncao32 === "Desabilitado") {
+        document.querySelectorAll('.parametrosfuncao32diesel').forEach(function(row) {
+            row.style.display = "none";
+        });
+    } else {
+        document.querySelectorAll('.parametrosfuncao32diesel').forEach(function(row) {
+            row.style.display = "";
+        });
+    }
+
+    // Novo trecho para potencia-reversa-gerador
+    let potenciaReversaGerador = dados['potenciareversagerador'];
+    if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined) {
+        potenciaReversaGerador = parseFloat(potenciaReversaGerador).toFixed(2);
+        document.querySelectorAll('.potencia-reversa-gerador').forEach(function(el) {
+            el.textContent = potenciaReversaGerador + " kW";
+        });
+    }
+
+    // Novo trecho para potencia-diesel-pu
+    let potenciaDieselPU = dados['potenciadieselPU'];
+    if (potenciaDieselPU !== null && potenciaDieselPU !== undefined) {
+        potenciaDieselPU = parseFloat(potenciaDieselPU).toFixed(2) + " x Sn";
+        document.querySelectorAll('.potencia-diesel-pu-siemens').forEach(function(el) {
+            el.textContent = potenciaDieselPU;
+        });
+    }
+
+
 
     // Novo trecho para ip de partida
     let valorIpPartida = dados['Ipdeconsumo'];
@@ -125,7 +167,7 @@ window.onload = function () {
     let dialNeutro = dados['dialneutroSelecionada'];
     if (dialNeutro !== null && dialNeutro !== undefined) {
         document.querySelectorAll('.ajuste-dt-neutro').forEach(function(el) {
-            el.textContent = dialNeutro;
+            el.textContent = dialNeutro + " s";
         });
     }
 

@@ -329,18 +329,43 @@ function calculoGerador() {
     const potenciagerador = parseFloat(geradorSalvo.potencia) || 0;
     const fatorpotenciagerador = parseFloat(geradorSalvo.fatorpotencia) || 0;
     const toleranciagerador = parseFloat(geradorSalvo.tolerancia) || 0;
+    const tempogeradoradiesel = 15;
+    const statusfuncao32diesel = potenciagerador > 0 ? "Habilitado" : "Desabilitado";
+    const tcProtecaoArmazenada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
+    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
 
     // Potência reversa = potência * fator de potência * tolerância
     const potenciaReversa = (potenciagerador * 1000) * (fatorpotenciagerador / 100) * (toleranciagerador / 100);
 
+    let potenciadieselPU = 0;
+    if (potenciaReversa === 0 || tensaoArmazenada === 0 || tcProtecaoArmazenada === 0) {
+        potenciadieselPU = 0;
+    } else {
+        potenciadieselPU = potenciaReversa / (tensaoArmazenada * 1000 * tcProtecaoArmazenada * Math.sqrt(3));
+        if (potenciadieselPU < 0.05) {
+            potenciadieselPU = 0.05;
+        }
+    }
+    
+    localStorage.setItem("statusfuncao32diesel", statusfuncao32diesel);
     localStorage.setItem("potenciaReversaGerador", potenciaReversa);
+    localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
+    localStorage.setItem("potenciadieselPU", potenciadieselPU);
 
-    //EXIBIR VALOR DA CORRENTE TOTAL OPERANTE DO MOTOR
+    
 
 
 
     // Exemplo: exibir no console ou salvar no localStorage
+    console.log("Potência do gerador:", potenciagerador);
+    console.log("Fator de potência do gerador:", fatorpotenciagerador);
+    console.log("Tolerância do gerador:", toleranciagerador);
+    console.log("Tempo do gerador a diesel:", tempogeradoradiesel);
+    console.log("Status função 32 diesel:", statusfuncao32diesel);
+    console.log("TC Proteção armazenada:", tcProtecaoArmazenada);
+    console.log("Tensão armazenada:", tensaoArmazenada);
     console.log("Potência reversa do gerador:", potenciaReversa);
+    console.log("Potência reversa do gerador em pu:", potenciadieselPU);
 
 
 }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-    <head>
-
+<head>
+    <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="Protecao_parametros.css" type="text/css">
 
 
@@ -10,10 +10,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROTECAO</title>
 
-    </head>
+</head>
 
-    <body>
+<body>
+    <div style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: #04440abd;">COORDINATION WEB</div>
     <h1>
+        <!-- --cogio para fazer a animação ------------------------------------- -->
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 10%;">
+
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+            stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+
+        </svg>
+        <!-- ----------------------------------------  -->
+
+        <!-- <img src="icone_coordenograma.png" alt="Ícone Proteção" style="width:40px; vertical-align:middle; margin-right:10px;">
+
+        <img src="icone_coordenograma_red.png" alt="Ícone Proteção" style="width:40px; vertical-align:middle; margin-right:10px;"> -->
         <button id="botaoparametrohtml" class="dark-mode-toggle"
             onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
         <button id="botaotrafohtml" class="dark-mode-toggle"
@@ -32,7 +48,7 @@
     <div class="tabela-container"></div>
     <table>
         <caption style="font-weight: bold; color: rgb(0, 0, 0); font-size: 20px;">
-            TABELA DE PARÂMETROS ELÉTRICOS<br>
+            PARÂMETROS ELÉTRICOS<br>
         </caption>
 
 
@@ -44,9 +60,9 @@
                     <option>13.8</option>
                     <option>22.0</option>
                     <option>34.5</option>
-                    <option>0.220</option> 
+                    <option>0.220</option>
                     <option>0.380</option>
-                    <option>0.440</option>             
+                    <option>0.440</option>
                 </select> <span class="unidade">kV</span><br>
             </td>
 
@@ -95,39 +111,40 @@
             </td>
         </tr>
 
-        <tr>
-            <td>TC DE PROTEÇÃO:</td>
-            <td>
-                <div class="input-container" style="display: flex; align-items: center;">
-                    <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
-                    <span class="unidade">:5A</span>
-                </div>
-            </td>
+<tr>
+    <td colspan="2">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <span style="font-size: 14px; min-width: 120px;">TC DE PROTEÇÃO:</span>
+            <div class="input-container" style="display: flex; align-items: center;">
+                <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
+                <span class="unidade">:5A</span>
+            </div>
+            <div class="label-container" style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; margin-left: 16px;">
+                <span><b>RTC:</b></span><br>
+                <label id="RTChtml" type="text" style="display: block;"></label>
+                <span class="unidade"></span>
+            </div>
+        </div>
+    </td>
+</tr>
 
-            <td style="font-size: 14px; color: #f0ed47; background-color: rgb(21, 75, 0);">
-                <div class="label-container">
-                    <span><b>RTC:</b></span><br>
-                    <label id="RTChtml" type="text" style="display: block; text-align: center;"></label>
-                    <span class="unidade"></span>
-                </div>
-            </td>
+<tr>
+    <td colspan="2" style="padding: 1;">
+        <div style="display: flex; justify-content: space-between; gap: 10px;">
 
-            <td style="font-size: 14px; color: #000000; background-color: rgb(248, 255, 47);">
-                <div class="label-container">
-                    <span><b>TC ideal:</b></span><br>
-                    <label id="tcdeProtecaoideal" type="text" style="display: block; text-align: center;"></label>
-                    <span class="unidade"></span>
-                </div>
-            </td>
-
-            <td style="font-size: 14px; color: #000000; background-color: rgb(248, 255, 47);">
-                <div class="label-container">
-                    <span><b>Potência 10% Prim TC:</b></span><br>
-                    <label id="potenciaMinimahtml" type="text" style="display: block; text-align: center;"></label>
-                    <span class="unidade"></span>
-                </div>
-            </td>
-        </tr>
+            <div class="label-container" style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;">
+                <span><b>TC ideal:</b></span><br>
+                <label id="tcdeProtecaoideal" type="text" style="display: block;"></label>
+                <span class="unidade"></span>
+            </div>
+            <div class="label-container" style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;">
+                <span><b>Pot 10% Prim TC:</b></span><br>
+                <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
+                <span class="unidade"></span>
+            </div>
+        </div>
+    </td>
+</tr>
 
         <tr>
             <td>TP DE PROTEÇÃO:</td>
@@ -152,9 +169,10 @@
         </tr>
 
         <tr>
-            <td style="color: rgb(255, 255, 255);"><b>SALVAR PARÂMETROS:</b></td>
-            <td>
-                <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+            <td colspan="2" style="padding: 0;">
+                <button id="botaoSalvar" onclick="salvarOpcao()" style="width: 50%; height: 40px; font-weight: bold;">Salvar</button>
+                    
+                </button>
             </td>
         </tr>
 
@@ -167,4 +185,4 @@
 
     <body>
 
-<html>
+        <html>
