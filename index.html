@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <link rel="stylesheet" href="animacao.css">
   <meta charset="UTF-8" />
@@ -56,40 +57,34 @@
     button:hover {
       background-color: #3b3fc1;
     }
-
-    
   </style>
 </head>
+
 <body>
   <div class="container">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <div id="icon-corner" style="width: 60px; height: 40px; margin-bottom: 10px;"></div>
 
-  <svg viewBox="0 0 350 350" style="width: 50%; height: 30%;">
-  <!-- Eixos -->
-  <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
-  <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
-  <!-- Curva de tempo definido -->
-  <polyline class="curva-definida"
-    fill="none"
-    stroke="#00ff88"
-    stroke-width="3"
-    stroke-dasharray="1000"
-    stroke-dashoffset="1000"
-    points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+      <svg viewBox="0 0 350 350" style="width: 50%; height: 30%;">
+        <!-- Eixos -->
+        <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+        <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+        <!-- Curva de tempo definido -->
+        <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+          stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
 
-</svg>
+      </svg>
 
-      </div>
-      <h2>COORDINATION WEB</h2>
-      <form onsubmit="return verificarLogin()">
-        <label>Usuário:</label>
-        <input type="text" id="usuario" required>
-        <label>Senha:</label>
-        <input type="password" id="senha" required>
-        <button type="submit">Entrar</button>
-      </form>
     </div>
+    <h2>COORDINATION WEB</h2>
+    <form onsubmit="return verificarLogin()">
+      <label>Usuário:</label>
+      <input type="text" id="usuario" required>
+      <label>Senha:</label>
+      <input type="password" id="senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
   </div>
 
   <script>
@@ -108,9 +103,9 @@
 
 
     function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
-    let d = "";
-    let primeiro = true;
-    for (let i = 0; i <= pontos; i++) {
+      let d = "";
+      let primeiro = true;
+      for (let i = 0; i <= pontos; i++) {
         let corrente = iMin + (iMax - iMin) * (i / pontos);
         let denominador = Math.pow(corrente / ip, alfa) - k;
         if (denominador <= 0) continue;
@@ -119,37 +114,38 @@
         let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
         let svgY = 350 - (tempo * 300 / 1000);
         if (primeiro) {
-            d += `M${svgX},${svgY}`;
-            primeiro = false;
+          d += `M${svgX},${svgY}`;
+          primeiro = false;
         } else {
-            d += ` L${svgX},${svgY}`;
+          d += ` L${svgX},${svgY}`;
         }
+      }
+      return d;
     }
-    return d;
-}
 
-// Parâmetros do exemplo
-const dial = 90000;
-const beta = 300;
-const alfa = 2;
-const k = 1;
-const ip = 0.5;
-const iMin = ip * 2.01; // Começa um pouco acima de ip
-const iMax = 300;
-const pontos = 1000;
+    // Parâmetros do exemplo
+    const dial = 90000;
+    const beta = 300;
+    const alfa = 2;
+    const k = 1;
+    const ip = 0.5;
+    const iMin = ip * 2.01; // Começa um pouco acima de ip
+    const iMax = 300;
+    const pontos = 1000;
 
-const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+    const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
 
-const svg = document.querySelector("svg");
-const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-path.setAttribute("class", "curva-inversa");
-path.setAttribute("fill", "none");
-path.setAttribute("stroke", "#ff0080");
-path.setAttribute("stroke-width", "3");
-path.setAttribute("stroke-dasharray", "1000");
-path.setAttribute("stroke-dashoffset", "1000");
-path.setAttribute("d", dInverso);
-svg.appendChild(path);
+    const svg = document.querySelector("svg");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", "curva-inversa");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "#ff0080");
+    path.setAttribute("stroke-width", "3");
+    path.setAttribute("stroke-dasharray", "1000");
+    path.setAttribute("stroke-dashoffset", "1000");
+    path.setAttribute("d", dInverso);
+    svg.appendChild(path);
   </script>
 </body>
+
 </html>

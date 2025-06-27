@@ -13,23 +13,21 @@
 </head>
 
 <body>
-    <div style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: #04440abd;">COORDINATION WEB</div>
-    <h1>
-        <!-- --cogio para fazer a animação ------------------------------------- -->
-        <svg viewBox="0 0 350 350" style="width: 4%; height: 10%;">
-
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: #04440abd;">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
             <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
             <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
             <!-- Curva de tempo definido -->
             <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
-            stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
-
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
         </svg>
-        <!-- ----------------------------------------  -->
+    </div>
+    <h1>
 
-        <!-- <img src="icone_coordenograma.png" alt="Ícone Proteção" style="width:40px; vertical-align:middle; margin-right:10px;">
-
-        <img src="icone_coordenograma_red.png" alt="Ícone Proteção" style="width:40px; vertical-align:middle; margin-right:10px;"> -->
         <button id="botaoparametrohtml" class="dark-mode-toggle"
             onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
         <button id="botaotrafohtml" class="dark-mode-toggle"
@@ -42,7 +40,7 @@
             onclick="window.location.href='estudos.html';">ESTUDOS</button>
         <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
         <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-        <button id="botaoreserva3html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
     </h1>
     <br>
     <div class="tabela-container"></div>
@@ -111,40 +109,43 @@
             </td>
         </tr>
 
-<tr>
-    <td colspan="2">
-        <div style="display: flex; align-items: center; gap: 16px;">
-            <span style="font-size: 14px; min-width: 120px;">TC DE PROTEÇÃO:</span>
-            <div class="input-container" style="display: flex; align-items: center;">
-                <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
-                <span class="unidade">:5A</span>
-            </div>
-            <div class="label-container" style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; margin-left: 16px;">
-                <span><b>RTC:</b></span><br>
-                <label id="RTChtml" type="text" style="display: block;"></label>
-                <span class="unidade"></span>
-            </div>
-        </div>
-    </td>
-</tr>
+        <tr>
+            <td colspan="2">
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <span style="font-size: 14px; min-width: 120px;">TC DE PROTEÇÃO:</span>
+                    <div class="input-container" style="display: flex; align-items: center;">
+                        <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
+                        <span class="unidade">:5A</span>
+                    </div>
+                    <div class="label-container"
+                        style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; margin-left: 16px;">
+                        <span><b>RTC:</b></span><br>
+                        <label id="RTChtml" type="text" style="display: block;"></label>
+                        <span class="unidade"></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
 
-<tr>
-    <td colspan="2" style="padding: 1;">
-        <div style="display: flex; justify-content: space-between; gap: 10px;">
+        <tr>
+            <td colspan="2" style="padding: 1;">
+                <div style="display: flex; justify-content: space-between; gap: 10px;">
 
-            <div class="label-container" style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;">
-                <span><b>TC ideal:</b></span><br>
-                <label id="tcdeProtecaoideal" type="text" style="display: block;"></label>
-                <span class="unidade"></span>
-            </div>
-            <div class="label-container" style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;">
-                <span><b>Pot 10% Prim TC:</b></span><br>
-                <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
-                <span class="unidade"></span>
-            </div>
-        </div>
-    </td>
-</tr>
+                    <div class="label-container"
+                        style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;">
+                        <span><b>TC ideal:</b></span><br>
+                        <label id="tcdeProtecaoideal" type="text" style="display: block;"></label>
+                        <span class="unidade"></span>
+                    </div>
+                    <div class="label-container"
+                        style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;">
+                        <span><b>Pot 10% Prim TC:</b></span><br>
+                        <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
+                        <span class="unidade"></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
 
         <tr>
             <td>TP DE PROTEÇÃO:</td>
@@ -170,8 +171,9 @@
 
         <tr>
             <td colspan="2" style="padding: 0;">
-                <button id="botaoSalvar" onclick="salvarOpcao()" style="width: 50%; height: 40px; font-weight: bold;">Salvar</button>
-                    
+                <button id="botaoSalvar" onclick="salvarOpcao()"
+                    style="width: 50%; height: 40px; font-weight: bold;">Salvar</button>
+
                 </button>
             </td>
         </tr>
