@@ -268,6 +268,9 @@ if (potenciaMinimaElement) {
 
 }
 
+
+// --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
+// Esta função gera uma curva de tempo
 // Função para gerar a curva tempo inverso em SVG da animação
 function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
     let d = "";
@@ -313,3 +316,4 @@ path.setAttribute("stroke-dashoffset", "1000");
 path.setAttribute("d", dInverso);
 svg.appendChild(path);
 // --------------------------------------------------------------
+// Fim do Js do SVG
