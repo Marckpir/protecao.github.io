@@ -1,8 +1,8 @@
 body {
-   font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #8fbc8f, #1c641c);
+    background-attachment: fixed;
     text-align: center;
-   
 }
 
 

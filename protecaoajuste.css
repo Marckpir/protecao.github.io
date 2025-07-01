@@ -1,8 +1,8 @@
 body {
-   font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #8fbc8f, #1c641c);
+    background-attachment: fixed;
     text-align: center;
-   
 }
 
 button {
@@ -11,7 +11,7 @@ button {
     margin-bottom: 10px black;
     margin: 20px black ;
     border: #34335c solid 2px;
-    background-color: #02680a;
+    background-color: rgb(2, 68, 2);
     width: 100px;
     height: 50px;
     line-height: 1px;

@@ -1,155 +1,147 @@
-// Função para adicionar um novo aluno à tabela
-/*
-function adicionar() {
-    let aluno = document.getElementById("aluno").value;
-    let html = parseFloat(document.getElementById("html").value) || 0;
-    let css = parseFloat(document.getElementById("css").value) || 0;
-    let javascript = parseFloat(document.getElementById("javascript").value) || 0;
-
-    let total = html + css + javascript;
-    let media = (total / 3).toFixed(2);
-    let resultado = media >= 70 ? "Aprovado" : "Reprovado"; // Média mínima corrigida para 70
-
-    let tabela = document.getElementById("tabelaNotas");
-    let novaLinha = tabela.insertRow();
-    novaLinha.innerHTML = `<td>${aluno}</td><td>${total}</td><td>${media}</td><td>${resultado}</td>`;
-
-    salvar(); // Salva automaticamente após adicionar um aluno
-}
-
-// Função para salvar o boletim no LocalStorage
-function salvar() {
-    let tabela = document.getElementById("tabelaNotas").innerHTML; // Obtém o HTML interno da tabela
-    localStorage.setItem("boletim", tabela); // Salva no LocalStorage
-    alert("Boletim salvo no navegador!");
-}
-
-// Função para carregar os dados do LocalStorage ao iniciar a página
-function carregarBoletim() {
-    let boletimSalvo = localStorage.getItem("boletim");
-    if (boletimSalvo) {
-        document.getElementById("tabelaNotas").innerHTML = boletimSalvo;
-    }
-}
-
-// Chama a função ao carregar a página
-window.onload = carregarBoletim;
-*/
 
 
 //chama função ao se clicar no botão 
-function salvarOpcao(){
+function salvarOpcao() {
 
     //inicializa duas variaveis do tipo constante, um obtem o valor da ID meu select
     //que corresponde ao valor armazenado no campo de selecao e a outra armazena o valor desse campo
     const tensao = document.getElementById("tensaoprimaria");
     const tensaoSelecionada = tensao.value;
-
-    //utiliza-se o local storage para armazenada a variavel inicializada com o nome opção selecionada
-    // (ira aparecer no application do browser)
     localStorage.setItem("tensaoSelecionada", tensaoSelecionada);
-
-    //mostro no console log o que foi armazenado no local storage para conferencia
-    
 
     //-----------------------------------------------------------------------------------------
     const demandaPotencia = document.getElementById("demandaConsumo");
     const demandaSelecionada = demandaPotencia.value;
     localStorage.setItem("demandaSelecionada", demandaSelecionada);
-    
+
     //-----------------------------------------------------------------------------------------
     const fatorPotencia = document.getElementById("fatorPotencia");
-    const fatorPotenciaSelecionada = fatorPotencia.value/100;
+    const fatorPotenciaSelecionada = fatorPotencia.value / 100;
     localStorage.setItem("fatorPotenciaSelecionada", fatorPotenciaSelecionada);
-    
+
     //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
     const desequilibrioSelecionada = desequilibrio.value;
     localStorage.setItem("desequilibrioSelecionada", desequilibrioSelecionada);
-    
+
     //-----------------------------------------------------------------------------------------
     const curto = document.getElementById("icctrifasica");
     const curtoSelecionada = curto.value;
     localStorage.setItem("curtoSelecionada", curtoSelecionada);
-    
+
     //-----------------------------------------------------------------------------------------
-    
+
     const TCdeprotecao = document.getElementById("tcdeProtecao");
     const TCdeprotecaoSelecionada = TCdeprotecao.value;
     localStorage.setItem("TCdeprotecaoSelecionada", TCdeprotecaoSelecionada);
-   //-----------------------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------
     const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
     const TPdeprotecaoSelecionada = TPdeprotecao.value;
     localStorage.setItem("TPdeprotecaoSelecionada", TPdeprotecaoSelecionada);
-    
+
     //-----------------------------------------------------------------------------------------
+    const ligacaoBobina = document.getElementById("ligacaodabobinahtml");
+    const ligacaoBobinaSelecionada = ligacaoBobina.value;
+    localStorage.setItem("ligacaodabobinaSelecionada", ligacaoBobinaSelecionada);
+
+    //-----------------------------------------------------------------------------------------
+    const RTPauxiliar = document.getElementById("RTPauxiliarhtml");
+    const RTPauxiliarSelecionada = RTPauxiliar.value;
+    localStorage.setItem("RTPauxiliarSelecionada", RTPauxiliarSelecionada);
+
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
+
+
     // Codigo para definir o TC Ideal
+
+    // Cria um array com os valores possíveis de TC
+    // Esses valores são os valores nominais dos transformadores de corrente
     const valoresTC = [
         15, 20, 25, 30, 35, 40, 50, 75, 100,
-        150, 200, 250, 300, 400, 600, 800, 1000, 1200, 1500, 2000
+        150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000
     ];
 
+    // calcula o valor de corrente nominal de consumo
     let inominalDemanda = 0;
+    inominalDemanda = (demandaSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada));
 
-    inominalDemanda = (demandaSelecionada/(tensaoSelecionada*Math.sqrt(3)*fatorPotenciaSelecionada));
-    let iprimTccurto = curtoSelecionada/50;
+    // faz a divisão do valor da corrente nominal por 50 para comparar com os valores do array
+    let iprimTccurto = curtoSelecionada / 50;
 
-    // Recupera a corrente instantanea selecionada do localStorage
-    let instMagconsumo = localStorage.getItem("Instfaseconsumo")/20;
+    // Recupera a corrente instantanea de magnetização selecionada do localStorage para comparar com os valores do array
+    let instMagconsumo = localStorage.getItem("Instfaseconsumo") / 20;
 
-    console.log("instantanea de magnetização:", instMagconsumo);
-    
-
-    // Converte os valores para números
+    // Converte os valores para números calculados nesse escopo para numeros flutuantes
     let iprimTccurtoNum = parseFloat(iprimTccurto);
     let instMagconsumoNum = parseFloat(instMagconsumo);
     let inominalDemandaNum = parseFloat(inominalDemanda);
-    let RTCselecionado =    parseFloat(TCdeprotecaoSelecionada)/5;
-    
+    let RTCselecionado = parseFloat(TCdeprotecaoSelecionada) / 5;
 
-    console.log("RTCselecionado:", RTCselecionado);
 
     // Busca o maior valor em valoresTC que atenda todos os critérios
     let valorTCSelecionado = null;
     for (let i = 0; i < valoresTC.length; i++) {
         const valor = valoresTC[i];
         if (
-            valor >= inominalDemandaNum*1.05 &&
+            valor >= inominalDemandaNum * 1.05 &&
             valor >= iprimTccurtoNum &&
             valor >= instMagconsumoNum
         ) {
             valorTCSelecionado = valor; // pega o menor possível dentro da condição
             break; // para no primeiro (menor) que atende
         }
-        console.log("valor TC:", valor);
+
     }
 
     //Calcula a potência mínima referente a 10% do TC ideal
 
-    let potenciaMinima = valorTCSelecionado * 0.1* tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada;
-    // console.log("Potência mínima:", potenciaMinima);
+    let potenciaMinima = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada;
 
 
-
-
-
-
-
-    // Armazena o valor selecionado no localStorage e exibe no console
+    // Armazena o valor selecionado no localStorage e exibe no console log
     if (valorTCSelecionado !== null) {
         localStorage.setItem("valorTCideal", valorTCSelecionado);
-        console.log("Valor TC selecionado:", valorTCSelecionado);
+        
     } else {
-        console.log("Nenhum valor TC atende aos critérios.");
+        
         localStorage.removeItem("valorTCideal");
     }
 
     localStorage.setItem("RTCselecionado", RTCselecionado);
-    console.log("RTCselecionado armazenado:", RTCselecionado);
-
-    //Armazena Potencia minima no localStorage
+    
+    //Armazena Potencia minima do primário do TC no localStorage
     localStorage.setItem("potenciaMinimaSelecionada", potenciaMinima.toFixed(2));
-    console.log("Potência mínima armazenada:", potenciaMinima);
+    // ----------------------------------------------------------------------
+    // ------------------------fim calculos dos TCs-----------------------------------------------
+
+
+    
+    //-----------------------------------------------------------------------------------------
+    //Calcular as tensões secundárias do TP auxiliar
+
+    const tensaoSecundariaTPauxiliar = (tensaoSelecionada*1000/RTPauxiliarSelecionada); // Tensão secundária do TP auxiliar
+
+    // Armazena a tensão secundária do TP auxiliar no localStorage
+    localStorage.setItem("tensaoSecundariaTPauxiliar", tensaoSecundariaTPauxiliar.toFixed(2));
+
+    // fim dos calculos do TP auxiliar
+    //-----------------------------------------------------------------------------------------
+
+
+
+    //-----------------------------------------------------------------------------------------
+    // Calcular as tensoes secundárias do TP de proteção
+    const tensaoSecundariaFFTP = (tensaoSelecionada * 1000 / TPdeprotecaoSelecionada); // Tensão secundária do TP de proteção
+    // Armazena a tensão secundária do TP de proteção no localStorage
+    localStorage.setItem("tensaoSecundariaFFTP", tensaoSecundariaFFTP.toFixed(2));
+
+    const tensaoSecundariaFNTP = tensaoSecundariaFFTP/ Math.sqrt(3); // Tensão secundária do TP de neutro
+    // Armazena a tensão secundária do TP de neutro no localStorage
+    localStorage.setItem("tensaoSecundariaFNTP", tensaoSecundariaFNTP.toFixed(2));
+
+
 
     console.log("tensaoSelecionada:", tensaoSelecionada);
     console.log("demandaSelecionada:", demandaSelecionada);
@@ -163,6 +155,9 @@ function salvarOpcao(){
     console.log("instMagconsumoNum:", instMagconsumoNum);
     console.log("inominalDemandaNum:", inominalDemandaNum);
     console.log("valorTCSelecionado:", valorTCSelecionado);
+    console.log("tensaoSecundariaTPauxiliar:", tensaoSecundariaTPauxiliar);
+    console.log("tensaoSecundariaFFTP:", tensaoSecundariaFFTP);
+    console.log("tensaoSecundariaFNTP:", tensaoSecundariaFNTP);
 
 
 
@@ -171,105 +166,122 @@ function salvarOpcao(){
 
     // Recarrega a página após salvar as opções
     location.reload();
-}      
+}
 
 
-
-
-
-// Recuperar a opção ao carregar a página
-
-//uma função que é chamada assim que o janela é carregada
-//inicializa duas variaveis do tipo constante, 
-//a variavel select recebe o espaco do campo de opção de selecao que foi atribuida com esse ID
-//opçãosalva recebe a informação armazenada no local storage com o nome opçãoSelecionada
-
-//é realizado uma validação atraves do if para validar se a informação salva não é null
-//então o campo valor da variavel select recebe o valor da opçãosalva
 window.onload = function () {
+    // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaoparametrohtml");
     if (botaoParametro) {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
-    
-    
+    // --------------------------------------------------------------------------
+
+    // Recupera a opção selecionada do localStorage e define no campo correspondente
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     const tensao = document.getElementById("tensaoprimaria");
     const tensaoSalva = localStorage.getItem("tensaoSelecionada");
 
     if (tensaoSalva) {
         tensao.value = tensaoSalva;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
+
     const demanda = document.getElementById("demandaConsumo");
     const demandaSalva = localStorage.getItem("demandaSelecionada");
     if (demandaSalva) {
         demanda.value = demandaSalva;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     const fatorp = document.getElementById("fatorPotencia");
     const fatorpSalva = localStorage.getItem("fatorPotenciaSelecionada");
     if (fatorpSalva) {
-        fatorp.value = fatorpSalva*100;
+        fatorp.value = fatorpSalva * 100;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
     const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada");
     if (desequilibrioSalva) {
         desequilibrio.value = desequilibrioSalva;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     const curto = document.getElementById("icctrifasica");
     const curtoSalva = localStorage.getItem("curtoSelecionada");
     if (curtoSalva) {
         curto.value = curtoSalva;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     const TC = document.getElementById("tcdeProtecao");
     const TCSalva = localStorage.getItem("TCdeprotecaoSelecionada");
     if (TCSalva) {
         TC.value = TCSalva;
     }
-//-----------------------------------------------------------------------------------------
-// Recupera o valor do RTCselecionado do localStorage e define no campo correspondente
+    //-----------------------------------------------------------------------------------------
+   
     const RTC = document.getElementById("RTChtml");
     const RTCSalva = localStorage.getItem("RTCselecionado");
     if (RTC && RTCSalva) {
         RTC.textContent = RTCSalva;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
     const TP = document.getElementById("TPdeprotecaohtml");
     const TPSalva = localStorage.getItem("TPdeprotecaoSelecionada");
     if (TPSalva) {
         TP.value = TPSalva;
     }
-//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
 
+    const ligacaoBobina = document.getElementById("ligacaodabobinahtml");
+    const ligacaoBobinaSalva = localStorage.getItem("ligacaodabobinaSelecionada");
+    if (ligacaoBobinaSalva) {
+        ligacaoBobina.value = ligacaoBobinaSalva;
+    }
+    //-----------------------------------------------------------------------------------------
+    const RTPauxiliar = document.getElementById("RTPauxiliarhtml");
+    const RTPauxiliarSalva = localStorage.getItem("RTPauxiliarSelecionada");
+    if (RTPauxiliarSalva) {
+        RTPauxiliar.value = RTPauxiliarSalva;
+    }
+
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
 
 
     //Exibir valor do TC ideal no HTML
 
-// Recupera o valor do TC ideal do localStorage e exibe no elemento HTML
-const valorTCSelecionado = localStorage.getItem("valorTCideal");
-let tcProtecaoIdeal = document.getElementById("tcdeProtecaoideal");
-if (tcProtecaoIdeal) {
-    tcProtecaoIdeal.textContent = valorTCSelecionado !== null ? valorTCSelecionado + " :5" : "";
+    // Recupera o valor do TC ideal do localStorage e exibe no elemento HTML
+    const valorTCSelecionado = localStorage.getItem("valorTCideal");
+    let tcProtecaoIdeal = document.getElementById("tcdeProtecaoideal");
+    if (tcProtecaoIdeal) {
+        tcProtecaoIdeal.textContent = valorTCSelecionado !== null ? valorTCSelecionado + " :5" : "";
+    }
+    // Recupera o valor da potência mínima do localStorage e exibe no elemento HTML
+    const potenciaMinimaSelecionada = localStorage.getItem("potenciaMinimaSelecionada");
+    let potenciaMinimaElement = document.getElementById("potenciaMinimahtml");
+    if (potenciaMinimaElement) {
+        potenciaMinimaElement.textContent = potenciaMinimaSelecionada !== null ? potenciaMinimaSelecionada + " kW" : "";
+    }
+
+    // Recupera o valor da tensão secundária do TP auxiliar do localStorage e exibe no elemento HTML
+    const tensaoSecundariaTPauxiliar = localStorage.getItem("tensaoSecundariaTPauxiliar");
+    let tensaoSecundariaAuxiliarElement = document.getElementById("tensaosecundariaauxiliarhtml");
+    if (tensaoSecundariaAuxiliarElement) {
+        tensaoSecundariaAuxiliarElement.textContent = tensaoSecundariaTPauxiliar !== null ? tensaoSecundariaTPauxiliar + " V" : "";
+    }
+
+
+
+
+
+
+
+
 }
 
 
-
-
-//Recupera o valor da potência mínima do localStorage e exibe no elemento HTML
-const potenciaMinimaSelecionada = localStorage.getItem("potenciaMinimaSelecionada");
-let potenciaMinimaElement = document.getElementById("potenciaMinimahtml");
-if (potenciaMinimaElement) {
-    potenciaMinimaElement.textContent = potenciaMinimaSelecionada !== null ? potenciaMinimaSelecionada + " kW" : "";
-}
-
-
-}
-
-
-// --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
+// --------------------------------------------------------------// 
+// Código para gerar a curva tempo inverso em SVG
 // Esta função gera uma curva de tempo
 // Função para gerar a curva tempo inverso em SVG da animação
 function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {

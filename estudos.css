@@ -12,7 +12,7 @@ body {
 
 table {
     table-layout: fixed;
-    background-color: #0f5701;
+    background-color: rgb(2, 68, 2);
     width: 70%;
     border-collapse: collapse;
     margin-top: 0px;
@@ -34,7 +34,7 @@ button {
     margin-bottom: 10px black;
     margin: 20px black ;
     border: #34335c solid 2px;
-    background-color: #02680a;
+    background-color: rgb(2, 68, 2);
     width: 100px;
     height: 50px;
     line-height: 1px;
@@ -59,21 +59,21 @@ input {
 }
 
 th {
-    background-color: #0f5701; /* Fundo preto */
+    background-color: rgb(2, 68, 2); /* Fundo preto */
     color: white; /* Texto branco */
     font-size: 18px;
     text-transform: uppercase;
 }
 
 td:first-child {
-    background-color: #0f5701; /* Fundo cinza */
+    background-color: rgb(2, 68, 2); /* Fundo cinza */
     font-weight: bold; /* Texto em negrito */
     text-align: left; /* Centralizar texto */
 
 }
 
 tr:first-child {
-    background-color: #0f5701;
+    background-color: rgb(2, 68, 2);
     color: white;
     font-weight: bold;
     text-align: center;
@@ -91,7 +91,7 @@ th:nth-child(7),
 th:nth-child(8),
 th:nth-child(9),
 th:nth-child(10) {
-    background-color: #0f5701;
+    background-color: rgb(2, 68, 2);
     color: rgb(245, 245, 245);
     font-weight: bold;
     text-align: center;
