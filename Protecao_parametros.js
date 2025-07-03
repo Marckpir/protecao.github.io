@@ -121,7 +121,10 @@ function salvarOpcao() {
     //-----------------------------------------------------------------------------------------
     //Calcular as tensões secundárias do TP auxiliar
 
-    const tensaoSecundariaTPauxiliar = (tensaoSelecionada*1000/RTPauxiliarSelecionada); // Tensão secundária do TP auxiliar
+    let tensaoSecundariaTPauxiliar = 0;
+    if (RTPauxiliarSelecionada) {
+        tensaoSecundariaTPauxiliar = (tensaoSelecionada * 1000 / RTPauxiliarSelecionada);
+    }
 
     // Armazena a tensão secundária do TP auxiliar no localStorage
     localStorage.setItem("tensaoSecundariaTPauxiliar", tensaoSecundariaTPauxiliar.toFixed(2));
@@ -133,11 +136,43 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
     // Calcular as tensoes secundárias do TP de proteção
-    const tensaoSecundariaFFTP = (tensaoSelecionada * 1000 / TPdeprotecaoSelecionada); // Tensão secundária do TP de proteção
+    
+    let tensaoprimariaFN;
+    let tensaoprimariaFF;
+    let tensaoSecundariaFNTP;
+    let tensaoSecundariaFFTP;
+    if (!TPdeprotecaoSelecionada) {
+    
+        tensaoSecundariaFNTP = 0;
+        tensaoSecundariaFFTP = 0;
+    } else if (ligacaoBobinaSelecionada === "Estrela-Estrela") {
+        tensaoprimariaFN = tensaoSelecionada * 1000 / Math.sqrt(3);
+        tensaoprimariaFF = tensaoSelecionada * 1000;
+
+        tensaoSecundariaFNTP = tensaoprimariaFN / TPdeprotecaoSelecionada;
+        tensaoSecundariaFFTP = tensaoSecundariaFNTP * Math.sqrt(3);
+    } else if (ligacaoBobinaSelecionada === "Triangulo-Estrela") {
+        tensaoprimariaFN = tensaoSelecionada * 1000;
+        tensaoprimariaFF = tensaoSelecionada * 1000;
+
+        tensaoSecundariaFNTP = tensaoprimariaFN / TPdeprotecaoSelecionada;
+        tensaoSecundariaFFTP = tensaoSecundariaFNTP * Math.sqrt(3);
+    } else {
+        tensaoSecundariaFNTP = 0;
+        tensaoSecundariaFFTP = 0;
+    }
+    // const tensaoSecundariaFFTP = (tensaoprimariaFN/ TPdeprotecaoSelecionada); // Tensão secundária do TP de proteção
+    
+    // const tensaoSecundariaFNTP = tensaoprimariaFN/ Math.sqrt(3); // Tensão secundária do TP de neutro
+
+    
+    
     // Armazena a tensão secundária do TP de proteção no localStorage
     localStorage.setItem("tensaoSecundariaFFTP", tensaoSecundariaFFTP.toFixed(2));
 
-    const tensaoSecundariaFNTP = tensaoSecundariaFFTP/ Math.sqrt(3); // Tensão secundária do TP de neutro
+    // Armazena a tensão primária fase-neutro no localStorage
+    localStorage.setItem("tensaoprimariaFN", tensaoprimariaFN ? tensaoprimariaFN.toFixed(2) : "0");
+
     // Armazena a tensão secundária do TP de neutro no localStorage
     localStorage.setItem("tensaoSecundariaFNTP", tensaoSecundariaFNTP.toFixed(2));
 
@@ -158,6 +193,7 @@ function salvarOpcao() {
     console.log("tensaoSecundariaTPauxiliar:", tensaoSecundariaTPauxiliar);
     console.log("tensaoSecundariaFFTP:", tensaoSecundariaFFTP);
     console.log("tensaoSecundariaFNTP:", tensaoSecundariaFNTP);
+    console.log("tensaoprimariaFN:", tensaoprimariaFN);
 
 
 
@@ -268,6 +304,20 @@ window.onload = function () {
     let tensaoSecundariaAuxiliarElement = document.getElementById("tensaosecundariaauxiliarhtml");
     if (tensaoSecundariaAuxiliarElement) {
         tensaoSecundariaAuxiliarElement.textContent = tensaoSecundariaTPauxiliar !== null ? tensaoSecundariaTPauxiliar + " V" : "";
+    }
+
+    // Recupera o valor da tensão secundária fase-fase do TP de proteção e exibe no elemento HTML
+    const tensaoSecundariaFFTP = localStorage.getItem("tensaoSecundariaFFTP");
+    let tensaoSecundariaFFElement = document.getElementById("tensaosecundariaffhtml");
+    if (tensaoSecundariaFFElement) {
+        tensaoSecundariaFFElement.textContent = tensaoSecundariaFFTP !== null ? tensaoSecundariaFFTP + " V" : "";
+    }
+
+    // Recupera o valor da tensão secundária fase-neutro do TP de proteção e exibe no elemento HTML
+    const tensaoSecundariaFNTP = localStorage.getItem("tensaoSecundariaFNTP");
+    let tensaoSecundariaFNElement = document.getElementById("tensaosecundariafnhtml");
+    if (tensaoSecundariaFNElement) {
+        tensaoSecundariaFNElement.textContent = tensaoSecundariaFNTP !== null ? tensaoSecundariaFNTP + " V" : "";
     }
 
 

@@ -150,6 +150,18 @@ window.onload = function () {
                 ? correntestrafos[`trafo${i}`].imagindividual.toFixed(2) + " A"
                 : "";
         }
+        // Exibe IANSI (corrente ANSI)
+        if (document.getElementById(`iansihtml${i}`) && correntestrafos[`trafo${i}`]) {
+            document.getElementById(`iansihtml${i}`).textContent = correntestrafos[`trafo${i}`].iansi
+                ? correntestrafos[`trafo${i}`].iansi.toFixed(2) + " A"
+                : "";
+        }
+        // Exibe INANSI (corrente ANSI neutro)
+        if (document.getElementById(`inansihtml${i}`) && correntestrafos[`trafo${i}`]) {
+            document.getElementById(`inansihtml${i}`).textContent = correntestrafos[`trafo${i}`].inansi
+                ? correntestrafos[`trafo${i}`].inansi.toFixed(2) + " A"
+                : "";
+        }
     }
 
     //carregar imag total no HTML
@@ -228,16 +240,25 @@ function calcularEArmazenarIntrafoEImag() {
         const potencia = trafoSalvo ? parseFloat(trafoSalvo.potencia) : 0;
         const qtde = trafoSalvo ? parseInt(trafoSalvo.qtde) : 0;
         const imin = trafoSalvo ? parseFloat(trafoSalvo.imin) : 0;
+        const tempo = trafoSalvo ? parseFloat(trafoSalvo.tempo) : 0;
         const intrafoindividual = potencia / (tensaoArmazenada * Math.sqrt(3));
         const intrafo = ((qtde * potencia) / (tensaoArmazenada * Math.sqrt(3)));
         const imag = intrafo * imin;
         const imagindividual = intrafoindividual * imin;
 
+        const impedancia = parseFloat(trafoSalvo.z) || 0;
+        const iansitrafo = 100/impedancia*intrafo;
+        const inansi = iansitrafo *0.58; 
+
+
         correntestrafosJSON[`trafo${i}`] = {
             intrafo: isNaN(intrafo) ? 0 : intrafo,
             imag: isNaN(imag) ? 0 : imag,
             intrafoindividual: isNaN(intrafoindividual) ? 0 : intrafoindividual,
-            imagindividual: isNaN(imagindividual) ? 0 : imagindividual
+            imagindividual: isNaN(imagindividual) ? 0 : imagindividual,
+            tempo: isNaN(tempo) ? 0 : tempo,
+            iansi: isNaN(iansitrafo) ? 0 : iansitrafo,
+            inansi: isNaN(inansi) ? 0 : inansi
         };
 
         // console.log("Todos os trafos:", correntestrafosJSON);
@@ -281,9 +302,13 @@ function calculos() {
             const intrafo = potencia / (tensaoArmazenada * Math.sqrt(3));
             const imag = intrafo * imin;
 
+
+
             inArray[i] = intrafo;
             imagArray[i] = imag;
             qtdeArray[i] = qtde;
+
+
 
             // Descobre o trafo com maior Imag
             if (imag > maiorImag) {

@@ -45,7 +45,7 @@ function salvarOpcao() {
 
     const imagsimulada = document.getElementById("imagsimuladahtml");
     const imagsimuladaSelecionada = imagsimulada.value;
-    
+
 
 
     const idefdefase = document.getElementById("idef-fase-html");
@@ -136,7 +136,7 @@ function salvarOpcao() {
 window.onload = function () {
     const botaoParametro = document.getElementById("botaoajustehtml");
     if (botaoParametro) {
-    botaoParametro.style.backgroundColor = "#cf0808";
+        botaoParametro.style.backgroundColor = "#cf0808";
     }
 
     calculadialideal();
@@ -155,7 +155,7 @@ window.onload = function () {
     const imagpercentual = document.getElementById("imagpercentual");
     const imagreal = document.getElementById("imagreal");
     const imagrealcalculada = document.getElementById("imagrealcalculadahtml");
-    
+
     const imagsimuladahtml = document.getElementById("imagsimuladahtml");
     const ideffasehtml = document.getElementById("idef-fase-html");
     const tdeffasehtml = document.getElementById("tdef-fase-html");
@@ -176,7 +176,7 @@ window.onload = function () {
     const tdefneutrohtml = document.getElementById("tdef-neutro-html");
 
 
-    
+
     //Resgata todos os valores de fase do local storage para as variaveis internas do js e salva nos campos HTML
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada"));
     const potenciaArmazenada = parseFloat(localStorage.getItem("demandaSelecionada"));
@@ -284,13 +284,13 @@ window.onload = function () {
     curvaneutrohtml.value = dialneutroArmazenada;
     Imagneutro.textContent = imagneutro.toFixed(2) + " A";
     Imagneutropercentual.value = imagneutroArmazenada;
-    Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";  
+    Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
     idefneutrohtml.value = idefneutroArmazenada;
     tdefneutrohtml.value = tdefneutroArmazenada;
 
 
 
-    
+
 
     // Atualização dos valores de P.U na tela
     const ipPUhtml = document.getElementById("IpPUhtml");
@@ -332,7 +332,7 @@ window.onload = function () {
 
         case "IEC-V.I":
             alfa1 = 1;
-            beta1 = 13, 5;
+            beta1 = 13.5;
             k1 = 1;
             break;
 
@@ -382,7 +382,7 @@ window.onload = function () {
 
         case "IEC-V.I":
             alfa2 = 1;
-            beta2 = 13, 5;
+            beta2 = 13.5;
             k2 = 1;
             break;
 
@@ -432,40 +432,40 @@ window.onload = function () {
 
     let passo1 = (Iinst1 - ip1) / 1000;
 
-for (let i = 0; Iinst1 >= ip1; i++) {
-    const idefValido = !isNaN(ideffase) && ideffase !== null && ideffase !== undefined;
-    const tdefValido = !isNaN(tdeffase) && tdeffase !== null && tdeffase !== undefined;
+    for (let i = 0; Iinst1 >= ip1; i++) {
+        const idefValido = !isNaN(ideffase) && ideffase !== null && ideffase !== undefined;
+        const tdefValido = !isNaN(tdeffase) && tdeffase !== null && tdeffase !== undefined;
 
-    let z1 = dial1 * (beta1 / (Math.pow(Iinst1 / ip1, alfa1) - k1));
-    let tempo = z1;
+        let z1 = dial1 * (beta1 / (Math.pow(Iinst1 / ip1, alfa1) - k1));
+        let tempo = z1;
 
-    // Se idef e tdef são válidos, e estamos na região <= ideffase, pega o menor entre z1 e tdeffase
-    if (idefValido && tdefValido && Iinst1 >= ideffase) {
-        tempo = Math.min(tempo, tdeffase);
-    }
-
-    x1.push(Iinst1);
-    y1.push(tempo);
-
-    Iinst1 -= passo1;
-    if (Iinst1 <= (ip1-0.9)) {
-        // Garante o último ponto em ip1
-        x1.push(ip1);
-        let z1final = dial1 * (beta1 / (Math.pow(ip1 / ip1, alfa1) - k1));
-        let tempofinal = Math.min(z1final, 1000);
-        if (idefValido && tdefValido && ip1 <= ideffase) {
-            tempofinal = Math.min(tempofinal, tdeffase);
+        // Se idef e tdef são válidos, e estamos na região <= ideffase, pega o menor entre z1 e tdeffase
+        if (idefValido && tdefValido && Iinst1 >= ideffase) {
+            tempo = Math.min(tempo, tdeffase);
         }
-        y1.push(tempofinal);
-        break;
-    }
-}
-    if (y1[y1.length - 1] !== 1000) {
-    x1.push(ip1);
-    y1.push(1000);
-}
 
-    
+        x1.push(Iinst1);
+        y1.push(tempo);
+
+        Iinst1 -= passo1;
+        if (Iinst1 <= (ip1 - 0.9)) {
+            // Garante o último ponto em ip1
+            x1.push(ip1);
+            let z1final = dial1 * (beta1 / (Math.pow(ip1 / ip1, alfa1) - k1));
+            let tempofinal = Math.min(z1final, 1000);
+            if (idefValido && tdefValido && ip1 <= ideffase) {
+                tempofinal = Math.min(tempofinal, tdeffase);
+            }
+            y1.push(tempofinal);
+            break;
+        }
+    }
+    if (y1[y1.length - 1] !== 1000) {
+        x1.push(ip1);
+        y1.push(1000);
+    }
+
+
 
     // Segunda curva
     // Definição das variáveis comuns
@@ -476,7 +476,7 @@ for (let i = 0; Iinst1 >= ip1; i++) {
     let y2 = [0.01];
     let idefneutro = idefneutroArmazenada;
     let tdefneutro = tdefneutroArmazenada;
-    
+
 
     let passo2 = (Iinst2 - ip2) / 1000;
     // Se dial2 não tiver valor, considera 1000
@@ -500,7 +500,7 @@ for (let i = 0; Iinst1 >= ip1; i++) {
         y2.push(tempo2);
 
         Iinst2 -= passo2;
-        if (Iinst2 <= (ip2-0.9)) {
+        if (Iinst2 <= (ip2 - 0.9)) {
             // Garante o último ponto em ip2
             x2.push(ip2);
             let z2final = dial2 * (beta2 / (Math.pow(ip2 / ip2, alfa2) - k2));
@@ -539,8 +539,22 @@ for (let i = 0; Iinst1 >= ip1; i++) {
     // }
 
 
+    // Exibe no console todas as informações de correntestrafosJSON, se houver
+    const correntesTrafos = JSON.parse(localStorage.getItem("correntestrafosJSON"));
 
-    
+    console.log("Informações de correntestrafosJSON:");
+
+    console.log(correntesTrafos.trafo1.iansi);
+    console.log(correntesTrafos.trafo1.tempo);
+
+    console.log(correntesTrafos.trafo1.inansi);
+
+
+
+
+
+    // ------
+
     // Configuração do gráfico logarítmico
 
     let ctx = document.getElementById('grafico').getContext('2d');
@@ -564,7 +578,7 @@ for (let i = 0; Iinst1 >= ip1; i++) {
                     borderWidth: 2,
                     pointRadius: 0
                 },
-                 {
+                {
                     label: 'I nominal fase',
                     data: [{ x: correnteprimaria, y: 0.01 }],
                     backgroundColor: 'red',
@@ -597,7 +611,7 @@ for (let i = 0; Iinst1 >= ip1; i++) {
                     pointStyle: 'triangle',
                     showLine: false // só o ponto, sem linha
                 },
-                                                {
+                {
                     label: 'I nominal neutro',
                     data: [
                         { x: inominalneutro, y: 0.01 },
@@ -709,64 +723,308 @@ for (let i = 0; Iinst1 >= ip1; i++) {
                     pointRadius: 0,
                     fill: false,
                     showLine: true
-                }
+                },
+                // I ANSI pontos
+                {
+                    label: 'I ANSI 1',
+                    data: [
+                        { x: correntesTrafos.trafo1.iansi, y: correntesTrafos.trafo1.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 2',
+                    data: [
+                        { x: correntesTrafos.trafo2.iansi, y: correntesTrafos.trafo2.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 3',
+                    data: [
+                        { x: correntesTrafos.trafo3.iansi, y: correntesTrafos.trafo3.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'green',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 4',
+                    data: [
+                        { x: correntesTrafos.trafo4.iansi, y: correntesTrafos.trafo4.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'purple',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 5',
+                    data: [
+                        { x: correntesTrafos.trafo5.iansi, y: correntesTrafos.trafo5.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'brown',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 6',
+                    data: [
+                        { x: correntesTrafos.trafo6.iansi, y: correntesTrafos.trafo6.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'pink',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 7',
+                    data: [
+                        { x: correntesTrafos.trafo7.iansi, y: correntesTrafos.trafo7.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'cyan',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 8',
+                    data: [
+                        { x: correntesTrafos.trafo8.iansi, y: correntesTrafos.trafo8.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'magenta',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 9',
+                    data: [
+                        { x: correntesTrafos.trafo9.iansi, y: correntesTrafos.trafo9.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'gray',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                {
+                    label: 'I ANSI 10',
+                    data: [
+                        { x: correntesTrafos.trafo10.iansi, y: correntesTrafos.trafo10.tempo }
+                    ],
+                    backgroundColor: 'orange',
+                    borderColor: 'black',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'triangle',
+                    showLine: false
+                },
+                // I NANSI pontos
+                {
+                    label: 'I NANSI 1',
+                    data: [
+                        { x: correntesTrafos.trafo1.inansi, y: correntesTrafos.trafo1.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 2',
+                    data: [
+                        { x: correntesTrafos.trafo2.inansi, y: correntesTrafos.trafo2.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 3',
+                    data: [
+                        { x: correntesTrafos.trafo3.inansi, y: correntesTrafos.trafo3.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'green',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 4',
+                    data: [
+                        { x: correntesTrafos.trafo4.inansi, y: correntesTrafos.trafo4.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'purple',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 5',
+                    data: [
+                        { x: correntesTrafos.trafo5.inansi, y: correntesTrafos.trafo5.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'brown',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 6',
+                    data: [
+                        { x: correntesTrafos.trafo6.inansi, y: correntesTrafos.trafo6.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'pink',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 7',
+                    data: [
+                        { x: correntesTrafos.trafo7.inansi, y: correntesTrafos.trafo7.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'cyan',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 8',
+                    data: [
+                        { x: correntesTrafos.trafo8.inansi, y: correntesTrafos.trafo8.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'magenta',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 9',
+                    data: [
+                        { x: correntesTrafos.trafo9.inansi, y: correntesTrafos.trafo9.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'gray',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                },
+                {
+                    label: 'I NANSI 10',
+                    data: [
+                        { x: correntesTrafos.trafo10.inansi, y: correntesTrafos.trafo10.tempo }
+                    ],
+                    backgroundColor: 'yellow',
+                    borderColor: 'black',
+                    borderWidth: 2,
+                    pointRadius: 5,
+                    pointStyle: 'rectRot',
+                    showLine: false
+                }, 
+
+
             ]
         },
-options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-        legend: {
-            position: 'none' // <-- Adicione esta linha
-        }
-    },
-    scales: {
-x: {
-    type: 'logarithmic',
-    title: { display: true, text: 'Corrente (A)' },
-    min: 1,
-    max: Math.max(
-                    curtoArmazenada || 0,
-                    parseFloat(localStorage.getItem("Instfaseconsumo")) || 0
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'none' // <-- Define se aparece legenda(top,bottom,left,right ou none)
+                }
+            },
+            scales: {
+                x: {
+                    type: 'logarithmic',
+                    title: { display: true, text: 'Corrente (A)' },
+                    min: 1,
+                    max: Math.max(
+                        curtoArmazenada || 0,
+                        parseFloat(localStorage.getItem("Instfaseconsumo")) || 0
                     ) + 1000,
-    grid: {
-        display: true,
-        // Ativa linhas principais
-        color: 'rgba(0,0,0,0.1)',
-        // Ativa linhas secundárias (menores)
-        drawTicks: true,
-        borderDash: [2, 2],
-        // Configura as linhas secundárias
-        minor: {
-            display: true,
-            color: 'rgba(0,0,0,0.05)', // cor mais clara para secundárias
-            borderDash: [1, 1]
+                    grid: {
+                        display: true,
+                        // Ativa linhas principais
+                        color: 'rgba(0,0,0,0.1)',
+                        // Ativa linhas secundárias (menores)
+                        drawTicks: true,
+                        borderDash: [2, 2],
+                        // Configura as linhas secundárias
+                        minor: {
+                            display: true,
+                            color: 'rgba(0,0,0,0.05)', // cor mais clara para secundárias
+                            borderDash: [1, 1]
+                        }
+                    }
+                },
+                y: {
+                    type: 'logarithmic',
+                    title: { display: true, text: 'Tempo (s)' },
+                    min: 0.01,
+                    max: 1000,
+
+                    grid: {
+                        display: true,
+                        // Ativa linhas principais
+                        color: 'rgba(0,0,0,0.1)',
+                        // Ativa linhas secundárias (menores)
+                        drawTicks: true,
+                        borderDash: [2, 2],
+                        // Configura as linhas secundárias
+                        minor: {
+                            display: true,
+                            color: 'rgba(0,0,0,0.05)', // cor mais clara para secundárias
+                            borderDash: [1, 1]
+                        }
+                    }
+                }
+            }
         }
-    }
-},
-        y: {
-            type: 'logarithmic',
-            title: { display: true, text: 'Tempo (s)' },
-            min: 0.01,
-            max: 1000,
-            
-        grid: {
-        display: true,
-        // Ativa linhas principais
-        color: 'rgba(0,0,0,0.1)',
-        // Ativa linhas secundárias (menores)
-        drawTicks: true,
-        borderDash: [2, 2],
-        // Configura as linhas secundárias
-        minor: {
-            display: true,
-            color: 'rgba(0,0,0,0.05)', // cor mais clara para secundárias
-            borderDash: [1, 1]
-        }
-    }
-        }
-    }
-}
     });
 
 
@@ -779,7 +1037,7 @@ x: {
 
     calculadialideal();
 
-        if (!isNaN(dial_calculado) && !isNaN(dial_calculado_planta)) {
+    if (!isNaN(dial_calculado) && !isNaN(dial_calculado_planta)) {
         let maiorDial = Math.max(dial_calculado, dial_calculado_planta);
         if (dialIdealTag) {
             dialIdealTag.textContent = maiorDial.toFixed(2);

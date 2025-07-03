@@ -32,7 +32,11 @@ window.onload = function () {
     if (botaoParametro) {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
+
+
     salvarOpcao(); // Chama a função para importar as variáveis do localStorage
+
+    
     // Novo trecho para ajuste-tc-abc
     let valorAjusteTc = dados['RTCselecionado'];
     if (valorAjusteTc !== null && valorAjusteTc !== undefined) {
@@ -55,8 +59,6 @@ window.onload = function () {
         });
     }
 
-
-
     // Novo trecho para TPdeprotecaoSelecionada
     let valorAjusteTp = dados['TPdeprotecaoSelecionada'];
     if (valorAjusteTp !== null && valorAjusteTp !== undefined) {
@@ -67,6 +69,38 @@ window.onload = function () {
             inputTp.textContent = valorAjusteTp + "";
         });
     }
+    // Novo trecho para tensaoSecundariaFNTP
+    let tensaoSecundariaFNTP = dados['tensaoSecundariaFNTP'];
+    if (tensaoSecundariaFNTP !== null && tensaoSecundariaFNTP !== undefined) {
+        tensaoSecundariaFNTP = parseFloat(tensaoSecundariaFNTP).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tensao-secundaria-fn-tp em todas as tabelas
+        document.querySelectorAll('.ajuste-tensao-secundaria-fn-tp').forEach(function(inputTensao) {
+            inputTensao.textContent = tensaoSecundariaFNTP + " V";
+        });
+    }
+
+    // Novo trecho para tensaoprimariaFN
+    let tensaoprimariaFN = dados['tensaoprimariaFN'];
+    if (tensaoprimariaFN !== null && tensaoprimariaFN !== undefined) {
+        tensaoprimariaFN = parseFloat(tensaoprimariaFN).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tensao-primaria-fn em todas as tabelas
+        document.querySelectorAll('.ajuste-tensao-primaria-fn').forEach(function(inputTensao) {
+            inputTensao.textContent = tensaoprimariaFN + " V";
+        });
+    }
+
+    // Novo trecho para RTPauxiliarSelecionada
+    let valorAjusteTpAux = dados['RTPauxiliarSelecionada'];
+    if (valorAjusteTpAux !== null && valorAjusteTpAux !== undefined) {
+        valorAjusteTpAux = parseFloat(valorAjusteTpAux).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tp-auxiliar em todas as tabelas
+        document.querySelectorAll('.ajuste-tp-auxiliar').forEach(function(inputTpAux) {
+            inputTpAux.textContent = valorAjusteTpAux + "";
+        });
+    }
 
     // Novo trecho para status-funcao32
     let statusFuncao32 = dados['statusfuncao32diesel'];
@@ -74,6 +108,21 @@ window.onload = function () {
         document.querySelectorAll('.status-funcao32').forEach(function(el) {
             el.textContent = statusFuncao32;
         });
+    
+    let statusIngles;
+    if (statusFuncao32 === "Habilitado") {
+        statusIngles = "Enabled";
+    } else if (statusFuncao32 === "Desabilitado") {
+        statusIngles = "Disabled";
+    } else {
+        statusIngles = "";
+    }
+    document.querySelectorAll('.status-funcao32-ingles').forEach(function(el) {
+        el.textContent = statusIngles;
+    });
+
+
+
     }
     
     
@@ -99,7 +148,7 @@ window.onload = function () {
         });
     }
 
-    // Novo trecho para potencia-diesel-pu
+    // Novo trecho para potencia gerador-diesel-pu
     let potenciaDieselPU = dados['potenciadieselPU'];
     if (potenciaDieselPU !== null && potenciaDieselPU !== undefined) {
         potenciaDieselPU = parseFloat(potenciaDieselPU).toFixed(2) + " x Sn";
@@ -136,13 +185,37 @@ window.onload = function () {
             el.textContent = dialFase;
         });
     }
-
     // I inst fase
     let iInstFase = dados['Instfaseconsumo'];
     if (iInstFase !== null && iInstFase !== undefined) {
         iInstFase = parseFloat(iInstFase).toFixed(2);
         document.querySelectorAll('.ajuste-iinst-fase').forEach(function(el) {
             el.textContent = iInstFase + " A";
+        });
+    }
+    // I def fase
+    let idefFase = dados['ideffaseSelecionada'];
+    if (idefFase !== null && idefFase !== undefined && idefFase !== "") {
+        idefFase = parseFloat(idefFase).toFixed(2);
+        document.querySelectorAll('.ajuste-idef-fase').forEach(function(el) {
+            el.textContent = idefFase + " A";
+        });
+    } else {
+        document.querySelectorAll('.ajuste-idef-fase').forEach(function(el) {
+            el.textContent = "Máximo";
+        });
+    }
+
+    // T def fase
+    let tdefFase = dados['tdeffaseSelecionada'];
+    if (tdefFase !== null && tdefFase !== undefined && tdefFase !== "") {
+        tdefFase = parseFloat(tdefFase).toFixed(2);
+        document.querySelectorAll('.ajuste-tdef-fase').forEach(function(el) {
+            el.textContent = tdefFase + " s";
+        });
+    } else {
+        document.querySelectorAll('.ajuste-tdef-fase').forEach(function(el) {
+            el.textContent = "Máximo";
         });
     }
 
