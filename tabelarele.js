@@ -2,9 +2,9 @@
 var dados = {};
 
 
-function salvarOpcao(){
+function salvarOpcao() {
 
-// importa todas variáveis do localStorage
+    // importa todas variáveis do localStorage
     //  const dados = {};
     for (let i = 0; i < localStorage.length; i++) {
         const chave = localStorage.key(i);
@@ -22,13 +22,13 @@ function salvarOpcao(){
     }
     console.log("Variáveis importadas do localStorage:", dados);
     // return dados;
-    
+
 }
 
 
 
 window.onload = function () {
-        const botaoParametro = document.getElementById("botaotabelarelehtml");
+    const botaoParametro = document.getElementById("botaotabelarelehtml");
     if (botaoParametro) {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
@@ -36,14 +36,14 @@ window.onload = function () {
 
     salvarOpcao(); // Chama a função para importar as variáveis do localStorage
 
-    
+
     // Novo trecho para ajuste-tc-abc
     let valorAjusteTc = dados['RTCselecionado'];
     if (valorAjusteTc !== null && valorAjusteTc !== undefined) {
         valorAjusteTc = parseFloat(valorAjusteTc).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ajuste-tc-abc em todas as tabelas
-        document.querySelectorAll('.ajuste-tc-abc').forEach(function(inputTc) {
+        document.querySelectorAll('.ajuste-tc-abc').forEach(function (inputTc) {
             inputTc.textContent = valorAjusteTc + "";
         });
     }
@@ -54,7 +54,7 @@ window.onload = function () {
         valorAjusteTcProtecao = parseFloat(valorAjusteTcProtecao).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
-        document.querySelectorAll('.ajuste-tc-protecao').forEach(function(inputTcProt) {
+        document.querySelectorAll('.ajuste-tc-protecao').forEach(function (inputTcProt) {
             inputTcProt.textContent = valorAjusteTcProtecao + "";
         });
     }
@@ -65,7 +65,7 @@ window.onload = function () {
         valorAjusteTp = parseFloat(valorAjusteTp).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ajuste-tp-abc em todas as tabelas
-        document.querySelectorAll('.ajuste-tp-abc').forEach(function(inputTp) {
+        document.querySelectorAll('.ajuste-tp-abc').forEach(function (inputTp) {
             inputTp.textContent = valorAjusteTp + "";
         });
     }
@@ -75,7 +75,7 @@ window.onload = function () {
         tensaoSecundariaFNTP = parseFloat(tensaoSecundariaFNTP).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ajuste-tensao-secundaria-fn-tp em todas as tabelas
-        document.querySelectorAll('.ajuste-tensao-secundaria-fn-tp').forEach(function(inputTensao) {
+        document.querySelectorAll('.ajuste-tensao-secundaria-fn-tp').forEach(function (inputTensao) {
             inputTensao.textContent = tensaoSecundariaFNTP + " V";
         });
     }
@@ -86,7 +86,7 @@ window.onload = function () {
         tensaoprimariaFN = parseFloat(tensaoprimariaFN).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ajuste-tensao-primaria-fn em todas as tabelas
-        document.querySelectorAll('.ajuste-tensao-primaria-fn').forEach(function(inputTensao) {
+        document.querySelectorAll('.ajuste-tensao-primaria-fn').forEach(function (inputTensao) {
             inputTensao.textContent = tensaoprimariaFN + " V";
         });
     }
@@ -97,7 +97,7 @@ window.onload = function () {
         valorAjusteTpAux = parseFloat(valorAjusteTpAux).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ajuste-tp-auxiliar em todas as tabelas
-        document.querySelectorAll('.ajuste-tp-auxiliar').forEach(function(inputTpAux) {
+        document.querySelectorAll('.ajuste-tp-auxiliar').forEach(function (inputTpAux) {
             inputTpAux.textContent = valorAjusteTpAux + "";
         });
     }
@@ -105,36 +105,36 @@ window.onload = function () {
     // Novo trecho para status-funcao32
     let statusFuncao32 = dados['statusfuncao32diesel'];
     if (statusFuncao32 !== null && statusFuncao32 !== undefined) {
-        document.querySelectorAll('.status-funcao32').forEach(function(el) {
+        document.querySelectorAll('.status-funcao32').forEach(function (el) {
             el.textContent = statusFuncao32;
         });
-    
-    let statusIngles;
-    if (statusFuncao32 === "Habilitado") {
-        statusIngles = "Enabled";
-    } else if (statusFuncao32 === "Desabilitado") {
-        statusIngles = "Disabled";
-    } else {
-        statusIngles = "";
-    }
-    document.querySelectorAll('.status-funcao32-ingles').forEach(function(el) {
-        el.textContent = statusIngles;
-    });
+
+        let statusIngles;
+        if (statusFuncao32 === "Habilitado") {
+            statusIngles = "Enabled";
+        } else if (statusFuncao32 === "Desabilitado") {
+            statusIngles = "Disabled";
+        } else {
+            statusIngles = "";
+        }
+        document.querySelectorAll('.status-funcao32-ingles').forEach(function (el) {
+            el.textContent = statusIngles;
+        });
 
 
 
     }
-    
-    
+
+
     // Verifica o status da função 32 e exibe ou oculta os parâmetros correspond
     //foi criada a classe para tr com nome parametrosfuncao32diesel para que seja possível ocultar ou exibir os parâmetros
     // de acordo com o status da função 32
     if (statusFuncao32 === "Desabilitado") {
-        document.querySelectorAll('.parametrosfuncao32diesel').forEach(function(row) {
+        document.querySelectorAll('.parametrosfuncao32diesel').forEach(function (row) {
             row.style.display = "none";
         });
     } else {
-        document.querySelectorAll('.parametrosfuncao32diesel').forEach(function(row) {
+        document.querySelectorAll('.parametrosfuncao32diesel').forEach(function (row) {
             row.style.display = "";
         });
     }
@@ -143,7 +143,7 @@ window.onload = function () {
     let potenciaReversaGerador = dados['potenciareversagerador'];
     if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined) {
         potenciaReversaGerador = parseFloat(potenciaReversaGerador).toFixed(2);
-        document.querySelectorAll('.potencia-reversa-gerador').forEach(function(el) {
+        document.querySelectorAll('.potencia-reversa-gerador').forEach(function (el) {
             el.textContent = potenciaReversaGerador + " kW";
         });
     }
@@ -152,7 +152,7 @@ window.onload = function () {
     let potenciaDieselPU = dados['potenciadieselPU'];
     if (potenciaDieselPU !== null && potenciaDieselPU !== undefined) {
         potenciaDieselPU = parseFloat(potenciaDieselPU).toFixed(2) + " x Sn";
-        document.querySelectorAll('.potencia-diesel-pu-siemens').forEach(function(el) {
+        document.querySelectorAll('.potencia-diesel-pu-siemens').forEach(function (el) {
             el.textContent = potenciaDieselPU;
         });
     }
@@ -165,7 +165,7 @@ window.onload = function () {
         valorIpPartida = parseFloat(valorIpPartida).toFixed(2);
 
         // Atualiza TODOS os campos com a classe ip-partida-abc em todas as tabelas
-        document.querySelectorAll('.ajuste-i-partida-fase').forEach(function(inputIp) {
+        document.querySelectorAll('.ajuste-i-partida-fase').forEach(function (inputIp) {
             inputIp.textContent = valorIpPartida + " A";
         });
     }
@@ -173,7 +173,7 @@ window.onload = function () {
     // Tipo de curva fase
     let tipoCurvaFase = dados['curvafaseSelecionada'];
     if (tipoCurvaFase !== null && tipoCurvaFase !== undefined) {
-        document.querySelectorAll('.ajuste-curva-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-curva-fase').forEach(function (el) {
             el.textContent = tipoCurvaFase;
         });
     }
@@ -181,7 +181,7 @@ window.onload = function () {
     // Dial selecionado fase
     let dialFase = dados['dialfaseSelecionada'];
     if (dialFase !== null && dialFase !== undefined) {
-        document.querySelectorAll('.ajuste-dt-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-dt-fase').forEach(function (el) {
             el.textContent = dialFase;
         });
     }
@@ -189,7 +189,7 @@ window.onload = function () {
     let iInstFase = dados['Instfaseconsumo'];
     if (iInstFase !== null && iInstFase !== undefined) {
         iInstFase = parseFloat(iInstFase).toFixed(2);
-        document.querySelectorAll('.ajuste-iinst-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-iinst-fase').forEach(function (el) {
             el.textContent = iInstFase + " A";
         });
     }
@@ -197,11 +197,11 @@ window.onload = function () {
     let idefFase = dados['ideffaseSelecionada'];
     if (idefFase !== null && idefFase !== undefined && idefFase !== "") {
         idefFase = parseFloat(idefFase).toFixed(2);
-        document.querySelectorAll('.ajuste-idef-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-idef-fase').forEach(function (el) {
             el.textContent = idefFase + " A";
         });
     } else {
-        document.querySelectorAll('.ajuste-idef-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-idef-fase').forEach(function (el) {
             el.textContent = "Máximo";
         });
     }
@@ -210,11 +210,11 @@ window.onload = function () {
     let tdefFase = dados['tdeffaseSelecionada'];
     if (tdefFase !== null && tdefFase !== undefined && tdefFase !== "") {
         tdefFase = parseFloat(tdefFase).toFixed(2);
-        document.querySelectorAll('.ajuste-tdef-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-tdef-fase').forEach(function (el) {
             el.textContent = tdefFase + " s";
         });
     } else {
-        document.querySelectorAll('.ajuste-tdef-fase').forEach(function(el) {
+        document.querySelectorAll('.ajuste-tdef-fase').forEach(function (el) {
             el.textContent = "Máximo";
         });
     }
@@ -223,7 +223,7 @@ window.onload = function () {
     let ipNeutro = dados['IpdeneutroSelecionada'];
     if (ipNeutro !== null && ipNeutro !== undefined) {
         ipNeutro = parseFloat(ipNeutro).toFixed(2);
-        document.querySelectorAll('.ajuste-i-partida-neutro').forEach(function(el) {
+        document.querySelectorAll('.ajuste-i-partida-neutro').forEach(function (el) {
             el.textContent = ipNeutro + " A";
         });
     }
@@ -231,7 +231,7 @@ window.onload = function () {
     // Curva de neutro
     let curvaNeutro = dados['curvaNeutro'];
     if (curvaNeutro !== null && curvaNeutro !== undefined) {
-        document.querySelectorAll('.curva-neutro').forEach(function(el) {
+        document.querySelectorAll('.curva-neutro').forEach(function (el) {
             el.textContent = curvaNeutro;
         });
     }
@@ -239,16 +239,16 @@ window.onload = function () {
     // Dial de neutro
     let dialNeutro = dados['dialneutroSelecionada'];
     if (dialNeutro !== null && dialNeutro !== undefined) {
-        document.querySelectorAll('.ajuste-dt-neutro').forEach(function(el) {
+        document.querySelectorAll('.ajuste-dt-neutro').forEach(function (el) {
             el.textContent = dialNeutro + " s";
         });
     }
 
-        // Tempo definido de neutro
+    // Tempo definido de neutro
     let tempoDefinidoNeutro = dados['tdefneutroSelecionada'];
     if (tempoDefinidoNeutro !== null && tempoDefinidoNeutro !== undefined) {
         tempoDefinidoNeutro = parseFloat(tempoDefinidoNeutro).toFixed(2);
-        document.querySelectorAll('.ajuste-tdef-neutro').forEach(function(el) {
+        document.querySelectorAll('.ajuste-tdef-neutro').forEach(function (el) {
             el.textContent = tempoDefinidoNeutro + " s";
         });
     }
@@ -256,7 +256,7 @@ window.onload = function () {
     let instNeutro = dados['IinstneutroSelecionada'];
     if (instNeutro !== null && instNeutro !== undefined) {
         instNeutro = parseFloat(instNeutro).toFixed(2);
-        document.querySelectorAll('.ajuste-iinst-neutro').forEach(function(el) {
+        document.querySelectorAll('.ajuste-iinst-neutro').forEach(function (el) {
             el.textContent = instNeutro + " A";
         });
     }
@@ -265,7 +265,7 @@ window.onload = function () {
     let ipPU = dados['ipPUSelecionada'];
     if (ipPU !== null && ipPU !== undefined) {
         ipPU = parseFloat(ipPU).toFixed(2) + " x In";
-        document.querySelectorAll('.ajuste-ip-pu').forEach(function(el) {
+        document.querySelectorAll('.ajuste-ip-pu').forEach(function (el) {
             el.textContent = ipPU;
         });
     }
@@ -274,7 +274,7 @@ window.onload = function () {
     let iinstPU = dados['iinstPUSelecionada'];
     if (iinstPU !== null && iinstPU !== undefined) {
         iinstPU = parseFloat(iinstPU).toFixed(2) + " x In";
-        document.querySelectorAll('.ajuste-iinst-pu').forEach(function(el) {
+        document.querySelectorAll('.ajuste-iinst-pu').forEach(function (el) {
             el.textContent = iinstPU;
         });
     }
@@ -283,7 +283,7 @@ window.onload = function () {
     let ipneutroPU = dados['ipneutroPUSelecionada'];
     if (ipneutroPU !== null && ipneutroPU !== undefined) {
         ipneutroPU = parseFloat(ipneutroPU).toFixed(2) + " x In";
-        document.querySelectorAll('.ajuste-ipneutro-pu').forEach(function(el) {
+        document.querySelectorAll('.ajuste-ipneutro-pu').forEach(function (el) {
             el.textContent = ipneutroPU;
         });
     }
@@ -292,7 +292,7 @@ window.onload = function () {
     let instneutrouPU = dados['instneutroPUSelecionada'];
     if (instneutrouPU !== null && instneutrouPU !== undefined) {
         instneutrouPU = parseFloat(instneutrouPU).toFixed(2) + " x In";
-        document.querySelectorAll('.ajuste-instneutro-pu').forEach(function(el) {
+        document.querySelectorAll('.ajuste-instneutro-pu').forEach(function (el) {
             el.textContent = instneutrouPU;
         });
     }
@@ -304,7 +304,7 @@ window.onload = function () {
 
 
 
-   
+
     mostrarTabela();
 
 
@@ -312,21 +312,21 @@ window.onload = function () {
 
 
 
-        function mostrarTabela() {
-            var seletor = document.getElementById("seletorTabela").value;
-            var tabelas = document.querySelectorAll(".tabela");
+function mostrarTabela() {
+    var seletor = document.getElementById("seletorTabela").value;
+    var tabelas = document.querySelectorAll(".tabela");
 
-            tabelas.forEach(tabela => {
-                tabela.style.display = "none"; // Oculta todas as tabelas
-            });
+    tabelas.forEach(tabela => {
+        tabela.style.display = "none"; // Oculta todas as tabelas
+    });
 
-            var tabelaSelecionada = document.getElementById(seletor);
-            if (tabelaSelecionada) {
-                tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
-            }
+    var tabelaSelecionada = document.getElementById(seletor);
+    if (tabelaSelecionada) {
+        tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
+    }
 
 
-        }
+}
 
 
 
@@ -354,6 +354,7 @@ function baixarPDF() {
         }
 
         tabelaSelecionada.style.display = "block";
+
         html2pdf().set({
             margin: [10, 5, 10, 10],
             filename: nomeArquivo,

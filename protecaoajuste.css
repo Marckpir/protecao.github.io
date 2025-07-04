@@ -181,7 +181,8 @@ select {
 
 
 /* Adaptação para telas pequenas (celulares) */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
+
     body {
         font-size: 14px;
         padding: 0;
@@ -230,14 +231,14 @@ select {
         width: 100vw !important;
         height: 250px !important;
         /* max-width: 100vw !important;
-        max-height: 250px !important; */
+        max-height: 250px !important;
         min-width: 0 !important;
         min-height: 0 !important;
         display: block;
         margin: 0 auto;
     }
 
-    button,
+    /* button,
     #botaoSalvar {
         width: 90vw;
         min-width: 120px;
@@ -246,10 +247,108 @@ select {
         margin: 10px auto;
         display: block;
     }
+    button,
+    #botaoSalvar {
+        font-size: 12px;
+        padding: 6px 0;
+    } */
+
+    /* .input-container input,
+    .input-container label {
+        width: 100%;
+        font-size: 12px;
+    }
+}  */
+
+@media (max-width: 600px) {
+    html, body {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: visible;
+        box-sizing: border-box;
+    }
+    
+    .grades-title {
+        font-size: 13px;
+        padding: 4px;
+        margin-bottom: 4px;
+    }
+    .grades, .form-section, .header, .parametro {
+        font-size: 11px;
+        padding: 4px;
+        
+    }
+    input, select, textarea {
+        font-size: 12px;
+        padding: 2px;
+    }
+    button, #botaoSalvar {
+        font-size: 12px;
+        padding: 6px 0;
+    }
+    .tabela-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        padding: 0;
+        margin: 0;
+        overflow-x: auto;
+        box-sizing: border-box;
+        display: block;
+    }
+    table {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        /* min-width: 600px; */
+        box-sizing: border-box;
+    }
+    th, td {
+        padding: 2px;
+        font-size: 10px;
+        word-break: break-word;
+        max-width: 90px;
+        overflow-x: auto;
+        box-sizing: border-box;
+    }
+
+    #grafico, canvas#grafico {
+        width: 100vw !important;
+        height: 500px !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        display: block;
+        margin: 0 auto;
+        background-color: rgb(235, 235, 220);
+    }
+
+        .conteiner-geral {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .tabela-containerfase,
+    .tabela-containerneutro {
+        font-size: 10px;
+        margin-left: 0;
+    }
+
+    #tabelafase,
+    #tabelaneutro {
+        font-size: 10px;
+    }
+
+    #tabelafase th,
+    #tabelafase td,
+    #tabelaneutro th,
+    #tabelaneutro td {
+        padding: 2px;
+        font-size: 10px;
+    }
 
     .input-container input,
     .input-container label {
         width: 100%;
         font-size: 12px;
     }
+
 }
+

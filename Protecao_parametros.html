@@ -43,40 +43,41 @@
         <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
     </h1>
     <br>
-    <div class="tabela-container"></div>
-    <table>
-        <caption style="font-weight: bold; color: rgb(0, 0, 0); font-size: 20px;">
-            PARÂMETROS ELÉTRICOS<br>
-        </caption>
+    <div class="tabela-container" style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
+        <table>
+            <caption style="font-weight: bold; color: rgb(0, 0, 0); font-size: 20px;">
+                PARÂMETROS ELÉTRICOS<br>
+            </caption>
 
 
-        <tr>
-            <td>TENSÃO PRIMÁRIA:</td>
+            <tr>
+                <td>TENSÃO PRIMÁRIA:</td>
 
-            <td>
-                <select id="tensaoprimaria" size="1">
-                    <option>13.8</option>
-                    <option>22.0</option>
-                    <option>34.5</option>
-                    <option>0.220</option>
-                    <option>0.380</option>
-                    <option>0.440</option>
-                </select> <span class="unidade">kV</span><br>
-            </td>
+                <td>
+                    <select id="tensaoprimaria" size="1">
+                        <option>13.8</option>
+                        <option>22.0</option>
+                        <option>34.5</option>
+                        <option>0.220</option>
+                        <option>0.380</option>
+                        <option>0.440</option>
+                    </select> <span class="unidade">kV</span><br>
+                </td>
 
-        </tr>
+            </tr>
 
-        <tr>
-            <td>DEMANDA CONSUMO:</td>
-            <td>
-                <div class="input-container" style="display: flex; align-items: center;">
-                    <input id="demandaConsumo" type="number" placeholder="Digite um valor" style="margin-right: 4px;">
-                    <span class="unidade">kW</span>
-                </div>
-            </td>
-        </tr>
+            <tr>
+                <td>DEMANDA CONSUMO:</td>
+                <td>
+                    <div class="input-container" style="display: flex; align-items: center;">
+                        <input id="demandaConsumo" type="number" placeholder="Digite um valor"
+                            style="margin-right: 4px;">
+                        <span class="unidade">kW</span>
+                    </div>
+                </td>
+            </tr>
 
-        <!-- <tr>
+            <!-- <tr>
             <td>DEMANDA GERAÇÃO(GD):</td>
             <td><div class="input-container">
             <input type="number" id="potencia" placeholder="Digite um valor">
@@ -84,143 +85,124 @@
             </div></td>
         </tr> -->
 
-        <tr>
-            <td>FATOR DE POTÊNCIA:</td>
-            <td><input id="fatorPotencia" type="text" placeholder="Digite um valor">%</td>
-        </tr>
+            <tr>
+                <td>FATOR DE POTÊNCIA:</td>
+                <td><input id="fatorPotencia" type="text" placeholder="Digite um valor">%</td>
+            </tr>
 
-        <tr>
-            <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
-            <td>
-                <div class="input-container">
-                    <input type="number" id="desequilibrio" placeholder="Digite um valor">
-                    <span class="unidade">%</span>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td>ICC TRIFÁSICA:</td>
-            <td>
-                <div class="input-container">
-                    <input id="icctrifasica" type="number" placeholder="Digite um valor">
-                    <span class="unidade">A</span>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <span style="font-size: 14px; min-width: 120px;">TC DE PROTEÇÃO:</span>
-                    <div class="input-container" style="display: flex; align-items: center;">
-                        <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
-                        <span class="unidade">:5A</span>
+            <tr>
+                <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
+                <td>
+                    <div class="input-container">
+                        <input type="number" id="desequilibrio" placeholder="Digite um valor">
+                        <span class="unidade">%</span>
                     </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>ICC TRIFÁSICA:</td>
+                <td>
+                    <div class="input-container">
+                        <input id="icctrifasica" type="number" placeholder="Digite um valor">
+                        <span class="unidade">A</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <span style="min-width: 120px;">TC DE PROTEÇÃO:</span>
+                        <div class="input-container" style="display: flex; align-items: center;">
+                            <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
+                            <span class="unidade">:5A</span>
+                        </div>
+                        <div class="label-container"
+                            style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;border-radius: 12px;padding: 4px;">
+                            <span><b>RTC:</b></span><br>
+                            <label id="RTChtml" type="text" style="display: block;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 4px;">
+                            <span><b>Pot 10% Prim TC:</b></span><br>
+                            <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
+                            <span class="unidade"> </span>
+                        </div><br><br><br><br>
+                    </div><br>
                     <div class="label-container"
-                        style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); text-align: center;border-radius: 12px;padding: 12px;">
-                        <span><b>RTC:</b></span><br>
-                        <label id="RTChtml" type="text" style="display: block;"></label>
-                        <span class="unidade"></span>
-                    </div>
-                    <div class="label-container"
-                        style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 8px;">
-                        <span><b>Pot 10% Prim TC:</b></span><br>
-                        <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
-                        <span class="unidade"> </span>
-                    </div><br><br><br><br>
-                </div>
-                <div class="label-container"
-                    style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); border-radius: 12px;text-align: center;padding: 4px;">
-                    <span><b>TC ideal:</b> <label id="tcdeProtecaoideal" type="text"
-                            style="display: inline;"></label></span>
-                    <span class="unidade">A</span>
-                </div>
-            </td>
-        </tr>
-
-        <!-- <tr>
-            <td colspan="2" style="padding: 1;">
-                <div style="display: flex; justify-content: space-between; gap: 10px;">
-
-
-
-                </div>
-            </td>
-        </tr> -->
-
-        <tr>
-            <td colspan="2">
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <span style="font-size: 14px; min-width: 120px;">TP DE PROTEÇÃO:</span>
-                    <div class="input-container" style="display: flex; align-items: center;">
-                        <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor"
-                            style="margin-right: 4px;">
-                        <span class="unidade">:1V</span>
-                    </div>
-                    <label style="margin-left: 16px; margin-right: 8px;">CONEXÃO:</label>
-                    <select id="ligacaodabobinahtml" style="margin-right: 16px;">
-                        <option>Estrela-Estrela</option>
-                        <option>Triangulo-Estrela</option>
-                    </select>
-                </div>
-
-                
-<div class="label-container"
-    style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(2, 68, 2); border-radius: 12px; text-align: center; padding: 4px; display: flex; justify-content: space-around; align-items: center; gap: 24px;">
-    <div style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
-        <span><b>TP PROTEÇÃO SECUNDÁRIO F-F:</b> <label id="tensaosecundariaffhtml" type="text"
-                style="display: inline;"></label></span>
-        <span class="unidade"></span>
-    </div>
-    <div style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
-        <span><b>TP PROTEÇÃO SECUNDÁRIO F-N:</b> <label id="tensaosecundariafnhtml" type="text"
-                style="display: inline;"></label></span>
-        <span class="unidade"></span>
-    </div>
-</div>
-                <!-- <div class="label-container"
-                    style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); border-radius: 12px;text-align: center;padding: 4px;">
-                    <span><b>TENSÃO SECUNDÁRIA F-N:</b> <label id="tensaosecundariafnhtml" type="text"
-                            style="display: inline;"></label></span>
-                    <span class="unidade"></span>
-                </div> -->
-                
-            </td>
-        </tr>
-
-        <tr>
-            <td colspan="2">
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <span style="font-size: 14px; min-width: 120px;">TP AUXILIAR ALIMENTAÇÃO:</span>
-                    <div class="input-container" style="display: flex; align-items: center;">
-                        <input id="RTPauxiliarhtml" type="text" style="margin-right: 4px;">
-                        <span class="unidade">:1 V</span>
-                    </div>
-
-                    <div class="label-container"
-                        style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); border-radius: 12px;text-align: center;padding: 4px;">
-                        <span><b>TENSÃO SECUNDÁRIA AUXILIAR:</b> <label id="tensaosecundariaauxiliarhtml" type="text"
+                        style="flex: 1; font-size: 16px; color: #000000; background: linear-gradient(to right, transparent 0%, transparent 100%, rgb(248, 255, 47) 60%, rgb(248, 255, 47) 100%); border-radius: 12px; text-align: right; padding: 4px; margin-left: auto;">
+                        <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC ideal:</b> <label id="tcdeProtecaoideal" type="text"
                                 style="display: inline;"></label></span>
                         <span class="unidade"></span>
                     </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
 
 
-        <tr>
-            <td colspan="2" style="padding: 0;">
-                <button id="botaoSalvar" onclick="salvarOpcao()"
-                    style="width: 50%; height: 40px; font-weight: bold;">Salvar</button>
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <span style="min-width: 120px;">TP DE PROTEÇÃO:</span>
+                        <div class="input-container" style="display: flex; align-items: center;">
+                            <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor"
+                                style="margin-right: 4px;">
+                            <span class="unidade">:1V</span>
+                        </div>
+                        <div style="margin-left: auto; display: flex; align-items: center;">
+                            <label style="margin-left: 16px; margin-right: 8px;">CONEXÃO:</label>
+                            <select id="ligacaodabobinahtml" style="margin-right: 16px;">
+                                <option>Estrela-Estrela</option>
+                                <option>Triangulo-Estrela</option>
+                            </select>
+                        </div>
+                    </div>
 
-                </button>
-            </td>
-        </tr>
 
-    </table>
+                    <div class="label-container"
+                        style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(2, 68, 2); border-radius: 12px; text-align: center; padding: 4px; display: flex; justify-content: space-around; align-items: center; gap: 24px;">
+                        <div 
+                            style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
+                            <span><b>TP PROTEÇÃO SECUNDÁRIO F-F:</b> <label id="tensaosecundariaffhtml" type="text"
+                                    style="display: inline;"></label></span>
+                            <span class="unidade"></span>
+                        </div>
+                        <div
+                            style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
+                            <span><b>TP PROTEÇÃO SECUNDÁRIO F-N:</b> <label id="tensaosecundariafnhtml" type="text"
+                                    style="display: inline;"></label></span>
+                            <span class="unidade"></span>
+                        </div>
+                    </div>
+
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <span style="min-width: 120px;">TP AUXILIAR ALIMENTAÇÃO:</span>
+                        <div class="input-container" style="display: flex; align-items: center;">
+                            <input id="RTPauxiliarhtml" type="text" style="margin-right: 4px;">
+                            <span class="unidade">:1 V</span>
+                        </div>
+
+                        <div class="label-container"
+                            style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); border-radius: 12px;text-align: center;padding: 4px;">
+                            <span><b>TENSÃO SECUNDÁRIA AUXILIAR:</b> <label id="tensaosecundariaauxiliarhtml"
+                                    type="text" style="display: inline;"></label></span>
+                            <span class="unidade"></span>
+                        </div>
+                </td>
+            </tr>
+        </table>
+
+        
     </div>
-
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
 
 
     <script src="Protecao_parametros.js"></script>

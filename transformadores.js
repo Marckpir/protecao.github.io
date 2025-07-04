@@ -247,8 +247,8 @@ function calcularEArmazenarIntrafoEImag() {
         const imagindividual = intrafoindividual * imin;
 
         const impedancia = parseFloat(trafoSalvo.z) || 0;
-        const iansitrafo = 100/impedancia*intrafo;
-        const inansi = iansitrafo *0.58; 
+        const iansitrafo = (100/impedancia)*intrafoindividual;
+        const inansi = iansitrafo * 0.58; 
 
 
         correntestrafosJSON[`trafo${i}`] = {

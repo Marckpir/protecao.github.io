@@ -41,7 +41,7 @@ body {
     color: rgb(221, 227, 64);
     padding: 10px;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -72,15 +72,17 @@ button:hover {
     justify-content: center; /* Centraliza horizontalmente */
     align-items: center;
     width: 100vh;
+    font-size: 15px;
     /* height: 100vh; Garante que o contêiner ocupe toda a tela */
 }
 
 
 th, td {
     border: 0px solid #fefcfb;
-    padding: 10px;
+    padding: 4px 5px;
     text-align: center;
     background-color: #5c4033;
+    font-size: 15px;
 }
 
 
@@ -116,21 +118,13 @@ th, td{
 }
 
 
+
 #botaoSalvar {
-    display: block;
-    margin-top: 50px;
+    margin-top: 15px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: green;
-    color: white;
-    border: black;
     cursor: pointer;
-    margin-bottom: black;
-    margin: 20px auto;
-    
-}
-#botaoSalvar:hover {
-    background-color: #cf0808;
+
 }
 
 
@@ -171,7 +165,6 @@ th, td{
     table {
         width: 100vw !important;
         max-width: 100vw !important;
-        min-width: 600px;
         box-sizing: border-box;
     }
     th, td {
@@ -182,4 +175,6 @@ th, td{
         overflow-x: auto;
         box-sizing: border-box;
     }
+
+
 }

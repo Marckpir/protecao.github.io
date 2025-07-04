@@ -19,13 +19,16 @@ table {
     color: rgb(208, 228, 31);
     font-size: 12px;
     border: 0px solid white;
-    border-collapse: collapse; /* Garante que as bordas fiquem unidas */
+    border-collapse: collapse;
+    /* Garante que as bordas fiquem unidas */
 }
 
-th, td {
+th,
+td {
     border: 1px solid white;
     padding: 5px;
     text-align: center;
+    padding: 4px 5px;
 }
 
 button {
@@ -39,7 +42,6 @@ button {
     height: 50px;
     line-height: 1px;
     border-radius: 10px;
-    
 }
 button:hover {
     background-color: #cf0808;
@@ -49,26 +51,33 @@ input {
     width: 50px;
     margin: 5px;
     padding: 5px;
-    text-align: center;}
+    text-align: center;
+}
 
 
-    label {
+label {
     font-weight: bold;
-    color: rgb(255, 255, 255); /* Muda a cor do texto */
+    color: rgb(255, 255, 255);
+    /* Muda a cor do texto */
     font-size: 16px;
 }
 
 th {
     background-color: rgb(2, 68, 2);
-    color: white; /* Texto branco */
+    color: white;
+    /* Texto branco */
     font-size: 18px;
     text-transform: uppercase;
+    padding: 4px 5px;
 }
 
 td:first-child {
     background-color: rgb(2, 68, 2);
-    font-weight: bold; /* Texto em negrito */
-    text-align: left; /* Centralizar texto */
+    font-weight: bold;
+    /* Texto em negrito */
+    text-align: left;
+    /* Centralizar texto */
+    padding: 4px 5px;
 
 }
 
@@ -77,6 +86,7 @@ tr:first-child {
     color: white;
     font-weight: bold;
     text-align: center;
+    padding: 4px 5px;
 }
 
 
@@ -95,6 +105,7 @@ th:nth-child(10) {
     color: rgb(245, 245, 245);
     font-weight: bold;
     text-align: center;
+    padding: 4px 5px;
 }
 
 /* td {
@@ -119,7 +130,8 @@ td input[type="text"] {
 } */
 
 td {
-    padding: 0; /* ou ajuste para o valor desejado */
+    padding: 4px 5px;
+    /* ou ajuste para o valor desejado */
     text-align: center;
     vertical-align: middle;
 }
@@ -131,11 +143,11 @@ td input[type="text"] {
     min-width: 0;
     min-height: 0;
     margin: 0;
-    padding: 0;
+    padding: 4px 5px;
     box-sizing: border-box;
     display: block;
     text-align: center;
-    
+
 }
 
 .input-container {
@@ -152,7 +164,7 @@ td label {
     min-width: 0;
     min-height: 0;
     margin: 0;
-    padding: 0;
+    padding: 4px 5px;
     box-sizing: border-box;
     display: block;
     text-align: center;
@@ -160,57 +172,62 @@ td label {
 }
 
 #botaoSalvar {
-    display: block;
-    margin-top: 50px;
+    margin-top: 15px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: green;
-    color: white;
-    border: black;
     cursor: pointer;
-    margin-bottom: black;
-    margin: 20px auto;
-    
-}
-#botaoSalvar:hover {
-    background-color: #cf0808;
+
 }
 
 
 
 /* Responsividade para telas pequenas (celulares) */
 @media (max-width: 600px) {
-        td label {
-        width: 90%;
+    html, body {
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: visible;
+        box-sizing: border-box;
+    }
+    .grades-title {
+        font-size: 13px;
+        padding: 4px;
+        margin-bottom: 4px;
+    }
+    .grades, .form-section, .header, .parametro {
+        font-size: 11px;
+        padding: 4px;
+        
+    }
+    input, select, textarea {
         font-size: 12px;
-    }
-    body {
-        font-size: 14px;
-        padding: 0;
-    }
-    table {
-        width: 100%;
-        font-size: 10px;
-    }
-    th, td {
-        font-size: 10px;
-        padding: 0px;
-    }
-    input {
-        width: 90%;
-        font-size: 12px;
+        padding: 2px;
     }
     button, #botaoSalvar {
-        width: 90vw;
-        max-width: 200px; /* Limita a largura máxima */
-        min-width: 120px;
-        height: 40px;
-        font-size: 14px;
-        margin: 10px auto;
+        font-size: 12px;
+        padding: 6px 0;
+    }
+    .tabela-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        padding: 0;
+        margin: 0;
+        overflow-x: auto;
+        box-sizing: border-box;
         display: block;
     }
-    .input-container {
-        flex-direction: column;
-        align-items: stretch;
+    table {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        
+        box-sizing: border-box;
+    }
+    th, td {
+        padding: 2px;
+        font-size: 10px;
+        word-break: break-word;
+        max-width: 90px;
+        overflow-x: auto;
+        box-sizing: border-box;
     }
 }
