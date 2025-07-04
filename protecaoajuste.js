@@ -477,6 +477,8 @@ window.onload = function () {
     let idefneutro = idefneutroArmazenada;
     let tdefneutro = tdefneutroArmazenada;
 
+    
+
 
     let passo2 = (Iinst2 - ip2) / 1000;
     // Se dial2 não tiver valor, considera 1000
