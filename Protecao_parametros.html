@@ -43,9 +43,11 @@
         <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
     </h1>
     <br>
-    <div class="tabela-container" style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
+    <div class="tabela-container"
+        style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
         <table>
-            <caption style="font-weight: bold; color: rgb(0, 0, 0); font-size: 20px;">
+            <caption
+                style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 0px solid #ffffff;">
                 PARÂMETROS ELÉTRICOS<br>
             </caption>
 
@@ -109,13 +111,13 @@
                     </div>
                 </td>
             </tr>
-                        <tr>
+            <tr>
                 <td>TC DE PROTEÇÃO:</td>
                 <td>
-                                            <div class="input-container" style="display: flex; align-items: center;">
-                            <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
-                            <span class="unidade">:5A</span>
-                        </div>
+                    <div class="input-container" style="display: flex; align-items: center;">
+                        <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
+                        <span class="unidade">:5A</span>
+                    </div>
 
                 </td>
             </tr>
@@ -137,7 +139,8 @@
                         </div>
                         <div class="label-container"
                             style="flex: 1; font-size: 16px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 1px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center;">
-                            <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC ideal:</b> <label id="tcdeProtecaoideal" type="text"
+                            <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC
+                                    ideal:</b> <label id="tcdeProtecaoideal" type="text"
                                     style="display: inline; margin-top: 8px;"></label></span>
                             <span class="unidade"></span>
                         </div>
@@ -168,7 +171,7 @@
 
                     <div class="label-container"
                         style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(2, 68, 2); border-radius: 12px; text-align: center; padding: 4px; display: flex; justify-content: space-around; align-items: center; gap: 24px;">
-                        <div 
+                        <div
                             style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
                             <span><b>TP PROTEÇÃO SECUNDÁRIO F-F:</b> <label id="tensaosecundariaffhtml" type="text"
                                     style="display: inline;"></label></span>
@@ -205,7 +208,7 @@
             </tr>
         </table>
 
-        
+
     </div>
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
 

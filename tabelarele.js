@@ -37,6 +37,7 @@ window.onload = function () {
     salvarOpcao(); // Chama a função para importar as variáveis do localStorage
 
 
+
     // Novo trecho para ajuste-tc-abc
     let valorAjusteTc = dados['RTCselecionado'];
     if (valorAjusteTc !== null && valorAjusteTc !== undefined) {
@@ -47,6 +48,8 @@ window.onload = function () {
             inputTc.textContent = valorAjusteTc + "";
         });
     }
+
+
 
     // Novo trecho para ajuste-tc-protecao
     let valorAjusteTcProtecao = dados['TCdeprotecaoSelecionada'];
@@ -77,6 +80,30 @@ window.onload = function () {
         // Atualiza TODOS os campos com a classe ajuste-tensao-secundaria-fn-tp em todas as tabelas
         document.querySelectorAll('.ajuste-tensao-secundaria-fn-tp').forEach(function (inputTensao) {
             inputTensao.textContent = tensaoSecundariaFNTP + " V";
+        });
+    }
+
+        // Novo trecho para tensaoSecundariaFNTP
+    let tensaoSecundariaFFTP = dados['tensaoSecundariaFFTP'];
+    if (tensaoSecundariaFFTP !== null && tensaoSecundariaFFTP !== undefined) {
+        tensaoSecundariaFFTP = parseFloat(tensaoSecundariaFFTP).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tensao-secundaria-fn-tp em todas as tabelas
+        document.querySelectorAll('.ajuste-tensao-secundaria-ff-tp').forEach(function (inputTensao) {
+            inputTensao.textContent = tensaoSecundariaFFTP + " V";
+        });
+    }
+
+    console.log("Tensão Secundária FF TP:", tensaoSecundariaFFTP);
+
+    // Novo trecho para tensaoprimariaFF
+    let valorTensaoSelecionada = dados['tensaoSelecionada'];
+    if (valorTensaoSelecionada !== null && valorTensaoSelecionada !== undefined) {
+        valorTensaoSelecionada = parseFloat(valorTensaoSelecionada).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tensao-selecionada em todas as tabelas
+        document.querySelectorAll('.ajuste-tensao-primaria').forEach(function (inputTensao) {
+            inputTensao.textContent = valorTensaoSelecionada + " V";
         });
     }
 
@@ -140,13 +167,15 @@ window.onload = function () {
     }
 
     // Novo trecho para potencia-reversa-gerador
-    let potenciaReversaGerador = dados['potenciareversagerador'];
+    let potenciaReversaGerador = dados['potenciaReversaGerador'];
     if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined) {
         potenciaReversaGerador = parseFloat(potenciaReversaGerador).toFixed(2);
         document.querySelectorAll('.potencia-reversa-gerador').forEach(function (el) {
-            el.textContent = potenciaReversaGerador + " kW";
+            el.textContent = potenciaReversaGerador + " W";
         });
     }
+
+
 
     // Novo trecho para potencia gerador-diesel-pu
     let potenciaDieselPU = dados['potenciadieselPU'];
@@ -169,12 +198,17 @@ window.onload = function () {
             inputIp.textContent = valorIpPartida + " A";
         });
     }
-
     // Tipo de curva fase
     let tipoCurvaFase = dados['curvafaseSelecionada'];
     if (tipoCurvaFase !== null && tipoCurvaFase !== undefined) {
         document.querySelectorAll('.ajuste-curva-fase').forEach(function (el) {
             el.textContent = tipoCurvaFase;
+        });
+
+        // Se for IEC-V.I, substitui por IEC-M.I para o campo em português
+        let tipoCurvaFasePT = tipoCurvaFase === "IEC-V.I" ? "IEC-M.I" : tipoCurvaFase;
+        document.querySelectorAll('.ajuste-curva-fase-pt').forEach(function (el) {
+            el.textContent = tipoCurvaFasePT;
         });
     }
 
@@ -185,6 +219,7 @@ window.onload = function () {
             el.textContent = dialFase;
         });
     }
+
     // I inst fase
     let iInstFase = dados['Instfaseconsumo'];
     if (iInstFase !== null && iInstFase !== undefined) {
@@ -227,15 +262,20 @@ window.onload = function () {
             el.textContent = ipNeutro + " A";
         });
     }
-
     // Curva de neutro
-    let curvaNeutro = dados['curvaNeutro'];
+    let curvaNeutro = dados['curvaneutroSelecionada'];
     if (curvaNeutro !== null && curvaNeutro !== undefined) {
         document.querySelectorAll('.curva-neutro').forEach(function (el) {
             el.textContent = curvaNeutro;
         });
-    }
 
+        // Se for TD, converte para Flat em inglês
+        let curvaNeutroIngles = curvaNeutro === "TD" ? "FLAT" : curvaNeutro;
+        document.querySelectorAll('.curva-neutro-ingles').forEach(function (el) {
+            el.textContent = curvaNeutroIngles;
+        });
+    }
+    
     // Dial de neutro
     let dialNeutro = dados['dialneutroSelecionada'];
     if (dialNeutro !== null && dialNeutro !== undefined) {
@@ -367,6 +407,57 @@ function baixarPDF() {
     }
 }
 
+
+function baixarXLS() {
+    const seletor = document.getElementById("seletorTabela").value;
+    if (!seletor) {
+        alert("Selecione uma tabela antes de baixar o XLS.");
+        return;
+    }
+    const tabelaSelecionada = document.getElementById(seletor);
+    if (!tabelaSelecionada) {
+        alert("Tabela não encontrada.");
+        return;
+    }
+
+    // Clona a tabela para evitar alterações na original
+    const tabelaClone = tabelaSelecionada.cloneNode(true);
+
+    // Remove elementos indesejados (exemplo: botões ou elementos com classe 'no-export')
+    tabelaClone.querySelectorAll('button, .no-export').forEach(el => el.remove());
+
+    // Monta o HTML para exportação
+    const html = `
+        <html>
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+            ${tabelaClone.outerHTML}
+        </body>
+        </html>
+    `;
+
+    // Cria um Blob e faz o download
+    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+    const url = URL.createObjectURL(blob);
+
+    // Nome do arquivo baseado no <h2> da tabela, se existir
+    let nomeArquivo = "tabela.xls";
+    const h2 = tabelaSelecionada.querySelector("h2");
+    if (h2 && h2.textContent) {
+        nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".xls";
+    }
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = nomeArquivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+// ...existing code...
 
 // --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
 // Esta função gera uma curva de tempo

@@ -46,14 +46,23 @@
     </h1>
     <br>
 
-    <div class="tabelas-centralizadas" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100vw; min-height: 10vh; text-align: center;">
+    <div class="tabelas-centralizadas"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100vw; min-height: 10vh; text-align: center;">
         <table>
-            <caption style="font-weight: bold; color: rgb(0, 0, 0); font-size: 20px;">
+            <caption
+                style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 1px solid #ffffff;">
                 TABELA DE TRANSFORMADORES
             </caption>
 
+
+            <!-- <caption style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+                        
+                        TABELA DE AJUSTES FASE 50/51
+                        
+                    </caption> -->
+
             <th>
-                
+
             <td>kva</td>
             <td>Qtde</td>
             <td>Z%</td>
@@ -387,7 +396,45 @@
 
 
         </table>
+
         
+
+                <table>
+            <tr>
+                <td>MAGNETIZAÇÃO TOTAL FASE:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagtotal"
+                            style="font-weight: bold;">A</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>MAGNETIZAÇÃO TOTAL NEUTRO:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagtotalneutro">A</label></div>
+                </td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <table>
+            <tr>
+                <td>MAGNETIZAÇÃO REAL FASE:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagrealfase">A</label></div>
+                </td>
+            <tr>
+
+            <tr>
+                <td>MAGNETIZAÇÃO REAL NEUTRO:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagrealneutro">A</label></div>
+                </td>
+            <tr>
+        </table>
         <br>
         <table>
             <tr>
@@ -451,42 +498,7 @@
         <br>
 
 
-        <table>
-            <tr>
-                <td>MAGNETIZAÇÃO TOTAL FASE:</td>
-                <td>
-                    <div class="input-container"><label type="number" id="imagtotal"
-                            style="font-weight: bold;">A</label>
-                    </div>
-                </td>
-            </tr>
 
-            <tr>
-                <td>MAGNETIZAÇÃO TOTAL NEUTRO:</td>
-                <td>
-                    <div class="input-container"><label type="number" id="imagtotalneutro">A</label></div>
-                </td>
-            </tr>
-
-        </table>
-
-        <br>
-
-        <table>
-            <tr>
-                <td>MAGNETIZAÇÃO REAL FASE:</td>
-                <td>
-                    <div class="input-container"><label type="number" id="imagrealfase">A</label></div>
-                </td>
-            <tr>
-
-            <tr>
-                <td>MAGNETIZAÇÃO REAL NEUTRO:</td>
-                <td>
-                    <div class="input-container"><label type="number" id="imagrealneutro">A</label></div>
-                </td>
-            <tr>
-        </table>
 
     </div>
     <br>

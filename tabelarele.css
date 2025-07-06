@@ -13,7 +13,7 @@ table {
 th,
 td {
     background-color: white;
-    border: 1px solid black;
+    border: 2px solid black;
     padding: 8px;
     text-align: left;
 }
@@ -22,6 +22,7 @@ th {
     background-color: #454e45;
     color: white;
 }
+
 
 .fase {
     background-color: #FF0000;
@@ -47,6 +48,17 @@ td {
     /* ...outros estilos... */
 }
 
+
+.tabela table,
+.tabela th,
+.tabela td {
+    border: 2px solid #000 !important;
+    border-collapse: collapse !important;
+}
+
+.tabela table {
+    border-spacing: 0 !important;
+}
 
 button {
     color: rgb(227, 224, 64);
