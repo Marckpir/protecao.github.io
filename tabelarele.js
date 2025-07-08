@@ -51,16 +51,27 @@ window.onload = function () {
 
 
 
-    // Novo trecho para ajuste-tc-protecao
-    let valorAjusteTcProtecao = dados['TCdeprotecaoSelecionada'];
-    if (valorAjusteTcProtecao !== null && valorAjusteTcProtecao !== undefined) {
-        valorAjusteTcProtecao = parseFloat(valorAjusteTcProtecao).toFixed(2);
+        // Novo trecho para ajuste-tc-protecao
+        let valorAjusteTcProtecao = dados['TCdeprotecaoSelecionada'];
+        if (valorAjusteTcProtecao !== null && valorAjusteTcProtecao !== undefined) {
+            valorAjusteTcProtecao = parseFloat(valorAjusteTcProtecao);
 
-        // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
-        document.querySelectorAll('.ajuste-tc-protecao').forEach(function (inputTcProt) {
-            inputTcProt.textContent = valorAjusteTcProtecao + "";
-        });
-    }
+            // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
+            document.querySelectorAll('.ajuste-tc-protecao').forEach(function (inputTcProt) {
+                inputTcProt.textContent = valorAjusteTcProtecao + "";
+            });
+        }
+
+        // Novo trecho para ajuste-tc-protecao-ka
+        let valorAjusteTcProtecaoKa = dados['TCdeprotecaoSelecionadaemka'];
+        if (valorAjusteTcProtecaoKa !== null && valorAjusteTcProtecaoKa !== undefined) {
+            valorAjusteTcProtecaoKa = parseFloat(valorAjusteTcProtecaoKa).toFixed(3);
+
+            // Atualiza TODOS os campos com a classe ajuste-tc-protecao-ka em todas as tabelas
+            document.querySelectorAll('.ajuste-tc-protecao-ka').forEach(function (inputTcProtKa) {
+                inputTcProtKa.textContent = valorAjusteTcProtecaoKa + " kA";
+            });
+        }
 
     // Novo trecho para TPdeprotecaoSelecionada
     let valorAjusteTp = dados['TPdeprotecaoSelecionada'];
@@ -106,7 +117,6 @@ window.onload = function () {
             inputTensao.textContent = valorTensaoSelecionada + " V";
         });
     }
-
     // Novo trecho para tensaoprimariaFN
     let tensaoprimariaFN = dados['tensaoprimariaFN'];
     if (tensaoprimariaFN !== null && tensaoprimariaFN !== undefined) {
@@ -115,6 +125,17 @@ window.onload = function () {
         // Atualiza TODOS os campos com a classe ajuste-tensao-primaria-fn em todas as tabelas
         document.querySelectorAll('.ajuste-tensao-primaria-fn').forEach(function (inputTensao) {
             inputTensao.textContent = tensaoprimariaFN + " V";
+        });
+    }
+
+    // Novo trecho para tensaoprimariaFF
+    let tensaoprimariaFF = dados['tensaoprimariaFF'];
+    if (tensaoprimariaFF !== null && tensaoprimariaFF !== undefined) {
+        tensaoprimariaFF = parseFloat(tensaoprimariaFF).toFixed(2);
+
+        // Atualiza TODOS os campos com a classe ajuste-tensao-primaria-ff em todas as tabelas
+        document.querySelectorAll('.ajuste-tensao-primaria-ff').forEach(function (inputTensao) {
+            inputTensao.textContent = tensaoprimariaFF + " V";
         });
     }
 
@@ -133,24 +154,24 @@ window.onload = function () {
     let statusFuncao32 = dados['statusfuncao32diesel'];
     if (statusFuncao32 !== null && statusFuncao32 !== undefined) {
         document.querySelectorAll('.status-funcao32').forEach(function (el) {
-            el.textContent = statusFuncao32;
-        });
+            if (statusFuncao32 === "Habilitado") {
+                // Só substitui se o campo estiver vazio ou só espaços
+                if (!el.textContent.trim()) {
+                    const seletor = document.getElementById("seletorTabela");
+                    if (seletor) {
+                        el.textContent = seletor.options[seletor.selectedIndex].text;
+                    }
+                }
+                // Se já tem texto fixo, mantém o texto existente
+            } else if (statusFuncao32 === "Desabilitado") {
+                // Sempre sobrescreve para "Desabilitado"
+                el.textContent = "Desabilitado";
+            } else {
+                el.textContent = statusFuncao32;
+            }
+        });}
 
-        let statusIngles;
-        if (statusFuncao32 === "Habilitado") {
-            statusIngles = "Enabled";
-        } else if (statusFuncao32 === "Desabilitado") {
-            statusIngles = "Disabled";
-        } else {
-            statusIngles = "";
-        }
-        document.querySelectorAll('.status-funcao32-ingles').forEach(function (el) {
-            el.textContent = statusIngles;
-        });
 
-
-
-    }
 
 
     // Verifica o status da função 32 e exibe ou oculta os parâmetros correspond
@@ -176,13 +197,19 @@ window.onload = function () {
     }
 
 
-
     // Novo trecho para potencia gerador-diesel-pu
     let potenciaDieselPU = dados['potenciadieselPU'];
     if (potenciaDieselPU !== null && potenciaDieselPU !== undefined) {
-        potenciaDieselPU = parseFloat(potenciaDieselPU).toFixed(2) + " x Sn";
+        potenciaDieselPU = parseFloat(potenciaDieselPU);
+        let potenciaDieselPUFormatada = potenciaDieselPU.toFixed(2) + " x Sn";
         document.querySelectorAll('.potencia-diesel-pu-siemens').forEach(function (el) {
-            el.textContent = potenciaDieselPU;
+            el.textContent = potenciaDieselPUFormatada;
+        });
+
+        // Segunda variável recebe o valor multiplicado por 100
+        let potenciaDieselPUPercentual = (potenciaDieselPU * 100).toFixed(2) + " x %Sn";
+        document.querySelectorAll('.potencia-diesel-pu-percentual').forEach(function (el) {
+            el.textContent = potenciaDieselPUPercentual;
         });
     }
 
@@ -274,6 +301,16 @@ window.onload = function () {
         document.querySelectorAll('.curva-neutro-ingles').forEach(function (el) {
             el.textContent = curvaNeutroIngles;
         });
+        let curvaNeutroPT = curvaNeutro === "TD" ? "DEFT" : curvaNeutro;
+        document.querySelectorAll('.curva-neutro-SEGMRI').forEach(function (el) {
+            el.textContent = curvaNeutroPT;
+        });
+
+        // Nova condição: se for TD, outra variável assume "DT"
+        let curvaNeutroDT = curvaNeutro === "TD" ? "DT" : curvaNeutro;
+        document.querySelectorAll('.curva-neutro-DT').forEach(function (el) {
+            el.textContent = curvaNeutroDT;
+        });
     }
     
     // Dial de neutro
@@ -318,13 +355,15 @@ window.onload = function () {
             el.textContent = iinstPU;
         });
     }
-
     // Ip Neutro PU Selecionada
     let ipneutroPU = dados['ipneutroPUSelecionada'];
     if (ipneutroPU !== null && ipneutroPU !== undefined) {
-        ipneutroPU = parseFloat(ipneutroPU).toFixed(2) + " x In";
+        let valorDinamico = parseFloat(ipneutroPU);
         document.querySelectorAll('.ajuste-ipneutro-pu').forEach(function (el) {
-            el.textContent = ipneutroPU;
+            let valorExistente = parseFloat(el.textContent);
+            if (isNaN(valorExistente) || valorExistente < valorDinamico) {
+                el.textContent = valorDinamico.toFixed(2) + " x In";
+            }
         });
     }
 

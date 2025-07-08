@@ -4,11 +4,48 @@
 <head>
         <link rel="stylesheet" href="animacao.css">
         <link rel="stylesheet" href="estudos.css" type="text/css">
-        
+
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ESTUDOS</title>
+
+
+<style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 4px;
+            text-align: center;
+            vertical-align: middle;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-weight: bold;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .col-50 {
+            width: 50%;
+        }
+
+        .col-25 {
+            width: 25%;
+        }
+    </style>
+
+
 
 </head>
 <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
@@ -41,6 +78,91 @@
         <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
 </h1>
 <br>
+
+
+<table>
+        <tr>
+            <td rowspan="4" style="height: 400px;">Local para selo de análise de conformidade com normas
+                CEMIG e ABNT</td>
+            <td colspan="2">Informações complementares<br>Coordenadas, transformador, nº orçamento, etc.</td>
+            <td rowspan="4" class="vertical">PARA USO DA CEMIG</td>
+        </tr>
+
+  </tr>      <tr>
+            <td colspan="2">Carga instalada (kW)</td>
+
+        </tr>
+        <tr>
+            <td colspan="2">Demanda da instalação (kVA)</td>
+        </tr>
+        <tr>
+            <td colspan="2">Demanda de contrato (kW)</td>
+
+        </tr>
+        <tr>
+            <td colspan="3" style="height: 50px;">Dados e logotipo do projetista (opcional)</td>
+            <td colspan="4">Formato do projeto</td>
+        </tr>
+
+        <tr>
+            <td colspan="4" style="height: 50px;">Título / conteúdo</td>
+        </tr>
+        <tr>
+            <td>Nome do empreendimento</td>
+            <td>CPF/CNPJ</td>
+            <td colspan="2">Finalidade</td>
+
+
+        </tr>
+        <tr>
+            <td>Endereço</td>
+            <td>Bairro</td>
+            <td>Cidade</td>
+            
+        </tr>
+        <tr>
+            <td colspan="4">Número e data da ART de projeto</td>
+
+        </tr>
+        <tr>
+            <td style="height: 50px;">Proprietário<br>Nome<br></td>
+
+            <td>CPF/CNPJ / Identidade</td>
+            <td colspan="2">Telefone</td>
+
+        </tr>
+        <tr>
+            <td style="height: 50px;">Contratante (se houver)<br>Nome<br></td>
+
+            <td>CPF/CNPJ / Identidade</td>
+            <td colspan="2">Telefone</td>
+
+        </tr>
+        <tr>
+            <td colspan="4">Endereço completo para correspondência do PROPRIETÁRIO</td>
+
+        </tr>
+        <tr>
+            <td colspan="4">Endereço completo para correspondência do PROJETISTA</td>
+
+        </tr>
+        <tr>
+            <td style="height: 100px;">RT (Engª)<br>Nome<br>Telefone<br></td>
+            <td>CREA / Estado</td>
+            <td>Folha</td>
+            <td>Data<input></td>
+
+        </tr>
+    </table>
+
+
+
+
+
+
+
+
+
 
 
 <h1>MODELO DE COORDENOGRAMA DE CARGA</h1>
@@ -490,6 +612,7 @@
 
 
 <script src="estudos.js"></script>
+
 <body>
 
         <html>

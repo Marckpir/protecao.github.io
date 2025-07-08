@@ -35,6 +35,10 @@ function salvarOpcao() {
     const TCdeprotecaoSelecionada = TCdeprotecao.value;
     localStorage.setItem("TCdeprotecaoSelecionada", TCdeprotecaoSelecionada);
 
+    //calucla TC em kA para o rele SEG
+    const TCdeprotecaoSelecionadaemka = (TCdeprotecaoSelecionada / 1000).toFixed(3);
+    localStorage.setItem("TCdeprotecaoSelecionadaemka", TCdeprotecaoSelecionadaemka);
+
     //-----------------------------------------------------------------------------------------
     const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
     const TPdeprotecaoSelecionada = TPdeprotecao.value;
@@ -161,6 +165,8 @@ function salvarOpcao() {
         tensaoSecundariaFNTP = 0;
         tensaoSecundariaFFTP = 0;
     }
+
+
     // const tensaoSecundariaFFTP = (tensaoprimariaFN/ TPdeprotecaoSelecionada); // Tensão secundária do TP de proteção
     
     // const tensaoSecundariaFNTP = tensaoprimariaFN/ Math.sqrt(3); // Tensão secundária do TP de neutro
@@ -172,6 +178,9 @@ function salvarOpcao() {
 
     // Armazena a tensão primária fase-neutro no localStorage
     localStorage.setItem("tensaoprimariaFN", tensaoprimariaFN ? tensaoprimariaFN.toFixed(2) : "0");
+
+    // Armazena a tensão primária fase-fase no localStorage
+    localStorage.setItem("tensaoprimariaFF", tensaoprimariaFF ? tensaoprimariaFF.toFixed(2) : "0");
 
     // Armazena a tensão secundária do TP de neutro no localStorage
     localStorage.setItem("tensaoSecundariaFNTP", tensaoSecundariaFNTP.toFixed(2));
