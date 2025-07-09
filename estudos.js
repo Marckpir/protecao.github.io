@@ -65,3 +65,40 @@ path.setAttribute("d", dInverso);
 svg.appendChild(path);
 // --------------------------------------------------------------
 // Fim do Js do SVG
+
+function imprimirPaginaEmPDF() {
+    window.print();
+}
+
+const botaoImprimir = document.createElement("button");
+botaoImprimir.textContent = "Imprimir em PDF";
+botaoImprimir.style.margin = "20px";
+botaoImprimir.onclick = imprimirPaginaEmPDF;
+document.body.insertBefore(botaoImprimir, document.body.firstChild);
+
+// Sugestão: adicione CSS para layout A4 ao imprimir e evitar quebra de tabelas
+const estiloImpressao = document.createElement("style");
+estiloImpressao.media = "print";
+estiloImpressao.textContent = `
+@page {
+    size: A4 portrait;
+    margin: 20mm;
+}
+body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+button {
+    display: none !important;
+}
+/* Evitar quebra de tabelas */
+table {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+tr, td, th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+`;
+document.head.appendChild(estiloImpressao);

@@ -41,7 +41,7 @@ window.onload = function () {
     // Novo trecho para ajuste-tc-abc
     let valorAjusteTc = dados['RTCselecionado'];
     if (valorAjusteTc !== null && valorAjusteTc !== undefined) {
-        valorAjusteTc = parseFloat(valorAjusteTc).toFixed(2);
+        valorAjusteTc = parseFloat(valorAjusteTc);
 
         // Atualiza TODOS os campos com a classe ajuste-tc-abc em todas as tabelas
         document.querySelectorAll('.ajuste-tc-abc').forEach(function (inputTc) {
@@ -76,7 +76,7 @@ window.onload = function () {
     // Novo trecho para TPdeprotecaoSelecionada
     let valorAjusteTp = dados['TPdeprotecaoSelecionada'];
     if (valorAjusteTp !== null && valorAjusteTp !== undefined) {
-        valorAjusteTp = parseFloat(valorAjusteTp).toFixed(2);
+        valorAjusteTp = parseFloat(valorAjusteTp);
 
         // Atualiza TODOS os campos com a classe ajuste-tp-abc em todas as tabelas
         document.querySelectorAll('.ajuste-tp-abc').forEach(function (inputTp) {
