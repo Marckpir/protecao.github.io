@@ -221,6 +221,7 @@ window.onload = function () {
     var correnteIP = correnteprimaria * (1 + Ippercentual / 100);
     correnteFormatada = correnteIP;
     localStorage.setItem("Ipdeconsumo", correnteFormatada);
+    localStorage.setItem("Inominalfase", correnteprimaria);
 
     // Calculo da  corrente instantanea de fase somando a tolerancia a corrente de magnetização nominal
 
@@ -236,6 +237,8 @@ window.onload = function () {
     ipneutro = inominalneutro * (1 + ipneutropercentualArmazenada / 100);
     // Armazenando o valor de ipneutro no local storage
     localStorage.setItem("IpdeneutroSelecionada", ipneutro);
+    localStorage.setItem("Inominalneutroconsumo", inominalneutro);
+
     //  Calculo da  corrente de magnetização de neutro 
     imagneutro = imagBase * (desequilibrio / 100)
 
@@ -419,12 +422,6 @@ window.onload = function () {
     // Reprodução das variaveis no gráfico de coordenação
     // Definição das variáveis comuns
     let dial1 = dialfaseArmazenada;
-    // let Iinst1;
-    // if (imagsimuladaArmazenada === null || imagsimuladaArmazenada === undefined || isNaN(imagsimuladaArmazenada)) {
-    //     Iinst1 = imagtotalformatada;
-    // } else {
-    //     Iinst1 = imagsimuladaArmazenada;
-    // }
     let Iinst1 = imagtotalformatada;
     let ip1 = correnteFormatada;
     let x1 = [imagtotalformatada];
@@ -522,37 +519,19 @@ window.onload = function () {
         y2.push(1000);
     }
 
+    // Armazena os pontos x e y de fase e neutro no localStorage separadamente em formato JSON
+    localStorage.setItem("pontosCurvaFaseX", JSON.stringify(x1));
+    localStorage.setItem("pontosCurvaFaseY", JSON.stringify(y1));
+    localStorage.setItem("pontosCurvaNeutroX", JSON.stringify(x2));
+    localStorage.setItem("pontosCurvaNeutroY", JSON.stringify(y2));
 
-
-
-    // for (let i = 0; Iinst2 >= (inominalneutro); i++) {
-    //     let z2;
-
-    //     if (Iinst2 <= ip2) {
-    //         z2 = 1000; // Para valores menores que 3, sempre será 1000
-    //         x2.push(ip2);
-    //         y2.push(Math.min(z2, 1000));
-    //     } else {
-    //         z2 = dial2 * (beta2 / (Math.pow(Iinst2 / ip2, alfa2) - k2));
-    //         x2.push(Iinst2);
-    //         y2.push(Math.min(z2, 1000));
-    //     }
-
-
-
-    //     Iinst2 -= passo2;
-    // }
+ 
 
 
     // Exibe no console todas as informações de correntestrafosJSON, se houver
     const correntesTrafos = JSON.parse(localStorage.getItem("correntestrafosJSON"));
 
-    console.log("Informações de correntestrafosJSON:");
 
-    console.log(correntesTrafos.trafo1.iansi);
-    console.log(correntesTrafos.trafo1.tempo);
-
-    console.log(correntesTrafos.trafo1.inansi);
 
 
 
@@ -1032,12 +1011,20 @@ window.onload = function () {
         }
     });
 
+    // Salva a imagem do gráfico no localStorage
+    setTimeout(() => {
+        try {
+            const graficoCanvas = document.getElementById('grafico');
+            const graficoImg = graficoCanvas.toDataURL('image/png');
+            localStorage.setItem('graficoImagem', graficoImg);
+        } catch (e) {
+            console.error('Erro ao salvar imagem do gráfico:', e);
+        }
+    }, 500);
 
     //Mantem exibindo o dial ideal no HTML 
     const dialIdealTag = document.getElementById("dialideal");
-    // let dial_calculado = parseFloat(localStorage.getItem("dialCalculado"));
-    // let dial_calculado_planta = parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores"));
-
+  
 
 
     calculadialideal();

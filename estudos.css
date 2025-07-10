@@ -401,7 +401,7 @@ button:hover {
 #curvaProtecao .grafico-container {
     position: relative;
     width: 100%;
-    height: 850px; /* Altura grande */
+    height: 600px; /* Altura grande */
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -411,11 +411,11 @@ button:hover {
     flex-direction: column;
 }
 
-#curvaProtecao canvas {
+#grafico canvas {
     width: 100% !important;
-    height: 750px !important; /* Altura fixa menor */
+    height: 600px !important; /* Altura fixa menor */
     max-width: 100% !important;
-    max-height: 750px !important;
+    max-height: 600px !important;
     display: block;
     box-sizing: border-box;
     flex-grow: 0;
@@ -423,12 +423,12 @@ button:hover {
 }
 
 /* Espaço específico para legenda */
-#curvaProtecao .grafico-container::after {
+/* #curvaProtecao .grafico-container::after {
     content: "";
     height: 100px; /* 100px dedicados à legenda */
-    width: 100%;
-    display: block;
-}
+    /* width: 100%;
+    display: block; */
+/* } */
 /* --------------------------------------------------- */
 /* Responsividade para telas menores */
 @media screen and (max-width: 768px) {
