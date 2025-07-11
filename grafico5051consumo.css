@@ -1,8 +1,8 @@
 canvas {
     background-color: rgb(255, 255, 255);
     border: 5px solid black;
-    max-width: 900px;  /* Aumentado */
-    max-height: 600px; /* Aumentado para permitir mais altura */
+    max-width: 794px;   /* Aproximação A4 largura */
+    max-height: 1123px; /* Aproximação A4 altura */
 }
 
 .grafico-container {
@@ -12,6 +12,6 @@ canvas {
 }
 
 #grafico {
-    width: 800px;   /* Aumentado também a largura */
-    height: 1000px; /* Aumentado a altura */
+    width: 794px;   /* Largura A4 */
+    height: 1123px; /* Altura A4 */
 }

@@ -5,6 +5,8 @@
         <link rel="stylesheet" href="animacao.css">
         <link rel="stylesheet" href="estudos.css" type="text/css">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+        
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,13 +54,14 @@
         <br>
 
         <div style="text-align: center; margin: 12px 0;">
-                <button onclick="window.print()" class="dark-mode-toggle" style="padding: 8px 18px; font-size: 1em;">Imprimir</button>
-                        
-                </button>
+                <button onclick="window.print()" class="dark-mode-toggle"
+                        style="padding: 8px 18px; font-size: 1em;">Imprimir</button>
+
+                
         </div>
 
 
-        
+
 
         <div id="tabelaselo">
                 <table style="background-color: #fff; color: #000;">
@@ -213,13 +216,13 @@
 
 
 
-<br><br><br><br><br><br>
+        <br><br><br><br><br><br>
 
 
-<h1>ESTUDO DE PROTEÇÃO E SELETIVIDADE</h1>
+        <h1>ESTUDO DE PROTEÇÃO E SELETIVIDADE</h1>
 
 
-        
+
         <div id="objetivotexto" style="display: flex; flex-direction: column; align-items: center;">
                 <h2>Objetivo</h2>
                 <textarea
@@ -229,7 +232,7 @@
                 </textarea>
         </div>
 
-        
+
         <div id="tabelaparametrosiniciais">
                 <h2>Informações da Conexão</h2>
                 <table>
@@ -261,7 +264,7 @@
         </div>
 
 
-        
+
 
         <div id=calculotrafos>
                 <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
@@ -374,10 +377,10 @@
 
 
 
-<br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
 
 
-        
+
         <div id="tabelatransformadores">
                 <h1>Tabela Transformadores</h1>
                 <table>
@@ -618,7 +621,7 @@
 
 
 
-<br><br><br><br><br><br>
+        <br><br><br><br><br><br>
 
         <div id=calculostc>
                 <h2>Dimensionamento do TC de Proteção</h2>
@@ -824,12 +827,84 @@
                         </tr>
                 </table>
 
-                <p><strong>Dial calculado:</strong> 1,62</p>
+                <!-- Fórmula DT -->
+                <!-- <div style="display: flex; align-items: center; justify-content: center; margin: 32px 0;">
+                        <span
+                                style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
+                        <span style="display: flex; align-items: center;">
+                                <span style="display: inline-block;">
+                                        <span style="display: block; text-align: center;">
+                                                <span style="display: block;">(Imag / In)<sup
+                                                                style="font-size: 0.8em;">α</sup> - k</span>
+                                                <span style="border-top: 1px solid #000; display: block;">β</span>
+                                        </span>
+                                </span>
+                                <span style="margin-left: 8px; font-size: 1em;">× t</span>
+                        </span>
+                </div>
 
-                <p>Conforme Dial calculado, o Dial real à ser parametrizado no relé será: 0,1</p>
-                <p>Conforme Dial real estabelecido, o tempo máximo real para a magnetização dos transformadores será
+                <div style="display: flex; align-items: center; justify-content: center; margin: 32px 0;">
+                        <span
+                                style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
+                        <span style="display: flex; align-items: center;">
+                                <span style="display: inline-block;">
+                                        <span style="display: block; text-align: center;">
+                                                <span style="display: block;">(Imag / In)<sup
+                                                                style="font-size: 0.8em;">α</sup> - k</span>
+                                                <span style="border-top: 1px solid #000; display: block;">β</span>
+                                        </span>
+                                </span>
+                                <span style="margin-left: 8px; font-size: 1em;">× t</span>
+                        </span>
+                </div>
+
+                                <div style="display: flex; align-items: center; justify-content: center; margin: 32px 0;">
+                        <span
+                                style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
+                        
+                </div> -->
+<div id="formuladialdeimag">
+        <p>Dial calculado para a função de magnetização dos transformadores:</p>
+        <div class="valores2">
+                <label>β: <span id="beta2">5</span></label>
+                <label>Imag: <span id="imag2">400</span></label>
+                <label>In: <span id="in2">50</span></label>
+                <label>α: <span id="alpha2">0.8</span></label>
+                <label>k: <span id="k2">1.2</span></label>
+                <label>t: <span id="t2">0.02</span></label>
+        </div>
+
+        <h3>Fórmula:</h3>
+        <p id="formula2" style="font-size: 1.1em;"></p>
+</div>
+
+<p><strong>Dial calculado:</strong> 1,62</p>
+
+                
+<div id="formulatempodeimag">
+  <p>Conforme Dial real estabelecido, o tempo máximo real para a magnetização dos transformadores será
                         conforme
                         cálculo abaixo:</p>
+  <div class="valores">
+    <label>β: <span id="beta">5</span></label>
+    <label>Imag: <span id="imag">300</span></label>
+    <label>In: <span id="in">50</span></label>
+    <label>α: <span id="alpha">0.8</span></label>
+    <label>k: <span id="k">1.2</span></label>
+    <label>DT: <span id="dt">0.02</span></label>
+  </div>
+
+  <h3>Fórmula:</h3>
+  <p id="formula" style="font-size: 1.1em;"></p>
+  </div>
+
+
+
+
+                <p>Conforme Dial calculado, o Dial real à ser parametrizado no relé será: 0,1</p>
+                
+
+
 
                 <p><strong>Dial real parametrizado:</strong> 0,1</p>
 
@@ -1011,121 +1086,28 @@
         <br><br>
 
 
-        
-<!-- <div id="curvaProtecao">
+
+        <!-- <div id="curvaProtecao">
     <h2>Coordenograma de Proteção - Página Completa</h2> -->
-    
-    <!-- <div class="grafico-container">
+
+        <!-- <div class="grafico-container">
         <canvas id="curvaProtecaoCanvas"></canvas>
     </div>
 </div> -->
 
-<div id="curvaProtecao">
-        <h2>Coordenograma de Proteção</h2>
-    <canvas id="grafico"></canvas>
-</div>
-<br>
+        <div id="curvaProtecao">
+                <h2>Coordenograma de Proteção</h2>
+                <canvas id="grafico"></canvas>
+        </div>
+        <br>
 
 
 
-       <!-- <script>
-document.addEventListener("DOMContentLoaded", function () {
-    var labelsProtecao = ['0.1', '0.14', '0.2', '0.5', '1.0', '2.0', '5.0', '9.79'];
-    var dadosCurvaProtecao = [10, 5, 2, 1, 0.5, 0.25, 0.15, 0.1];
-    var chartInstance = null;
 
-    function criarGrafico() {
-        if (window.Chart) {
-            // Destruir gráfico anterior se existir
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
-
-            chartInstance = new Chart(document.getElementById('curvaProtecaoCanvas').getContext('2d'), {
-                type: 'line',
-                data: {
-                    labels: labelsProtecao,
-                    datasets: [{
-                        label: 'Função 51 - Sobrecorrente Temporizada',
-                        data: dadosCurvaProtecao,
-                        borderColor: '#1f77b4',
-                        backgroundColor: 'rgba(31, 119, 180, 0.1)',
-                        fill: false,
-                        tension: 0.4,
-                        pointRadius: 4,
-                        borderWidth: 2
-                    }]
-                },
-options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-        legend: { 
-            display: true,
-            position: 'bottom',
-            labels: {
-                padding: 30,        /* Mais padding */
-                boxWidth: 20,       /* Caixa maior */
-                font: {
-                    size: 14        /* Fonte maior */
-                }
-            }
-        },
-        title: {
-            display: true,
-            text: 'Coordenograma de Proteção - Função 51',
-            font: { size: 18, weight: 'bold' },
-            padding: {
-                top: 20,
-                bottom: 30
-            }
-        }
-    },
-    layout: {
-        padding: {
-            top: 30,
-            right: 30,
-            bottom: 200,    /* MUITO mais espaço embaixo */
-            left: 30
-        }
-    }
-}
-            });
-        }
-    }
-
-    // Criar gráfico inicialmente
-    criarGrafico();
-
-    // Detectar quando está preparando para impressão
-    window.addEventListener('beforeprint', function() {
-        // Redimensionar canvas para impressão
-        var canvas = document.getElementById('curvaProtecaoCanvas');
-        var container = canvas.parentElement;
-        
-        // Definir tamanho específico para impressão
-        container.style.height = '250px';
-        container.style.width = '100%';
-        
-        // Recriar gráfico com novo tamanho
-        setTimeout(criarGrafico, 100);
-    });
-
-    // Restaurar após impressão
-    window.addEventListener('afterprint', function() {
-        // Restaurar tamanho original
-        var container = document.getElementById('curvaProtecaoCanvas').parentElement;
-        container.style.height = '100px';
-        
-        // Recriar gráfico com tamanho original
-        setTimeout(criarGrafico, 100);
-    });
-});
-</script> -->
-        <!-- Certifique-se de incluir Chart.js no <head> ou antes deste script -->
-
+        <script src="estudos.js"></script>
 
         <script src="grafico5051consumo.js"></script>
+        
 
 </body>
 

@@ -78,8 +78,10 @@ function ChartGenerator() {
     
     // I nominal fase - ponto
     
+        // I nominal fase - ponto
+        // I nominal fase - ponto
         datasets.push({
-            label: 'I nominal fase',
+            label: 'I nominal fase = ' + correnteprimaria.toFixed(2) + ' A',
             data: [{ x: correnteprimaria, y: 0.01 }],
             backgroundColor: 'red',
             borderColor: 'red',
@@ -88,13 +90,13 @@ function ChartGenerator() {
             pointStyle: 'triangle',
             showLine: false
         });
-        
+
         // I nominal fase - linha vertical
         datasets.push({
             label: 'I nominal fase linha',
             data: [
-                { x: correnteprimaria, y: 0.01 },
-                { x: correnteprimaria, y: 1000 }
+            { x: correnteprimaria, y: 0.01 },
+            { x: correnteprimaria, y: 1000 }
             ],
             borderColor: 'red',
             borderWidth: 2,
@@ -103,12 +105,10 @@ function ChartGenerator() {
             fill: false,
             showLine: true
         });
-    
-    
-    // I nominal neutro - ponto
-    
+
+        // I nominal neutro - ponto
         datasets.push({
-            label: 'I nominal neutro',
+            label: 'I nominal neutro = ' + inominalneutro.toFixed(2) + ' A',
             data: [{ x: inominalneutro, y: 0.01 }],
             backgroundColor: 'blue',
             borderColor: 'blue',
@@ -117,13 +117,13 @@ function ChartGenerator() {
             pointStyle: 'triangle',
             showLine: false
         });
-        
+
         // I nominal neutro - linha vertical
         datasets.push({
             label: 'I nominal neutro linha',
             data: [
-                { x: inominalneutro, y: 0.01 },
-                { x: inominalneutro, y: 1000 }
+            { x: inominalneutro, y: 0.01 },
+            { x: inominalneutro, y: 1000 }
             ],
             borderColor: 'blue',
             borderWidth: 2,
@@ -132,12 +132,10 @@ function ChartGenerator() {
             fill: false,
             showLine: true
         });
-    
-    
-    // I Ip fase
-    
+
+        // I Ip fase
         datasets.push({
-            label: 'I Ip fase',
+            label: 'Ip fase = ' + ip1.toFixed(2) + ' A',
             data: [{ x: ip1, y: 0.01 }],
             backgroundColor: 'red',
             borderColor: 'red',
@@ -146,12 +144,10 @@ function ChartGenerator() {
             pointStyle: 'triangle',
             showLine: false
         });
-    
-    
-    // I Ip neutro
-    
+
+        // I Ip neutro
         datasets.push({
-            label: 'I Ip neutro',
+            label: 'Ip neutro = ' + ip2.toFixed(2) + ' A',
             data: [{ x: ip2, y: 0.01 }],
             backgroundColor: 'blue',
             borderColor: 'blue',
@@ -160,12 +156,10 @@ function ChartGenerator() {
             pointStyle: 'triangle',
             showLine: false
         });
-    
-    
-    // I inst fase
-    
+
+        // I inst fase
         datasets.push({
-            label: 'I inst fase',
+            label: 'I inst fase = ' + Instfaseconsumo.toFixed(2) + ' A',
             data: [{ x: Instfaseconsumo, y: 0.01 }],
             backgroundColor: 'red',
             borderColor: 'red',
@@ -174,12 +168,10 @@ function ChartGenerator() {
             pointStyle: 'triangle',
             showLine: false
         });
-    
-    
-    // I inst neutro
-    
+
+        // I inst neutro
         datasets.push({
-            label: 'I inst neutro',
+            label: 'I inst neutro = ' + Iinstneutro.toFixed(2) + ' A',
             data: [{ x: Iinstneutro, y: 0.01 }],
             backgroundColor: 'blue',
             borderColor: 'blue',
@@ -188,12 +180,10 @@ function ChartGenerator() {
             pointStyle: 'triangle',
             showLine: false
         });
-    
-    
-    // I mag fase
-    
+
+        // I mag fase
         datasets.push({
-            label: 'I mag fase',
+            label: 'I mag fase = ' + imagBase.toFixed(2) + ' A',
             data: [{ x: imagBase, y: 0.1 }],
             backgroundColor: 'red',
             borderColor: 'red',
@@ -202,19 +192,17 @@ function ChartGenerator() {
             pointStyle: 'circle',
             showLine: false
         });
-    
-    
-    // I mag neutro
-    
+
+        // I mag neutro
         datasets.push({
-            label: 'I mag neutro',
+            label: 'I mag neutro = ' + imagneutro.toFixed(2) + ' A',
             data: [{ x: imagneutro, y: 0.1 }],
-                    backgroundColor: 'yellow',
-                    borderColor: 'black',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+            borderWidth: 2,
+            pointRadius: 4,
+            pointStyle: 'circle',
+            showLine: false
         });
     
     
@@ -225,7 +213,7 @@ function ChartGenerator() {
     
     if (somaCorrentePartida > 0 && tempoPartida > 0) {
         datasets.push({
-            label: 'Partida motor+carga operante',
+            label: 'Partida motor+carga operante = ' + somaCorrentePartida.toFixed(2) + ' A, ' + tempoPartida.toFixed(2) + ' s',
             data: [{ x: somaCorrentePartida, y: tempoPartida }],
             backgroundColor: 'green',
             borderColor: 'green',
@@ -239,7 +227,7 @@ function ChartGenerator() {
     // ICC Trifásica
    
         datasets.push({
-            label: 'ICC Trifásica',
+            label: 'ICC Trifásica = ' + curtoArmazenada.toFixed(2) + ' A',
             data: [{ x: curtoArmazenada, y: 0.01 }],
             backgroundColor: 'black',
             borderColor: 'black',
@@ -271,7 +259,7 @@ function ChartGenerator() {
         const trafo = correntesTrafos[`trafo${i}`];
         if (trafo && trafo.iansi > 0 && trafo.tempo > 0) {
             datasets.push({
-                label: `I ANSI ${i}`,
+                label: `I ANSI trafo ${i} = ${trafo.iansi.toFixed(2)} A`,
                 data: [{ x: trafo.iansi, y: trafo.tempo }],
                 backgroundColor: 'orange',
                 borderColor: ansiColors[i-1],
@@ -288,7 +276,7 @@ function ChartGenerator() {
         const trafo = correntesTrafos[`trafo${i}`];
         if (trafo && trafo.inansi > 0 && trafo.tempo > 0) {
             datasets.push({
-                label: `I NANSI ${i}`,
+                label: `I NANSI trafo ${i} = ${trafo.inansi.toFixed(2)} A`,
                 data: [{ x: trafo.inansi, y: trafo.tempo }],
                 backgroundColor: 'yellow',
                 borderColor: ansiColors[i-1],
@@ -300,8 +288,7 @@ function ChartGenerator() {
         }
     }
     
-    console.log('Total de datasets:', datasets.length);
-    
+    // Configuração do gráfico    
     const chartConfig = {
         type: 'line',
         data: { datasets },
@@ -309,9 +296,53 @@ function ChartGenerator() {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    position: 'none'
-                }
+legend: {
+    position: 'bottom',
+    align: 'start',
+    labels: {
+        boxWidth: 12,
+        boxHeight: 12,
+        padding: 20,
+        usePointStyle: true,
+        font: {
+            size: 9
+        },
+generateLabels: function(chart) {
+    const original = Chart.defaults.plugins.legend.labels.generateLabels;
+    const labels = original.call(this, chart);
+    
+    // Lista de legendas a serem ocultadas
+    const legendasOcultas = [
+        'I nominal neutro linha',
+        'I nominal fase linha',
+        'Curto Circuito'
+    ];
+    
+    // Filtrar legendas indesejadas e personalizar o formato
+    return labels
+        .filter(function(label) {
+            return !legendasOcultas.includes(label.text);
+        })
+        .map(function(label) {
+            label.text = '• ' + label.text; // Adiciona bullet point
+            return label;
+        });
+}
+    },
+    // Configurações para forçar layout em lista vertical
+    display: true,
+    maxHeight: 500,
+    maxWidth: 250,
+    fullSize: false,
+    position: 'bottom', // Muda para direita para melhor layout vertical
+    onClick: function(e, legendItem, legend) {
+        const index = legendItem.datasetIndex;
+        const chart = legend.chart;
+        const meta = chart.getDatasetMeta(index);
+        meta.hidden = meta.hidden === null ? !chart.data.datasets[index].hidden : null;
+        chart.update();
+    }
+}
             },
             scales: {
                 x: {
