@@ -38,7 +38,7 @@ function ChartGenerator() {
     const ip2 = parseFloat(localStorage.getItem('IpdeneutroSelecionada')) || 0;
     const Instfaseconsumo = parseFloat(localStorage.getItem('Instfaseconsumo')) || 0;
     const Iinstneutro = parseFloat(localStorage.getItem('IinstneutroSelecionada')) || 0;
-    const imagBase = parseFloat(localStorage.getItem('imagtotalSelecionada')) || 0;
+    const imagBase = parseFloat(localStorage.getItem('Imagresultante')) || 0;
     const imagneutro = parseFloat(localStorage.getItem('imagtotalneutroSelecionada')) || 0;
     const curtoArmazenada = parseFloat(localStorage.getItem('curtoSelecionada')) || 0;
     const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {
@@ -213,7 +213,7 @@ function ChartGenerator() {
     
     if (somaCorrentePartida > 0 && tempoPartida > 0) {
         datasets.push({
-            label: 'Partida motor+carga operante = ' + somaCorrentePartida.toFixed(2) + ' A, ' + tempoPartida.toFixed(2) + ' s',
+            label: 'Ip motor+carga operante = ' + somaCorrentePartida.toFixed(2) + ' A,' + tempoPartida.toFixed(2) + ' s',
             data: [{ x: somaCorrentePartida, y: tempoPartida }],
             backgroundColor: 'green',
             borderColor: 'green',
@@ -305,7 +305,7 @@ legend: {
         padding: 20,
         usePointStyle: true,
         font: {
-            size: 9
+            size: 8
         },
 generateLabels: function(chart) {
     const original = Chart.defaults.plugins.legend.labels.generateLabels;
@@ -334,7 +334,7 @@ generateLabels: function(chart) {
     maxHeight: 500,
     maxWidth: 250,
     fullSize: false,
-    position: 'bottom', // Muda para direita para melhor layout vertical
+    position: 'right', // Muda para direita para melhor layout vertical
     onClick: function(e, legendItem, legend) {
         const index = legendItem.datasetIndex;
         const chart = legend.chart;

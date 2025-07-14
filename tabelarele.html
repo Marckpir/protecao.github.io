@@ -76,6 +76,7 @@
                                 <option value="19-PEXTRON-URP-6100-Software-Versão-1.0.0.059">
                                         19-PEXTRON-URP-6100-Software-Versão-1.0.0.059</option>
                                 <option value="20-SCHNEIDER-SEPAM-S20">20-SCHNEIDER-SEPAM-S20</option>
+                                <option value="21-tabelareserva">21-tabelareserva</option>
 
                         </select>
                 </div>
@@ -85,15 +86,61 @@
 
                 <button onclick="baixarPDF()">Baixar PDF</button>
                 <button onclick="baixarXLS()">Baixar XLS</button>
+                 <button onclick="Salvaropcao()">Salvar</button>
 
         </div>
 
         <br><br>
+<!-- -------------------------------------------------------
+Descrição das nomenclaturas que foram adotadas para ajustes de relé no html:
+        
+(variavel para relação do TC)
+
+ajuste-tc-abc
+
+(Variavel para corrente de primário do TC)
+
+ajuste-tc-protecao
+
+(Variavel para relação do TP)
+
+ajuste-tp-abc
+
+status-funcao32
+
+potencia-reversa-gerador
+
+potencia-diesel-pu-siemens
+
+parametrosfuncao32diesel  (ocultar campos do tr)
+
+ajuste-i-partida-fase
+ajuste-curva-fase
+ajuste-dt-fase
+ajuste-iinst-fase
+
+ajuste-idef-fase
+ajuste-tdef-fase
+
+
+ajuste-i-partida-neutro
+curva-neutro
+ajuste-dt-neutro
+ajuste-iinst-neutro
+
+
+ajuste-ip-pu
+ajuste-iinst-pu
+ajuste-ipneutro-pu
+ajuste-instneutro-pu
+
+-------------------------------------------------- -->
 
 
 
 
         <div id="1-PEXTRON-URP7104" class="tabela">
+                <h2>Tabela de Parâmetros do Relé</h2>
                 <table border="1" style="font-size: 0.95em; max-width: 900px; margin: 0 auto;">
                         <thead>
                                 <tr>
@@ -2337,7 +2384,6 @@
                 </table>
         </div>
 
-
         <div id="11-SEG_MRI3-IE" class="tabela">
 
 
@@ -3334,7 +3380,6 @@
 
         </div>
 
-
         <div id="17-REMP100" class="tabela">
 
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
@@ -4106,8 +4151,6 @@
                 </table>
         </div>
 
-
-
         <div id="20-SCHNEIDER-SEPAM-S20" class="tabela">
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
@@ -4249,6 +4292,27 @@
                                 </tr>
 
                         </tbody>
+                </table>
+        </div>
+
+        <div id="21-tabelareserva" class="tabela">
+                <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th colspan="3" style="text-align:center;">TABELA DE RESERVA</th>
+                                </tr>
+                                <tr>
+                                        <th style="width: 50%;">Parâmetro</th>
+                                        <th style="width: 25%;">Descrição</th>
+                                        <th style="width: 25%;">Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Local parametro TC</td>
+                                        <td>local para faixa de ajuste</td>
+                                        <td class="Habilita restrição 50v/51v/67v">Local onde vai o valor</td>
+                                </tr>
                 </table>
         </div>
 

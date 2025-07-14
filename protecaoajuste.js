@@ -17,6 +17,7 @@ let alfa2 = 0;
 let beta2 = 0;
 let k2 = 0;
 
+
 let ipneutro = 0;
 let imagneutro = 0;
 let Iinstneutro = 0;
@@ -79,7 +80,6 @@ function salvarOpcao() {
 
     const tdefdeneutro = document.getElementById("tdef-neutro-html");
     const tdefdeneutroSelecionada = tdefdeneutro.value;
-
 
 
     //armazenamento dos valores de fase no local storage
@@ -193,6 +193,7 @@ window.onload = function () {
     const imagrealcalculadaArmazenada = parseFloat(localStorage.getItem("inmagrealSelecionada"));
     const ideffaseArmazenada = parseFloat(localStorage.getItem("ideffaseSelecionada"));
     const tdeffaseArmazenada = parseFloat(localStorage.getItem("tdeffaseSelecionada"));
+    const imagresultanteArmazenada = parseFloat(localStorage.getItem("Imagresultante"));
 
 
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada"));
@@ -229,7 +230,8 @@ window.onload = function () {
     var imagBase = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : imagArmazenada;
     var Imaginstantanea = imagBase * (1 + imagpercentualArmazenada / 100);
     imagtotalformatada = Imaginstantanea;
-    localStorage.setItem("Instfaseconsumo", imagtotalformatada);
+    localStorage.setItem("Instfaseconsumo", imagtotalformatada);+
+    localStorage.setItem("Imagresultante", imagBase);
 
     //Calculo da  corrente nominal de neutro
     inominalneutro = (correnteprimaria * (desequilibrio / 100));
@@ -275,7 +277,7 @@ window.onload = function () {
     IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
     tipodecurvahtml.value = curvafaseArmazenada;
     dialfasehtml.value = dialfaseArmazenada;
-    imagfase.textContent = imagArmazenada.toFixed(2) + " A";
+    imagfase.textContent = imagresultanteArmazenada.toFixed(2) + " A";
     imagpercentual.value = imagpercentualArmazenada;
     imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
     imagrealcalculada.textContent = imagrealcalculadaArmazenada.toFixed(2) + " A";

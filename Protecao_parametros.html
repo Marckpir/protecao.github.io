@@ -54,26 +54,25 @@
 
             <tr>
                 <td>TENSÃO PRIMÁRIA:</td>
-
-                <td>
-                    <select id="tensaoprimaria" size="1">
+                <td style="text-align: right;">
+                    <select id="tensaoprimaria" size="1" style="text-align: left;">
                         <option>13.8</option>
                         <option>22.0</option>
                         <option>34.5</option>
                         <option>0.220</option>
                         <option>0.380</option>
                         <option>0.440</option>
-                    </select> <span class="unidade">kV</span><br>
+                    </select>
+                    <span class="unidade">kV</span><br>
                 </td>
-
             </tr>
 
             <tr>
                 <td>DEMANDA CONSUMO:</td>
                 <td>
-                    <div class="input-container" style="display: flex; align-items: center;">
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
                         <input id="demandaConsumo" type="number" placeholder="Digite um valor"
-                            style="margin-right: 4px;">
+                            style="margin-right: 4px; text-align: left;">
                         <span class="unidade">kW</span>
                     </div>
                 </td>
@@ -89,14 +88,19 @@
 
             <tr>
                 <td>FATOR DE POTÊNCIA:</td>
-                <td><input id="fatorPotencia" type="text" placeholder="Digite um valor">%</td>
+                <td>
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input id="fatorPotencia" type="text" placeholder="Digite um valor" style="margin-right: 11px; text-align: left;">
+                        <span class="unidade">%</span>
+                    </div>
+                </td>
             </tr>
 
             <tr>
                 <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
                 <td>
-                    <div class="input-container">
-                        <input type="number" id="desequilibrio" placeholder="Digite um valor">
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input type="number" id="desequilibrio" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
                         <span class="unidade">%</span>
                     </div>
                 </td>
@@ -105,8 +109,8 @@
             <tr>
                 <td>ICC TRIFÁSICA:</td>
                 <td>
-                    <div class="input-container">
-                        <input id="icctrifasica" type="number" placeholder="Digite um valor">
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input id="icctrifasica" type="number" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
                         <span class="unidade">A</span>
                     </div>
                 </td>
@@ -114,11 +118,10 @@
             <tr>
                 <td>TC DE PROTEÇÃO:</td>
                 <td>
-                    <div class="input-container" style="display: flex; align-items: center;">
-                        <input id="tcdeProtecao" type="text" style="margin-right: 4px;">
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input id="tcdeProtecao" type="text" style="margin-right: 4px; text-align: left;">
                         <span class="unidade">:5A</span>
                     </div>
-
                 </td>
             </tr>
 
@@ -206,6 +209,40 @@
                         </div>
                 </td>
             </tr>
+
+            <!-- <tr>
+                <td>RELÉ DE PROTEÇÃO:</td>
+
+                <td>
+                        <select id="tabelaselecionadahtml" onchange="salvarTabela()" style="width: 95%; font-size: 0.95em; min-width: 320px; text-align: left;">
+                            <option value=""></option>
+                            <option value="1-PEXTRON-URP7104">1-PEXTRON-URP7104</option>
+                            <option value="2-PEXTRON-URP1439">2-PEXTRON-URP1439</option>
+                            <option value="3-PEXTRON-URPE-2405">3-PEXTRON-URPE-2405</option>
+                            <option value="4-PEXTRON-URP-6100-Software-Versão-1.0.0.061">
+                                4-PEXTRON-URP-6100-Software-Versão-1.0.0.061</option>
+                            <option value="5-SIEMENS-7SR1004">5-SIEMENS-7SR1004</option>
+                            <option value="6-SIEMENS-7SR1002">6-SIEMENS-7SR1002</option>
+                            <option value="7-SCHNEIDER-SEPAM-S42">7-SCHNEIDER-SEPAM-S42</option>
+                            <option value="8-VAMP-11-SCHNEIDER">8-VAMP-11-SCHNEIDER</option>
+                            <option value="9-PEXTRON-URP6104">9-PEXTRON-URP6104</option>
+                            <option value="10-PEXTRON-URP-6000-Software-Versão-1.0.0.059">
+                                10-PEXTRON-URP-6000-Software-Versão-1.0.0.059</option>
+                            <option value="11-SEG_MRI3-IE">11-SEG_MRI3-IE</option>
+                            <option value="12-SCHNEIDER-SEPAM-S10">12-SCHNEIDER-SEPAM-S10</option>
+                            <option value="13-REMP-GD">13-REMP-GD</option>
+                            <option value="14-SCHNEIDER-P3U30">14-SCHNEIDER-P3U30</option>
+                            <option value="15-SIEMENS-7SR5111">15-SIEMENS-7SR5111</option>
+                            <option value="16-SEL-751">16-SEL-751</option>
+                            <option value="17-REMP100">17-REMP100</option>
+                            <option value="18-REMP32">18-REMP32</option>
+                            <option value="19-PEXTRON-URP-6100-Software-Versão-1.0.0.059">
+                                19-PEXTRON-URP-6100-Software-Versão-1.0.0.059</option>
+                            <option value="20-SCHNEIDER-SEPAM-S20">20-SCHNEIDER-SEPAM-S20</option>
+                        </select>
+                </td>
+
+            </tr> -->
         </table>
 
 

@@ -55,6 +55,13 @@ function salvarOpcao() {
     localStorage.setItem("RTPauxiliarSelecionada", RTPauxiliarSelecionada);
 
     //-----------------------------------------------------------------------------------------
+//seleciona a tabela do rele de proteção e armazena no localStorage
+    // const tabelaSelect = document.getElementById("tabelaselecionadahtml");
+    // if (tabelaSelect) {
+    //     const tabelaSelecionada = tabelaSelect.value;
+    //     localStorage.setItem("tabelaselecionadahtml", tabelaSelecionada);
+    // }
+
     //-----------------------------------------------------------------------------------------
 
 
@@ -290,6 +297,14 @@ window.onload = function () {
     }
 
     //-----------------------------------------------------------------------------------------
+    // const tabelaSelecionada = localStorage.getItem("tabelaselecionadahtml");
+    // const tabelaElement = document.getElementById("tabelaselecionadahtml");
+    // if (tabelaSelecionada && tabelaElement) {
+    //     tabelaElement.value = tabelaSelecionada;
+    // }
+
+
+
     //-----------------------------------------------------------------------------------------
 
 
@@ -337,6 +352,25 @@ window.onload = function () {
 
 
 }
+
+
+// function salvarTabela(){
+
+//     const tabelaSelect = document.getElementById("tabelaselecionadahtml");
+//     if (tabelaSelect) {
+//         const tabelaSelecionada = tabelaSelect.value;
+//         localStorage.setItem("tabelaselecionadahtml", tabelaSelecionada);
+//     }
+
+
+// }
+
+
+
+
+
+
+
 
 
 // --------------------------------------------------------------// 

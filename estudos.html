@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="estudos.css" type="text/css">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
-        
+
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@
 
 <body>
         <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
-                <span
+                <span id="titulodapagina"
                         style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
                         COORDINATION WEB
                 </span>
@@ -56,9 +56,26 @@
         <div style="text-align: center; margin: 12px 0;">
                 <button onclick="window.print()" class="dark-mode-toggle"
                         style="padding: 8px 18px; font-size: 1em;">Imprimir</button>
-
-                
+                <br>
         </div>
+
+        <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
+
+
+
+                <div id="controls">
+                        <button id="clearButton">🧹 Limpar Galeria</button>
+                </div>
+
+                                <div>
+
+                        <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
+                        <input type="file" id="imageInput" accept="image/*" multiple
+                                style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #f8f8f8; font-size: 1em; color: #222; cursor: pointer;">
+
+                </div>
+
+         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS--------------- -->
 
 
 
@@ -210,179 +227,465 @@
                 </table>
         </div>
 
-
-
-
-
-
-
         <br><br><br><br><br><br>
 
 
-        <h1>ESTUDO DE PROTEÇÃO E SELETIVIDADE</h1>
-
-
-
-        <div id="objetivotexto" style="display: flex; flex-direction: column; align-items: center;">
-                <h2>Objetivo</h2>
-                <textarea
-                        style="width: 210mm; min-height: 80px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
-        Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de
-        cliente de carga ao sistema CEMIG, incluindo dados elétricos, cálculos de impacto e ajustes das proteções.
-                </textarea>
+        <div id="tituloestudodeprotecao"
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>ESTUDOS DE PROTEÇÃO E SELETIVIDADE</h2>
         </div>
 
 
+        <h2>Objetivo</h2>
+
+        <div id="objetivotexto" style="display: flex; flex-direction: column; align-items: center;">
+
+                <textarea
+                        style="width: 210mm; min-height: 80px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
+        Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente de carga ao sistema, incluindo dados elétricos, cálculos dimensionamentos, ajustes das proteções e plotagem de gráficos.
+                </textarea>
+        </div>
+
+        <h2>Informações da Conexão</h2>
+
         <div id="tabelaparametrosiniciais">
-                <h2>Informações da Conexão</h2>
+
                 <table>
                         <tr>
-                                <th>Tensão de Atendimento</th>
-                                <td>13,80 kV</td>
+                                <th>Tensão de Atendimento:</th>
+                                <td id="tensao-atendimento"></td>
                         </tr>
                         <tr>
-                                <th>Demanda Contratada</th>
-                                <td>300,00 kW</td>
+                                <th>Demanda Contratada:</th>
+                                <td id="demanda-contratada-consumo"></td>
                         </tr>
                         <tr>
-                                <th>Fator de Potência</th>
-                                <td>92,0%</td>
+                                <th>Fator de Potência:</th>
+                                <td id="fator-potencia"></td>
                         </tr>
                         <tr>
-                                <th>Icc 3∅ Ponto de Conexão</th>
-                                <td>5000,00 A</td>
+                                <th>Icc 3∅ Ponto de Conexão:</th>
+                                <td id="icc-ponto-conexao"></td>
                         </tr>
                         <tr>
-                                <th>Relé de Proteção</th>
-                                <td>SIEMENS-7SR1004-GD</td>
+                                <th>Relé de Proteção:</th>
+                                <td id="rele-protecao"></td>
                         </tr>
-                        <tr>
-                                <th>Gerador a Diesel</th>
-                                <td>0,00 kVA</td>
+                        <tr class="habilitageradoradiesel">
+                                <th>Gerador a Diesel:</th>
+                                <td id="gerador-diesel"></td>
                         </tr>
                 </table>
         </div>
 
 
 
-
+        <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
         <div id=calculotrafos>
-                <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
+
                 <p>
                         <strong>In TRF01 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf01" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf01" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf01"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">2500</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
-                                        &radic;3</span>
+                        <span id="valores-trf01" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf01" style="display:block; text-align:center;"></span>
+                                <span id="v-trf01"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = 104,59 A
+                        = <span id="resultado-trf01"></span>
                 </p>
                 <p>
                         <strong>In TRF02 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf02" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf02" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf02"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">1000</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
-                                        &radic;3</span>
+                        <span id="valores-trf02" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf02" style="display:block; text-align:center;"></span>
+                                <span id="v-trf02"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = 41,84 A
+                        = <span id="resultado-trf02"></span>
                 </p>
                 <p>
                         <strong>In TRF03 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf03" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf03" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf03"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">500</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
-                                        &radic;3</span>
+                        <span id="valores-trf03" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf03" style="display:block; text-align:center;"></span>
+                                <span id="v-trf03"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = 20,92 A
+                        = <span id="resultado-trf03"></span>
                 </p>
                 <p>
                         <strong>In TRF04 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf04" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf04" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf04"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">300</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
-                                        &radic;3</span>
+                        <span id="valores-trf04" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf04" style="display:block; text-align:center;"></span>
+                                <span id="v-trf04"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = 12,55 A
+                        = <span id="resultado-trf04"></span>
                 </p>
                 <p>
                         <strong>In TRF05 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf05" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf05" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf05"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">225</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
-                                        &radic;3</span>
+                        <span id="valores-trf05" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf05" style="display:block; text-align:center;"></span>
+                                <span id="v-trf05"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = 9,41 A
+                        = <span id="resultado-trf05"></span>
                 </p>
                 <p>
                         <strong>In TRF06 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf06" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf06" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf06"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">150</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
-                                        &radic;3</span>
+                        <span id="valores-trf06" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf06" style="display:block; text-align:center;"></span>
+                                <span id="v-trf06"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = 6,28 A
+                        = <span id="resultado-trf06"></span>
                 </p>
                 <p>
                         <strong>In TRF07 =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">S</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span id="formula-trf07" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf07" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf07"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">112,5</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 &times;
+                        <span id="valores-trf07" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf07" style="display:block; text-align:center;"></span>
+                                <span id="v-trf07"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span id="resultado-trf07"></span>
+                </p>
+                <p>
+                        <strong>In TRF08 =</strong>
+                        <span id="formula-trf08" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf08" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf08"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
                                         &radic;3</span>
                         </span>
-                        = 4,71 A
+                        =
+                        <span id="valores-trf08" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf08" style="display:block; text-align:center;"></span>
+                                <span id="v-trf08"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span id="resultado-trf08"></span>
+                </p>
+                <p>
+                        <strong>In TRF09 =</strong>
+                        <span id="formula-trf09" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf09" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf09"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                                        &radic;3</span>
+                        </span>
+                        =
+                        <span id="valores-trf09" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf09" style="display:block; text-align:center;"></span>
+                                <span id="v-trf09"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span id="resultado-trf09"></span>
+                </p>
+                <p>
+                        <strong>In TRF10 =</strong>
+                        <span id="formula-trf10" style="display:inline-block; vertical-align:middle;">
+                                <span id="numerador-trf10" style="display:block; text-align:center;">S</span>
+                                <span id="denominador-trf10"
+                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                                        &radic;3</span>
+                        </span>
+                        =
+                        <span id="valores-trf10" style="display:inline-block; vertical-align:middle;">
+                                <span id="s-trf10" style="display:block; text-align:center;"></span>
+                                <span id="v-trf10"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span id="resultado-trf10"></span>
                 </p>
         </div>
 
 
+        <h2>Cálculo das Correntes ANSI e NANSI</h2>
+        <div id="calculoANSIeNANSI">
 
-        <br><br><br><br><br><br><br><br><br><br>
+                <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em; margin-bottom: 24px;">
+                        <div style="margin-bottom: 12px;">
+                                <strong>I<sub>FASE ANSI</sub></strong>
+                                =
+                                <span style="display:inline-block; vertical-align:middle;">
+                                        <span style="display:block; text-align:center;">100</span>
+                                        <span
+                                                style="border-top:1px solid; display:block; text-align:center;">Z(%)</span>
+                                </span>
+                                &times; In (do transformador)
+                        </div>
+                        <div>
+                                <strong>I<sub>NEUTRO ANSI</sub></strong>
+                                =
+                                0,58 &times; I<sub>FASE ANSI</sub>
+                        </div>
+                </div>
 
 
+                <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em;">
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR01</strong>
+                                =
+                                <span id="frac-ansi-tr01" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr01" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr01"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr01"></span>
+                                =
+                                <span id="resultado-ansi-tr01"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR02</strong>
+                                =
+                                <span id="frac-ansi-tr02" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr02" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr02"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr02"></span>
+                                =
+                                <span id="resultado-ansi-tr02"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR03</strong>
+                                =
+                                <span id="frac-ansi-tr03" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr03" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr03"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr03"></span>
+                                =
+                                <span id="resultado-ansi-tr03"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR04</strong>
+                                =
+                                <span id="frac-ansi-tr04" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr04" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr04"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr04"></span>
+                                =
+                                <span id="resultado-ansi-tr04"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR05</strong>
+                                =
+                                <span id="frac-ansi-tr05" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr05" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr05"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr05"></span>
+                                =
+                                <span id="resultado-ansi-tr05"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR06</strong>
+                                =
+                                <span id="frac-ansi-tr06" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr06" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr06"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr06"></span>
+                                =
+                                <span id="resultado-ansi-tr06"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR07</strong>
+                                =
+                                <span id="frac-ansi-tr07" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr07" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr07"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr07"></span>
+                                =
+                                <span id="resultado-ansi-tr07"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR08</strong>
+                                =
+                                <span id="frac-ansi-tr08" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr08" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr08"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr08"></span>
+                                =
+                                <span id="resultado-ansi-tr08"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR09</strong>
+                                =
+                                <span id="frac-ansi-tr09" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr09" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr09"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr09"></span>
+                                =
+                                <span id="resultado-ansi-tr09"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I FASE ANSI TR10</strong>
+                                =
+                                <span id="frac-ansi-tr10" style="display:inline-block; vertical-align:middle;">
+                                        <span id="num-ansi-tr10" style="display:block; text-align:center;">100</span>
+                                        <span id="den-ansi-tr10"
+                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                &times; <span id="in-ansi-tr10"></span>
+                                =
+                                <span id="resultado-ansi-tr10"></span>
+                        </div>
+
+                        <br>
+
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR01</strong>
+                                =
+                                <span id="coef-neutro-tr01">0,58</span> &times; <span
+                                        id="resultado-ansi-tr01-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr01"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR02</strong>
+                                =
+                                <span id="coef-neutro-tr02">0,58</span> &times; <span
+                                        id="resultado-ansi-tr02-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr02"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR03</strong>
+                                =
+                                <span id="coef-neutro-tr03">0,58</span> &times; <span
+                                        id="resultado-ansi-tr03-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr03"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR04</strong>
+                                =
+                                <span id="coef-neutro-tr04">0,58</span> &times; <span
+                                        id="resultado-ansi-tr04-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr04"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR05</strong>
+                                =
+                                <span id="coef-neutro-tr05">0,58</span> &times; <span
+                                        id="resultado-ansi-tr05-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr05"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR06</strong>
+                                =
+                                <span id="coef-neutro-tr06">0,58</span> &times; <span
+                                        id="resultado-ansi-tr06-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr06"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR07</strong>
+                                =
+                                <span id="coef-neutro-tr07">0,58</span> &times; <span
+                                        id="resultado-ansi-tr07-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr07"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR08</strong>
+                                =
+                                <span id="coef-neutro-tr08">0,58</span> &times; <span
+                                        id="resultado-ansi-tr08-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr08"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR09</strong>
+                                =
+                                <span id="coef-neutro-tr09">0,58</span> &times; <span
+                                        id="resultado-ansi-tr09-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr09"></span>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                                <strong>I NEUTRO ANSI TR10</strong>
+                                =
+                                <span id="coef-neutro-tr10">0,58</span> &times; <span
+                                        id="resultado-ansi-tr10-neutro"></span>
+                                =
+                                <span id="resultado-neutro-tr10"></span>
+                        </div>
+                </div>
+
+
+
+
+        </div>
+
+
+
+
+        <h2>Tabela Transformadores</h2>
 
         <div id="tabelatransformadores">
-                <h1>Tabela Transformadores</h1>
+
                 <table>
                         <tr>
                                 <th>Trafo</th>
@@ -397,106 +700,196 @@
                                 <th>I MAG</th>
                         </tr>
                         <tr>
-                                <td>TRF01</td>
-                                <td>500</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>20,92</td>
-                                <td>418,37</td>
-                                <td>242,65</td>
-                                <td>167,35</td>
+                                <td id="trafo-01">TRF01</td>
+                                <td id="potencia-01"></td>
+                                <td id="qtde-01"></td>
+                                <td id="z-01"></td>
+                                <td id="im-in-01"></td>
+                                <td id="t-01"></td>
+                                <td id="in-01"></td>
+                                <td id="i-ansi-01"></td>
+                                <td id="i-nansi-01"></td>
+                                <td id="i-mag-01"></td>
                         </tr>
                         <tr>
-                                <td>TRF02</td>
-                                <td>1000</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>41,84</td>
-                                <td>836,74</td>
-                                <td>485,30</td>
-                                <td>334,72</td>
+                                <td id="trafo-02">TRF02</td>
+                                <td id="potencia-02"></td>
+                                <td id="qtde-02"></td>
+                                <td id="z-02"></td>
+                                <td id="im-in-02"></td>
+                                <td id="t-02"></td>
+                                <td id="in-02"></td>
+                                <td id="i-ansi-02"></td>
+                                <td id="i-nansi-02"></td>
+                                <td id="i-mag-02"></td>
                         </tr>
                         <tr>
-                                <td>TRF03</td>
-                                <td>2500</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>104,59</td>
-                                <td>2091,80</td>
-                                <td>1213,08</td>
-                                <td>836,72</td>
+                                <td id="trafo-03">TRF03</td>
+                                <td id="potencia-03"></td>
+                                <td id="qtde-03"></td>
+                                <td id="z-03"></td>
+                                <td id="im-in-03"></td>
+                                <td id="t-03"></td>
+                                <td id="in-03"></td>
+                                <td id="i-ansi-03"></td>
+                                <td id="i-nansi-03"></td>
+                                <td id="i-mag-03"></td>
                         </tr>
                         <tr>
-                                <td>TRF04</td>
-                                <td>300</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>12,55</td>
-                                <td>251,00</td>
-                                <td>145,95</td>
-                                <td>100,40</td>
+                                <td id="trafo-04">TRF04</td>
+                                <td id="potencia-04"></td>
+                                <td id="qtde-04"></td>
+                                <td id="z-04"></td>
+                                <td id="im-in-04"></td>
+                                <td id="t-04"></td>
+                                <td id="in-04"></td>
+                                <td id="i-ansi-04"></td>
+                                <td id="i-nansi-04"></td>
+                                <td id="i-mag-04"></td>
                         </tr>
                         <tr>
-                                <td>TRF05</td>
-                                <td>225</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>9,41</td>
-                                <td>188,20</td>
-                                <td>109,46</td>
-                                <td>75,28</td>
+                                <td id="trafo-05">TRF05</td>
+                                <td id="potencia-05"></td>
+                                <td id="qtde-05"></td>
+                                <td id="z-05"></td>
+                                <td id="im-in-05"></td>
+                                <td id="t-05"></td>
+                                <td id="in-05"></td>
+                                <td id="i-ansi-05"></td>
+                                <td id="i-nansi-05"></td>
+                                <td id="i-mag-05"></td>
                         </tr>
                         <tr>
-                                <td>TRF06</td>
-                                <td>150</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>6,28</td>
-                                <td>125,60</td>
-                                <td>72,97</td>
-                                <td>50,24</td>
+                                <td id="trafo-06">TRF06</td>
+                                <td id="potencia-06"></td>
+                                <td id="qtde-06"></td>
+                                <td id="z-06"></td>
+                                <td id="im-in-06"></td>
+                                <td id="t-06"></td>
+                                <td id="in-06"></td>
+                                <td id="i-ansi-06"></td>
+                                <td id="i-nansi-06"></td>
+                                <td id="i-mag-06"></td>
                         </tr>
                         <tr>
-                                <td>TRF07</td>
-                                <td>112,5</td>
-                                <td>1</td>
-                                <td>5</td>
-                                <td>8,00</td>
-                                <td>3,00</td>
-                                <td>4,71</td>
-                                <td>94,20</td>
-                                <td>54,73</td>
-                                <td>37,68</td>
+                                <td id="trafo-07">TRF07</td>
+                                <td id="potencia-07"></td>
+                                <td id="qtde-07"></td>
+                                <td id="z-07"></td>
+                                <td id="im-in-07"></td>
+                                <td id="t-07"></td>
+                                <td id="in-07"></td>
+                                <td id="i-ansi-07"></td>
+                                <td id="i-nansi-07"></td>
+                                <td id="i-mag-07"></td>
+                        </tr>
+                        <tr>
+                                <td id="trafo-08">TRF08</td>
+                                <td id="potencia-08"></td>
+                                <td id="qtde-08"></td>
+                                <td id="z-08"></td>
+                                <td id="im-in-08"></td>
+                                <td id="t-08"></td>
+                                <td id="in-08"></td>
+                                <td id="i-ansi-08"></td>
+                                <td id="i-nansi-08"></td>
+                                <td id="i-mag-08"></td>
+                        </tr>
+                        <tr>
+                                <td id="trafo-09">TRF09</td>
+                                <td id="potencia-09"></td>
+                                <td id="qtde-09"></td>
+                                <td id="z-09"></td>
+                                <td id="im-in-09"></td>
+                                <td id="t-09"></td>
+                                <td id="in-09"></td>
+                                <td id="i-ansi-09"></td>
+                                <td id="i-nansi-09"></td>
+                                <td id="i-mag-09"></td>
+                        </tr>
+                        <tr>
+                                <td id="trafo-10">TRF10</td>
+                                <td id="potencia-10"></td>
+                                <td id="qtde-10"></td>
+                                <td id="z-10"></td>
+                                <td id="im-in-10"></td>
+                                <td id="t-10"></td>
+                                <td id="in-10"></td>
+                                <td id="i-ansi-10"></td>
+                                <td id="i-nansi-10"></td>
+                                <td id="i-mag-10"></td>
                         </tr>
                 </table>
-                        
+
 
         </div>
 
+        <h2>Cálculo Corrente de Magnetização Total</h2>
 
         <div id="calculomagnetizacao">
-                <h2>Cálculo Corrente de Magnetização Total</h2>
-                <p>Imag = (IN maior trafo × M) + (In dos demais transformadores) = 20,92 × 8,00 = <strong>167,35
-                                A</strong></p>
-                <p>Imag = 167,35 A</p>
+
+                <p>Imag total = (In maior trafo × M) + (In dos demais transformadores)</strong></p>
+                <p>Onde:</p>
+                <ul>
+                        <li>In maior trafo = Corrente nominal do transformador de maior potência</li>
+                        <li>M = Multiplicador de magnetização (Im/In)</li>
+                        <li>In dos demais transformadores = Corrente nominal dos demais transformadores</li>
+                        <p>
+                                <strong>Imag total =</strong>
+                                <span style="margin-left: 12px;">
+                                        <span id="in-maior-trafo"></span><span id="M-maior-trafo"></span>
+                                </span>
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-1"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-2"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-3"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-4"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-5"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-6"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-7"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-8"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-9"></span>
+                                </span>
+
+                                <span style="margin-left: 32px;">
+                                        <span id="in-trafo-10"></span>
+                                </span>
+                        </p>
+                        <!-- <p>Imag total = <span id="in-maior-trafo">20,92</span> × <span id="iminmaiortrafo">8,00</span> = <strong><span id="imag-total">167,35</span> A</strong></p> -->
+                        <p><strong>Imag total =</strong>
+                                <strong><span class="imag-total-valor"></span>
+                        </p>
         </div>
 
+        <h2>Cálculo de Magnetização Real</h2>
         <div id="calculomagnetizacaoreal">
-                <h2>Cálculo de Magnetização Real</h2>
 
-                <p>Fórmula simplificada com impedâncias:</p>
+
+
 
                 <p>Conforme bibliografia técnica, o calculo de magnetização pode ser
                         feito considerando não somente as impedancias dos trafos internos mas também as
@@ -592,13 +985,13 @@
                                                 <span style="white-space:nowrap;">
                                                         <span style="display:inline-block; vertical-align:middle;">
                                                                 <span style="display:block; text-align:center;">1</span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">5000,00</span>
+                                                                <span id="inrush-cc3f"
+                                                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                                                         </span>
                                                         +
                                                         <span style="display:inline-block; vertical-align:middle;">
                                                                 <span style="display:block; text-align:center;">1</span>
-                                                                <span
+                                                                <span id="inrush-in"
                                                                         style="border-top:1px solid; display:block; text-align:center;">932,44</span>
                                                         </span>
                                                 </span>
@@ -608,7 +1001,7 @@
                                 <span style="display:inline-block; vertical-align:middle;">
                                         <span style="display:block; text-align:center;">1</span>
                                         <span style="border-top:1px solid; display:block; text-align:center;">
-                                                0,0002 + 0,001072453
+                                                <span id="divisao-icc"></span> + <span id="divisao-inrush"></span>
                                         </span>
                                 </span>
                         </div>
@@ -618,71 +1011,156 @@
                                 =
                                 <span style="display:inline-block; vertical-align:middle;">
                                         <span style="display:block; text-align:center;">1</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">
+                                        <span id="resultado-divisao"
+                                                style="border-top:1px solid; display:block; text-align:center;">
                                                 0,001272453
                                         </span>
                                 </span>
                                 =
-                                <strong>785,88 A</strong>
+                                <strong id="resultado-inrush-real">785,88 A</strong>
                         </div>
                 </div>
         </div>
 
 
 
-        <br><br><br><br><br><br>
-
+        <br>
+        <h2>Critérios para dimensionamento dos transoformadores de corrente (TC) de Proteção</h2>
         <div id=calculostc>
-                <h2>Dimensionamento do TC de Proteção</h2>
-                <p><strong>1) Saturação da ICC:</strong> TC =
+
+                <strong>1) Cobertura da corrente de curto-circuito:</strong>
+                <p>Para o cálculo da saturação por corrente de curto-circuito a norma prevê a capacidade do TC
+                        em suportar uma corrente de até 50 vezes a corrente de primário: </p>
+
+                <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">5000</span>
+                                <span style="display:block; text-align:center;">Icc trifásica</span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">50</span>
                         </span>
-                        = <strong>100 A</strong>
+
                 </p>
-                <p><strong>2) Sensibilidade para Corrente de Partida:</strong> Ip =
+                <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">315</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 ×
-                                        0,92</span>
+                                <span id="curtoTC" style="display:block; text-align:center;"></span>
+                                <span style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = <strong>14,32 A</strong>
+                        = <span id="tc-saturacao-primario"></span> A
+
                 </p>
-                <p><strong>3) Cobertura da Corrente de Magnetização:</strong> TC =
+                <br>
+                <p><strong>2) Cobertura da Corrente de Magnetização:
+                                <p>Para o cálculo da saturação por corrente de magnetização dos transformadores
+                                        a norma prevê a capacidade do TC em suportar uma corrente de até 20 vezes a
+                                        corrente
+                                        de primário: </p>
+                                <p>
+                        </strong>
+                        I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">167,35</span>
+                                <span style="display:block; text-align:center;">I rush</span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">20</span>
                         </span>
-                        = <strong>8,37 A</strong>
+
+                        <br>
+                        I primário TC >=
+                        <span style="display:inline-block; vertical-align:middle;">
+                                <span class="imag-total-valor"
+                                        style="display:block; text-align:center;">167,35</span>
+                                <span id="corrente-magnetizacao-tc-divisor"
+                                        style="border-top:1px solid; display:block; text-align:center;">20</span>
+                        </span>
+                        = <span id="corrente-magnetizacao-tc">8,37 A</span>
+                </p>
+                <br>
+                <p><strong>
+                                3)Cobertura da Corrente de Partida Máxima:</h2>
+                                <p>A corrente de primário do TC deve possuir capacidade nominal superior à corrente de
+                                        partida da instalação:</p>
+
+                                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
+                                                <span style="display:block; text-align:center;">P(kW) + tolerânica de
+                                                        5%</span>
+                                                <span style="border-top:1px solid; display:block; text-align:center;">13,8
+                                                        × √3 ×
+                                                        0,92</span>
+                                        </span>
+
+
+                                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
+                                                <span class="ip-partida-numerador"
+                                                        style="display:block; text-align:center;">315 + 31 </span>
+                                                <span class="ip-partida-denominador"
+                                                        style="border-top:1px solid; display:block; text-align:center;">13,8
+                                                        × √3 × 0,92</span>
+                                        </span>
+                                        = <span class="ip-partida-resultado">14,32 A</span></p>
                 </p>
 
-                <h2>4) Critério de Cobertura da Corrente de Partida</h2>
-                <p>O TC deve possuir capacidade de medição superior à corrente de partida:</p>
-                <p><strong>Corrente de partida (IN + 5%) = 14,32 A</strong></p>
+                I primário TC >=
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">Ip</span>
 
-                <h2>5) Critério Normativo</h2>
-                <p>Conforme a ND-5.3 e a ABNT NBR 6856, o TC deve ter no mínimo a seguinte especificação:</p>
-                <p><strong>Classificação: 12,5 VA 10P20</strong></p>
+                </span>
 
-                <h2>Cálculo de Saturação dos TCs (Curto-Circuito Trifásico 5000 A)</h2>
-                <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> × Z<sub>total</sub></p>
-                <p><strong>I<sub>cc</sub> =</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">I<sub>cc3∅</sub></span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">RTC</span>
-                        </span>
-                        =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">5000</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">50</span>
-                        </span>
-                        = <strong>100,00 A</strong>
-                </p>
+                I primário TC >=
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span class="ip-partida-resultado">14,32</span>
+
+                </span>
+
+                <br><br><br>
+
+                4) Critério de precisão de leitura do TC:
+                </strong>
+                <p>Considerando as limitações de leitura com erro máximo de 10% previsto
+                        na leitura de corrente pelo TC de proteção, a medição só se torna confiável após essa faixa.
+                        Nesse caso, deve ser previsto uma corrente Ip da instalação com valor maior ou igual a essa
+                        sensibilidade.</p>
+
+                <p><strong>10% Corrente de partida TC >= Ip</strong></p>
+
+                <span>10% Corrente de partida TC >= <span class="ip-partida-resultado"></span>14,32 A</span>
+
+                <br><br>
+
+                <p><strong>4) Critério Normativo</h2>
+                                <p>Conforme a ND-5.3 e a ABNT NBR 6856, o TC deve ter no mínimo a
+                                        seguinte especificação:</p>
+                                <p><strong>Classificação: 12,5 VA 10P20</strong></p>
+
+
+
+
+
+
+
+
+
+
 
         </div>
 
         <div id="criteriocalculotcimpedancia">
+                Cálculo de Saturação dos TCs (Curto-Circuito Trifásico 5000 A)
+                <div>
+                        <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> ×
+                                Z<sub>total</sub></p>
+                        <p><strong>I<sub>cc</sub> =</strong>
+                                <span style="display:inline-block; vertical-align:middle;">
+                                        <span style="display:block; text-align:center;">I<sub>cc3∅</sub></span>
+                                        <span style="border-top:1px solid; display:block; text-align:center;">RTC</span>
+                                </span>
+                                =
+                                <span style="display:inline-block; vertical-align:middle;">
+                                        <span style="display:block; text-align:center;">5000</span>
+                                        <span style="border-top:1px solid; display:block; text-align:center;">50</span>
+                                </span>
+                                = <strong>100,00 A</strong>
+                        </p>
+
+
+
+                </div>
 
                 <h2>Impedância do Relé (Z<sub>relé</sub>)</h2>
                 <p>Relé: SIEMENS-7SR1004-GD, Consumo: 0,20 VA / 5 A (Fase e Neutro)</p>
@@ -718,7 +1196,9 @@
 
                 <h2>Cálculo da Tensão de Saturação</h2>
                 <p>V<sub>sat</sub> = 100 A × 0,2560 Ω = <strong>25,6 V</strong></p>
+
         </div>
+
 
         <div id="especificacaodotc">
                 <h2>Conclusão</h2>
@@ -872,46 +1352,47 @@
                                 style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
                         
                 </div> -->
-<div id="formuladialdeimag">
-        <p>Dial calculado para a função de magnetização dos transformadores:</p>
-        <div class="valores2">
-                <label>β: <span id="beta2">5</span></label>
-                <label>Imag: <span id="imag2">400</span></label>
-                <label>In: <span id="in2">50</span></label>
-                <label>α: <span id="alpha2">0.8</span></label>
-                <label>k: <span id="k2">1.2</span></label>
-                <label>t: <span id="t2">0.02</span></label>
-        </div>
+                <div id="formuladialdeimag">
+                        <p>Dial calculado para a função de magnetização dos transformadores:</p>
+                        <div class="valores2">
+                                <label>β: <span id="beta2">5</span></label>
+                                <label>Imag: <span id="imag2">400</span></label>
+                                <label>In: <span id="in2">50</span></label>
+                                <label>α: <span id="alpha2">0.8</span></label>
+                                <label>k: <span id="k2">1.2</span></label>
+                                <label>t: <span id="t2">0.02</span></label>
+                        </div>
 
-        <h3>Fórmula:</h3>
-        <p id="formula2" style="font-size: 1.1em;"></p>
-</div>
+                        <h3>Fórmula:</h3>
+                        <p id="formula2" style="font-size: 1.1em;"></p>
+                </div>
 
-<p><strong>Dial calculado:</strong> 1,62</p>
+                <p><strong>Dial calculado:</strong> 1,62</p>
 
-                
-<div id="formulatempodeimag">
-  <p>Conforme Dial real estabelecido, o tempo máximo real para a magnetização dos transformadores será
-                        conforme
-                        cálculo abaixo:</p>
-  <div class="valores">
-    <label>β: <span id="beta">5</span></label>
-    <label>Imag: <span id="imag">300</span></label>
-    <label>In: <span id="in">50</span></label>
-    <label>α: <span id="alpha">0.8</span></label>
-    <label>k: <span id="k">1.2</span></label>
-    <label>DT: <span id="dt">0.02</span></label>
-  </div>
 
-  <h3>Fórmula:</h3>
-  <p id="formula" style="font-size: 1.1em;"></p>
-  </div>
+                <div id="formulatempodeimag">
+                        <p>Conforme Dial real estabelecido, o tempo máximo real para a magnetização dos transformadores
+                                será
+                                conforme
+                                cálculo abaixo:</p>
+                        <div class="valores">
+                                <label>β: <span id="beta">5</span></label>
+                                <label>Imag: <span id="imag">300</span></label>
+                                <label>In: <span id="in">50</span></label>
+                                <label>α: <span id="alpha">0.8</span></label>
+                                <label>k: <span id="k">1.2</span></label>
+                                <label>DT: <span id="dt">0.02</span></label>
+                        </div>
+
+                        <h3>Fórmula:</h3>
+                        <p id="formula" style="font-size: 1.1em;"></p>
+                </div>
 
 
 
 
                 <p>Conforme Dial calculado, o Dial real à ser parametrizado no relé será: 0,1</p>
-                
+
 
 
 
@@ -1093,16 +1574,16 @@
         </div>
 
         <br><br>
+        <div id="titulotabelas">
 
+                <div id="tabelareles" classe="tabelaparametrizacaoreles">
+                </div>
+        </div>
 
-
-        <!-- <div id="curvaProtecao">
-    <h2>Coordenograma de Proteção - Página Completa</h2> -->
-
-        <!-- <div class="grafico-container">
-        <canvas id="curvaProtecaoCanvas"></canvas>
-    </div>
-</div> -->
+        <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
+        <h3>Imagens carregadas:</h3>
+        <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
+        ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
 
         <div id="curvaProtecao">
                 <h2>Coordenograma de Proteção</h2>
@@ -1114,9 +1595,10 @@
 
 
         <script src="estudos.js"></script>
-
+        <!-- <script src="tabelarele.js"></script> -->
         <script src="grafico5051consumo.js"></script>
-        
+
+
 
 </body>
 

@@ -57,14 +57,14 @@ function salvarOpcao() {
     };
 
 
-    console.log("i motor localstorage:" + motor);
+    // console.log("i motor localstorage:" + motor);
 
 
 
 
     localStorage.setItem("motorJSON", JSON.stringify(motor));
 
-    console.log("Motor armazenado:", motor);
+    // console.log("Motor armazenado:", motor);
 
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 1;
     const fatordePotencia = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 1;
@@ -78,9 +78,9 @@ function salvarOpcao() {
     // if (correntemotor !== null && correnteoperantemotor !== null){
     let maiorValor = correntemotor + correnteoperantemotor;
 
-    console.log("potencia operante:" + potenciaOperanteMotor);
-    console.log("tensao operante:" + tensaoArmazenada);
-    console.log("fp operante:" + fatordePotencia);
+    // console.log("potencia operante:" + potenciaOperanteMotor);
+    // console.log("tensao operante:" + tensaoArmazenada);
+    // console.log("fp operante:" + fatordePotencia);
     
 
     localStorage.setItem("maiorCorrenteoperante", maiorValor);
@@ -88,7 +88,7 @@ function salvarOpcao() {
 
     // }
 
-    console.log("i maior corrente motor localstorage:" + maiorValor);
+    // console.log("i maior corrente motor localstorage:" + maiorValor);
 
 
 
@@ -316,6 +316,7 @@ function calculos() {
                 indexMaiorImag = i;
                 maiorImagIn = intrafo;
                 maiorImagQtde = qtde;
+                maiorimin = imin;
             }
         } else {
             inArray[i] = 0;
@@ -344,6 +345,17 @@ function calculos() {
     // Salva no localStorage
     localStorage.setItem("imagtotalSelecionada", imagtotalformatada);
     localStorage.setItem("imagtotalneutroSelecionada", imagtotalneutroformatada);
+    localStorage.setItem("maiortrafoimagSelecionada", maiorImag);
+    localStorage.setItem("maiortrafoindexSelecionada", indexMaiorImag);
+    localStorage.setItem("maiortrafoinSelecionada", maiorImagIn);
+    localStorage.setItem("maiortrafoqtdeSelecionada", maiorImagQtde);
+    localStorage.setItem("maiortrafoiminSelecionada", maiorimin);
+
+    console.log("Maior Imag:", maiorImag);
+    console.log("Índice do maior Imag:", indexMaiorImag);
+    console.log("In do maior Imag:", maiorImagIn);
+    console.log("Qtde do maior Imag:", maiorImagQtde);
+    console.log("Imin do maior Imag:", maiorimin);
 }
 
 
@@ -376,6 +388,8 @@ function calculoGerador() {
     localStorage.setItem("potenciaReversaGerador", potenciaReversa);
     localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
     localStorage.setItem("potenciadieselPU", potenciadieselPU);
+
+    
 
     
 

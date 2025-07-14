@@ -2,7 +2,7 @@
 var dados = {};
 
 
-function salvarOpcao() {
+function importadadoslocalstorage() {
 
     // importa todas variáveis do localStorage
     //  const dados = {};
@@ -27,6 +27,7 @@ function salvarOpcao() {
 
 
 
+
 window.onload = function () {
     const botaoParametro = document.getElementById("botaotabelarelehtml");
     if (botaoParametro) {
@@ -34,7 +35,8 @@ window.onload = function () {
     }
 
 
-    salvarOpcao(); // Chama a função para importar as variáveis do localStorage
+    importadadoslocalstorage(); // Chama a função para importar as variáveis do localStorage
+    
 
 
 
@@ -403,9 +405,39 @@ function mostrarTabela() {
     if (tabelaSelecionada) {
         tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
     }
+    // Atualiza o localStorage com a tabela selecionada
+    // localStorage.setItem("TabelaSelecionadaHTML", seletor);
+
+    // Salva os elementos da div da tabela selecionada no localStorage
+    // if (tabelaSelecionada) {
+    //     localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
+    // }
+
+ 
+}
+
+
+function Salvaropcao() {
+
+const seletor = document.getElementById("seletorTabela").value;
+localStorage.setItem("TabelaSelecionadaHTML", seletor);
+
+const tabelaSelecionada = document.getElementById(seletor);
+if (tabelaSelecionada) {
+    localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
+}
+
+
+
+    alert("Tabela salva");
+
+
 
 
 }
+
+
+
 
 
 
