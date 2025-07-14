@@ -1042,7 +1042,7 @@
                 <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span id="curtoTC" style="display:block; text-align:center;"></span>
-                                <span style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">50</span>
                         </span>
                         = <span id="tc-saturacao-primario"></span> A
 
@@ -1064,12 +1064,11 @@
                         <br>
                         I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span class="imag-total-valor"
-                                        style="display:block; text-align:center;">167,35</span>
+                                <span class="imag-total-valor" style="display:block; text-align:center;"></span>
                                 <span id="corrente-magnetizacao-tc-divisor"
                                         style="border-top:1px solid; display:block; text-align:center;">20</span>
                         </span>
-                        = <span id="corrente-magnetizacao-tc">8,37 A</span>
+                        = <span id="corrente-magnetizacao-saturacao-tc">8,37 A</span>
                 </p>
                 <br>
                 <p><strong>
@@ -1080,15 +1079,14 @@
                                 <p>Ip = <span style="display:inline-block; vertical-align:middle;">
                                                 <span style="display:block; text-align:center;">P(kW) + tolerânica de
                                                         5%</span>
-                                                <span style="border-top:1px solid; display:block; text-align:center;">13,8
-                                                        × √3 ×
-                                                        0,92</span>
+                                                <span style="border-top:1px solid; display:block; text-align:center;">V
+                                                        × √3 × 0,92</span>
                                         </span>
 
 
                                 <p>Ip = <span style="display:inline-block; vertical-align:middle;">
                                                 <span class="ip-partida-numerador"
-                                                        style="display:block; text-align:center;">315 + 31 </span>
+                                                        style="display:block; text-align:center;"></span>
                                                 <span class="ip-partida-denominador"
                                                         style="border-top:1px solid; display:block; text-align:center;">13,8
                                                         × √3 × 0,92</span>
@@ -1119,7 +1117,7 @@
 
                 <p><strong>10% Corrente de partida TC >= Ip</strong></p>
 
-                <span>10% Corrente de partida TC >= <span class="ip-partida-resultado"></span>14,32 A</span>
+                <span>10% Corrente de partida TC >= <span class="ip-partida-resultado"></span></span>
 
                 <br><br>
 
@@ -1140,7 +1138,7 @@
 
         </div>
 
-        <div id="criteriocalculotcimpedancia">
+        <!-- <div id="criteriocalculotcimpedancia">
                 Cálculo de Saturação dos TCs (Curto-Circuito Trifásico 5000 A)
                 <div>
                         <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> ×
@@ -1197,32 +1195,55 @@
                 <h2>Cálculo da Tensão de Saturação</h2>
                 <p>V<sub>sat</sub> = 100 A × 0,2560 Ω = <strong>25,6 V</strong></p>
 
-        </div>
+        </div> -->
 
-
+        <h2>Dimensionamento TC</h2>
         <div id="especificacaodotc">
-                <h2>Conclusão</h2>
-                <p>O transformador de corrente deve ser especificado como:</p>
-                <p><strong>TC: 100 : 5 A – 12,5 VA 10P20</strong></p>
-                <!-- <p>Como a tensão de saturação calculada está abaixo da máxima permitida, o TC atenderá todos os critérios
-                definidos.</p> -->
+                <p>O transformador de corrente definido para atender os critérios avaliados será:</p>
+                <span class="tc-especificacao"></span>
+                <br><br>
+                <textarea
+                        style="width: 100%; min-height: 60px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;"
+                        placeholder="Observações ou justificativas técnicas do dimensionamento do TC">Com especificação 12,5 VA 10P20</textarea>
+                <p>Conforme norma:<br><em>Ligação ao secundário dos TC de proteção: no mínimo deverão ser conectadas as
+                                3
+                                fases e o neutro, sendo recomendável especial atenção à polaridade dos TC para que a
+                                proteção possa atuar da forma correta.</em></p>
+
         </div>
 
-
+        <h2>Dimensionamento TP de Proteção</h2>
         <div id="dimensionamentotpprotecao">
-                <h2>Dimensionamento TP de Proteção</h2>
-                <p><strong>TP:</strong> 120 : 1 V</p>
-                <p><strong>Fechamento:</strong> Y-Y</p>
-                <p><strong>Tensão Primária F-N:</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">13,8</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">√3</span>
-                        </span>
-                        V
+                <p>O sistema de proteção deve ser alimentado pela tensão secundária do(s) TP de proteção.</p>
+                <p>
+                        Conforme norma:<em> Nas unidades consumidoras com geração própria devem ser usados 3 (três) TP
+                                para proteção: 13,8/1,73 ou 22/1,73 ou 34,5/1,73 conforme o sistema de distribuição da
+                                CEMIG. Se não houver geração própria, pode ser usado apenas um TP para o sistema de
+                                proteção.</em>
                 </p>
-                <p><strong>Tensão Secundária F-N:</strong> 115,0 V</p>
+                <p>O TP será dimensionado conforme critérios:</p>
 
-                <h3>Características Técnicas Mínimas do TP</h3>
+                <p>Ligação:<span class="tp-fechamento"></span></p>
+
+                <p>Tensão Primária F-F:<span class="tp-primaria-ff"></span>
+
+                </p>
+
+                <p>Tensão Primária F-N:<span class="tp-primaria-fn"></span>
+
+                </p>
+
+                <p>Tensão Secundária F-F:<span class="tp-secundaria-ff"></span>
+
+
+
+                </p>
+                <p>Tensão Secundária F-N:<span class="tp-secundaria-fn"></span></p>
+
+                <p>Relação de transformação do TP=<span class="rtp-label"></span></p>
+
+
+                <p>Características Técnicas Mínimas do TP:</p>
                 <textarea
                         style="width: 100%; min-height: 60px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
                 • Atender à ABNT NBR 6855
@@ -1232,52 +1253,50 @@
         </div>
 
 
+        <h2>Cálculo e dimensionamento Curvas de Fase</h2>
+        <div class="calculosfuncoes">
 
-        <div id="calculosfuncoes">
-                <h2>Cálculo e Parametrização Função 51 - Fase</h2>
-                <h3>1º Estágio</h3>
+                <h3>1º Estágio - Função 51 (Sobrecorrente de fase tempo inverso)</h3>
                 <p>
-                        <strong>In fase:</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">P</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
-                        </span>
-                        =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">300,00</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 ×
-                                        0,92</span>
-                        </span>
-                        = <strong>13,64 A</strong>
+                                <span >In fase:</span>
+                                <span style="display:inline-block; vertical-align:middle;">
+                                                <span style="display:block; text-align:center;">P</span>
+                                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
+                                </span>
+                                =
+                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                                <span class="numerador-potencia-nominal" style="display:block; text-align:center;">300,00</span>
+                                                <span class="ip-partida-denominador" style="border-top:1px solid; display:block; text-align:center;"></span>
+                                </span>
+                                = <span class="corrente-nominal-fase"></span>
                 </p>
                 <p>
-                        <strong>Ip fase:</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">P + 5%</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
-                        </span>
-                        =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">315</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 ×
-                                        0,92</span>
-                        </span>
-                        = <strong>14,32 A</strong>
+                                <span class="label">Ip fase:</span>
+                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                                <span style="display:block; text-align:center;">P + 5%</span>
+                                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
+                                </span>
+                                =
+                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                                <span class="ip-partida-numerador" style="display:block; text-align:center;">315</span>
+                                                <span class="ip-partida-denominador" style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 × 0,92</span>
+                                </span>
+                                = <span class="ip-partida-resultado"></span>
                 </p>
                 <p>
-                        <strong>Ip fase em P.U:</strong>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">Ip</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
-                        </span>
-                        =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">14,32</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">100</span>
-                        </span>
-                        = <strong>0,14 P.U</strong>
+                                <span class="label">Ip fase em P.U:</span>
+                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                                <span style="display:block; text-align:center;">Ip</span>
+                                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                                </span>
+                                =
+                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                                <span class="ip-partida-resultado" style="display:block; text-align:center;">14,32</span>
+                                                <span class="tc-especificacao-valor" style="border-top:1px solid; display:block; text-align:center;">100</span>
+                                </span>
+                                = <span class="corrente-ip-pu">0,14 P.U</span>
                 </p>
-                <p><strong>Curva de Atuação:</strong> IEC-M.I</p>
+                <p>Curva de Atuação:<span class="curva-fase"></span></p>
 
                 <h3>Parâmetros Considerados</h3>
                 <p>Para o cálculo do dial de fase, serão considerados os seguintes parâmetros:</p>
@@ -1396,36 +1415,39 @@
 
 
 
-                <p><strong>Dial real parametrizado:</strong> 0,1</p>
+                <p><span>Dial real parametrizado:</span> 0,1</p>
 
 
-                <p><strong>Tempo máximo real de magnetização:</strong> 1,94 s (1942,5 ms)</p>
+                <p><span>Tempo máximo real de magnetização:</span> 1,94 s (1942,5 ms)</p>
 
-                <h3>2º Estágio - Direcional de Sobrecorrente de Fase Instantânea (Função 50)</h3>
+                <h3>2º Estágio - Função 50 (Sobrecorrente de Fase Instantânea)</h3>
                 <p>
-                        <strong>I<sub>inst</sub> fase:</strong>
-                        Imag + 5% = 932,4 + 46,62 = <strong>979,06 A</strong>
+                        <span>I<sub>inst</sub> fase:</span>
+                        Imag + tolernacia % =<span class="imag-tolerancia-label">932,4 + 46,62 =</span>
+                        <span class="inst-fase-resultado">979,06 A</span>
                 </p>
                 <p>
-                        <strong>I<sub>inst</sub> fase P.U:</strong>
+                        <span>I<sub>inst</sub> fase P.U:</span>
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span style="display:block; text-align:center;">I<sub>inst</sub></span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
                         </span>
                         =
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">979,06</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">100</span>
+                                <span class="inst-fase-resultado"style="display:block; text-align:center;">979,06</span>
+                                <span class="tc"style="border-top:1px solid; display:block; text-align:center;">100</span>
                         </span>
-                        = <strong>9,79 P.U</strong>
+                        = <span class="inst-valor-pu">9,79 P.U</span>
                 </p>
                 <p>
-                        <strong>Tempo para atuação:</strong> 0,01 s
+                        <span>Tempo para atuação:</span> 0,00 s ou o menor valor possível.
                 </p>
+        </div>
+        <h2>Cálculo e dimensionamento Curvas de Neutro</h2>
+        <div class="calculosfuncoes">
 
-                <h2>Função 51N - Neutro</h2>
-                <h3>1º Estágio - Temporizado</h3>
-                <p><strong>Ipn:</strong>
+                <h3>1º Estágio - 51 N (Sobrecorrente de Neutro Temporizado)</h3>
+                <p><span>Ipn:</span>
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span style="display:block; text-align:center;">Ip fase</span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">3</span>
@@ -1437,18 +1459,18 @@
                         </span>
                         = 4,77 A
                 </p>
-                <p><strong>Ipn em P.U:</strong> 0,05</p>
-                <p><strong>Curva:</strong> Tempo Definido</p>
-                <p><strong>Tempo de atuação:</strong> 2,00 s</p>
+                <p><span>Ipn em P.U:</span> 0,05</p>
+                <p><span>Curva:</span> Tempo Definido</p>
+                <p><span>Tempo de atuação:</span> 2,00 s</p>
 
 
-                <h3>2º Estágio - Instantânea (50N)</h3>
-                <p><strong>I<sub>inst</sub> neutro:</strong>
+                <h3>2º Estágio - 50N (Sobrecorrente de Neutro Instantânea)</h3>
+                <p><span>I<sub>inst</sub> neutro:</span>
                         <span id="percentual-neutro">33%</span> de <span id="corrente-base-neutro">175,72 A</span> =
                         <span id="corrente-inst-neutro">58,57 A</span>
                 </p>
-                <p><strong>I<sub>inst</sub> neutro P.U:</strong> <span id="pu-inst-neutro">0,59 P.U</span></p>
-                <p><strong>Tempo de atuação:</strong> 0,01 s</p>
+                <p><span>I<sub>inst</sub> neutro P.U:</span> <span id="pu-inst-neutro">0,59 P.U</span></p>
+                <p><span>Tempo de atuação:</span> 0,01 s</p>
         </div>
 
         <div id="calculogeradordiesel">
@@ -1470,6 +1492,7 @@
                         = <strong>0,00 P.U</strong>
                 </p>
                 <p><strong>Tempo de ajuste:</strong> 15 segundos</p>
+
         </div>
 
 

@@ -291,8 +291,8 @@ function carregarVariaveisEstudo() {
     if (inTrafo2El) {
         if (!isNaN(maiorTrafoQtde) && maiorTrafoQtde > 1) {
             const maiorTrafoIn = parseFloat(localStorage.getItem('maiortrafoinSelecionada'));
-            inTrafo2El.textContent = !isNaN(maiorTrafoIn) ? `+ ( ${maiorTrafoIn.toFixed(2)} × ${maiorTrafoQtde-1} )` : '';
-            
+            inTrafo2El.textContent = !isNaN(maiorTrafoIn) ? `+ ( ${maiorTrafoIn.toFixed(2)} × ${maiorTrafoQtde - 1} )` : '';
+
             // inTrafo2El.textContent = !isNaN(maiorTrafoIn) ? maiorTrafoIn.toFixed(2) + ' A' : '';
             inTrafo2El.style.display = '';
         } else {
@@ -301,7 +301,7 @@ function carregarVariaveisEstudo() {
     }
 
     // Preencher campo de corrente do trafo 2
-    
+
     // Preencher in-trafo-2 até in-trafo-10 em ordem decrescente de corrente, desconsiderando o maior corrente intrafoindividual
     const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {};
     // Monta array de correntes (trafo2 a trafo10) ignorando o maior corrente
@@ -380,7 +380,7 @@ function carregarVariaveisEstudo() {
         divisaoInrushEl.textContent = (1 / imagTotal).toFixed(6);
     }
 
-    
+
     // Calcular a soma das divisões e preencher em resultado-divisao
     const resultadoDivisaoEl = document.getElementById('resultado-divisao');
     if (
@@ -429,7 +429,126 @@ function carregarVariaveisEstudo() {
         tcSaturacaoPrimarioEl.textContent = (parseFloat(curtoSelecionadaTC) / 50).toFixed(2);
     }
 
+    //Preencher saturação do TC
+    const correnteMagnetizacaoSaturacaoTCEl = document.getElementById('corrente-magnetizacao-saturacao-tc');
+    if (correnteMagnetizacaoSaturacaoTCEl) {
+        correnteMagnetizacaoSaturacaoTCEl.textContent = (imagTotal / 20).toFixed(2) + ' A';
+    }
 
+    // importar o IP fase percentual do localStorage
+    const percentualIP = localStorage.getItem('PercentualIPSelecionada');
+    const percentualIPEl = document.getElementById('percentual-ip');
+    if (percentualIPEl && percentualIP !== null) {
+        percentualIPEl.textContent = percentualIP + ' %';
+    }
+
+    // Representar o numerador do calculo de ip de partida fase 
+    // Preencher campo numerador-potencia-nominal com demanda contratada
+    const numeradorPotenciaNominalEls = document.querySelectorAll('.numerador-potencia-nominal');
+    numeradorPotenciaNominalEls.forEach(el => {
+        if (demandaContratada !== null && !isNaN(demandaContratada)) {
+            el.textContent = demandaContratada;
+        }
+    });
+
+    const ipPartidaNumeradorEls = document.querySelectorAll('.ip-partida-numerador');
+    ipPartidaNumeradorEls.forEach(el => {
+        if (demandaContratada !== null && !isNaN(demandaContratada)) {
+            // Interpolação: mostra demanda + incremento percentual
+            const incremento = (parseFloat(demandaContratada) * parseFloat(percentualIP) / 100);
+            el.textContent = `${demandaContratada} + ${incremento.toFixed(2)}`;
+        }
+    });
+
+    // Incluir corrente nominal de fase
+    const correnteNominalFase = localStorage.getItem('Inominalfase');
+    const correnteNominalFaseEls = document.querySelectorAll('.corrente-nominal-fase');
+    correnteNominalFaseEls.forEach(el => {
+        if (correnteNominalFase !== null && !isNaN(correnteNominalFase)) {
+            el.textContent = parseFloat(correnteNominalFase).toFixed(2) + ' A';
+        }
+    });
+
+    // Representar o denominador do calculo de ip de partida fase
+    const ipPartidaDenominadorEls = document.querySelectorAll('.ip-partida-denominador');
+    ipPartidaDenominadorEls.forEach(el => {
+        if (tensaoAtendimento !== null && !isNaN(tensaoAtendimento) && fatorPotencia !== null && !isNaN(fatorPotencia)) {
+            el.textContent = `${tensaoAtendimento} × √3 × ${fatorPotencia}`;
+        }
+    });
+
+    // Preencher campo ip-partida-resultado considerando Ipdeconsumo
+    const ipDeConsumo = localStorage.getItem('Ipdeconsumo');
+    const ipPartidaResultadoEls = document.querySelectorAll('.ip-partida-resultado');
+    ipPartidaResultadoEls.forEach(el => {
+        if (ipDeConsumo !== null && !isNaN(ipDeConsumo)) {
+            el.textContent = parseFloat(ipDeConsumo).toFixed(2) + ' A';
+        }
+    });
+
+    // Preencher campo tc-especificacao considerando TcEspecificacaoSelecionada
+    const tcEspecificacao = localStorage.getItem('TCdeprotecaoSelecionada');
+    const tcEspecificacaoEls = document.querySelectorAll('.tc-especificacao');
+    tcEspecificacaoEls.forEach(el => {
+        if (tcEspecificacao !== null && !isNaN(tcEspecificacao)) {
+            el.textContent = "Relação de transformação do TC = " + parseFloat(tcEspecificacao) + ' : 5 A';
+        }
+    });
+
+    // Preencher valor puro em tc-especificacao-valor
+    const tcEspecificacaoValorEls = document.querySelectorAll('.tc-especificacao-valor');
+    tcEspecificacaoValorEls.forEach(el => {
+        if (tcEspecificacao !== null && !isNaN(tcEspecificacao)) {
+            el.textContent = parseFloat(tcEspecificacao);
+        }
+    });
+
+
+
+    // Preencher campos de TP primária e secundária
+    const tpPrimariaFF = localStorage.getItem('tensaoprimariaFF');
+    const tpPrimariaFN = localStorage.getItem('tensaoprimariaFN');
+    const tpSecundariaFF = localStorage.getItem('tensaoSecundariaFFTP');
+    const tpSecundariaFN = localStorage.getItem('tensaoSecundariaFNTP');
+    const rtpLabel = localStorage.getItem('TPdeprotecaoSelecionada');
+    const tpFechamento = localStorage.getItem('ligacaodabobinaSelecionada');
+
+    // Preencher campos de TP primária e secundária usando classes
+    document.querySelectorAll('.tp-fechamento').forEach(el => {
+        if (tpFechamento !== null) el.textContent = tpFechamento;
+    });
+    document.querySelectorAll('.tp-primaria-ff').forEach(el => {
+        if (tpPrimariaFF !== null) el.textContent = tpPrimariaFF + ' V';
+    });
+    document.querySelectorAll('.tp-primaria-fn').forEach(el => {
+        if (tpPrimariaFN !== null) el.textContent = tpPrimariaFN + ' V';
+    });
+    document.querySelectorAll('.tp-secundaria-ff').forEach(el => {
+        if (tpSecundariaFF !== null) el.textContent = tpSecundariaFF + ' V';
+    });
+    document.querySelectorAll('.tp-secundaria-fn').forEach(el => {
+        if (tpSecundariaFN !== null) el.textContent = tpSecundariaFN + ' V';
+    });
+    document.querySelectorAll('.rtp-label').forEach(el => {
+        if (rtpLabel !== null) el.textContent = rtpLabel + ' :1';
+    });
+
+
+    const ipPUSelecionada = localStorage.getItem('ipPUSelecionada');
+    const correnteIpPuEls = document.querySelectorAll('.corrente-ip-pu');
+    correnteIpPuEls.forEach(el => {
+        if (ipPUSelecionada !== null && !isNaN(ipPUSelecionada)) {
+            el.textContent = parseFloat(ipPUSelecionada).toFixed(2);
+        }
+    });
+
+    const curvaFaseSelecionada = localStorage.getItem('curvafaseSelecionada');
+    const curvaFaseEls = document.querySelectorAll('.curva-fase');
+    curvaFaseEls.forEach(el => {
+        if (curvaFaseSelecionada !== null) {
+            el.textContent = curvaFaseSelecionada;
+        }
+    });
 
 
 
@@ -722,42 +841,42 @@ function adicionarEstilosTabelaParametrizacaoReles() {
 // Chame a função ao carregar a página
 document.addEventListener('DOMContentLoaded', adicionarEstilosTabelaParametrizacaoReles);
 
-function incluirimagensrele(){
+function incluirimagensrele() {
 
-       const imageInput = document.getElementById("imageInput");
+    const imageInput = document.getElementById("imageInput");
     const gallery = document.getElementById("gallery");
     const clearButton = document.getElementById("clearButton");
 
     // 🖼️ Carrega imagens salvas do localStorage
     const savedImages = JSON.parse(localStorage.getItem("imageGallery")) || [];
     savedImages.forEach(dataURL => {
-      const img = document.createElement("img");
-      img.src = dataURL;
-      gallery.appendChild(img);
+        const img = document.createElement("img");
+        img.src = dataURL;
+        gallery.appendChild(img);
     });
 
     // 📤 Salva novas imagens quando o usuário envia
     imageInput.addEventListener("change", () => {
-      const files = Array.from(imageInput.files);
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = e => {
-          const dataURL = e.target.result;
-          const img = document.createElement("img");
-          img.src = dataURL;
-          gallery.appendChild(img);
+        const files = Array.from(imageInput.files);
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const dataURL = e.target.result;
+                const img = document.createElement("img");
+                img.src = dataURL;
+                gallery.appendChild(img);
 
-          savedImages.push(dataURL);
-          localStorage.setItem("imageGallery", JSON.stringify(savedImages));
-        };
-        reader.readAsDataURL(file);
-      });
+                savedImages.push(dataURL);
+                localStorage.setItem("imageGallery", JSON.stringify(savedImages));
+            };
+            reader.readAsDataURL(file);
+        });
     });
 
     // 🧹 Limpa galeria e localStorage
     clearButton.addEventListener("click", () => {
-      localStorage.removeItem("imageGallery");
-      gallery.innerHTML = "";
+        localStorage.removeItem("imageGallery");
+        gallery.innerHTML = "";
     });
 
 }

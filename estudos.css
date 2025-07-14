@@ -372,7 +372,7 @@ button:hover {
 /* ----------------------------------------------------- */
 /* estilização dos cálculos das funções */
 
-#calculosfuncoes {
+.calculosfuncoes {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.05em;
     background: #f4f6fa;
@@ -539,7 +539,7 @@ textarea {
     #criteriocalculotcimpedancia,
     #especificacaodotc,
     #dimensionamentotpprotecao,
-    #calculosfuncoes,
+    .calculosfuncoes,
     #calculogeradordiesel,
     #tabelaresumofuncoes {
         width: 100vw !important;
@@ -684,7 +684,7 @@ textarea {
     #tabelaselo, #objetivotexto, #tabelaparametrosiniciais,
     #calculotrafos, #tabelatransformadores, #calculomagnetizacao,
     #calculomagnetizacaoreal, #calculostc, #criteriocalculotcimpedancia,
-    #especificacaodotc, #dimensionamentotpprotecao, #calculosfuncoes,
+    #especificacaodotc, #dimensionamentotpprotecao, .calculosfuncoes,
     #calculogeradordiesel, #tabelaresumofuncoes {
         page-break-inside: avoid;
         margin-bottom: 10mm !important;
