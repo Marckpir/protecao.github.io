@@ -76,6 +76,17 @@
                 </div>
 
          ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS--------------- -->
+        <div id="controls">
+                <button id="clearButton">🧹 Limpar Galeria</button>
+        </div>
+
+        <div>
+
+                <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
+                <input type="file" id="imageInput" accept="image/*" multiple
+                        style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #f8f8f8; font-size: 1em; color: #222; cursor: pointer;">
+
+        </div>
 
 
 
@@ -1258,142 +1269,104 @@
 
                 <h3>1º Estágio - Função 51 (Sobrecorrente de fase tempo inverso)</h3>
                 <p>
-                                <span >In fase:</span>
-                                <span style="display:inline-block; vertical-align:middle;">
-                                                <span style="display:block; text-align:center;">P</span>
-                                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
-                                </span>
-                                =
-                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                                <span class="numerador-potencia-nominal" style="display:block; text-align:center;">300,00</span>
-                                                <span class="ip-partida-denominador" style="border-top:1px solid; display:block; text-align:center;"></span>
-                                </span>
-                                = <span class="corrente-nominal-fase"></span>
+                        <span>In fase:</span>
+                        <span style="display:inline-block; vertical-align:middle;">
+                                <span style="display:block; text-align:center;">P</span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
+                        </span>
+                        =
+                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                <span class="numerador-potencia-nominal"
+                                        style="display:block; text-align:center;">300,00</span>
+                                <span class="ip-partida-denominador"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span class="corrente-nominal-fase"></span>
                 </p>
                 <p>
-                                <span class="label">Ip fase:</span>
-                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                                <span style="display:block; text-align:center;">P + 5%</span>
-                                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
-                                </span>
-                                =
-                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                                <span class="ip-partida-numerador" style="display:block; text-align:center;">315</span>
-                                                <span class="ip-partida-denominador" style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 × 0,92</span>
-                                </span>
-                                = <span class="ip-partida-resultado"></span>
+                        <span class="label">Ip fase:</span>
+                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                <span style="display:block; text-align:center;">P + 5%</span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
+                        </span>
+                        =
+                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                <span class="ip-partida-numerador" style="display:block; text-align:center;">315</span>
+                                <span class="ip-partida-denominador"
+                                        style="border-top:1px solid; display:block; text-align:center;">13,8 × √3 ×
+                                        0,92</span>
+                        </span>
+                        = <span class="ip-partida-resultado"></span>
                 </p>
                 <p>
-                                <span class="label">Ip fase em P.U:</span>
-                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                                <span style="display:block; text-align:center;">Ip</span>
-                                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
-                                </span>
-                                =
-                                <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                                <span class="ip-partida-resultado" style="display:block; text-align:center;">14,32</span>
-                                                <span class="tc-especificacao-valor" style="border-top:1px solid; display:block; text-align:center;">100</span>
-                                </span>
-                                = <span class="corrente-ip-pu">0,14 P.U</span>
+                        <span class="label">Ip fase em P.U:</span>
+                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                <span style="display:block; text-align:center;">Ip</span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                        </span>
+                        =
+                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
+                                <span class="ip-partida-resultado"
+                                        style="display:block; text-align:center;"></span>
+                                <span class="tc-especificacao-valor"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span class="corrente-ip-pu"></span>
                 </p>
-                <p>Curva de Atuação:<span class="curva-fase"></span></p>
+                <!-- <p>Curva de Atuação:<span class="curva-fase"></span></p> -->
 
                 <h3>Parâmetros Considerados</h3>
                 <p>Para o cálculo do dial de fase, serão considerados os seguintes parâmetros:</p>
                 <table style="border-collapse: collapse;">
                         <tr>
                                 <td style="padding: 2px 8px;">Tipo de curva:</td>
-                                <td style="padding: 2px 8px;">IEC-M.I</td>
+                                <td class="curva-fase" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Fator alfa (a):</td>
-                                <td style="padding: 2px 8px;">1</td>
+                                <td class="fator-alfa-fase" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Fator beta (b):</td>
-                                <td style="padding: 2px 8px;">13,5</td>
+                                <td class="fator-beta-fase" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Tempo de magnetização (t):</td>
-                                <td style="padding: 2px 8px;">0,10 s &nbsp;ou&nbsp; 100,0 ms</td>
+                                <td class="tempo-mag-fase" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Corrente de magnetização (Imag):</td>
-                                <td style="padding: 2px 8px;">932,44&nbsp;A</td>
+                                <td class="imag-total-valor" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Corrente nominal (In):</td>
-                                <td style="padding: 2px 8px;">13,64&nbsp;A</td>
+                                <td class="corrente-nominal-fase" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Fator M (Imag/In):</td>
-                                <td style="padding: 2px 8px;">68,35</td>
+                                <td class="fator-m" style="padding: 2px 8px;"></td>
                         </tr>
                         <tr>
                                 <td style="padding: 2px 8px;">Constante k:</td>
-                                <td style="padding: 2px 8px;">1</td>
+                                <td class="fator-k-fase" style="padding: 2px 8px;"></td>
                         </tr>
                 </table>
 
-                <!-- Fórmula DT -->
-                <!-- <div style="display: flex; align-items: center; justify-content: center; margin: 32px 0;">
-                        <span
-                                style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
-                        <span style="display: flex; align-items: center;">
-                                <span style="display: inline-block;">
-                                        <span style="display: block; text-align: center;">
-                                                <span style="display: block;">(Imag / In)<sup
-                                                                style="font-size: 0.8em;">α</sup> - k</span>
-                                                <span style="border-top: 1px solid #000; display: block;">β</span>
-                                        </span>
-                                </span>
-                                <span style="margin-left: 8px; font-size: 1em;">× t</span>
-                        </span>
-                </div>
 
-                <div style="display: flex; align-items: center; justify-content: center; margin: 32px 0;">
-                        <span
-                                style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
-                        <span style="display: flex; align-items: center;">
-                                <span style="display: inline-block;">
-                                        <span style="display: block; text-align: center;">
-                                                <span style="display: block;">(Imag / In)<sup
-                                                                style="font-size: 0.8em;">α</sup> - k</span>
-                                                <span style="border-top: 1px solid #000; display: block;">β</span>
-                                        </span>
-                                </span>
-                                <span style="margin-left: 8px; font-size: 1em;">× t</span>
-                        </span>
-                </div>
+                <h3>Calculo do dial:</h3>
+                <p class="formula1" style="font-size: 1.1em;"></p>
 
-                                <div style="display: flex; align-items: center; justify-content: center; margin: 32px 0;">
-                        <span
-                                style="font-family: 'Times New Roman', Times, serif; font-size: 1.3em; margin-right: 12px;">DT&nbsp;=</span>
+                <p class="formula2" style="font-size: 1.1em;"></p>
+
+                <p>Dial calculado:<span class="dial-fase-calculado"></span></p>
+
+                <p>Conforme Dial calculado, será considerado o ajuste a seguir a fim de garantir 
+                        o tempo necessário para a corrente de magnetização da conexão:</p>
                         
-                </div> -->
-                <div id="formuladialdeimag">
-                        <p>Dial calculado para a função de magnetização dos transformadores:</p>
-                        <div class="valores2">
-                                <label>β: <span id="beta2">5</span></label>
-                                <label>Imag: <span id="imag2">400</span></label>
-                                <label>In: <span id="in2">50</span></label>
-                                <label>α: <span id="alpha2">0.8</span></label>
-                                <label>k: <span id="k2">1.2</span></label>
-                                <label>t: <span id="t2">0.02</span></label>
-                        </div>
+                <p><span>Dial ajustado:</span> <span class="dial-fase-ajustado"></span></p>
 
-                        <h3>Fórmula:</h3>
-                        <p id="formula2" style="font-size: 1.1em;"></p>
-                </div>
+                <!-- <div id="formulatempodeimag">
 
-                <p><strong>Dial calculado:</strong> 1,62</p>
-
-
-                <div id="formulatempodeimag">
-                        <p>Conforme Dial real estabelecido, o tempo máximo real para a magnetização dos transformadores
-                                será
-                                conforme
-                                cálculo abaixo:</p>
                         <div class="valores">
                                 <label>β: <span id="beta">5</span></label>
                                 <label>Imag: <span id="imag">300</span></label>
@@ -1405,12 +1378,12 @@
 
                         <h3>Fórmula:</h3>
                         <p id="formula" style="font-size: 1.1em;"></p>
-                </div>
+                </div> -->
 
 
 
 
-                <p>Conforme Dial calculado, o Dial real à ser parametrizado no relé será: 0,1</p>
+                <!-- <p>Conforme Dial calculado, o Dial real à ser parametrizado no relé será: 0,1</p>
 
 
 
@@ -1418,12 +1391,12 @@
                 <p><span>Dial real parametrizado:</span> 0,1</p>
 
 
-                <p><span>Tempo máximo real de magnetização:</span> 1,94 s (1942,5 ms)</p>
+                <p><span>Tempo máximo real de magnetização:</span> 1,94 s (1942,5 ms)</p> -->
 
                 <h3>2º Estágio - Função 50 (Sobrecorrente de Fase Instantânea)</h3>
                 <p>
                         <span>I<sub>inst</sub> fase:</span>
-                        Imag + tolernacia % =<span class="imag-tolerancia-label">932,4 + 46,62 =</span>
+                        Imag + tolerância % =<span class="imag-tolerancia-label">932,4 + 46,62 =</span>
                         <span class="inst-fase-resultado">979,06 A</span>
                 </p>
                 <p>
@@ -1434,8 +1407,10 @@
                         </span>
                         =
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span class="inst-fase-resultado"style="display:block; text-align:center;">979,06</span>
-                                <span class="tc"style="border-top:1px solid; display:block; text-align:center;">100</span>
+                                <span class="inst-fase-resultado"
+                                        style="display:block; text-align:center;">979,06</span>
+                                <span class="tc"
+                                        style="border-top:1px solid; display:block; text-align:center;">100</span>
                         </span>
                         = <span class="inst-valor-pu">9,79 P.U</span>
                 </p>
@@ -1479,19 +1454,19 @@
                         rede. Abaixo seguem os cálculos de seus parâmetros:</p>
 
                 <h3>Dados Considerados</h3>
-                <p><strong>Potência aparente:</strong> 0 kVA</p>
-                <p><strong>Fator de Potência:</strong> 80%</p>
-                <p><strong>Potência ativa:</strong> S × FP = 0 × 0,80 = <strong>0,00 kW</strong></p>
-                <p><strong>P ajuste:</strong> 0,00 × 5% = <strong>0,00 W</strong></p>
-                <p><strong>P ajuste P.U:</strong>
+                <p><span>Potência aparente:</span> 0 kVA</p>
+                <p><span>Fator de Potência:</span> 80%</p>
+                <p><span>Potência ativa:</span> S × FP = 0 × 0,80 = <span>0,00 kW</span></p>
+                <p><span>P ajuste:</span> 0,00 × 5% = <span>0,00 W</span></p>
+                <p><span>P ajuste P.U:</span>
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span style="display:block; text-align:center;">0,00</span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">13800 × √3 ×
                                         100</span>
                         </span>
-                        = <strong>0,00 P.U</strong>
+                        = <span>0,00 P.U</span>
                 </p>
-                <p><strong>Tempo de ajuste:</strong> 15 segundos</p>
+                <p><span>Tempo de ajuste:</span> 15 segundos</p>
 
         </div>
 
@@ -1607,6 +1582,8 @@
         <h3>Imagens carregadas:</h3>
         <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
+        <h3>Imagens carregadas:</h3>
+        <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
 
         <div id="curvaProtecao">
                 <h2>Coordenograma de Proteção</h2>

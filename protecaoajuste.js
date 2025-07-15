@@ -7,6 +7,7 @@ let dial = 0;
 let alfa1 = 0;
 let beta1 = 0;
 let k1 = 0;
+var tempomagfase = 0.1;
 
 let inominalneutro = 0;
 let ipeutropercentual = 0;
@@ -652,7 +653,7 @@ window.onload = function () {
                 },
                 {
                     label: 'I mag fase',
-                    data: [{ x: imagBase, y: 0.1 }],
+                    data: [{ x: imagBase, y: tempomagfase }],
                     backgroundColor: 'red',
                     borderColor: 'red',
                     borderWidth: 2,
@@ -662,7 +663,7 @@ window.onload = function () {
                 },
                 {
                     label: 'I mag neutro',
-                    data: [{ x: imagneutro, y: 0.1 }],
+                    data: [{ x: imagneutro, y: tempomagfase }],
                     backgroundColor: 'blue',
                     borderColor: 'blue',
                     borderWidth: 2,
@@ -1101,7 +1102,7 @@ function calculadialideal() {
         let correnteIpDeConsumo = parseFloat(localStorage.getItem("Ipdeconsumo"));
         let Instfaseconsumo = parseFloat(localStorage.getItem("Instfaseconsumo"));
         if (!isNaN(Instfaseconsumo) && !isNaN(correnteIpDeConsumo)) {
-            dial_calculado_planta = 0.1 / (beta / (Math.pow(Instfaseconsumo / correnteIpDeConsumo, alfa) - k));
+            dial_calculado_planta = tempomagfase / (beta / (Math.pow(Instfaseconsumo / correnteIpDeConsumo, alfa) - k));
             // console.log("Dial calculado (planta sem motores, usando Instfaseconsumo):", dial_calculado_planta);
             localStorage.setItem("dialCalculadoPlantaSemMotores", dial_calculado_planta);
         }

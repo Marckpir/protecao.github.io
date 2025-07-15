@@ -538,7 +538,7 @@ function carregarVariaveisEstudo() {
     const correnteIpPuEls = document.querySelectorAll('.corrente-ip-pu');
     correnteIpPuEls.forEach(el => {
         if (ipPUSelecionada !== null && !isNaN(ipPUSelecionada)) {
-            el.textContent = parseFloat(ipPUSelecionada).toFixed(2);
+            el.textContent = parseFloat(ipPUSelecionada).toFixed(2) + ' P.U';
         }
     });
 
@@ -549,18 +549,96 @@ function carregarVariaveisEstudo() {
             el.textContent = curvaFaseSelecionada;
         }
     });
+ // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
 
 
 
+    // Preencher campos fator-alfa-fase, fator-beta-fase, fator-k-fase importando de dadoscurvausariofase
+
+    const dadosCurvaUsuarioFase = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+    const alfaFase = dadosCurvaUsuarioFase.alfa || 0;
+    const betaFase = dadosCurvaUsuarioFase.beta || 0;
+    const kFase = dadosCurvaUsuarioFase.k || 0;
+
+    const alfaFaseEls = document.querySelectorAll('.fator-alfa-fase');
+    alfaFaseEls.forEach(el => {
+        el.textContent = alfaFase;
+    });
+
+    const betaFaseEls = document.querySelectorAll('.fator-beta-fase');
+    betaFaseEls.forEach(el => {
+        el.textContent = betaFase;
+    });
+
+    const kFaseEls = document.querySelectorAll('.fator-k-fase');
+    kFaseEls.forEach(el => {
+        el.textContent = kFase;
+    });
+
+    // Calcular fator m = imagTotal / correnteNominalFase e preencher em fator-m
+    // Preencher todos os elementos com a classe 'fator-m'
+    const fatorMEls = document.querySelectorAll('.fator-m');
+    if (imagTotal !== null && correnteNominalFase !== null && !isNaN(imagTotal) && !isNaN(correnteNominalFase) && parseFloat(correnteNominalFase) !== 0) {
+        const fatorM = imagTotal / parseFloat(correnteNominalFase);
+        fatorMEls.forEach(el => {
+            el.textContent = fatorM.toFixed(2);
+        });
+    }
+
+    // Preencher campo tempo-mag-fase com valor 0.10
+    const tempomagFase= 0.10;
+    const tempoMagFaseEls = document.querySelectorAll('.tempo-mag-fase');
+    tempoMagFaseEls.forEach(el => {
+        el.textContent = tempomagFase.toFixed(2) + ' s ou ' + (tempomagFase * 1000).toFixed(0) + ' ms';
+
+    });
 
 
-    // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
+
+    //Preencher formulas do dial 
+
+        // Usar classes ao invés de IDs
+    // const campos2 = ["beta2", "imag2", "in2", "alpha2", "k2", "t2"];
+    // const valores = campos2.reduce((obj, className) => {
+    //     const element = document.querySelector(`.${className}`);
+    //     obj[className] = element ? element.textContent : '';
+    //     return obj;
+    // }, {});
+
+    // Preencher fórmula para .formula1
+    const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'imag'}}{${'In'}} \\right)^{\\alpha}}{\\beta} - ${'k'} \\right) \\times ${'t'}`;
+    const formulaEl1 = document.querySelector(".formula1");
+    if (formulaEl1 && typeof MathJax !== 'undefined') {
+        formulaEl1.innerHTML = `\\(${latex1}\\)`;
+        MathJax.typesetPromise([formulaEl1]).catch(err => console.log('Erro MathJax:', err));
+    }
+
+    // Preencher fórmula para .formula2
+    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${parseFloat(correnteNominalFase).toFixed(2)}} \\right)^{${alfaFase}}}{${betaFase}} - ${kFase} \\right) \\times ${parseFloat(tempomagFase).toFixed(2)}`;
+    const formulaEl2 = document.querySelector(".formula2");
+    if (formulaEl2 && typeof MathJax !== 'undefined') {
+        formulaEl2.innerHTML = `\\(${latex2}\\)`;
+        MathJax.typesetPromise([formulaEl2]).catch(err => console.log('Erro MathJax:', err));
+    }
 
 
+    // Preencher campo dial-fase com dialCalculadoPlantaSemMotores
+    const dialCalculadoPlantaSemMotores = localStorage.getItem('dialCalculadoPlantaSemMotores');
+    const dialFaseEls = document.querySelectorAll('.dial-fase-calculado');
+    dialFaseEls.forEach(el => {
+        if (dialCalculadoPlantaSemMotores !== null && !isNaN(dialCalculadoPlantaSemMotores)) {
+            el.textContent = parseFloat(dialCalculadoPlantaSemMotores).toFixed(2);
+        }
+    });
 
-
-
-
+    // Preencher campo dial-fase-ajustado com dialFaseAjustado
+    const dialFaseAjustado = localStorage.getItem('dialfaseSelecionada');
+    const dialFaseAjustadoEls = document.querySelectorAll('.dial-fase-ajustado');
+    dialFaseAjustadoEls.forEach(el => {
+        if (dialFaseAjustado !== null && !isNaN(dialFaseAjustado)) {
+            el.textContent = parseFloat(dialFaseAjustado).toFixed(2);
+        }
+    });
 
 
 
@@ -708,25 +786,7 @@ function atualizarFormula() {
 }
 
 function atualizarFormula2() {
-    const campos2 = ["beta2", "imag2", "in2", "alpha2", "k2", "t2"];
-    const valores = campos2.reduce((obj, id) => {
-        const element = document.getElementById(id);
-        obj[id] = element ? element.textContent : '';
-        // console.log(`${id}:`, obj[id]); // Debug
-        return obj;
-    }, {});
 
-    // console.log('Valores2:', valores); // Debug
-    // Corrigir para usar as variáveis com "2"
-    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${valores.imag2}}{${valores.in2}} \\right)^{${valores.alpha2}}}{${valores.beta2}} - ${valores.k2} \\right) \\times ${valores.t2}`;
-    const formulaEl2 = document.getElementById("formula2");
-
-    if (formulaEl2 && typeof MathJax !== 'undefined') {
-        formulaEl2.innerHTML = `\\(${latex2}\\)`;
-        MathJax.typesetPromise([formulaEl2]).catch(err => console.log('Erro MathJax:', err));
-    } else {
-        // console.log('MathJax não disponível ou elemento formula2 não encontrado');
-    }
 }
 
 
