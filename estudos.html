@@ -1306,8 +1306,7 @@
                         </span>
                         =
                         <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                <span class="ip-partida-resultado"
-                                        style="display:block; text-align:center;"></span>
+                                <span class="ip-partida-resultado" style="display:block; text-align:center;"></span>
                                 <span class="tc-especificacao-valor"
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
@@ -1360,9 +1359,9 @@
 
                 <p>Dial calculado:<span class="dial-fase-calculado"></span></p>
 
-                <p>Conforme Dial calculado, será considerado o ajuste a seguir a fim de garantir 
+                <p>Conforme Dial calculado, será considerado o ajuste a seguir a fim de garantir
                         o tempo necessário para a corrente de magnetização da conexão:</p>
-                        
+
                 <p><span>Dial ajustado:</span> <span class="dial-fase-ajustado"></span></p>
 
                 <!-- <div id="formulatempodeimag">
@@ -1394,11 +1393,14 @@
                 <p><span>Tempo máximo real de magnetização:</span> 1,94 s (1942,5 ms)</p> -->
 
                 <h3>2º Estágio - Função 50 (Sobrecorrente de Fase Instantânea)</h3>
-                <p>
-                        <span>I<sub>inst</sub> fase:</span>
-                        Imag + tolerância % =<span class="imag-tolerancia-label">932,4 + 46,62 =</span>
-                        <span class="inst-fase-resultado">979,06 A</span>
-                </p>
+
+                <span>I<sub>inst</sub> fase:</span>
+                Imag + <span class="imag-tolerancia-percentual"></span> =
+                <span class="imag-total-valor"></span>
+                <span class="valor-torlerancia-imag"></span>
+                =
+                <span class="inst-fase-resultado"></span>
+
                 <p>
                         <span>I<sub>inst</sub> fase P.U:</span>
                         <span style="display:inline-block; vertical-align:middle;">
@@ -1407,12 +1409,11 @@
                         </span>
                         =
                         <span style="display:inline-block; vertical-align:middle;">
-                                <span class="inst-fase-resultado"
-                                        style="display:block; text-align:center;">979,06</span>
-                                <span class="tc"
-                                        style="border-top:1px solid; display:block; text-align:center;">100</span>
+                                <span class="inst-fase-resultado" style="display:block; text-align:center;"></span>
+                                <span class="tc-especificacao-valor"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
-                        = <span class="inst-valor-pu">9,79 P.U</span>
+                        = <span class="inst-valor-pu"></span>
                 </p>
                 <p>
                         <span>Tempo para atuação:</span> 0,00 s ou o menor valor possível.
@@ -1422,30 +1423,67 @@
         <div class="calculosfuncoes">
 
                 <h3>1º Estágio - 51 N (Sobrecorrente de Neutro Temporizado)</h3>
-                <p><span>Ipn:</span>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">Ip fase</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">3</span>
-                        </span>
-                        =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">14,32</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">3</span>
-                        </span>
-                        = 4,77 A
+                <span>Ipn= Ip fase x Desequilíbrio(%)</span><br><br>
+                <span>Ipn=</span>
+                <span class="ip-partida-resultado"></span> x
+                <span class="Desequelibrio-neutro"> </span><br><br>
+
+                <span>Ipn=</span>
+                <span class="in-neutro"></span><br><br>
+
+
+
+                <span>Ip<sub>Neutro</sub>P.U =</span>
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">I<sub>P fase</sub></span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                </span><br><br>
+
+                <span>Ip<sub>Neutro</sub>P.U =</span>
+
+                <span style="display:inline-block; vertical-align:middle;">
+                        <span class="ip-partida-resultado" style="display:block; text-align:center;"></span>
+                        <span class=tc-especificacao-valor
+                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                </span><br>
+
+                <p><span>Ip<sub>Neutro</sub>P.U =</span>
+                        <span class="ip-neutro-PU"></span>
                 </p>
-                <p><span>Ipn em P.U:</span> 0,05</p>
                 <p><span>Curva:</span> Tempo Definido</p>
-                <p><span>Tempo de atuação:</span> 2,00 s</p>
+                <p><span>Tempo de atuação= </span><span class="tempo-neutro-ip"></span></p>
 
 
                 <h3>2º Estágio - 50N (Sobrecorrente de Neutro Instantânea)</h3>
-                <p><span>I<sub>inst</sub> neutro:</span>
-                        <span id="percentual-neutro">33%</span> de <span id="corrente-base-neutro">175,72 A</span> =
-                        <span id="corrente-inst-neutro">58,57 A</span>
+                <span>I<sub>inst</sub> neutro=</span> <span>I<sub>Inst fase </sub>x Desequilíbrio(%)</span><br><br>
+
+                <p><span>I<sub>inst</sub> neutro=</span>
+                        <span class="inst-fase-resultado"></span> x
+                        <span class="Desequelibrio-neutro"></span>
+
                 </p>
-                <p><span>I<sub>inst</sub> neutro P.U:</span> <span id="pu-inst-neutro">0,59 P.U</span></p>
-                <p><span>Tempo de atuação:</span> 0,01 s</p>
+
+                <span>I<sub>inst</sub> neutro=</span><span class="inst-neutro-resultado"></span>
+
+                <p><span>I<sub>inst</sub> neutro P.U=</span>
+                        <span style="display:inline-block; vertical-align:middle;">
+                                <span style="display:block; text-align:center;">I<sub>Inst neutro</sub></span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                        </span><br>
+
+                <p><span>I<sub>inst</sub> neutro P.U=</span>
+
+                        <span style="display:inline-block; vertical-align:middle;">
+                                <span class="inst-neutro-resultado" style="display:block; text-align:center;"></span>
+                                <span class=tc-especificacao-valor
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span><br>
+
+                <p><span>I<sub>inst</sub> neutro P.U=</span>
+                        <span class="inst-neutro-PU"></span>
+                </p>
+
+                <p><span>Tempo de atuação:</span> 0,00 s ou o menor tempo possível</p>
         </div>
 
         <div id="calculogeradordiesel">
@@ -1454,18 +1492,50 @@
                         rede. Abaixo seguem os cálculos de seus parâmetros:</p>
 
                 <h3>Dados Considerados</h3>
-                <p><span>Potência aparente:</span> 0 kVA</p>
-                <p><span>Fator de Potência:</span> 80%</p>
-                <p><span>Potência ativa:</span> S × FP = 0 × 0,80 = <span>0,00 kW</span></p>
-                <p><span>P ajuste:</span> 0,00 × 5% = <span>0,00 W</span></p>
-                <p><span>P ajuste P.U:</span>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">0,00</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">13800 × √3 ×
-                                        100</span>
-                        </span>
-                        = <span>0,00 P.U</span>
+
+                <p><span>Potência aparente: </span><span class="potencia-aparente-gerador"></span></p>
+                <p><span>Fator de Potência do gerador: </span><span class="fator-potencia-gerador"></span></p>
+                <p><span>Tolerância de injeção: </span><span class="tolerancia-gerador"></span></p>
+                <p><span>Potência reversa = Potência aparente x Fator de potência do gerador x tolerância(%)</span><br>
+
+                <p><span>Potência reversa =</span>
+                        <span class="potencia-aparente-gerador"></span> x
+                        <span class="fator-potencia-gerador"></span> x
+                        <span class="tolerancia-gerador"></span><br>
+
+
+                <p>Potencia reversa = <span class="potencia-reversa-gerador"></span> ou <span
+                                class="potencia-reversa-geradorkw"></span></p>
+
+
+
+                <p><span class="p-ajuste-pu"><span>P ajuste P.U:</span>
+                                <span class="fracao-p-ajuste-pu" style="display:inline-block; vertical-align:middle;">
+                                        <span style="display:block; text-align:center;">Potência reversa</span>
+                                        <span style="border-top:1px solid; display:block; text-align:center;">Primário
+                                                do TP<sub>FF</sub> × √3 × Primário do TC</span>
+                                </span>
+
+
+
                 </p>
+
+                <p><span class="p-ajuste-pu"><span>P ajuste P.U:</span>
+                                <span class="fracao-p-ajuste-pu" style="display:inline-block; vertical-align:middle;">
+                                        <span class="potencia-reversa-gerador"
+                                                style="display:block; text-align:center;">Potência reversa</span>
+                                        <span class="denominador-potreversa-ajuste-pu"
+                                                style="border-top:1px solid; display:block; text-align:center;">V × √3 ×
+                                                Primário do TC</span>
+                                </span>
+
+
+
+                </p>
+                <p><span>P ajuste P.U:</span>
+                        <span class="potreversa-ajuste-pu">0,00 P.U</span></span>
+
+
                 <p><span>Tempo de ajuste:</span> 15 segundos</p>
 
         </div>

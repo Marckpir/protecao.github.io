@@ -642,6 +642,164 @@ function carregarVariaveisEstudo() {
 
 
 
+    // Preencher campo tolerancia-imag com imagpercentualSelecionada
+    const imagPercentualSelecionada = localStorage.getItem('imagpercentualSelecionada');
+    const toleranciaImagEls = document.querySelectorAll('.imag-tolerancia-percentual');
+    toleranciaImagEls.forEach(el => {
+        if (imagPercentualSelecionada !== null && !isNaN(imagPercentualSelecionada)) {
+            el.textContent = imagPercentualSelecionada + ' %';
+        }
+    });
+
+    // Preencher campo tolerancia-imag com imagTotal e imagPercentualSelecionada
+    const valorToleranciaImagEls = document.querySelectorAll('.valor-torlerancia-imag');
+    valorToleranciaImagEls.forEach(el => {
+        if (imagTotal !== null && !isNaN(imagTotal) && imagPercentualSelecionada !== null && !isNaN(imagPercentualSelecionada)) {
+            const valor = ((imagTotal * parseFloat(imagPercentualSelecionada)) / 100);
+            el.textContent = '+ ' + valor.toFixed(2) + ' A';
+        }
+    });
+
+    // Preencher campo tolerancia-ip com ippercentualSelecionada
+    const instFaseConsumo = parseFloat(localStorage.getItem('Instfaseconsumo'));
+    const instFaseResultadoEls = document.querySelectorAll('.inst-fase-resultado');
+    instFaseResultadoEls.forEach(el => {
+        if (!isNaN(instFaseConsumo)) {
+            el.textContent = instFaseConsumo.toFixed(2) + ' A';
+        }
+    });
+
+    // Preencher campo inst-valor-pu com iinstPUSelecionada
+    const iinstPUSelecionada = localStorage.getItem('iinstPUSelecionada');
+    const instValorPuEls = document.querySelectorAll('.inst-valor-pu');
+    instValorPuEls.forEach(el => {
+        if (iinstPUSelecionada !== null && !isNaN(iinstPUSelecionada)) {
+            el.textContent = parseFloat(iinstPUSelecionada).toFixed(2) + ' P.U';
+        }
+    });
+
+    // Preencher campo Desequelibrio-neutro com desequilibrioSelecionada
+    const desequilibrioSelecionada = localStorage.getItem('desequilibrioSelecionada');
+    const desequilibrioNeutroEls = document.querySelectorAll('.Desequelibrio-neutro');
+    desequilibrioNeutroEls.forEach(el => {
+        if (desequilibrioSelecionada !== null && !isNaN(desequilibrioSelecionada)) {
+            el.textContent = desequilibrioSelecionada + ' %';
+        }
+    });
+
+    // Preencher campo in-neutro com inominalneutroconsumo
+    const inominalNeutroConsumo = localStorage.getItem('Inominalneutroconsumo');
+    const inNeutroEls = document.querySelectorAll('.in-neutro');
+    inNeutroEls.forEach(el => {
+        if (inominalNeutroConsumo !== null && !isNaN(inominalNeutroConsumo)) {
+            el.textContent = parseFloat(inominalNeutroConsumo).toFixed(2) + ' A';
+        }
+    });
+
+    // Preencher campo in-neutro-PU com ipneutroPUSelecionada
+    const ipneutroPUSelecionada = localStorage.getItem('ipneutroPUSelecionada');
+    const inNeutroPuEls = document.querySelectorAll('.ip-neutro-PU');
+    inNeutroPuEls.forEach(el => {
+        if (ipneutroPUSelecionada !== null && !isNaN(ipneutroPUSelecionada)) {
+            el.textContent = parseFloat(ipneutroPUSelecionada).toFixed(2) + ' P.U';
+        }
+    });
+
+
+    const dialNeutroSelecionada = localStorage.getItem('dialneutroSelecionada');
+    const tempoNeutroIpEls = document.querySelectorAll('.tempo-neutro-ip');
+    tempoNeutroIpEls.forEach(el => {
+        if (dialNeutroSelecionada !== null && !isNaN(dialNeutroSelecionada)) {
+            el.textContent = parseFloat(dialNeutroSelecionada).toFixed(2) + " s";
+        }
+    });
+
+
+    // Preencher campo inst-neutro-resultado com InstneutroSelecionada
+    const instNeutroSelecionada = localStorage.getItem('IinstneutroSelecionada');
+    const instNeutroResultadoEls = document.querySelectorAll('.inst-neutro-resultado');
+    instNeutroResultadoEls.forEach(el => {
+        if (instNeutroSelecionada !== null && !isNaN(instNeutroSelecionada)) {
+            el.textContent = parseFloat(instNeutroSelecionada).toFixed(2) + ' A';
+        }
+    });
+
+    console.log(instNeutroSelecionada);
+
+
+    const instneutroPUSelecionada = localStorage.getItem('instneutroPUSelecionada');
+    const instNeutroPuEls = document.querySelectorAll('.inst-neutro-PU');
+    instNeutroPuEls.forEach(el => {
+        if (instneutroPUSelecionada !== null && !isNaN(instneutroPUSelecionada)) {
+            el.textContent = parseFloat(instneutroPUSelecionada).toFixed(2) + ' P.U';
+        }
+    });
+
+//----------PRRENCHIMENTO GERADOR A DIESEL----------------------------------------
+
+
+//PREENCHE POTENCIA EM KVA DO GERADOR NO HTML
+const potenciaAparenteGeradorEls = document.querySelectorAll('.potencia-aparente-gerador');
+potenciaAparenteGeradorEls.forEach(el => {
+    if (geradorSalvo.potencia !== undefined && geradorSalvo.potencia !== null && !isNaN(geradorSalvo.potencia)) {
+        el.textContent = geradorSalvo.potencia + ' kVA';
+    }
+});
+
+// Preencher fator de potência do gerador
+const fatorPotenciaGeradorEls = document.querySelectorAll('.fator-potencia-gerador');
+fatorPotenciaGeradorEls.forEach(el => {
+    if (geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== null && !isNaN(geradorSalvo.fatorpotencia)) {
+        el.textContent = (geradorSalvo.fatorpotencia * 1).toFixed(0) + ' %';
+    }
+});
+
+// Preencher tolerância do gerador
+const toleranciaGeradorEls = document.querySelectorAll('.tolerancia-gerador');
+if (geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== null && !isNaN(geradorSalvo.tolerancia)) {
+    toleranciaGeradorEls.forEach(el => {
+        el.textContent = geradorSalvo.tolerancia + ' %';
+    });
+}
+
+
+
+const potenciaReversaGerador = localStorage.getItem('potenciaReversaGerador');
+const potenciaReversaGeradorEls = document.querySelectorAll('.potencia-reversa-gerador');
+potenciaReversaGeradorEls.forEach(el => {
+    if (potenciaReversaGerador !== null && !isNaN(potenciaReversaGerador)) {
+        el.textContent = potenciaReversaGerador + ' W';
+    }
+});
+
+// Preencher campo potencia-reversa-geradorkw apenas com valor em kW
+const potenciaReversaGeradorKwEls = document.querySelectorAll('.potencia-reversa-geradorkw');
+potenciaReversaGeradorKwEls.forEach(el => {
+    if (potenciaReversaGerador !== null && !isNaN(potenciaReversaGerador)) {
+        el.textContent = (potenciaReversaGerador / 1000).toFixed(2) + ' kW';
+    }
+});
+
+const denominadorPotReversaEls = document.querySelectorAll('.denominador-potreversa-ajuste-pu');
+denominadorPotReversaEls.forEach(el => {
+    if (
+        tpPrimariaFF !== null && !isNaN(tpPrimariaFF) &&
+        tcEspecificacao !== null && !isNaN(tcEspecificacao)
+    ) {
+        el.textContent = `${tpPrimariaFF} × √3 × ${tcEspecificacao}`;
+    }
+});
+
+const potenciadieselIPU = localStorage.getItem('potenciadieselPU');
+const pAjustePuEls = document.querySelectorAll('.potreversa-ajuste-pu');
+pAjustePuEls.forEach(el => {
+    if (potenciadieselIPU !== null && !isNaN(potenciadieselIPU)) {
+        el.textContent = parseFloat(potenciadieselIPU).toFixed(2) + ' P.U';
+    }
+});
+
+
+
 
 
     //LEMBRAR DE INCLUIR LOGICA PARA APARECER E REMOVER OS CALCULOS QUANDO NÃO HOUVER VALOR

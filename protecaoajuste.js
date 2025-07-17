@@ -102,27 +102,27 @@ function salvarOpcao() {
     localStorage.setItem("tdefneutroSelecionada", tdefdeneutroSelecionada);
 
     //CODIGO CRIADO PARA TESTAR ARMAZENAMENTO DOS AJUSTES PARA O RELE
-    const dadosProtecao = {
-        ipdeconsumo: parseFloat(localStorage.getItem("Ipdeconsumo")),
-        curvafaseselecionada: curvafaseSelecionada,
-        dialfaseselecionada: dialfaseSelecionada,
-        ideffaase: Math.max(
-            parseFloat(localStorage.getItem("Ipdeconsumo")) || 0,
-            parseFloat(localStorage.getItem("Instfaseconsumo")) || 0
-        ),
-        tdeffase: Math.max(
-            parseFloat(localStorage.getItem("dialCalculado")) || 0,
-            parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores")) || 0
-        ),
-        instfaseconsumo: parseFloat(localStorage.getItem("Instfaseconsumo")),
-        ipneutro: ipneutro,
-        curvaneutro: curvaneutroSelecionada,
-        dialneutro: dialneutroSelecionada,
-        idefneutro: ipneutro,
-        tdefneutro: parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores")) || 0,
-        instneutro: Iinstneutro
-    };
-    localStorage.setItem("dadosProtecao", JSON.stringify(dadosProtecao));
+    // const dadosProtecao = {
+    //     ipdeconsumo: parseFloat(localStorage.getItem("Ipdeconsumo")),
+    //     curvafaseselecionada: curvafaseSelecionada,
+    //     dialfaseselecionada: dialfaseSelecionada,
+    //     ideffaase: Math.max(
+    //         parseFloat(localStorage.getItem("Ipdeconsumo")) || 0,
+    //         parseFloat(localStorage.getItem("Instfaseconsumo")) || 0
+    //     ),
+    //     tdeffase: Math.max(
+    //         parseFloat(localStorage.getItem("dialCalculado")) || 0,
+    //         parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores")) || 0
+    //     ),
+    //     instfaseconsumo: parseFloat(localStorage.getItem("Instfaseconsumo")),
+    //     ipneutro: ipneutro,
+    //     curvaneutro: curvaneutroSelecionada,
+    //     dialneutro: dialneutroSelecionada,
+    //     idefneutro: ipneutro,
+    //     tdefneutro: parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores")) || 0,
+    //     instneutro: Iinstneutro
+    // };
+    // localStorage.setItem("dadosProtecao", JSON.stringify(dadosProtecao));
     //VAI ATÉ AQUI   
 
 
@@ -231,7 +231,7 @@ window.onload = function () {
     var imagBase = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : imagArmazenada;
     var Imaginstantanea = imagBase * (1 + imagpercentualArmazenada / 100);
     imagtotalformatada = Imaginstantanea;
-    localStorage.setItem("Instfaseconsumo", imagtotalformatada);+
+    localStorage.setItem("Instfaseconsumo", imagtotalformatada);
     localStorage.setItem("Imagresultante", imagBase);
 
     //Calculo da  corrente nominal de neutro
@@ -273,31 +273,83 @@ window.onload = function () {
 
     //alimenta todos os campos da tela com os valores do local storage diretamente no HTML
 
-    Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
-    IPpercentualhtml.value = Ippercentual;
-    IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
-    tipodecurvahtml.value = curvafaseArmazenada;
-    dialfasehtml.value = dialfaseArmazenada;
-    imagfase.textContent = imagresultanteArmazenada.toFixed(2) + " A";
-    imagpercentual.value = imagpercentualArmazenada;
-    imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
-    imagrealcalculada.textContent = imagrealcalculadaArmazenada.toFixed(2) + " A";
-    imagsimuladahtml.value = imagsimuladaArmazenada;
-    ideffasehtml.value = ideffaseArmazenada;
-    tdeffasehtml.value = tdeffaseArmazenada;
+    // Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
+    // IPpercentualhtml.value = Ippercentual;
+    // IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
+    // tipodecurvahtml.value = curvafaseArmazenada;
+    // dialfasehtml.value = dialfaseArmazenada;
+    // imagfase.textContent = imagresultanteArmazenada.toFixed(2) + " A";
+    // imagpercentual.value = imagpercentualArmazenada;
+    // imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
+    // imagrealcalculada.textContent = imagrealcalculadaArmazenada.toFixed(2) + " A";
+    // imagsimuladahtml.value = imagsimuladaArmazenada;
+    // ideffasehtml.value = ideffaseArmazenada;
+    // tdeffasehtml.value = tdeffaseArmazenada;
 
-    inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
-    IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
-    IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
-    tipodecurvaneutrohtml.value = curvaneutroArmazenada;
-    curvaneutrohtml.value = dialneutroArmazenada;
-    Imagneutro.textContent = imagneutro.toFixed(2) + " A";
-    Imagneutropercentual.value = imagneutroArmazenada;
-    Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
-    idefneutrohtml.value = idefneutroArmazenada;
-    tdefneutrohtml.value = tdefneutroArmazenada;
+    // inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
+    // IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
+    // IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
+    // tipodecurvaneutrohtml.value = curvaneutroArmazenada;
+    // curvaneutrohtml.value = dialneutroArmazenada;
+    // Imagneutro.textContent = imagneutro.toFixed(2) + " A";
+    // Imagneutropercentual.value = imagneutroArmazenada;
+    // Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
+    // idefneutrohtml.value = idefneutroArmazenada;
+    // tdefneutrohtml.value = tdefneutroArmazenada;
 
+// ...existing code...
 
+//alimenta todos os campos da tela com os valores do local storage diretamente no HTML
+
+Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
+
+// Validar antes de definir valores nos campos
+IPpercentualhtml.value = (!isNaN(Ippercentual) && Ippercentual !== null) ? Ippercentual : 0;
+
+IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
+tipodecurvahtml.value = curvafaseArmazenada || '';
+
+// Validar dialfaseArmazenada
+dialfasehtml.value = (!isNaN(parseFloat(dialfaseArmazenada)) && dialfaseArmazenada !== null) ? dialfaseArmazenada : '';
+
+imagfase.textContent = (!isNaN(imagresultanteArmazenada) && imagresultanteArmazenada !== null) ? imagresultanteArmazenada.toFixed(2) + " A" : "0.00 A";
+
+// Validar imagpercentualArmazenada
+imagpercentual.value = (!isNaN(imagpercentualArmazenada) && imagpercentualArmazenada !== null) ? imagpercentualArmazenada : 0;
+
+imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
+imagrealcalculada.textContent = (!isNaN(imagrealcalculadaArmazenada) && imagrealcalculadaArmazenada !== null) ? imagrealcalculadaArmazenada.toFixed(2) + " A" : "0.00 A";
+
+// Validar imagsimuladaArmazenada
+imagsimuladahtml.value = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : '';
+
+// Validar ideffaseArmazenada e tdeffaseArmazenada
+ideffasehtml.value = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada !== null) ? ideffaseArmazenada : '';
+tdeffasehtml.value = (!isNaN(tdeffaseArmazenada) && tdeffaseArmazenada !== null) ? tdeffaseArmazenada : '';
+
+inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
+
+// Validar ipneutropercentualArmazenada
+IPpercentualneutrohtml.value = (!isNaN(ipneutropercentualArmazenada) && ipneutropercentualArmazenada !== null) ? ipneutropercentualArmazenada : 0;
+
+IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
+tipodecurvaneutrohtml.value = curvaneutroArmazenada || '';
+
+// Validar dialneutroArmazenada
+curvaneutrohtml.value = (!isNaN(parseFloat(dialneutroArmazenada)) && dialneutroArmazenada !== null) ? dialneutroArmazenada : '';
+
+Imagneutro.textContent = imagneutro.toFixed(2) + " A";
+
+// Validar imagneutroArmazenada
+Imagneutropercentual.value = (!isNaN(imagneutroArmazenada) && imagneutroArmazenada !== null) ? imagneutroArmazenada : 0;
+
+Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
+
+// Validar idefneutroArmazenada e tdefneutroArmazenada
+idefneutrohtml.value = (!isNaN(idefneutroArmazenada) && idefneutroArmazenada !== null) ? idefneutroArmazenada : '';
+tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !== null) ? tdefneutroArmazenada : '';
+
+// ...existing code...
 
 
 
