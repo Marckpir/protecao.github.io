@@ -94,7 +94,7 @@
         <div id="tabelaselo">
                 <table style="background-color: #fff; color: #000;">
                         <tr>
-                                <td rowspan="4" colspan="1" style="height: 400px; vertical-align: top;">
+                                <td colspan="2" rowspan="4" style="height: 400px; vertical-align: top;">
                                         Local para selo de análise de conformidade com normas CEMIG e ABNT
                                 </td>
                                 <td colspan="2">
@@ -103,7 +103,7 @@
                                         <input style="width: 90%;"
                                                 value="Coordenadas, transformador, nº orçamento, etc.">
                                 </td>
-                                <td rowspan="4" class="vertical">PARA USO DA CEMIG</td>
+                                <td colspan="2" rowspan="4" class="vertical">PARA USO DA CEMIG</td>
                         </tr>
                         <tr>
                                 <td colspan="2">
@@ -124,17 +124,17 @@
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="2" style="height: 50px;">
+                                <td colspan="3" style="height: 50px;">
                                         <div>Dados e logotipo do projetista (opcional)</div>
                                         <input style="width: 90%;" value="Dados e logotipo do projetista (opcional)">
                                 </td>
-                                <td colspan="3">
+                                <td colspan="2">
                                         <div>Formato do projeto</div>
                                         <input style="width: 90%;" value="Formato do projeto">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4" style="height: 50px;">
+                                <td colspan="5" style="height: 50px;">
                                         <div>Título / conteúdo</div>
                                         <input style="width: 90%;" value="Título / conteúdo">
                                 </td>
@@ -148,7 +148,7 @@
                                         <div>CPF/CNPJ</div>
                                         <input style="width: 80%;" value="CPF/CNPJ">
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Finalidade</div>
                                         <input style="width: 90%;" value="Finalidade">
                                 </td>
@@ -162,13 +162,13 @@
                                         <div>Bairro</div>
                                         <input style="width: 80%;" value="Bairro">
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Cidade</div>
                                         <input style="width: 90%;" value="Cidade">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                         <div>Número e data da ART de projeto</div>
                                         <input style="width: 90%;" value="Número e data da ART de projeto">
                                 </td>
@@ -182,7 +182,7 @@
                                         <div>CPF/CNPJ / Identidade</div>
                                         <input style="width: 80%;" value="CPF/CNPJ / Identidade">
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Telefone</div>
                                         <input style="width: 90%;" value="Telefone">
                                 </td>
@@ -196,27 +196,27 @@
                                         <div>CPF/CNPJ / Identidade</div>
                                         <input style="width: 80%;" value="CPF/CNPJ / Identidade">
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Telefone</div>
                                         <input style="width: 90%;" value="Telefone">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                         <div>Endereço completo para correspondência do PROPRIETÁRIO</div>
                                         <input style="width: 90%;"
                                                 value="Endereço completo para correspondência do PROPRIETÁRIO">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                         <div>Endereço completo para correspondência do PROJETISTA</div>
                                         <input style="width: 90%;"
                                                 value="Endereço completo para correspondência do PROJETISTA">
                                 </td>
                         </tr>
                         <tr>
-                                <td style="height: 100px;">
+                                <td colspan="2" style="height: 100px;">
                                         <div>RT (Engª)</div>
                                         <input style="width: 90%;" value="RT (Engª)">
                                         <input style="width: 90%;" value="Nome">
@@ -289,6 +289,10 @@
                 </table>
         </div>
 
+        <h3>Diagrama Unifilar:</h3>
+        <div id="diagramaunifilar" style="max-width: 210mm; width: 210mm; margin: 0 auto; display: flex; justify-content: center; align-items: center; border: 2px solid #000; border-radius: 20px; overflow: hidden; background: #ffffff;">
+                <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
+        </div>
 
 
         <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
@@ -1533,7 +1537,7 @@
 
                 </p>
                 <p><span>P ajuste P.U:</span>
-                        <span class="potreversa-ajuste-pu">0,00 P.U</span></span>
+                        <span class="potreversa-ajuste-pu"></span></span>
 
 
                 <p><span>Tempo de ajuste:</span> 15 segundos</p>
@@ -1546,15 +1550,16 @@
 
         <div id="tabelaresumofuncoes">
                 <h2>Resumo de Parâmetros</h2>
-                <table>
-                        <tr>
+                <table class="resumo-parametros-tabela">
+                        <tr class="linha-tp">
                                 <th colspan="3">
-                                        <strong>TP:</strong> 70 : 1
+                                        <strong class="titulo-tp">Relação de transformação do TP:</strong> <span
+                                                class="rtp-label"></span>
                                 </th>
                         </tr>
-                        <tr>
+                        <tr class="linha-tc">
                                 <th colspan="3">
-                                        <strong>TC:</strong> 100 : 5
+                                        <span class="tc-especificacao"></span>
                                 </th>
                         </tr>
                         <tr>
@@ -1562,44 +1567,46 @@
                                 <th>Ajuste absoluto</th>
                                 <th>Ajuste P.U</th>
                         </tr>
-                        <tr>
+                        <tr class="linha-51-titulo">
                                 <td colspan="3"><strong>Sobrecorrente temporizada função ANSI 51</strong></td>
                         </tr>
                         <tr>
                                 <td>Corrente de pick-up</td>
-                                <td>14,32 A</td>
-                                <td>0,14 P.U</td>
+                                <td class="ip-partida-resultado"></td>
+                                <td class="corrente-ip-pu"></td>
                         </tr>
-                        <tr>
+                        <tr class="linha-51-curva">
                                 <td>Curva</td>
-                                <td>IEC-M.I</td>
+                                <td class="curva-fase"></td>
                                 <td></td>
                         </tr>
-                        <tr>
+                        <tr class="linha-51-dial">
                                 <td>Dial</td>
-                                <td>1,62</td>
+                                <td class="dial-fase-ajustado"></td>
                                 <td></td>
                         </tr>
                         <tr>
-                                <td colspan="3"><strong>Sobrecorrente instantânea função ANSI 50</strong></td>
+                                <td colspan="3"><strong class="funcao-50">Sobrecorrente instantânea função ANSI
+                                                50</strong></td>
                         </tr>
                         <tr>
                                 <td>Corrente instântanea</td>
-                                <td>979,06 A</td>
-                                <td>9,79 P.U</td>
+                                <td class="inst-fase-resultado"></td>
+                                <td class="inst-valor-pu"></td>
                         </tr>
                         <tr>
                                 <td>Tempo para atuação</td>
-                                <td>0,01 s</td>
+                                <td>0,00 s</td>
                                 <td></td>
                         </tr>
                         <tr>
-                                <td colspan="3"><strong>Sobrecorrente temporizada função ANSI 51N</strong></td>
+                                <td colspan="3"><strong class="funcao-51n">Sobrecorrente temporizada função ANSI
+                                                51N</strong></td>
                         </tr>
                         <tr>
                                 <td>Corrente de pick-up</td>
-                                <td>4,77 A</td>
-                                <td>0,05 P.U</td>
+                                <td class="in-neutro"></td>
+                                <td class="ip-neutro-PU"></td>
                         </tr>
                         <tr>
                                 <td>Curva</td>
@@ -1608,7 +1615,7 @@
                         </tr>
                         <tr>
                                 <td>Dial</td>
-                                <td>2,00 s</td>
+                                <td class="tempo-neutro-ip"></td>
                                 <td></td>
                         </tr>
                         <tr>
@@ -1616,21 +1623,22 @@
                         </tr>
                         <tr>
                                 <td>Corrente instântanea</td>
-                                <td>326,32 A</td>
-                                <td>3,26 P.U</td>
+                                <td class="inst-neutro-resultado">326,32 A</td>
+                                <td class="inst-neutro-PU">3,26 P.U</td>
                         </tr>
                         <tr>
                                 <td>Tempo para atuação</td>
-                                <td>0,01 s</td>
+                                <td>0,00 s</td>
                                 <td></td>
                         </tr>
-                        <tr>
-                                <td colspan="3"><strong>Direcional de Potência ANSI 32</strong></td>
+                        <tr class="linha-32-titulo">
+                                <td colspan="3" class="titulo-funcao"><strong class="funcao-32">Direcional de Potência
+                                                ANSI 32</strong></td>
                         </tr>
                         <tr>
                                 <td>Potência reversa</td>
-                                <td>0,0 W</td>
-                                <td>0,00 P.U</td>
+                                <td class="potencia-reversa-geradorkw"></td>
+                                <td class="potreversa-ajuste-pu"></td>
                         </tr>
                         <tr>
                                 <td>Tempo</td>
@@ -1642,18 +1650,22 @@
         </div>
 
         <br><br>
-        <div id="titulotabelas">
+        <div id="tituloreles">
+                <h2>Parâmetros do Relé de Proteção</h2>
 
-                <div id="tabelareles" classe="tabelaparametrizacaoreles">
+                <div id="titulotabelas">
+
+                        <div id="tabelareles" classe="tabelaparametrizacaoreles">
+                        </div>
                 </div>
+
         </div>
 
         <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
         <h3>Imagens carregadas:</h3>
         <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
-        <h3>Imagens carregadas:</h3>
-        <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
+        
 
         <div id="curvaProtecao">
                 <h2>Coordenograma de Proteção</h2>
