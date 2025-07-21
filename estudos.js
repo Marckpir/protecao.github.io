@@ -45,9 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1500);
 
 
-    carregarVariaveisEstudo()
+    carregarVariaveisEstudo();
 
-    incluirimagensrele()
+    incluirimagensrele();
+
+    exibirCorrenteMinimaSeNecessario();
 });
 
 
@@ -65,13 +67,13 @@ function carregarVariaveisEstudo() {
         }
     }
 
-    const demandaContratada = localStorage.getItem('demandaSelecionada');
-    if (demandaContratada !== null) {
-        const demandaEl = document.getElementById('demanda-contratada-consumo');
-        if (demandaEl) {
-            demandaEl.textContent = demandaContratada + ' kW';
+    const demandacalculada = localStorage.getItem('demandaSelecionada');
+    const demandadecontrato = localStorage.getItem('demandadecontrato');
+    document.querySelectorAll('.demanda-contratada-consumo').forEach(el => {
+        if (demandadecontrato !== null && !isNaN(demandadecontrato)) {
+            el.textContent = demandadecontrato + ' kW';
         }
-    }
+    });
 
     const fatorPotencia = localStorage.getItem('fatorPotenciaSelecionada');
     if (fatorPotencia !== null) {
@@ -117,16 +119,42 @@ function carregarVariaveisEstudo() {
 
     // ---------FIM DO CARREGAMENTO DAS VARIAVEIS DOS PARAMETROS ELETRICO -------------------
 
-    //FUNÇÃO PARA CARREGA CAMPOS E CALCULOS DE CORRENTES DOS TRAFOS
+    //-----------------FUNÇÃO PARA CARREGA CAMPOS E CALCULOS DE CORRENTES DOS TRAFOS-------------
 
     for (let i = 1; i <= 10; i++) { // Suporta até trafo10JSON e s-trf10
         const trafoSalvo = JSON.parse(localStorage.getItem(`trafo${i}JSON`)) || {};
         const potenciaTrafo = parseFloat(trafoSalvo.potencia) || 0;
+        const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
         // Corrige para s-trf01, s-trf02 ... s-trf10 (com zero à esquerda para 1-9, sem zero para 10)
         const trafoId = i < 10 ? `s-trf0${i}` : `s-trf${i}`;
         const trafoEl = document.getElementById(trafoId);
         if (trafoEl) {
             trafoEl.textContent = potenciaTrafo + ' kVA';
+        }
+
+
+        // if(trafoSalvo.potencia === null || trafoSalvo.potencia === undefined || isNaN(potenciaTrafo) || potenciaTrafo === 0) {
+        //     const calcTrafoClass = i < 10 ? `calculotrafos-texto tr${i}` : `calculotrafos-texto tr${i}`;
+        //     const calcTrafoEls = document.getElementsByClassName(calcTrafoClass);
+        //     Array.from(calcTrafoEls).forEach(el => {
+        //         el.style.display = 'none';
+        //     });
+        // }
+
+
+        if (
+            potenciaTrafo === 0 ||
+            qtdeTrafo === 0 ||
+            trafoSalvo.potencia === null ||
+            trafoSalvo.potencia === undefined ||
+            trafoSalvo.qtde === null ||
+            trafoSalvo.qtde === undefined
+        ) {
+            const calcTrafoClass = i < 10 ? `calculotrafos-texto-tr0${i}` : `calculotrafos-texto-tr${i}`;
+            const calcTrafoEls = document.getElementsByClassName(calcTrafoClass);
+            Array.from(calcTrafoEls).forEach(el => {
+                el.style.display = 'none';
+            });
         }
 
         // Preencher campo potencia da tabela de trafos
@@ -138,7 +166,7 @@ function carregarVariaveisEstudo() {
 
         // Preencher campo de quantidade do trafo
 
-        const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
+        // const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
         const qtdeId = i < 10 ? `qtde-0${i}` : `qtde-${i}`;
         const qtdeEl = document.getElementById(qtdeId);
         if (qtdeEl) {
@@ -192,6 +220,10 @@ function carregarVariaveisEstudo() {
         if (zEl) {
             zEl.textContent = impedanciaTrafo + ' %';
         }
+        //----------------------------FIM DO PREENCHIMENTO DOS CAMPOS DE TRAFO--------------------------------
+
+        //--------------------INICIO DE FUNÇÃO QUE OCULTA OS CAMPOS DE TRAFOS QUE NÃO TEM VALOR DE CORRENTE OU QTDE-------------------
+
 
 
 
@@ -275,7 +307,7 @@ function carregarVariaveisEstudo() {
     const inMaiorTrafo = parseFloat(localStorage.getItem('maiortrafoinSelecionada'));
     const inMaiorTrafoEl = document.getElementById('in-maior-trafo');
     if (inMaiorTrafoEl && !isNaN(inMaiorTrafo)) {
-        inMaiorTrafoEl.textContent = "(" + inMaiorTrafo.toFixed(2);
+        inMaiorTrafoEl.textContent = "In do maior trafo = " + "(" + inMaiorTrafo.toFixed(2);
     }
 
     // Preencher campo de maior fator IMIN
@@ -326,11 +358,13 @@ function carregarVariaveisEstudo() {
         const inTrafoEl = document.getElementById(`in-trafo-${idx + 2}`);
         if (inTrafoEl) {
             // Se qtde > 1, mostra x qtde, senão só corrente
-            if (trafosArray[idx].qtde > 0) {
+            if (trafosArray[idx].qtde > 0 && trafosArray[idx].corrente > 0) {
                 inTrafoEl.textContent = `+ ( ${trafosArray[idx].corrente.toFixed(2)} × ${trafosArray[idx].qtde} )`;
-            } else {
-                inTrafoEl.textContent = `+ ( ${trafosArray[idx].corrente.toFixed(2)} )`;
+                // inTrafoEl.textContent = `+ ( ${trafosArray[idx].corrente.toFixed(2)} )`;
             }
+            // else {
+
+            // }
             inTrafoEl.style.display = '';
         }
     }
@@ -446,17 +480,26 @@ function carregarVariaveisEstudo() {
     // Preencher campo numerador-potencia-nominal com demanda contratada
     const numeradorPotenciaNominalEls = document.querySelectorAll('.numerador-potencia-nominal');
     numeradorPotenciaNominalEls.forEach(el => {
-        if (demandaContratada !== null && !isNaN(demandaContratada)) {
-            el.textContent = demandaContratada;
+        if (demandacalculada !== null && !isNaN(demandacalculada)) {
+            el.textContent = demandacalculada;
         }
     });
 
     const ipPartidaNumeradorEls = document.querySelectorAll('.ip-partida-numerador');
     ipPartidaNumeradorEls.forEach(el => {
-        if (demandaContratada !== null && !isNaN(demandaContratada)) {
+        if (demandacalculada !== null && !isNaN(demandacalculada)) {
             // Interpolação: mostra demanda + incremento percentual
-            const incremento = (parseFloat(demandaContratada) * parseFloat(percentualIP) / 100);
-            el.textContent = `${demandaContratada} + ${incremento.toFixed(2)}`;
+            const incremento = (parseFloat(demandacalculada) * parseFloat(percentualIP) / 100);
+            el.textContent = `${demandacalculada} + ${incremento.toFixed(2)}`;
+        }
+    });
+
+    // Para ip-partida-numerador-TC
+    const ipPartidaNumeradorTCEls = document.querySelectorAll('.ip-partida-numerador-TC');
+    ipPartidaNumeradorTCEls.forEach(el => {
+        if (demandadecontrato !== null && !isNaN(demandadecontrato)) {
+            const incremento = (parseFloat(demandadecontrato) * parseFloat(percentualIP) / 100);
+            el.textContent = `${demandadecontrato} + ${incremento.toFixed(2)}`;
         }
     });
 
@@ -483,6 +526,21 @@ function carregarVariaveisEstudo() {
     ipPartidaResultadoEls.forEach(el => {
         if (ipDeConsumo !== null && !isNaN(ipDeConsumo)) {
             el.textContent = parseFloat(ipDeConsumo).toFixed(2) + ' A';
+        }
+    });
+
+    // Preencher campo ip-partida-resultado-TC considerando IpdeconsumoTC
+    const ipDeConsumoTC = demandadecontrato * (1 + (parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
+
+    console.log('fatorPotencia:', fatorPotencia); // Debug: verificar valor de fatorPotencia
+    console.log('tensaoAtendimento:', tensaoAtendimento); // Debug: verificar valor de tensaoAtendimento
+    console.log('percentualIP:', percentualIP); // Debug: verificar valor de percentualIP
+    console.log('demandadecontrato:', demandadecontrato); // Debug: verificar valor de demandadecontrato
+    console.log('ipDeConsumoTC:', ipDeConsumoTC); // Debug: verificar valor de ipDeConsumoTC
+    const ipPartidaResultadoTCEls = document.querySelectorAll('.ip-partida-resultado-TC');
+    ipPartidaResultadoTCEls.forEach(el => {
+        if (ipDeConsumoTC !== null && !isNaN(ipDeConsumoTC)) {
+            el.textContent = parseFloat(ipDeConsumoTC).toFixed(2) + ' A';
         }
     });
 
@@ -549,7 +607,7 @@ function carregarVariaveisEstudo() {
             el.textContent = curvaFaseSelecionada;
         }
     });
- // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
+    // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
 
 
 
@@ -586,7 +644,7 @@ function carregarVariaveisEstudo() {
     }
 
     // Preencher campo tempo-mag-fase com valor 0.10
-    const tempomagFase= 0.10;
+    const tempomagFase = 0.10;
     const tempoMagFaseEls = document.querySelectorAll('.tempo-mag-fase');
     tempoMagFaseEls.forEach(el => {
         el.textContent = tempomagFase.toFixed(2) + ' s ou ' + (tempomagFase * 1000).toFixed(0) + ' ms';
@@ -597,7 +655,7 @@ function carregarVariaveisEstudo() {
 
     //Preencher formulas do dial 
 
-        // Usar classes ao invés de IDs
+    // Usar classes ao invés de IDs
     // const campos2 = ["beta2", "imag2", "in2", "alpha2", "k2", "t2"];
     // const valores = campos2.reduce((obj, className) => {
     //     const element = document.querySelector(`.${className}`);
@@ -735,72 +793,77 @@ function carregarVariaveisEstudo() {
         }
     });
 
-//----------PRRENCHIMENTO GERADOR A DIESEL----------------------------------------
+    //----------PRRENCHIMENTO GERADOR A DIESEL----------------------------------------
 
 
-//PREENCHE POTENCIA EM KVA DO GERADOR NO HTML
-const potenciaAparenteGeradorEls = document.querySelectorAll('.potencia-aparente-gerador');
-potenciaAparenteGeradorEls.forEach(el => {
-    if (geradorSalvo.potencia !== undefined && geradorSalvo.potencia !== null && !isNaN(geradorSalvo.potencia)) {
-        el.textContent = geradorSalvo.potencia + ' kVA';
-    }
-});
-
-// Preencher fator de potência do gerador
-const fatorPotenciaGeradorEls = document.querySelectorAll('.fator-potencia-gerador');
-fatorPotenciaGeradorEls.forEach(el => {
-    if (geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== null && !isNaN(geradorSalvo.fatorpotencia)) {
-        el.textContent = (geradorSalvo.fatorpotencia * 1).toFixed(0) + ' %';
-    }
-});
-
-// Preencher tolerância do gerador
-const toleranciaGeradorEls = document.querySelectorAll('.tolerancia-gerador');
-if (geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== null && !isNaN(geradorSalvo.tolerancia)) {
-    toleranciaGeradorEls.forEach(el => {
-        el.textContent = geradorSalvo.tolerancia + ' %';
+    //PREENCHE POTENCIA EM KVA DO GERADOR NO HTML
+    const potenciaAparenteGeradorEls = document.querySelectorAll('.potencia-aparente-gerador');
+    potenciaAparenteGeradorEls.forEach(el => {
+        if (geradorSalvo.potencia !== undefined && geradorSalvo.potencia !== null && !isNaN(geradorSalvo.potencia)) {
+            el.textContent = geradorSalvo.potencia + ' kVA';
+        }
     });
-}
 
+    // Preencher fator de potência do gerador
+    const fatorPotenciaGeradorEls = document.querySelectorAll('.fator-potencia-gerador');
+    fatorPotenciaGeradorEls.forEach(el => {
+        if (geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== null && !isNaN(geradorSalvo.fatorpotencia)) {
+            el.textContent = (geradorSalvo.fatorpotencia * 1).toFixed(0) + ' %';
+        }
+    });
 
-
-const potenciaReversaGerador = localStorage.getItem('potenciaReversaGerador');
-const potenciaReversaGeradorEls = document.querySelectorAll('.potencia-reversa-gerador');
-potenciaReversaGeradorEls.forEach(el => {
-    if (potenciaReversaGerador !== null && !isNaN(potenciaReversaGerador)) {
-        el.textContent = potenciaReversaGerador + ' W';
+    // Preencher tolerância do gerador
+    const toleranciaGeradorEls = document.querySelectorAll('.tolerancia-gerador');
+    if (geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== null && !isNaN(geradorSalvo.tolerancia)) {
+        toleranciaGeradorEls.forEach(el => {
+            el.textContent = geradorSalvo.tolerancia + ' %';
+        });
     }
-});
-
-// Preencher campo potencia-reversa-geradorkw apenas com valor em kW
-const potenciaReversaGeradorKwEls = document.querySelectorAll('.potencia-reversa-geradorkw');
-potenciaReversaGeradorKwEls.forEach(el => {
-    if (potenciaReversaGerador !== null && !isNaN(potenciaReversaGerador)) {
-        el.textContent = (potenciaReversaGerador / 1000).toFixed(2) + ' kW';
-    }
-});
-
-const denominadorPotReversaEls = document.querySelectorAll('.denominador-potreversa-ajuste-pu');
-denominadorPotReversaEls.forEach(el => {
-    if (
-        tpPrimariaFF !== null && !isNaN(tpPrimariaFF) &&
-        tcEspecificacao !== null && !isNaN(tcEspecificacao)
-    ) {
-        el.textContent = `${tpPrimariaFF} × √3 × ${tcEspecificacao}`;
-    }
-});
-
-const potenciadieselIPU = localStorage.getItem('potenciadieselPU');
-const pAjustePuEls = document.querySelectorAll('.potreversa-ajuste-pu');
-pAjustePuEls.forEach(el => {
-    if (potenciadieselIPU !== null && !isNaN(potenciadieselIPU)) {
-        el.textContent = parseFloat(potenciadieselIPU).toFixed(2) + ' P.U';
-    }
-});
 
 
 
+    const potenciaReversaGerador = localStorage.getItem('potenciaReversaGerador');
+    const potenciaReversaGeradorEls = document.querySelectorAll('.potencia-reversa-gerador');
+    potenciaReversaGeradorEls.forEach(el => {
+        if (potenciaReversaGerador !== null && !isNaN(potenciaReversaGerador)) {
+            el.textContent = potenciaReversaGerador + ' W';
+        }
+    });
 
+    // Preencher campo potencia-reversa-geradorkw apenas com valor em kW
+    const potenciaReversaGeradorKwEls = document.querySelectorAll('.potencia-reversa-geradorkw');
+    potenciaReversaGeradorKwEls.forEach(el => {
+        if (potenciaReversaGerador !== null && !isNaN(potenciaReversaGerador)) {
+            el.textContent = (potenciaReversaGerador / 1000).toFixed(2) + ' kW';
+        }
+    });
+
+    const denominadorPotReversaEls = document.querySelectorAll('.denominador-potreversa-ajuste-pu');
+    denominadorPotReversaEls.forEach(el => {
+        if (
+            tpPrimariaFF !== null && !isNaN(tpPrimariaFF) &&
+            tcEspecificacao !== null && !isNaN(tcEspecificacao)
+        ) {
+            el.textContent = `${tpPrimariaFF} × √3 × ${tcEspecificacao}`;
+        }
+    });
+
+    const potenciadieselIPU = localStorage.getItem('potenciadieselPU');
+    const pAjustePuEls = document.querySelectorAll('.potreversa-ajuste-pu');
+    pAjustePuEls.forEach(el => {
+        if (potenciadieselIPU !== null && !isNaN(potenciadieselIPU)) {
+            el.textContent = parseFloat(potenciadieselIPU).toFixed(2) + ' P.U';
+        }
+    });
+
+
+    //exibir div do class="correnteminima" somente se o valor inomimalminimaTC for Sim
+    // const inomimalMinimaTC = localStorage.getItem('inomimalminimaTC');
+    // const correnteMinimaEls = document.querySelectorAll('.correnteminima');
+    
+    // correnteMinimaEls.forEach(el => {
+    //     el.style.display = (inomimalMinimaTC === 'Sim') ? '' : 'none';
+    // });
 
     //LEMBRAR DE INCLUIR LOGICA PARA APARECER E REMOVER OS CALCULOS QUANDO NÃO HOUVER VALOR
 
@@ -1097,4 +1160,16 @@ function incluirimagensrele() {
         gallery.innerHTML = "";
     });
 
+}
+
+
+function exibirCorrenteMinimaSeNecessario() {
+    // Certifique-se de que o valor está correto e sem espaços extras
+    const inomimalMinimaTC = localStorage.getItem('inominalminimaTC');
+    const correnteMinimaEls = document.querySelectorAll('.correnteminima');
+    // Adicione um log para depuração
+    // console.log('inomimalMinimaTC:', inomimalMinimaTC, 'Elementos encontrados:', correnteMinimaEls.length);
+    correnteMinimaEls.forEach(el => {
+        el.style.display = (inomimalMinimaTC === "Sim") ? '' : 'none';
+    });
 }

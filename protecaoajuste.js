@@ -101,32 +101,6 @@ function salvarOpcao() {
     localStorage.setItem("idefneutroSelecionada", idefdeneutroSelecionada);
     localStorage.setItem("tdefneutroSelecionada", tdefdeneutroSelecionada);
 
-    //CODIGO CRIADO PARA TESTAR ARMAZENAMENTO DOS AJUSTES PARA O RELE
-    // const dadosProtecao = {
-    //     ipdeconsumo: parseFloat(localStorage.getItem("Ipdeconsumo")),
-    //     curvafaseselecionada: curvafaseSelecionada,
-    //     dialfaseselecionada: dialfaseSelecionada,
-    //     ideffaase: Math.max(
-    //         parseFloat(localStorage.getItem("Ipdeconsumo")) || 0,
-    //         parseFloat(localStorage.getItem("Instfaseconsumo")) || 0
-    //     ),
-    //     tdeffase: Math.max(
-    //         parseFloat(localStorage.getItem("dialCalculado")) || 0,
-    //         parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores")) || 0
-    //     ),
-    //     instfaseconsumo: parseFloat(localStorage.getItem("Instfaseconsumo")),
-    //     ipneutro: ipneutro,
-    //     curvaneutro: curvaneutroSelecionada,
-    //     dialneutro: dialneutroSelecionada,
-    //     idefneutro: ipneutro,
-    //     tdefneutro: parseFloat(localStorage.getItem("dialCalculadoPlantaSemMotores")) || 0,
-    //     instneutro: Iinstneutro
-    // };
-    // localStorage.setItem("dadosProtecao", JSON.stringify(dadosProtecao));
-    //VAI ATÉ AQUI   
-
-
-
 
     location.reload();//recarrega a página sempre que o botão é clicado
 
@@ -144,6 +118,8 @@ window.onload = function () {
     }
 
     calculadialideal();
+
+    
 
 
 
@@ -195,6 +171,7 @@ window.onload = function () {
     const ideffaseArmazenada = parseFloat(localStorage.getItem("ideffaseSelecionada"));
     const tdeffaseArmazenada = parseFloat(localStorage.getItem("tdeffaseSelecionada"));
     const imagresultanteArmazenada = parseFloat(localStorage.getItem("Imagresultante"));
+    const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada"));
 
 
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada"));
@@ -220,8 +197,36 @@ window.onload = function () {
     // -------------------------------------------------------------------------------
     // Calculo da  corrente IP de fase somando a tolerancia a corrente nominal
     var correnteprimaria = (potenciaArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada));
+
+
+
+    //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+    //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
+    let correntedeconsumominima = 0;
+    if (TCdeprotecaoSelecionada) {
+        correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
+    }
+
+
+    let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
+    if (correnteprimaria < correntedeconsumominima) {
+        correnteprimaria = correntedeconsumominima;
+         inominalminimaTC = "Sim";  
+    }else {
+        inominalminimaTC = "Não";
+    }
+
+    localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
+    localStorage.setItem("correntedeconsumominima", correntedeconsumominima);
+
+    console.log("correntedeconsumominima:", correntedeconsumominima, "inominalDemanda:", correnteprimaria);
+
+//-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+
     var correnteIP = correnteprimaria * (1 + Ippercentual / 100);
     correnteFormatada = correnteIP;
+
+
     localStorage.setItem("Ipdeconsumo", correnteFormatada);
     localStorage.setItem("Inominalfase", correnteprimaria);
 
@@ -1090,6 +1095,9 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
             dialIdealTag.textContent = maiorDial.toFixed(2);
         }
     }
+
+
+    verificarAlertaPotMinima();
 };
 
 
@@ -1171,3 +1179,34 @@ function ativarLegendas() {
 
     location.reload();
 }
+
+
+// Função para gerar alerta dos 10% do primario do TC de proteção
+
+function verificarAlertaPotMinima() {
+    const status = localStorage.getItem("inominalminimaTC");
+    const alertaDiv = document.querySelector(".alertapotminima");
+    if (status) {
+        if (status === "Sim") {
+            alertaDiv.style.display = "";
+            // Adiciona classe para piscar lentamente
+            alertaDiv.classList.add("piscando-lento");
+        } else {
+            alertaDiv.style.display = "none";
+            alertaDiv.classList.remove("piscando-lento");
+        }
+    }
+}
+
+// Adicione este CSS ao seu arquivo ou dentro de uma <style> no HTML:
+/*
+.piscando-lento {
+    animation: piscarLento 1.5s infinite;
+}
+@keyframes piscarLento {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+*/
+
+// Chame a função ao carregar a página

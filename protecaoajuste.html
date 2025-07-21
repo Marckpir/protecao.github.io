@@ -51,12 +51,19 @@
             <div class="tabela-containerfase">
 
                 <table id="tabelafase">
-                    <caption
+                    <caption class="alertapotminima"
+                        style="font-weight: bold; background-color: rgb(223, 7, 7); color: rgb(250, 250, 250); font-size: 14px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+
+                        I nominal ajustada para 10% da corrente primária do TC de proteção selecionado! Favor corrigir potência de consumo para valor maior ou igual ao campo "Pot 10% Prim TC:" da aba "Parâmetros" para validar a coordenação da proteção!
+
+                    </caption>
+                    <div 
                         style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 3px solid #000000;">
 
                         AJUSTES FASE 50/51
 
-                    </caption>
+                    </div>
+
 
                     <thead>
                         <tr>
@@ -367,7 +374,7 @@
         <br><br><br>
     </div>
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
-    
+
     <button id="botaoLegendas" onclick="ativarLegendas()" style="float: right; margin-right: 30px;">Legendas</button>
 
 

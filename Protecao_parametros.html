@@ -90,7 +90,8 @@
                 <td>FATOR DE POTÊNCIA:</td>
                 <td>
                     <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
-                        <input id="fatorPotencia" type="text" placeholder="Digite um valor" style="margin-right: 11px; text-align: left;">
+                        <input id="fatorPotencia" type="text" placeholder="Digite um valor"
+                            style="margin-right: 11px; text-align: left;">
                         <span class="unidade">%</span>
                     </div>
                 </td>
@@ -100,7 +101,8 @@
                 <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
                 <td>
                     <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
-                        <input type="number" id="desequilibrio" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
+                        <input type="number" id="desequilibrio" placeholder="Digite um valor"
+                            style="text-align: left; margin-right: 11px;">
                         <span class="unidade">%</span>
                     </div>
                 </td>
@@ -110,7 +112,8 @@
                 <td>ICC TRIFÁSICA:</td>
                 <td>
                     <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
-                        <input id="icctrifasica" type="number" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
+                        <input id="icctrifasica" type="number" placeholder="Digite um valor"
+                            style="text-align: left; margin-right: 11px;">
                         <span class="unidade">A</span>
                     </div>
                 </td>
@@ -129,22 +132,30 @@
                 <td colspan="2">
                     <div style="display: flex; align-items: flex-start; gap: 32px; margin-bottom: 12px;">
                         <div class="label-container"
-                            style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 1px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center;">
+                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
                             <span><b>RTC:</b></span>
-                            <label id="RTChtml" type="text" style="display: block; margin-top: 8px;"></label>
+                            <label id="RTChtml" type="text" style="display: block;"></label>
                             <span class="unidade"></span>
                         </div>
+
                         <div class="label-container"
-                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 1px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center;">
-                            <span><b>Pot 10% Prim TC:</b></span>
-                            <label id="potenciaMinimahtml" type="text" style="display: block; margin-top: 8px;"></label>
-                            <span class="unidade"></span>
-                        </div>
-                        <div class="label-container"
-                            style="flex: 1; font-size: 16px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 1px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center;">
+                            style="flex: 1; font-size: 14px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
                             <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC
-                                    ideal:</b> <label id="tcdeProtecaoideal" type="text"
-                                    style="display: inline; margin-top: 8px;"></label></span>
+                                    ideal:</b></span>
+                            <label id="tcdeProtecaoideal" type="text" style="display: inline;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                            <span><b>Pot 10% Prim TC:</b></span>
+                            <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                            <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>Pot Base (Sn):
+                                    </b></span>
+                            <label id="potenciabasehtml" type="text" style="display: inline;"></label>
                             <span class="unidade"></span>
                         </div>
                     </div>

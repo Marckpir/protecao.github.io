@@ -268,7 +268,7 @@
                         </tr>
                         <tr>
                                 <th>Demanda Contratada:</th>
-                                <td id="demanda-contratada-consumo"></td>
+                                <td class="demanda-contratada-consumo"></td>
                         </tr>
                         <tr>
                                 <th>Fator de Potência:</th>
@@ -290,7 +290,8 @@
         </div>
 
         <h3>Diagrama Unifilar:</h3>
-        <div id="diagramaunifilar" style="max-width: 210mm; width: 210mm; margin: 0 auto; display: flex; justify-content: center; align-items: center; border: 2px solid #000; border-radius: 20px; overflow: hidden; background: #ffffff;">
+        <div id="diagramaunifilar"
+                style="max-width: 210mm; width: 210mm; margin: 0 auto; display: flex; justify-content: center; align-items: center; border: 2px solid #000; border-radius: 20px; overflow: hidden; background: #ffffff;">
                 <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
         </div>
 
@@ -298,8 +299,8 @@
         <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
         <div id=calculotrafos>
 
-                <p>
-                        <strong>In TRF01 =</strong>
+                <div class="calculotrafos-texto-tr01">
+                        <span>In TRF01 =</span>
                         <span id="formula-trf01" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf01" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf01"
@@ -313,9 +314,10 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf01"></span>
-                </p>
-                <p>
-                        <strong>In TRF02 =</strong>
+                </div><br>
+
+                <div class="calculotrafos-texto-tr02">
+                        <span>In TRF02 =</span>
                         <span id="formula-trf02" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf02" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf02"
@@ -329,9 +331,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf02"></span>
-                </p>
-                <p>
-                        <strong>In TRF03 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr03">
+                        <span>In TRF03 =</span>
                         <span id="formula-trf03" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf03" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf03"
@@ -345,9 +347,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf03"></span>
-                </p>
-                <p>
-                        <strong>In TRF04 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr04">
+                        <span>In TRF04 =</span>
                         <span id="formula-trf04" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf04" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf04"
@@ -361,9 +363,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf04"></span>
-                </p>
-                <p>
-                        <strong>In TRF05 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr05">
+                        <span>In TRF05 =</span>
                         <span id="formula-trf05" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf05" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf05"
@@ -377,9 +379,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf05"></span>
-                </p>
-                <p>
-                        <strong>In TRF06 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr06">
+                        <span>In TRF06 =</span>
                         <span id="formula-trf06" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf06" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf06"
@@ -393,9 +395,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf06"></span>
-                </p>
-                <p>
-                        <strong>In TRF07 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr07">
+                        <span>In TRF07 =</span>
                         <span id="formula-trf07" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf07" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf07"
@@ -409,9 +411,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf07"></span>
-                </p>
-                <p>
-                        <strong>In TRF08 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr08">
+                        <span>In TRF08 =</span>
                         <span id="formula-trf08" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf08" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf08"
@@ -425,9 +427,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf08"></span>
-                </p>
-                <p>
-                        <strong>In TRF09 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr09">
+                        <span>In TRF09 =</span>
                         <span id="formula-trf09" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf09" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf09"
@@ -441,9 +443,9 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf09"></span>
-                </p>
-                <p>
-                        <strong>In TRF10 =</strong>
+                </div><br>
+                <div class="calculotrafos-texto-tr10">
+                        <span>In TRF10 =</span>
                         <span id="formula-trf10" style="display:inline-block; vertical-align:middle;">
                                 <span id="numerador-trf10" style="display:block; text-align:center;">S</span>
                                 <span id="denominador-trf10"
@@ -457,7 +459,7 @@
                                         style="border-top:1px solid; display:block; text-align:center;"></span>
                         </span>
                         = <span id="resultado-trf10"></span>
-                </p>
+                </div>
         </div>
 
 
@@ -466,7 +468,7 @@
 
                 <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em; margin-bottom: 24px;">
                         <div style="margin-bottom: 12px;">
-                                <strong>I<sub>FASE ANSI</sub></strong>
+                                <span>I<sub>FASE ANSI</sub></span>
                                 =
                                 <span style="display:inline-block; vertical-align:middle;">
                                         <span style="display:block; text-align:center;">100</span>
@@ -476,7 +478,7 @@
                                 &times; In (do transformador)
                         </div>
                         <div>
-                                <strong>I<sub>NEUTRO ANSI</sub></strong>
+                                <span>I<sub>NEUTRO ANSI</sub></span>
                                 =
                                 0,58 &times; I<sub>FASE ANSI</sub>
                         </div>
@@ -484,8 +486,8 @@
 
 
                 <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em;">
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR01</strong>
+                        <div class="calculotrafos-texto-tr01" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR01</span>
                                 =
                                 <span id="frac-ansi-tr01" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr01" style="display:block; text-align:center;">100</span>
@@ -495,9 +497,9 @@
                                 &times; <span id="in-ansi-tr01"></span>
                                 =
                                 <span id="resultado-ansi-tr01"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR02</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr02" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR02</span>
                                 =
                                 <span id="frac-ansi-tr02" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr02" style="display:block; text-align:center;">100</span>
@@ -507,9 +509,9 @@
                                 &times; <span id="in-ansi-tr02"></span>
                                 =
                                 <span id="resultado-ansi-tr02"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR03</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr03" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR03</span>
                                 =
                                 <span id="frac-ansi-tr03" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr03" style="display:block; text-align:center;">100</span>
@@ -519,9 +521,9 @@
                                 &times; <span id="in-ansi-tr03"></span>
                                 =
                                 <span id="resultado-ansi-tr03"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR04</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr04" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR04</span>
                                 =
                                 <span id="frac-ansi-tr04" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr04" style="display:block; text-align:center;">100</span>
@@ -531,9 +533,9 @@
                                 &times; <span id="in-ansi-tr04"></span>
                                 =
                                 <span id="resultado-ansi-tr04"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR05</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr05" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR05</span>
                                 =
                                 <span id="frac-ansi-tr05" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr05" style="display:block; text-align:center;">100</span>
@@ -543,9 +545,9 @@
                                 &times; <span id="in-ansi-tr05"></span>
                                 =
                                 <span id="resultado-ansi-tr05"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR06</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr06" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR06</span>
                                 =
                                 <span id="frac-ansi-tr06" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr06" style="display:block; text-align:center;">100</span>
@@ -555,9 +557,9 @@
                                 &times; <span id="in-ansi-tr06"></span>
                                 =
                                 <span id="resultado-ansi-tr06"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR07</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr07" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR07</span>
                                 =
                                 <span id="frac-ansi-tr07" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr07" style="display:block; text-align:center;">100</span>
@@ -567,9 +569,9 @@
                                 &times; <span id="in-ansi-tr07"></span>
                                 =
                                 <span id="resultado-ansi-tr07"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR08</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr08" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR08</span>
                                 =
                                 <span id="frac-ansi-tr08" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr08" style="display:block; text-align:center;">100</span>
@@ -579,9 +581,9 @@
                                 &times; <span id="in-ansi-tr08"></span>
                                 =
                                 <span id="resultado-ansi-tr08"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR09</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr09" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR09</span>
                                 =
                                 <span id="frac-ansi-tr09" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr09" style="display:block; text-align:center;">100</span>
@@ -591,9 +593,9 @@
                                 &times; <span id="in-ansi-tr09"></span>
                                 =
                                 <span id="resultado-ansi-tr09"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I FASE ANSI TR10</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr10" style="margin-bottom: 8px;">
+                                <span>I FASE ANSI TR10</span>
                                 =
                                 <span id="frac-ansi-tr10" style="display:inline-block; vertical-align:middle;">
                                         <span id="num-ansi-tr10" style="display:block; text-align:center;">100</span>
@@ -607,80 +609,80 @@
 
                         <br>
 
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR01</strong>
+                        <div class="calculotrafos-texto-tr01" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR01</span>
                                 =
                                 <span id="coef-neutro-tr01">0,58</span> &times; <span
                                         id="resultado-ansi-tr01-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr01"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR02</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr02" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR02</span>
                                 =
                                 <span id="coef-neutro-tr02">0,58</span> &times; <span
                                         id="resultado-ansi-tr02-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr02"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR03</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr03" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR03</span>
                                 =
                                 <span id="coef-neutro-tr03">0,58</span> &times; <span
                                         id="resultado-ansi-tr03-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr03"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR04</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr04" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR04</span>
                                 =
                                 <span id="coef-neutro-tr04">0,58</span> &times; <span
                                         id="resultado-ansi-tr04-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr04"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR05</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr05" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR05</span>
                                 =
                                 <span id="coef-neutro-tr05">0,58</span> &times; <span
                                         id="resultado-ansi-tr05-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr05"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR06</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr06" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR06</span>
                                 =
                                 <span id="coef-neutro-tr06">0,58</span> &times; <span
                                         id="resultado-ansi-tr06-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr06"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR07</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr07" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR07</span>
                                 =
                                 <span id="coef-neutro-tr07">0,58</span> &times; <span
                                         id="resultado-ansi-tr07-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr07"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR08</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr08" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR08</span>
                                 =
                                 <span id="coef-neutro-tr08">0,58</span> &times; <span
                                         id="resultado-ansi-tr08-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr08"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR09</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr09" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR09</span>
                                 =
                                 <span id="coef-neutro-tr09">0,58</span> &times; <span
                                         id="resultado-ansi-tr09-neutro"></span>
                                 =
                                 <span id="resultado-neutro-tr09"></span>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                                <strong>I NEUTRO ANSI TR10</strong>
+                        </div><br>
+                        <div class="calculotrafos-texto-tr10" style="margin-bottom: 8px;">
+                                <span>I NEUTRO ANSI TR10</span>
                                 =
                                 <span id="coef-neutro-tr10">0,58</span> &times; <span
                                         id="resultado-ansi-tr10-neutro"></span>
@@ -714,7 +716,7 @@
                                 <th>I NANSI</th>
                                 <th>I MAG</th>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr01">
                                 <td id="trafo-01">TRF01</td>
                                 <td id="potencia-01"></td>
                                 <td id="qtde-01"></td>
@@ -726,7 +728,7 @@
                                 <td id="i-nansi-01"></td>
                                 <td id="i-mag-01"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr02">
                                 <td id="trafo-02">TRF02</td>
                                 <td id="potencia-02"></td>
                                 <td id="qtde-02"></td>
@@ -738,7 +740,7 @@
                                 <td id="i-nansi-02"></td>
                                 <td id="i-mag-02"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr03">
                                 <td id="trafo-03">TRF03</td>
                                 <td id="potencia-03"></td>
                                 <td id="qtde-03"></td>
@@ -750,7 +752,7 @@
                                 <td id="i-nansi-03"></td>
                                 <td id="i-mag-03"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr04">
                                 <td id="trafo-04">TRF04</td>
                                 <td id="potencia-04"></td>
                                 <td id="qtde-04"></td>
@@ -762,7 +764,7 @@
                                 <td id="i-nansi-04"></td>
                                 <td id="i-mag-04"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr05">
                                 <td id="trafo-05">TRF05</td>
                                 <td id="potencia-05"></td>
                                 <td id="qtde-05"></td>
@@ -774,7 +776,7 @@
                                 <td id="i-nansi-05"></td>
                                 <td id="i-mag-05"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr06">
                                 <td id="trafo-06">TRF06</td>
                                 <td id="potencia-06"></td>
                                 <td id="qtde-06"></td>
@@ -786,7 +788,7 @@
                                 <td id="i-nansi-06"></td>
                                 <td id="i-mag-06"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr07">
                                 <td id="trafo-07">TRF07</td>
                                 <td id="potencia-07"></td>
                                 <td id="qtde-07"></td>
@@ -798,7 +800,7 @@
                                 <td id="i-nansi-07"></td>
                                 <td id="i-mag-07"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr08">
                                 <td id="trafo-08">TRF08</td>
                                 <td id="potencia-08"></td>
                                 <td id="qtde-08"></td>
@@ -810,7 +812,7 @@
                                 <td id="i-nansi-08"></td>
                                 <td id="i-mag-08"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr09">
                                 <td id="trafo-09">TRF09</td>
                                 <td id="potencia-09"></td>
                                 <td id="qtde-09"></td>
@@ -822,7 +824,7 @@
                                 <td id="i-nansi-09"></td>
                                 <td id="i-mag-09"></td>
                         </tr>
-                        <tr>
+                        <tr class="calculotrafos-texto-tr10">
                                 <td id="trafo-10">TRF10</td>
                                 <td id="potencia-10"></td>
                                 <td id="qtde-10"></td>
@@ -850,41 +852,41 @@
                         <li>M = Multiplicador de magnetização (Im/In)</li>
                         <li>In dos demais transformadores = Corrente nominal dos demais transformadores</li>
                         <p>
-                                <strong>Imag total =</strong>
+                                <strong>Imag total =</strong><br>
                                 <span style="margin-left: 12px;">
                                         <span id="in-maior-trafo"></span><span id="M-maior-trafo"></span>
                                 </span>
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-1"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-2"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-3"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-4"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-5"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-6"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-7"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-8"></span>
-                                </span>
+                                </span><br>
 
                                 <span style="margin-left: 32px;">
                                         <span id="in-trafo-9"></span>
@@ -896,7 +898,7 @@
                         </p>
                         <!-- <p>Imag total = <span id="in-maior-trafo">20,92</span> × <span id="iminmaiortrafo">8,00</span> = <strong><span id="imag-total">167,35</span> A</strong></p> -->
                         <p><strong>Imag total =</strong>
-                                <strong><span class="imag-total-valor"></span>
+                                <strong><span class="imag-total-valor"></span> por 0,1 s ou 100 ms</strong>
                         </p>
         </div>
 
@@ -1059,87 +1061,93 @@
                                 <span id="curtoTC" style="display:block; text-align:center;"></span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">50</span>
                         </span>
-                        = <span id="tc-saturacao-primario"></span> A
+                        <p>I primário TC >= <span id="tc-saturacao-primario"></span> A</p>
 
                 </p>
                 <br>
-                <p><strong>2) Cobertura da Corrente de Magnetização:
-                                <p>Para o cálculo da saturação por corrente de magnetização dos transformadores
-                                        a norma prevê a capacidade do TC em suportar uma corrente de até 20 vezes a
-                                        corrente
-                                        de primário: </p>
-                                <p>
-                        </strong>
-                        I primário TC >=
+                <p><strong>2) Cobertura da Corrente de Magnetização:</strong>
+
+                <p>Para o cálculo da saturação por corrente de magnetização dos transformadores
+                        a norma prevê a capacidade do TC em suportar uma corrente de até 20 vezes a
+                        corrente
+                        de primário: </p>
+
+                <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span style="display:block; text-align:center;">I rush</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">20</span>
-                        </span>
+                        <span style="border-top:1px solid; display:block; text-align:center;">20</span>
+                </span>
 
-                        <br>
-                        I primário TC >=
+                
+                <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span class="imag-total-valor" style="display:block; text-align:center;"></span>
                                 <span id="corrente-magnetizacao-tc-divisor"
                                         style="border-top:1px solid; display:block; text-align:center;">20</span>
                         </span>
-                        = <span id="corrente-magnetizacao-saturacao-tc">8,37 A</span>
+                        
+
+                        <p>I primário TC >= <span id="corrente-magnetizacao-saturacao-tc"></span></p>
                 </p>
+                </p>
+
                 <br>
-                <p><strong>
-                                3)Cobertura da Corrente de Partida Máxima:</h2>
-                                <p>A corrente de primário do TC deve possuir capacidade nominal superior à corrente de
-                                        partida da instalação:</p>
 
-                                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
-                                                <span style="display:block; text-align:center;">P(kW) + tolerânica de
-                                                        5%</span>
-                                                <span style="border-top:1px solid; display:block; text-align:center;">V
-                                                        × √3 × 0,92</span>
-                                        </span>
+                <p>
+                        <strong>3)Cobertura da Corrente de Partida Máxima:</strong>
 
+                <p>A corrente de primário do TC deve possuir capacidade nominal superior à corrente de
+                        partida da instalação:</p>
 
-                                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
-                                                <span class="ip-partida-numerador"
-                                                        style="display:block; text-align:center;"></span>
-                                                <span class="ip-partida-denominador"
-                                                        style="border-top:1px solid; display:block; text-align:center;">13,8
-                                                        × √3 × 0,92</span>
-                                        </span>
-                                        = <span class="ip-partida-resultado">14,32 A</span></p>
+                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
+                                <span style="display:block; text-align:center;">P(kW) + tolerânica de
+                                        5%</span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">V
+                                        × √3 × 0,92</span>
+                        </span>
                 </p>
 
+                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
+                                <span class="ip-partida-numerador-TC" style="display:block; text-align:center;"></span>
+                                <span class="ip-partida-denominador"
+                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        </span>
+                        = <span class="ip-partida-resultado-TC"></span>
+                </p>
+                </p>
+
+                
+                <p><span style="display:inline-block; vertical-align:middle;">
+                        <span style="display:block; text-align:center;">I primário TC >= Ip</span>
+
+                </span></p>
+
                 I primário TC >=
                 <span style="display:inline-block; vertical-align:middle;">
-                        <span style="display:block; text-align:center;">Ip</span>
-
-                </span>
-
-                I primário TC >=
-                <span style="display:inline-block; vertical-align:middle;">
-                        <span class="ip-partida-resultado">14,32</span>
+                        <span class="ip-partida-resultado-TC"></span>
 
                 </span>
 
                 <br><br><br>
 
-                4) Critério de precisão de leitura do TC:
-                </strong>
+                <strong>4) Critério de precisão de leitura do TC:</strong>
+
                 <p>Considerando as limitações de leitura com erro máximo de 10% previsto
                         na leitura de corrente pelo TC de proteção, a medição só se torna confiável após essa faixa.
                         Nesse caso, deve ser previsto uma corrente Ip da instalação com valor maior ou igual a essa
                         sensibilidade.</p>
 
-                <p><strong>10% Corrente de partida TC >= Ip</strong></p>
+                <p>10% Corrente de partida TC >= Ip</p>
 
-                <span>10% Corrente de partida TC >= <span class="ip-partida-resultado"></span></span>
+                <span>10% Corrente de partida TC >= <span class="ip-partida-resultado-TC"></span></span>
 
                 <br><br>
 
-                <p><strong>4) Critério Normativo</h2>
-                                <p>Conforme a ND-5.3 e a ABNT NBR 6856, o TC deve ter no mínimo a
-                                        seguinte especificação:</p>
-                                <p><strong>Classificação: 12,5 VA 10P20</strong></p>
+                <p><strong>5) Critério Normativo</strong>
+                <p>Conforme a ND-5.3 e a ABNT NBR 6856, o TC deve ter no mínimo a
+                        seguinte especificação:</p>
+                <p>Classificação: 12,5 VA 10P20</p>
+                </p>
 
 
 
@@ -1272,6 +1280,23 @@
         <div class="calculosfuncoes">
 
                 <h3>1º Estágio - Função 51 (Sobrecorrente de fase tempo inverso)</h3>
+
+                <div class="correnteminima">
+
+                        Conforme a norma ND-5.3:<br>
+                        <em>A corrente de partida deverá ser superior a 10% da corrente primária nominal dos TC de
+                                proteção para assegurar uma melhor exatidão.</em>
+
+                        <p>Apesar da potência de consumo de contrato ser de <span class="demanda-contratada-consumo"></span>,
+                                será priorizado o dimensionamento para que o TC suporte a corrente de saturação de curto-circuito.
+                                Devido as limitações de
+                                sensibilidade do TC de
+                                proteção e conforme a norma será adotada a demanda mínima de <span class="numerador-potencia-nominal"></span> kW que tem como resultado a corrente de 10% do primário do TC de
+                                proteção dimensionado.
+
+
+                        </p>
+                </div>
                 <p>
                         <span>In fase:</span>
                         <span style="display:inline-block; vertical-align:middle;">
@@ -1492,10 +1517,10 @@
 
         <div id="calculogeradordiesel">
                 <h2>Cálculo e Parametrização - Gerador Diesel</h2>
-                <p>A instalação possui um gerador a Diesel que entrará em operação com paralelismo momentâneo com a
-                        rede. Abaixo seguem os cálculos de seus parâmetros:</p>
+                <p>A instalação possui geração a Diesel que entrará em operação através de paralelismo momentâneo com a
+                        rede. Seguem os cálculos de seus parâmetros:</p>
 
-                <h3>Dados Considerados</h3>
+
 
                 <p><span>Potência aparente: </span><span class="potencia-aparente-gerador"></span></p>
                 <p><span>Fator de Potência do gerador: </span><span class="fator-potencia-gerador"></span></p>
@@ -1542,6 +1567,19 @@
 
                 <p><span>Tempo de ajuste:</span> 15 segundos</p>
 
+                <div class="ajuste-potencia-reversa-minimo">
+                        <p>Obs:Devido a limitação da faixa de ajuste mínima do relé, poderá ser considerado a potência
+                                reversa mínima parametrizável caso não seja possível a parametrização real.Ver ajuste na
+                                tabela de parâmetros do relé.</p>
+
+
+                        <span class="ajuste-potencia-reversa-valor"></span>
+
+
+
+
+
+                </div>
         </div>
 
 
@@ -1665,7 +1703,7 @@
         <h3>Imagens carregadas:</h3>
         <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
-        
+
 
         <div id="curvaProtecao">
                 <h2>Coordenograma de Proteção</h2>

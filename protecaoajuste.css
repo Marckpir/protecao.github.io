@@ -179,6 +179,16 @@ select {
 
 
 
+/* FAZ FICAR PISCANDO O ALERTA DE POTÊNCIA MÍNIMA */
+.piscando-lento {
+    animation: piscarLento 1.5s infinite;
+}
+@keyframes piscarLento {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* FIM DA LOGICA DE PISCAR ALERTA DE POTÊNCIA MÍNIMA */
 @media (max-width: 600px) {
 
     html,

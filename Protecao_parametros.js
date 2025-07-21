@@ -12,7 +12,7 @@ function salvarOpcao() {
     //-----------------------------------------------------------------------------------------
     const demandaPotencia = document.getElementById("demandaConsumo");
     const demandaSelecionada = demandaPotencia.value;
-    localStorage.setItem("demandaSelecionada", demandaSelecionada);
+    //localStorage.setItem("demandaSelecionada", demandaSelecionada);
 
     //-----------------------------------------------------------------------------------------
     const fatorPotencia = document.getElementById("fatorPotencia");
@@ -128,6 +128,16 @@ function salvarOpcao() {
     // ------------------------fim calculos dos TCs-----------------------------------------------
 
 
+    //-----calcular potencia base para calculos de P.U --------------------
+
+    const potenciabase = (tensaoSelecionada * Math.sqrt(3) * TCdeprotecaoSelecionada).toFixed(2); // Potência base em kVA
+
+    
+    localStorage.setItem("potenciabase", potenciabase); // Armazena a potência base no localStorage
+
+
+    //-------------FIM DOS CALCULOS DE POTENCIA BASE PARA CALCULOS DE P.U --------------------
+
     
     //-----------------------------------------------------------------------------------------
     //Calcular as tensões secundárias do TP auxiliar
@@ -192,6 +202,18 @@ function salvarOpcao() {
     // Armazena a tensão secundária do TP de neutro no localStorage
     localStorage.setItem("tensaoSecundariaFNTP", tensaoSecundariaFNTP.toFixed(2));
 
+    //compara potencia minima com a demanda selecionada, se a demanda for menor que a potencia minima 
+    //então uma variavel armazena a potencia selecionada e a potencia minima é salva no localStorage
+    if (demandaSelecionada < potenciaMinima) {
+        localStorage.setItem("demandaSelecionada", potenciaMinima.toFixed(2));
+        localStorage.setItem("demandadecontrato", demandaSelecionada);
+        
+    } else {
+        localStorage.setItem("demandaSelecionada", demandaSelecionada);
+        localStorage.setItem("demandadecontrato", demandaSelecionada);
+    }
+
+
 
 
     console.log("tensaoSelecionada:", tensaoSelecionada);
@@ -217,7 +239,7 @@ function salvarOpcao() {
 
 
     // Recarrega a página após salvar as opções
-    location.reload();
+   location.reload();
 }
 
 
@@ -241,7 +263,7 @@ window.onload = function () {
     //-----------------------------------------------------------------------------------------
 
     const demanda = document.getElementById("demandaConsumo");
-    const demandaSalva = localStorage.getItem("demandaSelecionada");
+    const demandaSalva = localStorage.getItem("demandadecontrato");
     if (demandaSalva) {
         demanda.value = demandaSalva;
     }
@@ -315,13 +337,21 @@ window.onload = function () {
     let tcProtecaoIdeal = document.getElementById("tcdeProtecaoideal");
     if (tcProtecaoIdeal) {
         tcProtecaoIdeal.textContent = valorTCSelecionado !== null ? valorTCSelecionado + " :5" : "";
-    }
-    // Recupera o valor da potência mínima do localStorage e exibe no elemento HTML
-    const potenciaMinimaSelecionada = localStorage.getItem("potenciaMinimaSelecionada");
-    let potenciaMinimaElement = document.getElementById("potenciaMinimahtml");
-    if (potenciaMinimaElement) {
-        potenciaMinimaElement.textContent = potenciaMinimaSelecionada !== null ? potenciaMinimaSelecionada + " kW" : "";
-    }
+            }
+            // Recupera o valor da potência mínima do localStorage e exibe no elemento HTML
+            const potenciaMinimaSelecionada = localStorage.getItem("potenciaMinimaSelecionada");
+            let potenciaMinimaElement = document.getElementById("potenciaMinimahtml");
+            if (potenciaMinimaElement) {
+                potenciaMinimaElement.textContent = potenciaMinimaSelecionada !== null ? potenciaMinimaSelecionada + " kW" : "";
+            }
+
+            // Recupera o valor da potência base do localStorage e exibe no elemento HTML
+            const potenciaBaseSelecionada = localStorage.getItem("potenciabase");
+            let potenciaBaseElement = document.getElementById("potenciabasehtml");
+            if (potenciaBaseElement) {
+                potenciaBaseElement.textContent = potenciaBaseSelecionada !== null ? potenciaBaseSelecionada + " kW" : "";
+            }
+
 
     // Recupera o valor da tensão secundária do TP auxiliar do localStorage e exibe no elemento HTML
     const tensaoSecundariaTPauxiliar = localStorage.getItem("tensaoSecundariaTPauxiliar");

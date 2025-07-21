@@ -36,8 +36,10 @@ window.onload = function () {
 
 
     importadadoslocalstorage(); // Chama a função para importar as variáveis do localStorage
-    
 
+
+    // Importa potenciabase do localStorage e atualiza campos
+    let potenciabase = dados['potenciabase'];
 
 
     // Novo trecho para ajuste-tc-abc
@@ -53,27 +55,27 @@ window.onload = function () {
 
 
 
-        // Novo trecho para ajuste-tc-protecao
-        let valorAjusteTcProtecao = dados['TCdeprotecaoSelecionada'];
-        if (valorAjusteTcProtecao !== null && valorAjusteTcProtecao !== undefined) {
-            valorAjusteTcProtecao = parseFloat(valorAjusteTcProtecao);
+    // Novo trecho para ajuste-tc-protecao
+    let valorAjusteTcProtecao = dados['TCdeprotecaoSelecionada'];
+    if (valorAjusteTcProtecao !== null && valorAjusteTcProtecao !== undefined) {
+        valorAjusteTcProtecao = parseFloat(valorAjusteTcProtecao);
 
-            // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
-            document.querySelectorAll('.ajuste-tc-protecao').forEach(function (inputTcProt) {
-                inputTcProt.textContent = valorAjusteTcProtecao + "";
-            });
-        }
+        // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
+        document.querySelectorAll('.ajuste-tc-protecao').forEach(function (inputTcProt) {
+            inputTcProt.textContent = valorAjusteTcProtecao + "";
+        });
+    }
 
-        // Novo trecho para ajuste-tc-protecao-ka
-        let valorAjusteTcProtecaoKa = dados['TCdeprotecaoSelecionadaemka'];
-        if (valorAjusteTcProtecaoKa !== null && valorAjusteTcProtecaoKa !== undefined) {
-            valorAjusteTcProtecaoKa = parseFloat(valorAjusteTcProtecaoKa).toFixed(3);
+    // Novo trecho para ajuste-tc-protecao-ka
+    let valorAjusteTcProtecaoKa = dados['TCdeprotecaoSelecionadaemka'];
+    if (valorAjusteTcProtecaoKa !== null && valorAjusteTcProtecaoKa !== undefined) {
+        valorAjusteTcProtecaoKa = parseFloat(valorAjusteTcProtecaoKa).toFixed(3);
 
-            // Atualiza TODOS os campos com a classe ajuste-tc-protecao-ka em todas as tabelas
-            document.querySelectorAll('.ajuste-tc-protecao-ka').forEach(function (inputTcProtKa) {
-                inputTcProtKa.textContent = valorAjusteTcProtecaoKa + " kA";
-            });
-        }
+        // Atualiza TODOS os campos com a classe ajuste-tc-protecao-ka em todas as tabelas
+        document.querySelectorAll('.ajuste-tc-protecao-ka').forEach(function (inputTcProtKa) {
+            inputTcProtKa.textContent = valorAjusteTcProtecaoKa + " kA";
+        });
+    }
 
     // Novo trecho para TPdeprotecaoSelecionada
     let valorAjusteTp = dados['TPdeprotecaoSelecionada'];
@@ -96,7 +98,7 @@ window.onload = function () {
         });
     }
 
-        // Novo trecho para tensaoSecundariaFNTP
+    // Novo trecho para tensaoSecundariaFNTP
     let tensaoSecundariaFFTP = dados['tensaoSecundariaFFTP'];
     if (tensaoSecundariaFFTP !== null && tensaoSecundariaFFTP !== undefined) {
         tensaoSecundariaFFTP = parseFloat(tensaoSecundariaFFTP).toFixed(2);
@@ -171,7 +173,8 @@ window.onload = function () {
             } else {
                 el.textContent = statusFuncao32;
             }
-        });}
+        });
+    }
 
 
 
@@ -179,6 +182,20 @@ window.onload = function () {
     // Verifica o status da função 32 e exibe ou oculta os parâmetros correspond
     //foi criada a classe para tr com nome parametrosfuncao32diesel para que seja possível ocultar ou exibir os parâmetros
     // de acordo com o status da função 32
+    const valoresminimos = [
+        { nome: "urp2405", valor: 1 },
+        { nome: "urp6100", valor: 3 },
+        { nome: "7sr1004", valor: 0.05 },
+        { nome: "sepams42", valor: 1 },
+        { nome: "urp6000", valor: 3 },
+        { nome: "rempgd", valor: 0.4 },
+        { nome: "p3u30", valor: 0.05 },
+        { nome: "7sr5111", valor: 0.05 },
+        { nome: "sel751", valor: 0.05 },
+        { nome: "remp32", valor: 1.2 },
+        
+
+    ];
     if (statusFuncao32 === "Desabilitado") {
         document.querySelectorAll('.parametrosfuncao32diesel').forEach(function (row) {
             row.style.display = "none";
@@ -198,7 +215,6 @@ window.onload = function () {
         });
     }
 
-
     // Novo trecho para potencia gerador-diesel-pu
     let potenciaDieselPU = dados['potenciadieselPU'];
     if (potenciaDieselPU !== null && potenciaDieselPU !== undefined) {
@@ -208,12 +224,140 @@ window.onload = function () {
             el.textContent = potenciaDieselPUFormatada;
         });
 
-        // Segunda variável recebe o valor multiplicado por 100
+        // Segunda variável recebe o valor multiplicado por 100 para schneider normalmente
         let potenciaDieselPUPercentual = (potenciaDieselPU * 100).toFixed(2) + " x %Sn";
         document.querySelectorAll('.potencia-diesel-pu-percentual').forEach(function (el) {
             el.textContent = potenciaDieselPUPercentual;
         });
     }
+
+
+
+
+
+    // Novo trecho para potencia-reversa-gerador-urp2405
+    document.querySelectorAll('.potencia-reversa-gerador-urp2405').forEach(function (el) {
+        let minimoUrp2405 = valoresminimos.find(v => v.nome === "urp2405").valor;
+        let valorminimourp2405 = valorAjusteTp * valorAjusteTc * minimoUrp2405;
+
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaReversaGerador < valorminimourp2405) {
+                el.textContent = valorminimourp2405.toFixed(2) + " W (Minímo)";
+            } else {
+                el.textContent = potenciaReversaGerador + " W";
+            }
+        }
+    });
+    // Novo trecho para potencia-reversa-gerador-7sr1004 minima 
+    document.querySelectorAll('.potencia-reversa-gerador-7sr1004').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "7sr1004").valor;
+
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaDieselPU < minimo) {
+                el.textContent = minimo.toFixed(2) + " x Sn (Minímo)";
+            } else {
+                el.textContent = potenciaDieselPU.toFixed(2) + " x Sn";
+            }
+        }
+    });
+
+    // Novo trecho para potencia-reversa-gerador-7sr5111 minima 
+    document.querySelectorAll('.potencia-reversa-gerador-7sr5111').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "7sr5111").valor;
+
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaDieselPU < minimo) {
+                el.textContent = minimo.toFixed(2) + " x Sn (Minímo)";
+            } else {
+                el.textContent = potenciaDieselPU.toFixed(2) + " x Sn";
+            }
+        }
+    });
+
+   
+
+    // Novo trecho para potencia-reversa-gerador-sepams42 minima 
+    document.querySelectorAll('.potencia-reversa-gerador-sepams42').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "sepams42").valor;
+        let valorminimo = (minimo/100) * (potenciabase*1000);
+    
+
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaReversaGerador < valorminimo) {
+                el.textContent = minimo.toFixed(2) + " % Sn (Minímo)";
+                
+            } else {
+                el.textContent = (1*(potenciaReversaGerador/potenciabase)).toFixed(2) + " % Sn";
+                
+            }
+        }
+    });
+
+    // Novo trecho para potencia-reversa-gerador-urp6000 minima 
+    document.querySelectorAll('.potencia-reversa-gerador-urp6000').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "urp6000").valor;
+        let valorminimo = valorAjusteTp * valorAjusteTc * minimo;
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaReversaGerador < valorminimo) {
+                el.textContent = valorminimo.toFixed(2) + " W (Minímo)";
+            } else {
+                el.textContent = potenciaReversaGerador + " W";
+            }
+        }
+    });
+
+    // Novo trecho para potencia-reversa-gerador-rempgd minima 
+    document.querySelectorAll('.potencia-reversa-gerador-rempgd').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "rempgd").valor;
+        let valorminimo = valorAjusteTp * valorAjusteTc * minimo;
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaReversaGerador < valorminimo) {
+                el.textContent = valorminimo.toFixed(2) + " W (Minímo)";
+            } else {
+                el.textContent = potenciaReversaGerador + " W";
+            }
+        }
+    });
+
+    // Novo trecho para potencia-reversa-gerador-p3u30 minima 
+    document.querySelectorAll('.potencia-reversa-gerador-p3u30').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "p3u30").valor;
+        let valorminimo = (minimo/100) * (potenciabase*1000);
+        console.log("minimo:", minimo, "valorminimo:", valorminimo, "potenciabase:", potenciabase);
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaReversaGerador < valorminimo) {
+                el.textContent = minimo.toFixed(2) + " % Sn (Minímo)";
+                console.log("potenciaReversaGerador:", potenciaReversaGerador, "valorminimo:", valorminimo);
+            } else {
+                el.textContent = (1*(potenciaReversaGerador/potenciabase)).toFixed(2) + " % Sn";
+                console.log("potenciaReversaGerador:", potenciaReversaGerador, "valorminimo:", valorminimo);
+
+            }
+        }
+    });
+
+
+    // Novo trecho para potencia-reversa-gerador-remp32 minima 
+    document.querySelectorAll('.potencia-reversa-gerador-remp32').forEach(function (el) {
+        let minimo = valoresminimos.find(v => v.nome === "remp32").valor;
+        let valorminimo = valorAjusteTp * valorAjusteTc * minimo;
+        if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
+            if (potenciaReversaGerador < valorminimo) {
+                el.textContent = valorminimo.toFixed(2) + " W";
+            } else {
+                el.textContent = potenciaReversaGerador + " W";
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -314,7 +458,7 @@ window.onload = function () {
             el.textContent = curvaNeutroDT;
         });
     }
-    
+
     // Dial de neutro
     let dialNeutro = dados['dialneutroSelecionada'];
     if (dialNeutro !== null && dialNeutro !== undefined) {
@@ -413,19 +557,19 @@ function mostrarTabela() {
     //     localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
     // }
 
- 
+
 }
 
 
 function Salvaropcao() {
 
-const seletor = document.getElementById("seletorTabela").value;
-localStorage.setItem("TabelaSelecionadaHTML", seletor);
+    const seletor = document.getElementById("seletorTabela").value;
+    localStorage.setItem("TabelaSelecionadaHTML", seletor);
 
-const tabelaSelecionada = document.getElementById(seletor);
-if (tabelaSelecionada) {
-    localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
-}
+    const tabelaSelecionada = document.getElementById(seletor);
+    if (tabelaSelecionada) {
+        localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
+    }
 
 
 

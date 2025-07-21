@@ -209,6 +209,12 @@ window.onload = function () {
         labelPotenciaReversa.textContent = potenciaReversaArmazenada.toFixed(2) + " W";
     }
 
+    const potenciaReversaPUArmazenada = parseFloat(localStorage.getItem("potenciadieselPU"));
+    const labelPotenciaReversaPU = document.getElementById("potenciareversageradorPUhtml");
+    if (labelPotenciaReversaPU && !isNaN(potenciaReversaPUArmazenada)) {
+        labelPotenciaReversaPU.textContent = potenciaReversaPUArmazenada.toFixed(4) + " P.U";
+    }
+
     // Exibir valores armazenados do motor no HTML
     const motorSalvo = JSON.parse(localStorage.getItem("motorJSON"));
     if (motorSalvo) {
@@ -379,11 +385,11 @@ function calculoGerador() {
         potenciadieselPU = 0;
     } else {
         potenciadieselPU = potenciaReversa / (tensaoArmazenada * 1000 * tcProtecaoArmazenada * Math.sqrt(3));
-        if (potenciadieselPU < 0.05) {
-            potenciadieselPU = 0.05;
-        }
+
     }
-    
+
+
+ 
     localStorage.setItem("statusfuncao32diesel", statusfuncao32diesel);
     localStorage.setItem("potenciaReversaGerador", potenciaReversa);
     localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
