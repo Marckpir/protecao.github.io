@@ -76,7 +76,7 @@
                 </div>
 
          ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS--------------- -->
-        <div id="controls">
+        <!-- <div id="controls">
                 <button id="clearButton">🧹 Limpar Galeria</button>
         </div>
 
@@ -86,7 +86,7 @@
                 <input type="file" id="imageInput" accept="image/*" multiple
                         style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #f8f8f8; font-size: 1em; color: #222; cursor: pointer;">
 
-        </div>
+        </div> -->
 
 
 
@@ -1061,7 +1061,7 @@
                                 <span id="curtoTC" style="display:block; text-align:center;"></span>
                                 <span style="border-top:1px solid; display:block; text-align:center;">50</span>
                         </span>
-                        <p>I primário TC >= <span id="tc-saturacao-primario"></span> A</p>
+                <p>I primário TC >= <span id="tc-saturacao-primario"></span> A</p>
 
                 </p>
                 <br>
@@ -1075,19 +1075,19 @@
                 <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span style="display:block; text-align:center;">I rush</span>
-                        <span style="border-top:1px solid; display:block; text-align:center;">20</span>
-                </span>
+                                <span style="border-top:1px solid; display:block; text-align:center;">20</span>
+                        </span>
 
-                
+
                 <p>I primário TC >=
                         <span style="display:inline-block; vertical-align:middle;">
                                 <span class="imag-total-valor" style="display:block; text-align:center;"></span>
                                 <span id="corrente-magnetizacao-tc-divisor"
                                         style="border-top:1px solid; display:block; text-align:center;">20</span>
                         </span>
-                        
 
-                        <p>I primário TC >= <span id="corrente-magnetizacao-saturacao-tc"></span></p>
+
+                <p>I primário TC >= <span id="corrente-magnetizacao-saturacao-tc"></span></p>
                 </p>
                 </p>
 
@@ -1116,11 +1116,11 @@
                 </p>
                 </p>
 
-                
-                <p><span style="display:inline-block; vertical-align:middle;">
-                        <span style="display:block; text-align:center;">I primário TC >= Ip</span>
 
-                </span></p>
+                <p><span style="display:inline-block; vertical-align:middle;">
+                                <span style="display:block; text-align:center;">I primário TC >= Ip</span>
+
+                        </span></p>
 
                 I primário TC >=
                 <span style="display:inline-block; vertical-align:middle;">
@@ -1137,9 +1137,9 @@
                         Nesse caso, deve ser previsto uma corrente Ip da instalação com valor maior ou igual a essa
                         sensibilidade.</p>
 
-                <p>10% Corrente de partida TC >= Ip</p>
+                <p>Ip >= 10% Corrente de primário TC</p>
 
-                <span>10% Corrente de partida TC >= <span class="ip-partida-resultado-TC"></span></span>
+                <span> <span class="ip-partida-resultado-TC"></span> >= 10% Corrente de primário TC</span>
 
                 <br><br>
 
@@ -1269,9 +1269,9 @@
                 <p>Características Técnicas Mínimas do TP:</p>
                 <textarea
                         style="width: 100%; min-height: 60px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
-                • Atender à ABNT NBR 6855
-                • Potência térmica de 400 VA
-                • Classe de exatidão 0,6P75
+• Atender à ABNT NBR 6855
+• Potência térmica de 400 VA
+• Classe de exatidão 0,6P75
                 </textarea>
         </div>
 
@@ -1287,11 +1287,15 @@
                         <em>A corrente de partida deverá ser superior a 10% da corrente primária nominal dos TC de
                                 proteção para assegurar uma melhor exatidão.</em>
 
-                        <p>Apesar da potência de consumo de contrato ser de <span class="demanda-contratada-consumo"></span>,
-                                será priorizado o dimensionamento para que o TC suporte a corrente de saturação de curto-circuito.
+                        <p>Apesar da potência de consumo de contrato ser de <span
+                                        class="demanda-contratada-consumo"></span>,
+                                será priorizado o dimensionamento para que o TC suporte a corrente de saturação de
+                                curto-circuito.
                                 Devido as limitações de
                                 sensibilidade do TC de
-                                proteção e conforme a norma será adotada a demanda mínima de <span class="numerador-potencia-nominal"></span> kW que tem como resultado a corrente de 10% do primário do TC de
+                                proteção e conforme a norma será adotada a demanda mínima de <span
+                                        class="numerador-potencia-nominal"></span> kW que tem como resultado a corrente
+                                de 10% do primário do TC de
                                 proteção dimensionado.
 
 
@@ -1515,7 +1519,7 @@
                 <p><span>Tempo de atuação:</span> 0,00 s ou o menor tempo possível</p>
         </div>
 
-        <div id="calculogeradordiesel">
+        <div class="habilitageradoradiesel">
                 <h2>Cálculo e Parametrização - Gerador Diesel</h2>
                 <p>A instalação possui geração a Diesel que entrará em operação através de paralelismo momentâneo com a
                         rede. Seguem os cálculos de seus parâmetros:</p>
@@ -1669,16 +1673,16 @@
                                 <td>0,00 s</td>
                                 <td></td>
                         </tr>
-                        <tr class="linha-32-titulo">
+                        <tr class="habilitageradoradiesel">
                                 <td colspan="3" class="titulo-funcao"><strong class="funcao-32">Direcional de Potência
                                                 ANSI 32</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="habilitageradoradiesel">
                                 <td>Potência reversa</td>
                                 <td class="potencia-reversa-geradorkw"></td>
                                 <td class="potreversa-ajuste-pu"></td>
                         </tr>
-                        <tr>
+                        <tr class="habilitageradoradiesel">
                                 <td>Tempo</td>
                                 <td>15,00 s</td>
                                 <td></td>

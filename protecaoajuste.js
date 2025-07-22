@@ -196,30 +196,36 @@ window.onload = function () {
 
     // -------------------------------------------------------------------------------
     // Calculo da  corrente IP de fase somando a tolerancia a corrente nominal
-    var correnteprimaria = (potenciaArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada));
 
+
+    //var correnteprimaria = (potenciaArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada));
+
+    //codigo novo
+    var correnteprimaria = parseFloat(localStorage.getItem("Inominalfase"));
+    console.log("correnteprimaria: ", correnteprimaria);
+//fim do codigo novo
 
 
     //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
     //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
-    let correntedeconsumominima = 0;
-    if (TCdeprotecaoSelecionada) {
-        correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
-    }
+    // let correntedeconsumominima = 0;
+    // if (TCdeprotecaoSelecionada) {
+    //     correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
+    // }
 
 
-    let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
-    if (correnteprimaria < correntedeconsumominima) {
-        correnteprimaria = correntedeconsumominima;
-         inominalminimaTC = "Sim";  
-    }else {
-        inominalminimaTC = "Não";
-    }
+    // let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
+    // if (correnteprimaria < correntedeconsumominima) {
+    //     correnteprimaria = correntedeconsumominima;
+    //      inominalminimaTC = "Sim";  
+    // }else {
+    //     inominalminimaTC = "Não";
+    // }
 
-    localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
-    localStorage.setItem("correntedeconsumominima", correntedeconsumominima);
+    // localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
+    // localStorage.setItem("correntedeconsumominima", correntedeconsumominima);
 
-    console.log("correntedeconsumominima:", correntedeconsumominima, "inominalDemanda:", correnteprimaria);
+    // console.log("correntedeconsumominima:", correntedeconsumominima, "inominalDemanda:", correnteprimaria);
 
 //-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
 
@@ -228,7 +234,10 @@ window.onload = function () {
 
 
     localStorage.setItem("Ipdeconsumo", correnteFormatada);
-    localStorage.setItem("Inominalfase", correnteprimaria);
+
+    //retornar isso aqui caso de ruim
+    //localStorage.setItem("Inominalfase", correnteprimaria);
+    //fim do codigo que foi comentado
 
     // Calculo da  corrente instantanea de fase somando a tolerancia a corrente de magnetização nominal
 

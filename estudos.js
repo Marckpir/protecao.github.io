@@ -796,6 +796,11 @@ function carregarVariaveisEstudo() {
     //----------PRRENCHIMENTO GERADOR A DIESEL----------------------------------------
 
 
+    
+
+
+
+
     //PREENCHE POTENCIA EM KVA DO GERADOR NO HTML
     const potenciaAparenteGeradorEls = document.querySelectorAll('.potencia-aparente-gerador');
     potenciaAparenteGeradorEls.forEach(el => {
@@ -855,6 +860,36 @@ function carregarVariaveisEstudo() {
             el.textContent = parseFloat(potenciadieselIPU).toFixed(2) + ' P.U';
         }
     });
+
+    
+    // Verifica se o gerador a diesel está habilitado e exibe os campos correspondentes---------------
+    const habilitaGeradorEls = document.querySelectorAll('.habilitageradoradiesel');
+
+    if (
+        geradorSalvo.potencia !== undefined && geradorSalvo.potencia !== null && !isNaN(geradorSalvo.potencia) && geradorSalvo.potencia !== "" &&
+        geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== null && !isNaN(geradorSalvo.fatorpotencia) && geradorSalvo.fatorpotencia !== "" &&
+        geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== null && !isNaN(geradorSalvo.tolerancia) && geradorSalvo.tolerancia !== ""
+    ) {
+        console.log('sim');
+        // Habilitar elementos relacionados ao gerador a diesel
+        habilitaGeradorEls.forEach(el => {
+            el.style.display = '';
+            el.classList.add('tabelaparametrizacaoreles');
+            el.classList.add('calculogeradordiesel');
+        });
+    } else {
+        habilitaGeradorEls.forEach(el => {
+            el.style.display = 'none';
+        });
+        console.log('não');
+    }
+    // FIM DE PREENCHEMENTO GERADOR A DIESEL----------------------------------------
+
+
+
+
+
+
 
 
     //exibir div do class="correnteminima" somente se o valor inomimalminimaTC for Sim

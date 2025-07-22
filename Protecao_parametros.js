@@ -1,6 +1,5 @@
+//FUNÇÃO PARA SALVAR OS CAMPOS PREENCHIDOS NO LOCAL STORAGE E REALIZAR ALGUNS CÁLCULOS NECESSÁRIOS PARA A PROTEÇÃO
 
-
-//chama função ao se clicar no botão 
 function salvarOpcao() {
 
     //inicializa duas variaveis do tipo constante, um obtem o valor da ID meu select
@@ -55,14 +54,8 @@ function salvarOpcao() {
     localStorage.setItem("RTPauxiliarSelecionada", RTPauxiliarSelecionada);
 
     //-----------------------------------------------------------------------------------------
-//seleciona a tabela do rele de proteção e armazena no localStorage
-    // const tabelaSelect = document.getElementById("tabelaselecionadahtml");
-    // if (tabelaSelect) {
-    //     const tabelaSelecionada = tabelaSelect.value;
-    //     localStorage.setItem("tabelaselecionadahtml", tabelaSelecionada);
-    // }
 
-    //-----------------------------------------------------------------------------------------
+   
 
 
     // Codigo para definir o TC Ideal
@@ -78,7 +71,7 @@ function salvarOpcao() {
     let inominalDemanda = 0;
     inominalDemanda = (demandaSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada));
 
-    // faz a divisão do valor da corrente nominal por 50 para comparar com os valores do array
+    // faz a divisão do valor da corrente de curto por 50 para comparar com os valores do array
     let iprimTccurto = curtoSelecionada / 50;
 
     // Recupera a corrente instantanea de magnetização selecionada do localStorage para comparar com os valores do array
@@ -111,7 +104,7 @@ function salvarOpcao() {
     let potenciaMinima = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada;
 
 
-    // Armazena o valor selecionado no localStorage e exibe no console log
+    // Armazena o valor selecionado no localStorage
     if (valorTCSelecionado !== null) {
         localStorage.setItem("valorTCideal", valorTCSelecionado);
         
@@ -183,13 +176,6 @@ function salvarOpcao() {
         tensaoSecundariaFFTP = 0;
     }
 
-
-    // const tensaoSecundariaFFTP = (tensaoprimariaFN/ TPdeprotecaoSelecionada); // Tensão secundária do TP de proteção
-    
-    // const tensaoSecundariaFNTP = tensaoprimariaFN/ Math.sqrt(3); // Tensão secundária do TP de neutro
-
-    
-    
     // Armazena a tensão secundária do TP de proteção no localStorage
     localStorage.setItem("tensaoSecundariaFFTP", tensaoSecundariaFFTP.toFixed(2));
 
@@ -213,6 +199,29 @@ function salvarOpcao() {
         localStorage.setItem("demandadecontrato", demandaSelecionada);
     }
 
+      //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+    //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
+    let correntedeconsumominima = 0;
+    if (TCdeprotecaoSelecionada) {
+        correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
+    }
+
+
+    let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
+    if (inominalDemanda < correntedeconsumominima) {
+        inominalDemanda = correntedeconsumominima;
+         inominalminimaTC = "Sim";  
+    }else {
+        inominalminimaTC = "Não";
+    }
+
+    localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
+    localStorage.setItem("correntedeconsumominima", correntedeconsumominima.toFixed(2));
+    localStorage.setItem("Inominalfase", inominalDemanda.toFixed(2));
+
+    console.log("correntedeconsumominima:", correntedeconsumominima.toFixed(2), "inominalDemanda:", (inominalDemanda.toFixed(2)));
+
+//-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
 
 
 
@@ -319,11 +328,7 @@ window.onload = function () {
     }
 
     //-----------------------------------------------------------------------------------------
-    // const tabelaSelecionada = localStorage.getItem("tabelaselecionadahtml");
-    // const tabelaElement = document.getElementById("tabelaselecionadahtml");
-    // if (tabelaSelecionada && tabelaElement) {
-    //     tabelaElement.value = tabelaSelecionada;
-    // }
+
 
 
 
@@ -384,16 +389,6 @@ window.onload = function () {
 }
 
 
-// function salvarTabela(){
-
-//     const tabelaSelect = document.getElementById("tabelaselecionadahtml");
-//     if (tabelaSelect) {
-//         const tabelaSelecionada = tabelaSelect.value;
-//         localStorage.setItem("tabelaselecionadahtml", tabelaSelecionada);
-//     }
-
-
-// }
 
 
 
