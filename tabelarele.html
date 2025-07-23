@@ -76,7 +76,7 @@
                                 <option value="19-PEXTRON-URP-6100-Software-Versão-1.0.0.059">
                                         19-PEXTRON-URP-6100-Software-Versão-1.0.0.059</option>
                                 <option value="20-SCHNEIDER-SEPAM-S20">20-SCHNEIDER-SEPAM-S20</option>
-                                <option value="21-tabelareserva">21-tabelareserva</option>
+                                <option value="21-ABB-REF-610">21-ABB-REF-610</option>
 
                         </select>
                 </div>
@@ -86,12 +86,12 @@
 
                 <button onclick="baixarPDF()">Baixar PDF</button>
                 <button onclick="baixarXLS()">Baixar XLS</button>
-                 <button onclick="Salvaropcao()">Salvar</button>
+                <button onclick="Salvaropcao()">Salvar</button>
 
         </div>
 
         <br><br>
-<!-- -------------------------------------------------------
+        <!-- -------------------------------------------------------
 Descrição das nomenclaturas que foram adotadas para ajustes de relé no html:
         
 (variavel para relação do TC)
@@ -4295,25 +4295,104 @@ ajuste-instneutro-pu
                 </table>
         </div>
 
-        <div id="21-tabelareserva" class="tabela">
+        <div id="21-ABB-REF-610" class="tabela">
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <tr>
-                                        <th colspan="3" style="text-align:center;">TABELA DE RESERVA</th>
+                                        <th colspan="4" style="text-align:center;">ABB-REF-610</th>
                                 </tr>
                                 <tr>
-                                        <th style="width: 50%;">Parâmetro</th>
-                                        <th style="width: 25%;">Descrição</th>
-                                        <th style="width: 25%;">Ajuste</th>
+                                        <th style="width: 24%;">Parâmetro</th>
+                                        <th style="width: 32%;">Descrição</th>
+                                        <th style="width: 28%;">Faixa de ajustes</th>
+                                        <th style="width: 16%;">Ajuste</th>
                                 </tr>
                         </thead>
                         <tbody>
                                 <tr>
-                                        <td>Local parametro TC</td>
-                                        <td>local para faixa de ajuste</td>
-                                        <td class="Habilita restrição 50v/51v/67v">Local onde vai o valor</td>
+                                        <td rowspan="2">TC FASE</td>
+                                        <td>Primário</td>
+                                        <td>1...6300 A</td>
+                                        <td class="ajuste-tc-protecao"></td>
                                 </tr>
+                                <tr>
+                                        <td>Secundário</td>
+                                        <td>1A/5A</td>
+                                        <td class="ajuste">5</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="2">TC NEUTRO (TERRA)</td>
+                                        <td>Primário</td>
+                                        <td>1...6300 A</td>
+                                        <td class="ajuste-tc-protecao"></td>
+                                </tr>
+                                <tr>
+                                        <td>Secundário</td>
+                                        <td>1A/5A</td>
+                                        <td class="ajuste">5</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="3">I&gt; Parâmetros da sobrecorrente de fase (51)</td>
+                                        <td>Fase I&gt; (Ip de fase)</td>
+                                        <td>Na característica de tempo definido (0.30...5.00 x In)<br>Na característica
+                                                IDTM (0.30...2.50 x In)</td>
+                                        <td class="ajuste-ip-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>IDMT de acordo com IEC 60255-3 (Tipo de curva)</td>
+                                        <td>Extremamente inverso<br>Muito inverso<br>Normalmente inverso<br>Tempo longo
+                                                inverso</td>
+                                        <td class="ajuste-curva-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>Multiplicador de tempo, k</td>
+                                        <td>0.05...1.00</td>
+                                        <td class="ajuste-dt-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="2">I&gt;&gt;&gt; Parâmetros da sobrecorrente de fase (50)</td>
+                                        <td>Fase I&gt;&gt;&gt; (I inst de fase)</td>
+                                        <td>0.50...35.0 x In</td>
+                                        <td class="ajuste-iinst-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>tempo definido do tempo operacional, t&gt;&gt;&gt;</td>
+                                        <td>0,04...300 s</td>
+                                        <td class="ajuste">0,04</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="2">Io&gt; Parâmetros da sobrecorrente de Neutro (51N)</td>
+                                        <td>Estágio I0&gt; (Ip de Neutro)</td>
+                                        <td>1.0...100% In</td>
+                                        <td class="ajuste-ipneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>Tempo definido do tempo operacional, t0&gt;</td>
+                                        <td>0,05...300 s</td>
+                                        <td class="ajuste-dt-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="2">Io&gt;&gt; Parâmetros da sobrecorrente de Neutro (50N)</td>
+                                        <td>Estágio I0&gt;&gt; (I inst de neutro)</td>
+                                        <td>5.0...800% In</td>
+                                        <td class="ajuste-instneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>Tempo definido do tempo operacional, t0&gt;&gt;</td>
+                                        <td>0,05...300 s</td>
+                                        <td class="ajuste">0,05</td>
+                                </tr>
+                        </tbody>
                 </table>
+
+        </div>
+
+        <div id="22-tabelareserva" class="tabela">
+
+        </div>
+
+        <div id="23-tabelareserva" class="tabela">
+
         </div>
 
 
