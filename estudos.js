@@ -8,7 +8,7 @@
 //INICIALIZAR DO CARREGAMENTO DA PAGINA 
 document.addEventListener('DOMContentLoaded', function () {
 
-
+    exibirCorrenteMinimaSeNecessario();
 
 
     // Aguardar MathJax carregar
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     incluirimagensrele();
 
-    exibirCorrenteMinimaSeNecessario();
+
 });
 
 
@@ -796,7 +796,7 @@ function carregarVariaveisEstudo() {
     //----------PRRENCHIMENTO GERADOR A DIESEL----------------------------------------
 
 
-    
+
 
 
 
@@ -861,7 +861,7 @@ function carregarVariaveisEstudo() {
         }
     });
 
-    
+
     // Verifica se o gerador a diesel está habilitado e exibe os campos correspondentes---------------
     const habilitaGeradorEls = document.querySelectorAll('.habilitageradoradiesel');
 
@@ -895,7 +895,7 @@ function carregarVariaveisEstudo() {
     //exibir div do class="correnteminima" somente se o valor inomimalminimaTC for Sim
     // const inomimalMinimaTC = localStorage.getItem('inomimalminimaTC');
     // const correnteMinimaEls = document.querySelectorAll('.correnteminima');
-    
+
     // correnteMinimaEls.forEach(el => {
     //     el.style.display = (inomimalMinimaTC === 'Sim') ? '' : 'none';
     // });
