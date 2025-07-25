@@ -18,12 +18,27 @@ function salvarOpcao() {
 
     //Armazenar todas as potencias em KVA em variaveis formator JSON e no localstorage
     for (let i = 1; i <= 10; i++) {
+        const impedancia = parseFloat(document.getElementById(`impedanciahtml${i}`)?.value) || 0;
+        let tempo = document.getElementById(`tempotrhtml${i}`)?.value || "";
+
+        if (impedancia > 0 && impedancia <= 4 && tempo > 2) {
+            alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 4%, o tempo máximo permitido é 2s.`);
+            
+        } else if (impedancia <= 5 && tempo > 3) {
+            alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 5%, o tempo máximo permitido é 3s.`);
+
+        } else if (impedancia <= 6 && tempo > 4) {
+            alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 6%, o tempo máximo permitido é 4s.`);
+        } else if (impedancia <= 7 && tempo > 5) {
+            alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 7%, o tempo máximo permitido é 5s.`);
+        }
+
         const trafo = {
             potencia: document.getElementById(`potenciahtml${i}`)?.value || "",
             qtde: document.getElementById(`qtdehtml${i}`)?.value || "",
             z: document.getElementById(`impedanciahtml${i}`)?.value || "",
             imin: document.getElementById(`fatoriminhtml${i}`)?.value || "",
-            tempo: document.getElementById(`tempotrhtml${i}`)?.value || ""
+            tempo: tempo
         };
         localStorage.setItem(`trafo${i}JSON`, JSON.stringify(trafo));
     }

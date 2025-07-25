@@ -9,16 +9,14 @@ button {
     color: rgb(227, 224, 64);
     font-size: 10px;
     margin-bottom: 10px black;
-    margin: 20px black;
+    margin: 20px black ;
     border: #34335c solid 2px;
     background-color: rgb(2, 68, 2);
     width: 100px;
     height: 50px;
     line-height: 1px;
     border-radius: 10px;
-
 }
-
 button:hover {
     background-color: #cf0808;
 }
@@ -475,61 +473,59 @@ select {
 }
 
 @media (min-width: 1600px) {
-    body {
-        font-size: 18px;
-    }
-
     .conteiner-geral {
+        display: flex;
+        flex-direction: row;
         gap: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 100vw;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
-    .grafico-container {
-        max-width: 900px;
-    }
+    .tabelas-lado-esquerdo {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 15vw; /* diminuído de 20vw */
+        min-width: 0;
+        max-width: 30vw; /* diminuído de 45vw */
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
 
-    #grafico,
-    canvas#grafico {
-        width: 600px !important;
-        height: 900px !important;
-        max-width: 900px !important;
-    }
+        .tabela-containerfase,
+        .tabela-containerneutro {
+        font-size: 12px;
+        padding: 0;
+        width: 70%; /* diminuído de 90% */
+        min-width: 0;
+        box-sizing: border-box;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        }
 
-    .tabela-containerfase,
-    .tabela-containerneutro {
-        font-size: 16px;
-        max-width: 600px;
-    }
+canvas {
+    background-color: rgb(255, 255, 255);
+    border: 5px solid black;
+    max-width: 700px;
+    max-height: 650px;
+}
 
-    #tabelafase,
-    #tabelaneutro {
-        font-size: 16px;
-    }
+.grafico-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    #tabelafase th,
-    #tabelafase td,
-    #tabelaneutro th,
-    #tabelaneutro td {
-        font-size: 15px;
-        padding: 3px;
-        padding: 3px;
-        height: 3px; /* altura ainda mais diminuída */
-    }
-
-    button,
-    #botaoSalvar {
-        font-size: 18px;
-        width: 150px;
-        height: 60px;
-        padding: 30px 1px;
-    }
-
-    input,
-    select,
-    textarea {
-        font-size: 16px;
-        height: 28px;
-        padding: 0px;
-    }
+#grafico {
+    width: 400px;
+    height: 400px;
+}
 }
