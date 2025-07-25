@@ -34,23 +34,22 @@
                                 points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
                 </svg>
         </div>
-        <h1>
-
-                <button id="botaoparametrohtml" class="dark-mode-toggle"
-                        onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-                <button id="botaotrafohtml" class="dark-mode-toggle"
-                        onclick="window.location.href='transformadores.html';">TRAFOS</button>
-                <button id="botaoajustehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-                <button id="botaotabelarelehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
-                <button id="botaoestudoshtml" class="dark-mode-toggle"
-                        onclick="window.location.href='estudos.html';">ESTUDOS</button>
-                <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-                <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-                <button id="botaosairhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='index.html';">SAIR</button>
-        </h1>
+    <h1>
+        <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+    </h1>
         <br>
 
         <div style="text-align: center; margin: 12px 0;">
@@ -92,7 +91,14 @@
 
 
         <div id="tabelaselo">
-                <table style="background-color: #fff; color: #000;">
+                <table style="background-color: #fff; color: #000; width: 100%; table-layout: fixed;">
+                        <colgroup>
+                                <col style="width: 28%;">
+                                <col style="width: 18%;">
+                                <col style="width: 18%;">
+                                <col style="width: 14%;">
+                                <col style="width: 12%;"> <!-- Reduzido de 8% para 6% -->
+                        </colgroup>
                         <tr>
                                 <td colspan="2" rowspan="4" style="height: 400px; vertical-align: top;">
                                         Local para selo de análise de conformidade com normas CEMIG e ABNT
@@ -100,10 +106,11 @@
                                 <td colspan="2">
                                         <div>Informações complementares</div>
                                         <div>Coordenadas, transformador, nº orçamento, etc.</div>
-                                        <input style="width: 90%;"
-                                                value="Coordenadas, transformador, nº orçamento, etc.">
+                                        <input style="width: 90%;" value="Coordenadas, transformador, nº orçamento, etc.">
                                 </td>
-                                <td colspan="2" rowspan="4" class="vertical">PARA USO DA CEMIG</td>
+                                <td colspan="1" rowspan="4" class="vertical" style="width: 6%; min-width: 60px; max-width: 80px; text-align: center;">
+                                        PARA USO DA CEMIG
+                                </td>
                         </tr>
                         <tr>
                                 <td colspan="2">
@@ -204,22 +211,20 @@
                         <tr>
                                 <td colspan="5">
                                         <div>Endereço completo para correspondência do PROPRIETÁRIO</div>
-                                        <input style="width: 90%;"
-                                                value="Endereço completo para correspondência do PROPRIETÁRIO">
+                                        <input style="width: 90%;" value="Endereço completo para correspondência do PROPRIETÁRIO">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="5">
                                         <div>Endereço completo para correspondência do PROJETISTA</div>
-                                        <input style="width: 90%;"
-                                                value="Endereço completo para correspondência do PROJETISTA">
+                                        <input style="width: 90%;" value="Endereço completo para correspondência do PROJETISTA">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="2" style="height: 100px;">
                                         <div>RT (Engª)</div>
-                                        <input style="width: 90%;" value="RT (Engª)">
                                         <input style="width: 90%;" value="Nome">
+                                        <input style="width: 90%;" value="Telefone">
                                         <div>Nome<br>Telefone</div>
                                 </td>
                                 <td>
@@ -902,7 +907,7 @@
                         </p>
         </div>
 
-        <h2>Cálculo de Magnetização Real</h2>
+        <!-- <h2>Cálculo de Magnetização Real</h2>
         <div id="calculomagnetizacaoreal">
 
 
@@ -1037,7 +1042,7 @@
                                 <strong id="resultado-inrush-real">785,88 A</strong>
                         </div>
                 </div>
-        </div>
+        </div> -->
 
 
 
@@ -1132,10 +1137,11 @@
 
                 <strong>4) Critério de precisão de leitura do TC:</strong>
 
-                <p>Considerando as limitações de leitura com erro máximo de 10% previsto
-                        na leitura de corrente pelo TC de proteção, a medição só se torna confiável após essa faixa.
-                        Nesse caso, deve ser previsto uma corrente Ip da instalação com valor maior ou igual a essa
-                        sensibilidade.</p>
+                <p style="text-align: justify;">Considerando as limitações de leitura dos transformadores de corrente (TCs) de proteção,
+                        cujo erro máximo permitido é de 10%, a medição torna-se confiável somente
+                        acima dessa faixa de sensibilidade. Portanto, deve-se garantir que a 
+                        corrente de partida (Ip) da instalação seja igual ou superior ao valor correspondente 
+                        à sensibilidade mínima do TC, assegurando precisão na detecção de corrente.</p>
 
                 <p>Ip >= 10% Corrente de primário TC</p>
 

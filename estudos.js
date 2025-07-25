@@ -1158,43 +1158,44 @@ function adicionarEstilosTabelaParametrizacaoReles() {
 document.addEventListener('DOMContentLoaded', adicionarEstilosTabelaParametrizacaoReles);
 
 function incluirimagensrele() {
-
     const imageInput = document.getElementById("imageInput");
     const gallery = document.getElementById("gallery");
     const clearButton = document.getElementById("clearButton");
 
-    // 🖼️ Carrega imagens salvas do localStorage
-    const savedImages = JSON.parse(localStorage.getItem("imageGallery")) || [];
-    savedImages.forEach(dataURL => {
-        const img = document.createElement("img");
-        img.src = dataURL;
-        gallery.appendChild(img);
-    });
+    // Limpa a galeria antes de exibir a imagem selecionada
+    gallery.innerHTML = "";
 
-    // 📤 Salva novas imagens quando o usuário envia
+    // Exibe apenas a imagemSelecionada do localStorage (se existir)
+    const imagemSelecionada = localStorage.getItem("imagemSelecionada");
+    if (imagemSelecionada) {
+        const img = document.createElement("img");
+        img.src = imagemSelecionada;
+        gallery.appendChild(img);
+    }
+
+    // Permite trocar a imagemSelecionada ao enviar nova imagem
     imageInput.addEventListener("change", () => {
         const files = Array.from(imageInput.files);
-        files.forEach(file => {
+        if (files.length > 0) {
+            const file = files[0];
             const reader = new FileReader();
             reader.onload = e => {
                 const dataURL = e.target.result;
+                localStorage.setItem("imagemSelecionada", dataURL);
+                gallery.innerHTML = "";
                 const img = document.createElement("img");
                 img.src = dataURL;
                 gallery.appendChild(img);
-
-                savedImages.push(dataURL);
-                localStorage.setItem("imageGallery", JSON.stringify(savedImages));
             };
             reader.readAsDataURL(file);
-        });
+        }
     });
 
-    // 🧹 Limpa galeria e localStorage
+    // Limpa a imagemSelecionada e a galeria
     clearButton.addEventListener("click", () => {
-        localStorage.removeItem("imageGallery");
+        localStorage.removeItem("imagemSelecionada");
         gallery.innerHTML = "";
     });
-
 }
 
 

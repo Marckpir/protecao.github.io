@@ -523,6 +523,49 @@ window.onload = function () {
     }
 
 
+    // Preencher campos com classe 'ajuste-ipneutro-%' usando ipneutroPUSelecionada x 100
+    let ipneutroPUSelecionada = dados['ipneutroPUSelecionada'];
+    console.log("ipneutroPUSelecionada:", ipneutroPUSelecionada);
+    if (
+        ipneutroPUSelecionada !== null &&
+        ipneutroPUSelecionada !== undefined &&
+        ipneutroPUSelecionada !== "" &&
+        !isNaN(parseFloat(ipneutroPUSelecionada))
+    ) {
+        let valorPercentual = parseFloat(ipneutroPUSelecionada) * 100;
+        document.querySelectorAll('.ajuste-ipneutro-percentual').forEach(function (el) {
+            let valorExistente = parseFloat(el.textContent);
+            if (isNaN(valorExistente) || valorPercentual > valorExistente) {
+                el.textContent = valorPercentual.toFixed(2) + " % In";
+            }
+            // Se não for maior, mantém o valor existente
+        });
+    } else {
+        document.querySelectorAll('.ajuste-ipneutro-percentual').forEach(function (el) {
+            el.textContent = "-";
+        });
+    }
+
+    // Preencher campos com classe 'ajuste-instneutro-percentual' usando instneutroPUSelecionada x 100
+    let instneutroPUSelecionada = dados['instneutroPUSelecionada'];
+    if (
+        instneutroPUSelecionada !== null &&
+        instneutroPUSelecionada !== undefined &&
+        instneutroPUSelecionada !== "" &&
+        !isNaN(parseFloat(instneutroPUSelecionada))
+    ) {
+        let valorPercentual = parseFloat(instneutroPUSelecionada) * 100;
+        document.querySelectorAll('.ajuste-instneutro-percentual').forEach(function (el) {
+            let valorExistente = parseFloat(el.textContent);
+            if (isNaN(valorExistente) || valorPercentual > valorExistente) {
+                el.textContent = valorPercentual.toFixed(2) + " % In";
+            }
+        });
+    } else {
+        document.querySelectorAll('.ajuste-instneutro-percentual').forEach(function (el) {
+            el.textContent = "-";
+        });
+    }
 
 
 

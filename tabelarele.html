@@ -28,23 +28,22 @@
                                 points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
                 </svg>
         </div>
-        <h1>
-
-                <button id="botaoparametrohtml" class="dark-mode-toggle"
-                        onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-                <button id="botaotrafohtml" class="dark-mode-toggle"
-                        onclick="window.location.href='transformadores.html';">TRAFOS</button>
-                <button id="botaoajustehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-                <button id="botaotabelarelehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
-                <button id="botaoestudoshtml" class="dark-mode-toggle"
-                        onclick="window.location.href='estudos.html';">ESTUDOS</button>
-                <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-                <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
-                <button id="botaosairhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='index.html';">SAIR</button>
-        </h1>
+    <h1>
+        <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+    </h1>
         <br>
         <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 1px;">
 
@@ -60,12 +59,12 @@
                                 <option value="5-SIEMENS-7SR1004">5-SIEMENS-7SR1004</option>
                                 <option value="6-SIEMENS-7SR1002">6-SIEMENS-7SR1002</option>
                                 <option value="7-SCHNEIDER-SEPAM-S42">7-SCHNEIDER-SEPAM-S42</option>
-                                <option value="8-VAMP-11-SCHNEIDER">8-VAMP-11-SCHNEIDER</option>
+                                <option value="8-SCHNEIDER-VAMP-11">8-SCHNEIDER-VAMP-11</option>
                                 <option value="9-PEXTRON-URP6104">9-PEXTRON-URP6104</option>
 
                                 <option value="10-PEXTRON-URP-6000-Software-Versão-1.0.0.059">
                                         10-PEXTRON-URP-6000-Software-Versão-1.0.0.059</option>
-                                <option value="11-SEG_MRI3-IE">11-SEG_MRI3-IE</option>
+                                <option value="11-SEG-MRI3-IE">11-SEG-MRI3-IE</option>
                                 <option value="12-SCHNEIDER-SEPAM-S10">12-SCHNEIDER-SEPAM-S10</option>
                                 <option value="13-REMP-GD">13-REMP-GD</option>
                                 <option value="14-SCHNEIDER-P3U30">14-SCHNEIDER-P3U30</option>
@@ -77,6 +76,7 @@
                                         19-PEXTRON-URP-6100-Software-Versão-1.0.0.059</option>
                                 <option value="20-SCHNEIDER-SEPAM-S20">20-SCHNEIDER-SEPAM-S20</option>
                                 <option value="21-ABB-REF-610">21-ABB-REF-610</option>
+                                <option value="22-SCHNEIDER-P1">22-SCHNEIDER-P1</option>
 
                         </select>
                 </div>
@@ -399,8 +399,7 @@ ajuste-instneutro-pu
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <tr>
-                                        <th colspan="4" style="text-align:center;">PEXTRON URPE 2405 - Tabela de
-                                                Parâmetros</th>
+                                        <th colspan="4" style="text-align:center;">PEXTRON URPE 2405</th>
                                 </tr>
                                 <tr>
                                         <th style="width: 25%;">Parâmetro</th>
@@ -479,7 +478,7 @@ ajuste-instneutro-pu
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <th colspan="3" style="text-align: center; font-size: 1.2em;">
-                                        AJUSTES-RELÉ-PEXTRON-URP-6100-Software-Versão-1.0.0.061
+                                        PEXTRON-URP-6100-Software-Versão-1.0.0.061
                                 </th>
                                 <tr>
                                         <th style="width: 40%;">Parâmetro</th>
@@ -1542,12 +1541,12 @@ ajuste-instneutro-pu
                 </table>
         </div>
 
-        <div id="8-VAMP-11-SCHNEIDER" class="tabela">
+        <div id="8-SCHNEIDER-VAMP-11" class="tabela">
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <tr>
                                         <th colspan="5" style="text-align:center;">
-                                                VAMP 11 SCHNEIDER - Tabela de Parâmetros
+                                                SCHNEIDER-VAMP-11
                                         </th>
                                 </tr>
                                 <tr>
@@ -1880,7 +1879,7 @@ ajuste-instneutro-pu
                 <table border='1' style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <th colspan="3" style="text-align: center; font-size: 1.2em;">
-                                        AJUSTES-RELÉ-PEXTRON-URP-6000-Software-Versão-1.0.0.059
+                                        PEXTRON-URP-6000-Software-Versão-1.0.0.059
                                 </th>
                                 <tr>
                                         <th style="width: 40%;">Parâmetro</th>
@@ -2384,8 +2383,7 @@ ajuste-instneutro-pu
                 </table>
         </div>
 
-        <div id="11-SEG_MRI3-IE" class="tabela">
-
+        <div id="11-SEG-MRI3-IE" class="tabela">
 
 
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
@@ -2394,7 +2392,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <th colspan="3"
                                                 style="text-align:center; font-weight:bold; font-size:1.2em; padding:8px;">
-                                                Rele MRI3-IE</th>
+                                                SEG-MRI3-IE</th>
                                 </tr>
                                 <tr>
                                         <th>Parâmetros de ajustes</th>
@@ -2700,8 +2698,7 @@ ajuste-instneutro-pu
                         <thead>
                                 <tr>
                                         <th colspan="3"
-                                                style="background-color:#454e45; color:white; text-align:center;">TABELA
-                                                DE AJUSTES REMP GD versão:1.0.0.054</th>
+                                                style="background-color:#454e45; color:white; text-align:center;">REMP-GD-versão:1.0.0.054</th>
                                 </tr>
                         </thead>
 
@@ -3028,8 +3025,7 @@ ajuste-instneutro-pu
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <tr>
-                                        <th colspan="3" style="text-align:center;">TABELA DE AJUSTES RELE SCHNEIDER
-                                                P3U30</th>
+                                        <th colspan="3" style="text-align:center;">SCHNEIDER-P3U30</th>
                                 </tr>
                                 <tr>
                                         <th style="width: 40%;">DESCRIÇÃO</th>
@@ -3222,7 +3218,7 @@ ajuste-instneutro-pu
                         <thead>
                                 <tr>
                                         <th colspan="3" style="text-align:center;">
-                                                SIEMENS 7SR 5111
+                                                SIEMENS-7SR-5111
                                         </th>
                                 </tr>
                                 <tr>
@@ -3385,8 +3381,7 @@ ajuste-instneutro-pu
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <tr>
-                                        <th colspan="4" style="text-align: center;"><strong>Parâmetros e Faixas de
-                                                        Ajuste REMP-100</strong></th>
+                                        <th colspan="4" style="text-align: center;"><strong>REMP-100</strong></th>
                                 </tr>
                                 <tr>
                                         <th>Parâmetro</th>
@@ -3534,7 +3529,7 @@ ajuste-instneutro-pu
                         <thead>
                                 <tr>
                                         <th colspan="4" style="text-align: center;">
-                                                <strong>Tabela de Parâmetros e Faixas de Ajuste REMP32</strong>
+                                                <strong>REMP-32</strong>
                                         </th>
                                 </tr>
                                 <tr>
@@ -3654,7 +3649,7 @@ ajuste-instneutro-pu
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
                         <thead>
                                 <th colspan="3" style="text-align: center; font-size: 1.2em;">
-                                        AJUSTES-RELÉ-PEXTRON-URP-6100-Software-Versão-1.0.0.059
+                                        PEXTRON-URP-6100-Software-Versão-1.0.0.059
                                 </th>
                                 <tr>
                                         <th style="width: 40%;">Parâmetro</th>
@@ -4364,7 +4359,7 @@ ajuste-instneutro-pu
                                         <td rowspan="2">Io&gt; Parâmetros da sobrecorrente de Neutro (51N)</td>
                                         <td>Estágio I0&gt; (Ip de Neutro)</td>
                                         <td>1.0...100% In</td>
-                                        <td class="ajuste-ipneutro-pu"></td>
+                                        <td class="ajuste-ipneutro-percentual">1.0% x In</td>
                                 </tr>
                                 <tr>
                                         <td>Tempo definido do tempo operacional, t0&gt;</td>
@@ -4375,7 +4370,7 @@ ajuste-instneutro-pu
                                         <td rowspan="2">Io&gt;&gt; Parâmetros da sobrecorrente de Neutro (50N)</td>
                                         <td>Estágio I0&gt;&gt; (I inst de neutro)</td>
                                         <td>5.0...800% In</td>
-                                        <td class="ajuste-instneutro-pu"></td>
+                                        <td class="ajuste-instneutro-percentual">5.0% x In</td>
                                 </tr>
                                 <tr>
                                         <td>Tempo definido do tempo operacional, t0&gt;&gt;</td>
@@ -4387,8 +4382,227 @@ ajuste-instneutro-pu
 
         </div>
 
-        <div id="22-tabelareserva" class="tabela">
+        <div id="22-SCHNEIDER-P1" class="tabela">
+                <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th colspan="5" style="text-align:center;">
+                                                SCHNEIDER-P1
+                                        </th>
+                                </tr>
+                                <tr>
+                                        <th style="width: 14%;">Unidade</th>
+                                        <th style="width: 18%;">Parâmetro</th>
+                                        <th style="width: 38%;">Descritivo</th>
+                                        <th style="width: 18%;">Faixa de ajuste</th>
+                                        <th style="width: 12%;">Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Entradas</td>
+                                        <td>Frequência</td>
+                                        <td>Frequência Nominal</td>
+                                        <td>50/60 Hz</td>
+                                        <td class="ajuste">60</td>
+                                </tr>
 
+                                <tr>
+                                        <td rowspan="2">TC Fase</td>
+                                        <td>Line CT Primary (In)</td>
+                                        <td>Corrente nominal primária TC de fase</td>
+                                        <td>1...6250 A</td>
+                                        <td class="ajuste-tc-protecao"></td>
+                                </tr>
+                                <tr>
+                                        <td>Line CT Sec</td>
+                                        <td>Corrente nominal secundária do TC de fase</td>
+                                        <td>5A CT/1A CT/LPCT</td>
+                                        <td class="ajuste">5</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="2">TC Neutro</td>
+                                        <td>E/Gnd CT Primary (Ien)</td>
+                                        <td>Corrente nominal primária do TC de terra/neutro</td>
+                                        <td>1...6250 A</td>
+                                        <td class="ajuste-tc-protecao"></td>
+                                </tr>
+                                <tr>
+                                        <td>E/Gnd CT Sec</td>
+                                        <td>Corrente nominal secundária do TC de terra/neutro</td>
+                                        <td>5A CT/1A CT/LPCT</td>
+                                        <td class="ajuste">5</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="4">Sobrecorrente temporizada de fase (ANSI 51)</td>
+                                        <td>I &gt;</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td class="ajuste">(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; Limiar</td>
+                                        <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-ip-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>Tipo de curva I &gt;</td>
+                                        <td>Tipo de curva de operação da unidade de fase</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste-curva-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; TMJ</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste-dt-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="4">Sobrecorrente temporizada de fase II (ANSI 51)</td>
+                                        <td>I &gt;&gt;</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td class="ajuste">Desabilitado</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; Limiar</td>
+                                        <td>Ajuste da corrente de pick-up do segundo estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td class="ajuste">-</td>
+                                </tr>
+                                <tr>
+                                        <td>Tipo de curva I &gt;</td>
+                                        <td>Tipo de curva</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste">-</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; TMS</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste">-</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="3">Sobrecorrente temporizada de fase (ANSI 50)</td>
+                                        <td>I &gt;&gt;&gt;</td>
+                                        <td>Ajuste para habilitar ou desabilitar o terceiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td class="ajuste">(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt;&gt;&gt; Threshold</td>
+                                        <td>Ajuste da corrente de pick-up do terceiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-iinst-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>tl &gt; TMS</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste">0,00 s</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="4">Sobrecorrente temporizada de neutro (ANSI 51N)</td>
+                                        <td>Estágio IN_1</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td></td>
+                                        <td class="ajuste">(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>IN_1 Threshold</td>
+                                        <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-ipneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>Delay Type IN_1</td>
+                                        <td>Tipo de curva</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste">DMT</td>
+                                </tr>
+                                <tr>
+                                        <td>IN_1 TMS</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste-dt-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="3">Sobrecorrente instantanea de neutro (ANSI 50N)</td>
+                                        <td>IN_2 Stage</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td></td>
+                                        <td class="ajuste">(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>IN_2 Threshold</td>
+                                        <td>Ajuste de corrente de pick-up do segundo estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-instneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>tIN_2</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste">0,00s</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="5">Ajuste relés de saída 321</td>
+                                        <td>Bloqueado saídas</td>
+                                        <td>Latch dos relés de saída</td>
+                                        <td></td>
+                                        <td class="ajuste">010</td>
+                                </tr>
+                                <tr>
+                                        <td>Reversa Sai. Log</td>
+                                        <td>Reversão dos relés de saída</td>
+                                        <td></td>
+                                        <td class="ajuste">010</td>
+                                </tr>
+                                <tr>
+                                        <td>Proteção trip</td>
+                                        <td>Relé ativo para trip</td>
+                                        <td></td>
+                                        <td class="ajuste">010</td>
+                                </tr>
+                                <tr>
+                                        <td>Trip disj orde</td>
+                                        <td>Relé para comando de abertura</td>
+                                        <td></td>
+                                        <td class="ajuste">001</td>
+                                </tr>
+                                <tr>
+                                        <td>Fecha disj orde</td>
+                                        <td>Relé para comando de fechamento</td>
+                                        <td></td>
+                                        <td class="ajuste">100</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="1">Tempo para comando de abertura botão abre</td>
+                                        <td>tPulso Abertura</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="ajuste">0,1s</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="1">Tempo para fechamento de abertura botão fecha</td>
+                                        <td>tPulso Fechamento</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="ajuste">10 s</td>
+                                </tr>
+                        </tbody>
+                </table>
         </div>
 
         <div id="23-tabelareserva" class="tabela">

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="Diagramas.css" type="text/css">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROTECAO</title>
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);;">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <div id="botoesdoheader"
+        style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 0px;">
+    <h1>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+    </h1>
+    </div>
+    <br>
+
+<div id="novaDiv" style="padding: 0px; margin: 16px 0;">
+<label for="tipoDiagrama" style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">
+    Selecione o tipo de diagrama:
+</label>
+</div>  
+
+<div id="novaDiv" style="padding: 5px; margin: 5px 5px; display: flex; justify-content: center; align-items: center;">
+<select id="tipoDiagrama" name="tipoDiagrama" style="text-align: left; text-align-last: left; width: 70%; border-radius: 12px; padding: 0px;">
+    <option value="1-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO">1-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO</option>
+    <option value="2-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 EXTERNA PARA PROTEÇÃO DO GERADOR">2-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 EXTERNA PARA PROTEÇÃO DO GERADOR</option>
+    <option value="3-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 INTERNA AO PAINEL DE INTERFACE PARA PROTEÇÃO DE GERADOR A DIESEL">3-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 INTERNA AO PAINEL DE INTERFACE PARA PROTEÇÃO DE GERADOR A DIESEL</option>
+    <option value="4-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO BAIXA TENSÃO">4-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO BAIXA TENSÃO</option>
+    <option value="5-CONEXÃO COM FUNÇÃO 32 COM GERADOR EM PARALELISMO BAIXA TENSÃO">5-CONEXÃO COM FUNÇÃO 32 COM GERADOR EM PARALELISMO BAIXA TENSÃO</option>
+    <option value="reserva">reserva</option>
+    <option value="reserva">reserva</option>
+    <option value="reserva">reserva</option>
+</select>
+</div>
+
+    <div id="diagramaContainer" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <img id="diagramaImagem" src="Diagramas_unifilares/Diagrama_unifilar1-50-51.png"
+            alt="Diagrama 1" style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        <img id="diagramaImagem2" src="Diagramas_unifilares/Diagrama_unifilar2-50-51-32-externa.png"
+            alt="Diagrama 2" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+        <img id="diagramaImagem3" src="Diagramas_unifilares/Diagrama_unifilar3-50-51-32-interna.png"
+            alt="Diagrama 3" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+        <img id="diagramaImagem4" src="Diagramas_unifilares/Diagrama_unifilar4-50-51-bt.png"
+            alt="Diagrama 4" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+        <img id="diagramaImagem5" src="Diagramas_unifilares/Diagrama_unifilar5-32-bt.png"
+            alt="Diagrama 5" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+    </div>
+
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+    <script src="Diagramas.js"></script>
+
+
+
+</body>
+
+</html>

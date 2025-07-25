@@ -28,13 +28,14 @@ button:hover {
 /* Dimensiona a folha de selo para A4 */
 #tabelaselo {
     border-collapse: collapse;
-    width: 210mm; /* largura exata de uma folha A4 */
+    width: 210mm;
+    /* largura exata de uma folha A4 */
     max-width: 100vw;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
     background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 4px solid #000;
     /* display: none; */
 }
@@ -66,9 +67,10 @@ button:hover {
 #tabelaselo .col-25 {
     width: 25%;
 }
+
 /* ---------------------------------------------- */
-/* estilizar titulo do estudo de proteção e seletividade */ */
-#tituloestudodeprotecao {
+/* estilizar titulo do estudo de proteção e seletividade */
+*/ #tituloestudodeprotecao {
     font-family: 'Arial Black', Arial, sans-serif !important;
     font-size: 2em !important;
     font-weight: bold !important;
@@ -84,7 +86,7 @@ button:hover {
     border: 2px solid #000 !important;
     box-sizing: border-box !important;
     border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
     padding: 2px 0 !important;
 }
 
@@ -152,6 +154,7 @@ button:hover {
     border: 2px solid #000;
     padding: 20px 30px;
 }
+
 /* ----------------------------------------------------- */
 
 /* estilização dos cálculos ANSI e NANSI */
@@ -168,6 +171,7 @@ button:hover {
     border: 2px solid #000;
     padding: 20px 30px;
 }
+
 /* ----------------------------------------------------- */
 
 
@@ -200,6 +204,7 @@ button:hover {
     text-align: center;
     font-size: 1em;
 }
+
 /* ----------------------------------------------------- */
 
 /* estilização do calculo de magnetização dos trafos */
@@ -209,20 +214,20 @@ button:hover {
     font-size: 1.05em;
     background: #fff;
     border: 2px solid #000;
-    
+
     border-radius: 10px;
     padding: 20px 30px;
     margin: 40px auto;
     width: 210mm;
     max-width: 100vw;
     box-shadow: 0 2px 10px rgba(28, 100, 28, 0.08);
-    
+
     text-align: left;
 }
 
 #calculomagnetizacao h2,
 #calculomagnetizacao h3 {
-    
+
     margin-top: 0;
     text-align: left;
 }
@@ -244,25 +249,30 @@ button:hover {
 
 #calculomagnetizacao .resultado {
     font-weight: bold;
-    
+
     background: #f9f2f2;
 }
+
 /* ----------------------------------------------------- */
 /* estiliza magnetização real */
 #calculomagnetizacaoreal {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.05em;
-    background: #ffffff !important;  /* Forçar fundo branco */
+    background: #ffffff !important;
+    /* Forçar fundo branco */
     border: 2px solid #000000;
     border-radius: 10px;
     padding: 20px 30px;
     margin: 40px auto;
     width: 210mm;
     max-width: 100vw;
-    box-shadow: none !important;     /* Remover qualquer sombra */
+    box-shadow: none !important;
+    /* Remover qualquer sombra */
     text-align: left;
-    position: relative;              /* Garantir posicionamento correto */
-    z-index: 1;                      /* Garantir que fique acima de outros elementos */
+    position: relative;
+    /* Garantir posicionamento correto */
+    z-index: 1;
+    /* Garantir que fique acima de outros elementos */
 }
 
 /* Garantir que não há herança de cor de fundo */
@@ -320,6 +330,7 @@ button:hover {
     font-weight: bold;
     background: #f4f6fa;
 }
+
 /* ----------------------------------------------------- */
 /* estilizar criterio de calculo de impedancia tc */
 
@@ -353,6 +364,7 @@ button:hover {
     box-shadow: 0 2px 10px rgba(52, 51, 92, 0.10);
     text-align: left;
 }
+
 /* ----------------------------------------------------- */
 /* estilização do dimensionamento tp proteção */
 
@@ -369,6 +381,7 @@ button:hover {
     box-shadow: 0 2px 10px rgba(52, 51, 92, 0.10);
     text-align: left;
 }
+
 /* ----------------------------------------------------- */
 /* estilização dos cálculos das funções */
 
@@ -385,6 +398,7 @@ button:hover {
     box-shadow: 0 2px 10px rgba(52, 51, 92, 0.10);
     text-align: left;
 }
+
 /* ----------------------------------------------------- */
 /* estilização dos cálculos do gerador diesel */
 
@@ -401,6 +415,7 @@ button:hover {
     box-shadow: 0 2px 10px rgba(52, 51, 92, 0.10);
     text-align: left;
 }
+
 /* ----------------------------------------------------- */
 /* estilização da tabela resumo de funções */
 
@@ -430,14 +445,17 @@ button:hover {
     padding: 8px;
     text-align: left;
 }
+
 /* ----------------------------------------------------- */
 /* estilização da tabela parametros rele - APENAS PARA TELA */
 
 #tabelareles {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.05em;
-    background: #fff; /* fundo branco */
-    color: #000;      /* letras pretas */
+    background: #fff;
+    /* fundo branco */
+    color: #000;
+    /* letras pretas */
     border: 2px solid #34335c;
     border-radius: 10px;
     padding: 20px 30px;
@@ -452,7 +470,8 @@ button:hover {
     border-collapse: collapse;
     width: 100%;
     background: #fff;
-    color: #000; /* letras pretas */
+    color: #000;
+    /* letras pretas */
 }
 
 #tabelareles th,
@@ -461,7 +480,8 @@ button:hover {
     padding: 8px;
     text-align: left;
     font-size: 1em;
-    color: #000; /* letras pretas */
+    color: #000;
+    /* letras pretas */
 }
 
 
@@ -481,9 +501,11 @@ button:hover {
     border-radius: 10px;
     padding: 20px 30px;
     margin: 40px auto;
-    width: 210mm; /* Corrigido para nunca ultrapassar a largura da tela */
+    width: 210mm;
+    /* Corrigido para nunca ultrapassar a largura da tela */
     max-width: 100vw;
-    height: 290mm; /* Ajustado para tela 1280x800 */
+    height: 290mm;
+    /* Ajustado para tela 1280x800 */
     box-shadow: 0 2px 10px rgba(52, 51, 92, 0.10);
     text-align: left;
     overflow: none;
@@ -493,7 +515,8 @@ button:hover {
 #curvaProtecao .grafico-container {
     position: relative;
     width: 100%;
-    height: 200mm; /* Ajustado para tela 1280x800 */
+    height: 200mm;
+    /* Ajustado para tela 1280x800 */
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -504,7 +527,8 @@ button:hover {
 #curvaProtecao canvas {
     width: 100% !important;
     height: 100% !important;
-    max-width: 210mm !important; /* Corrigido para nunca ultrapassar a largura da tela */
+    max-width: 210mm !important;
+    /* Corrigido para nunca ultrapassar a largura da tela */
     max-height: 270mm !important;
     display: block;
     box-sizing: border-box;
@@ -512,20 +536,22 @@ button:hover {
 
 /* ----------------------------------------------------- */
 textarea {
-    background-color: #fff9c4; /* amarelo claro */
+    background-color: #fff9c4;
+    /* amarelo claro */
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
     font-family: Arial, sans-serif;
     font-size: 1em;
     color: #333;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     resize: vertical;
 }
 
 /* --------------------------------------------------- */
 /* Responsividade para telas menores */
 @media screen and (max-width: 480px) {
+
     /* Ajusta todos os containers principais para ocupar no máximo a largura da tela */
     #curvaProtecao,
     #tabelaselo,
@@ -556,9 +582,11 @@ textarea {
         height: 600px;
         margin: 20px auto;
     }
+
     #curvaProtecao .grafico-container {
         height: 550px;
     }
+
     #curvaProtecao canvas {
         max-height: 550px !important;
         width: 100% !important;
@@ -600,16 +628,34 @@ textarea {
         box-sizing: border-box !important;
     }
 }
+
 /* ----------------------------------------------------- */
 
 /* REGRAS DE IMPRESSÃO PARA A4 COMPLETO */
 @media print {
+
     /* Ocultar elementos de navegação na impressão */
-    h1, button, .dark-mode-toggle, svg,
-    #botaoparametrohtml, #botaotrafohtml, #botaoajustehtml,
-    #botaotabelarelehtml, #botaoestudoshtml, #botaoreserva1html,
-    #botaoreserva2html, #botaosairhtml {
+    h1,
+    button,
+    .dark-mode-toggle,
+    svg,
+    #botaoparametrohtml,
+    #botaotrafohtml,
+    #botaoajustehtml,
+    #botaotabelarelehtml,
+    #botaoestudoshtml,
+    #botaoreserva1html,
+    #botaoreserva2html,
+    #botaosairhtml {
         display: none !important;
+    }
+
+    /* Ocultar bordas dos inputs de selo */
+    #tabelaselo input {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
     }
 
     /* Configurar página A4 */
@@ -643,6 +689,7 @@ textarea {
         justify-content: flex-start !important;
         align-items: stretch !important;
     }
+
     #curvaProtecao .grafico-container {
         position: relative !important;
         width: 100% !important;
@@ -654,7 +701,9 @@ textarea {
         margin-top: 10px !important;
         box-sizing: border-box !important;
     }
-    #curvaProtecao canvas, #curvaProtecaoCanvas {
+
+    #curvaProtecao canvas,
+    #curvaProtecaoCanvas {
         width: 100% !important;
         height: 290mm !important;
         max-width: 210mm !important;
@@ -681,11 +730,20 @@ textarea {
     }
 
     /* Configurar quebras de página para outras seções */
-    #tabelaselo, #objetivotexto, #tabelaparametrosiniciais,
-    #calculotrafos, #tabelatransformadores, #calculomagnetizacao,
-    #calculomagnetizacaoreal, #calculostc, #criteriocalculotcimpedancia,
-    #especificacaodotc, #dimensionamentotpprotecao, .calculosfuncoes,
-    #calculogeradordiesel, #tabelaresumofuncoes {
+    #tabelaselo,
+    #objetivotexto,
+    #tabelaparametrosiniciais,
+    #calculotrafos,
+    #tabelatransformadores,
+    #calculomagnetizacao,
+    #calculomagnetizacaoreal,
+    #calculostc,
+    #criteriocalculotcimpedancia,
+    #especificacaodotc,
+    #dimensionamentotpprotecao,
+    .calculosfuncoes,
+    #calculogeradordiesel,
+    #tabelaresumofuncoes {
         page-break-inside: avoid;
         margin-bottom: 10mm !important;
         background: white !important;
@@ -744,14 +802,17 @@ textarea {
         font-size: 9pt !important;
     }
 
-    table th, table td {
+    table th,
+    table td {
         border: 1px solid #000 !important;
         padding: 2px 4px !important;
         font-size: 9pt !important;
     }
 
     /* Ajustar títulos */
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
         color: black !important;
         page-break-after: avoid;
         font-size: 12pt !important;
@@ -768,58 +829,67 @@ textarea {
         scrollbar-width: none !important;
         -ms-overflow-style: none !important;
     }
-    
+
     textarea::-webkit-scrollbar {
         display: none !important;
     }
 
 
     #tabelareles {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.05em;
-    background: #fff; /* fundo branco */
-    color: #000;      /* letras pretas */
-    border: none;     /* remove a borda da div */
-    border-radius: 10px;
-    padding: 20px 30px;
-    margin: 40px auto;
-    width: 210mm;         /* largura exata da folha A4 */
-    max-width: 210mm;     /* garante que não ultrapasse A4 */
-    box-shadow: none !important; /* remove qualquer sombra */
-    text-align: left;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 1.05em;
+        background: #fff;
+        /* fundo branco */
+        color: #000;
+        /* letras pretas */
+        border: none;
+        /* remove a borda da div */
+        border-radius: 10px;
+        padding: 20px 30px;
+        margin: 40px auto;
+        width: 210mm;
+        /* largura exata da folha A4 */
+        max-width: 210mm;
+        /* garante que não ultrapasse A4 */
+        box-shadow: none !important;
+        /* remove qualquer sombra */
+        text-align: left;
+
+
+        #tabelareles table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+            color: #000;
+            /* letras pretas */
+        }
+
+        #tabelareles th,
+        #tabelareles td {
+            border: 1px solid #34335c;
+            padding: 8px;
+            text-align: left;
+            font-size: 1em;
+            color: #000;
+            /* letras pretas */
+        }
+
+
+        /* estilização dos cálculos ANSI e NANSI */
+        #calculoANSIeNANSI {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.1em;
+            text-align: left;
+            width: 210mm;
+            max-width: 210mm;
+            margin-left: auto;
+            margin-right: auto;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid #000;
+            padding: 20px 30px;
+        }
+
+
+    }
 }
-
-#tabelareles table {
-    border-collapse: collapse;
-    width: 100%;
-    background: #fff;
-    color: #000; /* letras pretas */
-}
-
-#tabelareles th,
-#tabelareles td {
-    border: 1px solid #34335c;
-    padding: 8px;
-    text-align: left;
-    font-size: 1em;
-    color: #000; /* letras pretas */
-}
-}
-
-/* estilização dos cálculos ANSI e NANSI */
-#calculoANSIeNANSI {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.1em;
-    text-align: left;
-    width: 210mm;
-    max-width: 210mm;
-    margin-left: auto;
-    margin-right: auto;
-    background: #fff;
-    border-radius: 12px;
-    border: 2px solid #000;
-    padding: 20px 30px;
-}
-
-
-
