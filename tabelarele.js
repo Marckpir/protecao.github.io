@@ -443,17 +443,17 @@ window.onload = function () {
         });
 
         // Se for TD, converte para Flat em inglês
-        let curvaNeutroIngles = curvaNeutro === "TD" ? "FLAT" : curvaNeutro;
+        let curvaNeutroIngles = curvaNeutro === "Definite-Time" ? "FLAT" : curvaNeutro;
         document.querySelectorAll('.curva-neutro-ingles').forEach(function (el) {
             el.textContent = curvaNeutroIngles;
         });
-        let curvaNeutroPT = curvaNeutro === "TD" ? "DEFT" : curvaNeutro;
+        let curvaNeutroPT = curvaNeutro === "Definite-Time" ? "DEFT" : curvaNeutro;
         document.querySelectorAll('.curva-neutro-SEGMRI').forEach(function (el) {
             el.textContent = curvaNeutroPT;
         });
 
         // Nova condição: se for TD, outra variável assume "DT"
-        let curvaNeutroDT = curvaNeutro === "TD" ? "DT" : curvaNeutro;
+        let curvaNeutroDT = curvaNeutro === "Definite-Time" ? "Definite-Time" : curvaNeutro;
         document.querySelectorAll('.curva-neutro-DT').forEach(function (el) {
             el.textContent = curvaNeutroDT;
         });

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="analise.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTUDOS</title>
+
+
+
+
+
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span id="titulodapagina"
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <h1>
+        
+            <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+            <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+            <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
+            <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+            <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+            <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA</button>
+            <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
+            <button id="botaoajustesGDhtml" class="dark-mode-toggle" onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+            <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
+            <button id="botaoestudosGDhtml" class="dark-mode-toggle" onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+            <button id="botaoanalisehtml" class="dark-mode-toggle" onclick="window.location.href='analise.html';">ANÁLISE</button>
+            <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+        
+    </h1>
+    <br>
+
+    <table style="width: 80%; margin: 0 auto; border-collapse: collapse; font-size: 1.1em;">
+        <tr>
+            <th colspan="2" style="border: 1px solid #ccc; padding: 8px;">NOTA 1:</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">TENSÃO DE ATENDIMENTO:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">13,8 KV</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">DEMANDA DE CONSUMO:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">100 KW</td>
+        </tr>
+ <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">POTÊNCIA GERADOR A DIESEL:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">500 KVA</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">NOTA 2:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">PROJETO EM CONFORMIDADE COM NORMAS CEMIG;</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">NOTA 3:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">PROJETO NS 1179571152/2025;</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">NOTA 4:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">
+                <label for="nota4-select">TRATA-SE DE:</label>
+                <select id="nota4-select" name="nota4-select" style="padding: 4px; font-size: 1em; min-width: 260px;">
+                    <option value="COORDENOGRAMA">COORDENOGRAMA</option>
+                    <option value="SUBESTAÇÃO-N°01">SUBESTAÇÃO-N°01</option>
+                    <option value="SUBESTAÇÃO-N°02">SUBESTAÇÃO-N°02</option>
+                    <option value="SUBESTAÇÃO-N°04">SUBESTAÇÃO-N°04</option>
+                    <option value="SUBESTAÇÃO-N°05">SUBESTAÇÃO-N°05</option>
+                    <option value="SUBESTAÇÃO-N°06">SUBESTAÇÃO-N°06</option>                  
+                    <option value="SUBESTAÇÃO-N°08">SUBESTAÇÃO-N°08</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">NOTA 5:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">POTÊNCIA TOTAL DOS TRANSFORMADORES 1000 KVA;</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ccc; padding: 8px;">NOTA 6:</td>
+            <td style="border: 1px solid #ccc; padding: 8px;">COPIA DO CLIENTE FOI ANEXADA NO APR WEB.</td>
+        </tr>
+    </table>
+
+
+
+    <script src="analise.js"></script>
+</body>
+
+</html>

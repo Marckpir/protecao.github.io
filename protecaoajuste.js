@@ -423,17 +423,20 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
             k1 = 1;
             break;
 
-        case "TD":
+        case "Definite-Time":
             alfa1 = 0;
             beta1 = 1;
             k1 = 0;
             break;
+
 
         default:
             alfa1 = 0;
             beta1 = 0;
             k1 = 0;
             break;
+
+
     }
 
     const dadosCurvaUsuarioFase = {
@@ -473,7 +476,7 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
             k2 = 1;
             break;
 
-        case "TD":
+        case "Definite-Time":
             alfa2 = 0;
             beta2 = 1;
             k2 = 0;
