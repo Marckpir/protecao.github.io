@@ -27,17 +27,27 @@
         </svg>
     </div>
     <h1>
-        <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
-        <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
         <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle" onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle" onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-        <button id="analisehtml" class="dark-mode-toggle" onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="analisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
         <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
     </h1>
     <br>
@@ -76,16 +86,10 @@
                 </td>
             </tr>
 
-            <!-- <tr>
-            <td>DEMANDA GERAÇÃO(GD):</td>
-            <td><div class="input-container">
-            <input type="number" id="potencia" placeholder="Digite um valor">
-            <span class="unidade">kW</span>
-            </div></td>
-        </tr> -->
+
 
             <tr>
-                <td>FATOR DE POTÊNCIA:</td>
+                <td>FATOR DE POTÊNCIA CONSUMO:</td>
                 <td>
                     <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
                         <input id="fatorPotencia" type="text" placeholder="Digite um valor"
@@ -94,9 +98,8 @@
                     </div>
                 </td>
             </tr>
-
             <tr>
-                <td>DESEQUILÍBRIO FASE/NEUTRO:</td>
+                <td>DESEQUILÍBRIO NEUTRO:</td>
                 <td>
                     <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
                         <input type="number" id="desequilibrio" placeholder="Digite um valor"
@@ -107,12 +110,55 @@
             </tr>
 
             <tr>
+                <td>DEMANDA GERAÇÃO(GD):</td>
+                <td>
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input type="number" id="potenciaGDhtml" placeholder="Digite um valor"  style="margin-right: 4px; text-align: left;">
+                        <span class="unidade">kW</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>FATOR DE POTÊNCIA GD:</td>
+                <td>
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input id="fatorPotenciaGDhtml" type="number" placeholder="Digite um valor"
+                            style="margin-right: 11px; text-align: left;">
+                        <span class="unidade">%</span>
+                    </div>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
                 <td>ICC TRIFÁSICA:</td>
                 <td>
                     <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
                         <input id="icctrifasica" type="number" placeholder="Digite um valor"
                             style="text-align: left; margin-right: 11px;">
                         <span class="unidade">A</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>GERADOR A DIESEL:</td>
+                <td>
+                    <div class="input-container">
+                        <input type="number" id="potenciageradorhtml" placeholder="Digite um valor">
+                        <span class="unidade">kW</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
+                <td>
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input id="fatorPotenciageradorhtml" type="text" placeholder="Digite um valor"
+                            style="margin-right: 11px; text-align: left;">
+                        <span class="unidade">%</span>
                     </div>
                 </td>
             </tr>

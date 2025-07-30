@@ -8,16 +8,20 @@ function salvarOpcao() {
     
     const tensaoSelecionada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
     
-
     //-----------------------------------------------------------------------------------------
-    
-    const demandaSelecionada = localStorage.getItem("demandadecontrato") || 0;
+    const demandaSelecionada = parseFloat(localStorage.getItem("demandadecontrato")) || 0;
     //localStorage.setItem("demandaSelecionada", demandaSelecionada);
 
     //-----------------------------------------------------------------------------------------
+    const potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDSelecionada")) || 0;
+    //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
+    //-----------------------------------------------------------------------------------------
     
     const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0;
-    
+    //-----------------------------------------------------------------------------------------
+    const fatorPotenciaGDSelecionada = parseFloat(localStorage.getItem("fatorPotenciaGDSelecionada")) || 0;
+
+    //-----------------------------------------------------------------------------------------
 
     //-----------------------------------------------------------------------------------------
    
@@ -70,16 +74,25 @@ function salvarOpcao() {
     let inominalDemanda = 0;
     inominalDemanda = (demandaSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada));
 
+    console.log("inominalDemanda:", inominalDemanda);
+
+    // calcula o valor de corrente nominal de consumo para GD
+    let inominalDemandaGD = 0;
+    inominalDemandaGD = (potenciaGDSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada));
+
+    console.log("inominalDemandaGD:", inominalDemandaGD);
+    //
+
     // faz a divisão do valor da corrente de curto por 50 para comparar com os valores do array
     let iprimTccurto = curtoSelecionada / 50;
 
     // Recupera a corrente instantanea de magnetização selecionada do localStorage para comparar com os valores do array
-    let instMagconsumo = localStorage.getItem("Instfaseconsumo") / 20;
+    let instMagconsumo = localStorage.getItem("imagtotalSelecionada") / 20;
 
     // Converte os valores para números calculados nesse escopo para numeros flutuantes
     let iprimTccurtoNum = parseFloat(iprimTccurto);
-    let instMagconsumoNum = parseFloat(instMagconsumo);
-    let inominalDemandaNum = parseFloat(inominalDemanda);
+    let instMagconsumoNum = parseFloat(instMagconsumo) * 1.05;
+    let inominalDemandaNum = Math.max(parseFloat(inominalDemanda), parseFloat(inominalDemandaGD));
     let RTCselecionado = parseFloat(TCdeprotecaoSelecionada) / 5;
 
 
@@ -99,13 +112,15 @@ function salvarOpcao() {
     }
 
     //Calcula a potência mínima referente a 10% do TC ideal
-
+console.log("Valor TC Ideal:", valorTCSelecionado);
     let potenciaMinima = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * (fatorPotenciaSelecionada);
 
 
     // Armazena o valor selecionado no localStorage
     if (valorTCSelecionado !== null) {
         localStorage.setItem("valorTCideal", valorTCSelecionado);
+
+        
         
     } else {
         
@@ -218,6 +233,8 @@ function salvarOpcao() {
     localStorage.setItem("correntedeconsumominima", correntedeconsumominima.toFixed(2));
     localStorage.setItem("Inominalfase", inominalDemanda.toFixed(2));
 
+    localStorage.setItem("InominalfaseGD", inominalDemandaGD.toFixed(2));
+
     console.log("correntedeconsumominima:", correntedeconsumominima.toFixed(2), "inominalDemanda:", (inominalDemanda.toFixed(2)));
 
 //-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
@@ -245,7 +262,7 @@ function salvarOpcao() {
 
 
 
-    alert("Dimensionamentos salvos com sucesso!");
+   // alert("Dimensionamentos salvos com sucesso!");
     // Recarrega a página após salvar as opções
    location.reload();
 }
@@ -261,6 +278,7 @@ window.onload = function () {
     }
 
 
+    
 
     // Recupera a opção selecionada do localStorage e define no campo correspondente
     //-----------------------------------------------------------------------------------------

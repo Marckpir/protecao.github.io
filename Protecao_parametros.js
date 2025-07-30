@@ -1,7 +1,7 @@
 //FUNÇÃO PARA SALVAR OS CAMPOS PREENCHIDOS NO LOCAL STORAGE E REALIZAR ALGUNS CÁLCULOS NECESSÁRIOS PARA A PROTEÇÃO
 
 function salvarOpcao() {
-    alert("Parâmetros elétricos salvos com sucesso!");
+    //alert("Parâmetros elétricos salvos com sucesso!");
 
     //inicializa duas variaveis do tipo constante, um obtem o valor da ID meu select
     //que corresponde ao valor armazenado no campo de selecao e a outra armazena o valor desse campo
@@ -13,6 +13,7 @@ function salvarOpcao() {
     const demandaPotencia = document.getElementById("demandaConsumo");
     const demandaSelecionada = demandaPotencia.value;
     //localStorage.setItem("demandaSelecionada", demandaSelecionada);
+    localStorage.setItem("demandadecontrato", demandaSelecionada);
 
     //-----------------------------------------------------------------------------------------
     const fatorPotencia = document.getElementById("fatorPotencia");
@@ -21,8 +22,19 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
-    const desequilibrioSelecionada = desequilibrio.value;
+    const desequilibrioSelecionada = desequilibrio.value / 100;
     localStorage.setItem("desequilibrioSelecionada", desequilibrioSelecionada);
+    
+    //-----------------------------------------------------------------------------------------
+
+    const potenciaGD = document.getElementById("potenciaGDhtml");
+    const potenciaGDSelecionada = potenciaGD.value;
+    localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
+    //-----------------------------------------------------------------------------------------
+
+    const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
+    const fatorPotenciaGDSelecionada = fatorPotenciaGD.value/100;
+    localStorage.setItem("fatorPotenciaGDSelecionada", fatorPotenciaGDSelecionada);
 
     //-----------------------------------------------------------------------------------------
     const curto = document.getElementById("icctrifasica");
@@ -31,6 +43,24 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
 
+
+
+    //CALCULAR A I NOMINAL DA GD
+
+    const inominalGD = (potenciaGDSelecionada * 1000) / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada)/1000;
+    localStorage.setItem("InominalfaseGD", inominalGD.toFixed(2));
+
+    //-----------------------------------------------------------------------------------------
+    // CALCULAR A I NOMINAL DE NEUTRO GD
+
+    let inominalneutroGD = inominalGD * desequilibrioSelecionada;
+    if (inominalneutroGD > 40) {
+        inominalneutroGD = 40;
+    }
+    localStorage.setItem("InominalneutroGD", inominalneutroGD.toFixed(2));
+
+    
+    //-----------------------------------------------------------------------------------------
     // const TCdeprotecao = document.getElementById("tcdeProtecao");
     // const TCdeprotecaoSelecionada = TCdeprotecao.value;
     // localStorage.setItem("TCdeprotecaoSelecionada", TCdeprotecaoSelecionada);
@@ -193,7 +223,7 @@ function salvarOpcao() {
     // //então uma variavel armazena a potencia selecionada e a potencia minima é salva no localStorage
     // if (demandaSelecionada < potenciaMinima) {
     //     localStorage.setItem("demandaSelecionada", potenciaMinima.toFixed(2));
-    //     localStorage.setItem("demandadecontrato", demandaSelecionada);
+       // localStorage.setItem("demandadecontrato", demandaSelecionada);
         
     // } else {
     //     localStorage.setItem("demandaSelecionada", demandaSelecionada);
@@ -226,11 +256,11 @@ function salvarOpcao() {
 
 
 
-    console.log("tensaoSelecionada:", tensaoSelecionada);
-    console.log("demandaSelecionada:", demandaSelecionada);
-    console.log("fatorPotenciaSelecionada:", fatorPotenciaSelecionada);
-    console.log("desequilibrioSelecionada:", desequilibrioSelecionada);
-    console.log("curtoSelecionada:", curtoSelecionada);
+    // console.log("tensaoSelecionada:", tensaoSelecionada);
+    // console.log("demandaSelecionada:", demandaSelecionada);
+    // console.log("fatorPotenciaSelecionada:", fatorPotenciaSelecionada);
+    // console.log("desequilibrioSelecionada:", desequilibrioSelecionada);
+    // console.log("curtoSelecionada:", curtoSelecionada);
     // console.log("inominalDemanda:", inominalDemanda);
     // console.log("iprimTccurto:", iprimTccurto);
     // console.log("instMagconsumo:", instMagconsumo);
@@ -288,7 +318,19 @@ window.onload = function () {
     const desequilibrio = document.getElementById("desequilibrio");
     const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada");
     if (desequilibrioSalva) {
-        desequilibrio.value = desequilibrioSalva;
+        desequilibrio.value = desequilibrioSalva * 100;
+    }
+    //-----------------------------------------------------------------------------------------
+    const potenciaGD = document.getElementById("potenciaGDhtml");
+    const potenciaGDSalva = localStorage.getItem("potenciaGDSelecionada");
+    if (potenciaGDSalva) {
+        potenciaGD.value = potenciaGDSalva;
+    }
+    //-----------------------------------------------------------------------------------------
+    const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
+    const fatorPotenciaGDSalva = localStorage.getItem("fatorPotenciaGDSelecionada");
+    if (fatorPotenciaGDSalva) {
+        fatorPotenciaGD.value = fatorPotenciaGDSalva * 100;
     }
     //-----------------------------------------------------------------------------------------
     const curto = document.getElementById("icctrifasica");

@@ -51,6 +51,351 @@
     </h1>
     <br>
 
+ <div class="conteiner-geral">
+        <div>
+            <div class="tabela-containerfase">
+
+                <table id="tabelafase">
+                    <!-- <caption class="alertapotminima"
+                        style="font-weight: bold; background-color: rgb(186, 59, 59); color: rgb(250, 250, 250); font-size: 14px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+
+                        I nominal ajustada para 10% da corrente primária do TC de proteção selecionado! 
+
+                    </caption> -->
+                    <div 
+                        style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+
+                        AJUSTES FASE 67-1(51-1/50-1)
+
+                    </div>
+
+
+                    <thead>
+                        <tr>
+                            <th>Parâmetros</th>
+                            <th>Ajuste</th>
+                            <th>Nominal</th>
+                            <th>Real</th>
+                            <th>P.U</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>I Nominal/ I PICK-UP:</td>
+                            <td>
+                                <div class="input-container">Tolerância (%)
+                                    <input type="number" id="IPpercentualhtml">
+                                    <span class="unidade"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Inominalhtml"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="IPrealhtml"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="IpPUhtml"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Curva de atuação:</td>
+                            <td>
+                                <div class="input-container">
+                                    <select id="tipodecurvahtml" size="1">
+                                        <option>IEC-N.I</option>
+                                        <option>IEC-V.I</option>
+                                        <option>IEC-E.I</option>
+                                        <option>LONG</option>
+                                        <option>Definite-Time</option>
+                                                                  
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Dial:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="dialfasehtml" step="0.1" min="0">
+                                </div>
+                            </td>
+
+                            <!-- <div class="input-container">
+                                <td style="background-color: #d9e078; color: black; width: 100%;"><b>Dial ideal
+                                        calculado</b>
+                                    <div class="input-container">
+                                        <label id="dialideal"></label>
+                                    </div>
+                                </td>
+                            </div> -->
+
+                        </tr>
+
+                        <!-- <tr>
+                            <td>I mag / I inst:</td>
+                            <td>
+                                <div class="input-container">Tolerância (%)
+                                    <input type="number" id="imagpercentual">
+                                    <span class="unidade"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="imagfase"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="imagreal"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="iinstPUhtml"></label>
+                                </div>
+                            </td>
+                        </tr> -->
+
+                        <!-- <tr>
+                            <td>Simular Imag:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="imagsimuladahtml">
+                                    <span class="unidade"></span>
+                                </div>
+                            </td>
+
+                            <div class="input-container">
+                                <td style="background-color: #d9e078; color: black; width: 100%;"><b>Magnetização real
+                                        calculada</b>
+                                    <div class="input-container">
+                                        <label id="imagrealcalculadahtml"></label>
+                                    </div>
+                                </td>
+                            </div>
+                        </tr> -->
+
+                        <!-- <tr>
+                            <td>I def fase:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="idef-fase-html">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="IPpercentual"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="IPreal"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>T def fase:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="tdef-fase-html">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Tpercentual"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Treal"></label>
+                                </div>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+
+            </div>
+
+            <br>
+
+            <div class="tabela-containerneutro">
+                <table id="tabelaneutro">
+                    <caption
+                        style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+                        AJUSTES NEUTRO 67N-1(51N-1/50N-1)
+                    </caption>
+
+
+                    <thead>
+                        <tr>
+                            <th>Parâmetros</th>
+                            <th>Ajuste</th>
+                            <th>Nominal</th>
+                            <th>Real</th>
+                            <th>P.U</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>I Nominal/ I PICK-UP:</td>
+                            <td>
+                                <div class="input-container">Tolerância (%)
+                                    <input type="number" id="IPpercentualneutrohtml">
+                                    <span class="unidade"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Inominalneutrohtml"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="IPrealneutrohtml"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="ipneutroPUhtml"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Curva de atuação:</td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Curvadeneutrohtml"></label>
+                                    <select id="tipodecurvaneutrohtml" size="1">
+                                        <option>IEC-N.I</option>
+                                        <option>IEC-V.I</option>
+                                        <option>IEC-E.I</option>
+                                        <option>LONG</option>
+                                        <option>Definite-Time</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Dial:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="curvaneutrohtml">
+                                    <span class="unidade"></span>
+                                </div>
+                            </td>
+                            
+                        </tr>
+
+                        <!-- <tr>
+                            <td>I mag / I inst:</td>
+                            <td>
+                                <div class="input-container">Tolerância (%)
+                                    <input type="number" id="Imagneutropercentual">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Imagneutro"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Iinstneutrohtml"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="iinstneutroPUhtml"></label>
+                                </div>
+                            </td>
+                        </tr> -->
+
+
+
+                        <!-- <tr>
+                            <td>I def neutro:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="idef-neutro-html">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label type="number" id="Idefneutropercentual"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="Idefrealneutro"></label>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>T def neutro:</td>
+                            <td>
+                                <div class="input-container">
+                                    <input type="number" id="tdef-neutro-html">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label type="number" id="IPpercentual"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="IPreal"></label>
+                                </div>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <canvas id="grafico"></canvas>
+
+
+
+
+        <br><br>
+
+
+        <br><br><br>
+    </div>
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+    <button id="botaoLegendas" onclick="ativarLegendas()" style="float: right; margin-right: 30px;">Legendas</button>
+
+
+
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+
+
+
 
     <script src="ajustesGD.js"></script>
 </body>

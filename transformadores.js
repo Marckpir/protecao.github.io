@@ -361,7 +361,7 @@ function calculos() {
     imagtotalformatada = maiorImag + somaInTotal;
 
     // imagtotalneutroformatada = imagtotalformatada * (desequilibrioSelecionada/100)
-    imagtotalneutroformatada = imagtotalformatada * (desequilibrioSelecionada / 100);
+    imagtotalneutroformatada = imagtotalformatada * (desequilibrioSelecionada);
 
     // Salva no localStorage
     localStorage.setItem("imagtotalSelecionada", imagtotalformatada);
@@ -441,7 +441,7 @@ function calculaimagreal() {
 
     const inmagreal = 1 / denominador;
 
-    const inmagrelaneutro = inmagreal * desequilibrioneutro / 100;
+    const inmagrelaneutro = inmagreal * desequilibrioneutro;
 
     localStorage.setItem("inmagrealSelecionada", inmagreal);
     localStorage.setItem("inmagrealneutroSelecionada", inmagrelaneutro);
