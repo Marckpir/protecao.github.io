@@ -384,12 +384,17 @@ window.onload = function () {
             el.textContent = tipoCurvaFasePT;
         });
     }
-
     // Dial selecionado fase
     let dialFase = dados['dialfaseSelecionada'];
     if (dialFase !== null && dialFase !== undefined) {
         document.querySelectorAll('.ajuste-dt-fase').forEach(function (el) {
-            el.textContent = dialFase;
+            let valorExistente = parseFloat(el.textContent);
+            let valorNovo = parseFloat(dialFase);
+            // Só substitui se o novo valor for maior que o existente
+            if (isNaN(valorExistente) || valorNovo > valorExistente) {
+                el.textContent = dialFase;
+            }
+            // Se o novo valor for menor ou igual, mantém o valor fixo existente
         });
     }
 
