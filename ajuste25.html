@@ -3,7 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="animacao.css">
-    <link rel="stylesheet" href="ajustesGD.css" type="text/css">
+    <link rel="stylesheet" href="ajuste25.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 
@@ -66,8 +66,149 @@
             <button id="botaoajuste25html" class="dark-mode-toggle" onclick="window.location.href='ajuste25.html';">25</button>
         </div>
 
+                <br>
+            <div class="tabela-containerfase">
+        <div
+            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
 
-        <script src="ajustesGD.js"></script>
+            AJUSTES 32-1 (DIRECIONAL DE POTÊNCIA) INJEÇÃO
+
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+                <!-- <caption class="aler</table>tapotminima"
+                            style="font-weight: bold; background-color: rgb(63, 186, 59); color: rgb(250, 250, 250); font-size: 14px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+
+                            I nominal ajustada para 10% da corrente primária do TC de proteção selecionado! 
+
+                        </caption> -->
+
+
+
+                <thead>
+                    <tr>
+                        <th style="width: 22%;">Parâmetros</th>
+                        <th style="width: 18%;">Ajuste</th>
+                        <th style="width: 20%;">Nominal</th>
+                        <th style="width: 15%;">Real</th>
+                        <th style="width: 25%;">P.U</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Potência de injeção:</td>
+                        <td>
+                            <div class="input-container">Tolerância (%)
+                                <input type="number" id="tolerancia-injecao-html" value="10">
+                                <span class="unidade"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="potencia-nominal-injecao-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="potencia-real-injecao-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="potencia-pu-injecao-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tempo:</td>
+                        <td>
+                            <div class="input-container">
+                                <input type="number" id="tempo-injecao-html">
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br><br>
+    </div>
+
+        <div class="tabela-containerfase">
+        <div
+            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
+
+            AJUSTES 32-2 (DIRECIONAL DE POTÊNCIA) CONSUMO
+
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+                <!-- <caption class="aler</table>tapotminima"
+                            style="font-weight: bold; background-color: rgb(63, 186, 59); color: rgb(250, 250, 250); font-size: 14px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+
+                            I nominal ajustada para 10% da corrente primária do TC de proteção selecionado! 
+
+                        </caption> -->
+
+
+
+                <thead>
+                    <tr>
+                        <th style="width: 22%;">Parâmetros</th>
+                        <th style="width: 18%;">Ajuste</th>
+                        <th style="width: 20%;">Nominal</th>
+                        <th style="width: 15%;">Real</th>
+                        <th style="width: 25%;">P.U</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Potência de injeção:</td>
+                        <td>
+                            <div class="input-container">Tolerância (%)
+                                <input type="number" id="tolerancia-consumo-html" value="10">
+                                <span class="unidade"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="potencia-nominal-consumo-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="potencia-real-consumo-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="potencia-pu-consumo-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tempo:</td>
+                        <td>
+                            <div class="input-container">
+                                <input type="number" id="tempo-consumo-html">
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <br><br>
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+        <script src="ajuste25.js"></script>
 </body>
 
 </html>

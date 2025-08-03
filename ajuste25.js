@@ -15,6 +15,12 @@ window.onload = function () {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
 
+    const botaoParametro2 = document.getElementById("botaoajuste25html");
+    if (botaoParametro2) {
+        botaoParametro2.style.backgroundColor = "#cf0808";
+    }
+    // -----------------manter o botão vermelho selecionado-------------------
+
 
 }
 

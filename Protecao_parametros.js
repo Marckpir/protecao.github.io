@@ -437,7 +437,19 @@ window.onload = function () {
 
 
 
-
+// Event listener para capturar Enter em qualquer lugar da página
+document.addEventListener('keydown', function(event) {
+    // Verificar se a tecla pressionada é Enter (código 13 ou 'Enter')
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        // Evitar comportamento padrão (submissão de formulário)
+        event.preventDefault();
+        
+        // Chamar a função salvar
+        salvarOpcao();
+        
+        console.log('✅ Salvamento ativado por Enter');
+    }
+});
 
 
 
