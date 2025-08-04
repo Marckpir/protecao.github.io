@@ -357,6 +357,13 @@ function calculos() {
         }
     }
 
+    // Soma a potência total de todos os trafos:
+    let somaPotenciaTotal = 0;
+    for (let i = 1; i <= 10; i++) {
+        somaPotenciaTotal += qtdeArray[i] * (JSON.parse(localStorage.getItem(`trafo${i}JSON`))?.potencia || 0);
+    }
+    localStorage.setItem("potenciatotaltrafos", somaPotenciaTotal);
+
     // imagtotalformatada = maior Imag + soma das In dos demais trafos (considerando quantidade)
     imagtotalformatada = maiorImag + somaInTotal;
 

@@ -28,14 +28,15 @@
     </div>
     <div id="botoesdoheader"
         style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 0px;">
- <h1>
+    <h1>
+
         <button id="botaodiagramahtml" class="dark-mode-toggle"
             onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
         <button id="botaoparametrohtml" class="dark-mode-toggle"
             onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
         <button id="botaotrafohtml" class="dark-mode-toggle"
             onclick="window.location.href='transformadores.html';">TRAFOS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
         <button id="botaoajustehtml" class="dark-mode-toggle"
             onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
         <button id="botaotabelarelehtml" class="dark-mode-toggle"
@@ -48,20 +49,21 @@
             GD</button>
         <button id="botaoestudosGDhtml" class="dark-mode-toggle"
             onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-        <button id="analisehtml" class="dark-mode-toggle"
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
             onclick="window.location.href='analise.html';">ANÁLISE</button>
         <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+
     </h1>
     </div>
     <br>
 
-<div id="novaDiv" style="padding: 0px; margin: 16px 0;">
+<div id="labelDiagrama" style="padding: 0px; margin: 16px 0;">
 <label for="tipoDiagrama" style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">
     Selecione o tipo de diagrama:
 </label>
 </div>  
 
-<div id="novaDiv" style="padding: 5px; margin: 5px 5px; display: flex; justify-content: center; align-items: center;">
+<div id="containerSelect" style="padding: 5px; margin: 5px 5px; display: flex; justify-content: center; align-items: center;">
 <select id="tipoDiagrama" name="tipoDiagrama" style="text-align: left; text-align-last: left; width: 70%; border-radius: 12px; padding: 0px;">
     <option value="1-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO">1-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO</option>
     <option value="2-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 EXTERNA PARA PROTEÇÃO DO GERADOR">2-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 EXTERNA PARA PROTEÇÃO DO GERADOR</option>
