@@ -250,8 +250,23 @@ window.onload = function () {
 
     //Calculo da  corrente nominal de neutro
     inominalneutro = (correnteprimaria * (desequilibrio));
+
+
+
     // Calculo da corrente IP de neutro somando a tolerancia a corrente nominal
     ipneutro = inominalneutro * (1 + ipneutropercentualArmazenada / 100);
+
+    if (ipneutro > 40) {
+        ipneutro = 40;
+    }
+
+    if (ipneutro === 40) {
+        inominalneutro = ipneutro / (1 + ipneutropercentualArmazenada / 100);
+    }
+
+
+
+
     // Armazenando o valor de ipneutro no local storage
     localStorage.setItem("IpdeneutroSelecionada", ipneutro);
     localStorage.setItem("Inominalneutroconsumo", inominalneutro);
@@ -574,7 +589,7 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
         y2.push(tempo2);
 
         Iinst2 -= passo2;
-        if (Iinst2 <= (ip2 - 0.9)) {
+        if (Iinst2 <= (ip2)) {
             // Garante o último ponto em ip2
             x2.push(ip2);
             let z2final = dial2 * (beta2 / (Math.pow(ip2 / ip2, alfa2) - k2));

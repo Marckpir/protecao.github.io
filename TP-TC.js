@@ -17,7 +17,7 @@ window.onload = function () {
     //-----------------------------------------------------------------------------------------
     //persisti o valor do TC de protecao selecionado do localstorage
     const TC = document.getElementById("tcdeProtecao");
-    const TCSalva = localStorage.getItem("TCdeprotecaoSelecionada");
+    const TCSalva = localStorage.getItem("TCdeprotecaoEscolhido");
     if (TCSalva) {
         TC.value = TCSalva;
     }
@@ -132,8 +132,8 @@ function salvarOpcao() {
 
     //exporta selecao do TC de protecao
     const TCdeprotecao = document.getElementById("tcdeProtecao");
-    const TCdeprotecaoSelecionada = TCdeprotecao.value;
-    localStorage.setItem("TCdeprotecaoSelecionada", TCdeprotecaoSelecionada);
+    const TCdeprotecaoEscolhido = TCdeprotecao.value;
+    localStorage.setItem("TCdeprotecaoEscolhido", TCdeprotecaoEscolhido);
 
     //exporta o valor do RTP selecionado 
     const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
@@ -167,7 +167,7 @@ function dimensionarTCconformenorma() {
     if (!RTPauxiliarSelecionada) {
         RTPauxiliarSelecionada = 120;
     }
-    const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0; // Valor padrão de TC de proteção
+    const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoEscolhido")) || 0; // Valor padrão de TC de proteção
     const tensaoSelecionada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
     const demandaSelecionada = parseFloat(localStorage.getItem("demandadecontrato")) || 0;
     const potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDSelecionada")) || 0;
@@ -198,10 +198,7 @@ function dimensionarTCconformenorma() {
     // //-----------------------------------------------------------------------------------------
 
 
-    //--------------------calucla TC em kA para o rele SEG-----------------------------------------
-    const TCdeprotecaoSelecionadaemka = (TCdeprotecaoSelecionada / 1000).toFixed(3);
-    localStorage.setItem("TCdeprotecaoSelecionadaemka", TCdeprotecaoSelecionadaemka);
-    //---------------------------------------------------------------------------------------------
+   
 
 
     //---------------------------Codigo para definir o TC Ideal---------------------------------------------------------------
@@ -264,7 +261,7 @@ function dimensionarTCconformenorma() {
     if (TCdeprotecaoSelecionada === null) {
         potenciaMinima2 = 0;
     }
-    // Caso contrário, calcula a potência mínima com base no valor do TC dimensionado
+    // Caso contrário, calcula a potência mínima com base no valor do TC Selecionado
     else {
         potenciaMinima2 = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * (fatorPotenciaSelecionada);
     }
@@ -277,22 +274,25 @@ function dimensionarTCconformenorma() {
 
     console.log("Potência mínima calculada para TC dimensionado:", potenciaMinima.toFixed(2));
 
-    // Armazena o valor selecionado no localStorage
+    // Armazena o valor TC dimensionado no localStorage
     if (valorTCdimensionado !== null) {
         localStorage.setItem("valorTCideal", valorTCdimensionado);
     } else {
         localStorage.removeItem("valorTCideal");
     }
+
     // Exibe no console o valor de TCdeprotecaoSelecionada
     console.log("TCdeprotecaoSelecionada:", TCdeprotecaoSelecionada);
 
-    // Armazenar o RTC dimensionado caso não haja valor no TC selecionado
+    // Armazenar o RTC Selecionado caso não haja valor no TC selecionado
     if (TCdeprotecaoSelecionada === null || TCdeprotecaoSelecionada === "" || TCdeprotecaoSelecionada === 0) {
         localStorage.setItem("RTCselecionado", RTCdimensionado);
+        localStorage.setItem("TCdeprotecaoSelecionada", valorTCdimensionado);
         console.log("RTC selecionado (sem TC):", RTCdimensionado);
 
     } else {
         localStorage.setItem("RTCselecionado", RTCselecionado);
+        localStorage.setItem("TCdeprotecaoSelecionada", TCdeprotecaoSelecionada);
         console.log("RTC selecionado:", RTCselecionado);
     }
 
@@ -452,6 +452,11 @@ function dimensionarTCconformenorma() {
         tcProtecaoIdeal.textContent = valorTCSelecionado2 !== null ? valorTCSelecionado2 + " :5" : "";
     }
 
+
+     //--------------------calucla TC em kA para o rele SEG-----------------------------------------
+    const TCdeprotecaoSelecionadaemka = (TCdeprotecaoSelecionada / 1000).toFixed(3);
+    localStorage.setItem("TCdeprotecaoSelecionadaemka", TCdeprotecaoSelecionadaemka);
+    //---------------------------------------------------------------------------------------------
     console.log("tensaoSelecionada:", tensaoSelecionada);
     console.log("demandaSelecionada:", demandaSelecionada);
     console.log("fatorPotenciaSelecionada:", fatorPotenciaSelecionada);

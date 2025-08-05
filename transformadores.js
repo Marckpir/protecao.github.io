@@ -204,6 +204,9 @@ window.onload = function () {
     const inmagrealneutroArmazenado = parseFloat(localStorage.getItem("inmagrealneutroSelecionada"));
     if (inmagrealneutroArmazenado) { labelInmagrealNeutro.textContent = inmagrealneutroArmazenado.toFixed(2) + " A"; }
 
+
+    // Persisti os valores do gerador a diesel no HTML
+
     // Exibir valores armazenados do gerador a diesel no HTML
     const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON"));
     if (geradorSalvo) {
@@ -230,6 +233,8 @@ window.onload = function () {
         labelPotenciaReversaPU.textContent = potenciaReversaPUArmazenada.toFixed(4) + " P.U";
     }
 
+    //----------------------------------------------------------------------------------------------
+    
     // Exibir valores armazenados do motor no HTML
     const motorSalvo = JSON.parse(localStorage.getItem("motorJSON"));
     if (motorSalvo) {

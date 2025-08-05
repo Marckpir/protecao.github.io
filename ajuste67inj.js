@@ -144,12 +144,12 @@ window.onload = function () {
 
 
     //Resgata todos os valores de fase do local storage para as variaveis internas do js e salva nos campos HTML
-    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada"));
-    const potenciaArmazenada = parseFloat(localStorage.getItem("demandaSelecionadaGD"));
-    const fatorpArmazenada = parseFloat(localStorage.getItem("fatorPotenciaSelecionadaGD"));
-    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionadaGD"));
+    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
+    const potenciaArmazenada = parseFloat(localStorage.getItem("demandaSelecionadaGD")) || 0;
+    const fatorpArmazenada = parseFloat(localStorage.getItem("fatorPotenciaSelecionadaGD")) || 0;
+    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionadaGD")) || 0;
     const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionadaGD");
-    const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionadaGD");
+    const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionadaGD") || 0;
     // const imagArmazenada = parseFloat(localStorage.getItem("imagtotalSelecionadaGD"));
     // const imagpercentualArmazenada = parseFloat(localStorage.getItem("imagpercentualSelecionadaGD"));
     // const imagsimuladaArmazenada = parseFloat(localStorage.getItem("imagsimuladaSelecionadaGD"));
@@ -157,18 +157,18 @@ window.onload = function () {
     // const ideffaseArmazenada = parseFloat(localStorage.getItem("ideffaseSelecionadaGD"));
     // const tdeffaseArmazenada = parseFloat(localStorage.getItem("tdeffaseSelecionadaGD"));
     // const imagresultanteArmazenada = parseFloat(localStorage.getItem("ImagresultanteGD"));
-    const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada"));
+    const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
 
 
-    const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada"));
-    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada"));
+    const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada")) || 0;
+    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 0;
 
 
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML
 
-    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD"));
+    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD")) || 0;
     const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionadaGD");
-    const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionadaGD");
+    const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionadaGD") || 0;
     // const imagneutroArmazenada = parseFloat(localStorage.getItem("imagneutropercentualSelecionadaGD"));
     // const idefneutroArmazenada = parseFloat(localStorage.getItem("idefneutroSelecionadaGD"));
     // const tdefneutroArmazenada = parseFloat(localStorage.getItem("tdefneutroSelecionadaGD"));
@@ -187,7 +187,7 @@ window.onload = function () {
     //var correnteprimaria = (potenciaArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada));
 
     //codigo novo
-    const correnteprimaria = parseFloat(localStorage.getItem("InominalfaseGD"));
+    const correnteprimaria = parseFloat(localStorage.getItem("InominalfaseGD")) || 0;
     console.log("correnteprimaria: ", correnteprimaria);
     //fim do codigo novo
 
@@ -255,7 +255,7 @@ window.onload = function () {
     //---------------------------------------------------------------------------------------
     //CACLULOS PARA VALORES DAS CORRENTE EM P.U
     //importar valor do local storage do TC de proteção selecionado
-    const TCselecionado = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada"));
+    const TCselecionado = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
 
     //Divide valores encontrados por valor primário do TC selecionado
     const ipPU = correnteIP / TCselecionado;
@@ -370,7 +370,7 @@ window.onload = function () {
 
     //----------------------------------------------atualização de valores na tela da tabela
     const pencentualIP = document.getElementById("IPpercentualhtml");
-    const percentualIPSalva = localStorage.getItem("PercentualIPSelecionadaGD");
+    const percentualIPSalva = localStorage.getItem("PercentualIPSelecionadaGD") || 0;
 
     if (percentualIPSalva) {
         pencentualIP.value = percentualIPSalva;
@@ -601,7 +601,7 @@ window.onload = function () {
 
 
     // Exibe no console todas as informações de correntestrafosJSON, se houver
-    const correntesTrafos = JSON.parse(localStorage.getItem("correntestrafosJSON"));
+    const correntesTrafos = JSON.parse(localStorage.getItem("correntestrafosJSON")) || 0;
 
 
 

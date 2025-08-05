@@ -338,90 +338,67 @@ window.onload = function () {
     if (curtoSalva) {
         curto.value = curtoSalva;
     }
-    //-----------------------------------------------------------------------------------------
-    // const TC = document.getElementById("tcdeProtecao");
-    // const TCSalva = localStorage.getItem("TCdeprotecaoSelecionada");
-    // if (TCSalva) {
-    //     TC.value = TCSalva;
-    // }
-    // //-----------------------------------------------------------------------------------------
-   
-    // const RTC = document.getElementById("RTChtml");
-    // const RTCSalva = localStorage.getItem("RTCselecionado");
-    // if (RTC && RTCSalva) {
-    //     RTC.textContent = RTCSalva;
-    // }
-    // //-----------------------------------------------------------------------------------------
-    // const TP = document.getElementById("TPdeprotecaohtml");
-    // const TPSalva = localStorage.getItem("TPdeprotecaoSelecionada");
-    // if (TPSalva) {
-    //     TP.value = TPSalva;
-    // }
-    // //-----------------------------------------------------------------------------------------
-
-    // const ligacaoBobina = document.getElementById("ligacaodabobinahtml");
-    // const ligacaoBobinaSalva = localStorage.getItem("ligacaodabobinaSelecionada");
-    // if (ligacaoBobinaSalva) {
-    //     ligacaoBobina.value = ligacaoBobinaSalva;
-    // }
-    // //-----------------------------------------------------------------------------------------
-    // const RTPauxiliar = document.getElementById("RTPauxiliarhtml");
-    // const RTPauxiliarSalva = localStorage.getItem("RTPauxiliarSelecionada");
-    // if (RTPauxiliarSalva) {
-    //     RTPauxiliar.value = RTPauxiliarSalva;
-    // }
-
-    //-----------------------------------------------------------------------------------------
 
 
+    //persistir os valores ajustados no html com as variaveis do localstorage, caso não tenha valor, o campo assume valores genericos
+    const tensaoajustadahtml = document.getElementById("valorAjustadoTensaoPrimaria");
+    const tensaoajustadastorage = localStorage.getItem("tensaoSelecionada");
+    if (tensaoajustadastorage) {
+        tensaoajustadahtml.textContent = tensaoajustadastorage + " kV";
+    }else {
+        tensaoajustadahtml.textContent = "13.8" + " kV";
+    }
+
+    const demandaajustadahtml = document.getElementById("valorAjustadoDemandaConsumo");
+    const demandaajustadastorage = localStorage.getItem("demandadecontrato");
+    if (demandaajustadastorage) {
+        demandaajustadahtml.textContent = demandaajustadastorage + " kW";
+    }else {
+        demandaajustadahtml.textContent = "0" + " kW";
+    }
+
+    const fatorpajustadahtml = document.getElementById("valorAjustadoFatorPotencia");
+    const fatorpajustadastorage = localStorage.getItem("fatorPotenciaSelecionada");
+    if (fatorpajustadastorage !== "" && fatorpajustadastorage !== null && fatorpajustadastorage != 0) {
+        fatorpajustadahtml.textContent = fatorpajustadastorage*100 + " %";
+    } else {
+        fatorpajustadahtml.textContent = "92" + " %";
+    }
+
+    const desequilibrioajustadahtml = document.getElementById("valorAjustadoDesequilibrio");
+    const desequilibrioajustadastorage = localStorage.getItem("desequilibrioSelecionada");
+    if (desequilibrioajustadastorage !== "" && desequilibrioajustadastorage !== null && desequilibrioajustadastorage != 0) {
+        desequilibrioajustadahtml.textContent = desequilibrioajustadastorage*100 + " %";
+    } else {
+        desequilibrioajustadahtml.textContent = "33" + " %";
+    }
+
+    const potenciaGDajustadahtml = document.getElementById("valorAjustadoPotenciaGD");
+    const potenciaGDajustadastorage = localStorage.getItem("potenciaGDSelecionada");
+    if (potenciaGDajustadastorage) {
+        potenciaGDajustadahtml.textContent = potenciaGDajustadastorage + " kW";
+    }else {
+        potenciaGDajustadahtml.textContent = "0" + " kW";
+    }
+
+    const fatorPotenciaGDajustadahtml = document.getElementById("valorAjustadoFatorPotenciaGD");
+    const fatorPotenciaGDajustadastorage = localStorage.getItem("fatorPotenciaGDSelecionada");
+    if (fatorPotenciaGDajustadastorage !== "" && fatorPotenciaGDajustadastorage !== null && fatorPotenciaGDajustadastorage != 0) {
+        fatorPotenciaGDajustadahtml.textContent = fatorPotenciaGDajustadastorage*100 + " %";
+    } else {
+        fatorPotenciaGDajustadahtml.textContent = "92" + " %";
+    }
+
+    const curtoajustadahtml = document.getElementById("valorAjustadoICCTri");
+    const curtoajustadastorage = localStorage.getItem("curtoSelecionada");
+    if (curtoajustadastorage) {
+        curtoajustadahtml.textContent = curtoajustadastorage + " A";
+    }else {
+        curtoajustadahtml.textContent = "0" + " A";
+    }
 
 
-    //-----------------------------------------------------------------------------------------
 
-
-    //Exibir valor do TC ideal no HTML
-
-    // Recupera o valor do TC ideal do localStorage e exibe no elemento HTML
-    // const valorTCSelecionado = localStorage.getItem("valorTCideal");
-    // let tcProtecaoIdeal = document.getElementById("tcdeProtecaoideal");
-    // if (tcProtecaoIdeal) {
-    //     tcProtecaoIdeal.textContent = valorTCSelecionado !== null ? valorTCSelecionado + " :5" : "";
-    //         }
-    //         // Recupera o valor da potência mínima do localStorage e exibe no elemento HTML
-    //         const potenciaMinimaSelecionada = localStorage.getItem("potenciaMinimaSelecionada");
-    //         let potenciaMinimaElement = document.getElementById("potenciaMinimahtml");
-    //         if (potenciaMinimaElement) {
-    //             potenciaMinimaElement.textContent = potenciaMinimaSelecionada !== null ? potenciaMinimaSelecionada + " kW" : "";
-    //         }
-
-    //         // Recupera o valor da potência base do localStorage e exibe no elemento HTML
-    //         const potenciaBaseSelecionada = localStorage.getItem("potenciabase");
-    //         let potenciaBaseElement = document.getElementById("potenciabasehtml");
-    //         if (potenciaBaseElement) {
-    //             potenciaBaseElement.textContent = potenciaBaseSelecionada !== null ? potenciaBaseSelecionada + " kW" : "";
-    //         }
-
-
-    // // Recupera o valor da tensão secundária do TP auxiliar do localStorage e exibe no elemento HTML
-    // const tensaoSecundariaTPauxiliar = localStorage.getItem("tensaoSecundariaTPauxiliar");
-    // let tensaoSecundariaAuxiliarElement = document.getElementById("tensaosecundariaauxiliarhtml");
-    // if (tensaoSecundariaAuxiliarElement) {
-    //     tensaoSecundariaAuxiliarElement.textContent = tensaoSecundariaTPauxiliar !== null ? tensaoSecundariaTPauxiliar + " V" : "";
-    // }
-
-    // // Recupera o valor da tensão secundária fase-fase do TP de proteção e exibe no elemento HTML
-    // const tensaoSecundariaFFTP = localStorage.getItem("tensaoSecundariaFFTP");
-    // let tensaoSecundariaFFElement = document.getElementById("tensaosecundariaffhtml");
-    // if (tensaoSecundariaFFElement) {
-    //     tensaoSecundariaFFElement.textContent = tensaoSecundariaFFTP !== null ? tensaoSecundariaFFTP + " V" : "";
-    // }
-
-    // // Recupera o valor da tensão secundária fase-neutro do TP de proteção e exibe no elemento HTML
-    // const tensaoSecundariaFNTP = localStorage.getItem("tensaoSecundariaFNTP");
-    // let tensaoSecundariaFNElement = document.getElementById("tensaosecundariafnhtml");
-    // if (tensaoSecundariaFNElement) {
-    //     tensaoSecundariaFNElement.textContent = tensaoSecundariaFNTP !== null ? tensaoSecundariaFNTP + " V" : "";
-    // }
 
 
 
@@ -431,11 +408,6 @@ window.onload = function () {
 
 
 }
-
-
-
-
-
 
 // Event listener para capturar Enter em qualquer lugar da página
 document.addEventListener('keydown', function(event) {

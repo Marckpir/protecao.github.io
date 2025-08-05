@@ -61,7 +61,16 @@
                 PARÂMETROS ELÉTRICOS<br>
             </caption>
 
-
+                    <thead>
+                        <tr>
+                            <th>Parâmetros</th>
+                            <th>Ajuste</th>
+                            <th>Valor Ajustado</th>
+                            <!-- <th>Real</th> -->
+                            <!-- <th>P.U</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
             <tr>
                 <td>TENSÃO PRIMÁRIA:</td>
                 <td style="text-align: right;">
@@ -75,6 +84,7 @@
                     </select>
                     <span class="unidade">kV</span><br>
                 </td>
+                <td id="valorAjustadoTensaoPrimaria"></td>
             </tr>
 
             <tr>
@@ -86,6 +96,7 @@
                         <span class="unidade">kW</span>
                     </div>
                 </td>
+                <td id="valorAjustadoDemandaConsumo"></td>
             </tr>
 
 
@@ -99,6 +110,7 @@
                         <span class="unidade">%</span>
                     </div>
                 </td>
+                <td id="valorAjustadoFatorPotencia"></td>
             </tr>
             <tr>
                 <td>DESEQUILÍBRIO NEUTRO:</td>
@@ -109,6 +121,7 @@
                         <span class="unidade">%</span>
                     </div>
                 </td>
+                <td id="valorAjustadoDesequilibrio"></td>
             </tr>
 
             <tr>
@@ -120,6 +133,7 @@
                         <span class="unidade">kW</span>
                     </div>
                 </td>
+                <td id="valorAjustadoPotenciaGD"></td>
             </tr>
             <tr>
                 <td>FATOR DE POTÊNCIA GD:</td>
@@ -130,6 +144,7 @@
                         <span class="unidade">%</span>
                     </div>
                 </td>
+                <td id="valorAjustadoFatorPotenciaGD"></td>
             </tr>
 
 
@@ -144,6 +159,7 @@
                         <span class="unidade">A</span>
                     </div>
                 </td>
+                <td id="valorAjustadoICCTri"></td>
             </tr>
 
             <tr>
@@ -154,6 +170,7 @@
                         <span class="unidade">kW</span>
                     </div>
                 </td>
+                <td id="valorAjustadoPotenciaGerador"></td>
             </tr>
             <tr>
                 <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
@@ -164,110 +181,12 @@
                         <span class="unidade">%</span>
                     </div>
                 </td>
-            </tr>
-            <!-- <tr>
-                <td>TC DE PROTEÇÃO:</td>
-                <td>
-                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
-                        <input id="tcdeProtecao" type="text" style="margin-right: 4px; text-align: left;">
-                        <span class="unidade">:5A</span>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="2">
-                    <div style="display: flex; align-items: flex-start; gap: 32px; margin-bottom: 12px;">
-                        <div class="label-container"
-                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
-                            <span><b>RTC:</b></span>
-                            <label id="RTChtml" type="text" style="display: block;"></label>
-                            <span class="unidade"></span>
-                        </div>
-
-                        <div class="label-container"
-                            style="flex: 1; font-size: 14px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
-                            <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC
-                                    ideal:</b></span>
-                            <label id="tcdeProtecaoideal" type="text" style="display: inline;"></label>
-                            <span class="unidade"></span>
-                        </div>
-                        <div class="label-container"
-                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(248, 255, 47); text-align: center; border-radius: 12px; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
-                            <span><b>Pot 10% Prim TC:</b></span>
-                            <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
-                            <span class="unidade"></span>
-                        </div>
-                        <div class="label-container"
-                            style="flex: 1; font-size: 14px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
-                            <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>Pot
-                                    Base (Sn):
-                                </b></span>
-                            <label id="potenciabasehtml" type="text" style="display: inline;"></label>
-                            <span class="unidade"></span>
-                        </div>
-                    </div>
-                </td>
+                <td id="valorAjustadoFatorPotenciaGerador"></td>
             </tr>
 
 
 
-            <tr>
-                <td colspan="2">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <span style="min-width: 120px;">TP DE PROTEÇÃO:</span>
-                        <div class="input-container" style="display: flex; align-items: center;">
-                            <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor"
-                                style="margin-right: 4px;">
-                            <span class="unidade">:1V</span>
-                        </div>
-                        <div style="margin-left: auto; display: flex; align-items: center;">
-                            <label style="margin-left: 16px; margin-right: 8px;">CONEXÃO:</label>
-                            <select id="ligacaodabobinahtml" style="margin-right: 16px;">
-                                <option>Estrela-Estrela</option>
-                                <option>Triangulo-Estrela</option>
-                            </select>
-                        </div>
-                    </div>
 
-
-                    <div class="label-container"
-                        style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(2, 68, 2); border-radius: 12px; text-align: center; padding: 4px; display: flex; justify-content: space-around; align-items: center; gap: 24px;">
-                        <div
-                            style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
-                            <span><b>TP PROTEÇÃO SECUNDÁRIO F-F:</b> <label id="tensaosecundariaffhtml" type="text"
-                                    style="display: inline;"></label></span>
-                            <span class="unidade"></span>
-                        </div>
-                        <div
-                            style="background: rgb(248, 255, 47); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
-                            <span><b>TP PROTEÇÃO SECUNDÁRIO F-N:</b> <label id="tensaosecundariafnhtml" type="text"
-                                    style="display: inline;"></label></span>
-                            <span class="unidade"></span>
-                        </div>
-                    </div>
-
-
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="2">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <span style="min-width: 120px;">TP AUXILIAR ALIMENTAÇÃO:</span>
-                        <div class="input-container" style="display: flex; align-items: center;">
-                            <input id="RTPauxiliarhtml" type="text" style="margin-right: 4px;">
-                            <span class="unidade">:1 V</span>
-                        </div>
-
-                        <div class="label-container"
-                            style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(248, 255, 47); border-radius: 12px;text-align: center;padding: 4px;">
-                            <span><b>TENSÃO SECUNDÁRIA AUXILIAR:</b> <label id="tensaosecundariaauxiliarhtml"
-                                    type="text" style="display: inline;"></label></span>
-                            <span class="unidade"></span>
-                        </div>
-                </td>
-            </tr> -->
 
             <!-- <tr>
                 <td>RELÉ DE PROTEÇÃO:</td>
@@ -302,6 +221,7 @@
                 </td>
 
             </tr> -->
+            </tbody>
         </table>
 
 
