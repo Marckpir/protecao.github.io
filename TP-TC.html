@@ -71,7 +71,7 @@
             </caption>
 
 
- 
+
 
 
 
@@ -117,7 +117,7 @@
                             <label id="potenciabasehtml" type="text" style="display: inline;"></label>
                             <span class="unidade"></span>
                         </div>
-                                                <div class="label-container"
+                        <div class="label-container"
                             style="flex: 1; font-size: 14px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
                             <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC
                                     ideal:</b></span>
@@ -144,7 +144,7 @@
                             <select id="ligacaodabobinahtml" style="margin-right: 16px;">
                                 <option>Estrela-Estrela</option>
                                 <option>Triangulo-Estrela</option>
-                                
+
                             </select>
                         </div>
                     </div>
@@ -225,10 +225,78 @@
 
 
     </div>
-    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+    <div>
+        <h2> DIMENSIONAMENTO TC PELA SATURAÇÃO DE TENSÃO</h2>
+
+        <div class="tabela-container"
+            style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
+            <table>
+                <tr>
+                    <td>Potência Nominal do TC:</td>
+                    <td>
+                        <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="potenciaNominalTC" type="text" style="margin-right: 4px; text-align: left;">
+                            <span class="unidade">VA</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Comprimento do condutor (TC ao RELÉ):</td>
+                    <td>
+                        <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="comprimentoCondutorTC" type="text" style="margin-right: 4px; text-align: left;">
+                            <span class="unidade">m</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bitola do condutor (TC ao RELÉ):</td>
+                    <td>
+                        <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="bitolaCondutorTC" type="text" style="margin-right: 4px; text-align: left;">
+                            <span class="unidade">mm²</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Resistividade do condutor (TC ao RELÉ):</td>
+                    <td>
+                        <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;"></div>
+                            <input id="resistividadeCondutorTC" type="text" style="margin-right: 4px; text-align: left;">
+                            <span class="unidade">Ω·mm²/m</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Percenteual do TC:</td>
+                    <td>
+                        <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;"></div>
+                            <input id="percentualTC" type="text" style="margin-right: 4px; text-align: left;">
+                            <span class="unidade">%</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Impedância do TC:</td>
+                    <td>
+                        <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="impedanciaTC" type="text" style="margin-right: 4px; text-align: left;">
+                            <span class="unidade">Ω</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
 
-    <script src="TP-TC.js"></script>
+
+
+
+        </div>
+        <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+        <script src="TP-TC.js"></script>
 </body>
 
 </html>

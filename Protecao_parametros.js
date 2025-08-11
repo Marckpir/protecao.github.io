@@ -24,7 +24,7 @@ function salvarOpcao() {
     const desequilibrio = document.getElementById("desequilibrio");
     const desequilibrioSelecionada = desequilibrio.value / 100;
     localStorage.setItem("desequilibrioSelecionada", desequilibrioSelecionada);
-    
+
     //-----------------------------------------------------------------------------------------
 
     const potenciaGD = document.getElementById("potenciaGDhtml");
@@ -33,13 +33,21 @@ function salvarOpcao() {
     //-----------------------------------------------------------------------------------------
 
     const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
-    const fatorPotenciaGDSelecionada = fatorPotenciaGD.value/100;
+    const fatorPotenciaGDSelecionada = fatorPotenciaGD.value / 100;
     localStorage.setItem("fatorPotenciaGDSelecionada", fatorPotenciaGDSelecionada);
 
     //-----------------------------------------------------------------------------------------
+    const iccTrifasicaGemini = localStorage.getItem("ICCtrifasicagemini");
     const curto = document.getElementById("icctrifasica");
-    const curtoSelecionada = curto.value;
+    let curtoSelecionada;
+    if (iccTrifasicaGemini) {
+        curtoSelecionada = iccTrifasicaGemini;
+    } else {
+        curtoSelecionada = curto.value;
+    }
     localStorage.setItem("curtoSelecionada", curtoSelecionada);
+
+
 
     //-----------------------------------------------------------------------------------------
 
@@ -47,7 +55,7 @@ function salvarOpcao() {
 
     //CALCULAR A I NOMINAL DA GD
 
-    const inominalGD = (potenciaGDSelecionada * 1000) / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada)/1000;
+    const inominalGD = (potenciaGDSelecionada * 1000) / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada) / 1000;
     localStorage.setItem("InominalfaseGD", inominalGD.toFixed(2));
 
     //-----------------------------------------------------------------------------------------
@@ -59,7 +67,7 @@ function salvarOpcao() {
     }
     localStorage.setItem("InominalneutroGD", inominalneutroGD.toFixed(2));
 
-    
+
     //-----------------------------------------------------------------------------------------
     // const TCdeprotecao = document.getElementById("tcdeProtecao");
     // const TCdeprotecaoSelecionada = TCdeprotecao.value;
@@ -86,7 +94,7 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
 
-   
+
 
 
     // Codigo para definir o TC Ideal
@@ -138,14 +146,14 @@ function salvarOpcao() {
     // Armazena o valor selecionado no localStorage
     // if (valorTCSelecionado !== null) {
     //     localStorage.setItem("valorTCideal", valorTCSelecionado);
-        
+
     // } else {
-        
+
     //     localStorage.removeItem("valorTCideal");
     // }
 
     // localStorage.setItem("RTCselecionado", RTCselecionado);
-    
+
     //Armazena Potencia minima do primário do TC no localStorage
     // localStorage.setItem("potenciaMinimaSelecionada", potenciaMinima.toFixed(2));
     // ----------------------------------------------------------------------
@@ -156,13 +164,13 @@ function salvarOpcao() {
 
     // const potenciabase = (tensaoSelecionada * Math.sqrt(3) * TCdeprotecaoSelecionada).toFixed(2); // Potência base em kVA
 
-    
+
     // localStorage.setItem("potenciabase", potenciabase); // Armazena a potência base no localStorage
 
 
     //-------------FIM DOS CALCULOS DE POTENCIA BASE PARA CALCULOS DE P.U --------------------
 
-    
+
     //-----------------------------------------------------------------------------------------
     //Calcular as tensões secundárias do TP auxiliar
 
@@ -181,13 +189,13 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
     // Calcular as tensoes secundárias do TP de proteção
-    
+
     // let tensaoprimariaFN;
     // let tensaoprimariaFF;
     // let tensaoSecundariaFNTP;
     // let tensaoSecundariaFFTP;
     // if (!TPdeprotecaoSelecionada) {
-    
+
     //     tensaoSecundariaFNTP = 0;
     //     tensaoSecundariaFFTP = 0;
     // } else if (ligacaoBobinaSelecionada === "Estrela-Estrela") {
@@ -223,14 +231,14 @@ function salvarOpcao() {
     // //então uma variavel armazena a potencia selecionada e a potencia minima é salva no localStorage
     // if (demandaSelecionada < potenciaMinima) {
     //     localStorage.setItem("demandaSelecionada", potenciaMinima.toFixed(2));
-       // localStorage.setItem("demandadecontrato", demandaSelecionada);
-        
+    // localStorage.setItem("demandadecontrato", demandaSelecionada);
+
     // } else {
     //     localStorage.setItem("demandaSelecionada", demandaSelecionada);
     //     localStorage.setItem("demandadecontrato", demandaSelecionada);
     // }
 
-      //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+    //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
     //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
     // let correntedeconsumominima = 0;
     // if (TCdeprotecaoSelecionada) {
@@ -252,7 +260,7 @@ function salvarOpcao() {
 
     // console.log("correntedeconsumominima:", correntedeconsumominima.toFixed(2), "inominalDemanda:", (inominalDemanda.toFixed(2)));
 
-//-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+    //-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
 
 
 
@@ -277,10 +285,10 @@ function salvarOpcao() {
 
 
 
-    
+
     // Recarrega a página após salvar as opções
-   location.reload();
-   
+    location.reload();
+
 }
 
 
@@ -295,6 +303,10 @@ window.onload = function () {
     // Recupera a opção selecionada do localStorage e define no campo correspondente
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------
+    // importarICC();
+    
+    
+    
     const tensao = document.getElementById("tensaoprimaria");
     const tensaoSalva = localStorage.getItem("tensaoSelecionada");
 
@@ -345,7 +357,7 @@ window.onload = function () {
     const tensaoajustadastorage = localStorage.getItem("tensaoSelecionada");
     if (tensaoajustadastorage) {
         tensaoajustadahtml.textContent = tensaoajustadastorage + " kV";
-    }else {
+    } else {
         tensaoajustadahtml.textContent = "13.8" + " kV";
     }
 
@@ -353,14 +365,14 @@ window.onload = function () {
     const demandaajustadastorage = localStorage.getItem("demandadecontrato");
     if (demandaajustadastorage) {
         demandaajustadahtml.textContent = demandaajustadastorage + " kW";
-    }else {
+    } else {
         demandaajustadahtml.textContent = "0" + " kW";
     }
 
     const fatorpajustadahtml = document.getElementById("valorAjustadoFatorPotencia");
     const fatorpajustadastorage = localStorage.getItem("fatorPotenciaSelecionada");
     if (fatorpajustadastorage !== "" && fatorpajustadastorage !== null && fatorpajustadastorage != 0) {
-        fatorpajustadahtml.textContent = fatorpajustadastorage*100 + " %";
+        fatorpajustadahtml.textContent = fatorpajustadastorage * 100 + " %";
     } else {
         fatorpajustadahtml.textContent = "92" + " %";
     }
@@ -368,7 +380,7 @@ window.onload = function () {
     const desequilibrioajustadahtml = document.getElementById("valorAjustadoDesequilibrio");
     const desequilibrioajustadastorage = localStorage.getItem("desequilibrioSelecionada");
     if (desequilibrioajustadastorage !== "" && desequilibrioajustadastorage !== null && desequilibrioajustadastorage != 0) {
-        desequilibrioajustadahtml.textContent = desequilibrioajustadastorage*100 + " %";
+        desequilibrioajustadahtml.textContent = desequilibrioajustadastorage * 100 + " %";
     } else {
         desequilibrioajustadahtml.textContent = "33" + " %";
     }
@@ -377,14 +389,14 @@ window.onload = function () {
     const potenciaGDajustadastorage = localStorage.getItem("potenciaGDSelecionada");
     if (potenciaGDajustadastorage) {
         potenciaGDajustadahtml.textContent = potenciaGDajustadastorage + " kW";
-    }else {
+    } else {
         potenciaGDajustadahtml.textContent = "0" + " kW";
     }
 
     const fatorPotenciaGDajustadahtml = document.getElementById("valorAjustadoFatorPotenciaGD");
     const fatorPotenciaGDajustadastorage = localStorage.getItem("fatorPotenciaGDSelecionada");
     if (fatorPotenciaGDajustadastorage !== "" && fatorPotenciaGDajustadastorage !== null && fatorPotenciaGDajustadastorage != 0) {
-        fatorPotenciaGDajustadahtml.textContent = fatorPotenciaGDajustadastorage*100 + " %";
+        fatorPotenciaGDajustadahtml.textContent = fatorPotenciaGDajustadastorage * 100 + " %";
     } else {
         fatorPotenciaGDajustadahtml.textContent = "92" + " %";
     }
@@ -393,7 +405,7 @@ window.onload = function () {
     const curtoajustadastorage = localStorage.getItem("curtoSelecionada");
     if (curtoajustadastorage) {
         curtoajustadahtml.textContent = curtoajustadastorage + " A";
-    }else {
+    } else {
         curtoajustadahtml.textContent = "0" + " A";
     }
 
@@ -405,20 +417,49 @@ window.onload = function () {
 
 
 
-
+    
 
 }
 
+function importarICC() {
+
+    const iccTrifasicaGemini = localStorage.getItem("ICCtrifasicagemini");
+    const curtoajustadahtml = document.getElementById("valorAjustadoICCTri");
+    if (iccTrifasicaGemini) {
+        curtoajustadahtml.textContent = iccTrifasicaGemini + " A";
+        localStorage.setItem("curtoSelecionada", iccTrifasicaGemini);
+    } else {
+        const curtoajustadastorage = localStorage.getItem("curtoSelecionada");
+        curtoajustadahtml.textContent = curtoajustadastorage ? curtoajustadastorage + " A" : "0 A";
+    }
+
+    location.reload();
+}
+
+function limparICC() {
+
+    localStorage.removeItem("ICCtrifasicagemini");
+    const curtoajustadahtml = document.getElementById("valorAjustadoICCTri");
+    const curtoajustadastorage = localStorage.getItem("curtoSelecionada");
+    curtoajustadahtml.textContent = curtoajustadastorage ? curtoajustadastorage + " A" : "0 A";
+
+    location.reload();
+
+}
+
+
+
+
 // Event listener para capturar Enter em qualquer lugar da página
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     // Verificar se a tecla pressionada é Enter (código 13 ou 'Enter')
     if (event.key === 'Enter' || event.keyCode === 13) {
         // Evitar comportamento padrão (submissão de formulário)
         event.preventDefault();
-        
+
         // Chamar a função salvar
         salvarOpcao();
-        
+
         console.log('✅ Salvamento ativado por Enter');
     }
 });

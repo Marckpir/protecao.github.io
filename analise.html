@@ -224,6 +224,90 @@
     <br><br>
 
 
+    <div class="search-container">
+        <h2>Pesquisar RTs</h2>
+        <input type="text" id="searchInput" placeholder="Digite o nome..." disabled>
+        <button id="searchBtn" disabled>Pesquisar</button>
+        <div class="results" id="results"></div>
+    </div>
+
+
+
+    <br><br>
+
+    <h1>CARTA DE EMAIL</h1>
+
+    <div style="background: #fff; padding: 12px; border-radius: 8px; max-width: 700px; margin: 0 auto;">
+        <h2 id="assuntoemail"></h2>
+    </div>
+<br><br>
+
+    <div id="email-container" class="container" style="text-align: justify;">
+        <p><span id="saudacao">Boa tarde</span>, <span id="contato-nome"></span>.</p>
+        <p>
+            Durante a análise da(s) NS(s) <span id="numero-ns">1140348899, 1140348816, 1140349051</span>, foram
+            identificados alguns itens necessários para alteração na solicitação para que a aprovação seja concluída.
+            Segue
+            itens de correção à serem observados:
+        </p>
+
+        <div class="editable-section" id="projeto-eletrico">
+            <div class="section-title">Projeto Elétrico</div>
+            <div class="item-row">
+                <div class="item-number">1)</div>
+                <textarea>Exemplo de texto: Foi verificado no projeto elétrico aprovado que o transformador de corrente informado é de 150:5A, contudo, no estudo de proteção foi informado um TC de 200:5A;</textarea>
+            </div>
+        </div>
+
+        <p>
+            Para auxílio na elaboração da documentação, gentileza consultar o material disponibilizado pela Cemig:
+        </p>
+        <ul>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2023/05/Cartilha-Tecnica-%E2%80%93-Modelo-de-estudo-de-coordenograma-para-solicitacao-de-injecao-de-potencia-MT-%E2%80%93-Geracao-Distribuida-rev2-1.pdf"
+                    target="_blank">Cartilha Técnica – Modelo de estudo de coordenograma para solicitação de injeção de
+                    potência MT – Geração Distribuída.</a></li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2024/04/CARTILHA-MODELO-PROJETO-GD.pdf"
+                    target="_blank">Cartilha Técnica – Modelo de projetos em média tensão – Geração Distribuída.</a>
+            </li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2023/09/nd5_3_000001p.pdf" target="_blank">ND.5.3 –
+                    Fornecimento de energia elétrica em média tensão – Rede de distribuição aérea ou subterrânea.</a>
+            </li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2024/07/ND_5.31_Conexao-em-MT-.pdf"
+                    target="_blank">ND.5.31 – Requisitos para conexão de acessantes produtores de energia elétrica ao
+                    sistema de distribuição da Cemig D – Média Tensão.</a></li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2024/12/nd5_2_000001p.docx.pdf" target="_blank">
+                    ND.5.2 – Fornecimento de energia elétrica em tensão secundária – Rede de distribuição aérea –
+                    edificações coletivas.</a></li>
+        </ul>
+
+        <p>
+            Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança.
+        </p>
+        <p>
+            Informamos que, caso necessário, esse e-mail se encontra disponível para resoluções de dúvidas relacionadas
+            à nota de serviço em questão.
+        </p>
+        <p>
+            Pedimos que se possível, informar telefone e e-mail de contato atualizado do responsável técnico.
+        </p>
+        <p>
+            Informamos que o prazo limite para as alterações solicitadas é de 24 horas. Para que haja liberação do
+            projeto elétrico aprovado, após alterações efetuadas no mesmo, favor anexar os novos arquivos diretamente no
+            APRWEB. Salientamos a importância de que essas alterações sejam feitas de forma imediata.
+        </p>
+
+        <div class="footer">
+            Att.<br>
+            Núcleo Técnico<br>
+            Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM<br>
+            <a href="https://www.cemig.com.br" target="_blank">www.cemig.com.br</a>
+        </div>
+
+        <div class="action-panel">
+            <button onclick="adicionarItem()">Add item</button>
+            <button class="delete-button" onclick="removerUltimoItem()">Delete</button>
+        </div>
+    </div>
 
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
 

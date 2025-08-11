@@ -397,8 +397,13 @@ function calculos() {
 function calculoGerador() {
     const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON")) || {};
     const potenciagerador = parseFloat(geradorSalvo.potencia) || 0;
-    const fatorpotenciagerador = parseFloat(geradorSalvo.fatorpotencia) || 0;
-    const toleranciagerador = parseFloat(geradorSalvo.tolerancia) || 0;
+    const fatorpotenciagerador = geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== "" 
+        ? parseFloat(geradorSalvo.fatorpotencia) 
+        : 80;
+    // Se não houver valor no localStorage, assume valor 5
+    const toleranciagerador = geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== ""
+        ? parseFloat(geradorSalvo.tolerancia)
+        : 5;
     const tempogeradoradiesel = 15;
     const statusfuncao32diesel = potenciagerador > 0 ? "Habilitado" : "Desabilitado";
     const tcProtecaoArmazenada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;

@@ -43,7 +43,7 @@ function salvarOpcao() {
     const curvafaseSelecionada = curvafase.value;
 
     const dialfase = document.getElementById("dialfasehtml");
-    const dialfasereal = dialfase.value;
+    const dialfaseSelecionada = dialfase.value;
 
     const imagfase = document.getElementById("imagpercentual");
     const imagpercentualSelecionada = imagfase.value;
@@ -70,8 +70,8 @@ function salvarOpcao() {
     const curvaneutro = document.getElementById("tipodecurvaneutrohtml");
     const curvaneutroSelecionada = curvaneutro.value;
 
-    const dialneutro = document.getElementById("dialcurvaneutrohtml");
-    const dialneutroreal = dialneutro.value;
+    const dialneutro = document.getElementById("curvaneutrohtml");
+    const dialneutroSelecionada = dialneutro.value;
 
     const imagneutropercentual = document.getElementById("Imagneutropercentual");
     const imagneutropercentualSelecionada = imagneutropercentual.value;
@@ -86,7 +86,7 @@ function salvarOpcao() {
     //armazenamento dos valores de fase no local storage
     localStorage.setItem("PercentualIPSelecionada", IPpercentualSelecionada);
     localStorage.setItem("curvafaseSelecionada", curvafaseSelecionada);
-    localStorage.setItem("dialfasereal", dialfasereal);
+    localStorage.setItem("dialfaseSelecionada", dialfaseSelecionada);
     localStorage.setItem("imagpercentualSelecionada", imagpercentualSelecionada);
     localStorage.setItem("imagsimuladaSelecionada", imagsimuladaSelecionada);
     localStorage.setItem("ideffaseSelecionada", idefdefaseSelecionada);
@@ -96,7 +96,7 @@ function salvarOpcao() {
     //armazenamento dos valores de neutro no local storage
     localStorage.setItem("PercentualIPneutroSelecionada", IPpercentualneutroSelecionada);
     localStorage.setItem("curvaneutroSelecionada", curvaneutroSelecionada);
-    localStorage.setItem("dialneutroreal", dialneutroreal);
+    localStorage.setItem("dialneutroSelecionada", dialneutroSelecionada);
     localStorage.setItem("imagneutropercentualSelecionada", imagneutropercentualSelecionada);
     localStorage.setItem("idefneutroSelecionada", idefdeneutroSelecionada);
     localStorage.setItem("tdefneutroSelecionada", tdefdeneutroSelecionada);
@@ -121,7 +121,7 @@ window.onload = function () {
 
     
 
-    
+
 
 
 
@@ -130,7 +130,6 @@ window.onload = function () {
     const IPpercentualhtml = document.getElementById("IPpercentualhtml");
     const IPrealhtml = document.getElementById("IPrealhtml");
     const tipodecurvahtml = document.getElementById("tipodecurvahtml");
-     // Padrão 1000 se não houver valor
     const dialfasehtml = document.getElementById("dialfasehtml");
     const imagfase = document.getElementById("imagfase");
     const imagpercentual = document.getElementById("imagpercentual");
@@ -149,13 +148,9 @@ window.onload = function () {
     const IPpercentualneutrohtml = document.getElementById("IPpercentualneutrohtml");
     const IPrealneutrohtml = document.getElementById("IPrealneutrohtml");
     const tipodecurvaneutrohtml = document.getElementById("tipodecurvaneutrohtml");
-    const dialcurvaneutrohtml = document.getElementById("dialcurvaneutrohtml") ;
-    const dialidealneutro = document.getElementById("dialidealneutro");
-    const dialrealneutro = document.getElementById("dialrealneutro");
-
-
+    const curvaneutrohtml = document.getElementById("curvaneutrohtml");
     const Imagneutro = document.getElementById("Imagneutro");
-    const Imagneutropercentual = document.getElementById("Imagneutropercentual") || 105;
+    const Imagneutropercentual = document.getElementById("Imagneutropercentual");
     const Iinstneutrohtml = document.getElementById("Iinstneutrohtml");
     const idefneutrohtml = document.getElementById("idef-neutro-html");
     const tdefneutrohtml = document.getElementById("tdef-neutro-html");
@@ -166,12 +161,11 @@ window.onload = function () {
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada"));
     const potenciaArmazenada = parseFloat(localStorage.getItem("demandaSelecionada"));
     const fatorpArmazenada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada"));
-    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionada")) || 105;
+    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionada"));
     const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionada");
-    const dialfasereal = localStorage.getItem("dialfasereal");
     const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionada");
     const imagArmazenada = parseFloat(localStorage.getItem("imagtotalSelecionada"));
-    const imagpercentualArmazenada = parseFloat(localStorage.getItem("imagpercentualSelecionada")) || 105;
+    const imagpercentualArmazenada = parseFloat(localStorage.getItem("imagpercentualSelecionada"));
     const imagsimuladaArmazenada = parseFloat(localStorage.getItem("imagsimuladaSelecionada"));
     const imagrealcalculadaArmazenada = parseFloat(localStorage.getItem("inmagrealSelecionada"));
     const ideffaseArmazenada = parseFloat(localStorage.getItem("ideffaseSelecionada"));
@@ -186,11 +180,10 @@ window.onload = function () {
 
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML
 
-    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionada")) || 105;
+    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionada"));
     const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionada");
     const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionada");
-    const dialneutroreal = parseFloat(localStorage.getItem("dialneutroreal"));
-    const imagneutroArmazenada = parseFloat(localStorage.getItem("imagneutropercentualSelecionada")) || 105;
+    const imagneutroArmazenada = parseFloat(localStorage.getItem("imagneutropercentualSelecionada"));
     const idefneutroArmazenada = parseFloat(localStorage.getItem("idefneutroSelecionada"));
     const tdefneutroArmazenada = parseFloat(localStorage.getItem("tdefneutroSelecionada"));
 
@@ -205,6 +198,7 @@ window.onload = function () {
     // Calculo da  corrente IP de fase somando a tolerancia a corrente nominal
 
 
+    //var correnteprimaria = (potenciaArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada));
 
     //codigo novo
     var correnteprimaria = parseFloat(localStorage.getItem("Inominalfase"));
@@ -212,20 +206,44 @@ window.onload = function () {
 //fim do codigo novo
 
 
-   
-    var correnteIP = correnteprimaria * (1 * Ippercentual / 100);
+    //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+    //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
+    // let correntedeconsumominima = 0;
+    // if (TCdeprotecaoSelecionada) {
+    //     correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
+    // }
+
+
+    // let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
+    // if (correnteprimaria < correntedeconsumominima) {
+    //     correnteprimaria = correntedeconsumominima;
+    //      inominalminimaTC = "Sim";  
+    // }else {
+    //     inominalminimaTC = "Não";
+    // }
+
+    // localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
+    // localStorage.setItem("correntedeconsumominima", correntedeconsumominima);
+
+    // console.log("correntedeconsumominima:", correntedeconsumominima, "inominalDemanda:", correnteprimaria);
+
+//-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+
+    var correnteIP = correnteprimaria * (1 + Ippercentual / 100);
     correnteFormatada = correnteIP;
 
 
     localStorage.setItem("Ipdeconsumo", correnteFormatada);
 
-
+    //retornar isso aqui caso de ruim
+    //localStorage.setItem("Inominalfase", correnteprimaria);
+    //fim do codigo que foi comentado
 
     // Calculo da  corrente instantanea de fase somando a tolerancia a corrente de magnetização nominal
 
     // Calcula Imaginstantanea usando imagsimuladaArmazenada se houver, senão usa imagArmazenada
     var imagBase = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : imagArmazenada;
-    var Imaginstantanea = imagBase * (1 * imagpercentualArmazenada / 100);
+    var Imaginstantanea = imagBase * (1 + imagpercentualArmazenada / 100);
     imagtotalformatada = Imaginstantanea;
     localStorage.setItem("Instfaseconsumo", imagtotalformatada);
     localStorage.setItem("Imagresultante", imagBase);
@@ -236,14 +254,14 @@ window.onload = function () {
 
 
     // Calculo da corrente IP de neutro somando a tolerancia a corrente nominal
-    ipneutro = inominalneutro * (1 * ipneutropercentualArmazenada / 100);
+    ipneutro = inominalneutro * (1 + ipneutropercentualArmazenada / 100);
 
     if (ipneutro > 40) {
         ipneutro = 40;
     }
 
     if (ipneutro === 40) {
-        inominalneutro = ipneutro / (1 * ipneutropercentualArmazenada / 100);
+        inominalneutro = ipneutro / (1 + ipneutropercentualArmazenada / 100);
     }
 
 
@@ -258,7 +276,7 @@ window.onload = function () {
 
     console.log("imagneutro: " + imagneutro);
     // Calculo da  corrente instantanea de neutro somando a tolerancia a corrente de magnetização nominal
-    Iinstneutro = imagneutro * (1 * imagneutroArmazenada / 100);
+    Iinstneutro = imagneutro * (1 + imagneutroArmazenada / 100);
     console.log("inst neutro: " + Iinstneutro);
     // Armazenando o valor de Iinstneutro no local storage
     localStorage.setItem("IinstneutroSelecionada", Iinstneutro);
@@ -282,7 +300,33 @@ window.onload = function () {
 
 
 
+    //alimenta todos os campos da tela com os valores do local storage diretamente no HTML
 
+    // Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
+    // IPpercentualhtml.value = Ippercentual;
+    // IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
+    // tipodecurvahtml.value = curvafaseArmazenada;
+    // dialfasehtml.value = dialfaseArmazenada;
+    // imagfase.textContent = imagresultanteArmazenada.toFixed(2) + " A";
+    // imagpercentual.value = imagpercentualArmazenada;
+    // imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
+    // imagrealcalculada.textContent = imagrealcalculadaArmazenada.toFixed(2) + " A";
+    // imagsimuladahtml.value = imagsimuladaArmazenada;
+    // ideffasehtml.value = ideffaseArmazenada;
+    // tdeffasehtml.value = tdeffaseArmazenada;
+
+    // inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
+    // IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
+    // IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
+    // tipodecurvaneutrohtml.value = curvaneutroArmazenada;
+    // curvaneutrohtml.value = dialneutroArmazenada;
+    // Imagneutro.textContent = imagneutro.toFixed(2) + " A";
+    // Imagneutropercentual.value = imagneutroArmazenada;
+    // Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
+    // idefneutrohtml.value = idefneutroArmazenada;
+    // tdefneutrohtml.value = tdefneutroArmazenada;
+
+// ...existing code...
 
 //alimenta todos os campos da tela com os valores do local storage diretamente no HTML
 
@@ -295,16 +339,7 @@ IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
 tipodecurvahtml.value = curvafaseArmazenada || '';
 
 // Validar dialfaseArmazenada
-dialfasehtml.value = (!isNaN(parseFloat(dialfasereal)) && dialfasereal !== null) ? dialfasereal : '';
-
-// Atualizar o campo dialrealfase com dialfaseArmazenada
-const dialrealfase = document.getElementById("dialrealfase");
-if (dialrealfase && dialfaseArmazenada !== null && dialfaseArmazenada !== undefined) {
-    dialrealfase.textContent = dialfaseArmazenada;
-}
-
-
-
+dialfasehtml.value = (!isNaN(parseFloat(dialfaseArmazenada)) && dialfaseArmazenada !== null) ? dialfaseArmazenada : '';
 
 imagfase.textContent = (!isNaN(imagresultanteArmazenada) && imagresultanteArmazenada !== null) ? imagresultanteArmazenada.toFixed(2) + " A" : "0.00 A";
 
@@ -330,15 +365,7 @@ IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
 tipodecurvaneutrohtml.value = curvaneutroArmazenada || '';
 
 // Validar dialneutroArmazenada
-dialcurvaneutrohtml.value = (!isNaN(parseFloat(dialneutroreal)) && dialneutroreal !== null) ? dialneutroreal : '';
-
-
-dialidealneutro.textContent = dialneutroArmazenada ? dialneutroArmazenada + " s" : '';
-
-dialrealneutro.textContent = dialneutroArmazenada ? dialneutroArmazenada + " s" : '';
-
-
-
+curvaneutrohtml.value = (!isNaN(parseFloat(dialneutroArmazenada)) && dialneutroArmazenada !== null) ? dialneutroArmazenada : '';
 
 Imagneutro.textContent = imagneutro.toFixed(2) + " A";
 
@@ -1104,9 +1131,6 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
 //função para comparar o melhor dial entre planta com motor e sem motor 
 function calculadialideal() {
 
-    const dialneutrocalculado = 1.0.toFixed(2); // Valor fixo de 1.0 s para o dial ideal neutro
-    const dialneutroreal = parseFloat(localStorage.getItem("dialneutroreal"));
-    const dialReal = parseFloat(localStorage.getItem("dialfasereal"));
     // Carregar do localStorage usando JSON.parse
     const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
     const cargaOperante = motorData.potenciaoperante;
@@ -1125,7 +1149,7 @@ function calculadialideal() {
 
         // console.log("Corrente operante calculada:", correnteOperante);
         // Se quiser salvar no localStorage:
-        localStorage.setItem("correnteOperanteCalculada", correnteOperante.toFixed(2));
+        localStorage.setItem("correnteOperanteCalculada", correnteOperante);
     }
 
     // Recupera a corrente de partida do motor do localStorage
@@ -1139,7 +1163,7 @@ function calculadialideal() {
     if (!isNaN(correntePartidaMotor) && !isNaN(correnteOperante)) {
         somaCorrente = correntePartidaMotor + correnteOperante;
         // console.log("Soma corrente de partida do motor + corrente operante:", somaCorrente);
-        localStorage.setItem("somaCorrentePartidaOperante", somaCorrente.toFixed(2));
+        localStorage.setItem("somaCorrentePartidaOperante", somaCorrente);
     }
 
 
@@ -1152,10 +1176,10 @@ function calculadialideal() {
         let correnteIpDeConsumo = parseFloat(localStorage.getItem("Ipdeconsumo"));
         dial_calculado = tempoMotor / (beta / (Math.pow(somaCorrente / correnteIpDeConsumo, alfa) - k));    // Salva o dial calculado no localStorage ou exibe no console
         // console.log("Dial calculado:", dial_calculado);
-        localStorage.setItem("dialCalculado", dial_calculado.toFixed(2));
+        localStorage.setItem("dialCalculado", dial_calculado);
     } else {
         dial_calculado = 0;
-        localStorage.setItem("dialCalculado", dial_calculado.toFixed(2));
+        localStorage.setItem("dialCalculado", dial_calculado);
 
     }
 
@@ -1167,36 +1191,9 @@ function calculadialideal() {
         if (!isNaN(Instfaseconsumo) && !isNaN(correnteIpDeConsumo)) {
             dial_calculado_planta = tempomagfase / (beta / (Math.pow(Instfaseconsumo / correnteIpDeConsumo, alfa) - k));
             // console.log("Dial calculado (planta sem motores, usando Instfaseconsumo):", dial_calculado_planta);
-            localStorage.setItem("dialCalculadoPlantaSemMotores", dial_calculado_planta.toFixed(2));
+            localStorage.setItem("dialCalculadoPlantaSemMotores", dial_calculado_planta);
         }
     }
-
-
-    // setar o dialfaseSelecionada no localStorage considerando primeiro a existencia de valor de dial real, se não houver valor considera o maior valor entre dial_calculado e dial_calculado_planta
-    if (!isNaN(dialReal)) {
-        localStorage.setItem("dialfaseSelecionada", dialReal);
-    } else {
-        const dialMaior = Math.max(dial_calculado.toFixed(2), dial_calculado_planta.toFixed(2));
-        localStorage.setItem("dialfaseSelecionada", dialMaior);
-    }   
-
-
-    // // Setar valor 1.0 s para dialidealneutro no HTML
-    // const dialIdealNeutroTag = document.getElementById("dialidealneutro");
-    // if (dialIdealNeutroTag) {
-    //     dialIdealNeutroTag.textContent = "1.00" + " s";
-    // }
-
-
-    // setar o dialneutroSelecionada no localStorage considerando primeiro a existencia de valor de dial real, se não houver valor considera o valor calculado
-    if (!isNaN(dialneutroreal)) {
-        localStorage.setItem("dialneutroSelecionada", dialneutroreal);
-    } else {
-        
-        localStorage.setItem("dialneutroSelecionada", dialneutrocalculado);
-    }
-
-
 }
 
 

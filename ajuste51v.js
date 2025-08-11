@@ -85,7 +85,50 @@ window.onload = function () {
     }
 
 
-    //------------------persistir os valores de ajuste percentual no html
+
+    // Sensibilidade Superior de Tensão Ajustada
+    const sensibilidadeSuperiorTensaoAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-%-html");
+    const valorSensibilidadeSuperiorTensao = localStorage.getItem("sensibilidadeSuperiorTensao");
+    if (sensibilidadeSuperiorTensaoAjustadaHtml && valorSensibilidadeSuperiorTensao !== null && valorSensibilidadeSuperiorTensao !== "") {
+        sensibilidadeSuperiorTensaoAjustadaHtml.textContent = valorSensibilidadeSuperiorTensao + " %";
+    }
+
+    // Sensibilidade Inferior de Tensão Ajustada
+    const sensibilidadeInferiorTensaoAjustadaHtml = document.getElementById("sensibilidade-inferior-tensao-%-html");
+    const valorSensibilidadeInferiorTensao = localStorage.getItem("sensibilidadeInferiorTensao");
+    if (sensibilidadeInferiorTensaoAjustadaHtml && valorSensibilidadeInferiorTensao !== null && valorSensibilidadeInferiorTensao !== "") {
+        sensibilidadeInferiorTensaoAjustadaHtml.textContent = valorSensibilidadeInferiorTensao + " %";
+    }
+
+    // Sensibilidade Superior de Corrente Ajustada
+    const sensibilidadeSuperiorCorrenteAjustadaHtml = document.getElementById("sensibilidade-superior-corrente-%-html");
+    const valorSensibilidadeSuperiorCorrente = localStorage.getItem("sensibilidadeSuperiorCorrente");
+    if (sensibilidadeSuperiorCorrenteAjustadaHtml && valorSensibilidadeSuperiorCorrente !== null && valorSensibilidadeSuperiorCorrente !== "") {
+        sensibilidadeSuperiorCorrenteAjustadaHtml.textContent = valorSensibilidadeSuperiorCorrente + " %";
+    }
+
+    // Sensibilidade Inferior de Corrente Ajustada
+    const sensibilidadeInferiorCorrenteAjustadaHtml = document.getElementById("sensibilidade-inferior-corrente-%-html");
+    const valorSensibilidadeInferiorCorrente = localStorage.getItem("sensibilidadeInferiorCorrente");
+    if (sensibilidadeInferiorCorrenteAjustadaHtml && valorSensibilidadeInferiorCorrente !== null && valorSensibilidadeInferiorCorrente !== "") {
+        sensibilidadeInferiorCorrenteAjustadaHtml.textContent = valorSensibilidadeInferiorCorrente + " %";
+    }
+
+    //-----------------------FIM do ajuste percentual dos inputs------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //------------------persistir os valores de ajuste percentual no html dos inputs
 
     // Sensibilidade Superior de Tensão
     const sensibilidadeSuperiorTensao = localStorage.getItem("sensibilidadeSuperiorTensao");
@@ -194,7 +237,7 @@ function calcularSensibilidades() {
     const tensaoPrimariaFaseAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-primaria-fase-ajustada-html");
     if (tensaoPrimariaFaseAjustadaHtml) {
         tensaoPrimariaFaseAjustadaHtml.textContent = tensaoPrimariaFaseAjustada.toFixed(2) + " V";
-    }   
+    }
     const tensaoPrimariaLinhaAjustada = tensaoPrimariaFF * ((parseFloat(sensibilidadeSuperiorTensao) || 0) / 100);
     const tensaoPrimariaLinhaAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-primaria-linha-ajustada-html");
     if (tensaoPrimariaLinhaAjustadaHtml) {
@@ -209,22 +252,22 @@ function calcularSensibilidades() {
     const tensaoSecundariaLinhaAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-secundaria-linha-ajustada-html");
     if (tensaoSecundariaLinhaAjustadaHtml) {
         tensaoSecundariaLinhaAjustadaHtml.textContent = tensaoSecundariaLinhaAjustada.toFixed(2) + " V";
-    }   
+    }
 
 }
 
 
 
 // Event listener para capturar Enter em qualquer lugar da página
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     // Verificar se a tecla pressionada é Enter (código 13 ou 'Enter')
     if (event.key === 'Enter' || event.keyCode === 13) {
         // Evitar comportamento padrão (submissão de formulário)
         event.preventDefault();
-        
+
         // Chamar a função salvar
         salvarOpcao();
-        
+
         console.log('✅ Salvamento ativado por Enter');
     }
 });

@@ -12,7 +12,7 @@ window.onload = function () {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
 
-//--persistir os valores ajustados no html
+    //--persistir os valores ajustados no html
 
     const numeroNSInput = document.getElementById("numeroNS");
     if (numeroNSInput) {
@@ -42,8 +42,9 @@ window.onload = function () {
 
     // Preencher os campos com os valores do localStorage
     const tensaoAtendimento = localStorage.getItem("tensaoSelecionada");
-    const demandaConsumo = localStorage.getItem("demandaSelecionada");
+    const demandaConsumo = localStorage.getItem("demandadecontrato");
     const potenciaGerador = localStorage.getItem("potenciaGDSelecionada");
+
 
 
     const geradorJSON = localStorage.getItem("geradorJSON");
@@ -168,6 +169,259 @@ function salvarOpcao() {
 
 
 
+//funçao para buscar contatos no arquivo listaRTs.txt
+
+let contatos = [];
+
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const resultsDiv = document.getElementById('results');
+
+// Carrega o arquivo automaticamente
+fetch('listaRTs.txt')
+    .then(response => response.text())
+    .then(text => {
+        const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+
+        contatos = lines.map(line => {
+            // Divide por espaços
+            const partes = line.split(/\s+/);
+
+            // Regex para identificar email e telefone
+            const email = partes.find(p => /\S+@\S+\.\S+/.test(p));
+            const telefone = partes.find(p => /\(\d{2}\)\d{4,5}-\d{4}/.test(p));
+
+            // Remove email e telefone do array para sobrar só o nome
+            const nome = partes.filter(p => p !== email && p !== telefone).join(' ');
+
+            return { nome, email, telefone };
+        });
+
+        searchInput.disabled = false;
+        searchBtn.disabled = false;
+        resultsDiv.innerHTML = '<div>✅ Arquivo carregado. Agora pesquise pelo nome.</div>';
+    })
+    .catch(() => {
+        resultsDiv.innerHTML = '<div>❌ Erro ao carregar o arquivo de contatos.</div>';
+    });
+
+searchBtn.addEventListener('click', function () {
+    const query = searchInput.value.toLowerCase();
+    resultsDiv.innerHTML = '';
+    if (query.length === 0) return;
+
+    const filtered = contatos.filter(c =>
+        (c.nome && c.nome.toLowerCase().includes(query)) ||
+        (c.email && c.email.toLowerCase().includes(query)) ||
+        (c.telefone && c.telefone.toLowerCase().includes(query))
+    );
+
+    if (filtered.length === 0) {
+        resultsDiv.innerHTML = '<div>Nenhum contato encontrado.</div>';
+        return;
+    }
+
+    filtered.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+        item.innerHTML = `
+                    <div style="text-align: left;"><strong>Nome:</strong> ${c.nome || '—'}</div>
+                    <div style="text-align: left;"><strong>Email:</strong> ${c.email || '—'}</div>
+                    <div style="text-align: left;"><strong>Telefone:</strong> ${c.telefone || '—'}</div>
+                `; resultsDiv.appendChild(item);
+    });
+
+    if (filtered.length > 0) {
+        // Armazena o primeiro contato encontrado no localStorage
+        var contato = filtered[0];
+        localStorage.setItem('contato_nome', contato.nome || '');
+        localStorage.setItem('contato_email', contato.email || '');
+        localStorage.setItem('contato_telefone', contato.telefone || '');
+    }
+
+
+
+
+});
+
+// gerarcarta();
+//fim da funçao buscar contatos no arquivo listaRTs.txt
+
+
+
+
+
+//funções para gerar a carta de correções rápidas
+
+
+
+
+// function gerarcarta() {
+    const numeroNS2 = localStorage.getItem('numeroNS');
+    if (numeroNS2) {
+        const assuntoEmail = document.getElementById('assuntoemail');
+        if (assuntoEmail) {
+            assuntoEmail.textContent = 'Assunto: Inconformidades' + ` NS ${numeroNS2}`;
+        }
+    }
+
+    function adicionarItem() {
+        const section = document.getElementById('projeto-eletrico');
+        const newRow = document.createElement('div');
+        newRow.className = 'item-row';
+        newRow.style.marginBottom = '16px'; // Espaçamento entre caixas
+
+        const number = document.createElement('div');
+        number.className = 'item-number';
+
+        const textarea = document.createElement('textarea');
+        textarea.placeholder = "Novo item...";
+        textarea.style.textAlign = "left"; // Alinha o texto à esquerda
+
+        newRow.appendChild(number);
+        newRow.appendChild(textarea);
+        section.appendChild(newRow);
+
+        atualizarNumeracao();
+    }
+
+    function removerUltimoItem() {
+        const section = document.getElementById('projeto-eletrico');
+        const items = section.querySelectorAll('.item-row');
+        if (items.length > 0) {
+            section.removeChild(items[items.length - 1]);
+            atualizarNumeracao();
+        }
+    }
+
+
+    function atualizarNumeracao() {
+        const items = document.querySelectorAll('#projeto-eletrico .item-row');
+        items.forEach((item, index) => {
+            const number = item.querySelector('.item-number');
+            number.textContent = `${index + 1})`;
+        });
+    }
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const nome = localStorage.getItem('contato_nome');
+        if (nome) {
+            document.getElementById('contato-nome').textContent = nome;
+        }
+    });
+
+
+    const numeroNS = localStorage.getItem('numeroNS');
+    if (numeroNS) {
+        document.getElementById('numero-ns').textContent = numeroNS;
+    }
+
+
+    function obterSaudacao() {
+        const hora = new Date().getHours();
+        if (hora >= 6 && hora < 12) return "Bom dia";
+        if (hora >= 12 && hora < 18) return "Boa tarde";
+        return "Boa noite";
+    }
+    document.getElementById('saudacao').textContent = obterSaudacao();
+
+
+    function gerarPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.text("", 105, 20, { align: "center" });
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        let y = 35;
+        const saudacao = document.getElementById('saudacao').textContent;
+        const nome = document.getElementById('contato-nome').textContent;
+        doc.text(`${saudacao}, ${nome}.`, 20, y, { maxWidth: 170, align: "justify" });
+
+        y += 10;
+        const numeroNS = document.getElementById('numero-ns').textContent;
+        doc.text(
+            `Durante a análise da(s) NS(s) ${numeroNS}, foram identificados alguns itens necessários para alteração na solcitação para que a aprovação seja concluída. Segue itens de correção à serem observados:`,
+            20, y, { maxWidth: 170, align: "justify" }
+        );
+
+        y += 15;
+        doc.setFont("helvetica", "bold");
+        doc.text("", 20, y);
+        doc.setFont("helvetica", "normal");
+
+        y += 8;
+        const items = document.querySelectorAll('#projeto-eletrico .item-row textarea');
+        items.forEach((textarea, idx) => {
+            doc.text(`${idx + 1}) ${textarea.value}`, 25, y, { maxWidth: 165, align: "justify" });
+            y += 10;
+        });
+
+        y += 5;
+        doc.text("Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança.", 20, y, { maxWidth: 170, align: "justify" });
+        y += 10;
+        doc.text("Informamos que, caso necessário, esse e-mail se encontra disponível para resoluções de dúvidas relacionadas à nota de serviço em questão.", 20, y, { maxWidth: 170, align: "justify" });
+        y += 10;
+        doc.text("Pedimos que se possível, informar telefone e e-mail de contato atualizado do responsável técnico.", 20, y, { maxWidth: 170, align: "justify" });
+        y += 10;
+        y += 10;
+        doc.text("Informamos que o prazo limite para as alterações solicitadas é de 24 horas.", 20, y, { maxWidth: 170, align: "justify" });
+        y += 10;
+        doc.text("Para que haja liberação do projeto elétrico aprovado, após alterações efetuadas no mesmo, favor anexar os novos arquivos diretamente no APRWEB. Salientamos a importância de que essas alterações sejam feitas de forma imediata.", 20, y, { maxWidth: 170, align: "justify" });
+
+        y += 15;
+        doc.setFontSize(11);
+        y += 10;
+        doc.text(" ", 20, y); // Espaço para separar o parágrafo
+
+        y += 6;
+        doc.text("Att.", 20, y, { maxWidth: 170, align: "justify" });
+        y += 6;
+        doc.text("Núcleo Técnico", 20, y, { maxWidth: 170, align: "justify" });
+        y += 6;
+        doc.text("Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM", 20, y, { maxWidth: 170, align: "justify" });
+        y += 6;
+        doc.text("www.cemig.com.br", 20, y, { maxWidth: 170, align: "justify" });
+
+        doc.save("Carta_de_correcoes_rapidas.pdf");
+    }
+
+    // Adiciona o botão para gerar PDF
+    const pdfBtn = document.createElement('button');
+    pdfBtn.textContent = "PDF";
+    pdfBtn.style.backgroundColor = "#27ae60";
+    pdfBtn.style.color = "white";
+    pdfBtn.style.border = "none";
+    pdfBtn.style.borderRadius = "6px";
+    pdfBtn.style.padding = "10px 18px";
+    pdfBtn.style.cursor = "pointer";
+    pdfBtn.style.fontSize = "14px";
+    pdfBtn.onclick = gerarPDF;
+
+    document.querySelector('.action-panel').appendChild(pdfBtn);
+
+    // Adiciona jsPDF via CDN se não estiver presente
+    if (!window.jspdf) {
+        const script = document.createElement('script');
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+        script.onload = () => { };
+        document.head.appendChild(script);
+    }
+// }
+//fim das funções para gerar a carta de correções rápidas
+
+
+
+
+
 
 
 
@@ -185,7 +439,12 @@ document.addEventListener('keydown', function (event) {
         // Chamar a função salvar
         salvarOpcao();
 
-        console.log('✅ Salvamento ativado por Enter');
+        // Executar a pesquisa de contato
+        searchBtn.click();
+
+        // Exibir o evento da pesquisa de contato
+        resultsDiv.style.display = 'block';
+
     }
 });
 
