@@ -118,7 +118,7 @@ window.onload = function () {
 
         // Atualiza TODOS os campos com a classe ajuste-tensao-selecionada em todas as tabelas
         document.querySelectorAll('.ajuste-tensao-primaria').forEach(function (inputTensao) {
-            inputTensao.textContent = valorTensaoSelecionada + " V";
+            inputTensao.textContent = valorTensaoSelecionada + " kV";
         });
     }
     // Novo trecho para tensaoprimariaFN
@@ -287,7 +287,7 @@ window.onload = function () {
                 el.textContent = minimo.toFixed(2) + " % Sn (Minímo)";
                 
             } else {
-                el.textContent = (1*(potenciaReversaGerador/potenciabase)).toFixed(2) + " % Sn";
+                el.textContent = (1*(potenciaReversaGerador/(potenciabase*1000))).toFixed(2) + " % Sn";
                 
             }
         }

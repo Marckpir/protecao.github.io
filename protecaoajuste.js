@@ -32,21 +32,31 @@ var legenda = localStorage.getItem('statuslegenda') || 'none'; // Variável para
 
 //Gravar todas as variaveis escrita no armazenamento do local storage
 
-function salvarOpcao() {
+async function salvarOpcao() {
 
-
-    //Captura dos valores de fase dos campos preenchiveis do HTML 
     const IPpercentual = document.getElementById("IPpercentualhtml");
-    const IPpercentualSelecionada = IPpercentual.value;
+    let IPpercentualSelecionada = parseFloat(IPpercentual.value);
+    if (IPpercentualSelecionada < 100) {
+        await validarPercentualMinimo(IPpercentualSelecionada, "");
+        IPpercentualSelecionada = 105;
+        IPpercentual.value = 105; // Atualiza o campo no HTML
+                // alert("O valor percentual de IP não pode ser menor que 100 %.");
+        
+    }
 
     const curvafase = document.getElementById("tipodecurvahtml");
     const curvafaseSelecionada = curvafase.value;
 
     const dialfase = document.getElementById("dialfasehtml");
     const dialfasereal = dialfase.value;
-
     const imagfase = document.getElementById("imagpercentual");
-    const imagpercentualSelecionada = imagfase.value;
+    let imagpercentualSelecionada = parseFloat(imagfase.value);
+    if (imagpercentualSelecionada < 100) {
+        await validarPercentualMinimo(imagpercentualSelecionada, "");
+        imagpercentualSelecionada = 105;
+        imagfase.value = 105; // Atualiza o campo no HTML
+        
+    }
 
     const imagsimulada = document.getElementById("imagsimuladahtml");
     const imagsimuladaSelecionada = imagsimulada.value;
@@ -63,18 +73,26 @@ function salvarOpcao() {
 
 
 
-    //Captura dos valores de neutro dos campos preenchiveis do HTML 
     const IPpercentualneutro = document.getElementById("IPpercentualneutrohtml");
-    const IPpercentualneutroSelecionada = IPpercentualneutro.value;
+    let IPpercentualneutroSelecionada = parseFloat(IPpercentualneutro.value);
+    if (IPpercentualneutroSelecionada < 100) {
+        await validarPercentualMinimo(IPpercentualneutroSelecionada, "");
+        IPpercentualneutroSelecionada = 105;
+        IPpercentualneutro.value = 105; // Atualiza o campo no HTML
+    }
 
     const curvaneutro = document.getElementById("tipodecurvaneutrohtml");
     const curvaneutroSelecionada = curvaneutro.value;
 
     const dialneutro = document.getElementById("dialcurvaneutrohtml");
     const dialneutroreal = dialneutro.value;
-
     const imagneutropercentual = document.getElementById("Imagneutropercentual");
-    const imagneutropercentualSelecionada = imagneutropercentual.value;
+    let imagneutropercentualSelecionada = parseFloat(imagneutropercentual.value);
+    if (imagneutropercentualSelecionada < 100) {
+        await validarPercentualMinimo(imagneutropercentualSelecionada, "");
+        imagneutropercentualSelecionada = 105;
+        imagneutropercentual.value = 105; // Atualiza o campo no HTML
+    }
 
     const idefdeneutro = document.getElementById("idef-neutro-html");
     const idefdeneutroSelecionada = idefdeneutro.value;
@@ -110,6 +128,8 @@ function salvarOpcao() {
 
 
 }
+
+
 
 window.onload = function () {
     const botaoParametro = document.getElementById("botaoajustehtml");
@@ -1228,19 +1248,47 @@ function verificarAlertaPotMinima() {
     }
 }
 
-// Adicione este CSS ao seu arquivo ou dentro de uma <style> no HTML:
-/*
-.piscando-lento {
-    animation: piscarLento 1.5s infinite;
-}
-@keyframes piscarLento {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-*/
 
-// Chame a função ao carregar a página
+// Função para validar o percentual mínimo de 100% e exibir um alerta estilizado
+function validarPercentualMinimo(valor, mensagem) {
+    if (valor < 100) {
+        // Cria o alerta estilizado
+        const alerta = document.createElement("div");
+        alerta.textContent = mensagem || "O valor percentual não pode ser menor que 100%.";
+        alerta.style.position = "fixed";
+        alerta.style.top = "20px";
+        alerta.style.right = "-400px";
+        alerta.style.background = "linear-gradient(to left, #b6fcb6 80%, #fff 100%)";
+        alerta.style.color = "#222";
+        alerta.style.padding = "16px 32px";
+        alerta.style.borderRadius = "8px";
+        alerta.style.boxShadow = "0 2px 8px rgba(0,0,0,0.15)";
+        alerta.style.fontWeight = "bold";
+        alerta.style.fontSize = "1.1em";
+        alerta.style.zIndex = "9999";
+        alerta.style.transition = "right 0.5s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.5s";
 
+        document.body.appendChild(alerta);
+
+        setTimeout(() => {
+            alerta.style.right = "20px";
+        }, 50);
+
+        // Retorna uma Promise que resolve após o alerta sumir
+        return new Promise(resolve => {
+            setTimeout(() => {
+                alerta.style.right = "-400px";
+                alerta.style.opacity = "0";
+                setTimeout(() => {
+                    alerta.remove();
+                    resolve();
+                }, 500);
+            }, 2000);
+        });
+    }
+    // Se não precisar alertar, retorna Promise resolvida imediatamente
+    return Promise.resolve();
+}
 
 
 // Event listener para capturar Enter em qualquer lugar da página
@@ -1252,7 +1300,7 @@ document.addEventListener('keydown', function(event) {
         
         // Chamar a função salvar
         salvarOpcao();
-        
+
         console.log('✅ Salvamento ativado por Enter');
     }
 });

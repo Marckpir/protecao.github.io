@@ -269,14 +269,24 @@ searchBtn.addEventListener('click', function () {
         const section = document.getElementById('projeto-eletrico');
         const newRow = document.createElement('div');
         newRow.className = 'item-row';
-        newRow.style.marginBottom = '16px'; // Espaçamento entre caixas
+        newRow.style.marginBottom = '16px';
 
         const number = document.createElement('div');
         number.className = 'item-number';
 
         const textarea = document.createElement('textarea');
         textarea.placeholder = "Novo item...";
-        textarea.style.textAlign = "left"; // Alinha o texto à esquerda
+        textarea.style.textAlign = "left";
+
+        // Carrega texto salvo se existir
+        const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
+        textarea.value = itemsSalvos[section.children.length] || '';
+
+        // Salva ao digitar
+        textarea.addEventListener('input', function () {
+            const items = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
+            localStorage.setItem('itensProjetoEletrico', JSON.stringify(items));
+        });
 
         newRow.appendChild(number);
         newRow.appendChild(textarea);
@@ -285,11 +295,37 @@ searchBtn.addEventListener('click', function () {
         atualizarNumeracao();
     }
 
+    // Carrega itens salvos ao iniciar
+    document.addEventListener('DOMContentLoaded', function () {
+        const section = document.getElementById('projeto-eletrico');
+        const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
+        itemsSalvos.forEach(() => adicionarItem());
+    });
+
+    // Atualiza localStorage ao remover item
     function removerUltimoItem() {
         const section = document.getElementById('projeto-eletrico');
         const items = section.querySelectorAll('.item-row');
         if (items.length > 0) {
             section.removeChild(items[items.length - 1]);
+            // Atualiza localStorage
+            const textos = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
+            localStorage.setItem('itensProjetoEletrico', JSON.stringify(textos));
+            atualizarNumeracao();
+        }
+    }
+
+    function removerUltimoItem() {
+        const section = document.getElementById('projeto-eletrico');
+        const items = section.querySelectorAll('.item-row');
+        if (items.length > 0) {
+            // Limpa o valor do último textarea antes de remover
+            const lastTextarea = items[items.length - 1].querySelector('textarea');
+            if (lastTextarea) lastTextarea.value = '';
+            section.removeChild(items[items.length - 1]);
+            // Atualiza localStorage
+            const textos = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
+            localStorage.setItem('itensProjetoEletrico', JSON.stringify(textos));
             atualizarNumeracao();
         }
     }
