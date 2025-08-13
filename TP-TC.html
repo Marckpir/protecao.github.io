@@ -239,7 +239,7 @@
                             style="display: flex; align-items: center; justify-content: flex-start;">
                             <select id="input-potencia-Nominal-TC-html" style="margin-right: 4px; text-align: left;">
                                 <option value=""></option>
-                                <option value="12.5VA10P20">12,5VA10P20</option>
+                                <option value="12.5VA10P20">12.5VA10P20</option>
                                 <option value="25VA10P20">25VA10P20</option>
                                 <option value="50VA10P20">50VA10P20</option>
                                 <option value="100VA10P20">100VA10P20</option>
@@ -265,7 +265,7 @@
                                 <option value="10A400">10A400</option>
                                 <option value="10B400">10B400</option>
                             </select>
-                            <span class="unidade">V</span>
+                            <span class="unidade"></span>
                         </div>
                     </td>
                     <td> <span id="label-especificacao-norma-antiga-html">10 B 100</span> </td>
@@ -310,10 +310,10 @@
             <td>
                 <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
                 </div>
-                <input id="input-percentual-TC-html" type="text" style="margin-right: 4px; text-align: left;">
+                <input id="input-percentual-burden-TC-html" type="text" style="margin-right: 4px; text-align: left;">
                 <span class="unidade">%</span>
             </td>
-            <td> <span id="label-especificacao-percentual-html">20%</span> </td>
+            <td> <span id="label-especificacao-percentual-burden-tc-html"></span> </td>
         </tr>
     
     
@@ -343,7 +343,22 @@
 
 
 
+
     </div>
+
+    <div id="notificacaodasaturacao" style="display: flex; justify-content: center; align-items: center; margin-top: 16px;">
+        
+                    <label id="label-notificacao-saturacao-tc-html"
+                        style="font-weight: bold; color: #000000; background-color: rgb(255, 255, 255); padding: 8px; border-radius: 8px;">
+                        A tensão de saturação calculada é menor ou igual à nominal
+
+                    </label>
+   
+    </div>
+
+
+
+
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
 
 
