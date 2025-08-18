@@ -54,19 +54,29 @@ window.onload = function () {
     // Recupera os valores dos inputs do cálculo da saturação do TC de proteção e define no localStorage
 
     const potenciaNominalTC = localStorage.getItem("potenciaNominalTC");
-    const tensaoSaturacaoNominalTC = localStorage.getItem("tensaoSaturacaoNominalTC");
+    const erroSaturacaoTC = localStorage.getItem("erroSaturacaoTC");
+    const fatorMultiplicidadeTC = localStorage.getItem("fatorMultiplicidadeTC");
+    const especificacaoTC = localStorage.getItem("especificacaoTC");
+
+
     const comprimentoCondutorTC = localStorage.getItem("comprimentoCondutorTC");
     const bitolaCondutorTC = localStorage.getItem("bitolaCondutorTC");
     const resistividadeCondutorTC = localStorage.getItem("resistividadeCondutorTC");
-    const percentualBurdenTC = localStorage.getItem("percentualBurdenTC");
-    const potenciaRelé = localStorage.getItem("potenciaRelé");
-    const impedanciaTC = localStorage.getItem("impedanciaTC");
+    const potenciabobinaRele = localStorage.getItem("potenciabobinaRele");
+    const relacaoXRCurto = localStorage.getItem("relacaoXRCurto");
+
+
+
+
 
     if (document.getElementById("input-potencia-Nominal-TC-html")) {
         document.getElementById("input-potencia-Nominal-TC-html").value = potenciaNominalTC || "";
     }
-    if (document.getElementById("input-tensao-Saturacao-Nominal-TC-html")) {
-        document.getElementById("input-tensao-Saturacao-Nominal-TC-html").value = tensaoSaturacaoNominalTC || "";
+    if (document.getElementById("input-erro-saturacao-TC-html")) {
+        document.getElementById("input-erro-saturacao-TC-html").value = erroSaturacaoTC || "";
+    }
+    if (document.getElementById("input-fator-multiplicidade-TC-html")) {
+        document.getElementById("input-fator-multiplicidade-TC-html").value = fatorMultiplicidadeTC || "";
     }
     if (document.getElementById("input-comprimento-Condutor-TC-html")) {
         document.getElementById("input-comprimento-Condutor-TC-html").value = comprimentoCondutorTC || "";
@@ -77,48 +87,78 @@ window.onload = function () {
     if (document.getElementById("input-resistividade-Condutor-TC-html")) {
         document.getElementById("input-resistividade-Condutor-TC-html").value = resistividadeCondutorTC || "";
     }
-    if (document.getElementById("input-percentual-burden-TC-html")) {
-        document.getElementById("input-percentual-burden-TC-html").value = percentualBurdenTC || "";
+    if (document.getElementById("input-potencia-bobina-rele-html")) {
+        document.getElementById("input-potencia-bobina-rele-html").value = potenciabobinaRele || "";
     }
-    if (document.getElementById("input-potencia-rele-html")) {
-        document.getElementById("input-potencia-rele-html").value = potenciaRelé || "";
-    }
-    if (document.getElementById("input-impedancia-TC-html")) {
-        document.getElementById("input-impedancia-TC-html").value = impedanciaTC || "";
+    if (document.getElementById("input-relacao-xr-curto-html")) {
+        document.getElementById("input-relacao-xr-curto-html").value = relacaoXRCurto || "";
     }
 
 
 
+    // exibir os resultados nas labels correspondentes
 
-    // persistir os valores dos campos spans do calculo de saturação por tensão do TC
-    const especificacaoNormaNova = potenciaNominalTC ? potenciaNominalTC : "12.5VA10P20";
-    const especificacaoNormaAntiga = tensaoSaturacaoNominalTC ? tensaoSaturacaoNominalTC : "10B50";
+    const especificacaoTClabel = especificacaoTC ? especificacaoTC : "12.5VA10P20";
+
     const especificacaoCondutor = comprimentoCondutorTC ? comprimentoCondutorTC + " m" : "6 m";
     const especificacaoBitola = bitolaCondutorTC ? bitolaCondutorTC + " mm²" : "2.5 mm²";
-    const especificacaoResistividade = resistividadeCondutorTC ? resistividadeCondutorTC + " Ω.m" : "1.68 x 10⁻⁸ Ω.m";
-    const especificacaoPercentualBurden = percentualBurdenTC ? percentualBurdenTC + " %" : "20 %";
-    const especificacaoPotenciaRele = potenciaRelé ? potenciaRelé + " VA" : "0.20 VA";
-    const tensaoSaturacaoCalculadaTC = localStorage.getItem("tensaoSaturacaoTC") || 0;
+    const especificacaoResistividade = resistividadeCondutorTC ? resistividadeCondutorTC + " Ω/km" : "6.72 Ω/km";
 
-    document.getElementById("label-especificacao-norma-nova-html").textContent = especificacaoNormaNova;
-    document.getElementById("label-especificacao-norma-antiga-html").textContent = especificacaoNormaAntiga;
+    const especificacaoPotenciaBobinaRele = potenciabobinaRele ? potenciabobinaRele + " VA" : "0.20 VA";
+    const especificacaoRelacaoXRCurto = relacaoXRCurto ? relacaoXRCurto : "0";
+
+    const especificacaonormaantiga = localStorage.getItem("EspecificacaoNormaAntigaTC") || '';
+
+    const especificacaoImpedanciaBurden = localStorage.getItem("impedanciaburdendoTC") + ' Ω' || '';
+
+    const especificacaoImpedanciaTotalDoTrecho = localStorage.getItem("impedanciatotaldotrecho") + ' Ω' || '';
+
+    const especificacaoTensaoSaturacaonominal = localStorage.getItem("tensaoSaturacaotrecho") + ' V' || '';
+
+    const tensaoSaturacaoCalculadaTC = localStorage.getItem("tensaoSaturacaoTC") + ' V' || '';
+
+
+
+
+
+
+
+    document.getElementById("label-especificacao-norma-nova-html").textContent = especificacaoTClabel;
+
     document.getElementById("label-especificacao-condutor-html").textContent = especificacaoCondutor;
     document.getElementById("label-especificacao-bitola-html").textContent = especificacaoBitola;
     document.getElementById("label-especificacao-resistividade-html").textContent = especificacaoResistividade;
-    document.getElementById("label-especificacao-percentual-burden-tc-html").textContent = especificacaoPercentualBurden;
-    document.getElementById("label-especificacao-potencia-rele-html").textContent = especificacaoPotenciaRele;
+
+    document.getElementById("label-especificacao-potencia-bobina-rele-html").textContent = especificacaoPotenciaBobinaRele;
+    document.getElementById("label-especificacao-relacao-xr-curto-html").textContent = especificacaoRelacaoXRCurto;
+
+    document.getElementById("label-especificacao-norma-antiga-html").textContent = especificacaonormaantiga;
+
+    document.getElementById("label-burden-calculado-tc-html").textContent = especificacaoImpedanciaBurden;
+    document.getElementById("label-impedancia-calculada-total-html").textContent = especificacaoImpedanciaTotalDoTrecho;
+    document.getElementById("label-tensao-saturacao-nominal-html").textContent = especificacaoTensaoSaturacaonominal;
+
     document.getElementById("label-tensao-saturacao-calculada-TC-html").textContent = tensaoSaturacaoCalculadaTC;
+
+
+    //especificação nos labels das grandezas calculadas
+
+
+    // document.getElementById("label-especificacao-percentual-burden-tc-html").textContent = especificacaoPercentualBurden;
+
+
+
 
 
     // Importa o status da saturação do TC do localStorage e exibe no elemento HTML correspondente
     const statusSaturacaoTC = localStorage.getItem("statusdasaturacaotc");
     const labelStatusSaturacaoTC = document.getElementById("label-notificacao-saturacao-tc-html");
     if (labelStatusSaturacaoTC) {
-        if (statusSaturacaoTC === "sim") {
+        if (statusSaturacaoTC === "nao") {
             labelStatusSaturacaoTC.textContent = "O TC não irá saturar com a ICC";
             labelStatusSaturacaoTC.style.backgroundColor = "#00ff00";
             labelStatusSaturacaoTC.style.animation = "piscaverde 1s infinite";
-        } else if (statusSaturacaoTC === "nao") {
+        } else if (statusSaturacaoTC === "sim") {
             labelStatusSaturacaoTC.textContent = "O TC irá saturar com a ICC";
             labelStatusSaturacaoTC.style.backgroundColor = "#ff0000";
             labelStatusSaturacaoTC.style.animation = "piscavermelho 1s infinite";
@@ -216,106 +256,158 @@ window.onload = function () {
 function calcularSaturacaotensaoTC() {
 
 
-    
 
 
 
 
+    const TCselecionado = localStorage.getItem("TCdeprotecaoSelecionada") / 5;
     const curtoSelecionada = localStorage.getItem("curtoSelecionada") || 0;
-    const potenciaNominalTCString = localStorage.getItem("potenciaNominalTC") || "";
-    const potenciaNominalTC = parseFloat((potenciaNominalTCString.match(/^([\d.]+)\s*VA/i) || [])[1]) || 0;
-    const tensaoSaturacaoNominalTCString = localStorage.getItem("tensaoSaturacaoNominalTC") || "";
-    const tensaoSaturacaoNominalTC = parseFloat((tensaoSaturacaoNominalTCString.match(/[BA](\d+(\.\d+)?)/i) || [])[1]) || 0;
-   
-    const comprimentoCondutorTC = parseFloat(localStorage.getItem("comprimentoCondutorTC"));
-    const bitolaCondutorTC = parseFloat(localStorage.getItem("bitolaCondutorTC"));
-    const resistividadeCondutorTC = parseFloat(localStorage.getItem("resistividadeCondutorTC"));
-    const percentualBurdenTC = parseFloat(localStorage.getItem("percentualBurdenTC"));
-    const potenciaRelé = parseFloat(localStorage.getItem("potenciaRelé"));
+    const potenciaNominalTC = parseFloat(localStorage.getItem("potenciaNominalTC")) || 12.5;
+    const erroSaturacaoTC = parseFloat(localStorage.getItem("erroSaturacaoTC")) || 10;
+    const fatorMultiplicidadeTC = parseFloat(localStorage.getItem("fatorMultiplicidadeTC")) || 20;
 
-    const TCselecionado = localStorage.getItem("TCdeprotecaoSelecionada");
+
+
+    const comprimentoCondutorTC = parseFloat(localStorage.getItem("comprimentoCondutorTC")) || 3;
+    const bitolaCondutorTC = parseFloat(localStorage.getItem("bitolaCondutorTC")) || 2.5;
+    const resistividadeCondutorTC = parseFloat(localStorage.getItem("resistividadeCondutorTC")) || 6.72;
+    // const percentualBurdenTC = parseFloat(localStorage.getItem("percentualBurdenTC")) || 100;
+    const potenciabobinaRele = parseFloat(localStorage.getItem("potenciabobinaRele")) || 0.2;
+    const relacaoXRCurto = parseFloat(localStorage.getItem("relacaoXRCurto")) || 0;
+
+    console.log("TC selecionado:", TCselecionado);
 
     let impedanciadocondutor = 0;
     let impedanciadorele = 0;
-    let impedanciadototal = 0;
-    let impedanciaburdenTC = 0;
-    let zburdendoTC = 0
-    let statusdasaturacaotc =0;
+    let impedanciatotaldotrecho = 0;
 
-    //calcular impedancia do rele
-    // Calcula impedância do relé: se houver valor em potenciaRelé, usa esse valor; senão, assume valor padrão 0.008 Ω
-    if (!isNaN(potenciaRelé)) {
-        impedanciadorele = potenciaRelé / Math.pow(5, 2) + 3 * (potenciaRelé / Math.pow(5, 2));
-    } else {
-        impedanciadorele = 0.2 / Math.pow(5, 2) + 3 * (0.2 / Math.pow(5, 2)); // valor padrão
-    }
+    let impedanciaburdendoTC = 0;
+    // let zburdendoTC = 0
+    let statusdasaturacaotc = 0;
+
+    //calcular impedancia do rele, se não houver valor calcula com valores padrões
+    impedanciadorele = potenciabobinaRele / Math.pow(5, 2) + 3 * (potenciabobinaRele / Math.pow(5, 2));
 
     console.log("Impedância do rele:", impedanciadorele.toFixed(5), "Ω");
 
-    //Calcular a impedancia dos condutores
-
-    if (!isNaN(comprimentoCondutorTC) && !isNaN(bitolaCondutorTC) && !isNaN(resistividadeCondutorTC)) {
-        impedanciadocondutor = ((resistividadeCondutorTC * (comprimentoCondutorTC * 2)) / bitolaCondutorTC); // Convertendo bitola de mm² para m²
-    } else {
-        impedanciadocondutor = ((0.02 * (3)) / 2.5);
-    }
+    //Calcular a impedancia dos condutores, se não houver valor calcula com valores padrões
+    impedanciadocondutor = (((resistividadeCondutorTC/1000) * (comprimentoCondutorTC * 2)));
 
     console.log("Impedância do Condutor:", impedanciadocondutor.toFixed(5), "Ω");
 
-    // Calcular a impedância do burden do TC
-    if (!isNaN(percentualBurdenTC)) {
-        impedanciaburdenTC = (percentualBurdenTC/100) * (potenciaNominalTC/ Math.pow(5, 2));
-    } else {
-        impedanciaburdenTC = (20/100) * (12.5/ Math.pow(5, 2)); // valor padrão
+
+    //calcular a reatancia indutiva do TC e resistencia 
+
+    let resistenciaTC = 0.45;
+    let reatanciaIndutivaTC = 0.218;
+
+    // Tabela de valores de potência aparente, resistência e reatância indutiva
+    const tabelaTC = [
+        { potencia: 2.5, resistencia: 0.09, reatancia: 0.044 },
+        { potencia: 5, resistencia: 0.18, reatancia: 0.087 },
+        { potencia: 12.5, resistencia: 0.45, reatancia: 0.218 },
+        { potencia: 22.5, resistencia: 0.81, reatancia: 0.392 },
+        { potencia: 45, resistencia: 1.62, reatancia: 0.785 },
+        { potencia: 90, resistencia: 3.24, reatancia: 1.569 }
+    ];
+
+    // Encontrar o valor mais próximo ou igual de potência aparente na tabela
+    let potenciaSelecionada = potenciaNominalTC;
+    let itemTabela = tabelaTC.find(item => item.potencia === potenciaSelecionada);
+
+    // Se não encontrar exatamente, pega o menor valor maior ou igual
+    if (!itemTabela) {
+        itemTabela = tabelaTC.find(item => item.potencia >= potenciaSelecionada);
     }
-    
 
-    console.log("Impedância do Burden do TC:", impedanciaburdenTC.toFixed(5), "Ω");
-
-
-    // Calcular a impedância total do TC
-    if (!isNaN(impedanciadocondutor) && !isNaN(impedanciadorele) && !isNaN(impedanciaburdenTC)) {
-        impedanciadototal = impedanciadocondutor + impedanciadorele + impedanciaburdenTC;
-    } else {
-        // impedanciadototal = 0.0240 + 0.2 + 0.0320; // valor padrão
+    // Se ainda não encontrar, pega o maior valor disponível
+    if (!itemTabela) {
+        itemTabela = tabelaTC[tabelaTC.length - 1];
     }
+    resistenciaTC = itemTabela.resistencia;
+    reatanciaIndutivaTC = itemTabela.reatancia;
 
-    console.log("Impedância Total do TC:", impedanciadototal.toFixed(5), "Ω");
+
+
+    const resistenciaTCamortecida = resistenciaTC * 0.20;
+    const reatanciaIndutivaTCamortecida = reatanciaIndutivaTC * 0.20;
+
+
+       console.log("Resistência TC:", resistenciaTCamortecida.toFixed(5), "Ω");
+    console.log("Reatância Indutiva TC:", reatanciaIndutivaTCamortecida.toFixed(5), "Ω");
+
+
+
+
+    // Calcular a impedância total do trecho
+
+    impedanciatotaldotrecho = (1 * relacaoXRCurto) + Math.sqrt(Math.pow(impedanciadocondutor + impedanciadorele + resistenciaTCamortecida, 2) + Math.pow(reatanciaIndutivaTCamortecida, 2));
+    localStorage.setItem("impedanciatotaldotrecho", impedanciatotaldotrecho.toFixed(5));
+
+    console.log("Impedância Total do trecho:", impedanciatotaldotrecho.toFixed(5), "Ω");
+
+
+
+    // Calcular a impedância Z burden do TC
+
+    impedanciaburdendoTC = (potenciaNominalTC / Math.pow(5, 2));
+    localStorage.setItem("impedanciaburdendoTC", impedanciaburdendoTC.toFixed(5));
+
+    console.log("Impedância do Burden do TC:", impedanciaburdendoTC.toFixed(5), "Ω");
+
+
+    // console.log("Impedância do Burden do TC:", impedanciaburdenTC.toFixed(5), "Ω");
+    const tensaoSaturacaoTC = 5 * fatorMultiplicidadeTC * potenciaNominalTC / Math.pow(5, 2);
+    localStorage.setItem("tensaoSaturacaoTC", tensaoSaturacaoTC.toFixed(2));
+
+
+
+    console.log("Tensão de saturação burden (TC):", tensaoSaturacaoTC.toFixed(2), "V");
+
+
 
 
     // Calcular a ICC refeltida no secundario do TC
     let iccrefletida = 0;
     if (!isNaN(curtoSelecionada) && !isNaN(TCselecionado)) {
         iccrefletida = curtoSelecionada / TCselecionado;
-    } 
-    
-    console.log("Corrente de curto refeltida no secundário do TC:", iccrefletida.toFixed(5), "A");
+    }
+
+    console.log("Corrente de curto refeltida no secundário do TC:", iccrefletida.toFixed(2), "A");
 
 
     // Calcular a tensão de saturação do TC
-    let tensaoSaturacaoTC = 0;  
-    if (!isNaN(iccrefletida)) {
-        tensaoSaturacaoTC = iccrefletida * impedanciadototal;
-    } else {
-        tensaoSaturacaoTC = (0.2 * (0.0240 / 5) * iccrefletida).toFixed(2); // valor padrão
-    }
-    localStorage.setItem("tensaoSaturacaoTC", tensaoSaturacaoTC.toFixed(2));
-    console.log("Tensão de saturação do TC:", tensaoSaturacaoTC.toFixed(2), "V");
+    let tensaoSaturacaotrecho = 0;
 
-    // Comparar tensao de saturação selecionada com a calculada e dizer se a calculada é menor caso houver valor
-    if (!isNaN(tensaoSaturacaoNominalTC) && !isNaN(tensaoSaturacaoTC)) {
-        if (tensaoSaturacaoTC <= tensaoSaturacaoNominalTC) {
+    tensaoSaturacaotrecho = iccrefletida * impedanciatotaldotrecho;
+
+    localStorage.setItem("tensaoSaturacaotrecho", tensaoSaturacaotrecho.toFixed(2));
+
+
+    console.log("Tensão de saturação do trecho:", tensaoSaturacaotrecho.toFixed(2), "V");
+
+    // Comparar tensao de saturação burden com a calculada e dizer se a calculada é menor caso houver valor
+    
+
+    if (!isNaN(tensaoSaturacaotrecho) && !isNaN(tensaoSaturacaoTC)) {
+        if (tensaoSaturacaotrecho > tensaoSaturacaoTC) {
             statusdasaturacaotc = 'sim';
-            console.log("A tensão de saturação calculada é menor ou igual à nominal.");
+            console.log("A tensão de saturação calculada é maior que a nominal.");
         } else {
             statusdasaturacaotc = 'nao';
-            console.log("A tensão de saturação calculada é maior que a nominal.");
+            console.log("A tensão de saturação calculada é menor que a nominal.");
         }
     }
 
     // Exibir o status da saturação do TC no console
     console.log("Status da saturação do TC:", statusdasaturacaotc);
     localStorage.setItem("statusdasaturacaotc", statusdasaturacaotc);
+
+    // Exportar TC com nomenclatura de norma antiga
+    const especificacaoantiga = erroSaturacaoTC + 'B' + tensaoSaturacaoTC;
+    console.log("Especificação antiga:", especificacaoantiga);
+    localStorage.setItem("EspecificacaoNormaAntigaTC", especificacaoantiga);
+
 
 }
 
@@ -350,29 +442,53 @@ function salvarOpcao() {
     // exportar preenchimentos dos inputs do calculo da saturação do TC de proteção
 
     // Exporta preenchimentos dos inputs do cálculo da saturação do TC de proteção
-    const potenciaNominalTC = document.getElementById("input-potencia-Nominal-TC-html");
-    localStorage.setItem("potenciaNominalTC", potenciaNominalTC ? potenciaNominalTC.value : "");
+    const potenciaNominalTC = document.getElementById("input-potencia-Nominal-TC-html").value;
+    localStorage.setItem("potenciaNominalTC", potenciaNominalTC);
+    console.log("potenciaNominalTC exportada:", potenciaNominalTC);
 
-    const tensaoSaturacaoNominalTC = document.getElementById("input-tensao-Saturacao-Nominal-TC-html");
-    localStorage.setItem("tensaoSaturacaoNominalTC", tensaoSaturacaoNominalTC ? tensaoSaturacaoNominalTC.value : "");
+    const erroSaturacaoTC = document.getElementById("input-erro-saturacao-TC-html").value;
+    localStorage.setItem("erroSaturacaoTC", erroSaturacaoTC);
+    console.log("erroSaturacaoTC exportada:", erroSaturacaoTC);
+
+    const fatorMultiplicidadeTC = document.getElementById("input-fator-multiplicidade-TC-html").value;
+    localStorage.setItem("fatorMultiplicidadeTC", fatorMultiplicidadeTC);
+    console.log("fatorMultiplicidadeTC exportada:", fatorMultiplicidadeTC);
+
+    const especificacaoTC = potenciaNominalTC + erroSaturacaoTC + 'P' + fatorMultiplicidadeTC;
+    console.log("especificacaoTC exportada:", especificacaoTC);
+
+    if (potenciaNominalTC && erroSaturacaoTC && fatorMultiplicidadeTC) {
+        localStorage.setItem("especificacaoTC", especificacaoTC);
+    } else {
+        localStorage.setItem("especificacaoTC", '');
+    }
 
     const comprimentoCondutorTC = document.getElementById("input-comprimento-Condutor-TC-html");
     localStorage.setItem("comprimentoCondutorTC", comprimentoCondutorTC ? comprimentoCondutorTC.value : "");
+    console.log("comprimentoCondutorTC exportada:", comprimentoCondutorTC ? comprimentoCondutorTC.value : "");
 
     const bitolaCondutorTC = document.getElementById("input-bitola-Condutor-TC-html");
     localStorage.setItem("bitolaCondutorTC", bitolaCondutorTC ? bitolaCondutorTC.value : "");
+    console.log("bitolaCondutorTC exportada:", bitolaCondutorTC ? bitolaCondutorTC.value : "");
 
     const resistividadeCondutorTC = document.getElementById("input-resistividade-Condutor-TC-html");
     localStorage.setItem("resistividadeCondutorTC", resistividadeCondutorTC ? resistividadeCondutorTC.value : "");
+    console.log("resistividadeCondutorTC exportada:", resistividadeCondutorTC ? resistividadeCondutorTC.value : "");
 
-    const percentualBurdenTC = document.getElementById("input-percentual-burden-TC-html");
-    localStorage.setItem("percentualBurdenTC", percentualBurdenTC ? percentualBurdenTC.value : "");
+    // const percentualBurdenTC = document.getElementById("input-percentual-burden-TC-html");
+    // localStorage.setItem("percentualBurdenTC", percentualBurdenTC ? percentualBurdenTC.value : "");
+    // console.log("percentualBurdenTC exportada:", percentualBurdenTC ? percentualBurdenTC.value : "");
 
-    const potenciaRelé = document.getElementById("input-potencia-rele-html");
-    localStorage.setItem("potenciaRelé", potenciaRelé ? potenciaRelé.value : "");
+    const potenciabobinarele = document.getElementById("input-potencia-bobina-rele-html");
+    localStorage.setItem("potenciabobinaRele", potenciabobinarele ? potenciabobinarele.value : "");
+    console.log("potenciabobinaRele exportada:", potenciabobinarele ? potenciabobinarele.value : "");
 
-    const impedanciaTC = document.getElementById("input-impedancia-TC-html");
-    localStorage.setItem("impedanciaTC", impedanciaTC ? impedanciaTC.value : "");
+    const relacaoXRCurto = document.getElementById("input-relacao-xr-curto-html");
+    localStorage.setItem("relacaoXRCurto", relacaoXRCurto ? relacaoXRCurto.value : "");
+    console.log("relacaoXRCurto exportada:", relacaoXRCurto ? relacaoXRCurto.value : "");
+
+    // const impedanciaTC = document.getElementById("input-impedancia-TC-html");
+    // localStorage.setItem("impedanciaTC", impedanciaTC ? impedanciaTC.value : "");
 
 
 
@@ -440,8 +556,8 @@ function dimensionarTCconformenorma() {
     // Cria um array com os valores possíveis de TC
     // Esses valores são os valores nominais dos transformadores de corrente
     const valoresTC = [
-        15, 20, 25, 30, 35, 40, 50, 75, 100,
-        150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000
+        5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100,
+        150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000
     ];
 
     // calcula o valor de corrente nominal de consumo

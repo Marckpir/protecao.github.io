@@ -31,7 +31,7 @@ window.onload = function () {
         }
     }
 
-    const toleranciaInjecao32 = localStorage.getItem("tolerancia-injecao-32");
+    const toleranciaInjecao32 = localStorage.getItem("tolerancia-injecao-32") || 105; // Valor padrão de 105 se não estiver definido
     if (toleranciaInjecao32 !== null) {
         const toleranciaInjecaoElem = document.getElementById("tolerancia-injecao-html");
         if (toleranciaInjecaoElem) {
@@ -39,7 +39,7 @@ window.onload = function () {
         }
     }
 
-    const tempoInjecao32 = localStorage.getItem("tempo-injecao-32");
+    const tempoInjecao32 = localStorage.getItem("tempo-injecao-32") || 15; // Valor padrão de 15 se não estiver definido
     if (tempoInjecao32 !== null) {
         const tempoInjecaoElem = document.getElementById("tempo-injecao-html");
         if (tempoInjecaoElem) {
@@ -59,7 +59,7 @@ window.onload = function () {
 
 
     //persistir os valores de tolerância e tempo de consumo - CORRIGIDO
-    const toleranciaConsumo32 = localStorage.getItem("tolerancia-consumo-32");
+    const toleranciaConsumo32 = localStorage.getItem("tolerancia-consumo-32") || 105; // Valor padrão de 105 se não estiver definido
     if (toleranciaConsumo32 !== null) {
         const toleranciaConsumoElem = document.getElementById("tolerancia-consumo-html");
         if (toleranciaConsumoElem) {
@@ -67,7 +67,7 @@ window.onload = function () {
         }
     }
 
-    const tempoConsumo32 = localStorage.getItem("tempo-consumo-32");
+    const tempoConsumo32 = localStorage.getItem("tempo-consumo-32") || 15; // Valor padrão de 15 se não estiver definido
     if (tempoConsumo32 !== null) {
         const tempoConsumoElem = document.getElementById("tempo-consumo-html");
         if (tempoConsumoElem) {
@@ -91,23 +91,26 @@ window.onload = function () {
 }
 
 
-function salvarOpcao() {
-    // const tolerancia = document.getElementById("tolerancia-consumo-html").value;
-    // const tempo = document.getElementById("tempo-consumo-html").value;
-
-    // // Aqui você pode implementar a lógica para salvar as opções
-    // console.log("Opções salvas:");
-    // console.log("Tolerância:", tolerancia);
-    // console.log("Tempo:", tempo);
+async function salvarOpcao() {
 
 
-    const tolerancia = document.getElementById("tolerancia-injecao-html").value;
+    let tolerancia = document.getElementById("tolerancia-injecao-html").value;
+    if (tolerancia < 100) {
+        await validarPercentualMinimo(tolerancia, "");
+        tolerancia = 105;
+        document.getElementById("tolerancia-injecao-html").value = 105;
+    }
     localStorage.setItem("tolerancia-injecao-32", tolerancia);
 
     const tempo = document.getElementById("tempo-injecao-html").value;
     localStorage.setItem("tempo-injecao-32", tempo);
 
-    const toleranciaConsumo = document.getElementById("tolerancia-consumo-html").value;
+    let toleranciaConsumo = document.getElementById("tolerancia-consumo-html").value;
+    if (toleranciaConsumo < 100) {
+        await validarPercentualMinimo(toleranciaConsumo, "");
+        toleranciaConsumo = 105;
+        document.getElementById("tolerancia-consumo-html").value = 105;
+    }
     localStorage.setItem("tolerancia-consumo-32", toleranciaConsumo);
 
     const tempoConsumo = document.getElementById("tempo-consumo-html").value;
@@ -127,7 +130,7 @@ function calcularfuncoes32() {
     const demandaInjecao = parseFloat(localStorage.getItem("potenciaGDSelecionada"));
     console.log("Demanda de Injeção importada do localStorage:", demandaInjecao);
 
-    const toleranciaInjecao = parseFloat(document.getElementById("tolerancia-injecao-html").value);
+    const toleranciaInjecao = parseFloat(document.getElementById("tolerancia-injecao-html").value) || 105;
     console.log("Tolerância de Injeção importada do HTML:", toleranciaInjecao);
 
     // Importa o valor de "tcSelecionado" do localStorage
@@ -135,7 +138,7 @@ function calcularfuncoes32() {
     console.log("Potência Base importada do localStorage:", potenciabase);
 
     // Calcula a potência de injeção
-    const potenciaInjecao = demandaInjecao * (1 + toleranciaInjecao / 100);
+    const potenciaInjecao = demandaInjecao * (1 * toleranciaInjecao / 100);
     console.log("Potência de Injeção calculada:", potenciaInjecao);
 
     const potenciaRealInjecaoElem = document.getElementById("potencia-real-injecao-html");
@@ -159,11 +162,11 @@ function calcularfuncoes32() {
     const demandaConsumo = parseFloat(localStorage.getItem("demandaSelecionada"));
     console.log("Demanda de Consumo importada do localStorage:", demandaConsumo);
 
-    const toleranciaConsumo = parseFloat(document.getElementById("tolerancia-consumo-html").value);
+    const toleranciaConsumo = parseFloat(document.getElementById("tolerancia-consumo-html").value) || 105;
     console.log("Tolerância de Consumo importada do HTML:", toleranciaConsumo);
 
     // Calcula a potência de consumo
-    const potenciaConsumo = demandaConsumo * (1 + toleranciaConsumo / 100);
+    const potenciaConsumo = demandaConsumo * (1 * toleranciaConsumo / 100);
     console.log("Potência de Consumo calculada:", potenciaConsumo);
 
     const potenciaRealConsumoElem = document.getElementById("potencia-real-consumo-html");
@@ -189,6 +192,47 @@ function calcularfuncoes32() {
 }
 
 
+
+// Função para validar o percentual mínimo de 100% e exibir um alerta estilizado
+function validarPercentualMinimo(valor, mensagem) {
+    if (valor < 100) {
+        // Cria o alerta estilizado
+        const alerta = document.createElement("div");
+        alerta.textContent = mensagem || "O valor percentual não pode ser menor que 100%.";
+        alerta.style.position = "fixed";
+        alerta.style.top = "20px";
+        alerta.style.right = "-400px";
+        alerta.style.background = "linear-gradient(to left, #b6fcb6 80%, #fff 100%)";
+        alerta.style.color = "#222";
+        alerta.style.padding = "16px 32px";
+        alerta.style.borderRadius = "8px";
+        alerta.style.boxShadow = "0 2px 8px rgba(0,0,0,0.15)";
+        alerta.style.fontWeight = "bold";
+        alerta.style.fontSize = "1.1em";
+        alerta.style.zIndex = "9999";
+        alerta.style.transition = "right 0.5s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.5s";
+
+        document.body.appendChild(alerta);
+
+        setTimeout(() => {
+            alerta.style.right = "20px";
+        }, 50);
+
+        // Retorna uma Promise que resolve após o alerta sumir
+        return new Promise(resolve => {
+            setTimeout(() => {
+                alerta.style.right = "-400px";
+                alerta.style.opacity = "0";
+                setTimeout(() => {
+                    alerta.remove();
+                    resolve();
+                }, 500);
+            }, 2000);
+        });
+    }
+    // Se não precisar alertar, retorna Promise resolvida imediatamente
+    return Promise.resolve();
+}
 
 
 // Event listener para capturar Enter em qualquer lugar da página

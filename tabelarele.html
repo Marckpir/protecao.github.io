@@ -28,20 +28,32 @@
                                 points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
                 </svg>
         </div>
-    <h1>
-        <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
-        <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle" onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle" onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-        <button id="analisehtml" class="dark-mode-toggle" onclick="window.location.href='analise.html';">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
-    </h1>
+        <h1>
+                <button id="botaodiagramahtml" class="dark-mode-toggle"
+                        onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+                <button id="botaoparametrohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+                <button id="botaotrafohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='transformadores.html';">TRAFOS</button>
+                <button id="botaotrafohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='TP-TC.html';">TP/TC</button>
+                <button id="botaoajustehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+                <button id="botaotabelarelehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='tabelarele.html';">TABELA</button>
+                <button id="botaoestudoshtml" class="dark-mode-toggle"
+                        onclick="window.location.href='estudos.html';">ESTUDOS</button>
+                <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+                <button id="botaotabelaGDhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
+                <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+                <button id="analisehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='analise.html';">ANÁLISE</button>
+                <button id="botaosairhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='index.html';">SAIR</button>
+        </h1>
         <br>
         <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 1px;">
 
@@ -1108,7 +1120,7 @@ ajuste-instneutro-pu
                                         <td>0 a 14400 (s)</td>
                                         <td class="">0,00 s</td>
                                 </tr>
-                                <tr>
+                                <tr class="parametrosfuncao32diesel">
                                         <td>Gn 32-1 Element</td>
                                         <td>Disabled / Enabled</td>
                                         <td class="status-funcao32-ingles">Enabled</td>
@@ -2696,7 +2708,8 @@ ajuste-instneutro-pu
                         <thead>
                                 <tr>
                                         <th colspan="3"
-                                                style="background-color:#454e45; color:white; text-align:center;">REMP-GD-versão:1.0.0.054</th>
+                                                style="background-color:#454e45; color:white; text-align:center;">
+                                                REMP-GD-versão:1.0.0.054</th>
                                 </tr>
                         </thead>
 
@@ -3371,6 +3384,889 @@ ajuste-instneutro-pu
         </div>
 
         <div id="16-SEL-751" class="tabela">
+
+                <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+
+                        <thead>
+                                <tr>
+                                        <th colspan="4" style="text-align:center;">
+                                                SEL-751
+                                        </th>
+                                </tr>
+                                <tr>
+                                        <th width="15%">Parâmetro</th>
+                                        <th width="40%">Descrição</th>
+                                        <th width="25%">Faixa de ajuste</th>
+                                        <th width="20%">Ajuste</th>
+                                </tr>
+
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td colspan="4">Group 1</td>
+                                </tr>
+                                <tr>
+                                        <td>RID</td>
+                                        <td>Relay Identifier (16 characters)</td>
+                                        <td>ASCII string with a maximum length of 16</td>
+                                        <td>SEL-751</td>
+                                </tr>
+                                <tr>
+                                        <td>TID</td>
+                                        <td>Terminal Identifier (16 characters)</td>
+                                        <td>ASCII string with a maximum length of 16</td>
+                                        <td>ENTRADA CEMIG</td>
+                                </tr>
+                                <tr>
+                                        <td>CTR</td>
+                                        <td>Phase (IA,IB,IC) CT Ratio CTR:1</td>
+                                        <td>1 to 5000</td>
+                                        <td>80</td>
+                                </tr>
+                                <tr>
+                                        <td>CTRN</td>
+                                        <td>Neutral (IN) CT Ratio CTRN:1</td>
+                                        <td>1 to 5000</td>
+                                        <td>80</td>
+                                </tr>
+                                <tr>
+                                        <td>PTR</td>
+                                        <td>PT Ratio</td>
+                                        <td>1,00 to 10000,00</td>
+                                        <td>120,00</td>
+                                </tr>
+                                <tr>
+                                        <td>DELTA_Y</td>
+                                        <td>Transformer Connection</td>
+                                        <td>Select: WYE, DELTA</td>
+                                        <td>WYE</td>
+                                </tr>
+                                <tr>
+                                        <td>SINGLEV</td>
+                                        <td>Single Voltage Input</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>VNOM</td>
+                                        <td>Line Voltage, Nominal Line-to-Line (volts)</td>
+                                        <td>20,00 to 250,00, OFF</td>
+                                        <td>115,00</td>
+                                </tr>
+                                <tr>
+                                        <td>Z1MAG</td>
+                                        <td>Pos. Seq. Line Impedance Magnitude (ohms)</td>
+                                        <td>0,10 to 510,00</td>
+                                        <td>2,14</td>
+                                </tr>
+                                <tr>
+                                        <td>Z1ANG</td>
+                                        <td>Pos. Seq. Line Impedance Angle (degrees)</td>
+                                        <td>5,00 to 90,00</td>
+                                        <td>68,86</td>
+                                </tr>
+                                <tr>
+                                        <td>Z0MAG</td>
+                                        <td>Zero Seq. Line Impedance Magnitude (ohms)</td>
+                                        <td>0,10 to 510,00</td>
+                                        <td>6,38</td>
+                                </tr>
+                                <tr>
+                                        <td>Z0ANG</td>
+                                        <td>Zero Seq. Line Impedance Angle (degrees)</td>
+                                        <td>5,00 to 90,00</td>
+                                        <td>72,47</td>
+                                </tr>
+                                <tr>
+                                        <td>Z0SMAG</td>
+                                        <td>Zero Seq. Source Impedance Magnitude (ohms)</td>
+                                        <td>0,10 to 510,00</td>
+                                        <td>0,36</td>
+                                </tr>
+                                <tr>
+                                        <td>Z0SANG</td>
+                                        <td>Zero Seq. Source Impedance Angle (degrees)</td>
+                                        <td>0,00 to 90,00</td>
+                                        <td>84,61</td>
+                                </tr>
+                                <tr>
+                                        <td>LL</td>
+                                        <td>Line Length - unitless</td>
+                                        <td>0,10 to 999,00</td>
+                                        <td>4,84</td>
+                                </tr>
+                                <tr>
+                                        <td>EFLOC</td>
+                                        <td>Enable Fault Location</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>50P1P</td>
+                                        <td>Maximum Phase Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>22,50</td>
+                                </tr>
+                                <tr>
+                                        <td>50P1D</td>
+                                        <td>Maximum Phase Overcurrent Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00, OFF</td>
+                                        <td>0,00</td>
+                                </tr>
+                                <tr>
+                                        <td>50P1TC</td>
+                                        <td>Maximum Phase Overcurrent Torque Control (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>50P2P</td>
+                                        <td>Maximum Phase Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50P3P</td>
+                                        <td>Maximum Phase Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50P4P</td>
+                                        <td>Maximum Phase Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50N1P</td>
+                                        <td>Neutral Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>7,5</td>
+                                </tr>
+                                <tr>
+                                        <td>50N1D</td>
+                                        <td>Neutral Overcurrent Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00, OFF</td>
+                                        <td>0,00</td>
+                                </tr>
+                                <tr>
+                                        <td>50N1TC</td>
+                                        <td>Neutral Overcurrent Torque Control (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>50N2P</td>
+                                        <td>Neutral Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>0,5</td>
+                                </tr>
+                                <tr>
+                                        <td>50N2D</td>
+                                        <td>Neutral Overcurrent Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00, OFF</td>
+                                        <td>1,0</td>
+                                </tr>
+                                <tr>
+                                        <td>50N2TC</td>
+                                        <td>Neutral Overcurrent Torque Control (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>50N3P</td>
+                                        <td>Neutral Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50N4P</td>
+                                        <td>Neutral Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50G1P</td>
+                                        <td>Residual Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50G2P</td>
+                                        <td>Residual Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50G3P</td>
+                                        <td>Residual Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50G4P</td>
+                                        <td>Residual Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50Q1P</td>
+                                        <td>Negative Sequence Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50Q2P</td>
+                                        <td>Negative Sequence Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50Q3P</td>
+                                        <td>Negative Sequence Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>50Q4P</td>
+                                        <td>Negative Sequence Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 100,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>E50INC</td>
+                                        <td>Incipient fault overcurrent detection level (amps sec.)</td>
+                                        <td>5,00 to 50,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51AP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 24,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51BP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 24,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51CP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 24,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51IP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 24,00, OFF</td>
+                                        <td>3,58</td>
+                                </tr>
+                                <tr>
+                                        <td>51PC</td>
+                                        <td>TOC Curve Selection</td>
+                                        <td>Select: U1, U2, U3, U4, U5, C1, C2, C3, C4, C5</td>
+                                        <td>C2</td>
+                                </tr>
+                                <tr>
+                                        <td>51PTD</td>
+                                        <td>TOC Time Dial</td>
+                                        <td>0,01 to 1,50</td>
+                                        <td>0,10</td>
+                                </tr>
+                                <tr>
+                                        <td>51PRS</td>
+                                        <td>EM Reset Delay</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>51PCT</td>
+                                        <td>Constant Time Adder (seconds)</td>
+                                        <td>0,00 to 1,00</td>
+                                        <td>0,00</td>
+                                </tr>
+                                <tr>
+                                        <td>51PMR</td>
+                                        <td>Minimum Response Time (seconds)</td>
+                                        <td>0,00 to 1,00</td>
+                                        <td>0,00</td>
+                                </tr>
+                                <tr>
+                                        <td>51PTC</td>
+                                        <td>Maximum Phase Time Overcurrent Torque Control (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>51P2P</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0,25 to 24,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51P2C</td>
+                                        <td>TOC Curve Selection</td>
+                                        <td>Select: U1, U2, U3, U4, U5, C1, C2, C3, C4, C5</td>
+                                        <td>C2</td>
+                                </tr>
+                                <tr>
+                                        <td>51PTD</td>
+                                        <td>TOC Time Dial</td>
+                                        <td>0.01 to 1.50</td>
+                                        <td>0.00</td>
+                                </tr>
+                                <tr>
+                                        <td>51PRS</td>
+                                        <td>EM Reset Delay</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>51PCT</td>
+                                        <td>Constant Time Adder (seconds)</td>
+                                        <td>0.00 to 1.00</td>
+                                        <td>0.00</td>
+                                </tr>
+                                <tr>
+                                        <td>51PMR</td>
+                                        <td>Minimum Response Time (seconds)</td>
+                                        <td>0.00 to 1.00</td>
+                                        <td>1.00</td>
+                                </tr>
+                                <tr>
+                                        <td>51P2TC</td>
+                                        <td>Maximum Phase Time Overcurrent Torque Control (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>DIRPR</td>
+                                </tr>
+                                <tr>
+                                        <td>51QP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0.25 to 24.00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51N1P</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0.25 to 24.00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51N1C</td>
+                                        <td>TOC Curve Selection</td>
+                                        <td>Select: U1, U2, U3, U4, U5, C1, C2, C3, C4, C5</td>
+                                        <td>C2</td>
+                                </tr>
+                                <tr>
+                                        <td>51N1TD</td>
+                                        <td>TOC Time Dial</td>
+                                        <td>0.01 to 1.50</td>
+                                        <td>0.13</td>
+                                </tr>
+                                <tr>
+                                        <td>51N1RS</td>
+                                        <td>EM Reset Delay</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN1CT</td>
+                                        <td>Constant Time Adder (seconds)</td>
+                                        <td>0.00 to 1.00</td>
+                                        <td>0.00</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN1MR</td>
+                                        <td>Minimum Response Time (seconds)</td>
+                                        <td>0.00 to 1.00</td>
+                                        <td>0.00</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN1TC</td>
+                                        <td>Neutral Time Overcurrent Torque Control (SEL logic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2IP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0.25 to 24.00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2C</td>
+                                        <td>TOC Curve Selection</td>
+                                        <td>Select: U1, U2, U3, U4, U5, C1, C2, C3, C4, C5</td>
+                                        <td>C2</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2TD</td>
+                                        <td>TOC Time Dial</td>
+                                        <td>0.01 to 1.50</td>
+                                        <td>1.00</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2RS</td>
+                                        <td>EM Reset Delay</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2CT</td>
+                                        <td>Constant Time Adder (seconds)</td>
+                                        <td>0.00 to 1.00</td>
+                                        <td>0.00</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2MR</td>
+                                        <td>Minimum Response Time (seconds)</td>
+                                        <td>0.00 to 1.00</td>
+                                        <td>0.00</td>
+                                </tr>
+                                <tr>
+                                        <td>1SN2TC</td>
+                                        <td>Neutral Time Overcurrent Torque Control (SEL logic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>DIRGF</td>
+                                </tr>
+                                <tr>
+                                        <td>51GP</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0.25 to 24.00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>51G2P</td>
+                                        <td>Time Overcurrent Trip Pickup (amps sec.)</td>
+                                        <td>0.25 to 24.00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>EDIR</td>
+                                        <td>Enable Directional Control</td>
+                                        <td>Select: Y, AUTO, N</td>
+                                        <td>AUTO</td>
+                                </tr>
+                                <tr>
+                                        <td>EFWD1LOP</td>
+                                        <td>Enable Forward Direction on Loss-of-Potential</td>
+                                        <td>Select: Y, N</td>
+                                        <td>Y</td>
+                                </tr>
+                                <tr>
+                                        <td>DIR1</td>
+                                        <td>Directional Control Level 1</td>
+                                        <td>Select: F, R, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>DIR2</td>
+                                        <td>Directional Control Level 2</td>
+                                        <td>Select: F, R, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>DIR3</td>
+                                        <td>Directional Control Level 3</td>
+                                        <td>Select: F, R, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>DIR4</td>
+                                        <td>Directional Control Level 4</td>
+                                        <td>Select: F, R, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>GDR</td>
+                                        <td>Ground Directional Element Priority</td>
+                                        <td>Select: LQ, IQ, QL, OFF</td>
+                                        <td>IQ</td>
+                                </tr>
+                                <tr>
+                                        <td>EDIRIV</td>
+                                        <td>Enable for VO Polarized and IN Polarized Elements Equation (SEL logic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>50PDIRP</td>
+                                        <td>Phase Directional 3-Phase Level (amps)</td>
+                                        <td>0.50 to 10.00</td>
+                                        <td>2.50</td>
+                                </tr>
+                                <tr>
+                                        <td>EHBL2</td>
+                                        <td>Enable Second Harmonic Blocking</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>EHBL5</td>
+                                        <td>Enable Fifth Harmonic Blocking</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>ELOAD</td>
+                                        <td>Enable Load Encroachment</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>E49IRC</td>
+                                        <td>Enable IEC Thermal Element</td>
+                                        <td>1 to 3, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>27PP1P</td>
+                                        <td>Phase-Phase Undervoltage Trip Level (volts)</td>
+                                        <td>2.00 to 300.00, OFF</td>
+                                        <td>97.75</td>
+                                </tr>
+                                <tr>
+                                        <td>27PP1D</td>
+                                        <td>Phase-Phase Undervoltage Trip Delay (seconds)</td>
+                                        <td>0.00 to 120.00</td>
+                                        <td>2.00</td>
+                                </tr>
+                                <tr>
+                                        <td>27PP2P</td>
+                                        <td>Phase-Phase Undervoltage Trip Level (volts)</td>
+                                        <td>2.00 to 300.00, OFF</td>
+                                        <td>57.50</td>
+                                </tr>
+                                <tr>
+                                        <td>27PP2D</td>
+                                        <td>Phase-Phase Undervoltage Trip Delay (seconds)</td>
+                                        <td>0.00 to 120.00</td>
+                                        <td>0.15</td>
+                                </tr>
+                                <tr>
+                                        <td>E27I1</td>
+                                        <td>Inverse Time Undervoltage Element Enable</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>E27I2</td>
+                                        <td>Inverse Time Undervoltage Element Enable</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>59Q1P</td>
+                                        <td>Negative-Seq Overvoltage Trip 1 Pickup (volts)</td>
+                                        <td>2.00 to 300.00, OFF</td>
+                                        <td>46.00</td>
+                                </tr>
+                                <tr>
+                                        <td>59Q1D</td>
+                                        <td>Negative-Seq Overvoltage Trip 1 Delay (seconds)</td>
+                                        <td>0.00 to 120.00</td>
+                                        <td>0.50</td>
+                                </tr>
+                                <tr>
+                                        <td>59PP1P</td>
+                                        <td>Phase-Phase Overvoltage Trip Level (volts)</td>
+                                        <td>2,00 to 300,00, OFF</td>
+                                        <td>138,00</td>
+                                </tr>
+                                <tr>
+                                        <td>59PP1D</td>
+                                        <td>Phase-Phase Overvoltage Trip Delay (seconds)</td>
+                                        <td>0,00 to 120,00, OFF</td>
+                                        <td>2,00</td>
+                                </tr>
+                                <tr>
+                                        <td>59Q2P</td>
+                                        <td>Negative-Seq Overvoltage Trip 2 Pickup (volts)</td>
+                                        <td>2,00 to 300,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>59PP2P</td>
+                                        <td>Phase-Phase Overvoltage Trip Level (volts)</td>
+                                        <td>2,00 to 300,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>E5911</td>
+                                        <td>Inverse Time Overvoltage Element Enable</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>E5912</td>
+                                        <td>Inverse Time Overvoltage Element Enable</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>E5913</td>
+                                        <td>Inverse Time Overvoltage Element Enable</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>E5914</td>
+                                        <td>Inverse Time Overvoltage Element Enable</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>LOPBLK</td>
+                                        <td>Loss of Potential Block Condition Equation (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>0</td>
+                                </tr>
+                                <tr>
+                                        <td>55LGTP</td>
+                                        <td>Power Factor Lag Trip Pickup</td>
+                                        <td>0,05 to 0,99, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>55LDTP</td>
+                                        <td>Power Factor Lead Trip Pickup</td>
+                                        <td>0,05 to 0,99, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>55LGAP</td>
+                                        <td>Power Factor Lag Alarm Pickup</td>
+                                        <td>0,05 to 0,99, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>55LDAP</td>
+                                        <td>Power Factor Lead Alarm Pickup</td>
+                                        <td>0,05 to 0,99, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>E78VS</td>
+                                        <td>Enable Vector Shift</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>81D1TP</td>
+                                        <td>Frequency1 Trip Pickup (Hz)</td>
+                                        <td>15,00 to 70,00, OFF</td>
+                                        <td>58,50</td>
+                                </tr>
+                                <tr>
+                                        <td>81D1TD</td>
+                                        <td>Frequency1 Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00</td>
+                                        <td>0,50</td>
+                                </tr>
+                                <tr>
+                                        <td>81D1TC</td>
+                                        <td>Frequency1 Torque Control Equation (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>81D2TP</td>
+                                        <td>Frequency2 Trip Pickup (Hz)</td>
+                                        <td>15,00 to 70,00, OFF</td>
+                                        <td>57,00</td>
+                                </tr>
+                                <tr>
+                                        <td>81D2TD</td>
+                                        <td>Frequency2 Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00</td>
+                                        <td>0,15</td>
+                                </tr>
+                                <tr>
+                                        <td>81D2TC</td>
+                                        <td>Frequency2 Torque Control Equation (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>81D3TP</td>
+                                        <td>Frequency3 Trip Pickup (Hz)</td>
+                                        <td>15,00 to 70,00, OFF</td>
+                                        <td>61,50</td>
+                                </tr>
+                                <tr>
+                                        <td>81D3TD</td>
+                                        <td>Frequency3 Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00</td>
+                                        <td>0,50</td>
+                                </tr>
+                                <tr>
+                                        <td>81D3TC</td>
+                                        <td>Frequency3 Torque Control Equation (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>81D4TP</td>
+                                        <td>Frequency4 Trip Pickup (Hz)</td>
+                                        <td>15,00 to 70,00, OFF</td>
+                                        <td>63,00</td>
+                                </tr>
+                                <tr>
+                                        <td>81D4TD</td>
+                                        <td>Frequency4 Trip Delay (seconds)</td>
+                                        <td>0,00 to 400,00</td>
+                                        <td>0,15</td>
+                                </tr>
+                                <tr>
+                                        <td>81D4TC</td>
+                                        <td>Frequency4 Torque Control Equation (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>1</td>
+                                </tr>
+                                <tr>
+                                        <td>81D5TP</td>
+                                        <td>Frequency5 Trip Pickup (Hz)</td>
+                                        <td>15,00 to 70,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>81D6TP</td>
+                                        <td>Frequency6 Trip Pickup (Hz)</td>
+                                        <td>15,00 to 70,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>E81R</td>
+                                        <td>Enable Rate-of-Change of Frequency Elements</td>
+                                        <td>Select: N, 1-4</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>E81RF</td>
+                                        <td>Enable Fast Rate-of-Change of Frequency Elements</td>
+                                        <td>Select: Y, N</td>
+                                        <td>N</td>
+                                </tr>
+                                <tr>
+                                        <td>EDEM</td>
+                                        <td>Demand Metering</td>
+                                        <td>Select: THM, ROL</td>
+                                        <td>THM</td>
+                                </tr>
+                                <tr>
+                                        <td>DMTC</td>
+                                        <td>Time Constant (mins)</td>
+                                        <td>Select: 5, 10, 15, 30, 60</td>
+                                        <td>5</td>
+                                </tr>
+                                <tr>
+                                        <td>PHDEMP</td>
+                                        <td>Phase Pickup (amps sec.)</td>
+                                        <td>0,50 to 16,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>GNDEMP</td>
+                                        <td>Residual Ground Pickup (amps sec.)</td>
+                                        <td>0,50 to 16,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>3I2DEMP</td>
+                                        <td>Negative-Sequence Pickup (amps sec.)</td>
+                                        <td>0,50 to 16,00, OFF</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>EPWR</td>
+                                        <td>Enable Three Phase Power Elements</td>
+                                        <td>Select: N, 3P1, 3P2</td>
+                                        <td>3P1</td>
+                                </tr>
+                                <tr>
+                                        <td>3PWR1P</td>
+                                        <td>Three Phase Power Element Pickup (VA)</td>
+                                        <td>1,0 to 6500,0, OFF</td>
+                                        <td>59,37</td>
+                                </tr>
+                                <tr>
+                                        <td>PWR1T</td>
+                                        <td>Power Element Type</td>
+                                        <td>Select: +WATTS, -WATTS, +VARS, -VARS</td>
+                                        <td>WATTS</td>
+                                </tr>
+                                <tr>
+                                        <td>PWR1D</td>
+                                        <td>Power Element Time Delay (seconds)</td>
+                                        <td>0.0 to 240.0</td>
+                                        <td>5.0</td>
+                                </tr>
+                                <tr>
+                                        <td>TDURD</td>
+                                        <td>Minimum Trip Time (seconds)</td>
+                                        <td>0.0 to 400.0</td>
+                                        <td>0.5</td>
+                                </tr>
+                                <tr>
+                                        <td>CFD</td>
+                                        <td>Close Failure Time Delay (seconds)</td>
+                                        <td>0.0 to 400.0, OFF</td>
+                                        <td>1.0</td>
+                                </tr>
+                                <tr>
+                                        <td>TR</td>
+                                        <td>Trip (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>50P1T OR 50N1T OR 51P1T OR 51N1T OR 51P2T OR 51N1T OR 51N2T OR 81D1T OR
+                                                81D2T OR 81D3T OR 81D4T OR SV01T OR SV02T OR 3PWR1T OR 59Q1T OR 59P1T
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td>REMTRIP</td>
+                                        <td>Remote Trip (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>0</td>
+                                </tr>
+                                <tr>
+                                        <td>ULTRIP</td>
+                                        <td>Unlatch Trip (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>NOT (51P1P OR 51N1P OR 52A)</td>
+                                </tr>
+                                <tr>
+                                        <td>52A</td>
+                                        <td>Breaker Status N/O Contact (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>IN101</td>
+                                </tr>
+                                <tr>
+                                        <td>52B</td>
+                                        <td>Breaker Status N/C Contact (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>IN102</td>
+                                </tr>
+                                <tr>
+                                        <td>CL</td>
+                                        <td>Close (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>SV03T</td>
+                                </tr>
+                                <tr>
+                                        <td>ULCL</td>
+                                        <td>Unlatch Close (SELogic)</td>
+                                        <td>Legal operators: AND OR NOT R_TRIG F_TRIG</td>
+                                        <td>LT01</td>
+                                </tr>
+                                <tr>
+                                        <td>E79</td>
+                                        <td>Enable Recloser</td>
+                                        <td>Select: N, I-4, C1-C4</td>
+                                        <td>N</td>
+                                </tr>
+                        </tbody>
+                </table>
 
         </div>
 

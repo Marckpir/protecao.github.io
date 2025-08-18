@@ -138,6 +138,7 @@ window.onload = function () {
     }
 
     calculadialideal();
+    
 
     
 

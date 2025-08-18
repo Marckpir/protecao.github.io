@@ -16,7 +16,7 @@ let imagtotalneutroformatada = 0;
 //------------------------------------------------------------------
 function salvarOpcao() {
 
-    //Armazenar todas as potencias em KVA em variaveis formator JSON e no localstorage
+    //Armazenar todas as potencias em KVA em variaveis formato JSON e no localstorage
     for (let i = 1; i <= 10; i++) {
         const impedancia = parseFloat(document.getElementById(`impedanciahtml${i}`)?.value) || 0;
         let tempo = document.getElementById(`tempotrhtml${i}`)?.value || "";
@@ -43,19 +43,8 @@ function salvarOpcao() {
         localStorage.setItem(`trafo${i}JSON`, JSON.stringify(trafo));
     }
 
-    //Armazenar informações de input do gerador no formato JSON e armazenar no local storage
-    const potenciagerador = document.getElementById("potenciageradorhtml")?.value || "";
-    const fatorpotenciagerador = document.getElementById("fatorpotenciageradorhtml")?.value || "";
-    const toleranciagerador = document.getElementById("toleranciageradorhtml")?.value || "";
 
-    const gerador = {
-        potencia: potenciagerador,
-        fatorpotencia: fatorpotenciagerador,
-        tolerancia: toleranciagerador
-    };
-
-    localStorage.setItem("geradorJSON", JSON.stringify(gerador));
-
+ 
 
 
 
@@ -71,39 +60,26 @@ function salvarOpcao() {
         tempopartida: tempoPartidaMotor
     };
 
-
-    // console.log("i motor localstorage:" + motor);
-
-
-
-
     localStorage.setItem("motorJSON", JSON.stringify(motor));
 
-    // console.log("Motor armazenado:", motor);
 
-    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 1;
-    const fatordePotencia = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 1;
+
+    //---------------migrar o calculo para função separada
+    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
+    const fatordePotencia = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0;
     const correntemotor = parseFloat(correntePartidaMotor);
 
 
 
     const correnteoperantemotor = potenciaOperanteMotor / (tensaoArmazenada * Math.sqrt(3) * fatordePotencia);
-    // console.log("i maior corrente motor localstorage:"+ correntePartidaMotor);
-    // console.log("i maior corrente motor localstorage:"+ correnteoperantemotor);
-    // if (correntemotor !== null && correnteoperantemotor !== null){
+ 
     let maiorValor = correntemotor + correnteoperantemotor;
 
-    // console.log("potencia operante:" + potenciaOperanteMotor);
-    // console.log("tensao operante:" + tensaoArmazenada);
-    // console.log("fp operante:" + fatordePotencia);
-    
+
 
     localStorage.setItem("maiorCorrenteoperante", maiorValor);
+    //------fim da migração
 
-
-    // }
-
-    // console.log("i maior corrente motor localstorage:" + maiorValor);
 
 
 
@@ -118,7 +94,7 @@ window.onload = function () {
     calculaimagreal();
     calcularEArmazenarIntrafoEImag();
     calculos();
-    calculoGerador();
+    // calculoGerador();
 
     const botaoParametro = document.getElementById("botaotrafohtml");
     if (botaoParametro) {
@@ -205,34 +181,8 @@ window.onload = function () {
     if (inmagrealneutroArmazenado) { labelInmagrealNeutro.textContent = inmagrealneutroArmazenado.toFixed(2) + " A"; }
 
 
-    // Persisti os valores do gerador a diesel no HTML
 
-    // Exibir valores armazenados do gerador a diesel no HTML
-    const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON"));
-    if (geradorSalvo) {
-        if (document.getElementById("potenciageradorhtml")) {
-            document.getElementById("potenciageradorhtml").value = geradorSalvo.potencia || "";
-        }
-        if (document.getElementById("fatorpotenciageradorhtml")) {
-            document.getElementById("fatorpotenciageradorhtml").value = geradorSalvo.fatorpotencia || "";
-        }
-        if (document.getElementById("toleranciageradorhtml")) {
-            document.getElementById("toleranciageradorhtml").value = geradorSalvo.tolerancia || "";
-        }
-    }
-
-    const potenciaReversaArmazenada = parseFloat(localStorage.getItem("potenciaReversaGerador"));
-    const labelPotenciaReversa = document.getElementById("potenciareversageradorhtml");
-    if (labelPotenciaReversa && !isNaN(potenciaReversaArmazenada)) {
-        labelPotenciaReversa.textContent = potenciaReversaArmazenada.toFixed(2) + " W";
-    }
-
-    const potenciaReversaPUArmazenada = parseFloat(localStorage.getItem("potenciadieselPU"));
-    const labelPotenciaReversaPU = document.getElementById("potenciareversageradorPUhtml");
-    if (labelPotenciaReversaPU && !isNaN(potenciaReversaPUArmazenada)) {
-        labelPotenciaReversaPU.textContent = potenciaReversaPUArmazenada.toFixed(4) + " P.U";
-    }
-
+    
     //----------------------------------------------------------------------------------------------
     
     // Exibir valores armazenados do motor no HTML
@@ -249,16 +199,25 @@ window.onload = function () {
         }
     }
 
-    const correnteoperantelabel = document.getElementById("correntetotalpartidamotorhtml");
-    const correnteoperantearmazenada = parseFloat(localStorage.getItem("maiorCorrenteoperante"));
-    if (correnteoperantearmazenada) { correnteoperantelabel.textContent = correnteoperantearmazenada.toFixed(2) + " A"; }
+    // const correnteoperantelabel = document.getElementById("correntetotalpartidamotorhtml");
+    // const correnteoperantearmazenada = parseFloat(localStorage.getItem("maiorCorrenteoperante"));
+    // if (correnteoperantearmazenada && correnteoperantelabel) {
+    //     correnteoperantelabel.textContent = correnteoperantearmazenada.toFixed(2) + " A";
+    // }
 
     console.log("corrente que esta no lstorage",correnteoperantearmazenada);
+
+    
 }
 
 
 function calcularEArmazenarIntrafoEImag() {
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada"));
+
+
+
+
+
     let correntestrafosJSON = {};
 
     for (let i = 1; i <= 10; i++) {
@@ -293,7 +252,7 @@ function calcularEArmazenarIntrafoEImag() {
 
     //FAZ A EXIBIÇÃO DO VALOR DE CORRENTE TOTAL DA CARGA OPERANTE NA TELA HTML
     
-    const somaCorrentePartidaOperante = parseFloat(localStorage.getItem("somaCorrentePartidaOperante")) || 0;
+    const somaCorrentePartidaOperante = parseFloat(localStorage.getItem("maiorCorrenteoperante")) || 0;
     const campoCorrenteTotal = document.getElementById("correntetotalpartidamotorhtml");
     if (campoCorrenteTotal) {
         campoCorrenteTotal.textContent = somaCorrentePartidaOperante.toFixed(2) + " A";
@@ -392,61 +351,7 @@ function calculos() {
 }
 
 
-
-//Função para calcular a potência reversa do gerador
-function calculoGerador() {
-    const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON")) || {};
-    const potenciagerador = parseFloat(geradorSalvo.potencia) || 0;
-    const fatorpotenciagerador = geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== "" 
-        ? parseFloat(geradorSalvo.fatorpotencia) 
-        : 80;
-    // Se não houver valor no localStorage, assume valor 5
-    const toleranciagerador = geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== ""
-        ? parseFloat(geradorSalvo.tolerancia)
-        : 5;
-    const tempogeradoradiesel = 15;
-    const statusfuncao32diesel = potenciagerador > 0 ? "Habilitado" : "Desabilitado";
-    const tcProtecaoArmazenada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
-    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
-
-    // Potência reversa = potência * fator de potência * tolerância
-    const potenciaReversa = (potenciagerador * 1000) * (fatorpotenciagerador / 100) * (toleranciagerador / 100);
-
-    let potenciadieselPU = 0;
-    if (potenciaReversa === 0 || tensaoArmazenada === 0 || tcProtecaoArmazenada === 0) {
-        potenciadieselPU = 0;
-    } else {
-        potenciadieselPU = potenciaReversa / (tensaoArmazenada * 1000 * tcProtecaoArmazenada * Math.sqrt(3));
-
-    }
-
-
- 
-    localStorage.setItem("statusfuncao32diesel", statusfuncao32diesel);
-    localStorage.setItem("potenciaReversaGerador", potenciaReversa);
-    localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
-    localStorage.setItem("potenciadieselPU", potenciadieselPU);
-
-    
-
-    
-
-
-
-    // Exemplo: exibir no console ou salvar no localStorage
-    console.log("Potência do gerador:", potenciagerador);
-    console.log("Fator de potência do gerador:", fatorpotenciagerador);
-    console.log("Tolerância do gerador:", toleranciagerador);
-    console.log("Tempo do gerador a diesel:", tempogeradoradiesel);
-    console.log("Status função 32 diesel:", statusfuncao32diesel);
-    console.log("TC Proteção armazenada:", tcProtecaoArmazenada);
-    console.log("Tensão armazenada:", tensaoArmazenada);
-    console.log("Potência reversa do gerador:", potenciaReversa);
-    console.log("Potência reversa do gerador em pu:", potenciadieselPU);
-
-
-}
-
+// Função para calcular a corrente de magnetização real e do neutro
 
 function calculaimagreal() {
 

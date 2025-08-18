@@ -282,18 +282,6 @@ function salvarOpcao() {
     // console.log("tensaoprimariaFN:", tensaoprimariaFN);
 
 
-    //Armazenar informações de input do gerador no formato JSON e armazenar no local storage
-    const potenciagerador = document.getElementById("potenciageradorhtml")?.value || "";
-    const fatorpotenciagerador = document.getElementById("fatorpotenciageradorhtml")?.value || "";
-    const toleranciagerador = document.getElementById("toleranciageradorhtml")?.value || "";
-
-    const gerador = {
-        potencia: potenciagerador,
-        fatorpotencia: fatorpotenciagerador,
-        tolerancia: toleranciagerador
-    };
-
-    localStorage.setItem("geradorJSON", JSON.stringify(gerador));
 
 
 
@@ -316,9 +304,9 @@ window.onload = function () {
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------
     // importarICC();
-    calculoGerador();
-
-
+    
+    
+    
     const tensao = document.getElementById("tensaoprimaria");
     const tensaoSalva = localStorage.getItem("tensaoSelecionada");
 
@@ -422,129 +410,16 @@ window.onload = function () {
     }
 
 
-    // Persisti os valores do gerador a diesel no HTML
-
-    // Exibir valores armazenados do gerador a diesel no HTML
-    const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON"));
-    if (geradorSalvo) {
-        if (document.getElementById("potenciageradorhtml")) {
-            document.getElementById("potenciageradorhtml").value = geradorSalvo.potencia || "";
-        }
-        if (document.getElementById("fatorpotenciageradorhtml")) {
-            document.getElementById("fatorpotenciageradorhtml").value = geradorSalvo.fatorpotencia || "";
-        }
-        if (document.getElementById("toleranciageradorhtml")) {
-            document.getElementById("toleranciageradorhtml").value = geradorSalvo.tolerancia || "";
-        }
-    }
-
-    const potenciaReversaArmazenada = parseFloat(localStorage.getItem("potenciaReversaGerador"));
-    const labelPotenciaReversa = document.getElementById("potenciareversageradorhtml");
-    if (labelPotenciaReversa && !isNaN(potenciaReversaArmazenada)) {
-        labelPotenciaReversa.textContent = potenciaReversaArmazenada.toFixed(2) + " W";
-    }
-
-    const potenciaReversaPUArmazenada = parseFloat(localStorage.getItem("potenciadieselPU"));
-    const labelPotenciaReversaPU = document.getElementById("potenciareversageradorPUhtml");
-    if (labelPotenciaReversaPU && !isNaN(potenciaReversaPUArmazenada)) {
-        labelPotenciaReversaPU.textContent = potenciaReversaPUArmazenada.toFixed(4) + " P.U";
-    }
-
-
-    const potenciaGeradorAjustadaHtml = document.getElementById("valorAjustadoPotenciaGerador");
-    const potenciaGeradorAjustadaStorage = geradorSalvo.potencia || 0;
-    if (potenciaGeradorAjustadaStorage && potenciaGeradorAjustadaStorage !== "0" && potenciaGeradorAjustadaStorage !== "") {
-        potenciaGeradorAjustadaHtml.textContent = potenciaGeradorAjustadaStorage + " kVA";
-    } else {
-        potenciaGeradorAjustadaHtml.textContent = "0 kVA";
-    }
-
-    const fatorPotenciaGeradorAjustadaHtml = document.getElementById("valorAjustadoFatorPotenciaGerador");
-    const fatorPotenciaGeradorAjustadaStorage = geradorSalvo.fatorpotencia || 0;
-    if (fatorPotenciaGeradorAjustadaStorage && fatorPotenciaGeradorAjustadaStorage !== "0" && fatorPotenciaGeradorAjustadaStorage !== "") {
-        fatorPotenciaGeradorAjustadaHtml.textContent = fatorPotenciaGeradorAjustadaStorage + " %";
-    } else {
-        fatorPotenciaGeradorAjustadaHtml.textContent = "80 %";
-    }
-
-    const toleranciaGeradorAjustadaHtml = document.getElementById("valorAjustadoToleranciaGerador");
-    const toleranciaGeradorAjustadaStorage = geradorSalvo.tolerancia || 0;
-    if (toleranciaGeradorAjustadaStorage && toleranciaGeradorAjustadaStorage !== "0" && toleranciaGeradorAjustadaStorage !== "") {
-        toleranciaGeradorAjustadaHtml.textContent = toleranciaGeradorAjustadaStorage + " %";
-    } else {
-        toleranciaGeradorAjustadaHtml.textContent = "5 %";
-    }
 
 
 
 
 
 
-}
-
-
-//Função para calcular a potência reversa do gerador
-function calculoGerador() {
-    const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON")) || {};
-    const potenciagerador = parseFloat(geradorSalvo.potencia) || 0;
-    const fatorpotenciagerador = geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== "" 
-        ? parseFloat(geradorSalvo.fatorpotencia) 
-        : 80;
-    // Se não houver valor no localStorage, assume valor 5
-    const toleranciagerador = geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== ""
-        ? parseFloat(geradorSalvo.tolerancia)
-        : 5;
-    const tempogeradoradiesel = 15;
-    const statusfuncao32diesel = potenciagerador > 0 ? "Habilitado" : "Desabilitado";
-    const tcProtecaoArmazenada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
-    const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
-
-    // Potência reversa = potência * fator de potência * tolerância
-    const potenciaReversa = (potenciagerador * 1000) * (fatorpotenciagerador / 100) * (toleranciagerador / 100);
-
-    let potenciadieselPU = 0;
-    if (potenciaReversa === 0 || tensaoArmazenada === 0 || tcProtecaoArmazenada === 0) {
-        potenciadieselPU = 0;
-    } else {
-        potenciadieselPU = potenciaReversa / (tensaoArmazenada * 1000 * tcProtecaoArmazenada * Math.sqrt(3));
-
-    }
-
-
- 
-    localStorage.setItem("statusfuncao32diesel", statusfuncao32diesel);
-    localStorage.setItem("potenciaReversaGerador", potenciaReversa);
-    localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
-    localStorage.setItem("potenciadieselPU", potenciadieselPU);
 
     
 
-    
-
-
-
-    // Exemplo: exibir no console ou salvar no localStorage
-    console.log("Potência do gerador:", potenciagerador);
-    console.log("Fator de potência do gerador:", fatorpotenciagerador);
-    console.log("Tolerância do gerador:", toleranciagerador);
-    console.log("Tempo do gerador a diesel:", tempogeradoradiesel);
-    console.log("Status função 32 diesel:", statusfuncao32diesel);
-    console.log("TC Proteção armazenada:", tcProtecaoArmazenada);
-    console.log("Tensão armazenada:", tensaoArmazenada);
-    console.log("Potência reversa do gerador:", potenciaReversa);
-    console.log("Potência reversa do gerador em pu:", potenciadieselPU);
-
-
 }
-
-
-
-
-
-
-
-
-
 
 function importarICC() {
 

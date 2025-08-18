@@ -233,130 +233,180 @@
             style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
             <table>
                 <tr>
-                    <td>Potência Nominal do TC:</td>
+                    <td>Potência TC de proteção (ABNT NBR 6856:2015) (VA):</td>
                     <td>
                         <div class="input-container"
                             style="display: flex; align-items: center; justify-content: flex-start;">
                             <select id="input-potencia-Nominal-TC-html" style="margin-right: 4px; text-align: left;">
                                 <option value=""></option>
-                                <option value="12.5VA10P20">12.5VA10P20</option>
-                                <option value="25VA10P20">25VA10P20</option>
-                                <option value="50VA10P20">50VA10P20</option>
-                                <option value="100VA10P20">100VA10P20</option>
+                                <option value="2.5VA">2.5VA</option>
+                                <option value="5VA">5VA</option>
+                                <option value="12.5VA">12.5VA</option>
+                                <option value="22.5VA">22.5VA</option>
+                                <option value="45VA">45VA</option>
+                                <option value="90VA">90VA</option>
                             </select>
 
                         </div>
                     </td>
-                    <td> <span id="label-especificacao-norma-nova-html">12,5 VA 10P20</span> </td>
+
+                    <td rowspan="3"> <span id="label-especificacao-norma-nova-html"></span> </td>
+
                 </tr>
                 <tr>
-                    <td>Tensão de Saturação Nominal do TC:</td>
+                    <td>Erro máximo TC de proteção (%):</td>
                     <td>
                         <div class="input-container"
                             style="display: flex; align-items: center; justify-content: flex-start;">
-                            <select id="input-tensao-Saturacao-Nominal-TC-html" style="margin-right: 4px; text-align: left;">
+                            <select id="input-erro-saturacao-TC-html" style="margin-right: 4px; text-align: left;">
                                 <option value=""></option>
-                                <option value="10A50">10A50</option>
-                                <option value="10B50">10B50</option>
-                                <option value="10A100">10A100</option>
-                                <option value="10B100">10B100</option>
-                                <option value="10A200">10A200</option>
-                                <option value="10B200">10B200</option>
-                                <option value="10A400">10A400</option>
-                                <option value="10B400">10B400</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
                             </select>
                             <span class="unidade"></span>
                         </div>
                     </td>
-                    <td> <span id="label-especificacao-norma-antiga-html">10 B 100</span> </td>
+
                 </tr>
+                <tr>
+                    <td>Fator de multiplicidade máximo TC de proteção:</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <select id="input-fator-multiplicidade-TC-html"
+                                style="margin-right: 4px; text-align: left;">
+                                <option value=""></option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                            </select>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+
+                </tr>
+
                 <tr>
                     <td>Comprimento do condutor (TC ao RELÉ):</td>
                     <td>
                         <div class="input-container"
                             style="display: flex; align-items: center; justify-content: flex-start;">
-                            <input id="input-comprimento-Condutor-TC-html" type="text" style="margin-right: 4px; text-align: left;">
-                            <span class="unidade">m</span>
+                            <input id="input-comprimento-Condutor-TC-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
                         </div>
                     </td>
-                    <td> <span id="label-especificacao-condutor-html">3 m</span> </td>
+                    <td> <span id="label-especificacao-condutor-html"></span> </td>
                 </tr>
                 <tr>
                     <td>Bitola do condutor (TC ao RELÉ):</td>
                     <td>
                         <div class="input-container"
                             style="display: flex; align-items: center; justify-content: flex-start;">
-                            <input id="input-bitola-Condutor-TC-html" type="text" style="margin-right: 4px; text-align: left;">
-                            <span class="unidade">mm²</span>
+                            <input id="input-bitola-Condutor-TC-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
                         </div>
                     </td>
-                    <td> <span id="label-especificacao-bitola-html">2,5 mm²</span> </td>
+                    <td> <span id="label-especificacao-bitola-html"></span> </td>
                 </tr>
                 <tr>
                     <td>Resistividade do condutor (TC ao RELÉ):</td>
                     <td>
                         <div class="input-container"
-                            style="display: flex; align-items: center; justify-content: flex-start;"></div>
-                        <input id="input-resistividade-Condutor-TC-html" type="text" style="margin-right: 4px; text-align: left;">
-                        <span class="unidade">Ω·mm²/m</span>
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-resistividade-Condutor-TC-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
                     </td>
-                    <td> <span id="label-especificacao-resistividade-html">0,0178 Ω·mm²/m</span> </td>
+                    <td> <span id="label-especificacao-resistividade-html"></span> </td>
                 </tr>
-        
-        
-        
-        <tr>
-            <td>Percenteual de Burden do TC:</td>
-            <td>
-                <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
-                </div>
-                <input id="input-percentual-burden-TC-html" type="text" style="margin-right: 4px; text-align: left;">
-                <span class="unidade">%</span>
-            </td>
-            <td> <span id="label-especificacao-percentual-burden-tc-html"></span> </td>
-        </tr>
-    
-    
-    
-    <tr>
-        <td>Potência do Relé:</td>
-        <td>
-            <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
-                <input id="input-potencia-rele-html" type="text" style="margin-right: 4px; text-align: left;">
-                <span class="unidade">VA</span>
-            </div>
-        </td>
-        <td> <span id="label-especificacao-potencia-rele-html">20 VA</span> </td>
-    </tr>
-    <tr>
-        <td>Tensão de Saturação Calculada:</td>
-        <td>
-            <div class="input-container" style="display: flex; align-items: center; justify-content: flex-start;">
-                <label id="label-tensao-saturacao-calculada-TC-html" type="text" style="margin-right: 4px; text-align: left;"></label>
-                <span class="unidade">V</span>
-            </div>
-        </td>
-    </tr>
-    </table>
+                <tr>
+                    <td>Potência monofásica bobina do Relé:</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-potencia-bobina-rele-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-potencia-bobina-rele-html"></span> </td>
+                </tr>
+                <tr>
+                    <td>Relação X/R do curto-circuito assimétrico no ponto (opcional):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-relacao-xr-curto-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-relacao-xr-curto-html"></span> </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="2">Especificação TC de proteção (ABNT NBR 6856:1992):</td>
+
+                    <td> <span id="label-especificacao-norma-antiga-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Z Burden do TC:</td>
+
+                    <td> <span id="label-burden-calculado-tc-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Impedância total da carga acoplada:</td>
+
+                    <td> <span id="label-impedancia-calculada-total-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tensão de saturação nominal:</td>
+
+                    <td> <span id="label-tensao-saturacao-nominal-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tensão de saturação Calculada:</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <label id="label-tensao-saturacao-calculada-TC-html"
+                                style="margin-right: 4px; text-align: left;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
 
 
 
 
+
+        </div>
+
+        <div id="notificacaodasaturacao"
+            style="display: flex; justify-content: center; align-items: center; margin-top: 16px;">
+
+            <label id="label-notificacao-saturacao-tc-html"
+                style="font-weight: bold; color: #000000; background-color: rgb(255, 255, 255); padding: 8px; border-radius: 8px;">
+                A tensão de saturação calculada é menor ou igual à nominal
+
+            </label>
+
+        </div>
 
     </div>
-
-    <div id="notificacaodasaturacao" style="display: flex; justify-content: center; align-items: center; margin-top: 16px;">
-        
-                    <label id="label-notificacao-saturacao-tc-html"
-                        style="font-weight: bold; color: #000000; background-color: rgb(255, 255, 255); padding: 8px; border-radius: 8px;">
-                        A tensão de saturação calculada é menor ou igual à nominal
-
-                    </label>
-   
-    </div>
-
-
 
 
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>

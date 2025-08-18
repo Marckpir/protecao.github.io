@@ -5,92 +5,96 @@
 
 
 
-let correnteFormatada = 0;
-let Ippercentual = 0;
-let Imagpercentual = 0;
-let curvafase = 0
-let dial = 0;
-let alfa1 = 0;
-let beta1 = 0;
-let k1 = 0;
-var tempomagfase = 0.1;
+// let correnteFormatada = 0;
+// let Ippercentual = 0;
+// let Imagpercentual = 0;
+// let curvafase = 0
+// let dial = 0;
+// let alfa1 = 0;
+// let beta1 = 0;
+// let k1 = 0;
+// var tempomagfase = 0.1;
 
-let inominalneutro = 0;
-let ipeutropercentual = 0;
-let imagpercentualneutro = 0;
-let curvaneutro = 0;
-let dial2 = 0;
-let alfa2 = 0;
-let beta2 = 0;
-let k2 = 0;
+// let inominalneutro = 0;
+// let ipeutropercentual = 0;
+// let imagpercentualneutro = 0;
+// let curvaneutro = 0;
+// let dial2 = 0;
+// let alfa2 = 0;
+// let beta2 = 0;
+// let k2 = 0;
 
 
-let ipneutro = 0;
-let imagneutro = 0;
-let Iinstneutro = 0;
+// let ipneutro = 0;
+// let imagneutro = 0;
+// let Iinstneutro = 0;
 
-var dial_calculado_planta = 0;
-var dial_calculado = 0;
+// var dial_calculado_planta = 0;
+// var dial_calculado = 0;
 
 // Importa statuslegenda do localStorage ou usa valor padrão
 var legenda = localStorage.getItem('statuslegenda') || 'none'; // Variável para controlar a exibição da legenda
 
 
-//Gravar todas as variaveis escrita no armazenamento do local storage
+//Gravar todas as variaveis escrita nos inputs do local storage
 
-function salvarOpcao() {
+async function salvarOpcao() {
 
+    const anguloFase = document.getElementById("angulofasehtml");
+    const anguloFaseSelecionadoGD = anguloFase.value;
+    localStorage.setItem("anguloFaseSelecionadoGD", anguloFaseSelecionadoGD);
 
     //Captura dos valores de fase dos campos preenchiveis do HTML 
     const IPpercentual = document.getElementById("IPpercentualhtml");
-    const IPpercentualSelecionadaGD = IPpercentual.value;
+    let IPpercentualSelecionadaGD = parseFloat(IPpercentual.value);
+    if (IPpercentualSelecionadaGD < 100) {
+        await validarPercentualMinimo(IPpercentualSelecionadaGD, "");
+        IPpercentualSelecionadaGD = 105;
+        IPpercentual.value = 105; // Atualiza o campo no HTML
+    }
+
+    localStorage.setItem("PercentualIPSelecionadaGD", IPpercentualSelecionadaGD);
 
     const curvafase = document.getElementById("tipodecurvahtml");
     const curvafaseSelecionadaGD = curvafase.value;
 
+    localStorage.setItem("curvafaseSelecionadaGD", curvafaseSelecionadaGD);
+
+
     const dialfase = document.getElementById("dialfasehtml");
     const dialfaseSelecionadaGD = dialfase.value;
 
-    // const imagfase = document.getElementById("imagpercentual");
-    // const imagpercentualSelecionadaGD = imagfase.value;
-
+    localStorage.setItem("dialfaseSelecionadaGD", dialfaseSelecionadaGD);
 
     //Captura dos valores de neutro dos campos preenchiveis do HTML 
+
+    const anguloNeutro = document.getElementById("anguloneutrohtml");
+    const anguloNeutroSelecionadoGD = anguloNeutro.value;
+    localStorage.setItem("anguloNeutroSelecionadoGD", anguloNeutroSelecionadoGD);
+
     const IPpercentualneutro = document.getElementById("IPpercentualneutrohtml");
-    const IPpercentualneutroSelecionadaGD = IPpercentualneutro.value;
+    let IPpercentualneutroSelecionadaGD = parseFloat(IPpercentualneutro.value);
+    if (IPpercentualneutroSelecionadaGD < 100) {
+        await validarPercentualMinimo(IPpercentualneutroSelecionadaGD, "");
+        IPpercentualneutroSelecionadaGD = 105;
+        IPpercentualneutro.value = 105; // Atualiza o campo no HTML
+    }
+
+    localStorage.setItem("PercentualIPneutroSelecionadaGD", IPpercentualneutroSelecionadaGD);
 
     const curvaneutro = document.getElementById("tipodecurvaneutrohtml");
     const curvaneutroSelecionadaGD = curvaneutro.value;
 
-    const dialneutro = document.getElementById("curvaneutrohtml");
+    localStorage.setItem("curvaneutroSelecionadaGD", curvaneutroSelecionadaGD);
+
+
+    const dialneutro = document.getElementById("dialneutrohtml");
     const dialneutroSelecionadaGD = dialneutro.value;
 
-
-
-
-
-    //armazenamento dos valores de fase no local storage
-    localStorage.setItem("PercentualIPSelecionadaGD", IPpercentualSelecionadaGD);
-    localStorage.setItem("curvafaseSelecionadaGD", curvafaseSelecionadaGD);
-    localStorage.setItem("dialfaseSelecionadaGD", dialfaseSelecionadaGD);
-
-
-
-
-    //armazenamento dos valores de neutro no local storage
-    localStorage.setItem("PercentualIPneutroSelecionadaGD", IPpercentualneutroSelecionadaGD);
-    localStorage.setItem("curvaneutroSelecionadaGD", curvaneutroSelecionadaGD);
     localStorage.setItem("dialneutroSelecionadaGD", dialneutroSelecionadaGD);
+
     //-----------------------------------------------------------------------------------------
-
-
     location.reload();//recarrega a página sempre que o botão é clicado
-
-
-
-
-
-
 }
 
 window.onload = function () {
@@ -106,77 +110,163 @@ window.onload = function () {
     }
     // -----------------manter o botão vermelho selecionado-------------------
 
-
-
-
-
-
-
-
     //Resgata todos os valores do html para as variaveis internas do js e salva nos campos HTML
-    const Inominalhtml = document.getElementById("Inominalhtml");
+    const anguloFase = document.getElementById("angulofasehtml");
+    // Recupera o valor do ângulo de fase do localStorage e atualiza o campo HTML
+    let anguloFaseArmazenada = parseFloat(localStorage.getItem("anguloFaseSelecionadoGD"));
+    if (anguloFaseArmazenada !== null && anguloFaseArmazenada !== undefined && anguloFaseArmazenada !== "" && !isNaN(anguloFaseArmazenada)) {
+        // let anguloFaseFloat = parseFloat(anguloFaseArmazenada);
+        anguloFase.value = anguloFaseArmazenada;
+    } else {
+        anguloFase.value = ""; // Valor padrão se não houver no localStorage
+    }
+
+
+    const AMTpadraofase = document.getElementById("AMTpadraofasehtml");
+    if (anguloFaseArmazenada !== null && anguloFaseArmazenada !== undefined && anguloFaseArmazenada !== "" && !isNaN(anguloFaseArmazenada)) {
+        AMTpadraofase.textContent = anguloFaseArmazenada + "°"; // Exibe o valor com o símbolo de grau
+    } else {
+        AMTpadraofase.textContent = "45°"; // Valor padrão se não houver no localStorage
+    }
+
+
     const IPpercentualhtml = document.getElementById("IPpercentualhtml");
-    const IPrealhtml = document.getElementById("IPrealhtml");
+    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionadaGD")) || 0;
+    if (Ippercentual !== null && Ippercentual !== undefined && Ippercentual !== "" && !isNaN(Ippercentual)) {
+        IPpercentualhtml.value = Ippercentual;
+    } else {
+        IPpercentualhtml.value = "105"; // Valor padrão se não houver no localStorage
+    }
+
+
     const tipodecurvahtml = document.getElementById("tipodecurvahtml");
+    const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionadaGD");
+    if (curvafaseArmazenada !== null && curvafaseArmazenada !== undefined && curvafaseArmazenada !== "") {
+        tipodecurvahtml.value = curvafaseArmazenada;
+    } else {
+        tipodecurvahtml.value = ""; // Valor padrão se não houver no localStorage
+    }
+
     const dialfasehtml = document.getElementById("dialfasehtml");
-    // const imagfase = document.getElementById("imagfase");
-    // const imagpercentual = document.getElementById("imagpercentual");
-    // const imagreal = document.getElementById("imagreal");
-    // const imagrealcalculada = document.getElementById("imagrealcalculadahtml");
-
-    // const imagsimuladahtml = document.getElementById("imagsimuladahtml");
-
-
+    const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionadaGD");
+    if (dialfaseArmazenada !== null && dialfaseArmazenada !== undefined && dialfaseArmazenada !== "") {
+        dialfasehtml.value = dialfaseArmazenada;
+    } else {
+        dialfasehtml.value = ""; // Valor padrão se não houver no localStorage
+    }
 
 
 
+    //--------------------- importar inputs do localstorage para o neutro
 
-    const inominalneutrohtml = document.getElementById("Inominalneutrohtml");
+
+
+    const anguloNeutro = document.getElementById("anguloneutrohtml");
+    let anguloNeutroArmazenada = parseFloat(localStorage.getItem("anguloNeutroSelecionadoGD"));
+    if (anguloNeutroArmazenada !== null && anguloNeutroArmazenada !== undefined && anguloNeutroArmazenada !== "" && !isNaN(anguloNeutroArmazenada)) {
+        anguloNeutro.value = anguloNeutroArmazenada;
+    } else {
+        anguloNeutro.value = ""; // Valor padrão se não houver no localStorage
+    }
+
+
+    const AMTpadraoneutro = document.getElementById("AMTpadraoneutrohtml");
+    if (anguloNeutroArmazenada !== null && anguloNeutroArmazenada !== undefined && anguloNeutroArmazenada !== "" && !isNaN(anguloNeutroArmazenada)) {
+        AMTpadraoneutro.textContent = anguloNeutroArmazenada + "°"; // Exibe o valor com o símbolo de grau
+    } else {
+        AMTpadraoneutro.textContent = "-110°"; // Valor padrão se não houver no localStorage
+    }
+
+
+
     const IPpercentualneutrohtml = document.getElementById("IPpercentualneutrohtml");
-    const IPrealneutrohtml = document.getElementById("IPrealneutrohtml");
+    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD")) || 0;
+    if (ipneutropercentualArmazenada !== null && ipneutropercentualArmazenada !== undefined && ipneutropercentualArmazenada !== "" && !isNaN(ipneutropercentualArmazenada)) {
+        IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
+    } else {
+        IPpercentualneutrohtml.value = "105"; // Valor padrão se não houver no localStorage
+    }
+
+
     const tipodecurvaneutrohtml = document.getElementById("tipodecurvaneutrohtml");
-    const curvaneutrohtml = document.getElementById("curvaneutrohtml");
-    // const Imagneutro = document.getElementById("Imagneutro");
-    // const Imagneutropercentual = document.getElementById("Imagneutropercentual");
-    // const Iinstneutrohtml = document.getElementById("Iinstneutrohtml");
+    const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionadaGD");
+    if (curvaneutroArmazenada !== null && curvaneutroArmazenada !== undefined && curvaneutroArmazenada !== "") {
+        tipodecurvaneutrohtml.value = curvaneutroArmazenada;
+    } else {
+        tipodecurvaneutrohtml.value = ""; // Valor padrão se não houver no localStorage
+    }
 
 
+    const dialneutrohtml = document.getElementById("dialneutrohtml");
+    const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionadaGD");
+    if (dialneutroArmazenada !== null && dialneutroArmazenada !== undefined && dialneutroArmazenada !== "") {
+        dialneutrohtml.value = dialneutroArmazenada;
+    } else {
+        dialneutrohtml.value = ""; // Valor padrão se não houver no localStorage
+    }
 
 
+    //calculos correntes de fase
     //Resgata todos os valores de fase do local storage para as variaveis internas do js e salva nos campos HTML
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
     const potenciaArmazenada = parseFloat(localStorage.getItem("demandaSelecionadaGD")) || 0;
     const fatorpArmazenada = parseFloat(localStorage.getItem("fatorPotenciaSelecionadaGD")) || 0;
-    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionadaGD")) || 0;
-    const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionadaGD");
-    const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionadaGD") || 0;
-    // const imagArmazenada = parseFloat(localStorage.getItem("imagtotalSelecionadaGD"));
-    // const imagpercentualArmazenada = parseFloat(localStorage.getItem("imagpercentualSelecionadaGD"));
-    // const imagsimuladaArmazenada = parseFloat(localStorage.getItem("imagsimuladaSelecionadaGD"));
-    // const imagrealcalculadaArmazenada = parseFloat(localStorage.getItem("inmagrealSelecionadaGD"));
-    // const ideffaseArmazenada = parseFloat(localStorage.getItem("ideffaseSelecionadaGD"));
-    // const tdeffaseArmazenada = parseFloat(localStorage.getItem("tdeffaseSelecionadaGD"));
-    // const imagresultanteArmazenada = parseFloat(localStorage.getItem("ImagresultanteGD"));
+    // const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionadaGD");
+    // const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionadaGD") || 0;
     const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
-
-
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada")) || 0;
     const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 0;
 
 
+    const correnteprimaria = parseFloat(localStorage.getItem("InominalfaseGD")) || 0;
+    console.log("correnteprimaria: ", correnteprimaria);
+
+    var correnteIP = correnteprimaria * (1 * Ippercentual / 100);
+    correnteFormatada = correnteIP;
+
+    localStorage.setItem("IpfaseGD", correnteFormatada);
+
+    const Inominalhtml = document.getElementById("Inominalhtml");
+    Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
+
+    const IPrealhtml = document.getElementById("IPrealhtml");
+    IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
+
+    // tipodecurvahtml.value = curvafaseArmazenada;
+
+    // dialfasehtml.value = dialfaseArmazenada;
+    
+
+
+    //calculos correntes de neutro
+    // const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD")) || 0;
+    // const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionadaGD");
+    // const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionadaGD") || 0;
+
+
+    //Calculo da  corrente nominal de neutro
+    inominalneutro = (correnteprimaria * (desequilibrio));
+    // Calculo da corrente IP de neutro somando a tolerancia a corrente nominal
+    ipneutro = inominalneutro * (1 * ipneutropercentualArmazenada / 100);
+    // Armazenando o valor de ipneutro no local storage
+    localStorage.setItem("IpdeneutroSelecionadaGD", ipneutro);
+    localStorage.setItem("InominalneutroGD", inominalneutro);
+
+
+
+    
+    const inominalneutrohtml = document.getElementById("Inominalneutrohtml");
+
+    const IPrealneutrohtml = document.getElementById("IPrealneutrohtml");
+
+
+
+
+
+
+
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML
-
-    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD")) || 0;
-    const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionadaGD");
-    const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionadaGD") || 0;
-    // const imagneutroArmazenada = parseFloat(localStorage.getItem("imagneutropercentualSelecionadaGD"));
-    // const idefneutroArmazenada = parseFloat(localStorage.getItem("idefneutroSelecionadaGD"));
-    // const tdefneutroArmazenada = parseFloat(localStorage.getItem("tdefneutroSelecionadaGD"));
-
-
-
-
-
+    // const anguloNeutroArmazenada = parseFloat(localStorage.getItem("anguloNeutroSelecionadoGD")) || 0;
 
 
 
@@ -184,73 +274,22 @@ window.onload = function () {
     // Calculo da  corrente IP de fase somando a tolerancia a corrente nominal
 
 
-    //var correnteprimaria = (potenciaArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada));
+
 
     //codigo novo
-    const correnteprimaria = parseFloat(localStorage.getItem("InominalfaseGD")) || 0;
-    console.log("correnteprimaria: ", correnteprimaria);
+
     //fim do codigo novo
 
 
-    //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
-    //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
-    // let correntedeconsumominima = 0;
-    // if (TCdeprotecaoSelecionada) {
-    //     correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
-    // }
-
-
-    // let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
-    // if (correnteprimaria < correntedeconsumominima) {
-    //     correnteprimaria = correntedeconsumominima;
-    //      inominalminimaTC = "Sim";  
-    // }else {
-    //     inominalminimaTC = "Não";
-    // }
-
-    // localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
-    // localStorage.setItem("correntedeconsumominima", correntedeconsumominima);
-
-    // console.log("correntedeconsumominima:", correntedeconsumominima, "inominalDemanda:", correnteprimaria);
-
     //-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
 
-    var correnteIP = correnteprimaria * (1 + Ippercentual / 100);
-    correnteFormatada = correnteIP;
 
 
-    localStorage.setItem("IpfaseGD", correnteFormatada);
 
-    //retornar isso aqui caso de ruim
-    //localStorage.setItem("Inominalfase", correnteprimaria);
-    //fim do codigo que foi comentado
 
-    // Calculo da  corrente instantanea de fase somando a tolerancia a corrente de magnetização nominal
 
-    // Calcula Imaginstantanea usando imagsimuladaArmazenada se houver, senão usa imagArmazenada
-    // var imagBase = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : imagArmazenada;
-    // var Imaginstantanea = imagBase * (1 + imagpercentualArmazenada / 100);
-    // imagtotalformatada = Imaginstantanea;
-    // localStorage.setItem("Instfaseconsumo", imagtotalformatada);
-    // localStorage.setItem("Imagresultante", imagBase);
 
-    //Calculo da  corrente nominal de neutro
-    inominalneutro = (correnteprimaria * (desequilibrio));
-    // Calculo da corrente IP de neutro somando a tolerancia a corrente nominal
-    ipneutro = inominalneutro * (1 + ipneutropercentualArmazenada / 100);
-    // Armazenando o valor de ipneutro no local storage
-    localStorage.setItem("IpdeneutroSelecionadaGD", ipneutro);
-    localStorage.setItem("InominalneutroGD", inominalneutro);
 
-    //  Calculo da  corrente de magnetização de neutro 
-    // imagneutro = imagBase * (desequilibrio)
-
-    // console.log("imagneutro: " + imagneutro);
-    // Calculo da  corrente instantanea de neutro somando a tolerancia a corrente de magnetização nominal
-    // Iinstneutro = imagneutro * (1 + imagneutroArmazenada / 100);
-    // console.log("inst neutro: " + Iinstneutro);
-    // // Armazenando o valor de Iinstneutro no local storage
-    // localStorage.setItem("IinstneutroSelecionada", Iinstneutro);
 
     //---------------------------------------------------------------------------------------
     //CACLULOS PARA VALORES DAS CORRENTE EM P.U
@@ -273,31 +312,23 @@ window.onload = function () {
 
     //alimenta todos os campos da tela com os valores do local storage diretamente no HTML
 
-    Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
-    IPpercentualhtml.value = Ippercentual;
-    IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
-    tipodecurvahtml.value = curvafaseArmazenada;
-    dialfasehtml.value = dialfaseArmazenada;
-    // imagfase.textContent = imagresultanteArmazenada.toFixed(2) + " A";
-    // imagpercentual.value = imagpercentualArmazenada;
-    // imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
-    // imagrealcalculada.textContent = imagrealcalculadaArmazenada.toFixed(2) + " A";
-    // imagsimuladahtml.value = imagsimuladaArmazenada;
-    // ideffasehtml.value = ideffaseArmazenada;
-    // tdeffasehtml.value = tdeffaseArmazenada;
 
+
+
+
+    // IPpercentualhtml.value = Ippercentual;
+
+
+
+
+
+    // anguloNeutro.value = anguloNeutroArmazenada.toFixed(2);
     inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
     IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
     IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
     tipodecurvaneutrohtml.value = curvaneutroArmazenada;
-    curvaneutrohtml.value = dialneutroArmazenada;
-    // Imagneutro.textContent = imagneutro.toFixed(2) + " A";
-    // Imagneutropercentual.value = imagneutroArmazenada;
-    // Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
-    // idefneutrohtml.value = idefneutroArmazenada;
-    // tdefneutrohtml.value = tdefneutroArmazenada;
+    dialneutrohtml.value = dialneutroArmazenada;
 
-    // ...existing code...
 
     //alimenta todos os campos da tela com os valores do local storage diretamente no HTML
 
@@ -314,20 +345,7 @@ window.onload = function () {
     // Validar dialfaseArmazenada
     dialfasehtml.value = (!isNaN(parseFloat(dialfaseArmazenada)) && dialfaseArmazenada !== null) ? dialfaseArmazenada : '';
 
-    // imagfase.textContent = (!isNaN(imagresultanteArmazenada) && imagresultanteArmazenada !== null) ? imagresultanteArmazenada.toFixed(2) + " A" : "0.00 A";
 
-    // Validar imagpercentualArmazenada
-    // imagpercentual.value = (!isNaN(imagpercentualArmazenada) && imagpercentualArmazenada !== null) ? imagpercentualArmazenada : 0;
-
-    // imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
-    // imagrealcalculada.textContent = (!isNaN(imagrealcalculadaArmazenada) && imagrealcalculadaArmazenada !== null) ? imagrealcalculadaArmazenada.toFixed(2) + " A" : "0.00 A";
-
-    // // Validar imagsimuladaArmazenada
-    // imagsimuladahtml.value = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : '';
-
-    // // Validar ideffaseArmazenada e tdeffaseArmazenada
-    // ideffasehtml.value = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada !== null) ? ideffaseArmazenada : '';
-    // tdeffasehtml.value = (!isNaN(tdeffaseArmazenada) && tdeffaseArmazenada !== null) ? tdeffaseArmazenada : '';
 
     inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
 
@@ -338,20 +356,9 @@ window.onload = function () {
     tipodecurvaneutrohtml.value = curvaneutroArmazenada || '';
 
     // Validar dialneutroArmazenada
-    curvaneutrohtml.value = (!isNaN(parseFloat(dialneutroArmazenada)) && dialneutroArmazenada !== null) ? dialneutroArmazenada : '';
+    dialneutrohtml.value = (!isNaN(parseFloat(dialneutroArmazenada)) && dialneutroArmazenada !== null) ? dialneutroArmazenada : '';
 
-    // Imagneutro.textContent = imagneutro.toFixed(2) + " A";
 
-    // // Validar imagneutroArmazenada
-    // Imagneutropercentual.value = (!isNaN(imagneutroArmazenada) && imagneutroArmazenada !== null) ? imagneutroArmazenada : 0;
-
-    // Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
-
-    // // Validar idefneutroArmazenada e tdefneutroArmazenada
-    // idefneutrohtml.value = (!isNaN(idefneutroArmazenada) && idefneutroArmazenada !== null) ? idefneutroArmazenada : '';
-    // tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !== null) ? tdefneutroArmazenada : '';
-
-    // ...existing code...
 
 
 
@@ -359,14 +366,12 @@ window.onload = function () {
     const ipPUhtml = document.getElementById("IpPUhtml");
     ipPUhtml.textContent = ipPU.toFixed(2) + " P.U";
 
-    // const iinstPUhtml = document.getElementById("iinstPUhtml");
-    // iinstPUhtml.textContent = iinstPU.toFixed(2) + " P.U";
+
 
     const ipneutroPUhtml = document.getElementById("ipneutroPUhtml");
     ipneutroPUhtml.textContent = ipneutroPU.toFixed(2) + " P.U";
 
-    // const iinstneutroPUhtml = document.getElementById("iinstneutroPUhtml");
-    // iinstneutroPUhtml.textContent = instneutroPU.toFixed(2) + " P.U";
+
 
     //----------------------------------------------atualização de valores na tela da tabela
     const pencentualIP = document.getElementById("IPpercentualhtml");
@@ -646,7 +651,7 @@ window.onload = function () {
                     showLine: false // só o ponto, sem linha
                 },
                 {
-                    label: 'I nominal fase' ,
+                    label: 'I nominal fase',
 
                     data: [
                         { x: correnteprimaria, y: 0.01 },
@@ -683,7 +688,7 @@ window.onload = function () {
                     showLine: true
                 },
                 {
-                    label: 'I Ip fase'+ (isNaN(ip1) ? '' : ' (' + ip1.toFixed(2) + ' A)'),
+                    label: 'I Ip fase' + (isNaN(ip1) ? '' : ' (' + ip1.toFixed(2) + ' A)'),
                     data: [{ x: ip1, y: 0.01 }],
                     backgroundColor: 'red',
                     borderColor: 'red',
@@ -702,324 +707,7 @@ window.onload = function () {
                     pointStyle: 'triangle',
                     showLine: false // só o ponto, sem linha
                 },
-                // {
-                //     label: 'I iinst fase',
-                //     data: [{ x: null, y: null }],
-                //     backgroundColor: 'red',
-                //     borderColor: 'red',
-                //     borderWidth: 2,
-                //     pointRadius: 4,
-                //     pointStyle: 'triangle',
-                //     showLine: false // só o ponto, sem linha
-                // },
-                // {
-                //     label: 'I inst neutro',
-                //     data: [{ x: null, y: null }],
-                //     backgroundColor: 'blue',
-                //     borderColor: 'blue',
-                //     borderWidth: 2,
-                //     pointRadius: 4,
-                //     pointStyle: 'triangle',
-                //     showLine: false // só o ponto, sem linha
-                // },
-                // {
-                //     label: 'I mag fase',
-                //     data: [{ x: null, y: null }],
-                //     backgroundColor: 'red',
-                //     borderColor: 'red',
-                //     borderWidth: 2,
-                //     pointRadius: 4,
-                //     pointStyle: 'circle',
-                //     showLine: false // só o ponto, sem linha
-                // },
-                // {
-                //     label: 'I mag neutro',
-                //     data: [{ x: null, y: null }],
-                //     backgroundColor: 'blue',
-                //     borderColor: 'blue',
-                //     borderWidth: 2,
-                //     pointRadius: 4,
-                //     pointStyle: 'circle',
-                //     showLine: false // só o ponto, sem linha
-                // },
-                // {
-                //     label: 'Partida motor+carga operante',
-                //     data: [{
-                //         x: null,
-                //         y: null
 
-                //     }],
-                //     backgroundColor: 'green',
-                //     borderColor: 'green',
-                //     borderWidth: 2,
-                //     pointRadius: 4,
-                //     pointStyle: 'rect',
-                //     showLine: false // só o ponto, sem linha
-                // },
-                // {
-                //     label: 'ICC Trifásica',
-                //     data: [{ x: null, y: null }],
-                //     backgroundColor: 'black',
-                //     borderColor: 'black',
-                //     borderWidth: 2,
-                //     pointRadius: 4,
-                //     pointStyle: 'star',
-                //     showLine: false // só o ponto, sem linha
-                // },
-                // // Linha pontilhada vertical de curtoArmazenada até y=1000
-                // {
-                //     label: 'Curto Circuito',
-                //     data: [
-                //         { x: null, y: null },
-                //         { x: null, y: null }
-                //     ],
-                //     borderColor: 'black',
-                //     borderWidth: 2,
-                //     borderDash: [10, 5],
-                //     pointRadius: 0,
-                //     fill: false,
-                //     showLine: true
-                // },
-                // I ANSI pontos
-                //                 {
-                //                     label: 'I ANSI 1',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'red',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 2',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'blue',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 3',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'green',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 4',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'purple',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 5',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'brown',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 6',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'pink',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 7',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'cyan',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 8',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'magenta',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 9',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'gray',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I ANSI 10',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'orange',
-                //                     borderColor: 'black',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'triangle',
-                //                     showLine: false
-                //                 },
-                //                 // I NANSI pontos
-                //                 {
-                //                     label: 'I NANSI 1',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'red',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 2',
-                //                     data: [
-                // { x: null, y: null }                    ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'blue',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 3',
-                //                     data: [
-                // { x: null, y: null }                    ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'green',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 4',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'purple',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 5',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'brown',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 6',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'pink',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 7',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'cyan',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 8',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'magenta',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 9',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'gray',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
-                //                 {
-                //                     label: 'I NANSI 10',
-                //                     data: [
-                //                         { x: null, y: null }
-                //                     ],
-                //                     backgroundColor: 'yellow',
-                //                     borderColor: 'black',
-                //                     borderWidth: 2,
-                //                     pointRadius: 5,
-                //                     pointStyle: 'rectRot',
-                //                     showLine: false
-                //                 },
 
 
             ]
@@ -1078,30 +766,7 @@ window.onload = function () {
         }
     });
 
-    // Salva a imagem do gráfico no localStorage
-    // setTimeout(() => {
-    //     try {
-    //         const graficoCanvas = document.getElementById('grafico');
-    //         const graficoImg = graficoCanvas.toDataURL('image/png');
-    //         localStorage.setItem('graficoImagem', graficoImg);
-    //     } catch (e) {
-    //         console.error('Erro ao salvar imagem do gráfico:', e);
-    //     }
-    // }, 500);
 
-    //Mantem exibindo o dial ideal no HTML 
-    // const dialIdealTag = document.getElementById("dialideal");
-
-
-
-    // calculadialideal();
-
-    // if (!isNaN(dial_calculado) && !isNaN(dial_calculado_planta)) {
-    //     let maiorDial = Math.max(dial_calculado, dial_calculado_planta);
-    //     if (dialIdealTag) {
-    //         dialIdealTag.textContent = maiorDial.toFixed(2);
-    //     }
-    // }
 
 
     // verificarAlertaPotMinima();
@@ -1154,16 +819,67 @@ function ativarLegendas() {
 // Chame a função ao carregar a página
 
 
+
+
+// Função para validar o percentual mínimo de 100% e exibir um alerta estilizado
+function validarPercentualMinimo(valor, mensagem) {
+    if (valor < 100) {
+        // Cria o alerta estilizado
+        const alerta = document.createElement("div");
+        alerta.textContent = mensagem || "O valor percentual não pode ser menor que 100%.";
+        alerta.style.position = "fixed";
+        alerta.style.top = "20px";
+        alerta.style.right = "-400px";
+        alerta.style.background = "linear-gradient(to left, #b6fcb6 80%, #fff 100%)";
+        alerta.style.color = "#222";
+        alerta.style.padding = "16px 32px";
+        alerta.style.borderRadius = "8px";
+        alerta.style.boxShadow = "0 2px 8px rgba(0,0,0,0.15)";
+        alerta.style.fontWeight = "bold";
+        alerta.style.fontSize = "1.1em";
+        alerta.style.zIndex = "9999";
+        alerta.style.transition = "right 0.5s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.5s";
+
+        document.body.appendChild(alerta);
+
+        setTimeout(() => {
+            alerta.style.right = "20px";
+        }, 50);
+
+        // Retorna uma Promise que resolve após o alerta sumir
+        return new Promise(resolve => {
+            setTimeout(() => {
+                alerta.style.right = "-400px";
+                alerta.style.opacity = "0";
+                setTimeout(() => {
+                    alerta.remove();
+                    resolve();
+                }, 500);
+            }, 2000);
+        });
+    }
+    // Se não precisar alertar, retorna Promise resolvida imediatamente
+    return Promise.resolve();
+}
+
+
+
+
+
+
+
+
+
 // Event listener para capturar Enter em qualquer lugar da página
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     // Verificar se a tecla pressionada é Enter (código 13 ou 'Enter')
     if (event.key === 'Enter' || event.keyCode === 13) {
         // Evitar comportamento padrão (submissão de formulário)
         event.preventDefault();
-        
+
         // Chamar a função salvar
         salvarOpcao();
-        
+
         console.log('✅ Salvamento ativado por Enter');
     }
 });

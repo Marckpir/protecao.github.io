@@ -14,6 +14,8 @@ window.onload = function () {
 
     //--persistir os valores ajustados no html
 
+    
+
     const numeroNSInput = document.getElementById("numeroNS");
     if (numeroNSInput) {
         const numeroNSSalvo = localStorage.getItem("numeroNS");
@@ -485,7 +487,112 @@ document.addEventListener('keydown', function (event) {
 });
 
 
+//---LOGICA PARA PREENCHER TABELA DA OPERAÇÃO--------------------------------------
 
+    const demandaContrato = parseFloat(localStorage.getItem("demandadecontrato"));
+    const dialdimensionado = parseFloat(localStorage.getItem("dialfaseSelecionada"));
+    const notaOperacao = document.getElementById("nota-operacao");
+    if (notaOperacao) {
+        if (demandaContrato < 1500 && dialdimensionado >= 1) {
+            let piscar = true;
+            setInterval(() => {
+                notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
+                piscar = !piscar;
+            }, 500);
+        } else if (demandaContrato >= 1500 && demandaContrato < 4000 && dialdimensionado >= 0.4) {
+            let piscar = true;
+            setInterval(() => {
+                notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
+                piscar = !piscar;
+            }, 500);
+        } else if (demandaContrato >= 4000 && dialdimensionado > 0.2) {
+            let piscar = true;
+            setInterval(() => {
+                notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
+                piscar = !piscar;
+            }, 500);
+        }
+    }
+
+                // in-operacao
+                // alimentador-operacao
+                // tensao-operacao
+                
+                // ip51-operacao
+                // curva-operacao
+                // dial-operacao
+                // iinst50-operacao
+                
+                // ip51n-operacao
+                // tempodefinido-operacao
+                // iinst50n-operacao
+
+
+
+                const inOperacao = document.getElementById("in-operacao");
+                const inGemini = localStorage.getItem("INgemini");
+                if (inOperacao && inGemini) {
+                    inOperacao.textContent = inGemini;
+                }
+
+
+                const alimentadorOperacao = document.getElementById("alimentador-operacao");
+                const alimentadorGemini = localStorage.getItem("alimentadorgemini");
+                if (alimentadorOperacao && alimentadorGemini) {
+                    alimentadorOperacao.textContent = alimentadorGemini;
+                }
+
+
+                const tensaoOperacao = document.getElementById("tensao-operacao");
+                const tensaoSelecionada = localStorage.getItem("tensaoSelecionada");
+                if (tensaoOperacao && tensaoSelecionada) {
+                    tensaoOperacao.textContent = tensaoSelecionada + " KV";
+                }
+                
+                const ip51Operacao = document.getElementById("ip51-operacao");
+                const ipDeConsumo = parseFloat(localStorage.getItem("Ipdeconsumo"));
+                if (ip51Operacao && ipDeConsumo) {
+                    ip51Operacao.textContent = ipDeConsumo.toFixed(2) + " A";
+                }
+
+
+                const curvaOperacao = document.getElementById("curva-operacao");
+                const curvaFaseSelecionada = localStorage.getItem("curvafaseSelecionada");
+                if (curvaOperacao && curvaFaseSelecionada) {
+                    curvaOperacao.textContent = curvaFaseSelecionada;
+                }
+
+
+                const dialOperacao = document.getElementById("dial-operacao");
+                const dialFaseSelecionada = localStorage.getItem("dialfaseSelecionada");
+                if (dialOperacao && dialFaseSelecionada) {
+                    dialOperacao.textContent = dialFaseSelecionada;
+                }
+
+                const iinst50Operacao = document.getElementById("iinst50-operacao");
+                const instFaseConsumo = localStorage.getItem("Instfaseconsumo");
+                if (iinst50Operacao && instFaseConsumo) {
+                    iinst50Operacao.textContent = instFaseConsumo + " A";
+                }
+
+                const ip51nOperacao = document.getElementById("ip51n-operacao");
+                const ipDeNeutro = parseFloat(localStorage.getItem("IpdeneutroSelecionada"));
+                if (ip51nOperacao && ipDeNeutro) {
+                    ip51nOperacao.textContent = ipDeNeutro.toFixed(2) + " A";
+                }
+
+
+                const tempodefinidoOperacao = document.getElementById("tempodefinido-operacao");
+                const dialNeutroSelecionada = localStorage.getItem("dialneutroSelecionada");
+                if (tempodefinidoOperacao && dialNeutroSelecionada) {
+                    tempodefinidoOperacao.textContent = dialNeutroSelecionada + " s";
+                }
+
+                const iinst50nOperacao = document.getElementById("iinst50n-operacao");
+                const instNeutroSelecionada = localStorage.getItem("IinstneutroSelecionada");
+                if (iinst50nOperacao && instNeutroSelecionada) {
+                    iinst50nOperacao.textContent = instNeutroSelecionada + " A";
+                }
 
 
 

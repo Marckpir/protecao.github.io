@@ -88,28 +88,28 @@ window.onload = function () {
 
     // Sensibilidade Superior de Tensão Ajustada
     const sensibilidadeSuperiorTensaoAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-%-html");
-    const valorSensibilidadeSuperiorTensao = localStorage.getItem("sensibilidadeSuperiorTensao");
+    const valorSensibilidadeSuperiorTensao = localStorage.getItem("sensibilidadeSuperiorTensao") || "90";
     if (sensibilidadeSuperiorTensaoAjustadaHtml && valorSensibilidadeSuperiorTensao !== null && valorSensibilidadeSuperiorTensao !== "") {
         sensibilidadeSuperiorTensaoAjustadaHtml.textContent = valorSensibilidadeSuperiorTensao + " %";
     }
 
     // Sensibilidade Inferior de Tensão Ajustada
     const sensibilidadeInferiorTensaoAjustadaHtml = document.getElementById("sensibilidade-inferior-tensao-%-html");
-    const valorSensibilidadeInferiorTensao = localStorage.getItem("sensibilidadeInferiorTensao");
+    const valorSensibilidadeInferiorTensao = localStorage.getItem("sensibilidadeInferiorTensao") || "81";
     if (sensibilidadeInferiorTensaoAjustadaHtml && valorSensibilidadeInferiorTensao !== null && valorSensibilidadeInferiorTensao !== "") {
         sensibilidadeInferiorTensaoAjustadaHtml.textContent = valorSensibilidadeInferiorTensao + " %";
     }
 
     // Sensibilidade Superior de Corrente Ajustada
     const sensibilidadeSuperiorCorrenteAjustadaHtml = document.getElementById("sensibilidade-superior-corrente-%-html");
-    const valorSensibilidadeSuperiorCorrente = localStorage.getItem("sensibilidadeSuperiorCorrente");
+    const valorSensibilidadeSuperiorCorrente = localStorage.getItem("sensibilidadeSuperiorCorrente") || "100";
     if (sensibilidadeSuperiorCorrenteAjustadaHtml && valorSensibilidadeSuperiorCorrente !== null && valorSensibilidadeSuperiorCorrente !== "") {
         sensibilidadeSuperiorCorrenteAjustadaHtml.textContent = valorSensibilidadeSuperiorCorrente + " %";
     }
 
     // Sensibilidade Inferior de Corrente Ajustada
     const sensibilidadeInferiorCorrenteAjustadaHtml = document.getElementById("sensibilidade-inferior-corrente-%-html");
-    const valorSensibilidadeInferiorCorrente = localStorage.getItem("sensibilidadeInferiorCorrente");
+    const valorSensibilidadeInferiorCorrente = localStorage.getItem("sensibilidadeInferiorCorrente") || "25";
     if (sensibilidadeInferiorCorrenteAjustadaHtml && valorSensibilidadeInferiorCorrente !== null && valorSensibilidadeInferiorCorrente !== "") {
         sensibilidadeInferiorCorrenteAjustadaHtml.textContent = valorSensibilidadeInferiorCorrente + " %";
     }
@@ -205,10 +205,10 @@ function calcularSensibilidades() {
     const ipDeConsumo = parseFloat(localStorage.getItem("Ipdeconsumo")) || 0;
     const maiorIp = Math.max(ipFaseGD, ipDeConsumo);
 
-    const sensibilidadeSuperiorCorrente = localStorage.getItem("sensibilidadeSuperiorCorrente");
-    const sensibilidadeInferiorCorrente = localStorage.getItem("sensibilidadeInferiorCorrente");
-    const sensibilidadeSuperiorTensao = localStorage.getItem("sensibilidadeSuperiorTensao");
-    const sensibilidadeInferiorTensao = localStorage.getItem("sensibilidadeInferiorTensao");
+    const sensibilidadeSuperiorCorrente = localStorage.getItem("sensibilidadeSuperiorCorrente") || 100;
+    const sensibilidadeInferiorCorrente = localStorage.getItem("sensibilidadeInferiorCorrente") || 25;
+    const sensibilidadeSuperiorTensao = localStorage.getItem("sensibilidadeSuperiorTensao") || 90;
+    const sensibilidadeInferiorTensao = localStorage.getItem("sensibilidadeInferiorTensao") || 81;
     const tensaoPrimariaFF = localStorage.getItem("tensaoprimariaFF");
     const tensaoPrimariaFN = localStorage.getItem("tensaoprimariaFN");
     const tensaoSecundariaFFTP = localStorage.getItem("tensaoSecundariaFFTP");
