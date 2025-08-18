@@ -570,9 +570,9 @@ document.addEventListener('keydown', function (event) {
                 }
 
                 const iinst50Operacao = document.getElementById("iinst50-operacao");
-                const instFaseConsumo = localStorage.getItem("Instfaseconsumo");
+                const instFaseConsumo = parseFloat(localStorage.getItem("Instfaseconsumo"));
                 if (iinst50Operacao && instFaseConsumo) {
-                    iinst50Operacao.textContent = instFaseConsumo + " A";
+                    iinst50Operacao.textContent = instFaseConsumo.toFixed(2) + " A";
                 }
 
                 const ip51nOperacao = document.getElementById("ip51n-operacao");
@@ -589,9 +589,9 @@ document.addEventListener('keydown', function (event) {
                 }
 
                 const iinst50nOperacao = document.getElementById("iinst50n-operacao");
-                const instNeutroSelecionada = localStorage.getItem("IinstneutroSelecionada");
+                const instNeutroSelecionada = parseFloat(localStorage.getItem("IinstneutroSelecionada"));
                 if (iinst50nOperacao && instNeutroSelecionada) {
-                    iinst50nOperacao.textContent = instNeutroSelecionada + " A";
+                    iinst50nOperacao.textContent = instNeutroSelecionada.toFixed(2) + " A";
                 }
 
 
