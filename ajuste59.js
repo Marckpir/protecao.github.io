@@ -140,6 +140,12 @@ window.onload = function () {
         }
     }
 
+
+    const tempoEstagioHtml = document.getElementById("sensibilidade-superior-tempo-estagios-ajustada-html");
+    if (tempoEstagioHtml) {
+        tempoEstagioHtml.textContent = (ajusteTempoSubtensao !== null && ajusteTempoSubtensao !== "" ? ajusteTempoSubtensao : "3") + " s";
+    }
+
     // Segundo estágio
     const ajustePuSubtensao2 = localStorage.getItem("ajustemanual81Osegundoestagio");
     const elementosPu2 = document.getElementsByClassName("ajuste-pu-subtensao-automatica-2");
@@ -165,6 +171,10 @@ window.onload = function () {
         }
     }
 
+    const tempoEstagioHtml2 = document.getElementById("sensibilidade-superior-tempo-estagios-ajustada-html-2");
+    if (tempoEstagioHtml2) {
+        tempoEstagioHtml2.textContent = (ajusteTempoSubtensao2 !== null && ajusteTempoSubtensao2 !== "" ? ajusteTempoSubtensao2 : "0.5") + " s";
+    }
 
     calcularSensibilidades();
 

@@ -530,21 +530,21 @@ document.addEventListener('keydown', function (event) {
 
 
                 const inOperacao = document.getElementById("in-operacao");
-                const inGemini = localStorage.getItem("INgemini");
-                if (inOperacao && inGemini) {
-                    inOperacao.textContent = inGemini;
+                const UCgemini = localStorage.getItem("UCgemini");
+                if (inOperacao && UCgemini) {
+                    inOperacao.textContent = UCgemini;
                 }
 
 
                 const alimentadorOperacao = document.getElementById("alimentador-operacao");
-                const alimentadorGemini = localStorage.getItem("alimentadorgemini");
+                const alimentadorGemini = localStorage.getItem("ALIMENTADORgemini");
                 if (alimentadorOperacao && alimentadorGemini) {
                     alimentadorOperacao.textContent = alimentadorGemini;
                 }
 
 
                 const tensaoOperacao = document.getElementById("tensao-operacao");
-                const tensaoSelecionada = localStorage.getItem("tensaoSelecionada");
+                const tensaoSelecionada = localStorage.getItem("TENSAOgemini");
                 if (tensaoOperacao && tensaoSelecionada) {
                     tensaoOperacao.textContent = tensaoSelecionada + " KV";
                 }

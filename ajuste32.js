@@ -23,7 +23,7 @@ window.onload = function () {
 
 
     //preencher campos do html com os valores do localStorage para injeção
-    const potenciaGDSelecionada = localStorage.getItem("potenciaGDSelecionada");
+    const potenciaGDSelecionada = localStorage.getItem("potenciaGDSelecionada") || 0; // Valor padrão de 0 se não estiver definido
     if (potenciaGDSelecionada !== null) {
         const potenciaNominalElem = document.getElementById("potencia-nominal-injecao-html");
         if (potenciaNominalElem) {
@@ -127,7 +127,7 @@ async function salvarOpcao() {
 function calcularfuncoes32() {
 
     // Importa o valor de "demandaInjecao" do localStorage
-    const demandaInjecao = parseFloat(localStorage.getItem("potenciaGDSelecionada"));
+    const demandaInjecao = parseFloat(localStorage.getItem("potenciaGDSelecionada")) || 0;
     console.log("Demanda de Injeção importada do localStorage:", demandaInjecao);
 
     const toleranciaInjecao = parseFloat(document.getElementById("tolerancia-injecao-html").value) || 105;
@@ -159,7 +159,7 @@ function calcularfuncoes32() {
 
 
     // Importa o valor de "demandaSelecionada" do localStorage
-    const demandaConsumo = parseFloat(localStorage.getItem("demandaSelecionada"));
+    const demandaConsumo = parseFloat(localStorage.getItem("demandaSelecionada")) || 0;
     console.log("Demanda de Consumo importada do localStorage:", demandaConsumo);
 
     const toleranciaConsumo = parseFloat(document.getElementById("tolerancia-consumo-html").value) || 105;

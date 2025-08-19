@@ -90,7 +90,7 @@ window.onload = function () {
     const subfreqTempo1 = document.getElementById("subfrequencia-tempo-html-1");
     if (subfreqTempo1) {
         const tempoSalvo1 = localStorage.getItem("ajustemanual81Utempo1");
-        subfreqTempo1.textContent = tempoSalvo1 !== null && tempoSalvo1 !== "" ? tempoSalvo1 : "0.20";
+        subfreqTempo1.textContent = tempoSalvo1 !== null && tempoSalvo1 !== "" ? tempoSalvo1 + " s" : "0.20 s";
     }
 
     localStorage.setItem("ajustereal81Utempo1", subfreqTempo1.textContent);
@@ -98,14 +98,14 @@ window.onload = function () {
     const subfreqTempo2 = document.getElementById("subfrequencia-tempo-html-2");
     if (subfreqTempo2) {
         const tempoSalvo2 = localStorage.getItem("ajustemanual81Utempo2");
-        subfreqTempo2.textContent = tempoSalvo2 !== null && tempoSalvo2 !== "" ? tempoSalvo2 : "5.50";
+        subfreqTempo2.textContent = tempoSalvo2 !== null && tempoSalvo2 !== "" ? tempoSalvo2 + " s" : "5.50 s";
     }
     localStorage.setItem("ajustereal81Utempo2", subfreqTempo2.textContent);
 
     const subfreqTempo3 = document.getElementById("subfrequencia-tempo-html-3");
     if (subfreqTempo3) {
         const tempoSalvo3 = localStorage.getItem("ajustemanual81Utempo3");
-        subfreqTempo3.textContent = tempoSalvo3 !== null && tempoSalvo3 !== "" ? tempoSalvo3 : "20.50";
+        subfreqTempo3.textContent = tempoSalvo3 !== null && tempoSalvo3 !== "" ? tempoSalvo3 + " s" : "20.50 s";
     }
     localStorage.setItem("ajustereal81Utempo3", subfreqTempo3.textContent);
 
@@ -157,13 +157,13 @@ window.onload = function () {
     const sobrefreqTempo1 = document.getElementById("sobrefrequencia-tempo-html-1");
     if (sobrefreqTempo1) {
         const tempoSobrefreq1 = localStorage.getItem("ajustemanual81Otempo1");
-        sobrefreqTempo1.textContent = tempoSobrefreq1 !== null && tempoSobrefreq1 !== "" ? tempoSobrefreq1 : "10.50";
+        sobrefreqTempo1.textContent = tempoSobrefreq1 !== null && tempoSobrefreq1 !== "" ? tempoSobrefreq1 + " s" : "10.50 s";
     }
     localStorage.setItem("ajustereal81Otempo1", sobrefreqTempo1.textContent);
     const sobrefreqTempo2 = document.getElementById("sobrefrequencia-tempo-html-2");
     if (sobrefreqTempo2) {
         const tempoSobrefreq2 = localStorage.getItem("ajustemanual81Otempo2");
-        sobrefreqTempo2.textContent = tempoSobrefreq2 !== null && tempoSobrefreq2 !== "" ? tempoSobrefreq2 : "0.20";
+        sobrefreqTempo2.textContent = tempoSobrefreq2 !== null && tempoSobrefreq2 !== "" ? tempoSobrefreq2 + " s" : "0.20 s";
     }
     localStorage.setItem("ajustereal81Otempo2", sobrefreqTempo2.textContent);
 
