@@ -754,6 +754,15 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    // Preencher campo ip-neutro com IpneutroSelecionada
+    const ipNeutroSelecionada = localStorage.getItem('IpdeneutroSelecionada');
+    const ipNeutroEls = document.querySelectorAll('.ip-neutro');
+    ipNeutroEls.forEach(el => {
+        if (ipNeutroSelecionada !== null && !isNaN(ipNeutroSelecionada)) {
+            el.textContent = parseFloat(ipNeutroSelecionada).toFixed(2) + ' A';
+        }
+    });
+
     // Preencher campo in-neutro-PU com ipneutroPUSelecionada
     const ipneutroPUSelecionada = localStorage.getItem('ipneutroPUSelecionada');
     const inNeutroPuEls = document.querySelectorAll('.ip-neutro-PU');

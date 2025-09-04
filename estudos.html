@@ -256,7 +256,7 @@
 
                 <textarea
                         style="width: 210mm; min-height: 80px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
-        Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente de carga ao sistema, incluindo dados elétricos, cálculos dimensionamentos, ajustes das proteções e plotagem de gráficos.
+        Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente de carga ao sistema, incluindo dados elétricos, cálculos, dimensionamentos, ajustes das proteções no relé e plotagem de gráficos.
                 </textarea>
         </div>
 
@@ -1460,13 +1460,13 @@
         <div class="calculosfuncoes">
 
                 <h3>1º Estágio - 51 N (Sobrecorrente de Neutro Temporizado)</h3>
-                <span>Ipn= Ip fase x Desequilíbrio(%)</span><br><br>
-                <span>Ipn=</span>
+                <span>Ip<sub>Neutro</sub>= Ip fase x Desequilíbrio(%)</span><br><br>
+                <span>Ip<sub>Neutro</sub>=</span>
                 <span class="ip-partida-resultado"></span> x
                 <span class="Desequelibrio-neutro"> </span><br><br>
 
-                <span>Ipn=</span>
-                <span class="in-neutro"></span><br><br>
+                <span>Ip<sub>Neutro</sub>=</span>
+                <span class="ip-neutro"></span><br><br>
 
 
 
@@ -1479,7 +1479,7 @@
                 <span>Ip<sub>Neutro</sub>P.U =</span>
 
                 <span style="display:inline-block; vertical-align:middle;">
-                        <span class="in-neutro" style="display:block; text-align:center;"></span>
+                        <span class="ip-neutro" style="display:block; text-align:center;"></span>
                         <span class=tc-especificacao-valor
                                 style="border-top:1px solid; display:block; text-align:center;"></span>
                 </span><br>
@@ -1651,7 +1651,7 @@
                         </tr>
                         <tr>
                                 <td>Corrente de pick-up</td>
-                                <td class="in-neutro"></td>
+                                <td class="ip-neutro"></td>
                                 <td class="ip-neutro-PU"></td>
                         </tr>
                         <tr>

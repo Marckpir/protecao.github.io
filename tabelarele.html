@@ -87,6 +87,7 @@
                                 <option value="20-SCHNEIDER-SEPAM-S20">20-SCHNEIDER-SEPAM-S20</option>
                                 <option value="21-ABB-REF-610">21-ABB-REF-610</option>
                                 <option value="22-SCHNEIDER-P1">22-SCHNEIDER-P1</option>
+                                <option value="23-SCHNEIDER-SEPAM-S40">23-SCHNEIDER-SEPAM-S40</option>
 
                         </select>
                 </div>
@@ -5499,7 +5500,249 @@ ajuste-instneutro-pu
                 </table>
         </div>
 
-        <div id="23-tabelareserva" class="tabela">
+        <div id="23-SCHNEIDER-SEPAM-S40" class="tabela">
+                <table border='1' style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th colspan="5" style="text-align:center;">SCHNEIDER SEPAM S40</th>
+                                </tr>
+                                <tr>
+                                        <th style="width: 12%;">Código ANSI</th>
+                                        <th style="width: 18%;">Software</th>
+                                        <th style="width: 38%;">Descritivo</th>
+                                        <th style="width: 18%;">Faixa de Ajuste</th>
+                                        <th style="width: 14%;">Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <!-- <tr>
+                                <th colspan="5" style="background:#eee;">PARÂMETROS DA INSTALAÇÃO</th>
+                        </tr> -->
+                                <tr>
+                                        <td rowspan="8">PARÂMETROS DA INSTALAÇÃO</td>
+                                        <td>Network frequency</td>
+                                        <td>Frequência Nominal</td>
+                                        <td>50/60 Hz</td>
+                                        <td class="ajuste">60 Hz</td>
+                                </tr>
+                                <tr>
+                                        <td>Number of CTs</td>
+                                        <td>Quantidade de TCs</td>
+                                        <td>Ia,Ic/Ia,Ib,Ic</td>
+                                        <td class="ajuste">Ia,Ib,Ic</td>
+                                </tr>
+                                <tr>
+                                        <td>Rated primary current (IN)</td>
+                                        <td>Corrente nominal primária TC de fase</td>
+                                        <td>1...6250 A</td>
+                                        <td class="ajuste-tc-protecao"></td>
+                                </tr>
+                                <tr>
+                                        <td>Rated secondary current</td>
+                                        <td>Corrente nominal secundária do TC de fase</td>
+                                        <td>5A CT/1A CT/LPCT</td>
+                                        <td class="ajuste">5</td>
+                                </tr>
+                                <tr>
+                                        <td>Base current (IB)</td>
+                                        <td>Corrente base nominal primária do TC</td>
+                                        <td>20...130 A</td>
+                                        <td class="ajuste-tc-protecao"></td>
+                                </tr>
+                                <tr>
+                                        <td>Rated primary voltage (VLLp)</td>
+                                        <td>Tensão nomial primária do TP de proteção</td>
+                                        <td>220 V .... 250 KV</td>
+                                        <td class="ajuste-tensao-primaria"></td>
+                                </tr>
+                                <tr>
+                                        <td>Rated secondary voltage (VLLs)</td>
+                                        <td>Tensão nomial secundária do TP de proteção</td>
+                                        <td>90...230 V</td>
+                                        <td class="ajuste-tensao-secundaria-ff-tp"></td>
+                                </tr>
+                                <tr>
+                                        <td>VT connection type</td>
+                                        <td>Tipo de conexão dos TPs</td>
+                                        <td>Vab/ Vab,Vbc/Van,Vbn,Vcn</td>
+                                        <td class="ajuste">Vab</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="5" style="background-color:#454e45; color:white;">50/51 : Phase
+                                                overcurrent</th>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente temporizada de fase (ANSI 51)</td>
+                                        <td rowspan="3">Element 1<br>I&gt;51</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primerio estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do primeiro
+                                                elemento de sobrecorrente de fase</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do primeiro estágio
+                                                do elemento de sobrecorrente de fase</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 1</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste-curva-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de fase elemento 1</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-ip-pu">0.10</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de fase elemento 1</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste-dt-fase">0.1</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente Instantanea de fase (ANSI 50)</td>
+                                        <td rowspan="3">Element 2<br>I&gt;&gt;51</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de fase instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do segundo
+                                                elemento de sobrecorrente de fase instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do segundo estágio do
+                                                elemento de sobrecorrente de fase instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 2</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste">Definite Time</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de fase elemento 2</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-iinst-pu">0.10</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de fase elemento 2</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste">0.10</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="5" style="background-color:#454e45; color:white;">50N/51N : Ground
+                                                fault</th>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente temporizada de neutro (ANSI 51N)</td>
+                                        <td rowspan="3">Element 1<br>Io&gt;51N</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primerio estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do primeiro
+                                                elemento de sobrecorrente de neutro</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do primeiro estágio
+                                                do elemento de sobrecorrente de neutro</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 1</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste">Definite Time</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de neutro elemento 1</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-ipneutro-pu">0.10</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de neutro elemento 1</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste-dt-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente Instantanea de neutro (ANSI 50N)</td>
+                                        <td rowspan="3">Element 2<br>Io&gt;&gt;51N</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de neutro instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do segundo
+                                                elemento de sobrecorrente de neutro instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do segundo estágio do
+                                                elemento de sobrecorrente de neutro instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td class="ajuste">Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 2</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td class="ajuste">Definite Time</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de neutro elemento 2</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td class="ajuste-instneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de neutro elemento 2</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td class="ajuste">0</td>
+                                </tr>
+                               
+                        </tbody>
+                </table>
+        </div>
+
+
+
+        <div id="24-tabelareserva" class="tabela">
 
         </div>
 
