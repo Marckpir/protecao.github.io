@@ -215,7 +215,7 @@ window.onload = function () {
     const potenciaBaseSelecionada = localStorage.getItem("potenciabase");
     let potenciaBaseElement = document.getElementById("potenciabasehtml");
     if (potenciaBaseElement) {
-        potenciaBaseElement.textContent = potenciaBaseSelecionada !== null ? potenciaBaseSelecionada + " kW" : "";
+        potenciaBaseElement.textContent = potenciaBaseSelecionada !== null ? potenciaBaseSelecionada + " kVA" : "";
     }
 
 
@@ -522,33 +522,11 @@ function dimensionarTCconformenorma() {
     const demandaSelecionada = parseFloat(localStorage.getItem("demandadecontrato")) || 0;
     const potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDSelecionada")) || 0;
     //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
-    const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0;
-    const fatorPotenciaGDSelecionada = parseFloat(localStorage.getItem("fatorPotenciaGDSelecionada")) || 0;
-    const desequilibrioSelecionada = localStorage.getItem("desequilibrioSelecionada") || 0;
+    const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0.92;
+    const fatorPotenciaGDSelecionada = parseFloat(localStorage.getItem("fatorPotenciaGDSelecionada")) || 0.92;
+    const desequilibrioSelecionada = localStorage.getItem("desequilibrioSelecionada") || 33;
     const curtoSelecionada = localStorage.getItem("curtoSelecionada") || 0;
     const instmagconsumo1 = localStorage.getItem("imagtotalSelecionada") || 0;
-
-
-
-    // //-----------------------------------------------------------------------------------------
-    // const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
-    // const TPdeprotecaoSelecionada = TPdeprotecao.value;
-    // localStorage.setItem("TPdeprotecaoSelecionada", TPdeprotecaoSelecionada);
-
-    // //-----------------------------------------------------------------------------------------
-    // const ligacaoBobina = document.getElementById("ligacaodabobinahtml");
-    // const ligacaoBobinaSelecionada = ligacaoBobina.value;
-    // localStorage.setItem("ligacaodabobinaSelecionada", ligacaoBobinaSelecionada);
-
-    // //-----------------------------------------------------------------------------------------
-    // const RTPauxiliar = document.getElementById("RTPauxiliarhtml");
-    // const RTPauxiliarSelecionada = RTPauxiliar.value;
-    // localStorage.setItem("RTPauxiliarSelecionada", RTPauxiliarSelecionada);
-
-    // //-----------------------------------------------------------------------------------------
-
-
-
 
 
     //---------------------------Codigo para definir o TC Ideal---------------------------------------------------------------
@@ -556,7 +534,7 @@ function dimensionarTCconformenorma() {
     // Cria um array com os valores possíveis de TC
     // Esses valores são os valores nominais dos transformadores de corrente
     const valoresTC = [
-        5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100,
+        5, 10, 15, 20, 25, 30, 40, 50, 75, 100,
         150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000
     ];
 

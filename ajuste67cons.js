@@ -209,7 +209,7 @@ window.onload = function () {
 
 
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada"));
-    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada"));
+    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 0.33;
 
 
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML

@@ -17,13 +17,22 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
     const fatorPotencia = document.getElementById("fatorPotencia");
+    if (!fatorPotencia || fatorPotencia.value === "" || isNaN(fatorPotencia.value) || fatorPotencia.value <= 0) {
+        fatorPotencia.value = 92; // Valor padrão se o campo estiver vazio
+    }
     const fatorPotenciaSelecionada = fatorPotencia.value / 100;
     localStorage.setItem("fatorPotenciaSelecionada", fatorPotenciaSelecionada);
 
+
     //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
+    if (!desequilibrio || desequilibrio.value === "" || isNaN(desequilibrio.value) || desequilibrio.value <= 0) {
+        desequilibrio.value = 33; // Valor padrão se o campo estiver vazio
+    }
     const desequilibrioSelecionada = desequilibrio.value / 100;
     localStorage.setItem("desequilibrioSelecionada", desequilibrioSelecionada);
+
+    console.log("Desequilibrio selecionada:", desequilibrioSelecionada); // Debug: verificar valor de desequilibrioSelecionada
 
     //-----------------------------------------------------------------------------------------
 
@@ -33,6 +42,9 @@ function salvarOpcao() {
     //-----------------------------------------------------------------------------------------
 
     const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
+    if (!fatorPotenciaGD || fatorPotenciaGD.value === "" || isNaN(fatorPotenciaGD.value) || fatorPotenciaGD.value <= 0) {
+        fatorPotenciaGD.value = 92; // Valor padrão se o campo estiver vazio
+    }
     const fatorPotenciaGDSelecionada = fatorPotenciaGD.value / 100;
     localStorage.setItem("fatorPotenciaGDSelecionada", fatorPotenciaGDSelecionada);
 
@@ -69,223 +81,13 @@ function salvarOpcao() {
 
 
     //-----------------------------------------------------------------------------------------
-    // const TCdeprotecao = document.getElementById("tcdeProtecao");
-    // const TCdeprotecaoSelecionada = TCdeprotecao.value;
-    // localStorage.setItem("TCdeprotecaoSelecionada", TCdeprotecaoSelecionada);
-
-    //calucla TC em kA para o rele SEG
-    // const TCdeprotecaoSelecionadaemka = (TCdeprotecaoSelecionada / 1000).toFixed(3);
-    // localStorage.setItem("TCdeprotecaoSelecionadaemka", TCdeprotecaoSelecionadaemka);
-
-    //-----------------------------------------------------------------------------------------
-    // const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
-    // const TPdeprotecaoSelecionada = TPdeprotecao.value;
-    // localStorage.setItem("TPdeprotecaoSelecionada", TPdeprotecaoSelecionada);
-
-    //-----------------------------------------------------------------------------------------
-    // const ligacaoBobina = document.getElementById("ligacaodabobinahtml");
-    // const ligacaoBobinaSelecionada = ligacaoBobina.value;
-    // localStorage.setItem("ligacaodabobinaSelecionada", ligacaoBobinaSelecionada);
-
-    //-----------------------------------------------------------------------------------------
-    // const RTPauxiliar = document.getElementById("RTPauxiliarhtml");
-    // const RTPauxiliarSelecionada = RTPauxiliar.value;
-    // localStorage.setItem("RTPauxiliarSelecionada", RTPauxiliarSelecionada);
-
-    //-----------------------------------------------------------------------------------------
-
-
-
-
-    // Codigo para definir o TC Ideal
-
-    // Cria um array com os valores possíveis de TC
-    // Esses valores são os valores nominais dos transformadores de corrente
-    // const valoresTC = [
-    //     15, 20, 25, 30, 35, 40, 50, 75, 100,
-    //     150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000
-    // ];
-
-    // calcula o valor de corrente nominal de consumo
-    // let inominalDemanda = 0;
-    // inominalDemanda = (demandaSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada));
-
-    // faz a divisão do valor da corrente de curto por 50 para comparar com os valores do array
-    // let iprimTccurto = curtoSelecionada / 50;
-
-    // Recupera a corrente instantanea de magnetização selecionada do localStorage para comparar com os valores do array
-    // let instMagconsumo = localStorage.getItem("Instfaseconsumo") / 20;
-
-    // Converte os valores para números calculados nesse escopo para numeros flutuantes
-    // let iprimTccurtoNum = parseFloat(iprimTccurto);
-    // let instMagconsumoNum = parseFloat(instMagconsumo);
-    // let inominalDemandaNum = parseFloat(inominalDemanda);
-    // let RTCselecionado = parseFloat(TCdeprotecaoSelecionada) / 5;
-
-
-    // Busca o maior valor em valoresTC que atenda todos os critérios
-    // let valorTCSelecionado = null;
-    // for (let i = 0; i < valoresTC.length; i++) {
-    //     const valor = valoresTC[i];
-    //     if (
-    //         valor >= inominalDemandaNum * 1.05 &&
-    //         valor >= iprimTccurtoNum &&
-    //         valor >= instMagconsumoNum
-    //     ) {
-    //         valorTCSelecionado = valor; // pega o menor possível dentro da condição
-    //         break; // para no primeiro (menor) que atende
-    //     }
-
-    // }
-
-    //Calcula a potência mínima referente a 10% do TC ideal
-
-    // let potenciaMinima = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada;
-
-
-    // Armazena o valor selecionado no localStorage
-    // if (valorTCSelecionado !== null) {
-    //     localStorage.setItem("valorTCideal", valorTCSelecionado);
-
-    // } else {
-
-    //     localStorage.removeItem("valorTCideal");
-    // }
-
-    // localStorage.setItem("RTCselecionado", RTCselecionado);
-
-    //Armazena Potencia minima do primário do TC no localStorage
-    // localStorage.setItem("potenciaMinimaSelecionada", potenciaMinima.toFixed(2));
-    // ----------------------------------------------------------------------
-    // ------------------------fim calculos dos TCs-----------------------------------------------
-
-
-    //-----calcular potencia base para calculos de P.U --------------------
-
-    // const potenciabase = (tensaoSelecionada * Math.sqrt(3) * TCdeprotecaoSelecionada).toFixed(2); // Potência base em kVA
-
-
-    // localStorage.setItem("potenciabase", potenciabase); // Armazena a potência base no localStorage
-
-
-    //-------------FIM DOS CALCULOS DE POTENCIA BASE PARA CALCULOS DE P.U --------------------
-
-
-    //-----------------------------------------------------------------------------------------
-    //Calcular as tensões secundárias do TP auxiliar
-
-    // let tensaoSecundariaTPauxiliar = 0;
-    // if (RTPauxiliarSelecionada) {
-    //     tensaoSecundariaTPauxiliar = (tensaoSelecionada * 1000 / RTPauxiliarSelecionada);
-    // }
-
-    // Armazena a tensão secundária do TP auxiliar no localStorage
-    // localStorage.setItem("tensaoSecundariaTPauxiliar", tensaoSecundariaTPauxiliar.toFixed(2));
-
-    // fim dos calculos do TP auxiliar
-    //-----------------------------------------------------------------------------------------
-
-
-
-    //-----------------------------------------------------------------------------------------
-    // Calcular as tensoes secundárias do TP de proteção
-
-    // let tensaoprimariaFN;
-    // let tensaoprimariaFF;
-    // let tensaoSecundariaFNTP;
-    // let tensaoSecundariaFFTP;
-    // if (!TPdeprotecaoSelecionada) {
-
-    //     tensaoSecundariaFNTP = 0;
-    //     tensaoSecundariaFFTP = 0;
-    // } else if (ligacaoBobinaSelecionada === "Estrela-Estrela") {
-    //     tensaoprimariaFN = tensaoSelecionada * 1000 / Math.sqrt(3);
-    //     tensaoprimariaFF = tensaoSelecionada * 1000;
-
-    //     tensaoSecundariaFNTP = tensaoprimariaFN / TPdeprotecaoSelecionada;
-    //     tensaoSecundariaFFTP = tensaoSecundariaFNTP * Math.sqrt(3);
-    // } else if (ligacaoBobinaSelecionada === "Triangulo-Estrela") {
-    //     tensaoprimariaFN = tensaoSelecionada * 1000;
-    //     tensaoprimariaFF = tensaoSelecionada * 1000;
-
-    //     tensaoSecundariaFNTP = tensaoprimariaFN / TPdeprotecaoSelecionada;
-    //     tensaoSecundariaFFTP = tensaoSecundariaFNTP * Math.sqrt(3);
-    // } else {
-    //     tensaoSecundariaFNTP = 0;
-    //     tensaoSecundariaFFTP = 0;
-    // }
-
-    // Armazena a tensão secundária do TP de proteção no localStorage
-    // localStorage.setItem("tensaoSecundariaFFTP", tensaoSecundariaFFTP.toFixed(2));
-
-    // // Armazena a tensão primária fase-neutro no localStorage
-    // localStorage.setItem("tensaoprimariaFN", tensaoprimariaFN ? tensaoprimariaFN.toFixed(2) : "0");
-
-    // // Armazena a tensão primária fase-fase no localStorage
-    // localStorage.setItem("tensaoprimariaFF", tensaoprimariaFF ? tensaoprimariaFF.toFixed(2) : "0");
-
-    // // Armazena a tensão secundária do TP de neutro no localStorage
-    // localStorage.setItem("tensaoSecundariaFNTP", tensaoSecundariaFNTP.toFixed(2));
-
-    // //compara potencia minima com a demanda selecionada, se a demanda for menor que a potencia minima 
-    // //então uma variavel armazena a potencia selecionada e a potencia minima é salva no localStorage
-    // if (demandaSelecionada < potenciaMinima) {
-    //     localStorage.setItem("demandaSelecionada", potenciaMinima.toFixed(2));
-    // localStorage.setItem("demandadecontrato", demandaSelecionada);
-
-    // } else {
-    //     localStorage.setItem("demandaSelecionada", demandaSelecionada);
-    //     localStorage.setItem("demandadecontrato", demandaSelecionada);
-    // }
-
-    //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
-    //veifica se inominalDemanda é menor que 10% da corrente de primario do TC de proteção se for o valor é substituido por 10% do TC de proteção
-    // let correntedeconsumominima = 0;
-    // if (TCdeprotecaoSelecionada) {
-    //     correntedeconsumominima = TCdeprotecaoSelecionada * 0.1; // Corrente mínima de consumo em A
-    // }
-
-
-    // let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
-    // if (inominalDemanda < correntedeconsumominima) {
-    //     inominalDemanda = correntedeconsumominima;
-    //      inominalminimaTC = "Sim";  
-    // }else {
-    //     inominalminimaTC = "Não";
-    // }
-
-    // localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
-    // localStorage.setItem("correntedeconsumominima", correntedeconsumominima.toFixed(2));
-    // localStorage.setItem("Inominalfase", inominalDemanda.toFixed(2));
-
-    // console.log("correntedeconsumominima:", correntedeconsumominima.toFixed(2), "inominalDemanda:", (inominalDemanda.toFixed(2)));
-
-    //-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
-
-
-
-    // console.log("tensaoSelecionada:", tensaoSelecionada);
-    // console.log("demandaSelecionada:", demandaSelecionada);
-    // console.log("fatorPotenciaSelecionada:", fatorPotenciaSelecionada);
-    // console.log("desequilibrioSelecionada:", desequilibrioSelecionada);
-    // console.log("curtoSelecionada:", curtoSelecionada);
-    // console.log("inominalDemanda:", inominalDemanda);
-    // console.log("iprimTccurto:", iprimTccurto);
-    // console.log("instMagconsumo:", instMagconsumo);
-    // console.log("iprimTccurtoNum:", iprimTccurtoNum);
-    // console.log("instMagconsumoNum:", instMagconsumoNum);
-    // console.log("inominalDemandaNum:", inominalDemandaNum);
-    // console.log("valorTCSelecionado:", valorTCSelecionado);
-    // console.log("tensaoSecundariaTPauxiliar:", tensaoSecundariaTPauxiliar);
-    // console.log("tensaoSecundariaFFTP:", tensaoSecundariaFFTP);
-    // console.log("tensaoSecundariaFNTP:", tensaoSecundariaFNTP);
-    // console.log("tensaoprimariaFN:", tensaoprimariaFN);
+ 
 
 
     //Armazenar informações de input do gerador no formato JSON e armazenar no local storage
     const potenciagerador = document.getElementById("potenciageradorhtml")?.value || "";
-    const fatorpotenciagerador = document.getElementById("fatorpotenciageradorhtml")?.value || "";
-    const toleranciagerador = document.getElementById("toleranciageradorhtml")?.value || "";
+    const fatorpotenciagerador = document.getElementById("fatorpotenciageradorhtml")?.value || 80;
+    const toleranciagerador = document.getElementById("toleranciageradorhtml")?.value || 5;
 
     const gerador = {
         potencia: potenciagerador,
@@ -340,7 +142,7 @@ window.onload = function () {
     }
     //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
-    const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada");
+    const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada") || 33;
     if (desequilibrioSalva) {
         desequilibrio.value = desequilibrioSalva * 100;
     }
@@ -351,7 +153,7 @@ window.onload = function () {
         potenciaGD.value = potenciaGDSalva;
     }
     //-----------------------------------------------------------------------------------------
-    const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
+    const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml") || 92;
     const fatorPotenciaGDSalva = localStorage.getItem("fatorPotenciaGDSelecionada");
     if (fatorPotenciaGDSalva) {
         fatorPotenciaGD.value = fatorPotenciaGDSalva * 100;

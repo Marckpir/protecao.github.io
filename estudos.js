@@ -489,8 +489,12 @@ function carregarVariaveisEstudo() {
     ipPartidaNumeradorEls.forEach(el => {
         if (demandacalculada !== null && !isNaN(demandacalculada)) {
             // Interpolação: mostra demanda + incremento percentual
-            const incremento = (parseFloat(demandacalculada) * parseFloat(percentualIP) / 100);
-            el.textContent = `${demandacalculada} + ${incremento.toFixed(2)}`;
+            const incremento = parseFloat((percentualIP) / 100);
+            el.textContent = `${demandacalculada} * ${incremento.toFixed(2)}`;
+
+            //             const incremento = (parseFloat(demandacalculada) * parseFloat(percentualIP) / 100);
+            // el.textContent = `${demandacalculada} + ${incremento.toFixed(2)}`;
+            
         }
     });
 
@@ -498,8 +502,8 @@ function carregarVariaveisEstudo() {
     const ipPartidaNumeradorTCEls = document.querySelectorAll('.ip-partida-numerador-TC');
     ipPartidaNumeradorTCEls.forEach(el => {
         if (demandadecontrato !== null && !isNaN(demandadecontrato)) {
-            const incremento = (parseFloat(demandadecontrato) * parseFloat(percentualIP) / 100);
-            el.textContent = `${demandadecontrato} + ${incremento.toFixed(2)}`;
+            const incremento = parseFloat((percentualIP) / 100);
+            el.textContent = `${demandadecontrato} * ${incremento.toFixed(2)}`;
         }
     });
 
@@ -530,7 +534,7 @@ function carregarVariaveisEstudo() {
     });
 
     // Preencher campo ip-partida-resultado-TC considerando IpdeconsumoTC
-    const ipDeConsumoTC = demandadecontrato * (1 + (parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
+    const ipDeConsumoTC = demandadecontrato * ((parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
 
     console.log('fatorPotencia:', fatorPotencia); // Debug: verificar valor de fatorPotencia
     console.log('tensaoAtendimento:', tensaoAtendimento); // Debug: verificar valor de tensaoAtendimento
@@ -713,8 +717,8 @@ function carregarVariaveisEstudo() {
     const valorToleranciaImagEls = document.querySelectorAll('.valor-torlerancia-imag');
     valorToleranciaImagEls.forEach(el => {
         if (imagTotal !== null && !isNaN(imagTotal) && imagPercentualSelecionada !== null && !isNaN(imagPercentualSelecionada)) {
-            const valor = ((imagTotal * parseFloat(imagPercentualSelecionada)) / 100);
-            el.textContent = '+ ' + valor.toFixed(2) + ' A';
+            const valor = parseFloat((imagPercentualSelecionada) / 100);
+            el.textContent = '* ' + valor.toFixed(2);
         }
     });
 
@@ -738,6 +742,7 @@ function carregarVariaveisEstudo() {
 
     // Preencher campo Desequelibrio-neutro com desequilibrioSelecionada
     const desequilibrioSelecionada = localStorage.getItem('desequilibrioSelecionada');
+    console.log('desequilibrioSelecionada:', desequilibrioSelecionada); // Debug: verificar valor de desequilibrioSelecionada
     const desequilibrioNeutroEls = document.querySelectorAll('.Desequelibrio-neutro');
     desequilibrioNeutroEls.forEach(el => {
         if (desequilibrioSelecionada !== null && !isNaN(desequilibrioSelecionada)) {

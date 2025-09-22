@@ -26,6 +26,37 @@ function importadadoslocalstorage() {
 }
 
 
+function carregarAssuntos() {
+    const seletor = document.getElementById("seletorTabela");
+    if (!seletor) return;
+
+    seletor.innerHTML = "";
+
+    const tabelas = document.querySelectorAll(".tabela");
+
+    // Valor de referência do número (24)
+    const numeroReferencia = 100;
+
+    // Verifica se existe valor em potenciaGDSelecionada no localStorage
+    const potenciaGD = localStorage.getItem('potenciaGDSelecionada');
+    const filtrar24 = potenciaGD !== null && potenciaGD !== undefined && potenciaGD !== "";
+
+    tabelas.forEach(tabela => {
+        // Extrai número do final do id da tabela (ex: "tabela24", "tabela25" etc)
+        let match = tabela.id.match(/(\d+)/);
+        let numero = match ? parseInt(match[1], 10) : 0;
+
+        // Se filtrar24, mostra tabelas com número >= 24
+        // Se NÃO filtrar24, mostra tabelas com número < 24
+        if ((filtrar24 && numero >= numeroReferencia) || (!filtrar24 && numero < numeroReferencia)) {
+            let nome = tabela.querySelector("h2") ? tabela.querySelector("h2").textContent : tabela.id;
+            let option = document.createElement("option");
+            option.value = tabela.id;
+            option.textContent = nome;
+            seletor.appendChild(option);
+        }
+    });
+}
 
 
 window.onload = function () {
@@ -34,7 +65,7 @@ window.onload = function () {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
 
-
+    carregarAssuntos();
     importadadoslocalstorage(); // Chama a função para importar as variáveis do localStorage
 
 
@@ -193,7 +224,7 @@ window.onload = function () {
         { nome: "7sr5111", valor: 0.05 },
         { nome: "sel751", valor: 0.05 },
         { nome: "remp32", valor: 1.2 },
-        
+
 
     ];
     if (statusFuncao32 === "Desabilitado") {
@@ -274,21 +305,21 @@ window.onload = function () {
         }
     });
 
-   
+
 
     // Novo trecho para potencia-reversa-gerador-sepams42 minima 
     document.querySelectorAll('.potencia-reversa-gerador-sepams42').forEach(function (el) {
         let minimo = valoresminimos.find(v => v.nome === "sepams42").valor;
-        let valorminimo = (minimo/100) * (potenciabase*1000);
-    
+        let valorminimo = (minimo / 100) * (potenciabase * 1000);
+
 
         if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
             if (potenciaReversaGerador < valorminimo) {
                 el.textContent = minimo.toFixed(2) + " % Sn (Minímo)";
-                
+
             } else {
-                el.textContent = (1*(potenciaReversaGerador/(potenciabase*1000))).toFixed(2) + " % Sn";
-                
+                el.textContent = (1 * (potenciaReversaGerador / (potenciabase * 1000))).toFixed(2) + " % Sn";
+
             }
         }
     });
@@ -322,14 +353,14 @@ window.onload = function () {
     // Novo trecho para potencia-reversa-gerador-p3u30 minima 
     document.querySelectorAll('.potencia-reversa-gerador-p3u30').forEach(function (el) {
         let minimo = valoresminimos.find(v => v.nome === "p3u30").valor;
-        let valorminimo = (minimo/100) * (potenciabase*1000);
+        let valorminimo = (minimo / 100) * (potenciabase * 1000);
         console.log("minimo:", minimo, "valorminimo:", valorminimo, "potenciabase:", potenciabase);
         if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined && valorAjusteTp !== undefined && valorAjusteTc !== undefined) {
             if (potenciaReversaGerador < valorminimo) {
                 el.textContent = minimo.toFixed(2) + " % Sn (Minímo)";
                 console.log("potenciaReversaGerador:", potenciaReversaGerador, "valorminimo:", valorminimo);
             } else {
-                el.textContent = (1*(potenciaReversaGerador/potenciabase)).toFixed(2) + " % Sn";
+                el.textContent = (1 * (potenciaReversaGerador / potenciabase)).toFixed(2) + " % Sn";
                 console.log("potenciaReversaGerador:", potenciaReversaGerador, "valorminimo:", valorminimo);
 
             }
