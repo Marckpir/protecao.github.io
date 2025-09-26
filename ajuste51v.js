@@ -254,6 +254,21 @@ function calcularSensibilidades() {
         tensaoSecundariaLinhaAjustadaHtml.textContent = tensaoSecundariaLinhaAjustada.toFixed(2) + " V";
     }
 
+    // exportar para o localstorage os valores ajustados de tensão
+    localStorage.setItem("tensaoPrimariaFaseAjustada51v", tensaoPrimariaFaseAjustada.toFixed(2));
+    localStorage.setItem("tensaoPrimariaLinhaAjustada51v", tensaoPrimariaLinhaAjustada.toFixed(2));
+    localStorage.setItem("tensaoSecundariaFaseAjustada51v", tensaoSecundariaFaseAjustada.toFixed(2));
+    localStorage.setItem("tensaoSecundariaLinhaAjustada51v", tensaoSecundariaLinhaAjustada.toFixed(2));
+
+
+
+    //exibir no console os valores ajustados de tensão
+    console.log("Tensão Primária Fase Ajustada: " + tensaoPrimariaFaseAjustada.toFixed(2) + " V");
+    console.log("Tensão Primária Linha Ajustada: " + tensaoPrimariaLinhaAjustada.toFixed(2) + " V");
+    console.log("Tensão Secundária Fase Ajustada: " + tensaoSecundariaFaseAjustada.toFixed(2) + " V");
+    console.log("Tensão Secundária Linha Ajustada: " + tensaoSecundariaLinhaAjustada.toFixed(2) + " V");
+
+
 }
 
 

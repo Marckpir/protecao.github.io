@@ -205,7 +205,7 @@ window.onload = function () {
     //     correnteoperantelabel.textContent = correnteoperantearmazenada.toFixed(2) + " A";
     // }
 
-    console.log("corrente que esta no lstorage",correnteoperantearmazenada);
+    //console.log("corrente que esta no lstorage",correnteoperantearmazenada);
 
     
 }

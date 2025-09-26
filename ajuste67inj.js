@@ -89,7 +89,20 @@ async function salvarOpcao() {
 
 
     const dialneutro = document.getElementById("dialneutrohtml");
-    const dialneutroSelecionadaGD = dialneutro.value;
+    let dialneutroSelecionadaGD = dialneutro.value;
+    if (!dialneutroSelecionadaGD || isNaN(parseFloat(dialneutroSelecionadaGD))) {
+        dialneutroSelecionadaGD = 5;
+        dialneutro.value = 5;
+    }
+    // Validação: dialneutro deve estar entre 5 e 9
+    if (parseFloat(dialneutroSelecionadaGD) < 5 || parseFloat(dialneutroSelecionadaGD) > 9) {
+        await validarPercentualMinimo(
+            0,
+            "O valor do dial neutro deve estar entre 5 e 9."
+        );
+        dialneutroSelecionadaGD = 5;
+        dialneutro.value = 5;
+    }
 
     localStorage.setItem("dialneutroSelecionadaGD", dialneutroSelecionadaGD);
 

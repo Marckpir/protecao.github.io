@@ -1,9 +1,9 @@
 
-
-
-
-
-
+//listar nome de todas a variaveis do localStorage
+const listarVariaveisLocalStorage = () => {
+    const variaveis = Object.keys(localStorage);
+    console.log("Variáveis do localStorage:", variaveis);
+};
 
 
 
@@ -115,14 +115,15 @@ window.onload = function () {
     const tensaoPrimariaFaseValor = tensaoPrimariaFaseHtml ? parseFloat(tensaoPrimariaFaseHtml.textContent) : 0;
     const tensaoPrimariaFaseAjustadaValor = (tensaoPrimariaFaseValor * valorDesequilibrioDimensionado / 100).toFixed(2);
     tensaoPrimariaFaseAjustada.textContent = tensaoPrimariaFaseAjustadaValor + " V";
-
-
-
+    
+    localStorage.setItem("tensaoPrimariaFaseAjustada25", tensaoPrimariaFaseAjustadaValor);
 
     const tensaoSecundariaFasecalculada = document.getElementById("tensao-ajustada-secundaria-linha-html");
     const tensaoSecundariaFase = tensaoSecundariaLinhaHtml ? parseFloat(tensaoSecundariaLinhaHtml.textContent) : 0;
     const tensaoSecundariaFaseCalculada = (tensaoSecundariaFase * valorDesequilibrioDimensionado / 100).toFixed(2);
     tensaoSecundariaFasecalculada.textContent = tensaoSecundariaFaseCalculada + " V";
+
+    
 
     // Calcular e preencher para tensao-ajustada-secundaria-fase-html
     const tensaoSecundariaFaseAjustada = document.getElementById("tensao-ajustada-secundaria-fase-html");

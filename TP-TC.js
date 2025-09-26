@@ -520,7 +520,7 @@ function dimensionarTCconformenorma() {
     const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoEscolhido")) || 0; // Valor padrão de TC de proteção
     const tensaoSelecionada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
     const demandaSelecionada = parseFloat(localStorage.getItem("demandadecontrato")) || 0;
-    const potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDSelecionada")) || 0;
+    const potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDcontratada")) || 0;
     //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
     const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0.92;
     const fatorPotenciaGDSelecionada = parseFloat(localStorage.getItem("fatorPotenciaGDSelecionada")) || 0.92;
@@ -720,6 +720,18 @@ function dimensionarTCconformenorma() {
     } else {
         localStorage.setItem("demandaSelecionada", demandaSelecionada);
         localStorage.setItem("demandadecontrato", demandaSelecionada);
+    }
+
+        //compara potencia de GD minima com a POTENCIA DE GD selecionada, se a demanda selecionada for menor que a potencia minima 
+    //então uma variavel armazena a potencia selecionada que sera demanda GD de contrato e a potencia minima é salva no localStorage
+
+    if (potenciaGDSelecionada < potenciaMinima) {
+        localStorage.setItem("potenciaGDSelecionada", potenciaMinima.toFixed(2));
+        localStorage.setItem("potenciaGDcontratada", potenciaGDSelecionada);
+
+    } else {
+        localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
+        localStorage.setItem("potenciaGDcontratada", potenciaGDSelecionada);
     }
 
     //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------

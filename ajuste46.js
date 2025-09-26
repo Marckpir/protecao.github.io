@@ -151,7 +151,9 @@ window.onload = function () {
 
 
 
-
+    //exportar ip46real e idef46real para o localStorage
+    
+    localStorage.setItem("Idef46real", idef46real);
 
 
 }

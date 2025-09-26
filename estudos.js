@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     carregarVariaveisEstudo();
 
-    incluirimagensrele();
+    //incluirimagensrele();
 
 
 });
@@ -536,11 +536,11 @@ function carregarVariaveisEstudo() {
     // Preencher campo ip-partida-resultado-TC considerando IpdeconsumoTC
     const ipDeConsumoTC = demandadecontrato * ((parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
 
-    console.log('fatorPotencia:', fatorPotencia); // Debug: verificar valor de fatorPotencia
-    console.log('tensaoAtendimento:', tensaoAtendimento); // Debug: verificar valor de tensaoAtendimento
-    console.log('percentualIP:', percentualIP); // Debug: verificar valor de percentualIP
-    console.log('demandadecontrato:', demandadecontrato); // Debug: verificar valor de demandadecontrato
-    console.log('ipDeConsumoTC:', ipDeConsumoTC); // Debug: verificar valor de ipDeConsumoTC
+    // console.log('fatorPotencia:', fatorPotencia); // Debug: verificar valor de fatorPotencia
+    // console.log('tensaoAtendimento:', tensaoAtendimento); // Debug: verificar valor de tensaoAtendimento
+    // console.log('percentualIP:', percentualIP); // Debug: verificar valor de percentualIP
+    // console.log('demandadecontrato:', demandadecontrato); // Debug: verificar valor de demandadecontrato
+    // console.log('ipDeConsumoTC:', ipDeConsumoTC); // Debug: verificar valor de ipDeConsumoTC
     const ipPartidaResultadoTCEls = document.querySelectorAll('.ip-partida-resultado-TC');
     ipPartidaResultadoTCEls.forEach(el => {
         if (ipDeConsumoTC !== null && !isNaN(ipDeConsumoTC)) {
@@ -742,11 +742,11 @@ function carregarVariaveisEstudo() {
 
     // Preencher campo Desequelibrio-neutro com desequilibrioSelecionada
     const desequilibrioSelecionada = localStorage.getItem('desequilibrioSelecionada');
-    console.log('desequilibrioSelecionada:', desequilibrioSelecionada); // Debug: verificar valor de desequilibrioSelecionada
+    // console.log('desequilibrioSelecionada:', desequilibrioSelecionada); // Debug: verificar valor de desequilibrioSelecionada
     const desequilibrioNeutroEls = document.querySelectorAll('.Desequelibrio-neutro');
     desequilibrioNeutroEls.forEach(el => {
         if (desequilibrioSelecionada !== null && !isNaN(desequilibrioSelecionada)) {
-            el.textContent = desequilibrioSelecionada + ' %';
+            el.textContent = desequilibrioSelecionada*100 + ' %';
         }
     });
 
@@ -796,7 +796,7 @@ function carregarVariaveisEstudo() {
         }
     });
 
-    console.log(instNeutroSelecionada);
+    // console.log(instNeutroSelecionada);
 
 
     const instneutroPUSelecionada = localStorage.getItem('instneutroPUSelecionada');
@@ -884,7 +884,7 @@ function carregarVariaveisEstudo() {
         geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== null && !isNaN(geradorSalvo.fatorpotencia) && geradorSalvo.fatorpotencia !== "" &&
         geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== null && !isNaN(geradorSalvo.tolerancia) && geradorSalvo.tolerancia !== ""
     ) {
-        console.log('sim');
+        // console.log('sim');
         // Habilitar elementos relacionados ao gerador a diesel
         habilitaGeradorEls.forEach(el => {
             el.style.display = '';
@@ -895,7 +895,7 @@ function carregarVariaveisEstudo() {
         habilitaGeradorEls.forEach(el => {
             el.style.display = 'none';
         });
-        console.log('não');
+        // console.log('não');
     }
     // FIM DE PREENCHEMENTO GERADOR A DIESEL----------------------------------------
 
@@ -1171,46 +1171,30 @@ function adicionarEstilosTabelaParametrizacaoReles() {
 // Chame a função ao carregar a página
 document.addEventListener('DOMContentLoaded', adicionarEstilosTabelaParametrizacaoReles);
 
-function incluirimagensrele() {
-    const imageInput = document.getElementById("imageInput");
-    const gallery = document.getElementById("gallery");
-    const clearButton = document.getElementById("clearButton");
 
-    // Limpa a galeria antes de exibir a imagem selecionada
+document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.getElementById("gallery");
+    if (!gallery) return;
+
     gallery.innerHTML = "";
 
-    // Exibe apenas a imagemSelecionada do localStorage (se existir)
+    // Exibe a imagem salva no localStorage (se existir)
     const imagemSelecionada = localStorage.getItem("imagemSelecionada");
     if (imagemSelecionada) {
         const img = document.createElement("img");
         img.src = imagemSelecionada;
+        img.style.maxWidth = "100%";
+        img.style.height = "auto";
         gallery.appendChild(img);
     }
-
-    // Permite trocar a imagemSelecionada ao enviar nova imagem
-    imageInput.addEventListener("change", () => {
-        const files = Array.from(imageInput.files);
-        if (files.length > 0) {
-            const file = files[0];
-            const reader = new FileReader();
-            reader.onload = e => {
-                const dataURL = e.target.result;
-                localStorage.setItem("imagemSelecionada", dataURL);
-                gallery.innerHTML = "";
-                const img = document.createElement("img");
-                img.src = dataURL;
-                gallery.appendChild(img);
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+});
 
     // Limpa a imagemSelecionada e a galeria
-    clearButton.addEventListener("click", () => {
-        localStorage.removeItem("imagemSelecionada");
-        gallery.innerHTML = "";
-    });
-}
+    // clearButton.addEventListener("click", () => {
+    //     localStorage.removeItem("imagemSelecionada");
+    //     gallery.innerHTML = "";
+    // });
+
 
 
 function exibirCorrenteMinimaSeNecessario() {
@@ -1223,3 +1207,4 @@ function exibirCorrenteMinimaSeNecessario() {
         el.style.display = (inomimalMinimaTC === "Sim") ? '' : 'none';
     });
 }
+

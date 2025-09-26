@@ -21,12 +21,18 @@ window.onload = function () {
     }
     // -----------------manter o botão vermelho selecionado-------------------
 
+    //Importa potenciaMinimaSelecionada do localStorage
+    let potenciaMinimaSelecionada = parseFloat(localStorage.getItem("potenciaMinimaSelecionada")) || 0;
 
     //preencher campos do html com os valores do localStorage para injeção
-    const potenciaGDSelecionada = localStorage.getItem("potenciaGDSelecionada") || 0; // Valor padrão de 0 se não estiver definido
+    let potenciaGDSelecionada = localStorage.getItem("potenciaGDSelecionada") || 0; // Valor padrão de 0 se não estiver definido
     if (potenciaGDSelecionada !== null) {
         const potenciaNominalElem = document.getElementById("potencia-nominal-injecao-html");
         if (potenciaNominalElem) {
+
+            if(potenciaGDSelecionada < potenciaMinimaSelecionada){
+                potenciaGDSelecionada = potenciaMinimaSelecionada;
+            }
             potenciaNominalElem.textContent = potenciaGDSelecionada + " kW";
         }
     }
@@ -48,10 +54,13 @@ window.onload = function () {
     }
     //-------------------------------------------------------------------------------------------
     // Preencher o campo de potência nominal de consumo com o valor da demanda selecionada
-    const demandaSelecionada = localStorage.getItem("demandaSelecionada");
+    let demandaSelecionada = localStorage.getItem("demandaSelecionada");
     if (demandaSelecionada !== null) {
         const potenciaNominalConsumoElem = document.getElementById("potencia-nominal-consumo-html");
         if (potenciaNominalConsumoElem) {
+            if(demandaSelecionada < potenciaMinimaSelecionada){
+                demandaSelecionada = potenciaMinimaSelecionada;
+            }
             potenciaNominalConsumoElem.textContent = demandaSelecionada + " kW";
         }
     }
@@ -125,6 +134,9 @@ async function salvarOpcao() {
 
 
 function calcularfuncoes32() {
+    //Importa potenciaMinimaSelecionada do localStorage
+    const potenciaMinimaSelecionada = parseFloat(localStorage.getItem("potenciaMinimaSelecionada")) || 0;
+    console.log("Potência Mínima Selecionada importada do localStorage:", potenciaMinimaSelecionada);
 
     // Importa o valor de "demandaInjecao" do localStorage
     const demandaInjecao = parseFloat(localStorage.getItem("potenciaGDSelecionada")) || 0;
@@ -138,7 +150,20 @@ function calcularfuncoes32() {
     console.log("Potência Base importada do localStorage:", potenciabase);
 
     // Calcula a potência de injeção
-    const potenciaInjecao = demandaInjecao * (1 * toleranciaInjecao / 100);
+
+    let potenciaInjecao = 0;
+    if(demandaInjecao < potenciaMinimaSelecionada){
+        potenciaInjecao = potenciaMinimaSelecionada * (1 * toleranciaInjecao / 100);
+    } else {
+        potenciaInjecao = demandaInjecao * (1 * toleranciaInjecao / 100);
+    }
+
+
+    //exportar potenciaInjecao para o localStorage
+    localStorage.setItem("potenciaInjecaoCalculada32", potenciaInjecao);
+
+    
+
     console.log("Potência de Injeção calculada:", potenciaInjecao);
 
     const potenciaRealInjecaoElem = document.getElementById("potencia-real-injecao-html");
@@ -166,7 +191,15 @@ function calcularfuncoes32() {
     console.log("Tolerância de Consumo importada do HTML:", toleranciaConsumo);
 
     // Calcula a potência de consumo
-    const potenciaConsumo = demandaConsumo * (1 * toleranciaConsumo / 100);
+    if(demandaConsumo < potenciaMinimaSelecionada){
+        potenciaConsumo = potenciaMinimaSelecionada * (1 * toleranciaConsumo / 100);
+    } else {
+        potenciaConsumo = demandaConsumo * (1 * toleranciaConsumo / 100);
+    }
+
+    //exportar potenciaConsumo para o localStorage
+    localStorage.setItem("potenciaConsumoCalculada32", potenciaConsumo);  
+
     console.log("Potência de Consumo calculada:", potenciaConsumo);
 
     const potenciaRealConsumoElem = document.getElementById("potencia-real-consumo-html");

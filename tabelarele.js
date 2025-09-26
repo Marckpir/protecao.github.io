@@ -38,7 +38,7 @@ function carregarAssuntos() {
     const numeroReferencia = 100;
 
     // Verifica se existe valor em potenciaGDSelecionada no localStorage
-    const potenciaGD = localStorage.getItem('potenciaGDSelecionada');
+    const potenciaGD = localStorage.getItem('potenciaGDcontratada');
     const filtrar24 = potenciaGD !== null && potenciaGD !== undefined && potenciaGD !== "";
 
     tabelas.forEach(tabela => {
@@ -602,6 +602,202 @@ window.onload = function () {
             el.textContent = "-";
         });
     }
+
+
+
+    //NOVO TRECHO PARA PARAMETROS DE GD
+
+    //Importar potenciaInjecaoCalculada32 do localstorage e atualizar campos
+    let potenciaInjecaoCalculada32 = parseFloat(localStorage.getItem('potenciaInjecaoCalculada32'));
+    if (potenciaInjecaoCalculada32 !== null && potenciaInjecaoCalculada32 !== undefined) {
+        potenciaInjecaoCalculada32 = (parseFloat(potenciaInjecaoCalculada32) * 1000).toFixed(2) + " W";
+        document.querySelectorAll('.ajuste-32-injecao').forEach(function (el) {
+            el.textContent = potenciaInjecaoCalculada32;
+        });
+    }
+
+    //Importar potenciaConsumoCalculada32 do localstorage e atualizar campos
+    let potenciaConsumoCalculada32 = parseFloat(localStorage.getItem('potenciaConsumoCalculada32'));
+    if (potenciaConsumoCalculada32 !== null && potenciaConsumoCalculada32 !== undefined) {
+        potenciaConsumoCalculada32 = (parseFloat(potenciaConsumoCalculada32) * 1000).toFixed(2) + " W";
+        document.querySelectorAll('.ajuste-32-consumo').forEach(function (el) {
+            el.textContent = potenciaConsumoCalculada32;
+        });
+    }
+
+
+    // Importar anguloFaseSelecionadoGD do localstorage e atualizar campos
+    let anguloFaseSelecionadoGD = localStorage.getItem('anguloFaseSelecionadoGD');
+    let valorAnguloFase;
+    if (
+        anguloFaseSelecionadoGD !== null &&
+        anguloFaseSelecionadoGD !== undefined &&
+        anguloFaseSelecionadoGD !== "" &&
+        !isNaN(parseFloat(anguloFaseSelecionadoGD))
+    ) {
+        valorAnguloFase = parseFloat(anguloFaseSelecionadoGD).toFixed(2) + " °";
+    } else {
+        valorAnguloFase = "45.00 °"; // valor padrão
+    }
+    document.querySelectorAll('.ajuste-angulo-fase').forEach(function (el) {
+        el.textContent = valorAnguloFase;
+    });
+
+    //Importar anguloNeutroSelecionadoGD do localstorage e atualizar campos
+    let anguloNeutroSelecionadoGD = localStorage.getItem('anguloNeutroSelecionadoGD');
+    let valorAnguloNeutro;
+    if (
+        anguloNeutroSelecionadoGD !== null &&
+        anguloNeutroSelecionadoGD !== undefined &&
+        anguloNeutroSelecionadoGD !== "" &&
+        !isNaN(parseFloat(anguloNeutroSelecionadoGD))
+    ) {
+        valorAnguloNeutro = parseFloat(anguloNeutroSelecionadoGD).toFixed(2) + " °";
+    } else {
+        valorAnguloNeutro = "110.00 °"; // valor padrão
+    }
+    document.querySelectorAll('.ajuste-angulo-neutro').forEach(function (el) {
+        el.textContent = valorAnguloNeutro;
+    });
+
+
+    // Importar IpfaseGD do localstorage e atualizar campos
+    let IpfaseGD = parseFloat(localStorage.getItem('IpfaseGD'));
+    if (IpfaseGD !== null && IpfaseGD !== undefined && !isNaN(IpfaseGD)) {
+        IpfaseGD = IpfaseGD.toFixed(2) + " A";
+        document.querySelectorAll('.ajuste-ip-fase-GD').forEach(function (el) {
+            el.textContent = IpfaseGD;
+        });
+    }
+
+
+
+
+
+
+
+
+    //Importar IpneutroGD do localstorage e atualizar campos
+    let IpneutroGD = parseFloat(localStorage.getItem('IpdeneutroSelecionadaGD'));
+    if (IpneutroGD !== null && IpneutroGD !== undefined) {
+        IpneutroGD = parseFloat(IpneutroGD).toFixed(2) + " A";
+        document.querySelectorAll('.ajuste-ip-neutro-GD').forEach(function (el) {
+            el.textContent = IpneutroGD;
+        });
+    }
+
+    //Importar dialneutroSelecionadaGD do localstorage e atualizar campos
+    let dialneutroSelecionadaGD = localStorage.getItem('dialneutroSelecionadaGD');
+    if (dialneutroSelecionadaGD !== null && dialneutroSelecionadaGD !== undefined) {
+        document.querySelectorAll('.ajuste-dial-neutro-GD').forEach(function (el) {
+            el.textContent = dialneutroSelecionadaGD + " s";
+        });
+    }
+
+
+    // Importar tensaoPrimariaFaseAjustada51v do localStorage e preencher campos ajuste-51v-GD-pextron
+    let tensaoPrimariaFaseAjustada51v = localStorage.getItem('tensaoPrimariaFaseAjustada51v');
+    if (
+        tensaoPrimariaFaseAjustada51v !== null &&
+        tensaoPrimariaFaseAjustada51v !== undefined &&
+        tensaoPrimariaFaseAjustada51v !== "" &&
+        !isNaN(parseFloat(tensaoPrimariaFaseAjustada51v))
+    ) {
+        let valorTensaoPrimariaFaseAjustada51v = parseFloat(tensaoPrimariaFaseAjustada51v).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-51v-GD-pextron').forEach(function (el) {
+            el.textContent = valorTensaoPrimariaFaseAjustada51v;
+        });
+    }
+
+    // Importar idef46real do localStorage e preencher campos ajuste-46-GD-pextron
+    let idef46real = localStorage.getItem('Idef46real');
+    if (
+        idef46real !== null &&
+        idef46real !== undefined &&
+        idef46real !== "" &&
+        !isNaN(parseFloat(idef46real))
+    ) {
+        let valorIdef46real = parseFloat(idef46real).toFixed(2) + " A";
+        document.querySelectorAll('.ajuste-46-GD-pextron').forEach(function (el) {
+            el.textContent = valorIdef46real;
+        });
+    }
+
+    // Importar tensaoPrimariaFaseAjustada27-1 do localStorage e preencher campos ajuste-27-1-GD-pextron
+    let tensaoPrimariaFaseAjustada27_1 = localStorage.getItem('tensaoPrimariaFaseAjustada27-1');
+    if (
+        tensaoPrimariaFaseAjustada27_1 !== null &&
+        tensaoPrimariaFaseAjustada27_1 !== undefined &&
+        tensaoPrimariaFaseAjustada27_1 !== "" &&
+        !isNaN(parseFloat(tensaoPrimariaFaseAjustada27_1))
+    ) {
+        let valorTensaoPrimariaFaseAjustada27_1 = parseFloat(tensaoPrimariaFaseAjustada27_1).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-27-1-GD-pextron').forEach(function (el) {
+            el.textContent = valorTensaoPrimariaFaseAjustada27_1;
+        });
+    }
+
+    // Importar tensaoPrimariaFaseAjustada27-2 do localStorage e preencher campos ajuste-27-2-GD-pextron
+    let tensaoPrimariaFaseAjustada27_2 = localStorage.getItem('tensaoPrimariaFaseAjustada27-2');
+    if (
+        tensaoPrimariaFaseAjustada27_2 !== null &&
+        tensaoPrimariaFaseAjustada27_2 !== undefined &&
+        tensaoPrimariaFaseAjustada27_2 !== "" &&
+        !isNaN(parseFloat(tensaoPrimariaFaseAjustada27_2))
+    ) {
+        let valorTensaoPrimariaFaseAjustada27_2 = parseFloat(tensaoPrimariaFaseAjustada27_2).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-27-2-GD-pextron').forEach(function (el) {
+            el.textContent = valorTensaoPrimariaFaseAjustada27_2;
+        });
+    }
+
+    // Importar tensaoPrimariaFaseAjustada59-1 do localStorage e preencher campos ajuste-59-1-GD-pextron
+    let tensaoPrimariaFaseAjustada59_1 = localStorage.getItem('tensaoPrimariaFaseAjustada59-1');
+    if (
+        tensaoPrimariaFaseAjustada59_1 !== null &&
+        tensaoPrimariaFaseAjustada59_1 !== undefined &&
+        tensaoPrimariaFaseAjustada59_1 !== "" &&
+        !isNaN(parseFloat(tensaoPrimariaFaseAjustada59_1))
+    ) {
+        let valorTensaoPrimariaFaseAjustada59_1 = parseFloat(tensaoPrimariaFaseAjustada59_1).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-59-1-GD-pextron').forEach(function (el) {
+            el.textContent = valorTensaoPrimariaFaseAjustada59_1;
+        });
+    }
+
+    // Importar tensaoPrimariaFaseAjustada59-2 do localStorage e preencher campos ajuste-59-2-GD-pextron
+    let tensaoPrimariaFaseAjustada59_2 = localStorage.getItem('tensaoPrimariaFaseAjustada59-2');
+    if (
+        tensaoPrimariaFaseAjustada59_2 !== null &&
+        tensaoPrimariaFaseAjustada59_2 !== undefined &&
+        tensaoPrimariaFaseAjustada59_2 !== "" &&
+        !isNaN(parseFloat(tensaoPrimariaFaseAjustada59_2))
+    ) {
+        let valorTensaoPrimariaFaseAjustada59_2 = parseFloat(tensaoPrimariaFaseAjustada59_2).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-59-2-GD-pextron').forEach(function (el) {
+            el.textContent = valorTensaoPrimariaFaseAjustada59_2;
+        });
+    }
+
+    // Importar tensaoPrimariaFaseAjustada25 do localStorage e preencher campos ajuste-25-delta-v
+    let tensaoPrimariaFaseAjustada25 = localStorage.getItem('tensaoPrimariaFaseAjustada25');
+    if (
+        tensaoPrimariaFaseAjustada25 !== null &&
+        tensaoPrimariaFaseAjustada25 !== undefined &&
+        tensaoPrimariaFaseAjustada25 !== "" &&
+        !isNaN(parseFloat(tensaoPrimariaFaseAjustada25))
+    ) {
+        let valorTensaoPrimariaFaseAjustada25 = parseFloat(tensaoPrimariaFaseAjustada25).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-25-delta-v').forEach(function (el) {
+            el.textContent = valorTensaoPrimariaFaseAjustada25;
+        });
+    }
+
+
+
+
+
+
 
 
 

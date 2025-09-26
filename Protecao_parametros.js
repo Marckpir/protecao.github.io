@@ -11,9 +11,9 @@ function salvarOpcao() {
 
     //-----------------------------------------------------------------------------------------
     const demandaPotencia = document.getElementById("demandaConsumo");
-    const demandaSelecionada = demandaPotencia.value;
+    const demandadecontrato = demandaPotencia.value;
     //localStorage.setItem("demandaSelecionada", demandaSelecionada);
-    localStorage.setItem("demandadecontrato", demandaSelecionada);
+    localStorage.setItem("demandadecontrato", demandadecontrato);
 
     //-----------------------------------------------------------------------------------------
     const fatorPotencia = document.getElementById("fatorPotencia");
@@ -37,8 +37,9 @@ function salvarOpcao() {
     //-----------------------------------------------------------------------------------------
 
     const potenciaGD = document.getElementById("potenciaGDhtml");
-    const potenciaGDSelecionada = potenciaGD.value;
-    localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
+    const potenciaGDcontratada = potenciaGD.value;
+    //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
+    localStorage.setItem("potenciaGDcontratada", potenciaGDcontratada);
     //-----------------------------------------------------------------------------------------
 
     const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
@@ -67,7 +68,7 @@ function salvarOpcao() {
 
     //CALCULAR A I NOMINAL DA GD
 
-    const inominalGD = (potenciaGDSelecionada * 1000) / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada) / 1000;
+    const inominalGD = (potenciaGDcontratada * 1000) / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada) / 1000;
     localStorage.setItem("InominalfaseGD", inominalGD.toFixed(2));
 
     //-----------------------------------------------------------------------------------------
@@ -148,7 +149,7 @@ window.onload = function () {
     }
     //-----------------------------------------------------------------------------------------
     const potenciaGD = document.getElementById("potenciaGDhtml");
-    const potenciaGDSalva = localStorage.getItem("potenciaGDSelecionada");
+    const potenciaGDSalva = localStorage.getItem("potenciaGDcontratada");
     if (potenciaGDSalva) {
         potenciaGD.value = potenciaGDSalva;
     }
@@ -200,7 +201,7 @@ window.onload = function () {
     }
 
     const potenciaGDajustadahtml = document.getElementById("valorAjustadoPotenciaGD");
-    const potenciaGDajustadastorage = localStorage.getItem("potenciaGDSelecionada");
+    const potenciaGDajustadastorage = localStorage.getItem("potenciaGDcontratada");
     if (potenciaGDajustadastorage) {
         potenciaGDajustadahtml.textContent = potenciaGDajustadastorage + " kW";
     } else {
