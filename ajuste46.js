@@ -127,19 +127,19 @@ window.onload = function () {
         }
     }
 
-
+    
 
     const ipPuHtml = document.getElementById("ip-46-pu-html");
+    let ipPu; // Declarar ipPu aqui para uso posterior
     if (ipPuHtml && tcSelecionado) {
-        let ipPu;
         if (ipAjustada46 && !isNaN(parseFloat(ipAjustada46))) {
             // Se houver valor ajustado, usa ele
-            ipPu = parseFloat(ipAjustada46) / parseFloat(tcSelecionado);
-            ipPuHtml.textContent = ipPu.toFixed(2) + " P.U";
+            ipPu = (parseFloat(ipAjustada46) / parseFloat(tcSelecionado)).toFixed(2);
+            ipPuHtml.textContent = ipPu + " P.U";
         } else {
             // Caso contrário, usa o maiorIp * 0.20
-            ipPu = (maiorIp * 0.20) / parseFloat(tcSelecionado);
-            ipPuHtml.textContent = ipPu.toFixed(2) + " P.U";
+            ipPu = ((maiorIp * 0.20) / parseFloat(tcSelecionado)).toFixed(2);
+            ipPuHtml.textContent = ipPu + " P.U";
         }
     }
 
@@ -154,6 +154,8 @@ window.onload = function () {
     //exportar ip46real e idef46real para o localStorage
     
     localStorage.setItem("Idef46real", idef46real);
+
+    localStorage.setItem("Ip46PUAjustada", ipPu);
 
 
 }

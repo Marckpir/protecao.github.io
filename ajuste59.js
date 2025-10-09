@@ -233,7 +233,7 @@ function calcularSensibilidades() {
         tensaoPrimariaFaseAjustadaHtml.textContent = tensaoPrimariaFaseAjustada.toFixed(2) + " V";
     }
 
-    localStorage.setItem("tensaoPrimariaFaseAjustada59-1", tensaoPrimariaFaseAjustada);
+    localStorage.setItem("tensaoPrimariaFaseAjustada59-1", tensaoPrimariaFaseAjustada.toFixed(2));
 
     const tensaoSecundariaFaseAjustada = tensaoSecundariaFNTP * ((parseFloat(ajustePUSobretensaoautomatica) || 0));
     const tensaoSecundariaFaseAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-secundaria-fase-ajustada-html");
@@ -247,6 +247,7 @@ function calcularSensibilidades() {
         tensaoSecundariaLinhaAjustadaHtml.textContent = tensaoSecundariaLinhaAjustada.toFixed(2) + " V";
     }
 
+    localStorage.setItem("tensaoSecundariaFaseAjustada59-1", tensaoSecundariaFaseAjustada.toFixed(2));
     //---cálculo dos valores ajustados de tensão para o segundo estágio
     const tensaoPrimariaLinhaAjustada2 = tensaoPrimariaFF * ((parseFloat(ajustePUSobretensaoautomatica2) || 0));
     const tensaoPrimariaLinhaAjustadaHtml2 = document.getElementById("sensibilidade-superior-tensao-primaria-linha-ajustada-html-2");
@@ -260,7 +261,7 @@ function calcularSensibilidades() {
         tensaoPrimariaFaseAjustadaHtml2.textContent = tensaoPrimariaFaseAjustada2.toFixed(2) + " V";
     }
 
-    localStorage.setItem("tensaoPrimariaFaseAjustada59-2", tensaoPrimariaFaseAjustada2);
+    localStorage.setItem("tensaoPrimariaFaseAjustada59-2", tensaoPrimariaFaseAjustada2.toFixed(2));
 
     const tensaoSecundariaFaseAjustada2 = tensaoSecundariaFNTP * ((parseFloat(ajustePUSobretensaoautomatica2) || 0));
     const tensaoSecundariaFaseAjustadaHtml2 = document.getElementById("sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2");
@@ -274,7 +275,7 @@ function calcularSensibilidades() {
         tensaoSecundariaLinhaAjustadaHtml2.textContent = tensaoSecundariaLinhaAjustada2.toFixed(2) + " V";
     }
 
-
+    localStorage.setItem("tensaoSecundariaFaseAjustada59-2", tensaoSecundariaFaseAjustada2.toFixed(2));
 
 
 

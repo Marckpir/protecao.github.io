@@ -14,7 +14,7 @@ window.onload = function () {
 
     //--persistir os valores ajustados no html
 
-    
+
 
     const numeroNSInput = document.getElementById("numeroNS");
     if (numeroNSInput) {
@@ -45,7 +45,7 @@ window.onload = function () {
     // Preencher os campos com os valores do localStorage
     const tensaoAtendimento = localStorage.getItem("tensaoSelecionada");
     const demandaConsumo = localStorage.getItem("demandadecontrato");
-    const potenciaGerador = localStorage.getItem("potenciaGDSelecionada");
+    const potenciaGerador = localStorage.getItem("potenciaGDcontratada");
 
 
 
@@ -64,7 +64,7 @@ window.onload = function () {
         document.getElementById("demanda-consumo").innerText = demandaConsumo + " KW;";
     }
 
-    if (potenciaGerador) {
+    if (potenciaGerador && potenciaGerador !== "0" && potenciaGerador !== "0.0") {
         document.getElementById("potencia-GD").innerText = potenciaGerador + " KW;";
         document.getElementById("campoGD").style.display = "";
     } else {
@@ -207,7 +207,7 @@ fetch('listaRTs.txt')
         resultsDiv.innerHTML = '<div>❌ Erro ao carregar o arquivo de contatos.</div>';
     });
 
-searchBtn.addEventListener('click', function () {
+    searchBtn.addEventListener('click', function () {
     const query = searchInput.value.toLowerCase();
     resultsDiv.innerHTML = '';
     if (query.length === 0) return;
@@ -259,200 +259,200 @@ searchBtn.addEventListener('click', function () {
 
 
 // function gerarcarta() {
-    const numeroNS2 = localStorage.getItem('numeroNS');
-    if (numeroNS2) {
-        const assuntoEmail = document.getElementById('assuntoemail');
-        if (assuntoEmail) {
-            assuntoEmail.textContent = 'Assunto: Inconformidades' + ` NS ${numeroNS2}`;
-        }
+const numeroNS2 = localStorage.getItem('numeroNS');
+if (numeroNS2) {
+    const assuntoEmail = document.getElementById('assuntoemail');
+    if (assuntoEmail) {
+        assuntoEmail.textContent = 'Assunto: Inconformidades' + ` NS ${numeroNS2}`;
     }
+}
 
-    function adicionarItem() {
-        const section = document.getElementById('projeto-eletrico');
-        const newRow = document.createElement('div');
-        newRow.className = 'item-row';
-        newRow.style.marginBottom = '16px';
+function adicionarItem() {
+    const section = document.getElementById('projeto-eletrico');
+    const newRow = document.createElement('div');
+    newRow.className = 'item-row';
+    newRow.style.marginBottom = '16px';
 
-        const number = document.createElement('div');
-        number.className = 'item-number';
+    const number = document.createElement('div');
+    number.className = 'item-number';
 
-        const textarea = document.createElement('textarea');
-        textarea.placeholder = "Novo item...";
-        textarea.style.textAlign = "left";
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = "Novo item...";
+    textarea.style.textAlign = "left";
 
-        // Carrega texto salvo se existir
-        const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
-        textarea.value = itemsSalvos[section.children.length] || '';
+    // Carrega texto salvo se existir
+    const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
+    textarea.value = itemsSalvos[section.children.length] || '';
 
-        // Salva ao digitar
-        textarea.addEventListener('input', function () {
-            const items = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
-            localStorage.setItem('itensProjetoEletrico', JSON.stringify(items));
-        });
+    // Salva ao digitar
+    textarea.addEventListener('input', function () {
+        const items = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
+        localStorage.setItem('itensProjetoEletrico', JSON.stringify(items));
+    });
 
-        newRow.appendChild(number);
-        newRow.appendChild(textarea);
-        section.appendChild(newRow);
+    newRow.appendChild(number);
+    newRow.appendChild(textarea);
+    section.appendChild(newRow);
 
+    atualizarNumeracao();
+}
+
+// Carrega itens salvos ao iniciar
+document.addEventListener('DOMContentLoaded', function () {
+    const section = document.getElementById('projeto-eletrico');
+    const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
+    itemsSalvos.forEach(() => adicionarItem());
+});
+
+// Atualiza localStorage ao remover item
+function removerUltimoItem() {
+    const section = document.getElementById('projeto-eletrico');
+    const items = section.querySelectorAll('.item-row');
+    if (items.length > 0) {
+        section.removeChild(items[items.length - 1]);
+        // Atualiza localStorage
+        const textos = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
+        localStorage.setItem('itensProjetoEletrico', JSON.stringify(textos));
         atualizarNumeracao();
     }
+}
 
-    // Carrega itens salvos ao iniciar
-    document.addEventListener('DOMContentLoaded', function () {
-        const section = document.getElementById('projeto-eletrico');
-        const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
-        itemsSalvos.forEach(() => adicionarItem());
+function removerUltimoItem() {
+    const section = document.getElementById('projeto-eletrico');
+    const items = section.querySelectorAll('.item-row');
+    if (items.length > 0) {
+        // Limpa o valor do último textarea antes de remover
+        const lastTextarea = items[items.length - 1].querySelector('textarea');
+        if (lastTextarea) lastTextarea.value = '';
+        section.removeChild(items[items.length - 1]);
+        // Atualiza localStorage
+        const textos = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
+        localStorage.setItem('itensProjetoEletrico', JSON.stringify(textos));
+        atualizarNumeracao();
+    }
+}
+
+
+function atualizarNumeracao() {
+    const items = document.querySelectorAll('#projeto-eletrico .item-row');
+    items.forEach((item, index) => {
+        const number = item.querySelector('.item-number');
+        number.textContent = `${index + 1})`;
+    });
+}
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const nome = localStorage.getItem('contato_nome');
+    if (nome) {
+        document.getElementById('contato-nome').textContent = nome;
+    }
+});
+
+
+const numeroNS = localStorage.getItem('numeroNS');
+if (numeroNS) {
+    document.getElementById('numero-ns').textContent = numeroNS;
+}
+
+
+function obterSaudacao() {
+    const hora = new Date().getHours();
+    if (hora >= 6 && hora < 12) return "Bom dia";
+    if (hora >= 12 && hora < 18) return "Boa tarde";
+    return "Boa noite";
+}
+document.getElementById('saudacao').textContent = obterSaudacao();
+
+
+function gerarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("", 105, 20, { align: "center" });
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+
+    let y = 35;
+    const saudacao = document.getElementById('saudacao').textContent;
+    const nome = document.getElementById('contato-nome').textContent;
+    doc.text(`${saudacao}, ${nome}.`, 20, y, { maxWidth: 170, align: "justify" });
+
+    y += 10;
+    const numeroNS = document.getElementById('numero-ns').textContent;
+    doc.text(
+        `Durante a análise da(s) NS(s) ${numeroNS}, foram identificados alguns itens necessários para alteração na solcitação para que a aprovação seja concluída. Segue itens de correção à serem observados:`,
+        20, y, { maxWidth: 170, align: "justify" }
+    );
+
+    y += 15;
+    doc.setFont("helvetica", "bold");
+    doc.text("", 20, y);
+    doc.setFont("helvetica", "normal");
+
+    y += 8;
+    const items = document.querySelectorAll('#projeto-eletrico .item-row textarea');
+    items.forEach((textarea, idx) => {
+        doc.text(`${idx + 1}) ${textarea.value}`, 25, y, { maxWidth: 165, align: "justify" });
+        y += 10;
     });
 
-    // Atualiza localStorage ao remover item
-    function removerUltimoItem() {
-        const section = document.getElementById('projeto-eletrico');
-        const items = section.querySelectorAll('.item-row');
-        if (items.length > 0) {
-            section.removeChild(items[items.length - 1]);
-            // Atualiza localStorage
-            const textos = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
-            localStorage.setItem('itensProjetoEletrico', JSON.stringify(textos));
-            atualizarNumeracao();
-        }
-    }
+    y += 5;
+    doc.text("Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança.", 20, y, { maxWidth: 170, align: "justify" });
+    y += 10;
+    doc.text("Informamos que, caso necessário, esse e-mail se encontra disponível para resoluções de dúvidas relacionadas à nota de serviço em questão.", 20, y, { maxWidth: 170, align: "justify" });
+    y += 10;
+    doc.text("Pedimos que se possível, informar telefone e e-mail de contato atualizado do responsável técnico.", 20, y, { maxWidth: 170, align: "justify" });
+    y += 10;
+    y += 10;
+    doc.text("Informamos que o prazo limite para as alterações solicitadas é de 24 horas.", 20, y, { maxWidth: 170, align: "justify" });
+    y += 10;
+    doc.text("Para que haja liberação do projeto elétrico aprovado, após alterações efetuadas no mesmo, favor anexar os novos arquivos diretamente no APRWEB. Salientamos a importância de que essas alterações sejam feitas de forma imediata.", 20, y, { maxWidth: 170, align: "justify" });
 
-    function removerUltimoItem() {
-        const section = document.getElementById('projeto-eletrico');
-        const items = section.querySelectorAll('.item-row');
-        if (items.length > 0) {
-            // Limpa o valor do último textarea antes de remover
-            const lastTextarea = items[items.length - 1].querySelector('textarea');
-            if (lastTextarea) lastTextarea.value = '';
-            section.removeChild(items[items.length - 1]);
-            // Atualiza localStorage
-            const textos = Array.from(section.querySelectorAll('textarea')).map(t => t.value);
-            localStorage.setItem('itensProjetoEletrico', JSON.stringify(textos));
-            atualizarNumeracao();
-        }
-    }
+    y += 15;
+    doc.setFontSize(11);
+    y += 10;
+    doc.text(" ", 20, y); // Espaço para separar o parágrafo
 
+    y += 6;
+    doc.text("Att.", 20, y, { maxWidth: 170, align: "justify" });
+    y += 6;
+    doc.text("Núcleo Técnico", 20, y, { maxWidth: 170, align: "justify" });
+    y += 6;
+    doc.text("Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM", 20, y, { maxWidth: 170, align: "justify" });
+    y += 6;
+    doc.text("www.cemig.com.br", 20, y, { maxWidth: 170, align: "justify" });
 
-    function atualizarNumeracao() {
-        const items = document.querySelectorAll('#projeto-eletrico .item-row');
-        items.forEach((item, index) => {
-            const number = item.querySelector('.item-number');
-            number.textContent = `${index + 1})`;
-        });
-    }
+    doc.save("Carta_de_correcoes_rapidas.pdf");
+}
 
+// Adiciona o botão para gerar PDF
+const pdfBtn = document.createElement('button');
+pdfBtn.textContent = "PDF";
+pdfBtn.style.backgroundColor = "#27ae60";
+pdfBtn.style.color = "white";
+pdfBtn.style.border = "none";
+pdfBtn.style.borderRadius = "6px";
+pdfBtn.style.padding = "10px 18px";
+pdfBtn.style.cursor = "pointer";
+pdfBtn.style.fontSize = "14px";
+pdfBtn.onclick = gerarPDF;
 
+document.querySelector('.action-panel').appendChild(pdfBtn);
 
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const nome = localStorage.getItem('contato_nome');
-        if (nome) {
-            document.getElementById('contato-nome').textContent = nome;
-        }
-    });
-
-
-    const numeroNS = localStorage.getItem('numeroNS');
-    if (numeroNS) {
-        document.getElementById('numero-ns').textContent = numeroNS;
-    }
-
-
-    function obterSaudacao() {
-        const hora = new Date().getHours();
-        if (hora >= 6 && hora < 12) return "Bom dia";
-        if (hora >= 12 && hora < 18) return "Boa tarde";
-        return "Boa noite";
-    }
-    document.getElementById('saudacao').textContent = obterSaudacao();
-
-
-    function gerarPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(18);
-        doc.text("", 105, 20, { align: "center" });
-
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        let y = 35;
-        const saudacao = document.getElementById('saudacao').textContent;
-        const nome = document.getElementById('contato-nome').textContent;
-        doc.text(`${saudacao}, ${nome}.`, 20, y, { maxWidth: 170, align: "justify" });
-
-        y += 10;
-        const numeroNS = document.getElementById('numero-ns').textContent;
-        doc.text(
-            `Durante a análise da(s) NS(s) ${numeroNS}, foram identificados alguns itens necessários para alteração na solcitação para que a aprovação seja concluída. Segue itens de correção à serem observados:`,
-            20, y, { maxWidth: 170, align: "justify" }
-        );
-
-        y += 15;
-        doc.setFont("helvetica", "bold");
-        doc.text("", 20, y);
-        doc.setFont("helvetica", "normal");
-
-        y += 8;
-        const items = document.querySelectorAll('#projeto-eletrico .item-row textarea');
-        items.forEach((textarea, idx) => {
-            doc.text(`${idx + 1}) ${textarea.value}`, 25, y, { maxWidth: 165, align: "justify" });
-            y += 10;
-        });
-
-        y += 5;
-        doc.text("Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança.", 20, y, { maxWidth: 170, align: "justify" });
-        y += 10;
-        doc.text("Informamos que, caso necessário, esse e-mail se encontra disponível para resoluções de dúvidas relacionadas à nota de serviço em questão.", 20, y, { maxWidth: 170, align: "justify" });
-        y += 10;
-        doc.text("Pedimos que se possível, informar telefone e e-mail de contato atualizado do responsável técnico.", 20, y, { maxWidth: 170, align: "justify" });
-        y += 10;
-        y += 10;
-        doc.text("Informamos que o prazo limite para as alterações solicitadas é de 24 horas.", 20, y, { maxWidth: 170, align: "justify" });
-        y += 10;
-        doc.text("Para que haja liberação do projeto elétrico aprovado, após alterações efetuadas no mesmo, favor anexar os novos arquivos diretamente no APRWEB. Salientamos a importância de que essas alterações sejam feitas de forma imediata.", 20, y, { maxWidth: 170, align: "justify" });
-
-        y += 15;
-        doc.setFontSize(11);
-        y += 10;
-        doc.text(" ", 20, y); // Espaço para separar o parágrafo
-
-        y += 6;
-        doc.text("Att.", 20, y, { maxWidth: 170, align: "justify" });
-        y += 6;
-        doc.text("Núcleo Técnico", 20, y, { maxWidth: 170, align: "justify" });
-        y += 6;
-        doc.text("Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM", 20, y, { maxWidth: 170, align: "justify" });
-        y += 6;
-        doc.text("www.cemig.com.br", 20, y, { maxWidth: 170, align: "justify" });
-
-        doc.save("Carta_de_correcoes_rapidas.pdf");
-    }
-
-    // Adiciona o botão para gerar PDF
-    const pdfBtn = document.createElement('button');
-    pdfBtn.textContent = "PDF";
-    pdfBtn.style.backgroundColor = "#27ae60";
-    pdfBtn.style.color = "white";
-    pdfBtn.style.border = "none";
-    pdfBtn.style.borderRadius = "6px";
-    pdfBtn.style.padding = "10px 18px";
-    pdfBtn.style.cursor = "pointer";
-    pdfBtn.style.fontSize = "14px";
-    pdfBtn.onclick = gerarPDF;
-
-    document.querySelector('.action-panel').appendChild(pdfBtn);
-
-    // Adiciona jsPDF via CDN se não estiver presente
-    if (!window.jspdf) {
-        const script = document.createElement('script');
-        script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
-        script.onload = () => { };
-        document.head.appendChild(script);
-    }
+// Adiciona jsPDF via CDN se não estiver presente
+if (!window.jspdf) {
+    const script = document.createElement('script');
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+    script.onload = () => { };
+    document.head.appendChild(script);
+}
 // }
 //fim das funções para gerar a carta de correções rápidas
 
@@ -489,110 +489,110 @@ document.addEventListener('keydown', function (event) {
 
 //---LOGICA PARA PREENCHER TABELA DA OPERAÇÃO--------------------------------------
 
-    const demandaContrato = parseFloat(localStorage.getItem("demandadecontrato"));
-    const dialdimensionado = parseFloat(localStorage.getItem("dialfaseSelecionada"));
-    const notaOperacao = document.getElementById("nota-operacao");
-    if (notaOperacao) {
-        if (demandaContrato < 1500 && dialdimensionado >= 1) {
-            let piscar = true;
-            setInterval(() => {
-                notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
-                piscar = !piscar;
-            }, 500);
-        } else if (demandaContrato >= 1500 && demandaContrato < 4000 && dialdimensionado >= 0.4) {
-            let piscar = true;
-            setInterval(() => {
-                notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
-                piscar = !piscar;
-            }, 500);
-        } else if (demandaContrato >= 4000 && dialdimensionado > 0.2) {
-            let piscar = true;
-            setInterval(() => {
-                notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
-                piscar = !piscar;
-            }, 500);
-        }
+const demandaContrato = parseFloat(localStorage.getItem("demandadecontrato"));
+const dialdimensionado = parseFloat(localStorage.getItem("dialfaseSelecionada"));
+const notaOperacao = document.getElementById("nota-operacao");
+if (notaOperacao) {
+    if (demandaContrato < 1500 && dialdimensionado >= 1) {
+        let piscar = true;
+        setInterval(() => {
+            notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
+            piscar = !piscar;
+        }, 500);
+    } else if (demandaContrato >= 1500 && demandaContrato < 4000 && dialdimensionado >= 0.4) {
+        let piscar = true;
+        setInterval(() => {
+            notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
+            piscar = !piscar;
+        }, 500);
+    } else if (demandaContrato >= 4000 && dialdimensionado > 0.2) {
+        let piscar = true;
+        setInterval(() => {
+            notaOperacao.style.backgroundColor = piscar ? "#cf0808" : "";
+            piscar = !piscar;
+        }, 500);
     }
+}
 
-                // in-operacao
-                // alimentador-operacao
-                // tensao-operacao
-                
-                // ip51-operacao
-                // curva-operacao
-                // dial-operacao
-                // iinst50-operacao
-                
-                // ip51n-operacao
-                // tempodefinido-operacao
-                // iinst50n-operacao
+// in-operacao
+// alimentador-operacao
+// tensao-operacao
 
+// ip51-operacao
+// curva-operacao
+// dial-operacao
+// iinst50-operacao
 
-
-                const inOperacao = document.getElementById("in-operacao");
-                const UCgemini = localStorage.getItem("UCgemini");
-                if (inOperacao && UCgemini) {
-                    inOperacao.textContent = UCgemini;
-                }
+// ip51n-operacao
+// tempodefinido-operacao
+// iinst50n-operacao
 
 
-                const alimentadorOperacao = document.getElementById("alimentador-operacao");
-                const alimentadorGemini = localStorage.getItem("ALIMENTADORgemini");
-                if (alimentadorOperacao && alimentadorGemini) {
-                    alimentadorOperacao.textContent = alimentadorGemini;
-                }
+
+const inOperacao = document.getElementById("in-operacao");
+const UCgemini = localStorage.getItem("UCgemini");
+if (inOperacao && UCgemini) {
+    inOperacao.textContent = UCgemini;
+}
 
 
-                const tensaoOperacao = document.getElementById("tensao-operacao");
-                const tensaoSelecionada = localStorage.getItem("TENSAOgemini");
-                if (tensaoOperacao && tensaoSelecionada) {
-                    tensaoOperacao.textContent = tensaoSelecionada + " KV";
-                }
-                
-                const ip51Operacao = document.getElementById("ip51-operacao");
-                const ipDeConsumo = parseFloat(localStorage.getItem("Ipdeconsumo"));
-                if (ip51Operacao && ipDeConsumo) {
-                    ip51Operacao.textContent = ipDeConsumo.toFixed(2) + " A";
-                }
+const alimentadorOperacao = document.getElementById("alimentador-operacao");
+const alimentadorGemini = localStorage.getItem("ALIMENTADORgemini");
+if (alimentadorOperacao && alimentadorGemini) {
+    alimentadorOperacao.textContent = alimentadorGemini;
+}
 
 
-                const curvaOperacao = document.getElementById("curva-operacao");
-                const curvaFaseSelecionada = localStorage.getItem("curvafaseSelecionada");
-                if (curvaOperacao && curvaFaseSelecionada) {
-                    curvaOperacao.textContent = curvaFaseSelecionada;
-                }
+const tensaoOperacao = document.getElementById("tensao-operacao");
+const tensaoSelecionada = localStorage.getItem("TENSAOgemini");
+if (tensaoOperacao && tensaoSelecionada) {
+    tensaoOperacao.textContent = tensaoSelecionada + " KV";
+}
+
+const ip51Operacao = document.getElementById("ip51-operacao");
+const ipDeConsumo = parseFloat(localStorage.getItem("Ipdeconsumo"));
+if (ip51Operacao && ipDeConsumo) {
+    ip51Operacao.textContent = ipDeConsumo.toFixed(2) + " A";
+}
 
 
-                const dialOperacao = document.getElementById("dial-operacao");
-                const dialFaseSelecionada = localStorage.getItem("dialfaseSelecionada");
-                if (dialOperacao && dialFaseSelecionada) {
-                    dialOperacao.textContent = dialFaseSelecionada;
-                }
-
-                const iinst50Operacao = document.getElementById("iinst50-operacao");
-                const instFaseConsumo = parseFloat(localStorage.getItem("Instfaseconsumo"));
-                if (iinst50Operacao && instFaseConsumo) {
-                    iinst50Operacao.textContent = instFaseConsumo.toFixed(2) + " A";
-                }
-
-                const ip51nOperacao = document.getElementById("ip51n-operacao");
-                const ipDeNeutro = parseFloat(localStorage.getItem("IpdeneutroSelecionada"));
-                if (ip51nOperacao && ipDeNeutro) {
-                    ip51nOperacao.textContent = ipDeNeutro.toFixed(2) + " A";
-                }
+const curvaOperacao = document.getElementById("curva-operacao");
+const curvaFaseSelecionada = localStorage.getItem("curvafaseSelecionada");
+if (curvaOperacao && curvaFaseSelecionada) {
+    curvaOperacao.textContent = curvaFaseSelecionada;
+}
 
 
-                const tempodefinidoOperacao = document.getElementById("tempodefinido-operacao");
-                const dialNeutroSelecionada = localStorage.getItem("dialneutroSelecionada");
-                if (tempodefinidoOperacao && dialNeutroSelecionada) {
-                    tempodefinidoOperacao.textContent = dialNeutroSelecionada + " s";
-                }
+const dialOperacao = document.getElementById("dial-operacao");
+const dialFaseSelecionada = localStorage.getItem("dialfaseSelecionada");
+if (dialOperacao && dialFaseSelecionada) {
+    dialOperacao.textContent = dialFaseSelecionada;
+}
 
-                const iinst50nOperacao = document.getElementById("iinst50n-operacao");
-                const instNeutroSelecionada = parseFloat(localStorage.getItem("IinstneutroSelecionada"));
-                if (iinst50nOperacao && instNeutroSelecionada) {
-                    iinst50nOperacao.textContent = instNeutroSelecionada.toFixed(2) + " A";
-                }
+const iinst50Operacao = document.getElementById("iinst50-operacao");
+const instFaseConsumo = parseFloat(localStorage.getItem("Instfaseconsumo"));
+if (iinst50Operacao && instFaseConsumo) {
+    iinst50Operacao.textContent = instFaseConsumo.toFixed(2) + " A";
+}
+
+const ip51nOperacao = document.getElementById("ip51n-operacao");
+const ipDeNeutro = parseFloat(localStorage.getItem("IpdeneutroSelecionada"));
+if (ip51nOperacao && ipDeNeutro) {
+    ip51nOperacao.textContent = ipDeNeutro.toFixed(2) + " A";
+}
+
+
+const tempodefinidoOperacao = document.getElementById("tempodefinido-operacao");
+const dialNeutroSelecionada = localStorage.getItem("dialneutroSelecionada");
+if (tempodefinidoOperacao && dialNeutroSelecionada) {
+    tempodefinidoOperacao.textContent = dialNeutroSelecionada + " s";
+}
+
+const iinst50nOperacao = document.getElementById("iinst50n-operacao");
+const instNeutroSelecionada = parseFloat(localStorage.getItem("IinstneutroSelecionada"));
+if (iinst50nOperacao && instNeutroSelecionada) {
+    iinst50nOperacao.textContent = instNeutroSelecionada.toFixed(2) + " A";
+}
 
 
 

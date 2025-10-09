@@ -58,8 +58,8 @@
         <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-top: 1px;">
 
                 <div>
-                        <label for="seletorTabela">Escolha uma tabela:</label>
-                        <select id="seletorTabela" onchange="mostrarTabela()">
+                        <label style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;" for="seletorTabela">Escolha uma tabela:</label>
+                        <select id="seletorTabela" onchange="mostrarTabela()" style="padding: 6px 12px; font-size: 0.96em; border-radius: 6px; border: 1px solid #024402; background: #f6fff6; color: #024402; font-weight: bold;">
                                 <option value=""></option>
                                 <option value="01-PEXTRON-URP7104">01-PEXTRON-URP7104</option>
                                 <option value="02-PEXTRON-URP1439">02-PEXTRON-URP1439</option>
@@ -71,7 +71,6 @@
                                 <option value="07-SCHNEIDER-SEPAM-S42">07-SCHNEIDER-SEPAM-S42</option>
                                 <option value="08-SCHNEIDER-VAMP-11">08-SCHNEIDER-VAMP-11</option>
                                 <option value="09-PEXTRON-URP6104">09-PEXTRON-URP6104</option>
-
                                 <option value="10-PEXTRON-URP-6000-Software-Versão-1.0.0.059">
                                         10-PEXTRON-URP-6000-Software-Versão-1.0.0.059</option>
                                 <option value="11-SEG-MRI3-IE">11-SEG-MRI3-IE</option>
@@ -91,7 +90,6 @@
                                 <option value="24-SIEMENS-7SR120">24-SIEMENS-7SR120</option>
                                 <option value="25-PEXTRON-URP-6100-Software-Versão-1.0.0.061-GD">
                                         25-PEXTRON-URP-6100-Software-Versão-1.0.0.061-GD</option>
-
                         </select>
                 </div>
 
@@ -6450,7 +6448,6 @@ ajuste-instneutro-pu
 
         </div>
 
-
         <div id="102-PEXTRON-URP-6100-Software-Versão-1.0.0.059" class="tabela">
 
                 <table border="1" style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
@@ -7167,34 +7164,35 @@ ajuste-instneutro-pu
                                 </tr>
                                 <tr>
                                         <td>Phase Nom Voltage</td>
-                                        <td>40 a 160</td>
-                                        <td>113.82 V</td>
+                                        <td>40 a 160 v</td>
+                                        <td class="ajuste-tensao-secundaria-fn-tp"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase Voltage Config</td>
                                         <td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td>
-                                        <td>Van, Vbn, Vcn</td>
+                                        <td class="ajuste-phase-voltage-config">Van, Vbn, Vcn</td>
                                 </tr>
                                 <tr>
                                         <td>Phase VT Ratio Prim</td>
                                         <td>até 6 caracteres numérico (V)</td>
-                                        <td>7967.43 V</td>
+                                        <td class="ajuste-tensao-primaria-fn"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase VT Ratio Sec</td>
                                         <td>40 a 160 (V)</td>
-                                        <td>113.82 V</td>
+                                        <td class="ajuste-tensao-secundaria-fn-tp"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase CT Ratio Prim</td>
-                                        <td>até 6 caracteres numérico (V)</td>
-                                        <td>50</td>
+                                        <td>até 6 caracteres numérico (A)</td>
+                                        <td class="ajuste-tc-protecao"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase CT Ratio Sec</td>
-                                        <td>1A / 5A</td>
-                                        <td>5,00 A</td>
+                                        <td>1 A / 5 A</td>
+                                        <td class="ajuste-phase-ct-ratio-sec">5,00 A</td>
                                 </tr>
+
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">POWER PROT'N</th>
                                 </tr>
@@ -7211,12 +7209,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 32-1 Settings</td>
                                         <td>0.05 a 2 (xSn)</td>
-                                        <td>0.05 x Sn (Minímo)</td>
+                                        <td class="ajuste-32-injecao-GD-PU"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 32-1 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>15.00 s</td>
+                                        <td class="ajuste-32-tempo-injecao-GD">15.00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -7224,7 +7222,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 32-2 Element</td>
                                         <td>Disabled / Enabled</td>
-                                        <td>Enable</td>
+                                        <td>Enabled</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 32-2 Dir. Control</td>
@@ -7234,12 +7232,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 32-2 Settings</td>
                                         <td>0.05 a 2 (xSn)</td>
-                                        <td>0,587847547</td>
+                                        <td class="ajuste-32-consumo-GD-PU"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 32-2 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>15</td>
+                                        <td class="ajuste-32-tempo-consumo-GD">15.00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">CURRENT PROT'N</th>
@@ -7250,22 +7248,22 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 67 Char Angle</td>
                                         <td>-95 a 95 (deg)</td>
-                                        <td>45</td>
+                                        <td class="ajuste-67-injecao-angulo-GD">45°</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67 Minimum Voltage</td>
                                         <td>1 a 20 (V)</td>
-                                        <td>10</td>
+                                        <td>10 V</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67 2-out-of-3 Logic</td>
                                         <td>Enable/Disable</td>
-                                        <td>Disable</td>
+                                        <td>Disabled</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 50 Measurement</td>
                                         <td>RMS/Fundamental</td>
-                                        <td>Fundamenal</td>
+                                        <td>Fundamental</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51 Measurement</td>
@@ -7288,17 +7286,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51-1 Setting</td>
                                         <td>0.05 a 4 (xIn)</td>
-                                        <td>0,998382382</td>
+                                        <td class="ajuste-67-ip-fase-injecao-gd-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-1 Char</td>
                                         <td>DTL..ANSI-EI</td>
-                                        <td>IEC-E.I</td>
+                                        <td class="ajuste-67-curva-fase-injecao-gd-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-1 Time Mult(IEC/ANSI)</td>
                                         <td>0,025...100</td>
-                                        <td>0,2</td>
+                                        <td class="ajuste-67-dial-fase-injecao-GD">0.025</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-1 Min Operate Time</td>
@@ -7355,17 +7353,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51-3 Setting</td>
                                         <td>0.05 a 4 (xIn)</td>
-                                        <td>0,638964725</td>
+                                        <td class="ajuste-ip-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-3 Char</td>
                                         <td>DTL..ANSI-EI</td>
-                                        <td>IEC-E.I</td>
+                                        <td class="ajuste-curva-fase"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-3 Time Mult(IEC/ANSI)</td>
                                         <td>0,025...100</td>
-                                        <td>0,4</td>
+                                        <td class="ajuste-dt-fase"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-3 Min Operate Time</td>
@@ -7398,12 +7396,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 50-3 Setting</td>
                                         <td>0,05..50</td>
-                                        <td>8,266606127</td>
+                                        <td class="ajuste-iinst-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 50-3 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>0</td>
+                                        <td class="">0,00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -7427,12 +7425,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 67N Char Angle</td>
                                         <td>-95...95</td>
-                                        <td>-110</td>
+                                        <td>-60°</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67N Minimum Voltage</td>
                                         <td>0,33...3</td>
-                                        <td>0.5</td>
+                                        <td>0.5 V</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67N Polarizing Quantity</td>
@@ -7455,7 +7453,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51N-1 Setting</td>
                                         <td>0.05 a 50 (xIn)</td>
-                                        <td>0,329466186</td>
+                                        <td class="ajuste-ipneutro-GD-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51N-1 Char</td>
@@ -7465,7 +7463,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51N-1 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>5</td>
+                                        <td class="ajuste-dt-neutro-injecao-GD"></td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -7507,17 +7505,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51N-3 Setting</td>
                                         <td>0.05 a 50 (xIn)</td>
-                                        <td>0,210858359</td>
+                                        <td class="ajuste-ipneutro-pu">0.05</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51N-3 Char</td>
                                         <td>DTL..ANSI-EI</td>
-                                        <td>DTL</td>
+                                        <td class="">DTL</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51N-3 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>2</td>
+                                        <td class="ajuste-dt-neutro"></td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -7535,12 +7533,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 50N-3 Setting</td>
                                         <td>0.05 a 50 (xIn)</td>
-                                        <td>2,727980022</td>
+                                        <td class="ajuste-instneutro-pu">0.05</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 50N-3 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>0</td>
+                                        <td class="">0,00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -7569,7 +7567,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51V Setting</td>
                                         <td>5...200</td>
-                                        <td>165,00</td>
+                                        <td class="ajuste-tensao-superior-51v-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51V VTS Action</td>
@@ -7596,8 +7594,8 @@ ajuste-instneutro-pu
                                 </tr>
                                 <tr>
                                         <td>Gn 46IT Setting</td>
-                                        <td>5...200</td>
-                                        <td>0,199676476</td>
+                                        <td>0.05...2.5</td>
+                                        <td class="ajuste-ip-46-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 46IT Char</td>
@@ -7607,7 +7605,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 46IT Time Mult (IEC/ANSI-EI)</td>
                                         <td>0,025...100</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 46IT Reset</td>
@@ -7625,12 +7623,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 46DT Setting</td>
                                         <td>0,05...4</td>
-                                        <td>0,199676476</td>
+                                        <td class="ajuste-ip-46-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 46DT Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">VOLTAGE PROT'N</th>
@@ -7664,17 +7662,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-1 Setting</td>
                                         <td>5...200</td>
-                                        <td>84,67803948</td>
+                                        <td class="ajuste-27-1-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-1 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-1 Delay</td>
                                         <td>0..14400</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-1 U/V Guarded</td>
@@ -7707,17 +7705,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-2 Setting</td>
                                         <td>5...200</td>
-                                        <td>52,92377468</td>
+                                        <td class="ajuste-27-2-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-2 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-2 Delay</td>
                                         <td>0..14400</td>
-                                        <td>1</td>
+                                        <td>1 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-2 U/V Guarded</td>
@@ -7750,17 +7748,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-3 Setting</td>
                                         <td>5...200</td>
-                                        <td>116,4323043</td>
+                                        <td class="ajuste-59-1-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-3 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-3 Delay</td>
                                         <td>0..14400</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-3 U/V Guarded</td>
@@ -7793,12 +7791,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-4 Setting</td>
                                         <td>5...200</td>
-                                        <td>124,9001082</td>
+                                        <td class="ajuste-59-2-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-4 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-4 Delay</td>
@@ -7831,7 +7829,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81 U/V Guard Setting</td>
                                         <td>35...200</td>
-                                        <td>35V</td>
+                                        <td>35 V</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -7849,17 +7847,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-1 Setting</td>
                                         <td>43...68</td>
-                                        <td>57,4</td>
+                                        <td class="ajuste-81u-1"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-1 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-1 Delay</td>
                                         <td>0..14400</td>
-                                        <td>5,5</td>
+                                        <td class="ajuste-t-81u-1">0,2 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-1 U/V Guarded</td>
@@ -7882,17 +7880,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-2 Setting</td>
                                         <td>43...68</td>
-                                        <td>58,5</td>
+                                        <td class="ajuste-81u-2"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-2 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-2 Delay</td>
                                         <td>0..14400</td>
-                                        <td>20,5</td>
+                                        <td class="ajuste-t-81u-2">5,5 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-2 U/V Guarded</td>
@@ -7915,17 +7913,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-3 Setting</td>
                                         <td>43...68</td>
-                                        <td>62,6</td>
+                                        <td class="ajuste-81o-1"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-3 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-3 Delay</td>
                                         <td>0..14400</td>
-                                        <td>10,5</td>
+                                        <td class="ajuste-t-81o-1">10,5 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-3 U/V Guarded</td>
@@ -7948,17 +7946,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-4 Setting</td>
                                         <td>43...68</td>
-                                        <td>63,1</td>
+                                        <td class="ajuste-81o-2"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-4 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-4 Delay</td>
                                         <td>0..14400</td>
-                                        <td>0,2</td>
+                                        <td class="ajuste-t-81o-2">0,2 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-4 U/V Guarded</td>
@@ -7990,34 +7988,35 @@ ajuste-instneutro-pu
                                 </tr>
                                 <tr>
                                         <td>Phase Nom Voltage</td>
-                                        <td>40 a 160</td>
-                                        <td>113.82 V</td>
+                                        <td>40 a 160 v</td>
+                                        <td class="ajuste-tensao-secundaria-fn-tp"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase Voltage Config</td>
                                         <td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td>
-                                        <td>Van, Vbn, Vcn</td>
+                                        <td class="ajuste-phase-voltage-config">Van, Vbn, Vcn</td>
                                 </tr>
                                 <tr>
                                         <td>Phase VT Ratio Prim</td>
                                         <td>até 6 caracteres numérico (V)</td>
-                                        <td>7967.43 V</td>
+                                        <td class="ajuste-tensao-primaria-fn"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase VT Ratio Sec</td>
                                         <td>40 a 160 (V)</td>
-                                        <td>113.82 V</td>
+                                        <td class="ajuste-tensao-secundaria-fn-tp"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase CT Ratio Prim</td>
-                                        <td>até 6 caracteres numérico (V)</td>
-                                        <td>50</td>
+                                        <td>até 6 caracteres numérico (A)</td>
+                                        <td class="ajuste-tc-protecao"></td>
                                 </tr>
                                 <tr>
                                         <td>Phase CT Ratio Sec</td>
-                                        <td>1A / 5A</td>
-                                        <td>5,00 A</td>
+                                        <td>1 A / 5 A</td>
+                                        <td class="ajuste-phase-ct-ratio-sec">5,00 A</td>
                                 </tr>
+
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">POWER PROT'N</th>
                                 </tr>
@@ -8034,12 +8033,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 32-1 Settings</td>
                                         <td>0.05 a 2 (xSn)</td>
-                                        <td>0.05 x Sn (Minímo)</td>
+                                        <td class="ajuste-32-injecao-GD-PU"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 32-1 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>15.00 s</td>
+                                        <td class="ajuste-32-tempo-injecao-GD">15.00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -8047,7 +8046,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 32-2 Element</td>
                                         <td>Disabled / Enabled</td>
-                                        <td>Enable</td>
+                                        <td>Enabled</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 32-2 Dir. Control</td>
@@ -8057,12 +8056,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 32-2 Settings</td>
                                         <td>0.05 a 2 (xSn)</td>
-                                        <td>0,587847547</td>
+                                        <td class="ajuste-32-consumo-GD-PU"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 32-2 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>15</td>
+                                        <td class="ajuste-32-tempo-consumo-GD">15.00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">CURRENT PROT'N</th>
@@ -8073,22 +8072,22 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 67 Char Angle</td>
                                         <td>-95 a 95 (deg)</td>
-                                        <td>45</td>
+                                        <td class="ajuste-67-injecao-angulo-GD">45°</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67 Minimum Voltage</td>
                                         <td>1 a 20 (V)</td>
-                                        <td>10</td>
+                                        <td>10 V</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67 2-out-of-3 Logic</td>
                                         <td>Enable/Disable</td>
-                                        <td>Disable</td>
+                                        <td>Disabled</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 50 Measurement</td>
                                         <td>RMS/Fundamental</td>
-                                        <td>Fundamenal</td>
+                                        <td>Fundamental</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51 Measurement</td>
@@ -8111,17 +8110,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51-1 Setting</td>
                                         <td>0.05 a 4 (xIn)</td>
-                                        <td>0,998382382</td>
+                                        <td class="ajuste-67-ip-fase-injecao-gd-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-1 Char</td>
                                         <td>DTL..ANSI-EI</td>
-                                        <td>IEC-E.I</td>
+                                        <td class="ajuste-67-curva-fase-injecao-gd-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-1 Time Mult(IEC/ANSI)</td>
                                         <td>0,025...100</td>
-                                        <td>0,2</td>
+                                        <td class="ajuste-67-dial-fase-injecao-GD">0.025</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-1 Min Operate Time</td>
@@ -8178,17 +8177,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51-3 Setting</td>
                                         <td>0.05 a 4 (xIn)</td>
-                                        <td>0,638964725</td>
+                                        <td class="ajuste-ip-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-3 Char</td>
                                         <td>DTL..ANSI-EI</td>
-                                        <td>IEC-E.I</td>
+                                        <td class="ajuste-curva-fase"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-3 Time Mult(IEC/ANSI)</td>
                                         <td>0,025...100</td>
-                                        <td>0,4</td>
+                                        <td class="ajuste-dt-fase"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51-3 Min Operate Time</td>
@@ -8221,12 +8220,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 50-3 Setting</td>
                                         <td>0,05..50</td>
-                                        <td>8,266606127</td>
+                                        <td class="ajuste-iinst-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 50-3 Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>0</td>
+                                        <td class="">0,00 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -8250,12 +8249,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 67G Char Angle</td>
                                         <td>(-95...95)</td>
-                                        <td>-110</td>
+                                        <td>-60°</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 67G Minimum Voltage</td>
                                         <td>(0,33...3)</td>
-                                        <td>0.5</td>
+                                        <td>0.5 V</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 50 Measurement</td>
@@ -8283,12 +8282,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 50G-1 Setting</td>
                                         <td>(0.05 a 50 (xIn))</td>
-                                        <td>0,329466186</td>
+                                        <td class="ajuste-ipneutro-GD-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>GN 50G-1 Delay</td>
                                         <td>(0 a 14400 (s))</td>
-                                        <td>5</td>
+                                        <td class="ajuste-dt-neutro-injecao-GD"></td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -8314,12 +8313,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 50G-3 Setting</td>
                                         <td>(0.05 a 50 (xIn))</td>
-                                        <td>0,210858359</td>
+                                        <td class="ajuste-ipneutro-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>GN 50G-3 Delay</td>
                                         <td>(0 a 14400 (s))</td>
-                                        <td>2</td>
+                                        <td class="ajuste-dt-neutro"></td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -8337,13 +8336,14 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 50G-4 Setting</td>
                                         <td>(0.05 a 50 (xIn))</td>
-                                        <td>2,727980022</td>
+                                        <td class="ajuste-instneutro-pu"></td>
                                 </tr>
                                 <tr>
                                         <td>GN 50G-4 Delay</td>
                                         <td>(0 a 14400 (s))</td>
-                                        <td>0</td>
+                                        <td>0 s</td>
                                 </tr>
+
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">VOLTAGE CONT O/C</th>
                                 </tr>
@@ -8355,7 +8355,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 51V Setting</td>
                                         <td>5...200</td>
-                                        <td>165,00</td>
+                                        <td class="ajuste-tensao-superior-51v-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 51V VTS Action</td>
@@ -8382,8 +8382,8 @@ ajuste-instneutro-pu
                                 </tr>
                                 <tr>
                                         <td>Gn 46IT Setting</td>
-                                        <td>5...200</td>
-                                        <td>0,199676476</td>
+                                        <td>0.05...2.5</td>
+                                        <td class="ajuste-ip-46-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 46IT Char</td>
@@ -8393,7 +8393,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 46IT Time Mult (IEC/ANSI-EI)</td>
                                         <td>0,025...100</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 46IT Reset</td>
@@ -8411,12 +8411,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 46DT Setting</td>
                                         <td>0,05...4</td>
-                                        <td>0,199676476</td>
+                                        <td class="ajuste-ip-46-siemens"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 46DT Delay</td>
                                         <td>0 a 14400 (s)</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;">VOLTAGE PROT'N</th>
@@ -8450,17 +8450,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-1 Setting</td>
                                         <td>5...200</td>
-                                        <td>84,67803948</td>
+                                        <td class="ajuste-27-1-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-1 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-1 Delay</td>
                                         <td>0..14400</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-1 U/V Guarded</td>
@@ -8493,17 +8493,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-2 Setting</td>
                                         <td>5...200</td>
-                                        <td>52,92377468</td>
+                                        <td class="ajuste-27-2-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-2 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-2 Delay</td>
                                         <td>0..14400</td>
-                                        <td>1</td>
+                                        <td>1 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-2 U/V Guarded</td>
@@ -8536,17 +8536,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-3 Setting</td>
                                         <td>5...200</td>
-                                        <td>116,4323043</td>
+                                        <td class="ajuste-59-1-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-3 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-3 Delay</td>
                                         <td>0..14400</td>
-                                        <td>3</td>
+                                        <td>3 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-3 U/V Guarded</td>
@@ -8579,12 +8579,12 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 27/59-4 Setting</td>
                                         <td>5...200</td>
-                                        <td>124,9001082</td>
+                                        <td class="ajuste-59-2-tensao-secundaria"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-4 Hysteresis</td>
                                         <td>0...80</td>
-                                        <td>3</td>
+                                        <td>3 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 27/59-4 Delay</td>
@@ -8617,7 +8617,7 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81 U/V Guard Setting</td>
                                         <td>35...200</td>
-                                        <td>35V</td>
+                                        <td>35 V</td>
                                 </tr>
                                 <tr>
                                         <th colspan="3" style="background:#454e45;"></th>
@@ -8635,17 +8635,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-1 Setting</td>
                                         <td>43...68</td>
-                                        <td>57,4</td>
+                                        <td class="ajuste-81u-1"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-1 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-1 Delay</td>
                                         <td>0..14400</td>
-                                        <td>5,5</td>
+                                        <td class="ajuste-t-81u-1">0,2 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-1 U/V Guarded</td>
@@ -8668,17 +8668,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-2 Setting</td>
                                         <td>43...68</td>
-                                        <td>58,5</td>
+                                        <td class="ajuste-81u-2"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-2 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-2 Delay</td>
                                         <td>0..14400</td>
-                                        <td>20,5</td>
+                                        <td class="ajuste-t-81u-2">5,5 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-2 U/V Guarded</td>
@@ -8701,17 +8701,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-3 Setting</td>
                                         <td>43...68</td>
-                                        <td>62,6</td>
+                                        <td class="ajuste-81o-1"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-3 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-3 Delay</td>
                                         <td>0..14400</td>
-                                        <td>10,5</td>
+                                        <td class="ajuste-t-81o-1">10,5 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-3 U/V Guarded</td>
@@ -8734,17 +8734,17 @@ ajuste-instneutro-pu
                                 <tr>
                                         <td>Gn 81-4 Setting</td>
                                         <td>43...68</td>
-                                        <td>63,1</td>
+                                        <td class="ajuste-81o-2"></td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-4 Hysteresis</td>
                                         <td>0...2</td>
-                                        <td>0,1</td>
+                                        <td>0,1 %</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-4 Delay</td>
                                         <td>0..14400</td>
-                                        <td>0,2</td>
+                                        <td class="ajuste-t-81o-2">0,2 s</td>
                                 </tr>
                                 <tr>
                                         <td>Gn 81-4 U/V Guarded</td>

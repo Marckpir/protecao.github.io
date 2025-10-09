@@ -232,7 +232,7 @@ function calcularSensibilidades() {
         tensaoPrimariaFaseAjustadaHtml.textContent = tensaoPrimariaFaseAjustada.toFixed(2) + " V";
     }
 
-    localStorage.setItem("tensaoPrimariaFaseAjustada27-1", tensaoPrimariaFaseAjustada);
+    localStorage.setItem("tensaoPrimariaFaseAjustada27-1", tensaoPrimariaFaseAjustada.toFixed(2));
 
     const tensaoSecundariaFaseAjustada = tensaoSecundariaFNTP * ((parseFloat(ajustePUSubtensaoAutomatica) || 0));
     const tensaoSecundariaFaseAjustadaHtml = document.getElementById("sensibilidade-superior-tensao-secundaria-fase-ajustada-html");
@@ -246,6 +246,7 @@ function calcularSensibilidades() {
         tensaoSecundariaLinhaAjustadaHtml.textContent = tensaoSecundariaLinhaAjustada.toFixed(2) + " V";
     }
 
+    localStorage.setItem("tensaoSecundariaFaseAjustada27-1", tensaoSecundariaFaseAjustada.toFixed(2));
 
     //---cálculo dos valores ajustados de tensão para o segundo estágio
     const tensaoPrimariaLinhaAjustada2 = tensaoPrimariaFF * ((parseFloat(ajustePUSubtensaoAutomatica2) || 0));
@@ -260,7 +261,7 @@ function calcularSensibilidades() {
         tensaoPrimariaFaseAjustadaHtml2.textContent = tensaoPrimariaFaseAjustada2.toFixed(2) + " V";
     }
 
-    localStorage.setItem("tensaoPrimariaFaseAjustada27-2", tensaoPrimariaFaseAjustada2);
+    localStorage.setItem("tensaoPrimariaFaseAjustada27-2", tensaoPrimariaFaseAjustada2.toFixed(2));
 
     const tensaoSecundariaFaseAjustada2 = tensaoSecundariaFNTP * ((parseFloat(ajustePUSubtensaoAutomatica2) || 0));
     const tensaoSecundariaFaseAjustadaHtml2 = document.getElementById("sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2");
@@ -274,7 +275,7 @@ function calcularSensibilidades() {
         tensaoSecundariaLinhaAjustadaHtml2.textContent = tensaoSecundariaLinhaAjustada2.toFixed(2) + " V";
     }
 
-
+    localStorage.setItem("tensaoSecundariaFaseAjustada27-2", tensaoSecundariaFaseAjustada2.toFixed(2));
 
 
 

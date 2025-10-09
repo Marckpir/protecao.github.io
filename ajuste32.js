@@ -134,6 +134,7 @@ async function salvarOpcao() {
 
 
 function calcularfuncoes32() {
+
     //Importa potenciaMinimaSelecionada do localStorage
     const potenciaMinimaSelecionada = parseFloat(localStorage.getItem("potenciaMinimaSelecionada")) || 0;
     console.log("Potência Mínima Selecionada importada do localStorage:", potenciaMinimaSelecionada);
@@ -172,15 +173,24 @@ function calcularfuncoes32() {
     }
 
     // Calcula a potência de injeção em P.U.
+    let potenciaInjecaoPU = 0;
     if (potenciabase !== 0) {
-        let potenciaInjecaoPU = potenciaInjecao / potenciabase;
+        potenciaInjecaoPU = potenciaInjecao / potenciabase;
         console.log("Potência de Injeção em P.U:", potenciaInjecaoPU);
 
         const potenciaInjecaoPUElem = document.getElementById("potencia-pu-injecao-html");
         if (potenciaInjecaoPUElem) {
-            potenciaInjecaoPUElem.textContent = potenciaInjecaoPU.toFixed(3) + " p.u.";
+            potenciaInjecaoPUElem.textContent = potenciaInjecaoPU.toFixed(3) + " P.U";
         }
     }
+
+    // exportar potenciaInjecaoPU para o localStorage
+    localStorage.setItem("potenciaInjecaoPU32", potenciaInjecaoPU.toFixed(2));
+
+
+
+
+
 
 
     // Importa o valor de "demandaSelecionada" do localStorage
@@ -191,6 +201,7 @@ function calcularfuncoes32() {
     console.log("Tolerância de Consumo importada do HTML:", toleranciaConsumo);
 
     // Calcula a potência de consumo
+    let potenciaConsumo = 0;
     if(demandaConsumo < potenciaMinimaSelecionada){
         potenciaConsumo = potenciaMinimaSelecionada * (1 * toleranciaConsumo / 100);
     } else {
@@ -208,16 +219,19 @@ function calcularfuncoes32() {
     }
 
     // Calcula a potência de consumo em P.U.
+    let potenciaConsumoPU = 0;
     if (potenciabase !== 0) {
-        let potenciaConsumoPU = potenciaConsumo / potenciabase;
+        potenciaConsumoPU = potenciaConsumo / potenciabase;
         console.log("Potência de Consumo em P.U:", potenciaConsumoPU);
 
         const potenciaConsumoPUElem = document.getElementById("potencia-pu-consumo-html");
         if (potenciaConsumoPUElem) {
-            potenciaConsumoPUElem.textContent = potenciaConsumoPU.toFixed(3) + " p.u.";
+            potenciaConsumoPUElem.textContent = potenciaConsumoPU.toFixed(3) + " P.U";
         }
     }
-
+    
+    // exportar potenciaInjecaoPU para o localStorage
+    localStorage.setItem("potenciaConsumoPU32", potenciaConsumoPU);
 
 
 

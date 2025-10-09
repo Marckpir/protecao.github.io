@@ -39,7 +39,7 @@ function carregarAssuntos() {
 
     // Verifica se existe valor em potenciaGDSelecionada no localStorage
     const potenciaGD = localStorage.getItem('potenciaGDcontratada');
-    const filtrar24 = potenciaGD !== null && potenciaGD !== undefined && potenciaGD !== "";
+    const filtrar24 = potenciaGD !== null && potenciaGD !== undefined && potenciaGD !== "" && !isNaN(parseFloat(potenciaGD)) && parseFloat(potenciaGD) > 0;
 
     tabelas.forEach(tabela => {
         // Extrai número do final do id da tabela (ex: "tabela24", "tabela25" etc)
@@ -93,7 +93,7 @@ window.onload = function () {
 
         // Atualiza TODOS os campos com a classe ajuste-tc-protecao em todas as tabelas
         document.querySelectorAll('.ajuste-tc-protecao').forEach(function (inputTcProt) {
-            inputTcProt.textContent = valorAjusteTcProtecao + "";
+            inputTcProt.textContent = valorAjusteTcProtecao + " A";
         });
     }
 
@@ -540,12 +540,15 @@ window.onload = function () {
     // Ip Neutro PU Selecionada
     let ipneutroPU = dados['ipneutroPUSelecionada'];
     if (ipneutroPU !== null && ipneutroPU !== undefined) {
-        let valorDinamico = parseFloat(ipneutroPU);
+        let valorDinamico = parseFloat(ipneutroPU)
         document.querySelectorAll('.ajuste-ipneutro-pu').forEach(function (el) {
             let valorExistente = parseFloat(el.textContent);
             if (isNaN(valorExistente) || valorExistente < valorDinamico) {
                 el.textContent = valorDinamico.toFixed(2) + " x In";
+            } else {
+                el.textContent = valorExistente.toFixed(2) + " x In (Mínimo)";
             }
+
         });
     }
 
@@ -794,130 +797,377 @@ window.onload = function () {
     }
 
 
+    // PARAMETROS EM PU
 
-
-
-
-
-
-
-
-
-
-
-    mostrarTabela();
-
-
-};
-
-
-
-function mostrarTabela() {
-    var seletor = document.getElementById("seletorTabela").value;
-    var tabelas = document.querySelectorAll(".tabela");
-
-    tabelas.forEach(tabela => {
-        tabela.style.display = "none"; // Oculta todas as tabelas
-    });
-
-    var tabelaSelecionada = document.getElementById(seletor);
-    if (tabelaSelecionada) {
-        tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
+    // Importar potencia consumo em pu do localStorage e preencher campos ajuste-32-consumo-pu
+    let potenciaConsumoCalculada32pu = localStorage.getItem('potenciaConsumoPU32');
+    if (
+        potenciaConsumoCalculada32pu !== null &&
+        potenciaConsumoCalculada32pu !== undefined &&
+        potenciaConsumoCalculada32pu !== "" &&
+        !isNaN(parseFloat(potenciaConsumoCalculada32pu))
+    ) {
+        let valorPotenciaConsumoCalculada32pu = parseFloat(potenciaConsumoCalculada32pu).toFixed(2) + " x Sn";
+        document.querySelectorAll('.ajuste-32-consumo-GD-PU').forEach(function (el) {
+            el.textContent = valorPotenciaConsumoCalculada32pu;
+        });
     }
-    // Atualiza o localStorage com a tabela selecionada
-    // localStorage.setItem("TabelaSelecionadaHTML", seletor);
 
-    // Salva os elementos da div da tabela selecionada no localStorage
-    // if (tabelaSelecionada) {
-    //     localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
-    // }
-
-
-}
-
-
-function Salvaropcao() {
-
-    const seletor = document.getElementById("seletorTabela").value;
-    localStorage.setItem("TabelaSelecionadaHTML", seletor);
-
-    const tabelaSelecionada = document.getElementById(seletor);
-    if (tabelaSelecionada) {
-        localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
+    // Importar potencia injeção em pu do localStorage e preencher campos ajuste-32-injecao-pu
+    let potenciaInjecaoCalculada32pu = localStorage.getItem('potenciaInjecaoPU32');
+    if (
+        potenciaInjecaoCalculada32pu !== null &&
+        potenciaInjecaoCalculada32pu !== undefined &&
+        potenciaInjecaoCalculada32pu !== "" &&
+        !isNaN(parseFloat(potenciaInjecaoCalculada32pu))
+    ) {
+        let valorPotenciaInjecaoCalculada32pu = parseFloat(potenciaInjecaoCalculada32pu).toFixed(2) + " x Sn";
+        document.querySelectorAll('.ajuste-32-injecao-GD-PU').forEach(function (el) {
+            el.textContent = valorPotenciaInjecaoCalculada32pu;
+        });
     }
 
 
-
-    alert("Tabela salva");
-
-
-
-
-}
-
-
-
-
-
-
-
-
-function baixarPDF() {
-    // Verifica se html2pdf está disponível
-    if (typeof html2pdf === "undefined") {
-        alert("A biblioteca html2pdf não está carregada. Verifique se o script está incluído no HTML.");
-        return;
+    //importar Ip em pu do localStorage e preencher campos ajuste-ip-fase-GD-pu
+    let IpfaseGDpu = localStorage.getItem('ipPUSelecionadaGD');
+    if (
+        IpfaseGDpu !== null &&
+        IpfaseGDpu !== undefined &&
+        IpfaseGDpu !== "" &&
+        !isNaN(parseFloat(IpfaseGDpu))
+    ) {
+        let valorIpfaseGDpu = parseFloat(IpfaseGDpu).toFixed(2) + " xIn";
+        document.querySelectorAll('.ajuste-67-ip-fase-injecao-gd-pu').forEach(function (el) {
+            el.textContent = valorIpfaseGDpu;
+        });
     }
-    const seletor = document.getElementById("seletorTabela").value;
-    if (!seletor) {
-        alert("Selecione uma tabela antes de baixar o PDF.");
-        return;
+
+    //importar curva de injeção fase do localStorage e preencher campos ajuste-curva-fase-injecao-gd
+    let curvaFaseInjecaoGD = localStorage.getItem('curvafaseSelecionadaGD');
+    if (
+        curvaFaseInjecaoGD !== null &&
+        curvaFaseInjecaoGD !== undefined &&
+        curvaFaseInjecaoGD !== ""
+    ) {
+        document.querySelectorAll('.ajuste-67-curva-fase-injecao-gd-siemens').forEach(function (el) {
+            el.textContent = curvaFaseInjecaoGD;
+        });
     }
-    const tabelaSelecionada = document.getElementById(seletor);
-    if (tabelaSelecionada) {
-        // Busca o texto do <h2> dentro da tabela selecionada
-        let nomeArquivo = "tabela-selecionada.pdf";
-        const h2 = tabelaSelecionada.querySelector("h2");
-        if (h2 && h2.textContent) {
-            // Remove caracteres inválidos para nome de arquivo
-            nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".pdf";
+
+    console.log("curvaFaseInjecaoGD:", curvaFaseInjecaoGD);
+
+
+    //importar dial de injeção fase do localStorage e preencher campos ajuste-dial-fase-injecao-gd
+    let dialFaseInjecaoGD = localStorage.getItem('dialfaseSelecionadaGD');
+    if (
+        dialFaseInjecaoGD !== null &&
+        dialFaseInjecaoGD !== undefined &&
+        dialFaseInjecaoGD !== "" &&
+        !isNaN(parseFloat(dialFaseInjecaoGD))
+    ) {
+        let valorDialFaseInjecaoGD = parseFloat(dialFaseInjecaoGD).toFixed(2);
+        document.querySelectorAll('.ajuste-67-dial-fase-injecao-GD').forEach(function (el) {
+            el.textContent = valorDialFaseInjecaoGD;
+        });
+    }
+
+
+
+    //importar Ip neutro em pu do localStorage e preencher campos ajuste-ip-neutro-GD-pu
+    let IpneutroGDpu = localStorage.getItem('ipneutroPUSelecionadaGD');
+    if (
+        IpneutroGDpu !== null &&
+        IpneutroGDpu !== undefined &&
+        IpneutroGDpu !== "" &&
+        !isNaN(parseFloat(IpneutroGDpu))
+    ) {
+        let valorIpneutroGDpu = parseFloat(IpneutroGDpu).toFixed(2) + " xIn";
+        document.querySelectorAll('.ajuste-ipneutro-GD-pu').forEach(function (el) {
+            el.textContent = valorIpneutroGDpu;
+        });
+    }
+
+    //importar dial de injeção neutro do localStorage e preencher campos ajuste-dial-neutro-injecao-gd
+    let dialNeutroInjecaoGD = localStorage.getItem('dialneutroSelecionadaGD');
+    if (
+        dialNeutroInjecaoGD !== null &&
+        dialNeutroInjecaoGD !== undefined &&
+        dialNeutroInjecaoGD !== "" &&
+        !isNaN(parseFloat(dialNeutroInjecaoGD))
+    ) {
+        let valorDialNeutroInjecaoGD = parseFloat(dialNeutroInjecaoGD).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-dt-neutro-injecao-GD').forEach(function (el) {
+            el.textContent = valorDialNeutroInjecaoGD;
+        });
+    }
+
+
+    //importar tensao 51v do localStorage e preencher campos ajuste-51v-GD-pextron-pu
+    let tensaosecundariaajustada51v = localStorage.getItem('tensaoSecundariaLinhaAjustada51v');
+    if (
+        tensaosecundariaajustada51v !== null &&
+        tensaosecundariaajustada51v !== undefined &&
+        tensaosecundariaajustada51v !== "" &&
+        !isNaN(parseFloat(tensaosecundariaajustada51v))
+    ) {
+        let valortensaosecundariaajustada51v = parseFloat(tensaosecundariaajustada51v).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-tensao-superior-51v-siemens').forEach(function (el) {
+            el.textContent = valortensaosecundariaajustada51v;
+        });
+    }
+
+    //importar corrente 46 do localStorage e preencher campos ajuste-46-GD-pextron-pu
+    let Idef46realpu = localStorage.getItem('Ip46PUAjustada');
+    if (
+        Idef46realpu !== null &&
+        Idef46realpu !== undefined &&
+        Idef46realpu !== "" &&
+        !isNaN(parseFloat(Idef46realpu))
+    ) {
+        let valorIdef46realpu = parseFloat(Idef46realpu).toFixed(2) + " xIn";
+        document.querySelectorAll('.ajuste-ip-46-siemens').forEach(function (el) {
+            el.textContent = valorIdef46realpu;
+        });
+    }
+
+
+
+    //importar tensao 27-1 do localStorage e preencher campos ajuste-27-1-GD-pextron-pu
+    let tensaosecundariaajustada27_1 = localStorage.getItem('tensaoSecundariaFaseAjustada27-1');
+    if (
+        tensaosecundariaajustada27_1 !== null &&
+        tensaosecundariaajustada27_1 !== undefined &&
+        tensaosecundariaajustada27_1 !== "" &&
+        !isNaN(parseFloat(tensaosecundariaajustada27_1))
+    ) {
+        let valortensaosecundariaajustada27_1 = parseFloat(tensaosecundariaajustada27_1).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-27-1-tensao-secundaria').forEach(function (el) {
+            el.textContent = valortensaosecundariaajustada27_1;
+        });
+    }
+
+
+    //importar tensao 27-2 do localStorage e preencher campos ajuste-27-2-GD-pextron-pu
+    let tensaosecundariaajustada27_2 = localStorage.getItem('tensaoSecundariaFaseAjustada27-2');
+    if (
+        tensaosecundariaajustada27_2 !== null &&
+        tensaosecundariaajustada27_2 !== undefined &&
+        tensaosecundariaajustada27_2 !== "" &&
+        !isNaN(parseFloat(tensaosecundariaajustada27_2))
+    ) {
+        let valortensaosecundariaajustada27_2 = parseFloat(tensaosecundariaajustada27_2).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-27-2-tensao-secundaria').forEach(function (el) {
+            el.textContent = valortensaosecundariaajustada27_2;
+        });
+    }
+
+    //importar tensao 59-1 do localStorage e preencher campos ajuste-59-1-GD-pextron-pu
+    let tensaosecundariaajustada59_1 = localStorage.getItem('tensaoSecundariaFaseAjustada59-1');
+    if (
+        tensaosecundariaajustada59_1 !== null &&
+        tensaosecundariaajustada59_1 !== undefined &&
+        tensaosecundariaajustada59_1 !== "" &&
+        !isNaN(parseFloat(tensaosecundariaajustada59_1))
+    ) {
+        let valortensaosecundariaajustada59_1 = parseFloat(tensaosecundariaajustada59_1).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-59-1-tensao-secundaria').forEach(function (el) {
+            el.textContent = valortensaosecundariaajustada59_1;
+        });
+    }
+
+    //importar tensao 59-2 do localStorage e preencher campos ajuste-59-2-GD-pextron-pu
+    let tensaosecundariaajustada59_2 = localStorage.getItem('tensaoSecundariaFaseAjustada59-2');
+    if (
+        tensaosecundariaajustada59_2 !== null &&
+        tensaosecundariaajustada59_2 !== undefined &&
+        tensaosecundariaajustada59_2 !== "" &&
+        !isNaN(parseFloat(tensaosecundariaajustada59_2))
+    ) {
+        let valortensaosecundariaajustada59_2 = parseFloat(tensaosecundariaajustada59_2).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-59-2-tensao-secundaria').forEach(function (el) {
+            el.textContent = valortensaosecundariaajustada59_2;
+        });
+    }
+
+    //importar ajustereal81Uprimeiroestagio do localStorage e preencher campos ajuste-81u-1
+    let ajustereal81Uprimeiroestagio = localStorage.getItem('ajustereal81Uprimeiroestagio');
+    if (
+        ajustereal81Uprimeiroestagio !== null &&
+        ajustereal81Uprimeiroestagio !== undefined &&
+        ajustereal81Uprimeiroestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Uprimeiroestagio))
+    ) {
+        let valorAjuste81U1 = parseFloat(ajustereal81Uprimeiroestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81u-1').forEach(function (el) {
+            el.textContent = valorAjuste81U1;
+        });
+    }
+
+    //importar ajustereal81Usegundoestagio do localStorage e preencher campos ajuste-81u-2
+    let ajustereal81Usegundoestagio = localStorage.getItem('ajustereal81Usegundoestagio');
+    if (
+        ajustereal81Usegundoestagio !== null &&
+        ajustereal81Usegundoestagio !== undefined &&
+        ajustereal81Usegundoestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Usegundoestagio))
+    ) {
+        let valorAjuste81U2 = parseFloat(ajustereal81Usegundoestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81u-2').forEach(function (el) {
+            el.textContent = valorAjuste81U2;
+        });
+    }
+
+
+    //importar ajustereal81Oprimeiroestagio do localStorage e preencher campos ajuste-81o-1
+    let ajustereal81Oprimeiroestagio = localStorage.getItem('ajustereal81Oprimeiroestagio');
+    if (
+        ajustereal81Oprimeiroestagio !== null &&
+        ajustereal81Oprimeiroestagio !== undefined &&
+        ajustereal81Oprimeiroestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Oprimeiroestagio))
+    ) {
+        let valorAjuste81O1 = parseFloat(ajustereal81Oprimeiroestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81o-1').forEach(function (el) {
+            el.textContent = valorAjuste81O1;
+        });
+    }
+
+    //importar ajustereal81Osegundoestagio do localStorage e preencher campos ajuste-81o-2
+    let ajustereal81Osegundoestagio = localStorage.getItem('ajustereal81Osegundoestagio');
+    if (
+        ajustereal81Osegundoestagio !== null &&
+        ajustereal81Osegundoestagio !== undefined &&
+        ajustereal81Osegundoestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Osegundoestagio))
+    ) {
+        let valorAjuste81O2 = parseFloat(ajustereal81Osegundoestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81o-2').forEach(function (el) {
+            el.textContent = valorAjuste81O2;
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+        mostrarTabela();
+
+
+    };
+
+
+
+    function mostrarTabela() {
+        var seletor = document.getElementById("seletorTabela").value;
+        var tabelas = document.querySelectorAll(".tabela");
+
+        tabelas.forEach(tabela => {
+            tabela.style.display = "none"; // Oculta todas as tabelas
+        });
+
+        var tabelaSelecionada = document.getElementById(seletor);
+        if (tabelaSelecionada) {
+            tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
+        }
+        // Atualiza o localStorage com a tabela selecionada
+        // localStorage.setItem("TabelaSelecionadaHTML", seletor);
+
+        // Salva os elementos da div da tabela selecionada no localStorage
+        // if (tabelaSelecionada) {
+        //     localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
+        // }
+
+
+    }
+
+
+    function Salvaropcao() {
+
+        const seletor = document.getElementById("seletorTabela").value;
+        localStorage.setItem("TabelaSelecionadaHTML", seletor);
+
+        const tabelaSelecionada = document.getElementById(seletor);
+        if (tabelaSelecionada) {
+            localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
         }
 
-        tabelaSelecionada.style.display = "block";
-
-        html2pdf().set({
-            margin: [10, 5, 10, 10],
-            filename: nomeArquivo,
-            image: { type: 'jpeg', quality: 0.99 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        }).from(tabelaSelecionada).save();
-    } else {
-        alert("Selecione uma tabela antes de baixar o PDF.");
-    }
-}
 
 
-function baixarXLS() {
-    const seletor = document.getElementById("seletorTabela").value;
-    if (!seletor) {
-        alert("Selecione uma tabela antes de baixar o XLS.");
-        return;
-    }
-    const tabelaSelecionada = document.getElementById(seletor);
-    if (!tabelaSelecionada) {
-        alert("Tabela não encontrada.");
-        return;
+        alert("Tabela salva");
+
+
+
+
     }
 
-    // Clona a tabela para evitar alterações na original
-    const tabelaClone = tabelaSelecionada.cloneNode(true);
 
-    // Remove elementos indesejados (exemplo: botões ou elementos com classe 'no-export')
-    tabelaClone.querySelectorAll('button, .no-export').forEach(el => el.remove());
 
-    // Monta o HTML para exportação
-    const html = `
+
+
+
+
+
+    function baixarPDF() {
+        // Verifica se html2pdf está disponível
+        if (typeof html2pdf === "undefined") {
+            alert("A biblioteca html2pdf não está carregada. Verifique se o script está incluído no HTML.");
+            return;
+        }
+        const seletor = document.getElementById("seletorTabela").value;
+        if (!seletor) {
+            alert("Selecione uma tabela antes de baixar o PDF.");
+            return;
+        }
+        const tabelaSelecionada = document.getElementById(seletor);
+        if (tabelaSelecionada) {
+            // Busca o texto do <h2> dentro da tabela selecionada
+            let nomeArquivo = "tabela-selecionada.pdf";
+            const h2 = tabelaSelecionada.querySelector("h2");
+            if (h2 && h2.textContent) {
+                // Remove caracteres inválidos para nome de arquivo
+                nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".pdf";
+            }
+
+            tabelaSelecionada.style.display = "block";
+
+            html2pdf().set({
+                margin: [10, 5, 10, 10],
+                filename: nomeArquivo,
+                image: { type: 'jpeg', quality: 0.99 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).from(tabelaSelecionada).save();
+        } else {
+            alert("Selecione uma tabela antes de baixar o PDF.");
+        }
+    }
+
+
+    function baixarXLS() {
+        const seletor = document.getElementById("seletorTabela").value;
+        if (!seletor) {
+            alert("Selecione uma tabela antes de baixar o XLS.");
+            return;
+        }
+        const tabelaSelecionada = document.getElementById(seletor);
+        if (!tabelaSelecionada) {
+            alert("Tabela não encontrada.");
+            return;
+        }
+
+        // Clona a tabela para evitar alterações na original
+        const tabelaClone = tabelaSelecionada.cloneNode(true);
+
+        // Remove elementos indesejados (exemplo: botões ou elementos com classe 'no-export')
+        tabelaClone.querySelectorAll('button, .no-export').forEach(el => el.remove());
+
+        // Monta o HTML para exportação
+        const html = `
         <html>
         <head>
             <meta charset="UTF-8">
@@ -928,72 +1178,72 @@ function baixarXLS() {
         </html>
     `;
 
-    // Cria um Blob e faz o download
-    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
-    const url = URL.createObjectURL(blob);
+        // Cria um Blob e faz o download
+        const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+        const url = URL.createObjectURL(blob);
 
-    // Nome do arquivo baseado no <h2> da tabela, se existir
-    let nomeArquivo = "tabela.xls";
-    const h2 = tabelaSelecionada.querySelector("h2");
-    if (h2 && h2.textContent) {
-        nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".xls";
-    }
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = nomeArquivo;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-// ...existing code...
-
-// --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
-// Esta função gera uma curva de tempo
-// Função para gerar a curva tempo inverso em SVG da animação
-function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
-    let d = "";
-    let primeiro = true;
-    for (let i = 0; i <= pontos; i++) {
-        let corrente = iMin + (iMax - iMin) * (i / pontos);
-        let denominador = Math.pow(corrente / ip, alfa) - k;
-        if (denominador <= 0) continue;
-        let tempo = dial * (beta / denominador);
-        if (tempo > 1000) tempo = 1000; // Limite para visualização
-        let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
-        let svgY = 350 - (tempo * 300 / 1000);
-        if (primeiro) {
-            d += `M${svgX},${svgY}`;
-            primeiro = false;
-        } else {
-            d += ` L${svgX},${svgY}`;
+        // Nome do arquivo baseado no <h2> da tabela, se existir
+        let nomeArquivo = "tabela.xls";
+        const h2 = tabelaSelecionada.querySelector("h2");
+        if (h2 && h2.textContent) {
+            nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".xls";
         }
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = nomeArquivo;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
-    return d;
-}
+    // ...existing code...
 
-// Parâmetros do exemplo
-const dial = 90000;
-const beta = 300;
-const alfa = 2;
-const k = 1;
-const ip = 0.5;
-const iMin = ip * 2.01; // Começa um pouco acima de ip
-const iMax = 300;
-const pontos = 1000;
+    // --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
+    // Esta função gera uma curva de tempo
+    // Função para gerar a curva tempo inverso em SVG da animação
+    function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
+        let d = "";
+        let primeiro = true;
+        for (let i = 0; i <= pontos; i++) {
+            let corrente = iMin + (iMax - iMin) * (i / pontos);
+            let denominador = Math.pow(corrente / ip, alfa) - k;
+            if (denominador <= 0) continue;
+            let tempo = dial * (beta / denominador);
+            if (tempo > 1000) tempo = 1000; // Limite para visualização
+            let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
+            let svgY = 350 - (tempo * 300 / 1000);
+            if (primeiro) {
+                d += `M${svgX},${svgY}`;
+                primeiro = false;
+            } else {
+                d += ` L${svgX},${svgY}`;
+            }
+        }
+        return d;
+    }
 
-const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+    // Parâmetros do exemplo
+    const dial = 90000;
+    const beta = 300;
+    const alfa = 2;
+    const k = 1;
+    const ip = 0.5;
+    const iMin = ip * 2.01; // Começa um pouco acima de ip
+    const iMax = 300;
+    const pontos = 1000;
 
-const svg = document.querySelector("svg");
-const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-path.setAttribute("class", "curva-inversa");
-path.setAttribute("fill", "none");
-path.setAttribute("stroke", "#ff0080");
-path.setAttribute("stroke-width", "3");
-path.setAttribute("stroke-dasharray", "1000");
-path.setAttribute("stroke-dashoffset", "1000");
-path.setAttribute("d", dInverso);
-svg.appendChild(path);
+    const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+
+    const svg = document.querySelector("svg");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", "curva-inversa");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "#ff0080");
+    path.setAttribute("stroke-width", "3");
+    path.setAttribute("stroke-dasharray", "1000");
+    path.setAttribute("stroke-dashoffset", "1000");
+    path.setAttribute("d", dInverso);
+    svg.appendChild(path);
 // --------------------------------------------------------------
 // Fim do Js do SVG
