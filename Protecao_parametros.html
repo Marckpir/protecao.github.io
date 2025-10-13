@@ -41,15 +41,16 @@
             onclick="window.location.href='tabelarele.html';">TABELA</button>
         <button id="botaoestudoshtml" class="dark-mode-toggle"
             onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+        <button id="botaoajustesGDhtml" class="displayadm" class="dark-mode-toggle"
             onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+        <button id="botaotabelaGDhtml" class="displayadm" class="dark-mode-toggle"
+            onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+        <button id="botaoestudosGDhtml" class="displayadm" class="dark-mode-toggle"
             onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-        <button id="botaoanalisehtml" class="dark-mode-toggle"
+        <button id="botaoanalisehtml" class="displayadm" class="dark-mode-toggle"
             onclick="window.location.href='analise.html';">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
 
     </h1>
     <br>
@@ -90,8 +91,7 @@
                 <tr>
                     <td>DEMANDA CONSUMO:</td>
                     <td>
-                        <div class="input-container"
-                            style="text-align: left; margin-right: 11px;">
+                        <div class="input-container" style="text-align: left; margin-right: 11px;">
                             <input id="demandaConsumo" type="number" placeholder="Digite um valor"
                                 style="margin-right: 4px; text-align: left;">
                             <span class="unidade"></span>
@@ -102,11 +102,10 @@
 
 
 
-                <tr>
+                <tr class="displayadm">
                     <td>FATOR DE POTÊNCIA CONSUMO:</td>
                     <td>
-                        <div class="input-container"
-                            style="text-align: left; margin-right: 11px;">
+                        <div class="input-container" style="text-align: left; margin-right: 11px;">
                             <input id="fatorPotencia" type="text" placeholder="Digite um valor"
                                 style="margin-right: 11px; text-align: left;">
                             <span class="unidade"></span>
@@ -114,11 +113,10 @@
                     </td>
                     <td id="valorAjustadoFatorPotencia"></td>
                 </tr>
-                <tr>
+                <tr class="displayadm">
                     <td>DESEQUILÍBRIO NEUTRO:</td>
                     <td>
-                        <div class="input-container"
-                            style="text-align: left; margin-right: 11px;">
+                        <div class="input-container" style="text-align: left; margin-right: 11px;">
                             <input type="number" id="desequilibrio" placeholder="Digite um valor"
                                 style="text-align: left; margin-right: 11px;">
                             <span class="unidade"></span>
@@ -127,11 +125,10 @@
                     <td id="valorAjustadoDesequilibrio"></td>
                 </tr>
 
-                <tr>
+                <tr class="displayadm">
                     <td>DEMANDA GERAÇÃO(GD):</td>
                     <td>
-                        <div class="input-container"
-                            style="text-align: left; margin-right: 11px;">
+                        <div class="input-container" style="text-align: left; margin-right: 11px;">
                             <input type="number" id="potenciaGDhtml" placeholder="Digite um valor"
                                 style="margin-right: 4px; text-align: left;">
                             <span class="unidade"></span>
@@ -139,17 +136,30 @@
                     </td>
                     <td id="valorAjustadoPotenciaGD"></td>
                 </tr>
-                <tr>
+                <tr class="displayadm">
                     <td>FATOR DE POTÊNCIA GD:</td>
                     <td>
-                        <div class="input-container"
-                            style="text-align: left; margin-right: 11px;">
+                        <div class="input-container" style="text-align: left; margin-right: 11px;">
                             <input id="fatorPotenciaGDhtml" type="number" placeholder="Digite um valor"
                                 style="margin-right: 11px; text-align: left;">
                             <span class="unidade"></span>
                         </div>
                     </td>
                     <td id="valorAjustadoFatorPotenciaGD"></td>
+                </tr>
+                <tr class="displayadm">
+                    <td>TIPO DE USINA:</td>
+                    <td>
+                        <div class="input-container" style="text-align: left; margin-right: 11px;">
+                            <select id="tipoUsina" style="margin-right: 11px; text-align: left;">
+                                <option value="">Selecione</option>
+                                <option value="Com Inversor">Com Inversor</option>
+                                <option value="Sem Inversor">Sem Inversor</option>
+                            </select>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoTipoUsina"></td>
                 </tr>
 
 
@@ -171,7 +181,8 @@
                     <td>POTÊNCIA GERADOR A DIESEL:</td>
                     <td>
                         <div class="input-container">
-                            <input type="number" id="potenciageradorhtml" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
+                            <input type="number" id="potenciageradorhtml" placeholder="Digite um valor"
+                                style="text-align: left; margin-right: 11px;">
                             <span class="unidade"></span>
                         </div>
                     </td>
@@ -181,17 +192,19 @@
                     <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
                     <td>
                         <div class="input-container">
-                            <input id="fatorpotenciageradorhtml" type="text" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
+                            <input id="fatorpotenciageradorhtml" type="text" placeholder="Digite um valor"
+                                style="text-align: left; margin-right: 11px;">
                             <span class="unidade"></span>
                         </div>
                     </td>
                     <td id="valorAjustadoFatorPotenciaGerador"></td>
                 </tr>
-                <tr>
+                <tr class="displayadm">
                     <td>TOLERÂNCIA GERADOR A DIESEL:</td>
                     <td>
                         <div class="input-container">
-                            <input id="toleranciageradorhtml" type="text" placeholder="Digite um valor" style="text-align: left; margin-right: 11px;">
+                            <input id="toleranciageradorhtml" type="text" placeholder="Digite um valor"
+                                style="text-align: left; margin-right: 11px;">
                             <span class="unidade"></span>
                         </div>
                     </td>
@@ -201,20 +214,20 @@
                 <tr>
                     <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL:</td>
                     <td>
-                    <div class="input-container">
-                        <label type="number" id="potenciareversageradorhtml" style="font-weight: bold;"></label>
-                    </div>
+                        <div class="input-container">
+                            <label type="number" id="potenciareversageradorhtml" style="font-weight: bold;"></label>
+                        </div>
                     </td>
-                    
+
                 </tr>
-                                <tr>
+                <tr>
                     <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL PU:</td>
                     <td>
-                    <div class="input-container">
-                        <label type="number" id="potenciareversageradorPUhtml" style="font-weight: bold;"></label>
-                    </div>
+                        <div class="input-container">
+                            <label type="number" id="potenciareversageradorPUhtml" style="font-weight: bold;"></label>
+                        </div>
                     </td>
-                    
+
                 </tr>
 
 

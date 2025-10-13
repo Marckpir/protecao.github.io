@@ -608,7 +608,84 @@ window.onload = function () {
 
 
 
-    //NOVO TRECHO PARA PARAMETROS DE GD
+    //*************************NOVO TRECHO PARA PARAMETROS DE GD****************************
+
+    // Preencher com status Desabilitado ajuste-habilita-47 e ajuste-habilita-25 se tipoUsinaGDSelecionada tiver texto "Com Inversor"
+    let tipoUsinaGDSelecionada = localStorage.getItem('tipoUsinaGDSelecionada');
+    if (tipoUsinaGDSelecionada !== null && tipoUsinaGDSelecionada !== undefined) {
+        if (tipoUsinaGDSelecionada.includes("Com Inversor")) {
+
+            document.querySelectorAll('.ajuste-habilita-47').forEach(function (el) {
+                el.textContent = "Desabilitado";
+            });
+
+            document.querySelectorAll('.ajuste-habilita-25').forEach(function (el) {
+                el.textContent = "Desabilitado";
+            });
+
+            document.querySelectorAll('.ajuste-check-barra-morta').forEach(function (el) {
+                el.textContent = "Desabilitado";
+            });
+
+                        document.querySelectorAll('.ajuste-habilita-47-rempgd').forEach(function (el) {
+                el.textContent = "OFF";
+            });
+
+            document.querySelectorAll('.ajuste-habilita-25-rempgd').forEach(function (el) {
+                el.textContent = "OFF";
+            });
+            
+            
+        } else {
+            document.querySelectorAll('.ajuste-habilita-47').forEach(function (el) {
+                el.textContent = "Habilitado";
+            });
+
+            document.querySelectorAll('.ajuste-habilita-25').forEach(function (el) {
+                el.textContent = "Habilitado";
+            });
+
+            document.querySelectorAll('.ajuste-check-barra-morta').forEach(function (el) {
+                el.textContent = "Habilitado";
+            });
+
+            document.querySelectorAll('.ajuste-habilita-47-rempgd').forEach(function (el) {
+                el.textContent = "ABC";
+            });
+
+            document.querySelectorAll('.ajuste-habilita-25-rempgd').forEach(function (el) {
+                el.textContent = "ON";
+            });
+
+            
+        }
+
+
+        
+    }  //Não mostrar os tr display47 e display25 se tipoUsinaGDSelecionada tiver texto Com Inversor
+    if (tipoUsinaGDSelecionada !== null && tipoUsinaGDSelecionada !== undefined) {
+        if (tipoUsinaGDSelecionada.includes("Com Inversor")) {
+            document.querySelectorAll('.display47').forEach(function (el) {
+                el.style.display = "none";
+            });
+            document.querySelectorAll('.display25').forEach(function (el) {
+                el.style.display = "none";
+            });
+            document.querySelectorAll('.display81u3').forEach(function (el) {
+                el.style.display = "none";
+            });
+        }
+    }
+
+
+    //preencher ajuste-vpoldn com tensaoprimariaFF*0,10
+    
+    if (tensaoprimariaFF !== null && tensaoprimariaFF !== undefined) {
+        let vpoldn = (parseFloat(tensaoprimariaFF) * 0.10).toFixed(2) + " V";
+        document.querySelectorAll('.ajuste-vpoldn').forEach(function (el) {
+            el.textContent = vpoldn;
+        });
+    }
 
     //Importar potenciaInjecaoCalculada32 do localstorage e atualizar campos
     let potenciaInjecaoCalculada32 = parseFloat(localStorage.getItem('potenciaInjecaoCalculada32'));
@@ -726,6 +803,20 @@ window.onload = function () {
         });
     }
 
+    //importar tempoDefinido46real do localStorage e preencher campos ajuste-t46
+    let tempoDefinido46 = localStorage.getItem('tempoDefinido46real');
+    if (
+        tempoDefinido46 !== null &&
+        tempoDefinido46 !== undefined &&
+        tempoDefinido46 !== "" &&
+        !isNaN(parseFloat(tempoDefinido46))
+    ) {
+        let valorTempoDefinido46 = parseFloat(tempoDefinido46).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-t46').forEach(function (el) {
+            el.textContent = valorTempoDefinido46;
+        });
+    }
+
     // Importar tensaoPrimariaFaseAjustada27-1 do localStorage e preencher campos ajuste-27-1-GD-pextron
     let tensaoPrimariaFaseAjustada27_1 = localStorage.getItem('tensaoPrimariaFaseAjustada27-1');
     if (
@@ -739,6 +830,22 @@ window.onload = function () {
             el.textContent = valorTensaoPrimariaFaseAjustada27_1;
         });
     }
+
+    // Importar tempoEstagio27-1-real do localStorage e preencher campos ajuste-t27-1
+    let tempoEstagio27_1_real = localStorage.getItem('tempoEstagio27-1-real');
+    if (
+        tempoEstagio27_1_real !== null &&
+        tempoEstagio27_1_real !== undefined &&
+        tempoEstagio27_1_real !== "" &&
+        !isNaN(parseFloat(tempoEstagio27_1_real))
+    ) {
+        let valorTempoEstagio27_1_real = parseFloat(tempoEstagio27_1_real).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-t27-1').forEach(function (el) {
+            el.textContent = valorTempoEstagio27_1_real;
+        });
+    }
+
+
 
     // Importar tensaoPrimariaFaseAjustada27-2 do localStorage e preencher campos ajuste-27-2-GD-pextron
     let tensaoPrimariaFaseAjustada27_2 = localStorage.getItem('tensaoPrimariaFaseAjustada27-2');
@@ -754,6 +861,21 @@ window.onload = function () {
         });
     }
 
+    // Importar tempoEstagio27-2-real do localStorage e preencher campos ajuste-t27-2
+    let tempoEstagio27_2_real = localStorage.getItem('tempoEstagio27-2-real');
+    if (
+        tempoEstagio27_2_real !== null &&
+        tempoEstagio27_2_real !== undefined &&
+        tempoEstagio27_2_real !== "" &&
+        !isNaN(parseFloat(tempoEstagio27_2_real))
+    ) {
+        let valorTempoEstagio27_2_real = parseFloat(tempoEstagio27_2_real).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-t27-2').forEach(function (el) {
+            el.textContent = valorTempoEstagio27_2_real;
+        });
+    }
+
+
     // Importar tensaoPrimariaFaseAjustada59-1 do localStorage e preencher campos ajuste-59-1-GD-pextron
     let tensaoPrimariaFaseAjustada59_1 = localStorage.getItem('tensaoPrimariaFaseAjustada59-1');
     if (
@@ -765,6 +887,20 @@ window.onload = function () {
         let valorTensaoPrimariaFaseAjustada59_1 = parseFloat(tensaoPrimariaFaseAjustada59_1).toFixed(2) + " V";
         document.querySelectorAll('.ajuste-59-1-GD-pextron').forEach(function (el) {
             el.textContent = valorTensaoPrimariaFaseAjustada59_1;
+        });
+    }
+
+    // Importar tempoEstagio59-1-real do localStorage e preencher campos ajuste-t59-1
+    let tempoEstagio59_1_real = localStorage.getItem('tempoEstagio59-1-real');
+    if (
+        tempoEstagio59_1_real !== null &&
+        tempoEstagio59_1_real !== undefined &&
+        tempoEstagio59_1_real !== "" &&
+        !isNaN(parseFloat(tempoEstagio59_1_real))
+    ) {
+        let valorTempoEstagio59_1_real = parseFloat(tempoEstagio59_1_real).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-t59-1').forEach(function (el) {
+            el.textContent = valorTempoEstagio59_1_real;
         });
     }
 
@@ -781,6 +917,163 @@ window.onload = function () {
             el.textContent = valorTensaoPrimariaFaseAjustada59_2;
         });
     }
+
+    // Importar tempoEstagio59-2-real do localStorage e preencher campos ajuste-t59-2
+    let tempoEstagio59_2_real = localStorage.getItem('tempoEstagio59-2-real');
+    if (
+        tempoEstagio59_2_real !== null &&
+        tempoEstagio59_2_real !== undefined &&
+        tempoEstagio59_2_real !== "" &&
+        !isNaN(parseFloat(tempoEstagio59_2_real))
+    ) {
+        let valorTempoEstagio59_2_real = parseFloat(tempoEstagio59_2_real).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-t59-2').forEach(function (el) {
+            el.textContent = valorTempoEstagio59_2_real;
+        });
+    }
+
+    //importar ajustereal81Uprimeiroestagio do localStorage e preencher campos ajuste-81u-1
+    let ajustereal81Uprimeiroestagio = localStorage.getItem('ajustereal81Uprimeiroestagio');
+    if (
+        ajustereal81Uprimeiroestagio !== null &&
+        ajustereal81Uprimeiroestagio !== undefined &&
+        ajustereal81Uprimeiroestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Uprimeiroestagio))
+    ) {
+        let valorAjuste81U1 = parseFloat(ajustereal81Uprimeiroestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81u-1').forEach(function (el) {
+            el.textContent = valorAjuste81U1;
+        });
+    }
+    // importar ajustereal81Utempo1 do localStorage e preencher campos ajuste-81u-t1
+    let ajustereal81Utempo1 = localStorage.getItem('ajustereal81Utempo1');
+    if (
+        ajustereal81Utempo1 !== null &&
+        ajustereal81Utempo1 !== undefined &&
+        ajustereal81Utempo1 !== "" &&
+        !isNaN(parseFloat(ajustereal81Utempo1))
+    ) {
+        let valorAjuste81Utempo1 = parseFloat(ajustereal81Utempo1).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-81u-t1').forEach(function (el) {
+            el.textContent = valorAjuste81Utempo1;
+        });
+    }
+
+    //importar ajustereal81Usegundoestagio do localStorage e preencher campos ajuste-81u-2
+    let ajustereal81Usegundoestagio = localStorage.getItem('ajustereal81Usegundoestagio');
+    if (
+        ajustereal81Usegundoestagio !== null &&
+        ajustereal81Usegundoestagio !== undefined &&
+        ajustereal81Usegundoestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Usegundoestagio))
+    ) {
+        let valorAjuste81U2 = parseFloat(ajustereal81Usegundoestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81u-2').forEach(function (el) {
+            el.textContent = valorAjuste81U2;
+        });
+    }
+
+    // importar ajustereal81Utempo2 do localStorage e preencher campos ajuste-81u-t2
+    let ajustereal81Utempo2 = localStorage.getItem('ajustereal81Utempo2');
+    if (
+        ajustereal81Utempo2 !== null &&
+        ajustereal81Utempo2 !== undefined &&
+        ajustereal81Utempo2 !== "" &&
+        !isNaN(parseFloat(ajustereal81Utempo2))
+    ) {
+        let valorAjuste81Utempo2 = parseFloat(ajustereal81Utempo2).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-81u-t2').forEach(function (el) {
+            el.textContent = valorAjuste81Utempo2;
+        });
+    }
+
+    //importar ajustereal81Uterceiroestagio do localStorage e preencher campos ajuste-81u-3
+    let ajustereal81Uterceiroestagio = localStorage.getItem('ajustereal81Uterceiroestagio');
+    if (
+        ajustereal81Uterceiroestagio !== null &&
+        ajustereal81Uterceiroestagio !== undefined &&
+        ajustereal81Uterceiroestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Uterceiroestagio))
+    ) {
+        let valorAjuste81U3 = parseFloat(ajustereal81Uterceiroestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81u-3').forEach(function (el) {
+            el.textContent = valorAjuste81U3;
+        });
+    }
+
+    // importar ajustereal81Utempo3 do localStorage e preencher campos ajuste-81u-t3
+    let ajustereal81Utempo3 = localStorage.getItem('ajustereal81Utempo3');
+    if (
+        ajustereal81Utempo3 !== null &&
+        ajustereal81Utempo3 !== undefined &&
+        ajustereal81Utempo3 !== "" &&
+        !isNaN(parseFloat(ajustereal81Utempo3))
+    ) {
+        let valorAjuste81Utempo3 = parseFloat(ajustereal81Utempo3).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-81u-t3').forEach(function (el) {
+            el.textContent = valorAjuste81Utempo3;
+        });
+    }
+
+
+    //importar ajustereal81Oprimeiroestagio do localStorage e preencher campos ajuste-81o-1
+    let ajustereal81Oprimeiroestagio = localStorage.getItem('ajustereal81Oprimeiroestagio');
+    if (
+        ajustereal81Oprimeiroestagio !== null &&
+        ajustereal81Oprimeiroestagio !== undefined &&
+        ajustereal81Oprimeiroestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Oprimeiroestagio))
+    ) {
+        let valorAjuste81O1 = parseFloat(ajustereal81Oprimeiroestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81o-1').forEach(function (el) {
+            el.textContent = valorAjuste81O1;
+        });
+    }
+
+    // importar ajustereal81Otempo1 do localStorage e preencher campos ajuste-81o-t1
+    let ajustereal81Otempo1 = localStorage.getItem('ajustereal81Otempo1');
+    if (
+        ajustereal81Otempo1 !== null &&
+        ajustereal81Otempo1 !== undefined &&
+        ajustereal81Otempo1 !== "" &&
+        !isNaN(parseFloat(ajustereal81Otempo1))
+    ) {
+        let valorAjuste81Ot1 = parseFloat(ajustereal81Otempo1).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-81o-t1').forEach(function (el) {
+            el.textContent = valorAjuste81Ot1;
+        });
+    }
+
+    //importar ajustereal81Osegundoestagio do localStorage e preencher campos ajuste-81o-2
+    let ajustereal81Osegundoestagio = localStorage.getItem('ajustereal81Osegundoestagio');
+    if (
+        ajustereal81Osegundoestagio !== null &&
+        ajustereal81Osegundoestagio !== undefined &&
+        ajustereal81Osegundoestagio !== "" &&
+        !isNaN(parseFloat(ajustereal81Osegundoestagio))
+    ) {
+        let valorAjuste81O2 = parseFloat(ajustereal81Osegundoestagio).toFixed(2) + " Hz";
+        document.querySelectorAll('.ajuste-81o-2').forEach(function (el) {
+            el.textContent = valorAjuste81O2;
+        });
+    }
+
+    // importar ajustereal81Otempo2 do localStorage e preencher campos ajuste-81o-t2
+    let ajustereal81Otempo2 = localStorage.getItem('ajustereal81Otempo2');
+    if (
+        ajustereal81Otempo2 !== null &&
+        ajustereal81Otempo2 !== undefined &&
+        ajustereal81Otempo2 !== "" &&
+        !isNaN(parseFloat(ajustereal81Otempo2))
+    ) {
+        let valorAjuste81Ot2 = parseFloat(ajustereal81Otempo2).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-81o-t2').forEach(function (el) {
+            el.textContent = valorAjuste81Ot2;
+        });
+    }
+
+
+
 
     // Importar tensaoPrimariaFaseAjustada25 do localStorage e preencher campos ajuste-25-delta-v
     let tensaoPrimariaFaseAjustada25 = localStorage.getItem('tensaoPrimariaFaseAjustada25');
@@ -811,6 +1104,12 @@ window.onload = function () {
         document.querySelectorAll('.ajuste-32-consumo-GD-PU').forEach(function (el) {
             el.textContent = valorPotenciaConsumoCalculada32pu;
         });
+
+        // Preencher ajuste-32-2-gd-schneider com valor percentual
+        let valorPercentual = "-" + (parseFloat(potenciaConsumoCalculada32pu) * 100).toFixed(2) + " %Sn";
+        document.querySelectorAll('.ajuste-32-2-gd-schneider').forEach(function (el) {
+            el.textContent = valorPercentual;
+        });
     }
 
     // Importar potencia injeção em pu do localStorage e preencher campos ajuste-32-injecao-pu
@@ -824,6 +1123,12 @@ window.onload = function () {
         let valorPotenciaInjecaoCalculada32pu = parseFloat(potenciaInjecaoCalculada32pu).toFixed(2) + " x Sn";
         document.querySelectorAll('.ajuste-32-injecao-GD-PU').forEach(function (el) {
             el.textContent = valorPotenciaInjecaoCalculada32pu;
+        });
+
+        // Preencher ajuste-32-1-gd-schneider com valor percentual
+        let valorPercentual = (parseFloat(potenciaInjecaoCalculada32pu) * 100).toFixed(2) + " %Sn";
+        document.querySelectorAll('.ajuste-32-1-gd-schneider').forEach(function (el) {
+            el.textContent = valorPercentual;
         });
     }
 
@@ -849,8 +1154,14 @@ window.onload = function () {
         curvaFaseInjecaoGD !== undefined &&
         curvaFaseInjecaoGD !== ""
     ) {
-        document.querySelectorAll('.ajuste-67-curva-fase-injecao-gd-siemens').forEach(function (el) {
+        document.querySelectorAll('.ajuste-if1-curv').forEach(function (el) {
             el.textContent = curvaFaseInjecaoGD;
+        });
+
+        // Se for IEC-V.I, substitui por IEC-M.I para o campo em português
+        let tipoCurvaGDpt = (curvaFaseInjecaoGD === "IEC-V.I") ? "IEC-M.I" : curvaFaseInjecaoGD;
+        document.querySelectorAll('.ajuste-if1-gd-curv-pt').forEach(function (el) {
+            el.textContent = tipoCurvaGDpt;
         });
     }
 
@@ -917,7 +1228,7 @@ window.onload = function () {
     }
 
     //importar corrente 46 do localStorage e preencher campos ajuste-46-GD-pextron-pu
-    let Idef46realpu = localStorage.getItem('Ip46PUAjustada');
+    let Idef46realpu = localStorage.getItem('Idef46PUreal');
     if (
         Idef46realpu !== null &&
         Idef46realpu !== undefined &&
@@ -927,6 +1238,12 @@ window.onload = function () {
         let valorIdef46realpu = parseFloat(Idef46realpu).toFixed(2) + " xIn";
         document.querySelectorAll('.ajuste-ip-46-siemens').forEach(function (el) {
             el.textContent = valorIdef46realpu;
+        });
+
+        // Preencher ajuste-46-GD-schneider com valor percentual
+        let valorPercentual = (parseFloat(Idef46realpu) * 100).toFixed(2) + " %In";
+        document.querySelectorAll('.ajuste-ip-46-schneider').forEach(function (el) {
+            el.textContent = valorPercentual;
         });
     }
 
@@ -989,65 +1306,66 @@ window.onload = function () {
         });
     }
 
-    //importar ajustereal81Uprimeiroestagio do localStorage e preencher campos ajuste-81u-1
-    let ajustereal81Uprimeiroestagio = localStorage.getItem('ajustereal81Uprimeiroestagio');
-    if (
-        ajustereal81Uprimeiroestagio !== null &&
-        ajustereal81Uprimeiroestagio !== undefined &&
-        ajustereal81Uprimeiroestagio !== "" &&
-        !isNaN(parseFloat(ajustereal81Uprimeiroestagio))
-    ) {
-        let valorAjuste81U1 = parseFloat(ajustereal81Uprimeiroestagio).toFixed(2) + " Hz";
-        document.querySelectorAll('.ajuste-81u-1').forEach(function (el) {
-            el.textContent = valorAjuste81U1;
-        });
+
+
+
+
+
+
+
+
+
+
+
+    mostrarTabela();
+
+
+};
+
+
+
+function mostrarTabela() {
+    var seletor = document.getElementById("seletorTabela").value;
+    var tabelas = document.querySelectorAll(".tabela");
+
+    tabelas.forEach(tabela => {
+        tabela.style.display = "none"; // Oculta todas as tabelas
+    });
+
+    var tabelaSelecionada = document.getElementById(seletor);
+    if (tabelaSelecionada) {
+        tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
     }
+    // Atualiza o localStorage com a tabela selecionada
+    // localStorage.setItem("TabelaSelecionadaHTML", seletor);
 
-    //importar ajustereal81Usegundoestagio do localStorage e preencher campos ajuste-81u-2
-    let ajustereal81Usegundoestagio = localStorage.getItem('ajustereal81Usegundoestagio');
-    if (
-        ajustereal81Usegundoestagio !== null &&
-        ajustereal81Usegundoestagio !== undefined &&
-        ajustereal81Usegundoestagio !== "" &&
-        !isNaN(parseFloat(ajustereal81Usegundoestagio))
-    ) {
-        let valorAjuste81U2 = parseFloat(ajustereal81Usegundoestagio).toFixed(2) + " Hz";
-        document.querySelectorAll('.ajuste-81u-2').forEach(function (el) {
-            el.textContent = valorAjuste81U2;
-        });
-    }
+    // Salva os elementos da div da tabela selecionada no localStorage
+    // if (tabelaSelecionada) {
+    //     localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
+    // }
 
 
-    //importar ajustereal81Oprimeiroestagio do localStorage e preencher campos ajuste-81o-1
-    let ajustereal81Oprimeiroestagio = localStorage.getItem('ajustereal81Oprimeiroestagio');
-    if (
-        ajustereal81Oprimeiroestagio !== null &&
-        ajustereal81Oprimeiroestagio !== undefined &&
-        ajustereal81Oprimeiroestagio !== "" &&
-        !isNaN(parseFloat(ajustereal81Oprimeiroestagio))
-    ) {
-        let valorAjuste81O1 = parseFloat(ajustereal81Oprimeiroestagio).toFixed(2) + " Hz";
-        document.querySelectorAll('.ajuste-81o-1').forEach(function (el) {
-            el.textContent = valorAjuste81O1;
-        });
-    }
+}
 
-    //importar ajustereal81Osegundoestagio do localStorage e preencher campos ajuste-81o-2
-    let ajustereal81Osegundoestagio = localStorage.getItem('ajustereal81Osegundoestagio');
-    if (
-        ajustereal81Osegundoestagio !== null &&
-        ajustereal81Osegundoestagio !== undefined &&
-        ajustereal81Osegundoestagio !== "" &&
-        !isNaN(parseFloat(ajustereal81Osegundoestagio))
-    ) {
-        let valorAjuste81O2 = parseFloat(ajustereal81Osegundoestagio).toFixed(2) + " Hz";
-        document.querySelectorAll('.ajuste-81o-2').forEach(function (el) {
-            el.textContent = valorAjuste81O2;
-        });
+
+function Salvaropcao() {
+
+    const seletor = document.getElementById("seletorTabela").value;
+    localStorage.setItem("TabelaSelecionadaHTML", seletor);
+
+    const tabelaSelecionada = document.getElementById(seletor);
+    if (tabelaSelecionada) {
+        localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
     }
 
 
 
+    alert("Tabela salva");
+
+
+
+
+}
 
 
 
@@ -1055,119 +1373,63 @@ window.onload = function () {
 
 
 
-        mostrarTabela();
 
-
-    };
-
-
-
-    function mostrarTabela() {
-        var seletor = document.getElementById("seletorTabela").value;
-        var tabelas = document.querySelectorAll(".tabela");
-
-        tabelas.forEach(tabela => {
-            tabela.style.display = "none"; // Oculta todas as tabelas
-        });
-
-        var tabelaSelecionada = document.getElementById(seletor);
-        if (tabelaSelecionada) {
-            tabelaSelecionada.style.display = "block"; // Exibe a tabela selecionada
+function baixarPDF() {
+    // Verifica se html2pdf está disponível
+    if (typeof html2pdf === "undefined") {
+        alert("A biblioteca html2pdf não está carregada. Verifique se o script está incluído no HTML.");
+        return;
+    }
+    const seletor = document.getElementById("seletorTabela").value;
+    if (!seletor) {
+        alert("Selecione uma tabela antes de baixar o PDF.");
+        return;
+    }
+    const tabelaSelecionada = document.getElementById(seletor);
+    if (tabelaSelecionada) {
+        // Busca o texto do <h2> dentro da tabela selecionada
+        let nomeArquivo = "tabela-selecionada.pdf";
+        const h2 = tabelaSelecionada.querySelector("h2");
+        if (h2 && h2.textContent) {
+            // Remove caracteres inválidos para nome de arquivo
+            nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".pdf";
         }
-        // Atualiza o localStorage com a tabela selecionada
-        // localStorage.setItem("TabelaSelecionadaHTML", seletor);
 
-        // Salva os elementos da div da tabela selecionada no localStorage
-        // if (tabelaSelecionada) {
-        //     localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
-        // }
+        tabelaSelecionada.style.display = "block";
+
+        html2pdf().set({
+            margin: [10, 5, 10, 10],
+            filename: nomeArquivo,
+            image: { type: 'jpeg', quality: 0.99 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).from(tabelaSelecionada).save();
+    } else {
+        alert("Selecione uma tabela antes de baixar o PDF.");
+    }
+}
 
 
+function baixarXLS() {
+    const seletor = document.getElementById("seletorTabela").value;
+    if (!seletor) {
+        alert("Selecione uma tabela antes de baixar o XLS.");
+        return;
+    }
+    const tabelaSelecionada = document.getElementById(seletor);
+    if (!tabelaSelecionada) {
+        alert("Tabela não encontrada.");
+        return;
     }
 
+    // Clona a tabela para evitar alterações na original
+    const tabelaClone = tabelaSelecionada.cloneNode(true);
 
-    function Salvaropcao() {
+    // Remove elementos indesejados (exemplo: botões ou elementos com classe 'no-export')
+    tabelaClone.querySelectorAll('button, .no-export').forEach(el => el.remove());
 
-        const seletor = document.getElementById("seletorTabela").value;
-        localStorage.setItem("TabelaSelecionadaHTML", seletor);
-
-        const tabelaSelecionada = document.getElementById(seletor);
-        if (tabelaSelecionada) {
-            localStorage.setItem("Tabelasalva", tabelaSelecionada.innerHTML);
-        }
-
-
-
-        alert("Tabela salva");
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-    function baixarPDF() {
-        // Verifica se html2pdf está disponível
-        if (typeof html2pdf === "undefined") {
-            alert("A biblioteca html2pdf não está carregada. Verifique se o script está incluído no HTML.");
-            return;
-        }
-        const seletor = document.getElementById("seletorTabela").value;
-        if (!seletor) {
-            alert("Selecione uma tabela antes de baixar o PDF.");
-            return;
-        }
-        const tabelaSelecionada = document.getElementById(seletor);
-        if (tabelaSelecionada) {
-            // Busca o texto do <h2> dentro da tabela selecionada
-            let nomeArquivo = "tabela-selecionada.pdf";
-            const h2 = tabelaSelecionada.querySelector("h2");
-            if (h2 && h2.textContent) {
-                // Remove caracteres inválidos para nome de arquivo
-                nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".pdf";
-            }
-
-            tabelaSelecionada.style.display = "block";
-
-            html2pdf().set({
-                margin: [10, 5, 10, 10],
-                filename: nomeArquivo,
-                image: { type: 'jpeg', quality: 0.99 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(tabelaSelecionada).save();
-        } else {
-            alert("Selecione uma tabela antes de baixar o PDF.");
-        }
-    }
-
-
-    function baixarXLS() {
-        const seletor = document.getElementById("seletorTabela").value;
-        if (!seletor) {
-            alert("Selecione uma tabela antes de baixar o XLS.");
-            return;
-        }
-        const tabelaSelecionada = document.getElementById(seletor);
-        if (!tabelaSelecionada) {
-            alert("Tabela não encontrada.");
-            return;
-        }
-
-        // Clona a tabela para evitar alterações na original
-        const tabelaClone = tabelaSelecionada.cloneNode(true);
-
-        // Remove elementos indesejados (exemplo: botões ou elementos com classe 'no-export')
-        tabelaClone.querySelectorAll('button, .no-export').forEach(el => el.remove());
-
-        // Monta o HTML para exportação
-        const html = `
+    // Monta o HTML para exportação
+    const html = `
         <html>
         <head>
             <meta charset="UTF-8">
@@ -1178,72 +1440,72 @@ window.onload = function () {
         </html>
     `;
 
-        // Cria um Blob e faz o download
-        const blob = new Blob([html], { type: "application/vnd.ms-excel" });
-        const url = URL.createObjectURL(blob);
+    // Cria um Blob e faz o download
+    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+    const url = URL.createObjectURL(blob);
 
-        // Nome do arquivo baseado no <h2> da tabela, se existir
-        let nomeArquivo = "tabela.xls";
-        const h2 = tabelaSelecionada.querySelector("h2");
-        if (h2 && h2.textContent) {
-            nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".xls";
-        }
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = nomeArquivo;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
-    // ...existing code...
-
-    // --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
-    // Esta função gera uma curva de tempo
-    // Função para gerar a curva tempo inverso em SVG da animação
-    function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
-        let d = "";
-        let primeiro = true;
-        for (let i = 0; i <= pontos; i++) {
-            let corrente = iMin + (iMax - iMin) * (i / pontos);
-            let denominador = Math.pow(corrente / ip, alfa) - k;
-            if (denominador <= 0) continue;
-            let tempo = dial * (beta / denominador);
-            if (tempo > 1000) tempo = 1000; // Limite para visualização
-            let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
-            let svgY = 350 - (tempo * 300 / 1000);
-            if (primeiro) {
-                d += `M${svgX},${svgY}`;
-                primeiro = false;
-            } else {
-                d += ` L${svgX},${svgY}`;
-            }
-        }
-        return d;
+    // Nome do arquivo baseado no <h2> da tabela, se existir
+    let nomeArquivo = "tabela.xls";
+    const h2 = tabelaSelecionada.querySelector("h2");
+    if (h2 && h2.textContent) {
+        nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".xls";
     }
 
-    // Parâmetros do exemplo
-    const dial = 90000;
-    const beta = 300;
-    const alfa = 2;
-    const k = 1;
-    const ip = 0.5;
-    const iMin = ip * 2.01; // Começa um pouco acima de ip
-    const iMax = 300;
-    const pontos = 1000;
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = nomeArquivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+// ...existing code...
 
-    const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+// --------------------------------------------------------------// Código para gerar a curva tempo inverso em SVG
+// Esta função gera uma curva de tempo
+// Função para gerar a curva tempo inverso em SVG da animação
+function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
+    let d = "";
+    let primeiro = true;
+    for (let i = 0; i <= pontos; i++) {
+        let corrente = iMin + (iMax - iMin) * (i / pontos);
+        let denominador = Math.pow(corrente / ip, alfa) - k;
+        if (denominador <= 0) continue;
+        let tempo = dial * (beta / denominador);
+        if (tempo > 1000) tempo = 1000; // Limite para visualização
+        let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
+        let svgY = 350 - (tempo * 300 / 1000);
+        if (primeiro) {
+            d += `M${svgX},${svgY}`;
+            primeiro = false;
+        } else {
+            d += ` L${svgX},${svgY}`;
+        }
+    }
+    return d;
+}
 
-    const svg = document.querySelector("svg");
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("class", "curva-inversa");
-    path.setAttribute("fill", "none");
-    path.setAttribute("stroke", "#ff0080");
-    path.setAttribute("stroke-width", "3");
-    path.setAttribute("stroke-dasharray", "1000");
-    path.setAttribute("stroke-dashoffset", "1000");
-    path.setAttribute("d", dInverso);
-    svg.appendChild(path);
+// Parâmetros do exemplo
+const dial = 90000;
+const beta = 300;
+const alfa = 2;
+const k = 1;
+const ip = 0.5;
+const iMin = ip * 2.01; // Começa um pouco acima de ip
+const iMax = 300;
+const pontos = 1000;
+
+const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+
+const svg = document.querySelector("svg");
+const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("class", "curva-inversa");
+path.setAttribute("fill", "none");
+path.setAttribute("stroke", "#ff0080");
+path.setAttribute("stroke-width", "3");
+path.setAttribute("stroke-dasharray", "1000");
+path.setAttribute("stroke-dashoffset", "1000");
+path.setAttribute("d", dInverso);
+svg.appendChild(path);
 // --------------------------------------------------------------
 // Fim do Js do SVG

@@ -14,11 +14,27 @@ function salvarOpcao() {
 
 
 window.onload = function () {
+        //------REGISTRAR LOGIN E MOSTRAR SOMENTE OPÇÕES DE USUARIO-----------------------------------------------------------------------------------
+    // ocultar campos para usuarios que não sejam adm 
+    // Oculta todos os campos com a classe "displayadm" se o usuário não for "adm"
+    // const usuario = localStorage.getItem("usuario") || "usuario"; // Pega o usuário do localStorage ou define como "guest" se não existir
+    // const camposAdm = document.querySelectorAll(".displayadm");
+    // camposAdm.forEach(function(campo) {
+    //     campo.style.display = (usuario === "admin") ? "" : "none";
+    // });
+    //------FIM DO REGISTRAR LOGIN E MOSTRAR SOMENTE OPÇÕES DE USUARIO-----------------------------------------------------------------------------------
+
+
+
+
+
         // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaodiagramahtml");
     if (botaoParametro) {
         botaoParametro.style.backgroundColor = "#cf0808";
     }
+
+
     carregarOpcao();
 }
 

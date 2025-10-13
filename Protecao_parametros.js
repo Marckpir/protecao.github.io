@@ -48,6 +48,17 @@ function salvarOpcao() {
     }
     const fatorPotenciaGDSelecionada = fatorPotenciaGD.value / 100;
     localStorage.setItem("fatorPotenciaGDSelecionada", fatorPotenciaGDSelecionada);
+    //-----------------------------------------------------------------------------------------
+    // --- Novo bloco para tipoUsina ---
+    const tipoUsina = document.getElementById("tipoUsina");
+    let tipoUsinaSelecionada = "";
+    if (!tipoUsina || tipoUsina.value === "" || typeof tipoUsina.value !== "string") {
+        tipoUsinaSelecionada = "Com Inversor"; // Valor padrão se o campo estiver vazio
+        if (tipoUsina) tipoUsina.value = tipoUsinaSelecionada;
+    } else {
+        tipoUsinaSelecionada = tipoUsina.value;
+    }
+    localStorage.setItem("tipoUsinaGDSelecionada", tipoUsinaSelecionada);
 
     //-----------------------------------------------------------------------------------------
     const iccTrifasicaGemini = localStorage.getItem("ICCtrifasicagemini");
@@ -115,12 +126,25 @@ window.onload = function () {
     }
     // --------------------------------------------------------------------------
 
+    //------REGISTRAR LOGIN E MOSTRAR SOMENTE OPÇÕES DE USUARIO-----------------------------------------------------------------------------------
+    // ocultar campos para usuarios que não sejam adm 
+    // Oculta todos os campos com a classe "displayadm" se o usuário não for "adm"
+    const usuario = localStorage.getItem("usuario") || "usuario"; // Pega o usuário do localStorage ou define como "guest" se não existir
+    const camposAdm = document.querySelectorAll(".displayadm");
+    camposAdm.forEach(function(campo) {
+        campo.style.display = (usuario === "admin") ? "" : "none";
+    });
+    //------FIM DO REGISTRAR LOGIN E MOSTRAR SOMENTE OPÇÕES DE USUARIO-----------------------------------------------------------------------------------
+
+
     // Recupera a opção selecionada do localStorage e define no campo correspondente
     //-----------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------
     // importarICC();
     calculoGerador();
 
+    //-----------------------------------------------------------------------------------------
+    
 
     const tensao = document.getElementById("tensaoprimaria");
     const tensaoSalva = localStorage.getItem("tensaoSelecionada");
@@ -158,6 +182,17 @@ window.onload = function () {
     const fatorPotenciaGDSalva = localStorage.getItem("fatorPotenciaGDSelecionada");
     if (fatorPotenciaGDSalva) {
         fatorPotenciaGD.value = fatorPotenciaGDSalva * 100;
+    }
+    //-----------------------------------------------------------------------------------------
+    // Persistir o valor do tipo de usina no campo e no valor ajustado
+    const tipoUsina = document.getElementById("valorAjustadoTipoUsina");
+    const tipoUsinaSalva = localStorage.getItem("tipoUsinaGDSelecionada") || "Com Inversor";
+    if (tipoUsina) {
+        tipoUsina.value = tipoUsinaSalva;
+    }
+    const valorAjustadoTipoUsina = document.getElementById("valorAjustadoTipoUsina");
+    if (valorAjustadoTipoUsina) {
+        valorAjustadoTipoUsina.textContent = tipoUsinaSalva;
     }
     //-----------------------------------------------------------------------------------------
     const curto = document.getElementById("icctrifasica");

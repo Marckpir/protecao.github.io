@@ -118,11 +118,12 @@ window.onload = function () {
 
 
     const tempoDefinidoHtml = document.getElementById("tempodefinido-real-html");
-    const tempoDefinido46 = localStorage.getItem("Tempodefinido46");
+    let tempoDefinido46 = localStorage.getItem("Tempodefinido46");
     if (tempoDefinidoHtml) {
         if (tempoDefinido46 && tempoDefinido46.trim() !== "") {
             tempoDefinidoHtml.textContent = tempoDefinido46 + " s";
         } else {
+            tempoDefinido46 = 3; // Valor padrão
             tempoDefinidoHtml.textContent = "3 s";
         }
     }
@@ -155,7 +156,11 @@ window.onload = function () {
     
     localStorage.setItem("Idef46real", idef46real);
 
-    localStorage.setItem("Ip46PUAjustada", ipPu);
+    localStorage.setItem("Idef46PUreal", ipPu);
+
+    localStorage.setItem("tempoDefinido46real", tempoDefinido46);
+
+
 
 
 }

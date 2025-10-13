@@ -3,14 +3,26 @@
       const user = document.getElementById("usuario").value;
       const pass = document.getElementById("senha").value;
 
-      if (user === "admin" && pass === "12345") {
+      if ((user === "usuario") && pass === "12345") {
+        localStorage.setItem("usuario", user); // Armazena o usuário no localStorage
         window.location.href = "Protecao_parametros.html";
+        
         return false;
       } else {
         alert("Login ou senha incorretos.");
         return false;
       }
+
+
+
+
+
+
+
     }
+
+
+
 
 
     function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {

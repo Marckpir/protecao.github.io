@@ -85,38 +85,42 @@ window.onload = function () {
 
 
     //------------------persistir os valores de ajuste no html
-    const ajusteManual81O = localStorage.getItem("ajustemanual81Oprimeiroestagio");
-    if (ajusteManual81O !== null) {
+
+    // Para o primeiro estágio importar ajustemanual59primeiroestagio e preencher ajuste-pu-sobretensao-html
+    const ajusteManual59 = localStorage.getItem("ajustemanual59primeiroestagio");
+    if (ajusteManual59 !== null) {
         const ajustePusobretensaoHtml = document.getElementById("ajuste-pu-sobretensao-html");
         if (ajustePusobretensaoHtml) {
-            ajustePusobretensaoHtml.value = ajusteManual81O;
+            ajustePusobretensaoHtml.value = ajusteManual59;
         }
     }
 
+    // Preencher ajuste-tempo-sobretensao-html com ajustemanual59tempo
     const ajusteTemposobretensaoHtml = document.getElementById("ajuste-tempo-sobretensao-html");
     if (ajusteTemposobretensaoHtml) {
-        ajusteTemposobretensaoHtml.value = localStorage.getItem("ajustemanual81Otempo") || "";
+        ajusteTemposobretensaoHtml.value = localStorage.getItem("ajustemanual59tempo") || "";
     }
 
-    // Para o segundo estágio
-    const ajusteManual81O2 = localStorage.getItem("ajustemanual81Osegundoestagio");
-    if (ajusteManual81O2 !== null) {
+    // Para o segundo estágio importar ajustemanual59segundoestagio e preencher ajuste-pu-sobretensao-html-2
+    const ajusteManual592 = localStorage.getItem("ajustemanual59segundoestagio");
+    if (ajusteManual592 !== null) {
         const ajustePusobretensaoHtml2 = document.getElementById("ajuste-pu-sobretensao-html-2");
         if (ajustePusobretensaoHtml2) {
-            ajustePusobretensaoHtml2.value = ajusteManual81O2;
+            ajustePusobretensaoHtml2.value = ajusteManual592;
         }
     }
 
+    // Preencher ajuste-tempo-sobretensao-html-2 com ajustemanual59tempo2
     const ajusteTemposobretensaoHtml2 = document.getElementById("ajuste-tempo-sobretensao-html-2");
     if (ajusteTemposobretensaoHtml2) {
-        ajusteTemposobretensaoHtml2.value = localStorage.getItem("ajustemanual81Otempo2") || "";
+        ajusteTemposobretensaoHtml2.value = localStorage.getItem("ajustemanual59tempo2") || "";
     }
 
 
     //----carregar campos em P.U caso houver valor digitado
 
     // Primeiro estágio
-    const ajustePusobretensao = localStorage.getItem("ajustemanual81Oprimeiroestagio");
+    const ajustePusobretensao = localStorage.getItem("ajustemanual59primeiroestagio");
     const elementosPu = document.getElementsByClassName("ajuste-pu-sobretensao-automatica");
     if (ajustePusobretensao !== null && ajustePusobretensao !== "") {
         for (let i = 0; i < elementosPu.length; i++) {
@@ -128,15 +132,24 @@ window.onload = function () {
         }
     }
 
-    const ajusteTemposobretensao = localStorage.getItem("ajustemanual81Otempo");
+    //
+ 
+
+
+
+
+
+    let ajusteTemposobretensao = localStorage.getItem("ajustemanual59tempo");
     const elementosTempo = document.getElementsByClassName("ajuste-tempo-sobretensao-automatica");
     if (ajusteTemposobretensao !== null && ajusteTemposobretensao !== "") {
         for (let i = 0; i < elementosTempo.length; i++) {
             elementosTempo[i].textContent = ajusteTemposobretensao + " s";
         }
     } else {
+        ajusteTemposobretensao = "3"; // Valor padrão
         for (let i = 0; i < elementosTempo.length; i++) {
             elementosTempo[i].textContent = "3" + " s";
+        
         }
     }
 
@@ -146,8 +159,11 @@ window.onload = function () {
         tempoEstagioHtml.textContent = (ajusteTemposobretensao !== null && ajusteTemposobretensao !== "" ? ajusteTemposobretensao : "3") + " s";
     }
 
+    //exporta tempo tempoestagio59-1-real para o localStorage
+    localStorage.setItem("tempoEstagio59-1-real", ajusteTemposobretensao);
+
     // Segundo estágio
-    const ajustePusobretensao2 = localStorage.getItem("ajustemanual81Osegundoestagio");
+    const ajustePusobretensao2 = localStorage.getItem("ajustemanual59segundoestagio");
     const elementosPu2 = document.getElementsByClassName("ajuste-pu-sobretensao-automatica-2");
     if (ajustePusobretensao2 !== null && ajustePusobretensao2 !== "") {
         for (let i = 0; i < elementosPu2.length; i++) {
@@ -159,13 +175,14 @@ window.onload = function () {
         }
     }
 
-    const ajusteTemposobretensao2 = localStorage.getItem("ajustemanual81Otempo2");
+    let ajusteTemposobretensao2 = localStorage.getItem("ajustemanual59tempo2");
     const elementosTempo2 = document.getElementsByClassName("ajuste-tempo-sobretensao-automatica-2");
     if (ajusteTemposobretensao2 !== null && ajusteTemposobretensao2 !== "") {
         for (let i = 0; i < elementosTempo2.length; i++) {
             elementosTempo2[i].textContent = ajusteTemposobretensao2 + " s";
         }
     } else {
+        ajusteTemposobretensao2 = "0.5"; // Valor padrão
         for (let i = 0; i < elementosTempo2.length; i++) {
             elementosTempo2[i].textContent = "0.5" + " s";
         }
@@ -176,6 +193,10 @@ window.onload = function () {
         tempoEstagioHtml2.textContent = (ajusteTemposobretensao2 !== null && ajusteTemposobretensao2 !== "" ? ajusteTemposobretensao2 : "0.5") + " s";
     }
 
+    //exporta tempo tempoestagio59-2-real para o localStorage
+    localStorage.setItem("tempoEstagio59-2-real", ajusteTemposobretensao2);
+
+    
     calcularSensibilidades();
 
 }
@@ -186,17 +207,17 @@ function salvarOpcao() {
 
     // Salvar o valor do primeiro estágio
     const valor = document.getElementById("ajuste-pu-sobretensao-html")?.value || "";
-    localStorage.setItem("ajustemanual81Oprimeiroestagio", valor);
+    localStorage.setItem("ajustemanual59primeiroestagio", valor);
 
     const tempo = document.getElementById("ajuste-tempo-sobretensao-html")?.value || "";
-    localStorage.setItem("ajustemanual81Otempo", tempo);
+    localStorage.setItem("ajustemanual59tempo", tempo);
 
     // Salvar o valor do segundo estágio
     const valor2 = document.getElementById("ajuste-pu-sobretensao-html-2")?.value || "";
-    localStorage.setItem("ajustemanual81Osegundoestagio", valor2);
+    localStorage.setItem("ajustemanual59segundoestagio", valor2);
 
     const tempo2 = document.getElementById("ajuste-tempo-sobretensao-html-2")?.value || "";
-    localStorage.setItem("ajustemanual81Otempo2", tempo2);
+    localStorage.setItem("ajustemanual59tempo2", tempo2);
 
 
 

@@ -85,38 +85,38 @@ window.onload = function () {
 
 
     //------------------persistir os valores de ajuste no html
-    const ajusteManual81U = localStorage.getItem("ajustemanual81Uprimeiroestagio");
-    if (ajusteManual81U !== null) {
+    const ajusteManual27 = localStorage.getItem("ajustemanual27primeiroestagio");
+    if (ajusteManual27 !== null) {
         const ajustePuSubtensaoHtml = document.getElementById("ajuste-pu-subtensao-html");
         if (ajustePuSubtensaoHtml) {
-            ajustePuSubtensaoHtml.value = ajusteManual81U;
+            ajustePuSubtensaoHtml.value = ajusteManual27;
         }
     }
 
     const ajusteTempoSubtensaoHtml = document.getElementById("ajuste-tempo-subtensao-html");
     if (ajusteTempoSubtensaoHtml) {
-        ajusteTempoSubtensaoHtml.value = localStorage.getItem("ajustemanual81Utempo") || "";
+        ajusteTempoSubtensaoHtml.value = localStorage.getItem("ajustemanual27tempo") || "";
     }
 
     // Para o segundo estágio
-    const ajusteManual81U2 = localStorage.getItem("ajustemanual81Usegundoestagio");
-    if (ajusteManual81U2 !== null) {
+    const ajusteManual272 = localStorage.getItem("ajustemanual27segundoestagio");
+    if (ajusteManual272 !== null) {
         const ajustePuSubtensaoHtml2 = document.getElementById("ajuste-pu-subtensao-html-2");
         if (ajustePuSubtensaoHtml2) {
-            ajustePuSubtensaoHtml2.value = ajusteManual81U2;
+            ajustePuSubtensaoHtml2.value = ajusteManual272;
         }
     }
 
     const ajusteTempoSubtensaoHtml2 = document.getElementById("ajuste-tempo-subtensao-html-2");
     if (ajusteTempoSubtensaoHtml2) {
-        ajusteTempoSubtensaoHtml2.value = localStorage.getItem("ajustemanual81Utempo2") || "";
+        ajusteTempoSubtensaoHtml2.value = localStorage.getItem("ajustemanual27tempo2") || "";
     }
 
 
     //----carregar campos em P.U caso houver valor digitado
 
     // Primeiro estágio
-    const ajustePuSubtensao = localStorage.getItem("ajustemanual81Uprimeiroestagio");
+    const ajustePuSubtensao = localStorage.getItem("ajustemanual27primeiroestagio");
     const elementosPu = document.getElementsByClassName("ajuste-pu-subtensao-automatica");
     if (ajustePuSubtensao !== null && ajustePuSubtensao !== "") {
         for (let i = 0; i < elementosPu.length; i++) {
@@ -128,13 +128,14 @@ window.onload = function () {
         }
     }
 
-    const ajusteTempoSubtensao = localStorage.getItem("ajustemanual81Utempo");
+    let ajusteTempoSubtensao = localStorage.getItem("ajustemanual27tempo");
     const elementosTempo = document.getElementsByClassName("ajuste-tempo-subtensao-automatica");
     if (ajusteTempoSubtensao !== null && ajusteTempoSubtensao !== "") {
         for (let i = 0; i < elementosTempo.length; i++) {
             elementosTempo[i].textContent = ajusteTempoSubtensao + " s";
         }
     } else {
+        ajusteTempoSubtensao = "3"; // Valor padrão
         for (let i = 0; i < elementosTempo.length; i++) {
             elementosTempo[i].textContent = "3" + " s";
         }
@@ -145,8 +146,11 @@ window.onload = function () {
         tempoEstagioHtml.textContent = (ajusteTempoSubtensao !== null && ajusteTempoSubtensao !== "") ? ajusteTempoSubtensao + " s" : "3 s";
     }
 
+    //exportar o valor do tempo do primeiro estágio para o localStorage
+    localStorage.setItem("tempoEstagio27-1-real", ajusteTempoSubtensao);
+
     // Segundo estágio
-    const ajustePuSubtensao2 = localStorage.getItem("ajustemanual81Usegundoestagio");
+    const ajustePuSubtensao2 = localStorage.getItem("ajustemanual27segundoestagio");
     const elementosPu2 = document.getElementsByClassName("ajuste-pu-subtensao-automatica-2");
     if (ajustePuSubtensao2 !== null && ajustePuSubtensao2 !== "") {
         for (let i = 0; i < elementosPu2.length; i++) {
@@ -158,13 +162,14 @@ window.onload = function () {
         }
     }
 
-    const ajusteTempoSubtensao2 = localStorage.getItem("ajustemanual81Utempo2");
+    let ajusteTempoSubtensao2 = localStorage.getItem("ajustemanual27tempo2");
     const elementosTempo2 = document.getElementsByClassName("ajuste-tempo-subtensao-automatica-2");
     if (ajusteTempoSubtensao2 !== null && ajusteTempoSubtensao2 !== "") {
         for (let i = 0; i < elementosTempo2.length; i++) {
             elementosTempo2[i].textContent = ajusteTempoSubtensao2 + " s";
         }
     } else {
+        ajusteTempoSubtensao2 = "1"; // Valor padrão
         for (let i = 0; i < elementosTempo2.length; i++) {
             elementosTempo2[i].textContent = "1" + " s";
         }
@@ -174,6 +179,11 @@ window.onload = function () {
     if (tempoEstagioHtml2) {
         tempoEstagioHtml2.textContent = (ajusteTempoSubtensao2 !== null && ajusteTempoSubtensao2 !== "") ? ajusteTempoSubtensao2 + " s" : "1 s";
     }
+
+    
+
+    //exportar o valor do tempo do segundo estágio para o localStorage
+    localStorage.setItem("tempoEstagio27-2-real", ajusteTempoSubtensao2);
 
     calcularSensibilidades();
 
@@ -185,17 +195,17 @@ function salvarOpcao() {
 
     // Salvar o valor do primeiro estágio
     const valor = document.getElementById("ajuste-pu-subtensao-html")?.value || "";
-    localStorage.setItem("ajustemanual81Uprimeiroestagio", valor);
+    localStorage.setItem("ajustemanual27primeiroestagio", valor);
 
     const tempo = document.getElementById("ajuste-tempo-subtensao-html")?.value || "";
-    localStorage.setItem("ajustemanual81Utempo", tempo);
+    localStorage.setItem("ajustemanual27tempo", tempo);
 
     // Salvar o valor do segundo estágio
     const valor2 = document.getElementById("ajuste-pu-subtensao-html-2")?.value || "";
-    localStorage.setItem("ajustemanual81Usegundoestagio", valor2);
+    localStorage.setItem("ajustemanual27segundoestagio", valor2);
 
     const tempo2 = document.getElementById("ajuste-tempo-subtensao-html-2")?.value || "";
-    localStorage.setItem("ajustemanual81Utempo2", tempo2);
+    localStorage.setItem("ajustemanual27tempo2", tempo2);
 
 
 
