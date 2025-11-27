@@ -47,7 +47,7 @@ async function salvarOpcao() {
     //Captura dos valores de fase dos campos preenchiveis do HTML 
     const IPpercentual = document.getElementById("IPpercentualhtml");
     let IPpercentualSelecionadaGD = parseFloat(IPpercentual.value);
-    if (IPpercentualSelecionadaGD < 100) {
+    if (IPpercentualSelecionadaGD < 105) {
         await validarPercentualMinimo(IPpercentualSelecionadaGD, "");
         IPpercentualSelecionadaGD = 105;
         IPpercentual.value = 105; // Atualiza o campo no HTML
@@ -74,7 +74,7 @@ async function salvarOpcao() {
 
     const IPpercentualneutro = document.getElementById("IPpercentualneutrohtml");
     let IPpercentualneutroSelecionadaGD = parseFloat(IPpercentualneutro.value);
-    if (IPpercentualneutroSelecionadaGD < 100) {
+    if (IPpercentualneutroSelecionadaGD < 105) {
         await validarPercentualMinimo(IPpercentualneutroSelecionadaGD, "");
         IPpercentualneutroSelecionadaGD = 105;
         IPpercentualneutro.value = 105; // Atualiza o campo no HTML

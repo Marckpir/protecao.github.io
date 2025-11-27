@@ -104,7 +104,7 @@ async function salvarOpcao() {
 
 
     let tolerancia = document.getElementById("tolerancia-injecao-html").value;
-    if (tolerancia < 100) {
+    if (tolerancia < 1) {
         await validarPercentualMinimo(tolerancia, "");
         tolerancia = 105;
         document.getElementById("tolerancia-injecao-html").value = 105;
