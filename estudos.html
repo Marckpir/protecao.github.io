@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="estudos.css" type="text/css">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+        <!-- <script src="estudos.js"></script> -->
 
 
         <meta charset="UTF-8">
@@ -58,7 +59,7 @@
                 <button id="analisehtml" class="dark-mode-toggle"
                         onclick="window.location.href='analise.html';">ANÁLISE</button>
                 <button id="botaosairhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='index.html';">SAIR</button>
+                        onclick="window.location.href='index.html';">HOME</button>
         </h1>
         <br>
 
@@ -103,21 +104,28 @@
         <div id="tabelaselo">
                 <table style="background-color: #fff; color: #000; width: 100%; table-layout: fixed;">
                         <colgroup>
-                                <col style="width: 28%;">
-                                <col style="width: 18%;">
-                                <col style="width: 18%;">
-                                <col style="width: 14%;">
-                                <col style="width: 12%;"> <!-- Reduzido de 8% para 6% -->
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+
+
+
                         </colgroup>
                         <tr>
-                                <td colspan="2" rowspan="4" style="height: 400px; vertical-align: top;">
+                                <td colspan="6" rowspan="4" style="height: 400px; vertical-align: top;">
                                         Local para selo de análise de conformidade com normas CEMIG e ABNT
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Informações complementares</div>
                                         <div>Coordenadas, transformador, nº orçamento, etc.</div>
-                                        <input style="width: 90%;"
-                                                value="Coordenadas, transformador, nº orçamento, etc.">
+                                        <input style="width: 90%;">
                                 </td>
                                 <td colspan="1" rowspan="4" class="vertical"
                                         style="width: 6%; min-width: 60px; max-width: 80px; text-align: center;">
@@ -125,133 +133,131 @@
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="2">
-                                        <div>Carga instalada (kW) 1000 kva</div>
-                                        <input style="width: 90%;" value="Carga instalada (kW) 1000 kva">
+                                <td colspan="3">
+                                        <div>Carga instalada (kW)</div>
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Demanda da instalação (kVA)</div>
-                                        <input style="width: 90%;" value="Demanda da instalação (kVA)">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Demanda de contrato (kW)</div>
-                                        <input style="width: 90%;" value="Demanda de contrato (kW)">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="3" style="height: 50px;">
+                                <td colspan="7" style="height: 50px;">
                                         <div>Dados e logotipo do projetista (opcional)</div>
-                                        <input style="width: 90%;" value="Dados e logotipo do projetista (opcional)">
+                                        <input style="width: 90%;">
                                 </td>
-                                <td colspan="2">
+                                <td colspan="3">
                                         <div>Formato do projeto</div>
-                                        <input style="width: 90%;" value="Formato do projeto">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="5" style="height: 50px;">
+                                <td colspan="10" style="height: 50px;">
                                         <div>Título / conteúdo</div>
-                                        <input style="width: 90%;" value="Título / conteúdo">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td style="height: 50px;">
+                                <td colspan="4" style="height: 50px;">
                                         <div>Nome do empreendimento</div>
-                                        <input style="width: 90%;" value="Nome do empreendimento">
+                                        <input style="width: 90%;">
                                 </td>
-                                <td>
+                                <td colspan="3">
                                         <div>CPF/CNPJ</div>
-                                        <input style="width: 80%;" value="CPF/CNPJ">
+                                        <input style="width: 80%;">
                                 </td>
                                 <td colspan="3">
                                         <div>Finalidade</div>
-                                        <input style="width: 90%;" value="Finalidade">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td style="height: 50px;">
+                                <td colspan="4" style="height: 50px;">
                                         <div>Endereço</div>
-                                        <input style="width: 90%;" value="Endereço">
+                                        <input style="width: 90%;">
                                 </td>
-                                <td>
+                                <td colspan="3">
                                         <div>Bairro</div>
-                                        <input style="width: 80%;" value="Bairro">
+                                        <input style="width: 80%;">
                                 </td>
                                 <td colspan="3">
                                         <div>Cidade</div>
-                                        <input style="width: 90%;" value="Cidade">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="5">
+                                <td colspan="10">
                                         <div>Número e data da ART de projeto</div>
-                                        <input style="width: 90%;" value="Número e data da ART de projeto">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td style="height: 50px;">
+                                <td colspan="4" style="height: 50px;">
                                         <div>Proprietário<br>Nome</div>
-                                        <input style="width: 90%;" value="Nome">
+                                        <input style="width: 90%;">
                                 </td>
-                                <td>
+                                <td colspan="3">
                                         <div>CPF/CNPJ / Identidade</div>
-                                        <input style="width: 80%;" value="CPF/CNPJ / Identidade">
+                                        <input style="width: 80%;">
                                 </td>
                                 <td colspan="3">
                                         <div>Telefone</div>
-                                        <input style="width: 90%;" value="Telefone">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td style="height: 50px;">
+                                <td colspan="4" style="height: 50px;">
                                         <div>Contratante (se houver)<br>Nome</div>
-                                        <input style="width: 90%;" value="Nome">
+                                        <input style="width: 90%;">
                                 </td>
-                                <td>
+                                <td colspan="3">
                                         <div>CPF/CNPJ / Identidade</div>
-                                        <input style="width: 80%;" value="CPF/CNPJ / Identidade">
+                                        <input style="width: 80%;">
                                 </td>
                                 <td colspan="3">
                                         <div>Telefone</div>
-                                        <input style="width: 90%;" value="Telefone">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="5">
+                                <td colspan="10">
                                         <div>Endereço completo para correspondência do PROPRIETÁRIO</div>
-                                        <input style="width: 90%;"
-                                                value="Endereço completo para correspondência do PROPRIETÁRIO">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="5">
+                                <td colspan="10">
                                         <div>Endereço completo para correspondência do PROJETISTA</div>
-                                        <input style="width: 90%;"
-                                                value="Endereço completo para correspondência do PROJETISTA">
+                                        <input style="width: 90%;">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="2" style="height: 100px;">
+                                <td colspan="4" style="height: 100px;">
                                         <div>RT (Engª)</div>
-                                        <input style="width: 90%;" value="Nome">
-                                        <input style="width: 90%;" value="Telefone">
+                                        <input style="width: 90%;">
+                                        <input style="width: 90%;">
                                         <div>Nome<br>Telefone</div>
                                 </td>
-                                <td>
+                                <td colspan="3">
                                         <div style="height: 50px;">CREA / Estado</div>
-                                        <input style="width: 80%;" value="CREA / Estado">
+                                        <input style="width: 80%;">
                                 </td>
-                                <td>
+                                <td colspan="1">
                                         <div style="height: 50px;">Folha</div>
-                                        <input style="width: 80%;" value="Folha">
+                                        <input style="width: 80%;">
                                 </td>
-                                <td>
+                                <td colspan="2">
                                         <div style="height: 50px;">Data</div>
-                                        <input style="width: 80%;" value="Data">
+                                        <input style="width: 80%;">
                                 </td>
                         </tr>
                 </table>
@@ -264,9 +270,12 @@
                 style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
                 <h2>ESTUDOS DE PROTEÇÃO E SELETIVIDADE</h2>
         </div>
+        <br>
 
-
-        <h2>Objetivo</h2>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Justificativa de apresentação</h2>
+        </div>
 
         <div id="objetivotexto" style="display: flex; flex-direction: column; align-items: center;">
 
@@ -276,7 +285,11 @@
                 </textarea>
         </div>
 
-        <h2>Informações da Conexão</h2>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Informações da Conexão</h2>
+        </div>
+
 
         <div id="tabelaparametrosiniciais">
 
@@ -308,15 +321,27 @@
                 </table>
         </div>
 
-        <h3>Diagrama Unifilar:</h3>
+        </div>
+
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Diagrama Unifilar:</h2>
+        </div>
+        <br>
+
         <div id="diagramaunifilar"
                 style="max-width: 210mm; width: 210mm; margin: 0 auto; display: flex; justify-content: center; align-items: center; border: 2px solid #000; border-radius: 20px; overflow: hidden; background: #ffffff;">
                 <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
         </div>
 
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
+        </div>
+        <br>
 
-        <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
-        <div id=calculotrafos>
+        <div id="calculotrafos">
 
                 <div class="calculotrafos-texto-tr01">
                         <span>In TRF01 =</span>
@@ -481,8 +506,14 @@
                 </div>
         </div>
 
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Cálculo das Correntes ANSI e NANSI</h2>
+        </div>
+        <br>
 
-        <h2>Cálculo das Correntes ANSI e NANSI</h2>
+
         <div id="calculoANSIeNANSI">
 
                 <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em; margin-bottom: 24px;">
@@ -716,9 +747,14 @@
         </div>
 
 
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Tabela Transformadores</h2>
+        </div>
+        <br>
 
 
-        <h2>Tabela Transformadores</h2>
 
         <div id="tabelatransformadores">
 
@@ -860,7 +896,15 @@
 
         </div>
 
-        <h2>Cálculo Corrente de Magnetização Total</h2>
+
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Cálculo Corrente de Magnetização Total</h2>
+        </div>
+        <br>
+
+
 
         <div id="calculomagnetizacao">
 
@@ -1059,9 +1103,13 @@
         </div> -->
 
 
-
         <br>
-        <h2>Critérios para dimensionamento dos transoformadores de corrente (TC) de Proteção</h2>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Critérios para dimensionamento dos transoformadores de corrente (TC) de Proteção</h2>
+        </div>
+        <br>
+
         <div id=calculostc>
 
                 <strong>1) Cobertura da corrente de curto-circuito:</strong>
@@ -1241,7 +1289,15 @@
 
         </div> -->
 
-        <h2>Dimensionamento TC</h2>
+
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Dimensionamento TC</h2>
+        </div>
+        <br>
+
+
         <div id="especificacaodotc">
                 <p>O transformador de corrente definido para atender os critérios avaliados será:</p>
                 <span class="tc-especificacao"></span>
@@ -1256,7 +1312,14 @@
 
         </div>
 
-        <h2>Dimensionamento TP de Proteção</h2>
+
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Dimensionamento TP de Proteção</h2>
+        </div>
+        <br>
+
         <div id="dimensionamentotpprotecao">
                 <p>O sistema de proteção deve ser alimentado pela tensão secundária do(s) TP de proteção.</p>
                 <p>
@@ -1297,7 +1360,13 @@
         </div>
 
 
-        <h2>Cálculo e dimensionamento Curvas de Fase</h2>
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Cálculo e dimensionamento Curvas de Fase</h2>
+        </div>
+        <br>
+
         <div class="calculosfuncoes">
 
                 <h3>1º Estágio - Função 51 (Sobrecorrente de fase tempo inverso)</h3>
@@ -1406,9 +1475,19 @@
 
 
                 <h3>Calculo do dial:</h3>
-                <p class="formula1" style="font-size: 1.1em;"></p>
+                <p class="formula1" style="font-size: 1.2em;"></p>
 
-                <p class="formula2" style="font-size: 1.1em;"></p>
+                <p class="formula2" style="font-size: 1.2em;"></p>
+
+                <p class="formula3" style="font-size: 1.2em;"></p>
+
+                <p class="formula4" style="font-size: 1.2em;"></p>
+
+                <p class="formula5" style="font-size: 1.2em;"></p>
+
+                <p class="formula6" style="font-size: 1.1em;"></p>
+
+                <p class="formula7" style="font-size: 1.1em;"></p>
 
                 <p>Dial calculado:<span class="dial-fase-calculado"></span></p>
 
@@ -1479,7 +1558,14 @@
                                         <span>Tempo para atuação:</span> 0,00 s ou o menor valor possível.
                                 </p>
         </div>
-        <h2>Cálculo e dimensionamento Curvas de Neutro</h2>
+
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Cálculo e dimensionamento Curvas de Neutro</h2>
+        </div>
+        <br>
+
         <div class="calculosfuncoes">
 
                 <h3>1º Estágio - 51 N (Sobrecorrente de Neutro Temporizado)</h3>
@@ -1615,10 +1701,15 @@
 
 
 
-
+        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Resumo de Parâmetros</h2>
+        </div>
+        <br>
 
         <div id="tabelaresumofuncoes">
-                <h2>Resumo de Parâmetros</h2>
+
                 <table class="resumo-parametros-tabela">
                         <tr class="linha-tp">
                                 <th colspan="3">
@@ -1718,15 +1809,20 @@
 
         </div>
 
-        <br><br>
+
         <div id="tituloreles">
+                        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
                 <h2>Parâmetros do Relé de Proteção</h2>
+        </div>
+        <br>
 
-                <div id="titulotabelas">
 
-                        <div id="tabelareles" classe="tabelaparametrizacaoreles">
-                        </div>
-                </div>
+                
+
+                        <div id="tabelareles" classe="tabelaparametrizacaoreles"></div>
+                
 
         </div>
 
@@ -1737,7 +1833,13 @@
 
 
         <div id="curvaProtecao">
-                <h2>Coordenograma de Proteção</h2>
+                        <br>
+        <div
+                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+                <h2>Plotagem Curva de Proteção</h2>
+        </div>
+        <br>
+
                 <canvas id="grafico"></canvas>
         </div>
         <br>

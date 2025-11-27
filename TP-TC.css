@@ -73,6 +73,7 @@ button:hover {
     align-items: center;
     width: 100vh;
     font-size: 15px;
+    border-radius: 5px;
     /* height: 100vh; Garante que o contêiner ocupe toda a tela */
 }
 
@@ -83,6 +84,7 @@ th, td {
     text-align: center;
     background-color: #5c4033;
     font-size: 15px;
+    border-radius: 5px;
 }
 
 

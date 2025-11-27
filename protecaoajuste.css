@@ -56,28 +56,46 @@ canvas {
 
 .tabela-containerfase {
     table-layout: fixed;
-    background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    /* background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
     width: 100%;
     border-collapse: collapse;
     margin-top: 0px;
-    color: rgb(224, 248, 6);
+    /* color: rgb(224, 248, 6); */
     font-size: 12px;
     border: none;
     border-collapse: collapse;
     margin-left: 0px;
+    border-radius: 5px;
+    
+}
+
+thead{
+    /* background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
+    color: rgb(224, 248, 6);
 }
 
 th {
-    border: 3px solid rgb(0, 0, 0);
+    /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
     text-align: auto;
+    /* color: rgb(224, 248, 6); */
+    border-radius: 5px;
+    /* border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
+    
+
 }
 
 td {
     text-align: auto;
-    border: 3px solid rgb(0, 0, 0);
+    /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
     text-align: auto;
+    border-radius: 5px;
+    color: rgb(224, 248, 6);
+    background-color: rgb(2, 68, 2);
+
+    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    
 }
 
 #tabelafase {
@@ -87,6 +105,7 @@ td {
     /* Mantém colunas com largura uniforme */
     border-collapse: collapse;
     /* Elimina espaços extras entre células */
+    border-radius: 5px;
 
 }
 
@@ -99,9 +118,11 @@ td {
     /* Adiciona espaçamento interno */
     text-align: left;
     /* Centraliza o conteúdo */
-    border: 3px solid #000;
+    border: 1px solid white;
+    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);;
     /* Mantém bordas visíveis */
     background-color: rgb(186, 59, 59);
+    border-radius: 5px;
 }
 
 #tabelafase .input-container input,
@@ -112,30 +133,51 @@ td {
     /* Garante alinhamento uniforme */
 }
 
+.exibirmagreal {
+    display: table-cell;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 3px;
+    vertical-align: middle;
+    text-align: left;
+    border-radius: 5px;
+    background-color: #ffeb3b!important;
+    color: #000;
+}
+
 .tabela-containerneutro {
     table-layout: fixed;
-    background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    /* background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
     width: 100%;
     border-collapse: collapse;
     margin-top: 0px;
-    color: rgb(224, 248, 6);
+    /* color: rgb(224, 248, 6); */
     font-size: 12px;
     border: none;
     border-collapse: collapse;
     margin-left: 0px;
+    border-radius: 5px;
 }
 
 th {
-    border: 3px solid rgb(0, 0, 0);
+    /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
     text-align: auto;
+    /* color: rgb(224, 248, 6); */
+    border-radius: 5px;
+    /* border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
 }
 
 td {
     text-align: auto;
-    border: 3px solid rgb(0, 0, 0);
+    /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
     text-align: auto;
+    border-radius: 5px;
+    color: rgb(224, 248, 6);
+    background-color: rgb(2, 68, 2);
+
+    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
 }
 
 #tabelaneutro {
@@ -145,19 +187,22 @@ td {
     /* Mantém colunas com largura uniforme */
     border-collapse: collapse;
     /* Elimina espaços extras entre células */
+    border-radius: 5px;
 }
 
 #tabelaneutro th,
 #tabelaneutro td {
-    width: 100%;
-    /* Ajusta cada coluna para ocupar 25% da largura total */
+
+
     padding: 3px;
     /* Adiciona espaçamento interno */
     text-align: left;
     /* Centraliza o conteúdo */
-    border: 3px solid #000;
+    border: 1px solid white;
+    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);;
     /* Mantém bordas visíveis */
-    background-color: rgb(84, 91, 194);
+    background-color: rgb(67, 77, 206);
+    border-radius: 5px;
 }
 
 #tabelaneutro .input-container input,
@@ -374,6 +419,7 @@ select {
     #tabelafase,
     #tabelaneutro {
         font-size: 11px;
+        border-radius: 5px;
     }
 
     #tabelafase th,
@@ -385,6 +431,7 @@ select {
         /* ainda mais reduzido */
         height: 13px;
         /* ainda mais reduzido */
+        border-radius: 5px;
     }
 
 

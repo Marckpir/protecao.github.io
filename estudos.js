@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     carregarVariaveisEstudo();
 
     //incluirimagensrele();
-
+ // Recarregar a página após salvar as opções
+    // location.reload();
 
 });
 
@@ -648,7 +649,7 @@ function carregarVariaveisEstudo() {
     }
 
     // Preencher campo tempo-mag-fase com valor 0.10
-    const tempomagFase = 0.10;
+    const tempomagFase = 0.100;
     const tempoMagFaseEls = document.querySelectorAll('.tempo-mag-fase');
     tempoMagFaseEls.forEach(el => {
         el.textContent = tempomagFase.toFixed(2) + ' s ou ' + (tempomagFase * 1000).toFixed(0) + ' ms';
@@ -668,7 +669,7 @@ function carregarVariaveisEstudo() {
     // }, {});
 
     // Preencher fórmula para .formula1
-    const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'imag'}}{${'In'}} \\right)^{\\alpha}}{\\beta} - ${'k'} \\right) \\times ${'t'}`;
+    const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'imag'}}{${'In'}} \\right)^{\\alpha}- ${'k'}}{\\beta}  \\right) \\times ${'t'}`;
     const formulaEl1 = document.querySelector(".formula1");
     if (formulaEl1 && typeof MathJax !== 'undefined') {
         formulaEl1.innerHTML = `\\(${latex1}\\)`;
@@ -676,12 +677,219 @@ function carregarVariaveisEstudo() {
     }
 
     // Preencher fórmula para .formula2
-    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${parseFloat(correnteNominalFase).toFixed(2)}} \\right)^{${alfaFase}}}{${betaFase}} - ${kFase} \\right) \\times ${parseFloat(tempomagFase).toFixed(2)}`;
+    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${parseFloat(correnteNominalFase).toFixed(2)}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
     const formulaEl2 = document.querySelector(".formula2");
     if (formulaEl2 && typeof MathJax !== 'undefined') {
         formulaEl2.innerHTML = `\\(${latex2}\\)`;
         MathJax.typesetPromise([formulaEl2]).catch(err => console.log('Erro MathJax:', err));
     }
+
+    // Preencher fórmula para .formula3 (mesma lógica que formula2)
+    // calcular resultado da fração imagTotal / correnteNominalFase e usar esse valor direto na fórmula
+    const parsedIn = parseFloat(correnteNominalFase);
+    let fracValue = null;
+    if (!isNaN(imagTotal) && !isNaN(parsedIn) && parsedIn !== 0) {
+        fracValue = imagTotal / parsedIn;
+    }
+
+    let latex3;
+    if (fracValue !== null) {
+        // utiliza o valor numérico da fração diretamente
+        latex3 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+    } else {
+        // fallback para exibir a fração caso não seja possível calcular (p.ex. valores ausentes)
+        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
+        latex3 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+    }
+    const formulaEl3 = document.querySelector(".formula3");
+    if (formulaEl3 && typeof MathJax !== 'undefined') {
+        formulaEl3.innerHTML = `\\(${latex3}\\)`;
+        MathJax.typesetPromise([formulaEl3]).catch(err => console.log('Erro MathJax:', err));
+    }
+
+    // Preencher fórmula4 usando o resultado da exponenciação do fracValue (se disponível)
+    (function() {
+        // usa fracValue, alfaFase, betaFase, kFase, tempomagFase já calculados acima
+        let expValue = null;
+        if (fracValue !== null && !isNaN(fracValue) && !isNaN(alfaFase)) {
+            expValue = Math.pow(fracValue, alfaFase);
+        }
+
+        let latex4;
+        if (expValue !== null && !isNaN(expValue)) {
+            // mostra o resultado numérico da exponenciação
+            latex4 = `DT = \\left( \\frac{${expValue.toFixed(2)}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        } else if (fracValue !== null && !isNaN(fracValue)) {
+            // mostra a expressão com a potência, caso não queira o valor numérico
+            latex4 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        } else {
+            // fallback genérico se não houver dados suficientes
+            const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
+            latex4 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}}{${betaFase}} - ${kFase} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        }
+
+        const formulaEl4 = document.querySelector(".formula4");
+        if (formulaEl4 && typeof MathJax !== 'undefined') {
+            formulaEl4.innerHTML = `\\(${latex4}\\)`;
+            MathJax.typesetPromise([formulaEl4]).catch(err => console.log('Erro MathJax:', err));
+        }
+    })();
+
+    (function() {
+        const formulaEl5 = document.querySelector('.formula5');
+
+        // recalcula expValue a partir de fracValue e alfaFase (ambos declarados acima)
+        let expValueLocal = null;
+        if (fracValue !== null && !isNaN(fracValue) && !isNaN(Number(alfaFase))) {
+            expValueLocal = Math.pow(fracValue, Number(alfaFase));
+        }
+
+        // calcula resultado = expValue - kFase quando possível
+        const kNum = Number(kFase);
+        let resultadoExpMenosK = null;
+        if (expValueLocal !== null && !isNaN(expValueLocal) && !isNaN(kNum)) {
+            resultadoExpMenosK = expValueLocal - kNum;
+        }
+
+        const betaNum = Number(betaFase);
+        const tNum = Number(tempomagFase);
+
+        // montar LaTeX mantendo o restante da equação, mas substituindo apenas a etapa da subtração quando possível
+        let latex5;
+        if (resultadoExpMenosK !== null && !isNaN(resultadoExpMenosK)) {
+            // usa o valor numérico da subtração no numerador e mantém /beta * t
+            latex5 = `DT = \\left( \\frac{${resultadoExpMenosK.toFixed(2)}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
+        } else if (expValueLocal !== null && !isNaN(expValueLocal)) {
+            // mostra expressão com expValue - k quando a subtração numérica não puder ser resolvida
+            latex5 = `DT = \\left( \\frac{${expValueLocal.toFixed(2)} - ${kNum}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
+        } else {
+            // fallback: mantém a equação completa simbolicamente
+            const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
+            latex5 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}} - ${kNum}}{${betaFase}} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        }
+
+        if (formulaEl5) {
+            if (typeof MathJax !== 'undefined') {
+                formulaEl5.innerHTML = `\\(${latex5}\\)`;
+                MathJax.typesetPromise([formulaEl5]).catch(err => console.log('Erro MathJax:', err));
+            } else {
+                formulaEl5.textContent = latex5;
+            }
+        }
+    })();
+
+    (function() {
+        const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+        const alfa = Number(dadosCurva.alfa || NaN);
+        const betaNum = Number(dadosCurva.beta || NaN);
+        const kNum = Number(dadosCurva.k || NaN);
+
+        const imagTotal = parseFloat(localStorage.getItem('imagtotalSelecionada'));
+        const correnteNominalFase = parseFloat(localStorage.getItem('Inominalfase'));
+
+        const tempomagFase = 0.100;
+
+        // calcula fracValue, expValue e resultadoExpMenosK apenas se possível
+        let fracValue = null;
+        if (isFinite(imagTotal) && isFinite(correnteNominalFase) && correnteNominalFase !== 0) {
+            fracValue = imagTotal / correnteNominalFase;
+        }
+
+        let expValue = (fracValue !== null && isFinite(fracValue) && isFinite(alfa)) ? Math.pow(fracValue, alfa) : null;
+        let resultadoExpMenosK = (expValue !== null && isFinite(expValue) && isFinite(kNum)) ? (expValue - kNum) : null;
+
+        const el6 = document.querySelector('.formula6');
+
+        // Exige que resultadoExpMenosK e betaNum sejam numéricos e betaNum não seja zero.
+        if (el6) {
+            if (resultadoExpMenosK !== null && isFinite(resultadoExpMenosK) && isFinite(betaNum) && betaNum !== 0) {
+                const divisao = resultadoExpMenosK / betaNum;
+                const latex6 = `DT = \\left( ${divisao.toFixed(2)} \\right) \\times ${tempomagFase.toFixed(3)}`;
+                if (typeof MathJax !== 'undefined') {
+                    el6.style.display = '';
+                    el6.innerHTML = `\\(${latex6}\\)`;
+                    MathJax.typesetPromise([el6]).catch(() => {});
+                } else {
+                    el6.style.display = '';
+                    el6.textContent = latex6;
+                }
+            } else {
+                // se não for possível calcular, não exibe nada
+                el6.innerHTML = '';
+                el6.textContent = '';
+                el6.style.display = 'none';
+            }
+        }
+    })();
+
+    (function() {
+        const el7 = document.querySelector('.formula7');
+        if (!el7) return;
+
+        const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+        const alfa = Number(dadosCurva.alfa);
+        const betaNum = Number(dadosCurva.beta);
+        const kNum = Number(dadosCurva.k);
+
+        const imagTotal = parseFloat(localStorage.getItem('imagtotalSelecionada'));
+        const correnteNominalFase = parseFloat(localStorage.getItem('Inominalfase'));
+
+        const tempomagFase = 0.10;
+
+        // Valida entradas
+        const canCalculate =
+            isFinite(imagTotal) &&
+            isFinite(correnteNominalFase) && correnteNominalFase !== 0 &&
+            isFinite(alfa) &&
+            isFinite(betaNum) && betaNum !== 0 &&
+            isFinite(kNum);
+
+        if (!canCalculate) {
+            el7.innerHTML = '';
+            el7.style.display = 'none';
+            return;
+        }
+
+        const fracValue = imagTotal / correnteNominalFase;
+        if (!isFinite(fracValue)) {
+            el7.innerHTML = '';
+            el7.style.display = 'none';
+            return;
+        }
+
+        const expValue = Math.pow(fracValue, alfa);
+        if (!isFinite(expValue)) {
+            el7.innerHTML = '';
+            el7.style.display = 'none';
+            return;
+        }
+
+        const numerador = expValue - kNum;
+        if (!isFinite(numerador)) {
+            el7.innerHTML = '';
+            el7.style.display = 'none';
+            return;
+        }
+
+        const divisao = numerador / betaNum;
+        if (!isFinite(divisao)) {
+            el7.innerHTML = '';
+            el7.style.display = 'none';
+            return;
+        }
+
+        const resultadoFinal = divisao * tempomagFase;
+
+        // Exibe resultado em .formula7 (com MathJax se disponível)
+        el7.style.display = '';
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+            el7.innerHTML = `DT = ${resultadoFinal.toFixed(2)}`;
+            MathJax.typesetPromise([el7]).catch(() => {});
+        } else {
+            el7.textContent = `DT = ${resultadoFinal.toFixed(2)}`;
+        }
+    })();
+    
 
 
     // Preencher campo dial-fase com dialCalculadoPlantaSemMotores
@@ -930,7 +1138,8 @@ function carregarVariaveisEstudo() {
 
 
 
-
+ // Recarregar a página após salvar as opções
+    //  location.reload();
 
 
 
@@ -949,54 +1158,7 @@ function carregarVariaveisEstudo() {
 
 
 
-// Código para gerar a curva tempo inverso em SVG
-// Esta função gera uma curva de tempo
-// Função para gerar a curva tempo inverso em SVG da animação
-function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
-    let d = "";
-    let primeiro = true;
-    for (let i = 0; i <= pontos; i++) {
-        let corrente = iMin + (iMax - iMin) * (i / pontos);
-        let denominador = Math.pow(corrente / ip, alfa) - k;
-        if (denominador <= 0) continue;
-        let tempo = dial * (beta / denominador);
-        if (tempo > 1000) tempo = 1000; // Limite para visualização
-        let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
-        let svgY = 350 - (tempo * 300 / 1000);
-        if (primeiro) {
-            d += `M${svgX},${svgY}`;
-            primeiro = false;
-        } else {
-            d += ` L${svgX},${svgY}`;
-        }
-    }
-    return d;
-}
 
-// Parâmetros do exemplo
-const dial = 90000;
-const beta = 300;
-const alfa = 2;
-const k = 1;
-const ip = 0.5;
-const iMin = ip * 2.01; // Começa um pouco acima de ip
-const iMax = 300;
-const pontos = 1000;
-
-const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
-
-const svg = document.querySelector("svg");
-const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-path.setAttribute("class", "curva-inversa");
-path.setAttribute("fill", "none");
-path.setAttribute("stroke", "#ff0080");
-path.setAttribute("stroke-width", "3");
-path.setAttribute("stroke-dasharray", "1000");
-path.setAttribute("stroke-dashoffset", "1000");
-path.setAttribute("d", dInverso);
-svg.appendChild(path);
-// --------------------------------------------------------------
-// Fim do Js do SVG
 
 function imprimirPaginaEmPDF() {
     window.print();
@@ -1208,3 +1370,52 @@ function exibirCorrenteMinimaSeNecessario() {
     });
 }
 
+// --------------------------------------------------------------// 
+// Código para gerar a curva tempo inverso em SVG
+// Esta função gera uma curva de tempo
+// Função para gerar a curva tempo inverso em SVG da animação
+function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
+    let d = "";
+    let primeiro = true;
+    for (let i = 0; i <= pontos; i++) {
+        let corrente = iMin + (iMax - iMin) * (i / pontos);
+        let denominador = Math.pow(corrente / ip, alfa) - k;
+        if (denominador <= 0) continue;
+        let tempo = dial * (beta / denominador);
+        if (tempo > 1000) tempo = 1000; // Limite para visualização
+        let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
+        let svgY = 350 - (tempo * 300 / 1000);
+        if (primeiro) {
+            d += `M${svgX},${svgY}`;
+            primeiro = false;
+        } else {
+            d += ` L${svgX},${svgY}`;
+        }
+    }
+    return d;
+}
+
+// Parâmetros do exemplo
+const dial = 90000;
+const beta = 300;
+const alfa = 2;
+const k = 1;
+const ip = 0.5;
+const iMin = ip * 2.01; // Começa um pouco acima de ip
+const iMax = 300;
+const pontos = 1000;
+
+const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+
+const svg = document.querySelector("svg");
+const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("class", "curva-inversa");
+path.setAttribute("fill", "none");
+path.setAttribute("stroke", "#ff0080");
+path.setAttribute("stroke-width", "3");
+path.setAttribute("stroke-dasharray", "1000");
+path.setAttribute("stroke-dashoffset", "1000");
+path.setAttribute("d", dInverso);
+svg.appendChild(path);
+// --------------------------------------------------------------
+// Fim do Js do SVG

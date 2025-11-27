@@ -77,12 +77,13 @@ button:hover {
 }
 
 
-th, td {
+th, td , caption {
     border: 0px solid #fefcfb;
-    padding: 4px 5px;
+    padding: 8px 8px;
     text-align: center;
     background-color: #5c4033;
     font-size: 15px;
+    border-radius: 5px;
 }
 
 

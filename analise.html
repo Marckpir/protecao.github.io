@@ -56,7 +56,7 @@
             onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
         <button id="botaoanalisehtml" class="dark-mode-toggle"
             onclick="window.location.href='analise.html';">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
 
     </h1>
     <br>
@@ -104,6 +104,14 @@
 
             </tbody>
         </table>
+
+    </div>
+    <br>
+    <div class="search-container">
+        <h2>Pesquisar RTs</h2>
+        <input type="text" id="searchInput" placeholder="Digite o nome..." disabled>
+        <button id="searchBtn" disabled>Pesquisar</button>
+        <div class="results" id="results"></div>
     </div>
 
     <br>
@@ -224,12 +232,7 @@
     <br><br>
 
 
-    <div class="search-container">
-        <h2>Pesquisar RTs</h2>
-        <input type="text" id="searchInput" placeholder="Digite o nome..." disabled>
-        <button id="searchBtn" disabled>Pesquisar</button>
-        <div class="results" id="results"></div>
-    </div>
+
 
 
 
@@ -252,7 +255,7 @@
         </p>
 
         <div class="editable-section" id="projeto-eletrico">
-            <div class="section-title">Projeto Elétrico</div>
+            <div class="section-title"></div>
             <div class="item-row">
                 <div class="item-number">1)</div>
                 <textarea>Exemplo de texto: Foi verificado no projeto elétrico aprovado que o transformador de corrente informado é de 150:5A, contudo, no estudo de proteção foi informado um TC de 200:5A;</textarea>
@@ -260,7 +263,8 @@
         </div>
 
         <p>
-            Para auxílio na elaboração da documentação, gentileza consultar o material disponibilizado pela Cemig:
+            Para auxílio na elaboração da documentação, o responsável técnico poderá consultar o material
+            disponibilizado pela Cemig:
         </p>
         <ul>
             <li><a href="https://www.cemig.com.br/wp-content/uploads/2023/05/Cartilha-Tecnica-%E2%80%93-Modelo-de-estudo-de-coordenograma-para-solicitacao-de-injecao-de-potencia-MT-%E2%80%93-Geracao-Distribuida-rev2-1.pdf"
@@ -280,8 +284,17 @@
                     edificações coletivas.</a></li>
         </ul>
 
-        <p>
-            Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança.
+        <p style="color: red; font-weight: bold;">
+            Informamos que tabelas, gráficos, cálculos, dimensionamentos e demais modelos de estudos que venham a ser
+            encaminhados nesse
+            email, são apenas para
+            auxílio na elaboração do projeto/estudos de proteção e coordenação. O Responsável Técnico deverá analisar e
+            validar todas as informações
+            conforme necessidades da conexão do empreendimento antes de encaminhar o projeto/estudos para aprovação na
+            CEMIG!
+        </p>
+        <p style="font-weight: bold; color: #000;">
+            Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança!
         </p>
         <p>
             Informamos que, caso necessário, esse e-mail se encontra disponível para resoluções de dúvidas relacionadas
@@ -312,7 +325,8 @@
 
 
 
-    <div id="nota-operacao" style="background: #fff; color: #000; padding: 8px; border-radius: 4px; text-align: center; max-width: 250px; margin: 0 auto;">
+    <div id="nota-operacao"
+        style="background: #fff; color: #000; padding: 8px; border-radius: 4px; text-align: center; max-width: 250px; margin: 0 auto;">
         <span>NOTA PARA OPERAÇÃO</span>
     </div>
 
@@ -336,57 +350,57 @@
                 tinstn-operacao
             -->
             <tr>
-            <th colspan="2"
-                style="border-bottom: 2px solid #ccc; padding-bottom: 8px; text-align: left; background: #fff; color: #000;">
-                NOTA PARA OPERAÇÃO</th>
+                <th colspan="2"
+                    style="border-bottom: 2px solid #ccc; padding-bottom: 8px; text-align: left; background: #fff; color: #000;">
+                    NOTA PARA OPERAÇÃO</th>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">IN:</td>
-            <td id="in-operacao" style="padding: 6px; background: #fff; color: #000;">3009007177</td>
+                <td style="padding: 6px; background: #fff; color: #000;">IN:</td>
+                <td id="in-operacao" style="padding: 6px; background: #fff; color: #000;">3009007177</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Alimentador:</td>
-            <td id="alimentador-operacao" style="padding: 6px; background: #fff; color: #000;">JFAU18</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Alimentador:</td>
+                <td id="alimentador-operacao" style="padding: 6px; background: #fff; color: #000;">JFAU18</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Tensão:</td>
-            <td id="tensao-operacao" style="padding: 6px; background: #fff; color: #000;">22,00 KV</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Tensão:</td>
+                <td id="tensao-operacao" style="padding: 6px; background: #fff; color: #000;">22,00 KV</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Ip 51:</td>
-            <td id="ip51-operacao" style="padding: 6px; background: #fff; color: #000;">47,92 A</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Ip 51:</td>
+                <td id="ip51-operacao" style="padding: 6px; background: #fff; color: #000;">47,92 A</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Curva:</td>
-            <td id="curva-operacao" style="padding: 6px; background: #fff; color: #000;">IEC-E.I</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Curva:</td>
+                <td id="curva-operacao" style="padding: 6px; background: #fff; color: #000;">IEC-E.I</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Dial:</td>
-            <td id="dial-operacao" style="padding: 6px; background: #fff; color: #000;">0,40 s</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Dial:</td>
+                <td id="dial-operacao" style="padding: 6px; background: #fff; color: #000;">0,40 s</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">I inst 50:</td>
-            <td id="iinst50-operacao" style="padding: 6px; background: #fff; color: #000;">248,00 A</td>
+                <td style="padding: 6px; background: #fff; color: #000;">I inst 50:</td>
+                <td id="iinst50-operacao" style="padding: 6px; background: #fff; color: #000;">248,00 A</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">T inst:</td>
-            <td id="tinst-operacao" style="padding: 6px; background: #fff; color: #000;">0,04 s</td>
+                <td style="padding: 6px; background: #fff; color: #000;">T inst:</td>
+                <td id="tinst-operacao" style="padding: 6px; background: #fff; color: #000;">0,04 s</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Ip 51N:</td>
-            <td id="ip51n-operacao" style="padding: 6px; background: #fff; color: #000;">15,81 A</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Ip 51N:</td>
+                <td id="ip51n-operacao" style="padding: 6px; background: #fff; color: #000;">15,81 A</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">Tempo definido:</td>
-            <td id="tempodefinido-operacao" style="padding: 6px; background: #fff; color: #000;">2,00 s</td>
+                <td style="padding: 6px; background: #fff; color: #000;">Tempo definido:</td>
+                <td id="tempodefinido-operacao" style="padding: 6px; background: #fff; color: #000;">2,00 s</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">I inst 50N:</td>
-            <td id="iinst50n-operacao" style="padding: 6px; background: #fff; color: #000;">81,84 A</td>
+                <td style="padding: 6px; background: #fff; color: #000;">I inst 50N:</td>
+                <td id="iinst50n-operacao" style="padding: 6px; background: #fff; color: #000;">81,84 A</td>
             </tr>
             <tr>
-            <td style="padding: 6px; background: #fff; color: #000;">T inst:</td>
-            <td id="tinstn-operacao" style="padding: 6px; background: #fff; color: #000;">0,04 s</td>
+                <td style="padding: 6px; background: #fff; color: #000;">T inst:</td>
+                <td id="tinstn-operacao" style="padding: 6px; background: #fff; color: #000;">0,04 s</td>
             </tr>
         </table>
     </div>

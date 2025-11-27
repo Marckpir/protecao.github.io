@@ -627,15 +627,15 @@ window.onload = function () {
                 el.textContent = "Desabilitado";
             });
 
-                        document.querySelectorAll('.ajuste-habilita-47-rempgd').forEach(function (el) {
+            document.querySelectorAll('.ajuste-habilita-47-rempgd').forEach(function (el) {
                 el.textContent = "OFF";
             });
 
             document.querySelectorAll('.ajuste-habilita-25-rempgd').forEach(function (el) {
                 el.textContent = "OFF";
             });
-            
-            
+
+
         } else {
             document.querySelectorAll('.ajuste-habilita-47').forEach(function (el) {
                 el.textContent = "Habilitado";
@@ -646,7 +646,12 @@ window.onload = function () {
             });
 
             document.querySelectorAll('.ajuste-check-barra-morta').forEach(function (el) {
-                el.textContent = "Habilitado";
+                
+                
+            el.textContent = "BM VAs";
+                
+
+
             });
 
             document.querySelectorAll('.ajuste-habilita-47-rempgd').forEach(function (el) {
@@ -657,11 +662,11 @@ window.onload = function () {
                 el.textContent = "ON";
             });
 
-            
+
         }
 
 
-        
+
     }  //Não mostrar os tr display47 e display25 se tipoUsinaGDSelecionada tiver texto Com Inversor
     if (tipoUsinaGDSelecionada !== null && tipoUsinaGDSelecionada !== undefined) {
         if (tipoUsinaGDSelecionada.includes("Com Inversor")) {
@@ -679,7 +684,7 @@ window.onload = function () {
 
 
     //preencher ajuste-vpoldn com tensaoprimariaFF*0,10
-    
+
     if (tensaoprimariaFF !== null && tensaoprimariaFF !== undefined) {
         let vpoldn = (parseFloat(tensaoprimariaFF) * 0.10).toFixed(2) + " V";
         document.querySelectorAll('.ajuste-vpoldn').forEach(function (el) {

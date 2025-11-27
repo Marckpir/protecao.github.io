@@ -22,6 +22,11 @@ window.onload = function () {
         TC.value = TCSalva;
     }
 
+    if (TC.value !== "") {
+            const exibircalculo = document.getElementById("exibicaotccalculado");
+     exibircalculo.style.display = "none";
+    }
+
     //persisti o valor de RTP selecionado do localstorage
     const TP = document.getElementById("TPdeprotecaohtml");
     const TPSalva = localStorage.getItem("TPdeprotecaoSelecionada");
@@ -427,6 +432,17 @@ function salvarOpcao() {
     const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
     const TPdeprotecaoSelecionada = TPdeprotecao.value;
     localStorage.setItem("TPdeprotecaoSelecionada", TPdeprotecaoSelecionada);
+
+    // Se houver TC de proteção selecionado, não exibir TC calculado
+    // Se houver TC de proteção selecionado, não exibir TC calculado
+
+    // const exibircalculo = document.getElementById("exibicaotccalculado");
+    //  exibircalculo.style.display = "none";
+
+
+    
+        
+    
 
     //exporta o valor da ligação do TP de proteção selecionado
     const ligacaoBobina = document.getElementById("ligacaodabobinahtml");

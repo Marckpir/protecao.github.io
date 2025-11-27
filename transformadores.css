@@ -9,26 +9,29 @@ body {
 
 
 
-
 table {
     table-layout: fixed;
-    background-color: rgb(2, 68, 2);
+    /* background-color: rgb(2, 68, 2); */
     width: 70%;
-    border-collapse: collapse;
+    border-collapse: separate; /* permite bordas arredondadas */
+    border-spacing: 0;
     margin-top: 0px;
     color: rgb(208, 228, 31);
     font-size: 12px;
-    border: 0px solid white;
-    border-collapse: collapse;
-    /* Garante que as bordas fiquem unidas */
+    /* border: 0px solid white; */
+    border-radius: 12px; /* ajuste o valor conforme desejar */
+    overflow: hidden; /* faz com que os cantos arredondados funcionem visualmente */
+    border-radius: 5px;
 }
 
 th,
 td {
+    background-color: rgb(2, 68, 2); 
     border: 1px solid #8fbc8f;
     padding: 5px;
     text-align: center;
     padding: 4px 5px;
+    border-radius: 5px;
 }
 
 button {
@@ -61,15 +64,19 @@ label {
     color: rgb(255, 255, 255);
     /* Muda a cor do texto */
     font-size: 16px;
+    border-radius: 5px;
+    
 }
 
 th {
     background-color: rgb(2, 68, 2);
-    color: white;
+    /* color: white; */
     /* Texto branco */
     font-size: 18px;
     text-transform: uppercase;
     padding: 4px 5px;
+    border-radius: 5px;
+    
 }
 
 td:first-child {
@@ -79,6 +86,8 @@ td:first-child {
     text-align: left;
     /* Centralizar texto */
     padding: 4px 5px;
+    border-radius: 5px;
+    
 
 }
 
@@ -88,6 +97,7 @@ tr:first-child {
     font-weight: bold;
     text-align: center;
     padding: 4px 5px;
+    border-radius: 5px;
 }
 
 
@@ -107,34 +117,17 @@ th:nth-child(10) {
     font-weight: bold;
     text-align: center;
     padding: 4px 5px;
+    border-radius: 5px;
 }
 
-/* td {
-    text-align: center;
-    vertical-align: middle;
-}
 
-td input[type="number"],
-td input[type="text"] {
-    width: auto;
-    min-width: 0;
-    max-width: 90%;
-    margin: 0 auto;
-    display: inline-block;
-    text-align: center;
-}
-
-.input-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 td {
     padding: 4px 5px;
     /* ou ajuste para o valor desejado */
     text-align: center;
     vertical-align: middle;
+    border-radius: 5px;
 }
 
 td input[type="number"],
@@ -148,7 +141,7 @@ td input[type="text"] {
     box-sizing: border-box;
     display: block;
     text-align: center;
-
+    border-radius: 5px;
 }
 
 .input-container {
@@ -157,10 +150,11 @@ td input[type="text"] {
     height: 100%;
     padding: 0;
     margin: 0;
+    border-radius: 5px;
 }
 
 td label {
-    width: 100%;
+    width: 120%;
     height: 100%;
     min-width: 0;
     min-height: 0;
@@ -168,8 +162,10 @@ td label {
     padding: 4px 5px;
     box-sizing: border-box;
     display: block;
-    text-align: center;
-    vertical-align: middle;
+    text-align: left;
+    /* vertical-align: middle; */
+    border-radius: 5px;
+    
 }
 
 #botaoSalvar {

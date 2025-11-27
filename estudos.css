@@ -651,7 +651,7 @@ textarea {
     }
 
     /* Ocultar bordas dos inputs de selo */
-    #tabelaselo input {
+    #tabelaselo input #tabelaparametrosiniciais{
         border: none !important;
         outline: none !important;
         box-shadow: none !important;
@@ -735,6 +735,7 @@ textarea {
     #tabelaparametrosiniciais,
     #calculotrafos,
     #tabelatransformadores,
+    #calculoANSIeNANSI,
     #calculomagnetizacao,
     #calculomagnetizacaoreal,
     #calculostc,
@@ -743,12 +744,13 @@ textarea {
     #dimensionamentotpprotecao,
     .calculosfuncoes,
     #calculogeradordiesel,
-    #tabelaresumofuncoes {
+    #tabelaresumofuncoes,
+    #curvaProtecao {
         page-break-inside: avoid;
         margin-bottom: 10mm !important;
         background: white !important;
         box-shadow: none !important;
-        border: 1px solid #000 !important;
+        border: none !important;
         width: 210mm !important;
         max-width: 210mm !important;
         padding: 5mm !important;
