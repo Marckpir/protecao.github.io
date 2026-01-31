@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Interface de Configuração</title>
+  <style>
+    .container {
+      position: relative;
+      width: 1000px; /* ajuste conforme o tamanho da imagem */
+    }
+
+    .interface {
+      width: 100%;
+      display: block;
+    }
+
+    .label {
+      position: absolute;
+      color: red;
+      font-weight: bold;
+      font-size: 12px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
+    /* Exemplo de posicionamento - você pode ajustar os valores top e left */
+    .campo-ipf1t     { top: 45px;  left: 200px; }
+    .campo-iqalfa    { top: 85px;  left: 220px; }
+    .campo-iqbeta    { top: 110px; left: 220px; }
+    .campo-iqdelta   { top: 135px; left: 220px; }
+    .campo-iqdt      { top: 160px; left: 220px; }
+
+    /* Continue mapeando os outros campos conforme necessário */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="telapextron1.png" alt="Interface de Proteção" class="interface">
+
+    <!-- Ajuste fino das labels para alinhar melhor aos campos em branco -->
+    <div class="label" style="top: 52px; left: 185px;">I&gt;&gt;F1 ip</div>
+    <div class="label" style="top: 52px; left: 335px;">I&gt;&gt;F2 ip</div>
+    <div class="label" style="top: 52px; left: 485px;">I&gt;&gt;N1 ip</div>
+
+    <div class="label" style="top: 82px; left: 185px;">I&gt;&gt;F1 curv</div>
+    <div class="label" style="top: 82px; left: 335px;">I&gt;&gt;F2 curv</div>
+    <div class="label" style="top: 82px; left: 485px;">I&gt;&gt;N1 curv</div>
+
+    <div class="label" style="top: 112px; left: 185px;">I&gt;&gt;F1 alfa</div>
+    <div class="label" style="top: 112px; left: 335px;">I&gt;&gt;F2 alfa</div>
+    <div class="label" style="top: 112px; left: 485px;">I&gt;&gt;N1 alfa</div>
+
+    <div class="label" style="top: 142px; left: 185px;">I&gt;&gt;F1 beta</div>
+    <div class="label" style="top: 142px; left: 335px;">I&gt;&gt;F2 beta</div>
+    <div class="label" style="top: 142px; left: 485px;">I&gt;&gt;N1 beta</div>
+
+    <div class="label" style="top: 172px; left: 185px;">I&gt;&gt;F1 delt</div>
+    <div class="label" style="top: 172px; left: 335px;">I&gt;&gt;F2 delt</div>
+    <div class="label" style="top: 172px; left: 485px;">I&gt;&gt;N1 delt</div>
+
+    <div class="label" style="top: 202px; left: 185px;">I&gt;&gt;F1 K</div>
+    <div class="label" style="top: 202px; left: 335px;">I&gt;&gt;F2 K</div>
+    <div class="label" style="top: 202px; left: 485px;">I&gt;&gt;N1 K</div>
+
+    <div class="label" style="top: 232px; left: 185px;">I&gt;&gt;F1 dt</div>
+    <div class="label" style="top: 232px; left: 335px;">I&gt;&gt;F2 dt</div>
+    <div class="label" style="top: 232px; left: 485px;">I&gt;&gt;N1 dt</div>
+
+    <!-- Campos de Q ajustados -->
+    <div class="label" style="top: 52px; left: 700px;">I&gt;&gt;Q ip</div>
+    <div class="label" style="top: 82px; left: 700px;">I&gt;&gt;Q curv</div>
+    <div class="label" style="top: 112px; left: 700px;">I&gt;&gt;Q alfa</div>
+    <div class="label" style="top: 142px; left: 700px;">I&gt;&gt;Q beta</div>
+    <div class="label" style="top: 172px; left: 700px;">I&gt;&gt;Q delt</div>
+    <div class="label" style="top: 202px; left: 700px;">I&gt;&gt;Q K</div>
+    <div class="label" style="top: 232px; left: 700px;">I&gt;&gt;Q dt</div>
+  </div>
+</body>
+</html>
