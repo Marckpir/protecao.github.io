@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+        <link rel="stylesheet" href="animacao.css">
+        <link rel="stylesheet" href="tabelarele.css" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PROTECAO</title>
+
+        <style>
+                table {
+                        width: 100%;
+                        border-collapse: collapse;
+                }
+
+                th,
+                td {
+                        background-color: white;
+                        border: 1px solid black;
+                        padding: 8px;
+                        text-align: left;
+                }
+
+                th {
+                        background-color: #454e45;
+                        color: white;
+                }
+
+                .fase {
+                        background-color: #FF0000;
+                        color: white;
+                }
+
+                .neutro {
+                        background-color: #00BFFF;
+                        color: white;
+                }
+        </style>
+
+</head>
+
+<body>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+                <span
+                        style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+                        COORDINATION WEB
+                </span>
+                <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+                        <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+                        <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+                        <!-- Curva de tempo definido -->
+                        <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3"
+                                stroke-dasharray="1000" stroke-dashoffset="1000"
+                                points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+                </svg>
+        </div>
+        <h1>
+
+                <button id="botaoparametrohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+                <button id="botaotrafohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='transformadores.html';">TRAFOS</button>
+                <button id="botaoajustehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+                <button id="botaotabelarelehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='tabelarele.html';">TABELA RELÉ</button>
+                <button id="botaoestudoshtml" class="dark-mode-toggle"
+                        onclick="window.location.href='estudos.html';">ESTUDOS</button>
+                <button id="botaoreserva1html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+                <button id="botaoreserva2html" class="dark-mode-toggle" onclick="toggleDarkMode()">RESERVA</button>
+                <button id="botaosairhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='index.html';">HOME</button>
+        </h1>
+        <br>
+
+        <label for="seletorTabela">Escolha uma tabela:</label>
+        <select id="seletorTabela" onchange="mostrarTabela()">
+                <option value=""></option>
+                <option value="1-PEXTRON-URP7104">1-PEXTRON-URP7104</option>
+                <option value="2-PEXTRON-URP1439">2-PEXTRON-URP1439</option>
+                <option value="tabela3">Tabela 3</option>
+                <option value="tabela4">Tabela 4</option>
+                <option value="5-SIEMENS-7SR1004">5-SIEMENS-7SR1004</option>
+                <option value="6-SIEMENS-7SR1002">6-SIEMENS-7SR1002</option>
+                <option value="tabela7">Tabela 7</option>
+                <option value="8-PEXTRON-URPE-2405">8-PEXTRON-URPE-2405</option>
+                <option value="9-SCHNEIDER-SEPAM-S42">9-SCHNEIDER-SEPAM-S42</option>
+                <option value="10-VAMP-11-SCHNEIDER">10-VAMP-11-SCHNEIDER</option>
+                <option value="11-PEXTRON-URP-6100-Versão-61">11-PEXTRON-URP-6100-Versão-61</option>
+                <option value="tabela12">Tabela 12</option>
+                <option value="tabela13">Tabela 13</option>
+                <option value="tabela14">Tabela 14</option>
+                <option value="tabela15">Tabela 15</option>
+                <option value="tabela16">Tabela 16</option>
+                <option value="tabela17">Tabela 17</option>
+                <option value="tabela18">Tabela 18</option>
+                <option value="tabela19">Tabela 19</option>
+                <option value="tabela20">Tabela 20</option>
+
+        </select>
+        <button id="botaoSalvar" onclick="salvarOpcao()" ,>Atualizar</button>
+        <button onclick="baixarPDF()">Baixar PDF</button>
+
+
+
+        <div id="1-PEXTRON-URP7104" class="tabela">
+                <h2>PEXTRON URP 7104/6104</h2>
+                <table style="font-size: 0.92em; max-width: 900px; margin: 0 auto;">
+                        <thead>
+
+                                <tr>
+                                        <th style="width: 6%;"></th>
+                                        <th style="width: 18%;">Parâmetro</th>
+                                        <th style="width: 38%;">Descrição do Parâmetro</th>
+                                        <th style="width: 22%;">Faixa de Ajuste</th>
+                                        <th style="width: 16%;">Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td class="fase" rowspan="7"
+                                                style="text-align: center; vertical-align: middle;">FASE
+                                        </td>
+                                        <td>TC ABC</td>
+                                        <td>Relação do transformador de corrente (RTC)</td>
+                                        <td>1...250 (CH.2 = ON) ou 10...1250 (CH.2 = OFF)</td>
+                                        <td class="ajuste-tc-abc"></td>
+                                </tr>
+                                <tr>
+                                        <td>I Partida</td>
+                                        <td>Corrente de partida da unidade de temporização curva inversa</td>
+                                        <td>(0,04 ... 16,0 A) x TC ABC</td>
+                                        <td class="ajuste-i-partida-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>Curva</td>
+                                        <td>Tipo de curva de atuação para fase</td>
+                                        <td>NI-MI-EI-LONG-IT-I2T</td>
+                                        <td class="ajuste-curva-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>D.T.</td>
+                                        <td>Ajuste do dial de tempo para fase</td>
+                                        <td>0,10 ... 2,00 s</td>
+                                        <td class="ajuste-dt-fase">0,20</td>
+                                </tr>
+                                <tr>
+                                        <td>I def.</td>
+                                        <td>Corrente de partida da unidade de tempo definido de fase</td>
+                                        <td>(0,04 ... 100,0 A) x TC ABC</td>
+                                        <td class="ajuste-idef-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>T def.</td>
+                                        <td>Tempo da unidade definido de fase</td>
+                                        <td>0,10 ... 240 s</td>
+                                        <td class="ajuste-tdef-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>I inst.</td>
+                                        <td>Corrente da unidade instantânea de fase</td>
+                                        <td>(0,04 ... 100,0 A) x TC ABC</td>
+                                        <td class="ajuste-iinst-fase">175,72</td>
+                                </tr>
+                                <tr>
+                                        <td class="neutro" rowspan="7"
+                                                style="text-align: center; vertical-align: middle;">
+                                                NEUTRO</td>
+                                        <td>TC N</td>
+                                        <td>Relação do transformador de corrente de GS (RTC)</td>
+                                        <td>1...250 (CH.2 = ON) ou 10...1250 (CH.2 = OFF)</td>
+                                        <td class="ajuste-tc-abc"></td>
+                                </tr>
+                                <tr>
+                                        <td>I Partida</td>
+                                        <td>Corrente de partida da unidade de temporização curva inversa</td>
+                                        <td>(0,04 ... 16,0 A) x TC N</td>
+                                        <td class="">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>Curva</td>
+                                        <td>Tipo de curva de atuação para neutro</td>
+                                        <td>NI-MI-EI-LONG-IT-I2T</td>
+                                        <td class="ajuste-curva-neutro">LONG</td>
+                                </tr>
+                                <tr>
+                                        <td>D.T.</td>
+                                        <td>Ajuste do dial de tempo para fase</td>
+                                        <td>0,10 ... 2,00 s</td>
+                                        <td class="">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>I def.</td>
+                                        <td>Corrente de partida da unidade de tempo definido de fase</td>
+                                        <td>(0,04 ... 100,0 A) x TC N</td>
+                                        <td class="ajuste-i-partida-neutro">2000(Máximo)</td>
+                                </tr>
+                                <tr>
+                                        <td>T def.</td>
+                                        <td>Tempo da unidade definido de fase</td>
+                                        <td>0,10 ... 240 s</td>
+                                        <td class="ajuste-dt-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td>I inst.</td>
+                                        <td>Corrente da unidade instantânea de fase</td>
+                                        <td>(0,04 ... 100,0 A) x TC N</td>
+                                        <td class="ajuste-iinst-neutro">52,5</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+
+        <div id="2-PEXTRON-URP1439" class="tabela">
+
+                <h2>PEXTRON URP 1439T</h2>
+                <table style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th style="width: 10%;"></th>
+                                        <th style="width: 15%;">Parâmetro</th>
+                                        <th style="width: 40%;">Descrição do Parâmetro</th>
+                                        <th style="width: 20%;">Faixa de Ajuste</th>
+                                        <th style="width: 10%;">Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td rowspan="2" style="background:#eee; font-weight:bold;">Parâmetros elétricos
+                                        <td>TP ABC (RTP)</td>
+                                        <td>Constante de multiplicação do voltímetro. RTP</td>
+                                        <td>1,00 ... 360</td>
+                                        <td class="ajuste-tp-abc"></td>
+                                </tr>
+                                <tr>
+                                        <td>TC ABC</td>
+                                        <td>Constante de multiplicação amperímetrica. RTC</td>
+                                        <td>1,00 ... 2500</td>
+                                        <td class="ajuste-tc-abc"></td>
+                                </tr>
+                                <tr>
+                                        <td class="fase" rowspan="6" style="vertical-align:middle; text-align:center;">
+                                                FASE</td>
+                                        <td>I Partida</td>
+                                        <td>Corrente de partida de fase I&gt;. 51</td>
+                                        <td>0,25 ... 16,0A x RTC<br>(0,15 ... 6,5 A) x TC ABC</td>
+                                        <td class="ajuste-i-partida-fase">14,32 A</td>
+                                </tr>
+                                <tr>
+                                        <td>Curva</td>
+                                        <td>Tipo de curva de atuação para fase I&gt;. 51</td>
+                                        <td>NI-MI-EI-LONG-IT-I2T</td>
+                                        <td class="ajuste-curva-fase">IEC-M.I</td>
+                                </tr>
+                                <tr>
+                                        <td>D.T.</td>
+                                        <td>dt de fase I&gt;. 51</td>
+                                        <td>0,1 ... 2s</td>
+                                        <td class="ajuste-dt-fase">0,20</td>
+                                </tr>
+                                <tr>
+                                        <td>I def.</td>
+                                        <td>Partida tempo definido de fase I&gt;&gt;. 51</td>
+                                        <td>0,25... 100A x RTC</td>
+                                        <td class="ajuste-idef-fase">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>T def.</td>
+                                        <td>Tempo definido de fase I&gt;&gt;. 51</td>
+                                        <td>0,10 ... 240s</td>
+                                        <td class="ajuste-tdef-fase">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>I inst.</td>
+                                        <td>Corrente instantânea de fase I&gt;&gt;&gt;. 50</td>
+                                        <td>1,00 ... 100A x RTC</td>
+                                        <td class="ajuste-iinst-fase">175,72 A</td>
+                                </tr>
+                                <tr>
+                                        <td class="neutro" rowspan="6"
+                                                style="vertical-align:middle; text-align:center;">NEUTRO</td>
+                                        <td>I Partida</td>
+                                        <td>Corrente de partida da unidade de temporização curva inversa</td>
+                                        <td>0,15 ... 6,50A x RTC</td>
+                                        <td class=>Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>Curva</td>
+                                        <td>dt de neutro I&gt;. 51N</td>
+                                        <td>NI-MI-EI-LONG-IT-I2T</td>
+                                        <td class="ajuste-curva-neutro">LONG</td>
+                                </tr>
+                                <tr>
+                                        <td>D.T.</td>
+                                        <td>Ajuste do dial de tempo para neutro</td>
+                                        <td>0,10 ... 2,00 s</td>
+                                        <td class="">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>I def.</td>
+                                        <td>Partida tempo definido de neutro_GS I&gt;&gt;. 51N_GS</td>
+                                        <td>0,15 ... 50A x RTC</td>
+                                        <td class="ajuste-i-partida-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td>T def.</td>
+                                        <td>Tempo definido de neutro_GS I&gt;&gt;. 51N_GS</td>
+                                        <td>0,10 ... 240s</td>
+                                        <td class="ajuste-dt-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td>I inst.</td>
+                                        <td>Corrente instantânea de neutro I&gt;&gt;&gt;. 50N</td>
+                                        <td>0,15 ... 50A x RTC</td>
+                                        <td class="ajuste-iinst-neutro">58,57 A</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="5"
+                                                style="background:#eee; font-weight:bold; vertical-align:middle; text-align:center;">
+                                                TENSÕES</td>
+                                        <td>V Sobretensão</td>
+                                        <td>Partida tempo definido de sobretensão V&gt;&gt;. 59</td>
+                                        <td>10,0 .... 500Vac x RTP</td>
+                                        <td class="ajuste-v-sobretensao">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>T Sobretensão</td>
+                                        <td>Tempo definido de sobretensão V&gt;&gt;. 59</td>
+                                        <td>0,25 ... 240,0s</td>
+                                        <td class="ajuste-t-sobretensao">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>V Subtensão</td>
+                                        <td>Partida tempo definido de subtensão V&lt;&lt;. 27</td>
+                                        <td>2,00 .... 500Vac x RTP</td>
+                                        <td class="ajuste-v-subtensao">Mínimo</td>
+                                </tr>
+                                <tr>
+                                        <td>T Subtensão</td>
+                                        <td>Tempo definido de subtensão V&lt;&lt;. 27</td>
+                                        <td>0,25 ... 240,0s</td>
+                                        <td class="ajuste-t-subtensao">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>V auxiliar</td>
+                                        <td>Tensão mínima auxiliar. 27-0</td>
+                                        <td>2,00 ... 352 V</td>
+                                        <td class="ajuste-v-auxiliar">Mínima</td>
+                                </tr>
+                        </tbody>
+                </table>
+
+
+
+        </div>
+
+        <div id="tabela3" class="tabela">
+
+                <h2>PARAMETRIZAÇÃO PEXTRON URP 6100 Versão-61</h2>
+
+                <table style="font-size: 0.95em; max-width: 1100px; margin: 0 auto; border-collapse: collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Função</th>
+                                        <th>Parâmetro</th>
+                                        <th>Faixa de Ajuste</th>
+                                        <th>Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td rowspan="7">Comuns</td>
+                                        <td>RTC</td>
+                                        <td>1...650</td>
+                                        <td class="ajuste-tc-abc"></td>
+                                </tr>
+                                <tr>
+                                        <td>RTP</td>
+                                        <td>1...120</td>
+                                        <td class="ajuste-RTP">120</td>
+                                </tr>
+                                <tr>
+
+                                        <td>AMTdf (0...90°)</td>
+                                        <td>0...90°</td>
+                                        <td class="ajuste-amtdf">45°</td>
+                                </tr>
+
+                                <tr>
+                                        <td>AMTdN</td>
+                                        <td>0...359°</td>
+                                        <td class="ajuste-amtdn">110°</td>
+                                </tr>
+                                <tr>
+                                        <td>Tipo N</td>
+                                        <td>0=sistema solidamente aterrado ou aterrado por resistência<br>1=sistema
+                                                isolado em modo seno<br>2=sistema compensado em modo cosseno</td>
+                                        <td class="ajuste-tipo-n">0</td>
+                                </tr>
+                                <tr>
+                                        <td>VpolN</td>
+                                        <td>10...400 (x RTP)</td>
+                                        <td class="ajuste-vpoln">1380 V</td>
+                                </tr>
+                                <tr>
+                                        <td>Potência ativa modo</td>
+                                        <td>Monofásico; Trifásico</td>
+                                        <td class="ajuste-pot-ativa-modo">Trifásico</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="3">32-1 Direcional de potência</td>
+                                        <td>dP1 inv</td>
+                                        <td>ON (com reversão no plano), OFF (sem reversão)</td>
+                                        <td class="ajuste-dp1-inv">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>P1&gt;&gt;F Pp</td>
+                                        <td>3,00...15000 W (RTC FN x RTP)</td>
+                                        <td class="ajuste-p1-pp">157500</td>
+                                </tr>
+                                <tr>
+                                        <td>P1&gt;&gt;F t</td>
+                                        <td>0...240 s</td>
+                                        <td class="ajuste-p1-t">15</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="3">32-2 Direcional de potência</td>
+                                        <td>dP2 inv</td>
+                                        <td>ON (com reversão no plano), OFF (sem reversão)</td>
+                                        <td class="ajuste-dp2-inv">ON</td>
+                                </tr>
+                                <tr>
+                                        <td>P2&gt;&gt;F Pp</td>
+                                        <td>3,00...15000 W (RTC FN x RTP)</td>
+                                        <td class="ajuste-p2-pp">315000,00</td>
+                                </tr>
+                                <tr>
+                                        <td>P2&gt;&gt;F t</td>
+                                        <td>0...240 s</td>
+                                        <td class="ajuste-p2-t">15</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="5">67-1 Sobrecorrente Fase temporizada</td>
+                                        <td>dF1 nd</td>
+                                        <td>ON (Função não direcional), OFF (Função direcional)</td>
+                                        <td class="ajuste-df1-nd">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>dF1 con</td>
+                                        <td>ON (com reversão no plano), OFF (sem reversão)</td>
+                                        <td class="ajuste-df1-con">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F1 Ip</td>
+                                        <td>0,04...6,50 (x RTC FN) A</td>
+                                        <td class="ajuste-i-partida-fase"></td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F1 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td class="ajuste-if1-curv">IEC-E.I</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F1 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td class="ajuste-if1-dt">0,2</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">67-1 Sobrecorrente Fase instantânea</td>
+                                        <td>I&gt;&gt;F1 Ip</td>
+                                        <td>0,10...100 (x RTC FN) A</td>
+                                        <td class="ajuste-i2f1-ip">DESATIVADA</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;F1 t</td>
+                                        <td>0...240 s</td>
+                                        <td class="ajuste-i2f1-t">DESATIVADA</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="5">67-2 Sobrecorrente Fase temporizada</td>
+                                        <td>dF2 nd</td>
+                                        <td>ON (Função não direcional), OFF (Função direcional)</td>
+                                        <td class="ajuste-df2-nd">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>dF2 con</td>
+                                        <td>ON (com reversão no plano), OFF (sem reversão)</td>
+                                        <td class="ajuste-df2-con">ON</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 Ip</td>
+                                        <td>0,04...6,50 (x RTC FN) A</td>
+                                        <td class="ajuste-if2-ip">14,32</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td class="ajuste-if2-curv">IEC-M.I</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td class="ajuste-if2-dt">0,2</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">67-2 Sobrecorrente Fase instantânea</td>
+                                        <td>I&gt;&gt;F2 Ip</td>
+                                        <td>0,10...100 (x RTC FN) A</td>
+                                        <td class="ajuste-i2f2-ip">175,72</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;F2 t</td>
+                                        <td>0...240 s</td>
+                                        <td class="ajuste-i2f2-t">0</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="5">67N-1 Sobrecorrente Neutro temporizada</td>
+                                        <td>dN1 nd</td>
+                                        <td>ON (Função não direcional), OFF (Função direcional)</td>
+                                        <td class="ajuste-dn1-nd">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>dN1 exp</td>
+                                        <td>ON (com reversão no plano), OFF (sem reversão)</td>
+                                        <td class="ajuste-dn1-exp">ON</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N1 Ip</td>
+                                        <td>0,048...6,5 A (x RTC FN para IN N/D=0)<br>0,012...1,625 A (x RTC D para IN
+                                                N/D=1)</td>
+                                        <td class="ajuste-in1-ip">2,39</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N1 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td class="ajuste-in1-curv">FLAT</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N1 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td class="ajuste-in1-dt">5</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">67N-1 Sobrecorrente Neutro instantânea</td>
+                                        <td>I&gt;&gt;N1 Ip</td>
+                                        <td>0,48...100 A (x RTC FN) para IN N/D=0<br>0,012...12,5 A (x RTC D) para IN
+                                                N/D=1</td>
+                                        <td class="ajuste-i2n1-ip">DESATIVADA</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;N1 t</td>
+                                        <td>0...240 s</td>
+                                        <td class="ajuste-i2n1-t">DESATIVADA</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="5">67N-2 Sobrecorrente Neutro temporizada</td>
+                                        <td>dN2 nd</td>
+                                        <td>ON (Função não direcional), OFF (Função direcional)</td>
+                                        <td class="ajuste-dn2-nd">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>dN2 exp</td>
+                                        <td>ON (com reversão no plano), OFF (sem reversão)</td>
+                                        <td class="ajuste-dn2-exp">OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N2 Ip</td>
+                                        <td>0,048...6,5 A (x RTC FN para IN N/D=0)<br>0,012...1,625 A (x RTC D para IN
+                                                N/D=1)</td>
+                                        <td class="ajuste-in2-ip">4,77</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N2 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td class="ajuste-in2-curv">FLAT</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N2 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td class="ajuste-in2-dt">2</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">67N-2 Sobrecorrente Neutro instantânea</td>
+                                        <td>I&gt;&gt;N2 Ip</td>
+                                        <td>0,48...100 A (x RTC FN) para IN N/D=0<br>0,012...12,5 A (x RTC D) para IN
+                                                N/D=1</td>
+                                        <td class="ajuste-i2n2-ip">58,57</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;N2 t</td>
+                                        <td>0...240 s</td>
+                                        <td class="ajuste-i2n2-t">0</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">51V Sobrecorrente restrição tensão</td>
+                                        <td>I&gt;F1 VR</td>
+                                        <td>2,00...400 (x RTP) V</td>
+                                        <td class="ajuste-if1-vr">7170,69</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 VR</td>
+                                        <td>2,00...400 (x RTP) V</td>
+                                        <td class="ajuste-if2-vr">7170,69</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="5">46 Desequilíbrio de corrente</td>
+                                        <td>I&gt;Q ip</td>
+                                        <td>0,04...6,5 (x RTC FN) A</td>
+                                        <td class="ajuste-iq-ip">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;Q curva</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td class="ajuste-iq-curva">FLAT</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;Q dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td class="ajuste-iq-dt">Máximo</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;Q ip</td>
+                                        <td>0,1...100 (x RTC FN) A</td>
+                                        <td class="ajuste-i2q-ip">2,86</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;Q t</td>
+                                        <td>0,02...1,00 s</td>
+                                        <td class="ajuste-i2q-t">3</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">47 Desequilíbrio de tensão</td>
+                                        <td>Habilita 47</td>
+                                        <td>ON (Habilita verificação), OFF (Desabilita)</td>
+                                        <td class="ajuste-hab-47">ON</td>
+                                </tr>
+                                <tr>
+                                        <td>T47</td>
+                                        <td>0,2...240 s</td>
+                                        <td class="ajuste-t47">0,2</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="6">27 Subtensão</td>
+                                        <td>V&lt;&lt;F Vp</td>
+                                        <td>10,0...400 (x RTP) V</td>
+                                        <td class="ajuste-vf-vp">6373,95</td>
+                                </tr>
+                                <tr>
+                                        <td>V&lt;&lt;F t</td>
+                                        <td>0,10...240 s</td>
+                                        <td class="ajuste-vf-t">3,00</td>
+                                </tr>
+                                <tr>
+                                        <td>V&lt;&lt;&lt;F Vp</td>
+                                        <td>10,0...400 (x RTP) V</td>
+                                        <td class="ajuste-vff-vp">3983,72</td>
+                                </tr>
+                                <tr>
+                                        <td>V&lt;&lt;&lt;F t</td>
+                                        <td>0,10...240 s</td>
+                                        <td class="ajuste-vff-t">1,00</td>
+                                </tr>
+                                <tr>
+                                        <td>V&lt;&lt;&lt;F3 Vp</td>
+                                        <td>10,0...400 (x RTP) V</td>
+                                        <td class="ajuste-vfff3-vp">1200</td>
+                                </tr>
+                                <tr>
+                                        <td>V&lt;&lt;&lt;F3 t</td>
+                                        <td>0,10...240 s</td>
+                                        <td class="ajuste-vfff3-t">240</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="4">59 Sobretensão</td>
+                                        <td>V&gt;&gt;F Vp</td>
+                                        <td>10,0...400 (x RTP) V</td>
+                                        <td class="ajuste-vff-vp">8764,18</td>
+                                </tr>
+                                <tr>
+                                        <td>V&gt;&gt;F t</td>
+                                        <td>0,10...240 s</td>
+                                        <td class="ajuste-vff-t">3</td>
+                                </tr>
+                                <tr>
+                                        <td>V&gt;&gt;&gt;F Vp</td>
+                                        <td>10,0...400 (x RTP) V</td>
+                                        <td class="ajuste-vfff-vp">9401,57</td>
+                                </tr>
+                                <tr>
+                                        <td>V&gt;&gt;&gt;F t</td>
+                                        <td>0,10...240 s</td>
+                                        <td class="ajuste-vfff-t">0,5</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="6">81U Subfrequência</td>
+                                        <td>F&lt;&lt;1 fp</td>
+                                        <td>41,0...69,0 Hz</td>
+                                        <td class="ajuste-f1-fp">56,9</td>
+                                </tr>
+                                <tr>
+                                        <td>F&lt;&lt;1 t</td>
+                                        <td>0,10...60,0 s</td>
+                                        <td class="ajuste-f1-t">0,2</td>
+                                </tr>
+                                <tr>
+                                        <td>F&lt;&lt;2 fp</td>
+                                        <td>41,0...69,0 Hz</td>
+                                        <td class="ajuste-f2-fp">57,4</td>
+                                </tr>
+                                <tr>
+                                        <td>F&lt;&lt;2 t</td>
+                                        <td>0,10...60,0 s</td>
+                                        <td class="ajuste-f2-t">5,5</td>
+                                </tr>
+                                <tr>
+                                        <td>F&lt;&lt;3 fp</td>
+                                        <td>41,0...69,0 Hz</td>
+                                        <td class="ajuste-f3-fp">58,5</td>
+                                </tr>
+                                <tr>
+                                        <td>F&lt;&lt;3 t</td>
+                                        <td>0,10...60,0 s</td>
+                                        <td class="ajuste-f3-t">20,5</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="4">81O Sobrefrequência</td>
+                                        <td>F&gt;&gt;1 fp</td>
+                                        <td>41,0...69,0 Hz</td>
+                                        <td class="ajuste-fo1-fp">62,6</td>
+                                </tr>
+                                <tr>
+                                        <td>F&gt;&gt;1 t</td>
+                                        <td>0,10...60,0 s</td>
+                                        <td class="ajuste-fo1-t">10,5</td>
+                                </tr>
+                                <tr>
+                                        <td>F&gt;&gt;2 fp</td>
+                                        <td>41,0...69,0 Hz</td>
+                                        <td class="ajuste-fo2-fp">63,1</td>
+                                </tr>
+                                <tr>
+                                        <td>F&gt;&gt;2 t</td>
+                                        <td>0,10...60,0 s</td>
+                                        <td class="ajuste-fo2-t">0,2</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="3">25 Sincronismo</td>
+                                        <td>Delta F</td>
+                                        <td>0,05...2 Hz</td>
+                                        <td class="ajuste-delta-f">0,3</td>
+                                </tr>
+                                <tr>
+                                        <td>Delta ANG</td>
+                                        <td>3,0...45,0 graus</td>
+                                        <td class="ajuste-delta-ang">10</td>
+                                </tr>
+                                <tr>
+                                        <td>Delta V</td>
+                                        <td>3,0...45,0 (x RTP)</td>
+                                        <td class="ajuste-delta-v">1380</td>
+                                </tr>
+                        </tbody>
+                </table>
+
+
+
+
+        </div>
+
+        <div id="tabela4" class="tabela">
+                <h2>AJUSTES RELÉ SIEMENS REYROLLE 7SR 1004</h2>
+                <p>TP=120 : 1 &nbsp;&nbsp; TC=100 : 5</p>
+                <table style="font-size:0.95em; max-width:1100px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Parâmetro</th>
+                                        <th>Faixa de ajuste</th>
+                                        <th>Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Phase Nom Voltage</td>
+                                        <td>40 a 160</td>
+                                        <td>66,40</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase Voltage Config</td>
+                                        <td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td>
+                                        <td>Van, Vbn, Vcn</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase VT Ratio Prim</td>
+                                        <td>até 6 caracteres numérico (V)</td>
+                                        <td>13800,00</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase VT Ratio Sec</td>
+                                        <td>40 a 160 (V)</td>
+                                        <td>115,00</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase CT Ratio Prim</td>
+                                        <td>até 6 caracteres numérico (V)</td>
+                                        <td>100</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase CT Ratio Sec</td>
+                                        <td>1A / 5A</td>
+                                        <td>5</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">32-1 Direcional de potência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Reverse</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Settings</td>
+                                        <td>(0.05 a 2 (xSn))</td>
+                                        <td>0,06 *Sn</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>15 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">32-2 Direcional de potência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enable</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Forward</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Settings</td>
+                                        <td>(0.05 a 2 (xSn))</td>
+                                        <td>0,13 *Sn</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>15 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67-1 Direcional de sobrecorrente de Fase temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 67 Char Angle</td>
+                                        <td>(-95 a 95 (deg))</td>
+                                        <td>45°</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Reverse</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Setting</td>
+                                        <td>(0.05 a 4 (xIn))</td>
+                                        <td>0,07 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Char</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                        <td>IEC-E.I</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Time Mult(IEC/ANSI)</td>
+                                        <td>(0,025...100)</td>
+                                        <td>0,2</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67-2 Direcional de sobrecorrente de Fase temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 67 Char Angle</td>
+                                        <td>(-95 a 95 (deg))</td>
+                                        <td>45°</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Forward</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Setting</td>
+                                        <td>(0.05 a 4 (xIn))</td>
+                                        <td>0,14 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Char</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                        <td>IEC-M.I</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Time Mult(IEC/ANSI)</td>
+                                        <td>(0,025...100)</td>
+                                        <td>0,2</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67-2 Direcional de sobrecorrente de Fase Instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-3 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-3 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Forward</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-3 Setting</td>
+                                        <td>(0,05..50)</td>
+                                        <td>1,75 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50-3 Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>0 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67N-1 Direcional de sobrecorrente de Neutro temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 67N Char Angle</td>
+                                        <td>(-95...95)</td>
+                                        <td>-110°</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-1 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-1 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Reverse</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-1 Setting</td>
+                                        <td>(0.05 a 50 (xIn))</td>
+                                        <td>0,02 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51N-1 Char</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                        <td>DTL s</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51N-1 Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>5 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67N-2 Direcional de sobrecorrente de Neutro temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-3 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-3 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Forward</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-3 Setting</td>
+                                        <td>(0.05 a 50 (xIn))</td>
+                                        <td>0,05 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51N-3 Char</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                        <td>DTL s</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51N-3 Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>2 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67N-2 Direcional de sobrecorrente de Neutro instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50N-3 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50N-3 Dir. Control</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                        <td>Forward</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50N-3 Setting</td>
+                                        <td>(0.05 a 50 (xIn))</td>
+                                        <td>0,58 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50N-3 Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>0 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">51V-Sobrecorrente com restrição por tensão</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51V Element (Ph-Ph)</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51V Setting</td>
+                                        <td>(5...200)</td>
+                                        <td>103,5 V</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51V VTS Action</td>
+                                        <td>(Off...Inhibit)</td>
+                                        <td>off</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Multiplier</td>
+                                        <td>(0,25..1)</td>
+                                        <td>0,25</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Multiplier</td>
+                                        <td>(0,25..1)</td>
+                                        <td>0,25</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">46 - Relé de desequilíbrio de corrente</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Setting</td>
+                                        <td>(5...200)</td>
+                                        <td>0,02 *In</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Char</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                        <td>DTL</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Time Mult (IEC/ANSI-EI)</td>
+                                        <td>(0,025...100)</td>
+                                        <td>3</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Reset</td>
+                                        <td>(IEC/ANSI) Decaying..60)</td>
+                                        <td>0 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46DT Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46DT Setting</td>
+                                        <td>(0,05...4)</td>
+                                        <td>0,03</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46DT Delay</td>
+                                        <td>(0 a 14400 (s))</td>
+                                        <td>3 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">27-Rele de Subtensão</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn Voltage Input Mode</td>
+                                        <td>(Ph-N..Ph-Ph)</td>
+                                        <td>Ph-N</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59 U/V Guard Setting</td>
+                                        <td>(1...200)</td>
+                                        <td>5 V</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Under</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Setting</td>
+                                        <td>(5...200)</td>
+                                        <td>53,11 v</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Delay</td>
+                                        <td>(0...80)</td>
+                                        <td>3 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Under</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Setting</td>
+                                        <td>(5...200)</td>
+                                        <td>33,19 v</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Delay</td>
+                                        <td>(1 s)</td>
+                                        <td>1 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">59-Relé de sobretensão</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Over</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Setting</td>
+                                        <td>(5...200)</td>
+                                        <td>73,03 v</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Delay</td>
+                                        <td>(0...80)</td>
+                                        <td>3 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Over</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Setting</td>
+                                        <td>(5...200)</td>
+                                        <td>78,34 v</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Delay</td>
+                                        <td>(0...80)</td>
+                                        <td>0,5 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">81 U-Relé de subrefrequência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn Frequency Input Mode</td>
+                                        <td>(Ph-N..Ph-Ph)</td>
+                                        <td>Ph-Ph</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81 U/V Guard Setting</td>
+                                        <td>(35...200)</td>
+                                        <td>35V</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Under</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Setting</td>
+                                        <td>(43...68)</td>
+                                        <td>57,4 Hz</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Delay</td>
+                                        <td>(0...2)</td>
+                                        <td>5,5 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Under</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Setting</td>
+                                        <td>(43...68)</td>
+                                        <td>58,5 Hz</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Delay</td>
+                                        <td>(0...2)</td>
+                                        <td>20,5 s</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">81 O-Relé de sobrefrequência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Over</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Setting</td>
+                                        <td>(43...68)</td>
+                                        <td>62,6 Hz</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Delay</td>
+                                        <td>(0...2)</td>
+                                        <td>10,5 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Element</td>
+                                        <td>(Disabled / Enabled)</td>
+                                        <td>Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Operation</td>
+                                        <td>(Under..Over)</td>
+                                        <td>Over</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Setting</td>
+                                        <td>(43...68)</td>
+                                        <td>63,1 Hz</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Delay</td>
+                                        <td>(0...2)</td>
+                                        <td>0,2 s</td>
+                                </tr>
+                        </tbody>
+                </table>
+
+
+        </div>
+
+        <div id="5-SIEMENS-7SR1004" class="tabela">
+                <h2>SIEMENS 7SR 1004</h2>
+                <table style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th style="width: 30%;">Parâmetro</th>
+                                        <th style="width: 35%;">Faixa de ajuste</th>
+                                        <th style="width: 35%;">Ajuste</th>
+                                </tr>
+
+
+
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Phase Nom Voltage</td>
+                                        <td>40 a 160</td>
+                                        <td class="ajuste-tensao-secundaria-fn-tp"></td>
+                                </tr>
+                                <tr>
+                                        <td>Phase Voltage Config</td>
+                                        <td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td>
+                                        <td class="ajuste-phase-voltage-config">Van, Vbn, Vcn</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase VT Ratio Prim</td>
+                                        <td>até 6 caracteres numérico (V)</td>
+                                        <td class="ajuste-tensao-primaria-fn"></td>
+                                </tr>
+                                <tr>
+                                        <td>Phase VT Ratio Sec</td>
+                                        <td>40 a 160 (V)</td>
+                                        <td class="ajuste-tensao-secundaria-fn-tp"></td>
+                                </tr>
+                                <tr>
+                                        <td>Phase CT Ratio Prim</td>
+                                        <td>até 6 caracteres numérico (V)</td>
+                                        <td class="ajuste-tc-protecao"></td>
+                                </tr>
+                                <tr>
+                                        <td>Phase CT Ratio Sec</td>
+                                        <td>1A / 5A</td>
+                                        <td class="ajuste-phase-ct-ratio-sec">5,00 A</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Element</td>
+                                        <td>Disabled / Enabled</td>
+                                        <td class="">Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Dir. Control</td>
+                                        <td>Non-Dir/Forward/Reverse</td>
+                                        <td class="">Non-Dir</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Setting</td>
+                                        <td>0.05 a 2.5 (xIn)</td>
+                                        <td class="ajuste-ip-pu">0,14 xIn</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Char</td>
+                                        <td>IEC-EI, IEC-VI</td>
+                                        <td class="ajuste-curva-fase">IEC-M.I</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51-1 Time Mult</td>
+                                        <td>0.01 a 100</td>
+                                        <td class="ajuste-dt-fase">0,20</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-1 Element</td>
+                                        <td>Disabled / Enabled</td>
+                                        <td class="">Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-1 Dir. Control</td>
+                                        <td>Non-Dir/Forward/Reverse</td>
+                                        <td class="">Non-Dir</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-1 Setting</td>
+                                        <td>0.05 a 50 (xIn)</td>
+                                        <td class="ajuste-iinst-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50-1 Delay</td>
+                                        <td>0 a 14400 (s)</td>
+                                        <td class="">0,00 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-1 Element</td>
+                                        <td>Disabled / Enabled</td>
+                                        <td class="t">Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-1 Dir. Control</td>
+                                        <td>Non-Dir/Forward/Reverse</td>
+                                        <td class="">Non-Dir</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51N-1 Setting</td>
+                                        <td>0.05 a 2.5 (xIn)</td>
+                                        <td class="ajuste-ipneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51N-1 Char</td>
+                                        <td>DTL..ANSI-EI</td>
+                                        <td class="">DTL</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 51N-1 Delay</td>
+                                        <td>0 a 14400 (s)</td>
+                                        <td class="ajuste-dt-neutro"></td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50N-1 Element</td>
+                                        <td>Disabled / Enabled</td>
+                                        <td class="">Enabled</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50N-1 Dir. Control</td>
+                                        <td>Non-Dir/Forward/Reverse</td>
+                                        <td class="">Non-Dir</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50N-1 Setting</td>
+                                        <td>0.05 a 50 (xIn)</td>
+                                        <td class="ajuste-instneutro-pu"></td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50N-1 Delay</td>
+                                        <td>0 a 14400 (s)</td>
+                                        <td class="">0,00 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Element</td>
+                                        <td>Disabled / Enabled</td>
+                                        <td class="status-funcao32-ingles"></td>
+                                </tr>
+                                <tr class="parametrosfuncao32diesel">
+                                        <td>Gn 32-1 Dir. Control</td>
+                                        <td>Non-Dir/Forward/Reverse</td>
+                                        <td class="">Reverse</td>
+                                </tr>
+                                <tr class="parametrosfuncao32diesel">
+                                        <td>Gn 32-1 Settings</td>
+                                        <td>0.05 a 2 (xSn)</td>
+                                        <td class="potencia-diesel-pu-siemens"></td>
+                                </tr>
+                                <tr class="parametrosfuncao32diesel">
+                                        <td>Gn 32-1 Delay</td>
+                                        <td>0 a 14400 (s)</td>
+                                        <td class="">15,00 s</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+
+        <div id="6-SIEMENS-7SR1002" class="tabela">
+                <h2>SIEMENS 7SR 1002 - Parâmetros Principais</h2>
+                <table style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                                <thead>
+                                                <tr>
+                                                                <th>Parâmetro</th>
+                                                                <th>Faixa de ajuste</th>
+                                                                <th>Ajuste</th>
+                                                </tr>
+                                </thead>
+                                <tbody>
+                                                <tr>
+                                                                <td>Phase Nom Voltage</td>
+                                                                <td>40 a 160</td>
+                                                                <td class="ajuste-tensao-secundaria-fn-tp"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Phase Voltage Config</td>
+                                                                <td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td>
+                                                                <td class="ajuste-phase-voltage-config">Van, Vbn, Vcn</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Phase VT Ratio Prim</td>
+                                                                <td>até 6 caracteres numérico (V)</td>
+                                                                <td class="ajuste-tensao-primaria-fn"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Phase VT Ratio Sec</td>
+                                                                <td>40 a 160 (V)</td>
+                                                                <td class="ajuste-tensao-secundaria-fn-tp"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Phase CT Ratio Prim</td>
+                                                                <td>até 6 caracteres numérico (V)</td>
+                                                                <td class="ajuste-tc-protecao"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Phase CT Ratio Sec</td>
+                                                                <td>1A / 5A</td>
+                                                                <td class="ajuste-phase-ct-ratio-sec">5,00 A</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 51-1 Element</td>
+                                                                <td>Disabled / Enabled</td>
+                                                                <td class="">Enabled</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 51-1 Setting</td>
+                                                                <td>0.05 a 2.5 (xIn)</td>
+                                                                <td class="ajuste-ip-pu"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 51-1 Char</td>
+                                                                <td>IEC-EI, IEC-MI</td>
+                                                                <td class="ajuste-curva-fase"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>GN 51-1 Time Mult</td>
+                                                                <td>0.01 a 100</td>
+                                                                <td class="ajuste-dt-fase"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 50-1 Element</td>
+                                                                <td>Disabled / Enabled</td>
+                                                                <td class="">Enabled</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 50-1 Setting</td>
+                                                                <td>0.05 a 50 (xIn)</td>
+                                                                <td class="ajuste-iinst-pu"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>GN 50-1 Delay</td>
+                                                                <td>0 a 14400 (s)</td>
+                                                                <td class="">0,00 s</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 51N-1 Element</td>
+                                                                <td>Disabled / Enabled</td>
+                                                                <td class="">Enabled</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 51N-1 Setting</td>
+                                                                <td>0.05 a 2.5 (xIn)</td>
+                                                                <td class="ajuste-ipneutro-pu"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>GN 51N-1 Char</td>
+                                                                <td>DTL..ANSI-EI</td>
+                                                                <td class="">DTL</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>GN 51N-1 Delay</td>
+                                                                <td>0 a 14400 (s)</td>
+                                                                <td class="ajuste-dt-neutro"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 50N-1 Element</td>
+                                                                <td>Disabled / Enabled</td>
+                                                                <td class="">Enabled</td>
+                                                </tr>
+                                                <tr>
+                                                                <td>Gn 50N-1 Setting</td>
+                                                                <td>0.05 a 50 (xIn)</td>
+                                                                <td class="ajuste-instneutro-pu"></td>
+                                                </tr>
+                                                <tr>
+                                                                <td>GN 50N-1 Delay</td>
+                                                                <td>0 a 14400 (s)</td>
+                                                                <td class="">0,00 s</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+        <div id="tabela7" class="tabela">
+                <h2>AJUSTES RELÉ SIEMENS REYROLLE 7SR 1004</h2>
+                <p>TP=120 : 1 &nbsp;&nbsp; TC=100 : 5</p>
+                <table style="font-size:0.95em; max-width:1100px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Parâmetro</th>
+                                        <th>Ajuste</th>
+                                        <th>Faixa de ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Phase Nom Voltage</td>
+                                        <td>66,40</td>
+                                        <td>40 a 160</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase Voltage Config</td>
+                                        <td>Van, Vbn, Vcn</td>
+                                        <td>Van, Vbn, Vcn / Va, Vb, Vc / VA, Vb, Vc</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase VT Ratio Prim</td>
+                                        <td>13800,00</td>
+                                        <td>até 6 caracteres numérico (V)</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase VT Ratio Sec</td>
+                                        <td>115,00</td>
+                                        <td>40 a 160 (V)</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase CT Ratio Prim</td>
+                                        <td>100</td>
+                                        <td>até 6 caracteres numérico (V)</td>
+                                </tr>
+                                <tr>
+                                        <td>Phase CT Ratio Sec</td>
+                                        <td>5</td>
+                                        <td>1A / 5A</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">32-1 Direcional de potência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Dir. Control</td>
+                                        <td>Reverse</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Settings</td>
+                                        <td>0,06 *Sn</td>
+                                        <td>(0.05 a 2 (xSn))</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-1 Delay</td>
+                                        <td>15 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">32-2 Direcional de potência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Element</td>
+                                        <td>Enable</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Dir. Control</td>
+                                        <td>Forward</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Settings</td>
+                                        <td>0,13 *Sn</td>
+                                        <td>(0.05 a 2 (xSn))</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 32-2 Delay</td>
+                                        <td>15 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67-1 Direcional de sobrecorrente de Fase temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 67 Char Angle</td>
+                                        <td>45°</td>
+                                        <td>(-95 a 95 (deg))</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Dir. Control</td>
+                                        <td>Reverse</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Setting</td>
+                                        <td>0,07 *In</td>
+                                        <td>(0.05 a 4 (xIn))</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Char</td>
+                                        <td>IEC-E.I</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Time Mult(IEC/ANSI)</td>
+                                        <td>0,2</td>
+                                        <td>(0,025...100)</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67-2 Direcional de sobrecorrente de Fase temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 67 Char Angle</td>
+                                        <td>45°</td>
+                                        <td>(-95 a 95 (deg))</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Dir. Control</td>
+                                        <td>Forward</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Setting</td>
+                                        <td>0,14 *In</td>
+                                        <td>(0.05 a 4 (xIn))</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Char</td>
+                                        <td>IEC-M.I</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Time Mult(IEC/ANSI)</td>
+                                        <td>0,2</td>
+                                        <td>(0,025...100)</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67-2 Direcional de sobrecorrente de Fase Instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-3 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-3 Dir. Control</td>
+                                        <td>Forward</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50-3 Setting</td>
+                                        <td>1,75 *In</td>
+                                        <td>(0,05..50)</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50-3 Delay</td>
+                                        <td>0 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67N-1 Direcional de sobrecorrente de Neutro temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 67G Char Angle</td>
+                                        <td>-110°</td>
+                                        <td>(-95...95)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-1 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-1 Dir. Control</td>
+                                        <td>Reverse</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-1 Setting</td>
+                                        <td>0,02 *In</td>
+                                        <td>(0.05 a 50 (xIn))</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50G-1 Delay</td>
+                                        <td>5 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67N-2 Direcional de sobrecorrente de Neutro temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-3 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-3 Dir. Control</td>
+                                        <td>Forward</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-3 Setting</td>
+                                        <td>0,05 *In</td>
+                                        <td>(0.05 a 50 (xIn))</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50G-3 Delay</td>
+                                        <td>2 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">67N-2 Direcional de sobrecorrente de Neutro instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-4 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-4 Dir. Control</td>
+                                        <td>Forward</td>
+                                        <td>(Non-Dir/Forward/Reverse)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 50G-4 Setting</td>
+                                        <td>0,58 *In</td>
+                                        <td>(0.05 a 50 (xIn))</td>
+                                </tr>
+                                <tr>
+                                        <td>GN 50G-4 Delay</td>
+                                        <td>0 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">51V - Sobrecorrente com restrição por tensão</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51V Element (Ph-Ph)</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51V Setting</td>
+                                        <td>103,5 V</td>
+                                        <td>(5...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51V VTS Action</td>
+                                        <td>off</td>
+                                        <td>(Off...Inhibit)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-1 Multiplier</td>
+                                        <td>0,25</td>
+                                        <td>(0,25..1)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 51-3 Multiplier</td>
+                                        <td>0,25</td>
+                                        <td>(0,25..1)</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">46 - Relé de desequilíbrio de corrente</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Setting</td>
+                                        <td>0,02 *In</td>
+                                        <td>(5...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Char</td>
+                                        <td>DTL</td>
+                                        <td>(DTL..ANSI-EI)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Time Mult (IEC/ANSI-EI)</td>
+                                        <td>3</td>
+                                        <td>(0,025...100)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46IT Reset</td>
+                                        <td>0 s</td>
+                                        <td>(IEC/ANSI) Decaying..60)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46DT Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46DT Setting</td>
+                                        <td>0,03</td>
+                                        <td>(0,05...4)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 46DT Delay</td>
+                                        <td>3 s</td>
+                                        <td>(0 a 14400 (s))</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">27 - Relé de Subtensão</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn Voltage Input Mode</td>
+                                        <td>Ph-N</td>
+                                        <td>(Ph-N..Ph-Ph)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59 U/V Guard Setting</td>
+                                        <td>5 V</td>
+                                        <td>(1...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Operation</td>
+                                        <td>Under</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Setting</td>
+                                        <td>53,11 v</td>
+                                        <td>(5...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-1 Delay</td>
+                                        <td>3 s</td>
+                                        <td>(0...80)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Operation</td>
+                                        <td>Under</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Setting</td>
+                                        <td>33,19 v</td>
+                                        <td>(5...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-2 Delay</td>
+                                        <td>1 s</td>
+                                        <td>(0...80)</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">59 - Relé de sobretensão</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Operation</td>
+                                        <td>Over</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Setting</td>
+                                        <td>73,03 v</td>
+                                        <td>(5...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-3 Delay</td>
+                                        <td>3 s</td>
+                                        <td>(0...80)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Operation</td>
+                                        <td>Over</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Setting</td>
+                                        <td>78,34 v</td>
+                                        <td>(5...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 27/59-4 Delay</td>
+                                        <td>0,5 s</td>
+                                        <td>(0...80)</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">81U - Relé de subrefrequência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn Frequency Input Mode</td>
+                                        <td>Ph-Ph</td>
+                                        <td>(Ph-N..Ph-Ph)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81 U/V Guard Setting</td>
+                                        <td>35V</td>
+                                        <td>(35...200)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Operation</td>
+                                        <td>Under</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Setting</td>
+                                        <td>57,4 Hz</td>
+                                        <td>(43...68)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-1 Delay</td>
+                                        <td>5,5 s</td>
+                                        <td>(0...2)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Operation</td>
+                                        <td>Under</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Setting</td>
+                                        <td>58,5 Hz</td>
+                                        <td>(43...68)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-2 Delay</td>
+                                        <td>20,5 s</td>
+                                        <td>(0...2)</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="3">81O - Relé de sobrefrequência</th>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Operation</td>
+                                        <td>Over</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Setting</td>
+                                        <td>62,6 Hz</td>
+                                        <td>(43...68)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-3 Delay</td>
+                                        <td>10,5 s</td>
+                                        <td>(0...2)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Element</td>
+                                        <td>Enabled</td>
+                                        <td>(Disabled / Enabled)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Operation</td>
+                                        <td>Over</td>
+                                        <td>(Under..Over)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Setting</td>
+                                        <td>63,1 Hz</td>
+                                        <td>(43...68)</td>
+                                </tr>
+                                <tr>
+                                        <td>Gn 81-4 Delay</td>
+                                        <td>0,2 s</td>
+                                        <td>(0...2)</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+        <div id="8-PEXTRON-URPE-2405" class="tabela">
+                <h2>PEXTRON URPE 2405 - Tabela de Parâmetros</h2>
+                <table style="font-size:0.95em; max-width:900px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Parâmetro</th>
+                                        <th>Descrição do Parâmetro</th>
+                                        <th>Faixa de Ajuste</th>
+                                        <th>Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Relação de TC's (RTC)</td>
+                                        <td>1...220 (degrau de 1) ou 10...2200 (degrau de 10) (seleção através da chave
+                                                DIP - vide figura 1)</td>
+                                        <td>1...220 ou 10...2200</td>
+                                        <td>20</td>
+                                </tr>
+                                <tr>
+                                        <td>Relação de TP's (RTP)</td>
+                                        <td>Relação do transformador de potencial</td>
+                                        <td>1 ... 250</td>
+                                        <td>120</td>
+                                </tr>
+                                <tr>
+                                        <td>Potência reversa de partida (Pr&gt;&gt;)</td>
+                                        <td>Potência reversa de partida</td>
+                                        <td>1 ... 250 x RTC x RTP W</td>
+                                        <td>0,0 W</td>
+                                </tr>
+                                <tr>
+                                        <td>Tempo (seg) definido de potência reversa (Pr&gt;&gt;)</td>
+                                        <td>Tempo definido para atuação de potência reversa</td>
+                                        <td>0,10 ... 240 s</td>
+                                        <td>15 s (No máximo)</td>
+                                </tr>
+                                <tr>
+                                        <td>Tensão mínima auxiliar (27-0)</td>
+                                        <td>Tensão mínima de alimentação auxiliar</td>
+                                        <td>2 ... 352 V</td>
+                                        <td>66 V</td>
+                                </tr>
+                                <tr>
+                                        <td>Tempo (seg) de falha de disjuntor (62BF)</td>
+                                        <td>Tempo de atuação para falha de disjuntor</td>
+                                        <td>0,10 ... 1,00 s</td>
+                                        <td>1,00 s</td>
+                                </tr>
+                                <tr>
+                                        <td>Velocidade da serial em Kbps</td>
+                                        <td>
+                                                0.60 - 600 bps<br>
+                                                1.20 - 1200 bps<br>
+                                                2.40 - 2400 bps<br>
+                                                4.80 - 4800 bps<br>
+                                                9.60 - 9600 bps<br>
+                                                14.4 - 14400 bps<br>
+                                                19.2 - 19200 bps<br>
+                                                28.8 - 28800 bps
+                                        </td>
+                                        <td>600 ... 28800 bps</td>
+                                        <td>9600 bps</td>
+                                </tr>
+                                <tr>
+                                        <td>Endereço do relé na rede de comunicação serial</td>
+                                        <td>Endereço do relé na rede serial</td>
+                                        <td>1 ... 30</td>
+                                        <td>1</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+        <div id="9-SCHNEIDER-SEPAM-S42" class="tabela">
+                <h2>SCHNEIDER SEPAM S42</h2>
+                <table style="font-size:0.95em; max-width:1100px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Código ANSI</th>
+                                        <th>Software</th>
+                                        <th>Descritivo</th>
+                                        <th>Faixa de Ajuste</th>
+                                        <th>Ajuste no Relé</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <!-- <tr>
+                                <th colspan="5" style="background:#eee;">PARÂMETROS DA INSTALAÇÃO</th>
+                        </tr> -->
+                                <tr>
+                                        <td rowspan="8">PARÂMETROS DA INSTALAÇÃO</td>
+                                        <td>Network frequency</td>
+                                        <td>Frequência Nominal</td>
+                                        <td>50/60 Hz</td>
+                                        <td>60 Hz</td>
+                                </tr>
+                                <tr>
+                                        <td>Number of CTs</td>
+                                        <td>Quantidade de TCs</td>
+                                        <td>Ia,Ic/Ia,Ib,Ic</td>
+                                        <td>Ia,Ib,Ic</td>
+                                </tr>
+                                <tr>
+                                        <td>Rated primary current (IN)</td>
+                                        <td>Corrente nominal primária TC de fase</td>
+                                        <td>1...6250 A</td>
+                                        <td>100</td>
+                                </tr>
+                                <tr>
+                                        <td>Rated secondary current</td>
+                                        <td>Corrente nominal secundária do TC de fase</td>
+                                        <td>5A CT/1A CT/LPCT</td>
+                                        <td>5</td>
+                                </tr>
+                                <tr>
+                                        <td>Base current (IB)</td>
+                                        <td>Corrente base nominal primária do TC</td>
+                                        <td>20...130 A</td>
+                                        <td>100</td>
+                                </tr>
+                                <tr>
+                                        <td>Rated primary voltage (VLLp)</td>
+                                        <td>Tensão nomial primária do TP de proteção</td>
+                                        <td>220 V .... 250 KV</td>
+                                        <td>13,8</td>
+                                </tr>
+                                <tr>
+                                        <td>Rated secondary voltage (VLLs)</td>
+                                        <td>Tensão nomial secundária do TP de proteção</td>
+                                        <td>90...230 V</td>
+                                        <td>115</td>
+                                </tr>
+                                <tr>
+                                        <td>VT connection type</td>
+                                        <td>Tipo de conexão dos TPs</td>
+                                        <td>Vab/ Vab,Vbc/Van,Vbn,Vcn</td>
+                                        <td>Vab</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="5" style="background-color:#454e45; color:white;">50/51 : Phase
+                                                overcurrent</th>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente temporizada de fase (ANSI 51)</td>
+                                        <td rowspan="3">Element 1<br>I&gt;51</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primerio estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do primeiro
+                                                elemento de sobrecorrente de fase</td>
+                                        <td>ON/OFF</td>
+                                        <td>Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do primeiro estágio
+                                                do elemento de sobrecorrente de fase</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 1</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>IEC-M.I</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de fase elemento 1</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>0,14</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de fase elemento 1</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>0,20</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente Instantanea de fase (ANSI 50)</td>
+                                        <td rowspan="3">Element 2<br>I&gt;&gt;51</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de fase instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do segundo
+                                                elemento de sobrecorrente de fase instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td>Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do segundo estágio do
+                                                elemento de sobrecorrente de fase instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 2</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>Definite Time</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de fase elemento 2</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>1,76</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de fase elemento 2</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>0</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="5" style="background-color:#454e45; color:white;">50N/51N : Ground
+                                                fault</th>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente temporizada de neutro (ANSI 51N)</td>
+                                        <td rowspan="3">Element 1<br>Io&gt;51N</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primerio estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do primeiro
+                                                elemento de sobrecorrente de neutro</td>
+                                        <td>ON/OFF</td>
+                                        <td>Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do primeiro estágio
+                                                do elemento de sobrecorrente de neutro</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 1</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>Definite Time</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de neutro elemento 1</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>0,05</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de neutro elemento 1</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>2,00</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Sobrecorrente Instantanea de neutro (ANSI 50N)</td>
+                                        <td rowspan="3">Element 2<br>Io&gt;&gt;51N</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de neutro instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do segundo
+                                                elemento de sobrecorrente de neutro instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td>Desabilitar</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do segundo estágio do
+                                                elemento de sobrecorrente de neutro instantânea</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+                                </tr>
+                                <tr>
+                                        <td>Tripping curve</td>
+                                        <td>Tipo de curva do elemento 2</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>Definite Time</td>
+                                </tr>
+                                <tr>
+                                        <td>Current Threshold</td>
+                                        <td>Corrente de pick-up de neutro elemento 2</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>0,59</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Dial de tempo de neutro elemento 2</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>0</td>
+                                </tr>
+                                <tr>
+                                        <th colspan="5" style="background-color:#454e45; color:white;">Directional Power
+                                                Protection</th>
+                                </tr>
+                                <tr>
+                                        <td rowspan="6">Direcional de potência ANSI 32</td>
+                                        <td rowspan="3">Element 1<br>32P</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primerio estágio do elemento de
+                                                Direcional de potência</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar a retenção do disparo do primeiro
+                                                estágio do elemento de Direcional de potência</td>
+                                        <td>ON/OFF</td>
+                                        <td>Desabilitar</td>
+
+                                </tr>
+                                <tr>
+
+                                        <td>Ajuste para habilitar ou desabilitar o trip de disparo do primeiro estágio
+                                                do elemento de Direcional de potência</td>
+                                        <td>ON/OFF</td>
+                                        <td>Habilitar</td>
+
+                                </tr>
+                                <tr>
+                                        <td>Type</td>
+                                        <td>Tipo de controle utilizado para o elemento direcional de potência</td>
+                                        <td>Reverse power/Overpower</td>
+                                        <td>Reverse power</td>
+                                </tr>
+                                <tr>
+
+                                        <td>Power Threshold</td>
+                                        <td>Potência de ajuste</td>
+                                        <td>1 a 120%*Sn (Sn = √3*TCprim*TPprim)</td>
+                                        <td></td>
+
+                                </tr>
+                                <tr>
+                                        <td>Delay</td>
+                                        <td>Tempo de tolerância para atuação</td>
+                                        <td>0,10...300 segundos</td>
+                                        <td>15</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+        <div id="10-VAMP-11-SCHNEIDER" class="tabela">
+                <h2>VAMP 11 SCHNEIDER - Tabela de Parâmetros</h2>
+                <table style="font-size:0.95em; max-width:1100px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Unidade</th>
+                                        <th>Parâmetro</th>
+                                        <th>Descritivo</th>
+                                        <th>Faixa de ajuste</th>
+                                        <th>Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td>Entradas</td>
+                                        <td>Frequência</td>
+                                        <td>Frequência Nominal</td>
+                                        <td>50/60 Hz</td>
+                                        <td>60</td>
+                                </tr>
+
+                                <tr>
+                                        <td rowspan="2">TC Fase</td>
+                                        <td>Line CT Primary (In)</td>
+                                        <td>Corrente nominal primária TC de fase</td>
+                                        <td>1...6250 A</td>
+                                        <td>100</td>
+                                </tr>
+                                <tr>
+                                        <td>Line CT Sec</td>
+                                        <td>Corrente nominal secundária do TC de fase</td>
+                                        <td>5A CT/1A CT/LPCT</td>
+                                        <td>5</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="2">TC Neutro</td>
+                                        <td>E/Gnd CT Primary (Ien)</td>
+                                        <td>Corrente nominal primária do TC de terra/neutro</td>
+                                        <td>1...6250 A</td>
+                                        <td>100</td>
+                                </tr>
+                                <tr>
+                                        <td>E/Gnd CT Sec</td>
+                                        <td>Corrente nominal secundária do TC de terra/neutro</td>
+                                        <td>5A CT/1A CT/LPCT</td>
+                                        <td>5</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="4">Sobrecorrente temporizada de fase (ANSI 51)</td>
+                                        <td>I &gt;</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td>(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; Limiar</td>
+                                        <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>0,14</td>
+                                </tr>
+                                <tr>
+                                        <td>Tipo de curva I &gt;</td>
+                                        <td>Tipo de curva de operação da unidade de fase</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>IEC-M.I</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; TMJ</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>0,20</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="4">Sobrecorrente temporizada de fase II (ANSI 51)</td>
+                                        <td>I &gt;&gt;</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td>Desabilitado</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; Limiar</td>
+                                        <td>Ajuste da corrente de pick-up do segundo estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td>-</td>
+                                </tr>
+                                <tr>
+                                        <td>Tipo de curva I &gt;</td>
+                                        <td>Tipo de curva</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>-</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt; TMS</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>-</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="3">Sobrecorrente temporizada de fase (ANSI 50)</td>
+                                        <td>I &gt;&gt;&gt;</td>
+                                        <td>Ajuste para habilitar ou desabilitar o terceiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td></td>
+                                        <td>(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>I &gt;&gt;&gt; Threshold</td>
+                                        <td>Ajuste da corrente de pick-up do terceiro estágio do elemento de
+                                                sobrecorrente de fase</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>1,76</td>
+                                </tr>
+                                <tr>
+                                        <td>tl &gt; TMS</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>0,00s</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="4">Sobrecorrente temporizada de neutro (ANSI 51N)</td>
+                                        <td>Estágio IN_1</td>
+                                        <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td></td>
+                                        <td>(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>IN_1 Threshold</td>
+                                        <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>0,05</td>
+                                </tr>
+                                <tr>
+                                        <td>Delay Type IN_1</td>
+                                        <td>Tipo de curva</td>
+                                        <td>IEC EIT /C...IEC VIT /C...Definite Time</td>
+                                        <td>DMT</td>
+                                </tr>
+                                <tr>
+                                        <td>IN_1 TMS</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>2,00</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="3">Sobrecorrente instantanea de neutro (ANSI 50N)</td>
+                                        <td>IN_2 Stage</td>
+                                        <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td></td>
+                                        <td>(1) Trip</td>
+                                </tr>
+                                <tr>
+                                        <td>IN_2 Threshold</td>
+                                        <td>Ajuste de corrente de pick-up do segundo estágio do elemento de
+                                                sobrecorrente de neutro</td>
+                                        <td>(0,10...2,4)x Prim TC</td>
+                                        <td>0,59</td>
+                                </tr>
+                                <tr>
+                                        <td>tIN_2</td>
+                                        <td>Ajuste de dial de tempo</td>
+                                        <td>0,1...12,5 s (IDMT- ANSI Curve)<br>0,05...300 s (Definite Time)</td>
+                                        <td>0,00s</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="5">Ajuste relés de saída 321</td>
+                                        <td>Bloqueado saídas</td>
+                                        <td>Latch dos relés de saída</td>
+                                        <td></td>
+                                        <td>010</td>
+                                </tr>
+                                <tr>
+                                        <td>Reversa Sai. Log</td>
+                                        <td>Reversão dos relés de saída</td>
+                                        <td></td>
+                                        <td>010</td>
+                                </tr>
+                                <tr>
+                                        <td>Proteção trip</td>
+                                        <td>Relé ativo para trip</td>
+                                        <td></td>
+                                        <td>010</td>
+                                </tr>
+                                <tr>
+                                        <td>Trip disj orde</td>
+                                        <td>Relé para comando de abertura</td>
+                                        <td></td>
+                                        <td>001</td>
+                                </tr>
+                                <tr>
+                                        <td>Fecha disj orde</td>
+                                        <td>Relé para comando de fechamento</td>
+                                        <td></td>
+                                        <td>100</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="1">Tempo para comando de abertura botão abre</td>
+                                        <td>tPulso Abertura</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>0,1s</td>
+                                </tr>
+                                <tr>
+                                        <td rowspan="1">Tempo para fechamento de abertura botão fecha</td>
+                                        <td>tPulso Fechamento</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>10 s</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+
+        <div id="11-PEXTRON-URP-6100-Versão-61" class="tabela">
+                <h2>AJUSTES RELÉ PEXTRON URP 6100 Versão-61 CARGA</h2>
+                <p>TENSÃO PRIMÁRIA 13800 V &nbsp;&nbsp; TP=120 : 1 &nbsp;&nbsp; TC=100 : 5 &nbsp;&nbsp; RTC=20</p>
+                <table style="font-size:0.95em; max-width:1100px; margin:0 auto; border-collapse:collapse;">
+                        <thead>
+                                <tr>
+                                        <th>Parâmetro</th>
+                                        <th>Faixa de ajuste</th>
+                                        <th>Ajuste</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">Parâmetro Comuns
+                                        </th>
+                                </tr>
+                                <tr>
+                                        <td>AMTdf (0...90°)</td>
+                                        <td>0...90°</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>AMTdN</td>
+                                        <td>0...359°</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>Tipo N</td>
+                                        <td>0 = sistema solidamente aterrado ou aterrado por resistência<br>1 = sistema
+                                                isolado em modo seno<br>2 = sistema compensado em modo cosseno</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>VpolN</td>
+                                        <td>10...400 (x RTP)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>Potência ativa modo</td>
+                                        <td>Monofásico; Trifásico</td>
+                                        <td>Trifásico</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">32-1 Direcional
+                                                de potência</th>
+                                </tr>
+                                <tr>
+                                        <td>dP1 inv</td>
+                                        <td>ON (com reversão no plano)<br>OFF (sem reversão no plano)</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>P1&gt;&gt;F Pp</td>
+                                        <td>3,00...15000 W (RTC FN x RTP)</td>
+                                        <td>157500</td>
+                                </tr>
+                                <tr>
+                                        <td>P1&gt;&gt;F t</td>
+                                        <td>0...240 s</td>
+                                        <td>15</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">32-2 Direcional
+                                                de potência</th>
+                                </tr>
+                                <tr>
+                                        <td>dP2 inv</td>
+                                        <td>ON (com reversão no plano)<br>OFF (sem reversão no plano)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>P2&gt;&gt;F Pp</td>
+                                        <td>3,00...15000 W (RTC FN x RTP)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>P2&gt;&gt;F t</td>
+                                        <td>0...240 s</td>
+                                        <td>Desativado</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67-1 Direcional
+                                                de sobrecorrente de Fase temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>dF1 nd</td>
+                                        <td>ON (Função não direcional)<br>OFF (Função direcional)</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>dF1 con</td>
+                                        <td>ON (com reversão no plano)<br>OFF (sem reversão no plano)</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F1 Ip</td>
+                                        <td>0,04...6,50 (x RTC FN) A</td>
+                                        <td>7,16</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F1 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td>IEC-E.I</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F1 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td>0,2</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67-1 Direcional
+                                                de sobrecorrente de Fase instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;F1 Ip</td>
+                                        <td>0,10...100 (x RTC FN) A</td>
+                                        <td>500</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;F1 t</td>
+                                        <td>0...240 s</td>
+                                        <td>0</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67-2 Direcional
+                                                de sobrecorrente de Fase temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>dF2 nd</td>
+                                        <td>ON (Função não direcional)<br>OFF (Função direcional)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>dF2 con</td>
+                                        <td>ON (com reversão no plano)<br>OFF (sem reversão no plano)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 Ip</td>
+                                        <td>0,04...6,50 (x RTC FN) A</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;F2 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td>Desativado</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67-2 Direcional
+                                                de sobrecorrente de Fase instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;F2 Ip</td>
+                                        <td>0,10...100 (x RTC FN) A</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;F2 t</td>
+                                        <td>0...240 s</td>
+                                        <td>Desativado</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67N-1 Direcional
+                                                de sobrecorrente de Neutro temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>dN1 nd</td>
+                                        <td>ON (Função não direcional)<br>OFF (Função direcional)</td>
+                                        <td>OFF</td>
+                                </tr>
+                                <tr>
+                                        <td>dN1 exp</td>
+                                        <td>ON (com reversão no plano)<br>OFF (sem reversão no plano)</td>
+                                        <td>ON</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N1 Ip</td>
+                                        <td>0,048...6,5 A (x RTC FN para IN N/D=0)<br>0,012...1,625 A (x RTC D para IN
+                                                N/D=1)</td>
+                                        <td>2,39</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N1 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td>FLAT</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N1 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td>5</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67N-1 Direcional
+                                                de sobrecorrente de Neutro instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;N1 Ip</td>
+                                        <td>0,48...100 A (x RTC FN) para IN N/D=0<br>0,012...12,5 A (x RTC D) para IN
+                                                N/D=1</td>
+                                        <td>500</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;N1 t</td>
+                                        <td>0...240 s</td>
+                                        <td>0</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67N-2 Direcional
+                                                de sobrecorrente de Neutro temporizada</th>
+                                </tr>
+                                <tr>
+                                        <td>dN2 nd</td>
+                                        <td>ON (Função não direcional)<br>OFF (Função direcional)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>dN2 exp</td>
+                                        <td>ON (com reversão no plano)<br>OFF (sem reversão no plano)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N2 Ip</td>
+                                        <td>0,048...6,5 A (x RTC FN para IN N/D=0)<br>0,012...1,625 A (x RTC D para IN
+                                                N/D=1)</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N2 curv</td>
+                                        <td>NI-MI-EI-IT-I2T-FLAT-USER</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;N2 dt</td>
+                                        <td>0,01...15,00</td>
+                                        <td>Desativado</td>
+                                </tr>
+
+                                <tr>
+                                        <th colspan="3" style="background-color:#454e45; color:white;">67N-2 Direcional
+                                                de sobrecorrente de Neutro instantânea</th>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;N2 Ip</td>
+                                        <td>0,48...100 A (x RTC FN) para IN N/D=0<br>0,012...12,5 A (x RTC D) para IN
+                                                N/D=1</td>
+                                        <td>Desativado</td>
+                                </tr>
+                                <tr>
+                                        <td>I&gt;&gt;N2 t</td>
+                                        <td>0...240 s</td>
+                                        <td>Desativado</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+
+
+
+
+        <script src="tabelarele.js"></script>
+
+</body>
+
+</html>

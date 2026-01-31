@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
+    <style>
+        /* Oculta botões restritos por padrão */
+        #botaoconfightml:not(.btn-permitido),
+        #botaoajustesGDhtml:not(.btn-permitido),
+        #botaotabelaGDhtml:not(.btn-permitido),
+        #botaoestudosGDhtml:not(.btn-permitido),
+        #botaoanalisehtml:not(.btn-permitido) {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        /* Força exibição dos botões permitidos - com especificidade máxima */
+        #botaoconfightml.btn-permitido,
+        #botaodiagramahtml.btn-permitido,
+        #botaoparametrohtml.btn-permitido,
+        #botaotrafohtml.btn-permitido,
+        #botaotptchtml.btn-permitido,
+        #botaoajustehtml.btn-permitido,
+        #botaotabelarelehtml.btn-permitido,
+        #botaoestudoshtml.btn-permitido,
+        #botaoajustesGDhtml.btn-permitido,
+        #botaotabelaGDhtml.btn-permitido,
+        #botaoestudosGDhtml.btn-permitido,
+        #botaoanalisehtml.btn-permitido,
+        #botaosairhtml.btn-permitido {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        
+        /* Força ocultação dos botões bloqueados */
+        h1 button.btn-bloqueado {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
+        h1.loaded { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="transformadores.css" type="text/css">
+    <!-- <script src="Protecao_parametros.js"></script> -->
+    <title>PROTECAO</title>
+    <script src="controle-acesso.js"></script>
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <h1>
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle" onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle" onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle" onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
+    </h1>
+    <br>
+
+    <div class="tabelas-centralizadas"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100vw; min-height: 10vh; text-align: center;">
+        <table>
+            <caption
+                style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 1px solid transparent;">
+                TRANSFORMADORES
+            </caption>
+
+
+            <!-- <caption style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 3px solid #000000;">
+                        
+                        TABELA DE AJUSTES FASE 50/51
+                        
+                    </caption> -->
+
+            <th>
+
+            <td>kva</td>
+            <td>Qtde</td>
+            <td>Z%</td>
+            <td>Im/In</td>
+            <td>T</td>
+            <td>In</td>
+            <td>I.ANSI</td>
+            <td>I.NANSI</td>
+            <td>I MAG</td>
+
+
+
+
+            </th>
+
+
+            <tr>
+                <td>TRAFO 1:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml1"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml1"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml1"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml1"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml1"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml1" id="intrhtml1"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml1" id="iansihtml1"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml1" id="inansihtml1"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml1" id="imagtrhtml1"></label></div>
+                </td>
+            </tr>
+
+
+            <tr>
+            <tr>
+                <td>TRAFO 2:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml2"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml2"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml2"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml2"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml2"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml2" id="intrhtml2"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml2" id="iansihtml2"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml2" id="inansihtml2"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml2" id="imagtrhtml2"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 3:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml3"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml3"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml3"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml3"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml3"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml3" id="intrhtml3"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml3" id="iansihtml3"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml3" id="inansihtml3"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml3" id="imagtrhtml3"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 4:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml4"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml4"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml4"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml4"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml4"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml4" id="intrhtml4"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml4" id="iansihtml4"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml4" id="inansihtml4"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml4" id="imagtrhtml4"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 5:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml5"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml5"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml5"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml5"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml5"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml5" id="intrhtml5"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml5" id="iansihtml5"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml5" id="inansihtml5"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml5" id="imagtrhtml5"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 6:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml6"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml6"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml6"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml6"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml6"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml6" id="intrhtml6"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml6" id="iansihtml6"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml6" id="inansihtml6"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml6" id="imagtrhtml6"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 7:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml7"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml7"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml7"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml7"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml7"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml7" id="intrhtml7"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml7" id="iansihtml7"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml7" id="inansihtml7"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml7" id="imagtrhtml7"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 8:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml8"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml8"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml8"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml8"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml8"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml8" id="intrhtml8"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml8" id="iansihtml8"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml8" id="inansihtml8"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml8" id="imagtrhtml8"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 9:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml9"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml9"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml9"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml9"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml9"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml9" id="intrhtml9"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml9" id="iansihtml9"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml9" id="inansihtml9"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml9" id="imagtrhtml9"></label></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>TRAFO 10:</td>
+                <td>
+                    <div class="input-container"><input type="number" id="potenciahtml10"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="qtdehtml10"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="impedanciahtml10"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="fatoriminhtml10"></div>
+                </td>
+                <td>
+                    <div class="input-container"><input type="number" id="tempotrhtml10"></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="intrhtml10" id="intrhtml10"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="inansihtml10" id="iansihtml10"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="innansihtml10" id="inansihtml10"></label></div>
+                </td>
+                <td>
+                    <div class="input-container"><label for="imagtrhtml10" id="imagtrhtml10"></label></div>
+                </td>
+            </tr>
+
+
+
+
+
+        </table>
+
+        
+
+                <table>
+            <tr>
+                <td>MAGNETIZAÇÃO TOTAL FASE:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagtotal"
+                            style="font-weight: bold;">A</label>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>MAGNETIZAÇÃO TOTAL NEUTRO:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagtotalneutro">A</label></div>
+                </td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <table>
+            <tr>
+                <td>MAGNETIZAÇÃO REAL FASE:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagrealfase">A</label></div>
+                </td>
+            <tr>
+
+            <tr>
+                <td>MAGNETIZAÇÃO REAL NEUTRO:</td>
+                <td>
+                    <div class="input-container"><label type="number" id="imagrealneutro">A</label></div>
+                </td>
+            <tr>
+        </table>
+        <br>
+       
+
+        <br>
+        <table>
+            <tr>
+                <td style="background-color: rgb(2, 68, 2); color: white;">MOTOR DE MAIOR POTÊNCIA:</td>
+                <td style="background-color: rgb(2, 68, 2); color: white;">
+                    <div class="input-container"><input type="number" id="potenciaoperantemotorhtml"></div>Potëncia
+                    operante (kW)
+                </td>
+                <td style="background-color: rgb(2, 68, 2); color: white;">
+                    <div class="input-container"><input type="number" id="correntepartidamotorhtml"></div>Corrente de
+                    partida do motor (A)
+                </td>
+                <td style="background-color: rgb(2, 68, 2); color: white;">
+                    <div class="input-container"><input type="number" id="tempopartidamotorhtml"></div>Tempo de duração
+                    da
+                    partida (s)
+                </td>
+                <td style="background-color: rgb(2, 68, 2); color: white;">
+                    <div class="input-container">
+                        <label type="number" id="correntetotalpartidamotorhtml" style="font-weight: bold;"></label>
+                    </div>
+                    Corrente operante+motor (A)
+                </td>
+
+            <tr>
+        </table>
+
+        <br>
+
+
+
+
+    </div>
+    <br>
+
+
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+
+
+
+    <script src="transformadores.js"></script>
+
+    <body>
+
+        <html>

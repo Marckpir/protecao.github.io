@@ -1,0 +1,106 @@
+/* Estilização dos Botões do Header de Navegação */
+
+/* Oculta botões restritos por padrão para evitar "flash" durante carregamento */
+#botaoconfightml,
+#botaoajustesGDhtml,
+#botaotabelaGDhtml,
+#botaoestudosGDhtml,
+#botaoanalisehtml {
+    display: none !important;
+}
+
+h1 {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 15px auto;
+    padding: 10px 5px;
+    max-width: 98%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Scrollbar personalizada para navegadores WebKit */
+h1::-webkit-scrollbar {
+    height: 6px;
+}
+
+h1::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+h1::-webkit-scrollbar-thumb {
+    background: rgb(2, 68, 2);
+    border-radius: 3px;
+}
+
+h1::-webkit-scrollbar-thumb:hover {
+    background: #cf0808;
+}
+
+h1 button {
+    color: rgb(227, 224, 64);
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid #34335c;
+    background-color: rgb(2, 68, 2);
+    padding: 6px 10px;
+    min-width: 95px;
+    width: auto;
+    height: 45px;
+    line-height: 1.2;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+h1 button:hover {
+    background-color: #cf0808;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    h1 {
+        gap: 5px;
+        padding: 8px 3px;
+        justify-content: flex-start;
+    }
+    
+    h1 button {
+        font-size: 9px;
+        min-width: 85px;
+        height: 42px;
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        gap: 4px;
+        padding: 5px 2px;
+        justify-content: flex-start;
+    }
+    
+    h1 button {
+        font-size: 8px;
+        min-width: 75px;
+        height: 40px;
+        padding: 4px 6px;
+    }
+}

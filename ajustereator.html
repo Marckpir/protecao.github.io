@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
+    <style>
+        /* Oculta botões restritos por padrão */
+        #botaoconfightml:not(.btn-permitido),
+        #botaoajustesGDhtml:not(.btn-permitido),
+        #botaotabelaGDhtml:not(.btn-permitido),
+        #botaoestudosGDhtml:not(.btn-permitido),
+        #botaoanalisehtml:not(.btn-permitido) {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        /* Força exibição dos botões permitidos - com especificidade máxima */
+        #botaoconfightml.btn-permitido,
+        #botaodiagramahtml.btn-permitido,
+        #botaoparametrohtml.btn-permitido,
+        #botaotrafohtml.btn-permitido,
+        #botaotptchtml.btn-permitido,
+        #botaoajustehtml.btn-permitido,
+        #botaotabelarelehtml.btn-permitido,
+        #botaoestudoshtml.btn-permitido,
+        #botaoajustesGDhtml.btn-permitido,
+        #botaotabelaGDhtml.btn-permitido,
+        #botaoestudosGDhtml.btn-permitido,
+        #botaoanalisehtml.btn-permitido,
+        #botaosairhtml.btn-permitido {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        
+        /* Força ocultação dos botões bloqueados */
+        h1 button.btn-bloqueado {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
+        h1.loaded { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="ajustereator.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>ESTUDOS</title>
+    <script src="controle-acesso.js"></script>
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span id="titulodapagina"
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <h1>
+
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
+
+    </h1>
+    <br>
+    <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
+        PROTEÇÃO GD</div>
+    <br>
+    <div>
+        <button id="botaoareatorhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustereator.html';">Reator</button>
+        <button id="botaoajuste32html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste32.html';">32-1/32-2</button>
+        <button id="botaoajustes67injhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste67inj.html';">67-INJEÇÃO</button>
+        <button id="botaojuste67conshtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste67cons.html';">67-CONSUMO</button>
+        <button id="botaoajuste51vhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste51v.html';">51-V</button>
+        <button id="botaoajuste27html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste27.html';">27</button>
+        <button id="botaoajuste59html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste59.html';">59</button>
+        <button id="botaoajuste81html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste81U-81O.html';">81-U / 81-O</button>
+        <button id="botaoajuste46html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste46.html';">46</button>
+        <button id="botaoajuste47html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste47.html';">47</button>
+        <button id="botaoajuste25html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste25.html';">25</button>
+    </div>
+
+    <br>
+
+        <style>
+            .styled-container {
+                max-width: 760px;
+                margin: 1rem auto;
+                background: linear-gradient(180deg, #fbfff8 0%, #ffffff 100%);
+                border: 1px solid #d6e6d6;
+                border-radius: 12px;
+                padding: 18px;
+                box-shadow: 0 8px 20px rgba(2, 68, 2, 0.06);
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                align-items: center;
+                font-family: "Segoe UI", Roboto, Arial, sans-serif;
+                color: #024402;
+            }
+
+            .styled-container h1 {
+                grid-column: 1 / -1;
+                margin: 0 0 6px;
+                text-align: center;
+                font-size: 1.15rem;
+                letter-spacing: 0.4px;
+            }
+
+            .field {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            label {
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+
+            select,
+            input[type="number"] {
+                width: 100%;
+                padding: 2px 10px;
+                border-radius: 8px;
+                border: 1px solid #cfe6cf;
+                background: #fff;
+                box-sizing: border-box;
+                transition: box-shadow .15s ease, transform .08s ease;
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            #potencia {
+                width: 100%;
+                max-width: 420px;
+                padding: 8px 12px;
+                font-size: 1rem;
+                border-radius: 8px;
+                border: 1px solid #cfe6cf;
+                background: #fff;
+                box-sizing: border-box;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+                transition: box-shadow .15s ease, transform .08s ease;
+            }
+
+            #potencia:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(2, 68, 2, 0.06);
+                transform: translateY(-1px);
+            }
+
+            /* placeholder color */
+            #potencia::placeholder {
+                color: #9bb79b;
+            }
+
+            /* remove number input spinners for WebKit */
+            #potencia::-webkit-outer-spin-button,
+            #potencia::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* remove spinners for Firefox */
+            /* #potencia[type="number"] {
+                -moz-appearance: textfield;
+            } */
+
+            select:focus,
+            input[type="number"]:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(2, 68, 2, 0.06);
+                transform: translateY(-1px);
+            }
+
+            #botaoCalcular {
+                grid-column: 1 / -1;
+                justify-self: center;
+                padding: 10px 20px;
+                border-radius: 10px;
+                border: #34335c solid 2px;
+                background-color: rgb(2, 68, 2);
+                color: #fff;
+                font-weight: 700;
+                cursor: pointer;
+                margin-top: 6px;
+            }
+
+            #botaoCalcular:hover {
+
+                background-color: red;
+            }
+
+            .result {
+                grid-column: 1 / -1;
+                margin-top: 20px;
+                background: #e9f5ff;
+                padding: 15px;
+                border-radius: 6px;
+                color: #022;
+                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+                min-height: 48px;
+                text-align: left;
+
+                font-size: 1rem;
+            }
+
+            @media (max-width: 640px) {
+                .styled-container {
+                    grid-template-columns: 1fr;
+                    padding: 14px;
+                }
+            }
+        </style>
+
+        <div class="styled-container">
+            <h1>Definição de Referência Aterramento</h1>
+
+            <div class="field" style="grid-column: 1 / -1; justify-self: center;">
+                <label for="tipo">Tipo de Aterramento:</label>
+                <select id="tipo" style="width: 100%; max-width: 320px; margin: 2 auto; display: block; text-align: center;">
+                    <option value="reator">Reator de aterramento</option>
+                    <option value="zigzag">Transformador zig-zag</option>
+                    <option value="estrela">Transformador estrela-aterrado</option>
+                </select>
+            </div>
+
+            <!-- <div class="field">
+                <label for="tensao">Nível de tensão:</label>
+                <select id="tensao">
+                    <option value="13.8">13,8 kV</option>
+                    <option value="22">22 kV</option>
+                    <option value="34.5">34,5 kV</option>
+                </select>
+            </div> -->
+
+            <div class="field" style="grid-column: 1 / -1;">
+                <label for="potencia">Potência Transformador de acoplamento (kVA):</label>
+                <input type="number" id="potencia" placeholder="Ex: 1500" />
+            </div>
+
+            <button id="botaoCalcular" onclick="calcular()">Calcular</button>
+
+            <div class="result" id="resultado"></div>
+        </div>
+
+        <script>
+            const tabelas = {
+                reator: {
+                    "13.8": [
+                        { max: 300, x: "Não se aplica", i1: "Não se aplica", i2: "Não se aplica" },
+                        { max: 500, x: 50.8, i1: 6.3, i2: 126 },
+                        { max: 1000, x: 25.4, i1: 12.6, i2: 251 },
+                        { max: 2000, x: 12.7, i1: 25.1, i2: 502 },
+                        { max: 3000, x: 8.5, i1: 37.7, i2: 753 },
+                        { max: 4000, x: 7.1, i1: 50.2, i2: 1004 },
+                        { max: 5000, x: 5.7, i1: 62.8, i2: 1255 }
+                    ],
+                    "22": [
+                        { max: 300, x: "Não se aplica", i1: "Não se aplica", i2: "Não se aplica" },
+                        { max: 500, x: 129.1, i1: 3.9, i2: 79 },
+                        { max: 1000, x: 64.5, i1: 7.9, i2: 157 },
+                        { max: 2000, x: 33.3, i1: 15.7, i2: 315 },
+                        { max: 3000, x: 21.5, i1: 23.6, i2: 472 },
+                        { max: 4000, x: 18.2, i1: 31.5, i2: 630 },
+                        { max: 5000, x: 14.5, i1: 39.4, i2: 787 }
+                    ],
+                    "34.5": [
+                        { max: 300, x: "Não se aplica", i1: "Não se aplica", i2: "Não se aplica" },
+                        { max: 500, x: 317.4, i1: 2.5, i2: 50 },
+                        { max: 1000, x: 158.7, i1: 5.0, i2: 100 },
+                        { max: 2000, x: 79.4, i1: 10.0, i2: 201 },
+                        { max: 3000, x: 52.9, i1: 15.1, i2: 301 },
+                        { max: 4000, x: 44.6, i1: 20.1, i2: 402 },
+                        { max: 5000, x: 35.7, i1: 25.1, i2: 502 }
+                    ]
+                },
+                zigzag: {
+                    "13.8": [
+                        { max: 300, x: "Não se aplica", ifase1: "Não se aplica", ineutro1: "Não se aplica", ifase2: "Não se aplica", ineutro2: "Não se aplica" },
+                        { max: 500, x: 171.4, ifase1: 2.1, ineutro1: 6.3, ifase2: 42, ineutro2: 126 },
+                        { max: 1000, x: 85.7, ifase1: 4.2, ineutro1: 12.6, ifase2: 84, ineutro2: 251 },
+                        { max: 2000, x: 42.8, ifase1: 8.4, ineutro1: 25.1, ifase2: 167, ineutro2: 502 },
+                        { max: 3000, x: 28.6, ifase1: 12.6, ineutro1: 37.7, ifase2: 251, ineutro2: 753 },
+                        { max: 4000, x: 23.8, ifase1: 16.7, ineutro1: 50.2, ifase2: 335, ineutro2: 1004 },
+                        { max: 5000, x: 19.0, ifase1: 20.9, ineutro1: 62.8, ifase2: 418, ineutro2: 1255 }
+                    ],
+                    "22": [
+                        { max: 300, x: "Não se aplica", ifase1: "Não se aplica", ineutro1: "Não se aplica", ifase2: "Não se aplica", ineutro2: "Não se aplica" },
+                        { max: 500, x: 435.6, ifase1: 1.3, ineutro1: 3.9, ifase2: 26, ineutro2: 79 },
+                        { max: 1000, x: 217.8, ifase1: 2.6, ineutro1: 7.9, ifase2: 52, ineutro2: 157 },
+                        { max: 2000, x: 108.9, ifase1: 5.2, ineutro1: 15.7, ifase2: 105, ineutro2: 315 },
+                        { max: 3000, x: 72.6, ifase1: 7.9, ineutro1: 23.6, ifase2: 157, ineutro2: 472 },
+                        { max: 4000, x: 60.5, ifase1: 10.5, ineutro1: 31.5, ifase2: 210, ineutro2: 630 },
+                        { max: 5000, x: 48.4, ifase1: 13.1, ineutro1: 39.4, ifase2: 262, ineutro2: 787 }
+                    ],
+                    "34.5": [
+                        { max: 300, x: "Não se aplica", ifase1: "Não se aplica", ineutro1: "Não se aplica", ifase2: "Não se aplica", ineutro2: "Não se aplica" },
+                        { max: 500, x: 1071.2, ifase1: 0.8, ineutro1: 2.5, ifase2: 17, ineutro2: 50 },
+                        { max: 1000, x: 535.6, ifase1: 1.7, ineutro1: 5.0, ifase2: 33, ineutro2: 100 },
+                        { max: 2000, x: 267.8, ifase1: 3.3, ineutro1: 10.0, ifase2: 67, ineutro2: 201 },
+                        { max: 3000, x: 178.5, ifase1: 5.0, ineutro1: 15.1, ifase2: 100, ineutro2: 301 },
+                        { max: 4000, x: 148.8, ifase1: 6.7, ineutro1: 20.1, ifase2: 134, ineutro2: 402 },
+                        { max: 5000, x: 119.0, ifase1: 8.4, ineutro1: 25.1, ifase2: 167, ineutro2: 502 }
+                    ]
+                },
+                estrela: {
+                    "13.8": [
+                        { max: 300, ptrafo: "Não se aplica", x: "Não se aplica", ifase1: "Não se aplica", ineutro1: "Não se aplica", ifase2: "Não se aplica", ineutro2: "Não se aplica" },
+                        { max: 500, ptrafo: 50, x: "4.5%", ifase1: 2.1, ineutro1: 6.3, ifase2: 52, ineutro2: 157 },
+                        { max: 1000, ptrafo: 100, x: "4.5%", ifase1: 4.2, ineutro1: 12.6, ifase2: 105, ineutro2: 314 },
+                        { max: 2000, ptrafo: 200, x: "4.5%", ifase1: 8.4, ineutro1: 25.1, ifase2: 209, ineutro2: 628 },
+                        { max: 3000, ptrafo: 300, x: "4.5%", ifase1: 12.6, ineutro1: 37.7, ifase2: 314, ineutro2: 941 },
+                        { max: 4000, ptrafo: 400, x: "5.0%", ifase1: 16.7, ineutro1: 50.2, ifase2: 418, ineutro2: 1255 },
+                        { max: 5000, ptrafo: 500, x: "5.0%", ifase1: 20.9, ineutro1: 62.8, ifase2: 523, ineutro2: 1569 }
+                    ],
+                    "22": [
+                        { max: 300, ptrafo: "Não se aplica", x: "Não se aplica", ifase1: "Não se aplica", ineutro1: "Não se aplica", ifase2: "Não se aplica", ineutro2: "Não se aplica" },
+                        { max: 500, ptrafo: 50, x: "4.5%", ifase1: 1.3, ineutro1: 3.9, ifase2: 33, ineutro2: 98 },
+                        { max: 1000, ptrafo: 100, x: "4.5%", ifase1: 2.6, ineutro1: 7.9, ifase2: 66, ineutro2: 197 },
+                        { max: 2000, ptrafo: 200, x: "4.5%", ifase1: 5.2, ineutro1: 15.7, ifase2: 131, ineutro2: 394 },
+                        { max: 3000, ptrafo: 300, x: "4.5%", ifase1: 7.9, ineutro1: 23.6, ifase2: 197, ineutro2: 590 },
+                        { max: 4000, ptrafo: 400, x: "5.0%", ifase1: 10.5, ineutro1: 31.5, ifase2: 262, ineutro2: 787 },
+                        { max: 5000, ptrafo: 500, x: "5.0%", ifase1: 13.1, ineutro1: 39.4, ifase2: 328, ineutro2: 984 }
+
+                    ],
+                    "34.5": [
+                        { max: 300, ptrafo: "Não se aplica", x: "Não se aplica", ifase1: "Não se aplica", ineutro1: "Não se aplica", ifase2: "Não se aplica", ineutro2: "Não se aplica" },
+                        { max: 500, ptrafo: 50, x: "4.5%", ifase1: 0.8, ineutro1: 2.5, ifase2: 21, ineutro2: 63 },
+                        { max: 1000, ptrafo: 100, x: "4.5%", ifase1: 1.7, ineutro1: 5.0, ifase2: 42, ineutro2: 126 },
+                        { max: 2000, ptrafo: 200, x: "4.5%", ifase1: 3.3, ineutro1: 10.0, ifase2: 84, ineutro2: 251 },
+                        { max: 3000, ptrafo: 300, x: "4.5%", ifase1: 5.0, ineutro1: 15.1, ifase2: 126, ineutro2: 377 },
+                        { max: 4000, ptrafo: 400, x: "5.0%", ifase1: 6.7, ineutro1: 20.1, ifase2: 167, ineutro2: 502 },
+                        { max: 5000, ptrafo: 500, x: "5.0%", ifase1: 8.4, ineutro1: 25.1, ifase2: 209, ineutro2: 628 }
+                    ]
+                }
+            };
+
+            function calcular() {
+                const tipo = document.getElementById("tipo").value;
+                // const tensao = document.getElementById("tensao").value;
+                
+                const tensao = parseFloat(localStorage.getItem("tensaoSelecionada"));
+                console.log("Tensão selecionada:", tensao);
+                const potencia = parseFloat(document.getElementById("potencia").value);
+                const resultado = document.getElementById("resultado");
+
+                if (isNaN(potencia)) {
+                    resultado.innerHTML = "<strong>Informe uma potência válida.</strong>";
+                    return;
+                }
+
+                const dados = tabelas[tipo][tensao];
+                for (let d of dados) {
+                    if (potencia <= d.max) {
+                        if (tipo === "reator") {
+                            resultado.innerHTML = `
+              <strong>Reator de aterramento (${tensao} kV):</strong><br>
+              Xreator: ${d.x} Ω<br>
+              Ineutro (regime permanente): ${d.i1} A<br>
+              Ineutro (curta duração 10s): ${d.i2} A
+            `;
+                        } else if (tipo === "zigzag") {
+                            resultado.innerHTML = `
+              <strong>Transformador zig-zag (${tensao} kV):</strong><br>
+              Xtrafo: ${d.x} Ω<br>
+              Ifase (regime permanente): ${d.ifase1} A<br>
+              Ineutro (regime permanente): ${d.ineutro1} A<br>
+              Ifase (curta duração 10s): ${d.ifase2} A<br>
+              Ineutro (curta duração 10s): ${d.ineutro2} A
+            `;
+                        } else if (tipo === "estrela") {
+                            resultado.innerHTML = `
+              <strong>Transformador estrela-aterrado (${tensao} kV):</strong><br>
+              Potência do trafo de aterramento: ${d.ptrafo} kVA<br>
+              Xtrafo: ${d.x}<br>
+              Ifase (regime permanente): ${d.ifase1} A<br>
+              Ineutro (regime permanente): ${d.ineutro1} A<br>
+              Ifase (curta duração 2s): ${d.ifase2} A<br>
+              Ineutro (curta duração 2s): ${d.ineutro2} A
+            `;
+                        }
+                        return;
+                    }
+                }
+
+                resultado.innerHTML = "<strong>Faixa de potência não encontrada na tabela.</strong>";
+            }
+
+            document.getElementById("potencia").addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    calcular();
+                }
+            });
+        </script>
+
+
+        <script src="ajustereator.js"></script>
+</body>
+
+</html>

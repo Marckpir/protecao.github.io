@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
+    <style>
+        /* Oculta botões restritos por padrão */
+        #botaoconfightml:not(.btn-permitido),
+        #botaoajustesGDhtml:not(.btn-permitido),
+        #botaotabelaGDhtml:not(.btn-permitido),
+        #botaoestudosGDhtml:not(.btn-permitido),
+        #botaoanalisehtml:not(.btn-permitido) {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        /* Força exibição dos botões permitidos - com especificidade máxima */
+        #botaoconfightml.btn-permitido,
+        #botaodiagramahtml.btn-permitido,
+        #botaoparametrohtml.btn-permitido,
+        #botaotrafohtml.btn-permitido,
+        #botaotptchtml.btn-permitido,
+        #botaoajustehtml.btn-permitido,
+        #botaotabelarelehtml.btn-permitido,
+        #botaoestudoshtml.btn-permitido,
+        #botaoajustesGDhtml.btn-permitido,
+        #botaotabelaGDhtml.btn-permitido,
+        #botaoestudosGDhtml.btn-permitido,
+        #botaoanalisehtml.btn-permitido,
+        #botaosairhtml.btn-permitido {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        
+        /* Força ocultação dos botões bloqueados */
+        h1 button.btn-bloqueado {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
+        h1.loaded { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="analise.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <title>ESTUDOS</title>
+    <script src="controle-acesso.js"></script>
+
+
+
+
+
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span id="titulodapagina"
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <h1>
+
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
+
+    </h1>
+    <br>
+    <div style="display: flex; justify-content: center; margin-top: 24px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Parâmetros</th>
+                    <th>Valores</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Matrícula:</td>
+                    <td style="border: 1px solid #ccc; padding: 1px;">
+                        <input id="matricula" style="width: 250px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>NS:</td>
+                    <td style="border: 1px solid #ccc; padding: 1px;">
+                        <input id="numeroNS" style="width: 250px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo de análise</td>
+                    <td id="tipo-analise-dimensionado-html">
+
+                        <select id="nota4-select" style="padding: 4px; font-size: 1em; min-width: 260px;">
+                            <option value=""></option>
+                            <option value="COORDENOGRAMA">COORDENOGRAMA</option>
+                            <option value="SUBESTAÇÃO-N°01">SUBESTAÇÃO-N°01</option>
+                            <option value="SUBESTAÇÃO-N°02">SUBESTAÇÃO-N°02</option>
+                            <option value="SUBESTAÇÃO-N°03">SUBESTAÇÃO-N°03</option>
+                            <option value="SUBESTAÇÃO-N°04">SUBESTAÇÃO-N°04</option>
+                            <option value="SUBESTAÇÃO-N°05">SUBESTAÇÃO-N°05</option>
+                            <option value="SUBESTAÇÃO-N°06">SUBESTAÇÃO-N°06</option>
+                            <option value="SUBESTAÇÃO-N°07">SUBESTAÇÃO-N°07</option>
+                            <option value="SUBESTAÇÃO-N°08">SUBESTAÇÃO-N°08</option>
+                        </select>
+                    </td>
+                </tr>
+
+
+
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+    <div class="search-container">
+        <h2>Pesquisar RTs</h2>
+        <input type="text" id="searchInput" placeholder="Digite o nome..." disabled>
+        <button id="searchBtn" disabled>Pesquisar</button>
+        <div class="results" id="results"></div>
+    </div>
+
+    <br>
+    <div style="background: #fff; padding: 16px; border-radius: 8px; max-width: 700px; margin: 0 auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 1.1em; background: #fff; color: #000;">
+            <tr>
+                <th colspan="2" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 1:
+                </th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">TENSÃO DE ATENDIMENTO:
+                </td>
+                <td id="tensao-atendimento"
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;"></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">DEMANDA DE CONSUMO:
+                </td>
+                <td id="demanda-consumo" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">
+                </td>
+            </tr>
+            <tr id="campoGD">
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">POTÊNCIA GD:</td>
+                <td id="potencia-GD" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;"></td>
+            </tr>
+            <tr id="campogeradordiesel">
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">POTÊNCIA GERADOR A
+                    DIESEL:</td>
+                <td id="potencia-gerador" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 2:</td>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">PROJETO EM CONFORMIDADE
+                    COM NORMAS CEMIG;</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 3:</td>
+                <td id="nsedata" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">PROJETO NS
+                    1179571152/2025;</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 4:</td>
+                <td id="nota4" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">TRATA-SE DE
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 5:</td>
+                <td id="nota5" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">POTÊNCIA
+                    <span id="total-transformadores"></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 6:</td>
+                <td style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">COPIA DO CLIENTE FOI
+                    ANEXADA NO APR WEB.</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <br><br>
+
+    <div style="background: #fff; padding: 16px; border-radius: 8px; max-width: 500px; margin: 0 auto;">
+        <table
+            style="width: 100%; margin: 24px auto; border-collapse: collapse; font-size: 1em; background: #fff; color: #000; border: 2.5px solid #000;">
+            <tr>
+                <td rowspan="2"
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; text-align: center; vertical-align: middle; height: 55px;">
+                    <img src="logo/logocemig.png" alt="Logo CEMIG"
+                        style="max-width: 90px; max-height: 60px; display: block; margin: 0 auto;">
+                </td>
+                <td
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; border: 2.5px solid #000; height: 55px; text-align: center; vertical-align: middle;">
+                    ANÁLISE DE CONFORMIDADE
+                    COM AS NORMAS DA CEMIG E ABNT
+                </td>
+            </tr>
+            <tr>
+                <td id="nsselo" rowspan="2"
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; border: 2.5px solid #000; height: 30px; font-size: 1.5em; font-weight: bold;">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1"
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; border: 2.5px solid #000;">
+                    Nota de
+                    Serviço Nº:</td>
+            </tr>
+            <tr>
+                <td colspan="2"
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; border: 2.5px solid #000;">
+                    <div
+                        style="background: #b6fcb6; border-radius: 8px; padding: 2px 0; text-align: center; margin: 0 auto; width: 60%; border: 2px solid #2e8b57;">
+                        <span
+                            style="font-weight: bold; font-style: italic; font-size: 1.7em; letter-spacing: 1px; display: block; padding: 0 25px; text-align: left;">APROVADO</span>
+                        <span id="aprovadorselo">Por c057514 às 15:22, 03/08/2025</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"
+                    style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; text-align: justify; border: 2.5px solid #000;">
+                    - Antes de solicitar a ligação, esta instalação deve ser submetida a uma vistoria pela CEMIG.<br>
+                    - Esta análise não isenta o responsável técnico da obra quanto à observância das normas CEMIG, ABNT
+                    e AMBIENTAIS.<br>
+                    - Caso não seja executado no prazo de 12 meses, este projeto deverá ser submetido novamente à CEMIG
+                    para análise.<br>
+                    - Excepcionalmente nos atendimentos com obras no sistema da CEMIG para conexão de cargas ou de usina
+                    geradora, a validade do projeto elétrico aprovado pela CEMIG será até o término da obra.<br>
+                    - A ligação ao sistema elétrico da CEMIG está condicionada à análise de viabilidade técnica e
+                    comercial, podendo haver custos ao interessado.<br>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br><br>
+
+
+
+
+
+
+    <br><br>
+
+    <h1>CARTA DE EMAIL</h1>
+
+    <div style="background: #fff; padding: 12px; border-radius: 8px; max-width: 700px; margin: 0 auto;">
+        <h2 id="assuntoemail"></h2>
+    </div>
+    <br><br>
+
+    <div id="email-container" class="container" style="text-align: justify;">
+        <p><span id="saudacao">Boa tarde</span>, <span id="contato-nome"></span> (<span id="email-texto"></span>).</p>
+        <p>
+            Durante a análise da(s) NS(s) <span id="numero-ns">1140348899, 1140348816, 1140349051</span>, foram
+            identificados alguns itens necessários para alteração na solicitação para que a aprovação seja concluída.
+            Segue
+            itens de correção à serem observados:
+        </p>
+
+        <div class="editable-section" id="projeto-eletrico">
+            <div class="section-title"></div>
+            <div class="item-row">
+                <div class="item-number">1)</div>
+                <textarea>Exemplo de texto: Foi verificado no projeto elétrico aprovado que o transformador de corrente informado é de 150:5A, contudo, no estudo de proteção foi informado um TC de 200:5A;</textarea>
+            </div>
+        </div>
+
+        <p>
+            Para auxílio na elaboração da documentação, o responsável técnico poderá consultar o material
+            disponibilizado pela Cemig:
+        </p>
+        <ul>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2023/05/Cartilha-Tecnica-%E2%80%93-Modelo-de-estudo-de-coordenograma-para-solicitacao-de-injecao-de-potencia-MT-%E2%80%93-Geracao-Distribuida-rev2-1.pdf"
+                    target="_blank">Cartilha Técnica – Modelo de estudo de coordenograma para solicitação de injeção de
+                    potência MT – Geração Distribuída.</a></li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2024/04/CARTILHA-MODELO-PROJETO-GD.pdf"
+                    target="_blank">Cartilha Técnica – Modelo de projetos em média tensão – Geração Distribuída.</a>
+            </li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2023/09/nd5_3_000001p.pdf" target="_blank">ND.5.3 –
+                    Fornecimento de energia elétrica em média tensão – Rede de distribuição aérea ou subterrânea.</a>
+            </li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2024/07/ND_5.31_Conexao-em-MT-.pdf"
+                    target="_blank">ND.5.31 – Requisitos para conexão de acessantes produtores de energia elétrica ao
+                    sistema de distribuição da Cemig D – Média Tensão.</a></li>
+            <li><a href="https://www.cemig.com.br/wp-content/uploads/2024/12/nd5_2_000001p.docx.pdf" target="_blank">
+                    ND.5.2 – Fornecimento de energia elétrica em tensão secundária – Rede de distribuição aérea –
+                    edificações coletivas.</a></li>
+        </ul>
+
+        <p style="color: red; font-weight: bold;">
+            Informamos que tabelas, gráficos, cálculos, dimensionamentos e demais modelos de estudos que venham a ser
+            encaminhados nesse
+            email, são apenas para
+            auxílio na elaboração do projeto/estudos de proteção e coordenação. O Responsável Técnico deverá analisar e
+            validar todas as informações
+            conforme necessidades da conexão do empreendimento antes de encaminhar o projeto/estudos para aprovação na
+            CEMIG!
+        </p>
+        <p style="font-weight: bold; color: #000;">
+            Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança!
+        </p>
+        <p>
+            Informamos que, caso necessário, esse e-mail se encontra disponível para resoluções de dúvidas relacionadas
+            à nota de serviço em questão.
+        </p>
+        <p>
+            Pedimos que se possível, informar telefone e e-mail de contato atualizado do responsável técnico.
+        </p>
+        <p>
+            Informamos que o prazo limite para as alterações solicitadas é de 24 horas. Para que haja liberação do
+            projeto elétrico aprovado, após alterações efetuadas no mesmo, favor anexar os novos arquivos diretamente no
+            APRWEB. Salientamos a importância de que essas alterações sejam feitas de forma imediata.
+        </p>
+
+        <div class="footer">
+            Att.<br>
+            Núcleo Técnico<br>
+            Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM<br>
+            <a href="https://www.cemig.com.br" target="_blank">www.cemig.com.br</a>
+        </div>
+
+        <div class="action-panel">
+            <button onclick="adicionarItem()">Add item</button>
+            <button class="delete-button" onclick="removerUltimoItem()">Delete</button>
+        </div>
+    </div>
+    <br><br>
+
+
+
+    <div id="nota-operacao"
+        style="background: #fff; color: #000; padding: 8px; border-radius: 4px; text-align: center; max-width: 250px; margin: 0 auto;">
+        <span>NOTA PARA OPERAÇÃO</span>
+    </div>
+
+    <br><br>
+
+    <div
+        style="background: #fff; padding: 16px; border-radius: 8px; max-width: 400px; margin: 0 auto; margin-bottom: 32px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 1em; background: #fff; color: #000;">
+            <!-- Lista de IDs presentes nesta tabela:
+                in-operacao
+                alimentador-operacao
+                tensao-operacao
+                ip51-operacao
+                curva-operacao
+                dial-operacao
+                iinst50-operacao
+                tinst-operacao
+                ip51n-operacao
+                tempodefinido-operacao
+                iinst50n-operacao
+                tinstn-operacao
+            -->
+            <tr>
+                <th colspan="2"
+                    style="border-bottom: 2px solid #ccc; padding-bottom: 8px; text-align: left; background: #fff; color: #000;">
+                    NOTA PARA OPERAÇÃO</th>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">IN:</td>
+                <td id="in-operacao" style="padding: 6px; background: #fff; color: #000;">3009007177</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Alimentador:</td>
+                <td id="alimentador-operacao" style="padding: 6px; background: #fff; color: #000;">JFAU18</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Tensão:</td>
+                <td id="tensao-operacao" style="padding: 6px; background: #fff; color: #000;">22,00 KV</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Ip 51:</td>
+                <td id="ip51-operacao" style="padding: 6px; background: #fff; color: #000;">47,92 A</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Curva:</td>
+                <td id="curva-operacao" style="padding: 6px; background: #fff; color: #000;">IEC-E.I</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Dial:</td>
+                <td id="dial-operacao" style="padding: 6px; background: #fff; color: #000;">0,40 s</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">I inst 50:</td>
+                <td id="iinst50-operacao" style="padding: 6px; background: #fff; color: #000;">248,00 A</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">T inst:</td>
+                <td id="tinst-operacao" style="padding: 6px; background: #fff; color: #000;">0,04 s</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Ip 51N:</td>
+                <td id="ip51n-operacao" style="padding: 6px; background: #fff; color: #000;">15,81 A</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">Tempo definido:</td>
+                <td id="tempodefinido-operacao" style="padding: 6px; background: #fff; color: #000;">2,00 s</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">I inst 50N:</td>
+                <td id="iinst50n-operacao" style="padding: 6px; background: #fff; color: #000;">81,84 A</td>
+            </tr>
+            <tr>
+                <td style="padding: 6px; background: #fff; color: #000;">T inst:</td>
+                <td id="tinstn-operacao" style="padding: 6px; background: #fff; color: #000;">0,04 s</td>
+            </tr>
+        </table>
+    </div>
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+
+
+
+
+
+    <script src="analise.js"></script>
+</body>
+
+</html>

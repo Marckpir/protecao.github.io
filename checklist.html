@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lembretes Inteligentes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #e3e9f0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      transition: border 0.2s ease-in-out;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0078d7;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #0078d7;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    .lembrete {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .lembrete label {
+      flex: 1;
+      margin-left: 8px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .lembrete span {
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      margin-left: 10px;
+      white-space: nowrap;
+    }
+
+    .em-andamento {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .concluido {
+      background-color: #d4edda;
+      color: #155724;
+      text-decoration: line-through;
+    }
+
+    .checkbox {
+      transform: scale(1.2);
+    }
+
+    .excluir {
+      background: none;
+      border: none;
+      color: #d32f2f;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .excluir:hover {
+      color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+    
+  <div class="container">
+    <h2>✅ Lembretes</h2>
+    <input type="text" id="novoLembrete" placeholder="Digite um novo lembrete..." />
+    <button onclick="adicionarLembrete()">Adicionar</button>
+    <div id="lista" style="margin-top: 20px;"></div>
+  </div>
+
+  <script>
+    let lembretes = JSON.parse(localStorage.getItem("lembretes") || "[]");
+
+    function salvarLembretes() {
+      localStorage.setItem("lembretes", JSON.stringify(lembretes));
+    }
+
+    function renderizarLembretes() {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      lembretes.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "lembrete";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "checkbox";
+        checkbox.checked = item.concluido;
+
+        const label = document.createElement("label");
+        label.textContent = item.texto;
+        label.style.textDecoration = item.concluido ? "line-through" : "none";
+
+        const status = document.createElement("span");
+        status.textContent = item.concluido ? "Concluído" : "Em andamento";
+        status.className = item.concluido ? "concluido" : "em-andamento";
+
+        const btnExcluir = document.createElement("button");
+        btnExcluir.innerHTML = "🗑️";
+        btnExcluir.className = "excluir";
+        btnExcluir.title = "Excluir lembrete";
+        btnExcluir.onclick = function () {
+          lembretes.splice(index, 1);
+          salvarLembretes();
+          renderizarLembretes();
+        };
+
+        checkbox.onchange = function () {
+          item.concluido = checkbox.checked;
+          salvarLembretes();
+          renderizarLembretes();
+        };
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        div.appendChild(status);
+        div.appendChild(btnExcluir);
+        lista.appendChild(div);
+      });
+    }
+
+    function adicionarLembrete() {
+      const input = document.getElementById("novoLembrete");
+      const texto = input.value.trim();
+      if (!texto) return;
+
+      lembretes.push({ texto, concluido: false });
+      salvarLembretes();
+      renderizarLembretes();
+      input.value = "";
+    }
+
+    renderizarLembretes();
+    document.getElementById("novoLembrete").addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    adicionarLembrete();
+  }
+});
+  </script>
+</body>
+</html>

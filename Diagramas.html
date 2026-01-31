@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
+    <style>
+        /* Oculta botões restritos por padrão */
+        #botaoconfightml:not(.btn-permitido),
+        #botaoajustesGDhtml:not(.btn-permitido),
+        #botaotabelaGDhtml:not(.btn-permitido),
+        #botaoestudosGDhtml:not(.btn-permitido),
+        #botaoanalisehtml:not(.btn-permitido) {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        /* Força exibição dos botões permitidos - com especificidade máxima */
+        #botaoconfightml.btn-permitido,
+        #botaodiagramahtml.btn-permitido,
+        #botaoparametrohtml.btn-permitido,
+        #botaotrafohtml.btn-permitido,
+        #botaotptchtml.btn-permitido,
+        #botaoajustehtml.btn-permitido,
+        #botaotabelarelehtml.btn-permitido,
+        #botaoestudoshtml.btn-permitido,
+        #botaoajustesGDhtml.btn-permitido,
+        #botaotabelaGDhtml.btn-permitido,
+        #botaoestudosGDhtml.btn-permitido,
+        #botaoanalisehtml.btn-permitido,
+        #botaosairhtml.btn-permitido {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        
+        /* Força ocultação dos botões bloqueados */
+        h1 button.btn-bloqueado {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
+        h1.loaded { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="Diagramas.css" type="text/css">
+    <title>PROTECAO</title>
+    <script src="controle-acesso.js"></script>
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);;">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <div id="botoesdoheader"
+        style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 0px;">
+        <h1>
+
+            <button id="botaoconfightml" class="dark-mode-toggle"
+                onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+            <button id="botaodiagramahtml" class="dark-mode-toggle"
+                onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+            <button id="botaoparametrohtml" class="dark-mode-toggle"
+                onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+            <button id="botaotrafohtml" class="dark-mode-toggle"
+                onclick="window.location.href='transformadores.html';">TRAFOS</button>
+            <button id="botaotptchtml" class="dark-mode-toggle"
+                onclick="window.location.href='TP-TC.html';">TP/TC</button>
+            <button id="botaoajustehtml" class="dark-mode-toggle"
+                onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+            <button id="botaotabelarelehtml" class="dark-mode-toggle"
+                onclick="window.location.href='tabelarele.html';">TABELA</button>
+            <button id="botaoestudoshtml" class="dark-mode-toggle"
+                onclick="window.location.href='estudos.html';">ESTUDOS</button>
+            <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+                onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+            <button id="botaotabelaGDhtml" class="dark-mode-toggle"
+                onclick="window.location.href='tabelaGD.html';">TABELA
+                GD</button>
+            <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+                onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+            <button id="botaoanalisehtml" class="dark-mode-toggle"
+                onclick="window.location.href='analise.html';">ANÁLISE</button>
+            <button id="botaosairhtml" class="dark-mode-toggle"
+                onclick="window.location.href='index.html';">HOME</button>
+
+        </h1>
+    </div>
+    <br>
+
+    <div id="labelDiagrama" style="padding: 0px; margin: 16px 0;">
+        <label for="tipoDiagrama" style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">
+            Selecione o tipo de diagrama:
+        </label>
+    </div>
+
+    <div id="containerSelect"
+        style="padding: 5px; margin: 5px auto; display: flex; justify-content: center; align-items: center; text-align: left;">
+        <select id="tipoDiagrama" name="tipoDiagrama"
+            style="width: 50%; min-width: 300px; max-width: 800px; height: 40px; padding: 8px 12px; font-size: 0.96em; border-radius: 6px; border: 1px solid #024402; background: #f6fff6; color: #024402; font-weight: bold; appearance: auto; text-align: left; text-align-last: left;">
+            <option value="" disabled selected>-- Selecione um diagrama --</option>
+            <option value="DiagramaImagem">Subestação N°01/N°06 sem Gerador</option>
+            <option value="DiagramaImagem2">Subestação N°01/N°06 com Gerador de Emergência</option>
+            <option value="DiagramaImagem3">Subestação N°01/N°06 com Paralelismo Momentâneo</option>
+            <option value="DiagramaImagem4">Subestação N°01/N°06 com Paralelismo Permanente com Inversor</option>
+            <option value="DiagramaImagem5">Subestação N°01/N°06 com Paralelismo Permanente sem Inversor</option>
+            <option value="DiagramaImagem6">Subestação N°05/N°08 sem Gerador</option>
+            <option value="DiagramaImagem7">Subestação N°05/N°08 com Gerador de Emergência</option>
+            <option value="DiagramaImagem8">Subestação N°05/N°08 com Paralelismo Momentâneo</option>
+            <option value="DiagramaImagem9">Subestação N°05/N°08 com Paralelismo Permanente com Inversor</option>
+            <option value="DiagramaImagem10">Subestação N°05/N°08 com Paralelismo Permanente sem Inversor</option>
+            <option value="DiagramaImagem11">Subestação N°02/N°04 sem Gerador</option>
+            <option value="DiagramaImagem12">Subestação N°02/N°04 com Gerador de Emergência</option>
+            <option value="DiagramaImagem13">Subestação N°02/N°04 com Paralelismo Momentâneo</option>
+            <option value="DiagramaImagem14">Subestação N°02/N°04 com Paralelismo Permanente com Inversor</option>
+            <option value="DiagramaImagem15">Subestação N°02/N°04 com Paralelismo Permanente sem Inversor</option>
+
+
+        </select>
+    </div>
+
+
+
+
+
+    <!-- <div id="containerSelect" style="padding: 5px; margin: 5px 5px; display: flex; justify-content: center; align-items: center;">
+<select id="tipoDiagrama" name="tipoDiagrama" style="text-align: left; text-align-last: left; width: 70%; border-radius: 12px; padding: 0px; padding: 0px 12px; font-size: 0.96em; border-radius: 6px; border: 1px solid #024402; background: #f6fff6; color: #024402; font-weight: bold;">
+    <option value="SE_N1N6_SEM_GERADOR">Subestação N°01/N°06 sem Gerador</option>
+    <option value="SE_N1N6_G_EMERG">1-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO</option>
+    <option value="SE_N1N6_G_MOMENT">2-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 EXTERNA PARA PROTEÇÃO DO GERADOR</option>
+    <option value="SE_N1N6_G_PERM_COM_INVERS">3-CONEXÃO COM FUNÇÃO 50/51, 50/51N E 32 INTERNA AO PAINEL DE INTERFACE PARA PROTEÇÃO DE GERADOR A DIESEL</option>
+    <option value="SE_N1N6_G_PERM_SEM_INVERS">4-CONEXÃO COM FUNÇÃO 50/51, 50/51N SEM GERADOR EM PARALELISMO BAIXA TENSÃO</option>
+    <option value="SE_N1N6_G_BAIXA_TENS">5-CONEXÃO COM FUNÇÃO 32 COM GERADOR EM PARALELISMO BAIXA TENSÃO</option>
+    <option value="reserva">reserva</option>
+    <option value="reserva">reserva</option>
+    <option value="reserva">reserva</option>
+</select>
+</div> -->
+
+    <!-- <div id="diagramaContainer" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <img id="diagramaImagem" src="Diagramas_unifilares/SE_N1N6_G_EMERG.png"
+            alt="Diagrama 1" style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        <img id="diagramaImagem2" src="Diagramas_unifilares/Diagrama_unifilar2-50-51-32-externa.png"
+            alt="Diagrama 2" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+        <img id="diagramaImagem3" src="Diagramas_unifilares/Diagrama_unifilar3-50-51-32-interna.png"
+            alt="Diagrama 3" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+        <img id="diagramaImagem4" src="Diagramas_unifilares/Diagrama_unifilar4-50-51-BT.png"
+            alt="Diagrama 4" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+        <img id="diagramaImagem5" src="Diagramas_unifilares/Diagrama_unifilar5-32-BT.png"
+            alt="Diagrama 5" style="max-width: 100%; height: auto; border-radius: 16px; display: none;">
+    </div> -->
+    <div id="diagramaContainer" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+
+        <div id="DiagramaImagem" style="display: none; align-items: center; justify-content: center;">
+            <img src="Diagramas_unifilares/SE_N1N6_SEM_GERADOR.png" alt="Diagrama 1"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem2" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N1N6_G_EMERG.png" alt="Diagrama 1"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem3" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N1N6_G_MOMENT.png" alt="Diagrama 2"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem4" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N1N6_G_PERM_COM_INVERS.png" alt="Diagrama 3"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem5" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N1N6_G_PERM_SEM_INVERS.png" alt="Diagrama 4"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+
+        <div id="DiagramaImagem6" style="display: none; align-items: center; justify-content: center;">
+            <img src="Diagramas_unifilares/SE_N5N8_SEM_GERADOR.png" alt="Diagrama 6"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem7" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N5N8_G_EMERG.png" alt="Diagrama 7"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+            style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem8" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N5N8_G_MOMENT.png" alt="Diagrama 8"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem9" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N5N8_G_PERM_COM_INVERS.png" alt="Diagrama 9"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem10" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N5N8_G_PERM_SEM_INVERS.png" alt="Diagrama 10"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+
+
+
+
+        <div id="DiagramaImagem11" style="display: none; align-items: center; justify-content: center;">
+            <img src="Diagramas_unifilares/SE_N2N4_SEM_GERADOR.png" alt="Diagrama 11"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem12" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N2N4_G_EMERG.png" alt="Diagrama 12"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem13" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N2N4_G_MOMENT.png" alt="Diagrama 13"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem14" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N2N4_G_PERM_COM_INVERS.png" alt="Diagrama 14"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+        <div id="DiagramaImagem15" style="display: none;">
+            <img src="Diagramas_unifilares/SE_N2N4_G_PERM_SEM_INVERS.png" alt="Diagrama 15"
+                style="max-width: 100%; height: auto; border-radius: 16px; display: block;">
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+    <script src="Diagramas.js"></script>
+
+
+
+</body>
+
+</html>

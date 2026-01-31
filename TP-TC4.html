@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
+    <style>
+        /* Oculta botões restritos por padrão */
+        #botaoconfightml:not(.btn-permitido),
+        #botaoajustesGDhtml:not(.btn-permitido),
+        #botaotabelaGDhtml:not(.btn-permitido),
+        #botaoestudosGDhtml:not(.btn-permitido),
+        #botaoanalisehtml:not(.btn-permitido) {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        /* Força exibição dos botões permitidos - com especificidade máxima */
+        #botaoconfightml.btn-permitido,
+        #botaodiagramahtml.btn-permitido,
+        #botaoparametrohtml.btn-permitido,
+        #botaotrafohtml.btn-permitido,
+        #botaotptchtml.btn-permitido,
+        #botaoajustehtml.btn-permitido,
+        #botaotabelarelehtml.btn-permitido,
+        #botaoestudoshtml.btn-permitido,
+        #botaoajustesGDhtml.btn-permitido,
+        #botaotabelaGDhtml.btn-permitido,
+        #botaoestudosGDhtml.btn-permitido,
+        #botaoanalisehtml.btn-permitido,
+        #botaosairhtml.btn-permitido {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        
+        /* Força ocultação dos botões bloqueados */
+        h1 button.btn-bloqueado {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
+        h1.loaded { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="TP-TC.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <title>PROTECAO</title>
+    <script src="controle-acesso.js"></script>
+
+
+
+
+
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span id="titulodapagina"
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <h1>
+
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
+
+    </h1>
+    <br>
+
+    <br>
+    <div class="tabela-container"
+        style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
+        <table>
+            <caption
+                style="font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 20px; caption-side: top; padding: 5px; border: 0px solid #ffffff;">
+                DIMENSIONAMENTO TP E TC DE PROTEÇÃO<br>
+            </caption>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td>TC DE PROTEÇÃO:</td>
+                <td>
+                    <div class="input-container" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <input id="tcdeProtecao" type="text" style="margin-right: 4px; text-align: left;">
+                        <span class="unidade">:5A</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; align-items: flex-start; gap: 32px; margin-bottom: 12px;">
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(105, 252, 76); text-align: center; border-radius: 12px; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                            <span><b>RTC:</b></span>
+                            <label id="RTChtml" type="text" style="display: block;"></label>
+                            <span class="unidade"></span>
+                        </div>
+
+
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background-color: rgb(105, 252, 76); text-align: center; border-radius: 12px; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                            <span><b>Pot 10% Prim TC:</b></span>
+                            <label id="potenciaMinimahtml" type="text" style="display: block;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background: rgb(105, 252, 76); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                            <span><b>Pot
+                                    Base (Sn):
+                                </b></span>
+                            <label id="potenciabasehtml" type="text" style="display: inline;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                        <div class="label-container"
+                            style="flex: 1; font-size: 14px; color: #000000; background: rgb(248, 255, 47); border-radius: 12px; text-align: center; padding: 12px 8px; min-height: 50px; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                            <span style="background: rgb(248, 255, 47); padding: 2px 8px; border-radius: 8px;"><b>TC
+                                    Calculado:</b></span>
+                            <label id="tcdeProtecaoideal" type="text" style="display: inline;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <span style="min-width: 120px;">TP DE PROTEÇÃO:</span>
+                        <div class="input-container" style="display: flex; align-items: center;">
+                            <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor"
+                                style="margin-right: 4px;">
+                            <span class="unidade">:1V</span>
+                        </div>
+                        <div style="margin-left: auto; display: flex; align-items: center;">
+                            <label style="margin-left: 16px; margin-right: 8px;">CONEXÃO:</label>
+                            <select id="ligacaodabobinahtml" style="margin-right: 16px;">
+                                <option>Estrela-Estrela</option>
+                                <option>Triangulo-Estrela</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="label-container"
+                        style="flex: 1; font-size: 16px; color: #000000; background-color: rgb(2, 68, 2); border-radius: 12px; text-align: center; padding: 4px; display: flex; justify-content: space-around; align-items: center; gap: 24px;">
+                        <div
+                            style="background: rgb(105, 252, 76); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
+                            <span><b>TP PROTEÇÃO SECUNDÁRIO F-F:</b> <label id="tensaosecundariaffhtml" type="text"
+                                    style="display: inline;"></label></span>
+                            <span class="unidade"></span>
+                        </div>
+                        <div
+                            style="background: rgb(105, 252, 76); border-radius: 10px; padding: 12px 18px; box-shadow: 0 2px 8px #0001;">
+                            <span><b>TP PROTEÇÃO SECUNDÁRIO F-N:</b> <label id="tensaosecundariafnhtml" type="text"
+                                    style="display: inline;"></label></span>
+                            <span class="unidade"></span>
+                        </div>
+                    </div>
+
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <span style="min-width: 120px;">TP AUXILIAR ALIMENTAÇÃO:</span>
+                        <div class="input-container" style="display: flex; align-items: center;">
+                            <input id="RTPauxiliarhtml" type="text" style="margin-right: 4px;">
+                            <span class="unidade">:1 V</span>
+                        </div>
+
+                        <div class="label-container"
+                            style="flex: 1; font-size: 16px; color: #000000; background-color:rgb(105, 252, 76); border-radius: 12px;text-align: center;padding: 4px;">
+                            <span><b>TENSÃO SECUNDÁRIA AUXILIAR:</b> <label id="tensaosecundariaauxiliarhtml"
+                                    type="text" style="display: inline;"></label></span>
+                            <span class="unidade"></span>
+                        </div>
+                </td>
+            </tr>
+
+            <!-- <tr>
+                <td>RELÉ DE PROTEÇÃO:</td>
+
+                <td>
+                        <select id="tabelaselecionadahtml" onchange="salvarTabela()" style="width: 95%; font-size: 0.95em; min-width: 320px; text-align: left;">
+                            <option value=""></option>
+                            <option value="1-PEXTRON-URP7104">1-PEXTRON-URP7104</option>
+                            <option value="2-PEXTRON-URP1439">2-PEXTRON-URP1439</option>
+                            <option value="3-PEXTRON-URPE-2405">3-PEXTRON-URPE-2405</option>
+                            <option value="4-PEXTRON-URP-6100-Software-Versão-1.0.0.061">
+                                4-PEXTRON-URP-6100-Software-Versão-1.0.0.061</option>
+                            <option value="5-SIEMENS-7SR1004">5-SIEMENS-7SR1004</option>
+                            <option value="6-SIEMENS-7SR1002">6-SIEMENS-7SR1002</option>
+                            <option value="7-SCHNEIDER-SEPAM-S42">7-SCHNEIDER-SEPAM-S42</option>
+                            <option value="8-VAMP-11-SCHNEIDER">8-VAMP-11-SCHNEIDER</option>
+                            <option value="9-PEXTRON-URP6104">9-PEXTRON-URP6104</option>
+                            <option value="10-PEXTRON-URP-6000-Software-Versão-1.0.0.059">
+                                10-PEXTRON-URP-6000-Software-Versão-1.0.0.059</option>
+                            <option value="11-SEG_MRI3-IE">11-SEG_MRI3-IE</option>
+                            <option value="12-SCHNEIDER-SEPAM-S10">12-SCHNEIDER-SEPAM-S10</option>
+                            <option value="13-REMP-GD">13-REMP-GD</option>
+                            <option value="14-SCHNEIDER-P3U30">14-SCHNEIDER-P3U30</option>
+                            <option value="15-SIEMENS-7SR5111">15-SIEMENS-7SR5111</option>
+                            <option value="16-SEL-751">16-SEL-751</option>
+                            <option value="17-REMP100">17-REMP100</option>
+                            <option value="18-REMP32">18-REMP32</option>
+                            <option value="19-PEXTRON-URP-6100-Software-Versão-1.0.0.059">
+                                19-PEXTRON-URP-6100-Software-Versão-1.0.0.059</option>
+                            <option value="20-SCHNEIDER-SEPAM-S20">20-SCHNEIDER-SEPAM-S20</option>
+                        </select>
+                </td>
+
+            </tr> -->
+        </table>
+
+
+    </div>
+
+    <div>
+        <h2 style="font-weight: bold; font-size: 1.5em; color: #024402; margin-right: 10px;"> DIMENSIONAMENTO DO TC PELO CRITÉRIO DE SATURAÇÃO DE TENSÃO</h2>
+
+        <div class="tabela-container"
+            style="display: flex; justify-content: center; align-items: center; width: 100vw; min-height: 10vh;">
+            <table>
+                <tr>
+                    <td>Potência TC de proteção (ABNT NBR 6856:2015) (VA):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <select id="input-potencia-Nominal-TC-html" style="margin-right: 4px; text-align: left;">
+                                <option value=""></option>
+                                <option value="2.5VA">2.5VA</option>
+                                <option value="5VA">5VA</option>
+                                <option value="12.5VA">12.5VA</option>
+                                <option value="22.5VA">22.5VA</option>
+                                <option value="45VA">45VA</option>
+                                <option value="90VA">90VA</option>
+                            </select>
+
+                        </div>
+                    </td>
+
+                    <td rowspan="3"> <span id="label-especificacao-norma-nova-html"></span> </td>
+
+                </tr>
+                <tr>
+                    <td>Erro máximo TC de proteção (%):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <select id="input-erro-saturacao-TC-html" style="margin-right: 4px; text-align: left;">
+                                <option value=""></option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Fator de multiplicidade máximo TC de proteção:</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <select id="input-fator-multiplicidade-TC-html"
+                                style="margin-right: 4px; text-align: left;">
+                                <option value=""></option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                            </select>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>Comprimento do condutor (TC ao RELÉ):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-comprimento-Condutor-TC-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-condutor-html"></span> </td>
+                </tr>
+                <tr>
+                    <td>Bitola do condutor (TC ao RELÉ):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-bitola-Condutor-TC-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-bitola-html"></span> </td>
+                </tr>
+                <tr>
+                    <td>Resistividade do condutor (TC ao RELÉ):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-resistividade-Condutor-TC-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-resistividade-html"></span> </td>
+                </tr>
+                <tr>
+                    <td>Potência monofásica bobina do Relé:</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-potencia-bobina-rele-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-potencia-bobina-rele-html"></span> </td>
+                </tr>
+                <tr>
+                    <td>Relação X/R do curto-circuito assimétrico no ponto (opcional):</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <input id="input-relacao-xr-curto-html" type="text"
+                                style="margin-right: 4px; text-align: left;">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td> <span id="label-especificacao-relacao-xr-curto-html"></span> </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="2">Especificação TC de proteção (ABNT NBR 6856:1992):</td>
+
+                    <td> <span id="label-especificacao-norma-antiga-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Z Burden do TC:</td>
+
+                    <td> <span id="label-burden-calculado-tc-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Impedância total da carga acoplada:</td>
+
+                    <td> <span id="label-impedancia-calculada-total-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tensão de saturação nominal:</td>
+
+                    <td> <span id="label-tensao-saturacao-nominal-html"></span> </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Tensão de saturação Calculada:</td>
+                    <td>
+                        <div class="input-container"
+                            style="display: flex; align-items: center; justify-content: flex-start;">
+                            <label id="label-tensao-saturacao-calculada-TC-html"
+                                style="margin-right: 4px; text-align: left;"></label>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+
+
+        </div>
+
+        <div id="notificacaodasaturacao"
+            style="display: flex; justify-content: center; align-items: center; margin-top: 16px;">
+
+            <label id="label-notificacao-saturacao-tc-html"
+                style="font-weight: bold; color: #000000; background-color: rgb(255, 255, 255); padding: 8px; border-radius: 8px;">
+                A tensão de saturação calculada é menor ou igual à nominal
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+    <script src="TP-TC.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
+    <style>
+        /* Oculta botões restritos por padrão */
+        #botaoconfightml:not(.btn-permitido),
+        #botaoajustesGDhtml:not(.btn-permitido),
+        #botaotabelaGDhtml:not(.btn-permitido),
+        #botaoestudosGDhtml:not(.btn-permitido),
+        #botaoanalisehtml:not(.btn-permitido) {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        /* Força exibição dos botões permitidos - com especificidade máxima */
+        #botaoconfightml.btn-permitido,
+        #botaodiagramahtml.btn-permitido,
+        #botaoparametrohtml.btn-permitido,
+        #botaotrafohtml.btn-permitido,
+        #botaotptchtml.btn-permitido,
+        #botaoajustehtml.btn-permitido,
+        #botaotabelarelehtml.btn-permitido,
+        #botaoestudoshtml.btn-permitido,
+        #botaoajustesGDhtml.btn-permitido,
+        #botaotabelaGDhtml.btn-permitido,
+        #botaoestudosGDhtml.btn-permitido,
+        #botaoanalisehtml.btn-permitido,
+        #botaosairhtml.btn-permitido {
+            display: flex !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        
+        /* Força ocultação dos botões bloqueados */
+        h1 button.btn-bloqueado {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+        
+        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
+        h1.loaded { opacity: 1; }
+    </style>
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="ajuste46.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <title>ESTUDOS</title>
+    <script src="controle-acesso.js"></script>
+
+
+
+
+
+
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
+        <span id="titulodapagina"
+            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <!-- Curva de tempo definido -->
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+    <h1>
+
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
+
+    </h1>
+    <br>
+    <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
+        PROTEÇÃO GD</div>
+    <br>
+<div>
+        <button id="botaoareatorhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustereator.html';">Reator</button>
+        <button id="botaoajuste32html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste32.html';">32-1/32-2</button>
+        <button id="botaoajustes67injhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste67inj.html';">67-INJEÇÃO</button>
+        <button id="botaojuste67conshtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste67cons.html';">67-CONSUMO</button>
+        <button id="botaoajuste51vhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste51v.html';">51-V</button>
+        <button id="botaoajuste27html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste27.html';">27</button>
+        <button id="botaoajuste59html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste59.html';">59</button>
+        <button id="botaoajuste81html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste81U-81O.html';">81-U / 81-O</button>
+        <button id="botaoajuste46html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste46.html';">46</button>
+        <button id="botaoajuste47html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste47.html';">47</button>
+        <button id="botaoajuste25html" class="dark-mode-toggle"
+            onclick="window.location.href='ajuste25.html';">25</button>
+    </div>
+
+
+    <br>
+    <div class="tabela-containerfase">
+        <div
+            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
+
+            AJUSTES 46 DESEQUILÍBRIO DE CORRENTE (SOBRECORRENTE DE SEQUÊNCIA NEGATIVA)
+
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+                <thead>
+                    <tr>
+                        <th style="width: 70%;">Parâmetros</th>
+                        <th style="width: 20%;">Ajustes</th>
+                        <th style="width: 30%;">Valores Ajustados</th>
+                        <th style="width: 25%;">P.U</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="display: none;">
+                        <td rowspan="1">Ip :</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="ip-46-ajustada-html" type="text">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="ip-46-real-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="ip-46-pu-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="display: none;">
+                        <td>Curva :</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="curva-46-ajustada-html" type="text">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="curva-46-real-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="display: none;">
+                        <td>Dial :</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="dial-46-ajustada-html" type="text">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="dial-46-real-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>I definida :</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="idef-46-ajustada-html" type="text">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="idef-46-real-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="idef-46-pu-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tempo definido :</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="tempodefinido-ajustada-html" type="text">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="tempodefinido-real-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Sensibilidade da corrente (%) :</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="sensibilidade-superior-corrente-html" type="text">
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <div class="input-container">
+                                <label id="pu-sensibilidade-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tempo de ajuste (s):</td>
+                        <td>
+                            <div class="input-container">
+                                <input id="sensibilidade-inferior-corrente-html" type="text">
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <div class="input-container">
+                                <label id="pu-tempoajuste-html"></label>
+                            </div>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+
+
+
+
+        </div>
+
+
+
+        <br><br>
+    </div>
+
+
+    <br><br>
+
+    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+
+
+    <script src="ajuste46.js"></script>
+</body>
+
+</html>

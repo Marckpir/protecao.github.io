@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <link rel="stylesheet" href="animacao.css">
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.js"></script>
+</head>
+<style>
+
+        body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #8fbc8f, #1c641c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: rgb(250, 238, 150);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      color: #009200;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #045819;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #3b3fc1;
+    }
+ 
+</style>
+<body>
+  <div class="container">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div id="icon-corner" style="width: 60px; height: 40px; margin-bottom: 10px;"></div>
+
+      <svg viewBox="0 0 350 350" style="width: 50%; height: 30%;">
+        <!-- Eixos -->
+        <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+        <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+        <!-- Curva de tempo definido -->
+        <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+          stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+
+      </svg>
+
+    </div>
+    <h2>COORDINATION WEB</h2>
+    <form id="loginForm" onsubmit="event.preventDefault(); verificarLogin();">
+      <label>Usuário (Email):</label>
+      <input type="email" id="usuario" placeholder="seu@email.com" required>
+      <label>Senha:</label>
+      <input type="password" id="senha" placeholder="Sua senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+  </div>
+
+  <script>
+    // Configuração do Supabase
+    const supabaseUrl = "https://nelzhukmxrgdoarsxcek.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHpodWtteHJnZG9hcnN4Y2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMDIxNzUsImV4cCI6MjA3MTU3ODE3NX0.KHvfJHVimKwiraEzbyZWyLnTO5P5VEvM86GlyE7y09k";
+    const { createClient } = supabase;
+    const sb = createClient(supabaseUrl, supabaseKey);
+
+    // Referência correta para bcryptjs no navegador
+    const bcrypt = dcodeIO.bcrypt;
+
+    async function verificarLogin() {
+      const user = document.getElementById("usuario").value.trim().toLowerCase();
+      const pass = document.getElementById("senha").value;
+
+      // Validações básicas
+      if (!user || !pass) {
+        alert("Por favor, preencha todos os campos.");
+        return false;
+      }
+
+      try {
+        // Buscar usuário no banco de dados
+        const { data, error } = await sb
+          .from("users_login")
+          .select("id, email, senha, categoria")
+          .eq("email", user)
+          .single();
+
+        if (error || !data) {
+          alert("❌ Usuário não encontrado!");
+          return false;
+        }
+
+        // Verificar senha usando bcrypt
+        const senhaCorreta = bcrypt.compareSync(pass, data.senha);
+        
+        if (senhaCorreta) {
+          // Login válido - armazena informações no localStorage
+          localStorage.setItem("usuario", data.email);
+          localStorage.setItem("usuarioId", data.id);
+          localStorage.setItem("usuarioCategoria", data.categoria);
+          localStorage.setItem("loginTime", new Date().toISOString());
+          
+          // Redireciona para a página principal
+          window.location.href = "Protecao_parametros.html";
+          return false;
+        } else {
+          alert("❌ Senha incorreta!");
+          return false;
+        }
+      } catch (error) {
+        console.error('Erro na validação:', error);
+        alert("❌ Erro ao validar login. Tente novamente.");
+        return false;
+      }
+    }
+
+
+    function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
+      let d = "";
+      let primeiro = true;
+      for (let i = 0; i <= pontos; i++) {
+        let corrente = iMin + (iMax - iMin) * (i / pontos);
+        let denominador = Math.pow(corrente / ip, alfa) - k;
+        if (denominador <= 0) continue;
+        let tempo = dial * (beta / denominador);
+        if (tempo > 1000) tempo = 1000; // Limite para visualização
+        let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
+        let svgY = 350 - (tempo * 300 / 1000);
+        if (primeiro) {
+          d += `M${svgX},${svgY}`;
+          primeiro = false;
+        } else {
+          d += ` L${svgX},${svgY}`;
+        }
+      }
+      return d;
+    }
+
+    // Parâmetros do exemplo
+    const dial = 90000;
+    const beta = 300;
+    const alfa = 2;
+    const k = 1;
+    const ip = 0.5;
+    const iMin = ip * 2.01; // Começa um pouco acima de ip
+    const iMax = 300;
+    const pontos = 1000;
+
+    const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
+
+    const svg = document.querySelector("svg");
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", "curva-inversa");
+    path.setAttribute("fill", "none");
+    path.setAttribute("stroke", "#ff0080");
+    path.setAttribute("stroke-width", "3");
+    path.setAttribute("stroke-dasharray", "1000");
+    path.setAttribute("stroke-dashoffset", "1000");
+    path.setAttribute("d", dInverso);
+    svg.appendChild(path);
+
+  </script>
+</body>
+
+</html>
