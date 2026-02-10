@@ -193,6 +193,37 @@
         </div>
     </div>
 
+    <!-- Botão para mostrar/ocultar logs -->
+    <div style="max-width: 1200px; margin: 30px auto; text-align: center; clear: both;">
+        <button id="toggleLogsBtn" onclick="toggleLogs()"
+            style="background-color: #2196F3; color: white; padding: 15px 35px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: all 0.3s; white-space: nowrap; display: inline-block; min-width: 280px; height: auto;">
+            📊 Exibir Logs de Acesso
+        </button>
+    </div>
+
+    <!-- Seção de Logs (inicialmente oculta) -->
+    <div id="logsSection" style="display: none; max-width: 1200px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; clear: both;">
+        <h3 style="color: #024402; border-bottom: 2px solid #024402; padding-bottom: 10px; margin-top: 0;">
+            📋 Histórico de Acessos
+        </h3>
+        <div id="logCount" style="margin: 10px 0; font-weight: bold; color: #024402;"></div>
+        <div style="overflow-x: auto;">
+            <table id="logTable"
+                style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 10px;">
+                <thead>
+                    <tr style="background-color: #2196F3; color: white;">
+                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd; border-radius: 8px 0 0 0;">
+                            Email</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Categoria</th>
+                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd; border-radius: 0 8px 0 0;">
+                            Data e Hora do Acesso</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
     <br><br>
 
     <script src="config.js"></script>
@@ -380,6 +411,82 @@
                 }
             });
 
+            // Função para toggle de logs
+            window.toggleLogs = async function() {
+                const logsSection = document.getElementById('logsSection');
+                const toggleBtn = document.getElementById('toggleLogsBtn');
+                
+                if (logsSection.style.display === 'none') {
+                    logsSection.style.display = 'block';
+                    toggleBtn.textContent = '📊 Ocultar Logs de Acesso';
+                    toggleBtn.style.backgroundColor = '#ff9800';
+                    await loadLoginLogs();
+                } else {
+                    logsSection.style.display = 'none';
+                    toggleBtn.textContent = '📊 Exibir Logs de Acesso';
+                    toggleBtn.style.backgroundColor = '#2196F3';
+                }
+            };
+
+            // Função para carregar logs de login
+            async function loadLoginLogs() {
+                console.log('Carregando logs de acesso...');
+                const logTableBody = document.querySelector("#logTable tbody");
+                const logCount = document.getElementById("logCount");
+                
+                try {
+                    const { data, error } = await sb.from("login_logs")
+                        .select("email, categoria, login_timestamp")
+                        .order('login_timestamp', { ascending: false })
+                        .limit(100); // Limita aos últimos 100 logs
+
+                    console.log('Logs retornados:', data);
+                    console.log('Erro (se houver):', error);
+
+                    if (error) {
+                        console.error('Erro detalhado:', error);
+                        throw error;
+                    }
+
+                    logTableBody.innerHTML = "";
+
+                    if (!data || data.length === 0) {
+                        logTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 20px; color: #666;">Nenhum log de acesso registrado</td></tr>';
+                        logCount.textContent = 'Total: 0 acessos registrados';
+                        return;
+                    }
+
+                    logCount.textContent = `Total: ${data.length} acesso(s) registrado(s) (últimos 100)`;
+
+                    data.forEach((log, index) => {
+                        const row = document.createElement("tr");
+                        row.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#fff';
+                        row.innerHTML = `
+                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">${log.email}</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                                <span style="background-color: ${log.categoria === 'admin' ? '#ff9800' : log.categoria === 'tecnico' ? '#2196F3' : '#4CAF50'}; 
+                                             color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;">
+                                    ${log.categoria.toUpperCase()}
+                                </span>
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">${formatarData(log.login_timestamp)}</td>
+                        `;
+                        logTableBody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error('Erro ao carregar logs:', error);
+                    let errorMsg = error.message;
+                    if (error.message.includes('relation') || error.message.includes('does not exist')) {
+                        errorMsg = 'Tabela "login_logs" não encontrada. Execute o SQL no Supabase primeiro!';
+                    }
+                    logTableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px; color: #d32f2f;">
+                        ❌ Erro ao carregar logs: ${errorMsg}<br><br>
+                        <small>Verifique o console (F12) para mais detalhes</small>
+                    </td></tr>`;
+                    logCount.textContent = 'Erro ao carregar logs';
+                }
+            }
+
             // Teste de Login
             const loginForm = document.getElementById("loginForm");
             loginForm.addEventListener("submit", async (e) => {
@@ -407,7 +514,21 @@
                     const senhaCorreta = bcrypt.compareSync(senha, data.senha);
 
                     if (senhaCorreta) {
-                        showMessage(`✅ Login válido!\n\nEmail: ${data.email}\nCategoria: ${data.categoria}\nCadastrado em: ${formatarData(data.created_at)}`, 'success');
+                        // Registra o log de acesso no banco de dados
+                        console.log('Tentando inserir log de acesso...');
+                        const { data: logData, error: logError } = await sb.from("login_logs").insert([{
+                            email: data.email,
+                            categoria: data.categoria,
+                            login_timestamp: new Date().toISOString()
+                        }]);
+                        
+                        if (logError) {
+                            console.error('Erro ao inserir log:', logError);
+                            showMessage(`⚠️ Login válido mas erro ao registrar log: ${logError.message}\n\nEmail: ${data.email}\nCategoria: ${data.categoria}`, 'error');
+                        } else {
+                            console.log('Log inserido com sucesso!', logData);
+                            showMessage(`✅ Login válido!\n\nEmail: ${data.email}\nCategoria: ${data.categoria}\nCadastrado em: ${formatarData(data.created_at)}`, 'success');
+                        }
                     } else {
                         showMessage('❌ Senha incorreta!', 'error');
                     }

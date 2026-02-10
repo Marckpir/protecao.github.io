@@ -4,89 +4,238 @@
 <head>
   <link rel="stylesheet" href="animacao.css">
   <meta charset="UTF-8" />
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COORDINATION WEB - Login</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bcryptjs@2.4.3/dist/bcrypt.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-        body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #8fbc8f, #1c641c);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+  body {
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #8fbc8f, #1c641c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .login-wrapper {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 48px 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.6s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
+  .logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 16px;
+  }
+
+  #icon-corner {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .logo-section svg {
+    width: 120px;
+    height: 80px;
+    opacity: 0.9;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a472a;
+    letter-spacing: -0.5px;
+    margin: 0;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  #loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  input {
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #fafafa;
+    color: #333;
+  }
+
+  input:hover {
+    border-color: #d0d0d0;
+    background: #fff;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #1a472a;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+  }
+
+  input::placeholder {
+    color: #999;
+  }
+
+  button {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px rgba(26, 71, 42, 0.2);
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 71, 42, 0.3);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .footer-text {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* Responsivo */
+  @media (max-width: 480px) {
     .container {
-      background-color: rgb(250, 238, 150);
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-      text-align: center;
+      padding: 32px 24px;
     }
 
     h2 {
-      color: #009200;
+      font-size: 24px;
     }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-      color: #333;
+    .logo-section svg {
+      width: 100px;
+      height: 65px;
     }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #045819;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #3b3fc1;
-    }
+  }
  
 </style>
 <body>
-  <div class="container">
-    <div style="display: flex; flex-direction: column; align-items: center;">
-      <div id="icon-corner" style="width: 60px; height: 40px; margin-bottom: 10px;"></div>
+  <div class="login-wrapper">
+    <div class="container">
+      <div class="logo-section">
+        <div id="icon-corner" style="width: 60px; height: 40px;"></div>
 
-      <svg viewBox="0 0 350 350" style="width: 50%; height: 30%;">
-        <!-- Eixos -->
-        <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
-        <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
-        <!-- Curva de tempo definido -->
-        <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
-          stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        <svg viewBox="0 0 350 350">
+          <!-- Eixos -->
+          <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+          <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+          <!-- Curva de tempo definido -->
+          <polyline class="curva-definida" fill="none" stroke="#1a472a" stroke-width="3" stroke-dasharray="1000"
+            stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
 
-      </svg>
+        <div style="text-align: center;">
+          <h2>COORDINATION WEB</h2>
+          <p class="subtitle">Sistema de Gestão</p>
+        </div>
+      </div>
 
+      <form id="loginForm" onsubmit="event.preventDefault(); verificarLogin();">
+        <div class="form-group">
+          <label for="usuario">Email</label>
+          <input type="email" id="usuario" placeholder="seu@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" placeholder="Sua senha" required>
+        </div>
+
+        <button type="submit">Entrar</button>
+      </form>
+
+      <p class="footer-text">Protegido por criptografia de ponta a ponta</p>
     </div>
-    <h2>COORDINATION WEB</h2>
-    <form id="loginForm" onsubmit="event.preventDefault(); verificarLogin();">
-      <label>Usuário (Email):</label>
-      <input type="email" id="usuario" placeholder="seu@email.com" required>
-      <label>Senha:</label>
-      <input type="password" id="senha" placeholder="Sua senha" required>
-      <button type="submit">Entrar</button>
-    </form>
   </div>
   </div>
 
@@ -132,6 +281,25 @@
           localStorage.setItem("usuarioId", data.id);
           localStorage.setItem("usuarioCategoria", data.categoria);
           localStorage.setItem("loginTime", new Date().toISOString());
+          
+          // Registra o log de acesso no banco de dados
+          console.log('Registrando log de acesso...');
+          try {
+            const { error: logError } = await sb.from("login_logs").insert([{
+              email: data.email,
+              categoria: data.categoria,
+              login_timestamp: new Date().toISOString()
+            }]);
+            
+            if (logError) {
+              console.error('Erro ao registrar log:', logError);
+              // Não bloqueia o login, apenas registra o erro
+            } else {
+              console.log('Log de acesso registrado com sucesso!');
+            }
+          } catch (logException) {
+            console.error('Exceção ao registrar log:', logException);
+          }
           
           // Redireciona para a página principal
           window.location.href = "Protecao_parametros.html";
