@@ -1,6 +1,38 @@
 
 var dados = {};
 
+document.addEventListener('click', function (event) {
+    const navButton = event.target.closest('button[data-nav-target]');
+    if (navButton) {
+        const target = navButton.getAttribute('data-nav-target');
+        if (target) {
+            window.location.href = target;
+        }
+        return;
+    }
+
+    if (event.target.closest('#botaoBaixarPdf')) {
+        baixarPDF();
+        return;
+    }
+
+    if (event.target.closest('#botaoBaixarXls')) {
+        baixarXLS();
+        return;
+    }
+
+    if (event.target.closest('#botaoSalvarTabelaRele')) {
+        Salvaropcao();
+    }
+});
+
+document.addEventListener('change', function (event) {
+    const selectTabela = event.target.closest('#seletorTabela');
+    if (selectTabela) {
+        mostrarTabela();
+    }
+});
+
 
 function importadadoslocalstorage() {
 
@@ -60,6 +92,11 @@ function carregarAssuntos() {
 
 
 window.onload = function () {
+    const header = document.querySelector('h1');
+    if (header) {
+        header.classList.add('loaded');
+    }
+
     const botaoParametro = document.getElementById("botaotabelarelehtml");
     if (botaoParametro) {
         botaoParametro.style.backgroundColor = "#cf0808";
@@ -1435,13 +1472,32 @@ function baixarPDF() {
 
         tabelaSelecionada.style.display = "block";
 
-        html2pdf().set({
-            margin: [10, 5, 10, 10],
+        const paddingAnterior = tabelaSelecionada.style.paddingRight;
+        const boxSizingAnterior = tabelaSelecionada.style.boxSizing;
+
+        tabelaSelecionada.style.paddingRight = "8px";
+        tabelaSelecionada.style.boxSizing = "border-box";
+
+        const worker = html2pdf().set({
+            margin: [10, 10, 10, 10],
             filename: nomeArquivo,
             image: { type: 'jpeg', quality: 0.99 },
-            html2canvas: { scale: 2 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#ffffff"
+            },
+            pagebreak: { mode: ['css', 'legacy'] },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         }).from(tabelaSelecionada).save();
+
+        worker.then(() => {
+            tabelaSelecionada.style.paddingRight = paddingAnterior;
+            tabelaSelecionada.style.boxSizing = boxSizingAnterior;
+        }).catch(() => {
+            tabelaSelecionada.style.paddingRight = paddingAnterior;
+            tabelaSelecionada.style.boxSizing = boxSizingAnterior;
+        });
     } else {
         alert("Selecione uma tabela antes de baixar o PDF.");
     }

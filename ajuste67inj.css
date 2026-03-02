@@ -21,22 +21,136 @@ button:hover {
     background-color: #cf0808;
 }
 
+#botaoconfightml:not(.btn-permitido),
+#botaoajustesGDhtml:not(.btn-permitido),
+#botaotabelaGDhtml:not(.btn-permitido),
+#botaoestudosGDhtml:not(.btn-permitido),
+#botaoanalisehtml:not(.btn-permitido) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#botaoconfightml.btn-permitido,
+#botaodiagramahtml.btn-permitido,
+#botaoparametrohtml.btn-permitido,
+#botaotrafohtml.btn-permitido,
+#botaotptchtml.btn-permitido,
+#botaoajustehtml.btn-permitido,
+#botaotabelarelehtml.btn-permitido,
+#botaoestudoshtml.btn-permitido,
+#botaoajustesGDhtml.btn-permitido,
+#botaotabelaGDhtml.btn-permitido,
+#botaoestudosGDhtml.btn-permitido,
+#botaoanalisehtml.btn-permitido,
+#botaosairhtml.btn-permitido {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+h1 button.btn-bloqueado {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+h1 {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+h1.loaded {
+    opacity: 1;
+}
+
+button.nav-active {
+    background-color: #cf0808;
+}
+
+.aj67-brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.aj67-brand-title {
+    font-family: 'Impact', 'Arial Black', cursive, sans-serif;
+    font-size: 2em;
+    letter-spacing: 2px;
+    color: rgb(2, 68, 2);
+}
+
+.aj67-brand-svg {
+    width: 4%;
+    height: 2em;
+    vertical-align: middle;
+}
+
+.aj67-subtitle {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #024402;
+    margin-right: 10px;
+}
+
+.aj67-table-title,
+.aj67-table-caption {
+    font-weight: bold;
+    background-color: rgb(2, 68, 2);
+    color: rgb(227, 224, 64);
+    font-size: 16px;
+    caption-side: top;
+    padding: 5px;
+    border: 3px solid #000000;
+}
+
+.aj67-legendas-btn {
+    float: right;
+    margin-right: 30px;
+}
+
+.aj67-alert-caption {
+    font-weight: bold;
+    background-color: rgb(186, 59, 59);
+    color: rgb(250, 250, 250);
+    font-size: 14px;
+    caption-side: top;
+    padding: 5px;
+    border: 3px solid #000000;
+}
+
+.aj67-highlight-cell {
+    background-color: #d9e078;
+    color: black;
+    width: 100%;
+}
+
 canvas {
     background-color: rgb(255, 255, 255);
     border: 5px solid black;
-    max-width: 700px;
+    max-width: 100%;
     max-height: 650px;
 }
 
 .grafico-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    flex: 0 1 46%;
+    min-width: 320px;
+    align-self: stretch;
 }
 
 #grafico {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    max-width: 760px;
+    height: 100%;
+    min-height: 560px;
 }
 
 #botaoSalvar {
@@ -49,8 +163,24 @@ canvas {
 
 .conteiner-geral {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    width: min(98%, 1400px);
+    max-width: 98%;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+}
+
+.tabelas-lado-esquerdo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 0 1 52%;
+    min-width: 320px;
+    max-width: 52%;
+    box-sizing: border-box;
 
 }
 
@@ -92,17 +222,17 @@ td {
 
 #tabelafase th,
 #tabelafase td {
-    width: 100%;
-    /* Ajusta cada coluna para ocupar 25% da largura total */
+    width: auto;
 
     padding: 3px;
     /* Adiciona espaçamento interno */
     text-align: left;
     /* Centraliza o conteúdo */
-    border: 3px solid #000;
-    /* Mantém bordas visíveis */
+    border: 1px solid white;
+    border-color: white;
     background-color: rgb(186, 59, 59);
 }
+
 
 #tabelafase .input-container input,
 #tabelafase .input-container label {
@@ -149,16 +279,16 @@ td {
 
 #tabelaneutro th,
 #tabelaneutro td {
-    width: 100%;
-    /* Ajusta cada coluna para ocupar 25% da largura total */
+    width: auto;
     padding: 3px;
     /* Adiciona espaçamento interno */
     text-align: left;
     /* Centraliza o conteúdo */
-    border: 3px solid #000;
-    /* Mantém bordas visíveis */
+    border: 1px solid white;
+    border-color: white;
     background-color: rgb(84, 91, 194);
 }
+
 
 #tabelaneutro .input-container input,
 #tabelaneutro .input-container label {
@@ -476,11 +606,13 @@ select {
     .conteiner-geral {
         display: flex;
         flex-direction: row;
-        gap: 20px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        width: 100vw;
+        gap: 14px;
+        align-items: stretch;
+        justify-content: center;
+        width: min(98%, 1600px);
+        max-width: 98%;
         min-width: 0;
+        margin: 0 auto;
         box-sizing: border-box;
     }
 
@@ -488,44 +620,47 @@ select {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        width: 15vw; /* diminuído de 20vw */
+        width: 46%;
         min-width: 0;
-        max-width: 30vw; /* diminuído de 45vw */
+        max-width: 46%;
         box-sizing: border-box;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        }
+        align-items: stretch;
+    }
 
-        .tabela-containerfase,
-        .tabela-containerneutro {
+    .tabela-containerfase,
+    .tabela-containerneutro {
         font-size: 12px;
         padding: 0;
-        width: 70%; /* diminuído de 90% */
+        width: 100%;
         min-width: 0;
         box-sizing: border-box;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
-        }
+        margin-left: 0;
+        margin-right: 0;
+    }
 
-canvas {
-    background-color: rgb(255, 255, 255);
-    border: 5px solid black;
-    max-width: 700px;
-    max-height: 650px;
+    canvas {
+        background-color: rgb(255, 255, 255);
+        border: 5px solid black;
+        max-width: 700px;
+        max-height: 650px;
+    }
+
+    .grafico-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        max-width: 50%;
+        min-width: 0;
+    }
+
+    #grafico {
+        width: 100%;
+        max-width: 860px;
+        height: 100%;
+        min-height: 620px;
+    }
 }
 
-.grafico-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#grafico {
-    width: 400px;
-    height: 400px;
-}
-}

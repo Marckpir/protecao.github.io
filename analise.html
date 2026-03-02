@@ -16,7 +16,7 @@
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
+
         /* Força exibição dos botões permitidos - com especificidade máxima */
         #botaoconfightml.btn-permitido,
         #botaodiagramahtml.btn-permitido,
@@ -36,16 +36,22 @@
             visibility: visible !important;
             pointer-events: auto !important;
         }
-        
+
         /* Força ocultação dos botões bloqueados */
         h1 button.btn-bloqueado {
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
+
+        h1 {
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+
+        h1.loaded {
+            opacity: 1;
+        }
     </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
@@ -101,7 +107,7 @@
             onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
         <button id="botaoanalisehtml" class="dark-mode-toggle"
             onclick="window.location.href='analise.html';">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">HOME</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
 
     </h1>
     <br>
@@ -133,6 +139,8 @@
                         <select id="nota4-select" style="padding: 4px; font-size: 1em; min-width: 260px;">
                             <option value=""></option>
                             <option value="COORDENOGRAMA">COORDENOGRAMA</option>
+                            <option value="SEM ANEXO">SEM ANEXO</option>
+                            <option value="PROJETO BT">PROJETO BT</option>
                             <option value="SUBESTAÇÃO-N°01">SUBESTAÇÃO-N°01</option>
                             <option value="SUBESTAÇÃO-N°02">SUBESTAÇÃO-N°02</option>
                             <option value="SUBESTAÇÃO-N°03">SUBESTAÇÃO-N°03</option>
@@ -276,7 +284,67 @@
 
     <br><br>
 
+    <div style="background: #fff; padding: 16px; border-radius: 8px; max-width: 100%; margin: 0 auto;">
 
+        <table id="tabelaatalho"
+        style="width:100%; border-collapse:collapse; background:#fff; color:#000; font-size:1em; border:2px solid #000;">
+            <thead>
+                <tr style="background:#ffffff; color:#000;">
+                    <th colspan="12" style="padding:8px; border:1px solid #000;">ATALHOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding:8px; border:1px solid #000;">INICIO PLANEJADO</td>
+                    <td style="padding:8px; border:1px solid #000;"><input id="datainicioplanejado" type="text"
+                            value="03.02.2026"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                </tr>
+                <tr>
+                    <td style="padding:8px; border:1px solid #000;">ANALISAR PROJETO ELETRICO</td>
+                    <td style="padding:8px; border:1px solid #000;">C057514</td>
+                    <td style="padding:8px; border:1px solid #000;">C057514</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td class="dataplanejada" style="padding:8px; border:1px solid #000;">03.02.2026</td>
+                    <td style="padding:8px; border:1px solid #000;">30</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td id="datatermino" style="padding:8px; border:1px solid #000;">24.02.2026</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td id="tipodeanalise" style="padding:8px; border:1px solid #000;">COORDENOGRAMA</td>
+
+
+                </tr>
+                <tr>
+                    <td style="padding:8px; border:1px solid #000;">RESPONSAVEL TÉCNICO</td>
+                    <td style="padding:8px; border:1px solid #000;">C057514</td>
+                    <td style="padding:8px; border:1px solid #000;">C057514</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td class="dataplanejada" style="padding:8px; border:1px solid #000;">03.02.2026</td>
+                    <td style="padding:8px; border:1px solid #000;">1</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td class="dataplanejada" style="padding:8px; border:1px solid #000;">03.02.2026</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td id="responsavel-tecnico" style="padding:8px; border:1px solid #000;">ROBERTO CHRISTIANO ZANETTI
+                        BETTONI</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 
 
 
@@ -459,6 +527,70 @@
 
 
     <script src="analise.js"></script>
+    <script>
+        function formatDateBR(date) {
+            const d = date.getDate().toString().padStart(2, '0');
+            const m = (date.getMonth() + 1).toString().padStart(2, '0');
+            const y = date.getFullYear();
+            return `${d}.${m}.${y}`;
+        }
+
+        function persistDataPlanejada(value) {
+            // Atualiza todos os campos com class="dataplanejada"
+            document.querySelectorAll('.dataplanejada').forEach(el => {
+                el.textContent = value;
+            });
+            // Salva no localStorage
+            localStorage.setItem('datainicioplanejado', value);
+        }
+
+        function updateDataTermino(value) {
+            // Tenta converter para Date
+            const [dia, mes, ano] = value.split('.');
+            if (dia && mes && ano) {
+                const data = new Date(`${ano}-${mes}-${dia}`);
+                if (!isNaN(data)) {
+                    data.setDate(data.getDate() + 30);
+                    const dataTermino = formatDateBR(data);
+                    document.getElementById('datatermino').textContent = dataTermino;
+                    localStorage.setItem('datatermino', dataTermino);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('datainicioplanejado');
+            // Carrega valor persistido
+            const persisted = localStorage.getItem('datainicioplanejado');
+            if (persisted) {
+                input.value = persisted;
+                persistDataPlanejada(persisted);
+                updateDataTermino(persisted);
+            }
+            input.addEventListener('input', function () {
+                persistDataPlanejada(this.value);
+                updateDataTermino(this.value);
+            });
+
+            // Preenche responsável técnico
+            const contatoNome = localStorage.getItem('contato_nome');
+            if (contatoNome) {
+                const responsavel = document.getElementById('responsavel-tecnico');
+                if (responsavel) responsavel.textContent = contatoNome;
+            }
+
+            // Preenche tipo de análise
+            const tipoAnalise = localStorage.getItem('tipodeanalise');
+            if (tipoAnalise) {
+                const tipoAnaliseEl = document.getElementById('tipodeanalise');
+                if (tipoAnaliseEl) tipoAnaliseEl.textContent = tipoAnalise;
+            }
+
+
+
+
+        });
+    </script>
 </body>
 
 </html>

@@ -29,6 +29,18 @@ var dial_calculado = 0;
 // Importa statuslegenda do localStorage ou usa valor padrão
 var legenda = localStorage.getItem('statuslegenda') || 'none'; // Variável para controlar a exibição da legenda
 
+document.addEventListener('click', function (event) {
+    const navButton = event.target.closest('button[data-nav-target]');
+    if (!navButton) {
+        return;
+    }
+
+    const target = navButton.getAttribute('data-nav-target');
+    if (target) {
+        window.location.href = target;
+    }
+});
+
 
 //Gravar todas as variaveis escrita no armazenamento do local storage
 
@@ -131,7 +143,12 @@ async function salvarOpcao() {
 
 
 
-window.onload = function () {
+window.addEventListener('load', function () {
+    const header = document.querySelector('h1');
+    if (header) {
+        header.classList.add('loaded');
+    }
+
     const botaoParametro = document.getElementById("botaoajustehtml");
     if (botaoParametro) {
         botaoParametro.style.backgroundColor = "#cf0808";
@@ -204,7 +221,7 @@ window.onload = function () {
 
 
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada"));
-    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 0.33;
+    const desequilibrio = (parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 33) / 100;
 
 
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML
@@ -231,7 +248,6 @@ window.onload = function () {
 
     //codigo novo
     var correnteprimaria = parseFloat(localStorage.getItem("Inominalfase"));
-    console.log("correnteprimaria: ", correnteprimaria);
 //fim do codigo novo
 
 
@@ -279,10 +295,8 @@ window.onload = function () {
     //  Calculo da  corrente de magnetização de neutro 
     imagneutro = imagBase * (desequilibrio);
 
-    console.log("imagneutro: " + imagneutro);
     // Calculo da  corrente instantanea de neutro somando a tolerancia a corrente de magnetização nominal
     Iinstneutro = imagneutro * (1 * imagneutroArmazenada / 100);
-    console.log("inst neutro: " + Iinstneutro);
     // Armazenando o valor de Iinstneutro no local storage
     localStorage.setItem("IinstneutroSelecionada", Iinstneutro);
 
@@ -290,12 +304,13 @@ window.onload = function () {
     //CACLULOS PARA VALORES DAS CORRENTE EM P.U
     //importar valor do local storage do TC de proteção selecionado
     const TCselecionado = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada"));
+    const tcDivisor = Number.isFinite(TCselecionado) && TCselecionado > 0 ? TCselecionado : 1;
 
     //Divide valores encontrados por valor primário do TC selecionado
-    const ipPU = correnteIP / TCselecionado;
-    const iinstPU = Imaginstantanea / TCselecionado;
-    const ipneutroPU = ipneutro / TCselecionado;
-    const instneutroPU = Iinstneutro / TCselecionado;
+    const ipPU = correnteIP / tcDivisor;
+    const iinstPU = Imaginstantanea / tcDivisor;
+    const ipneutroPU = ipneutro / tcDivisor;
+    const instneutroPU = Iinstneutro / tcDivisor;
 
     //Armazena os valores de P.U no local storage
     localStorage.setItem("ipPUSelecionada", ipPU);
@@ -320,11 +335,8 @@ tipodecurvahtml.value = curvafaseArmazenada || '';
 // Validar dialfaseArmazenada
 dialfasehtml.value = (!isNaN(parseFloat(dialfasereal)) && dialfasereal !== null) ? dialfasereal : '';
 
-// Atualizar o campo dialrealfase com dialfaseArmazenada
+// Atualizar o campo dialrealfase com o dial efetivo na inicialização
 const dialrealfase = document.getElementById("dialrealfase");
-if (dialrealfase && dialfaseArmazenada !== null && dialfaseArmazenada !== undefined) {
-    dialrealfase.textContent = dialfaseArmazenada;
-}
 
 
 
@@ -500,11 +512,25 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
             break;
     }
 
+    calculadialideal();
+
+    const dialRealInicial = parseFloat(localStorage.getItem("dialfasereal"));
+    const dialCalculadoInicial = parseFloat(localStorage.getItem("dialfaseSelecionada"));
+    const dialFaseEfetivo = Number.isFinite(dialRealInicial)
+        ? dialRealInicial
+        : (Number.isFinite(dialCalculadoInicial) ? dialCalculadoInicial : 1);
+
+    localStorage.setItem("dialfaseSelecionada", dialFaseEfetivo.toFixed(2));
+
+    if (dialrealfase) {
+        dialrealfase.textContent = dialFaseEfetivo.toFixed(2);
+    }
+
 
     //------------------------------------------------------------------
     // Reprodução das variaveis no gráfico de coordenação
     // Definição das variáveis comuns
-    let dial1 = dialfaseArmazenada;
+    let dial1 = dialFaseEfetivo;
     let Iinst1 = imagtotalformatada;
     let ip1 = correnteFormatada;
     let x1 = [imagtotalformatada];
@@ -612,7 +638,21 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
 
 
     // Exibe no console todas as informações de correntestrafosJSON, se houver
-    const correntesTrafos = JSON.parse(localStorage.getItem("correntestrafosJSON"));
+    const correntesTrafosStorage = JSON.parse(localStorage.getItem("correntestrafosJSON") || "{}");
+    const toNumberOrNull = (value) => {
+        const numero = parseFloat(value);
+        return Number.isFinite(numero) ? numero : null;
+    };
+
+    const correntesTrafos = {};
+    for (let indice = 1; indice <= 10; indice++) {
+        const trafo = correntesTrafosStorage[`trafo${indice}`] || {};
+        correntesTrafos[`trafo${indice}`] = {
+            iansi: toNumberOrNull(trafo.iansi),
+            inansi: toNumberOrNull(trafo.inansi),
+            tempo: toNumberOrNull(trafo.tempo)
+        };
+    }
 
 
 
@@ -1121,7 +1161,7 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
 
 
     verificarAlertaPotMinima();
-};
+});
 
 
 //função para comparar o melhor dial entre planta com motor e sem motor 
@@ -1199,8 +1239,10 @@ function calculadialideal() {
     if (!isNaN(dialReal)) {
         localStorage.setItem("dialfaseSelecionada", dialReal);
     } else {
-        const dialMaior = Math.max(dial_calculado.toFixed(2), dial_calculado_planta.toFixed(2));
-        localStorage.setItem("dialfaseSelecionada", dialMaior);
+        const dialCalculadoSeguro = Number.isFinite(dial_calculado) ? dial_calculado : 0;
+        const dialCalculadoPlantaSeguro = Number.isFinite(dial_calculado_planta) ? dial_calculado_planta : 0;
+        const dialMaior = Math.max(dialCalculadoSeguro, dialCalculadoPlantaSeguro);
+        localStorage.setItem("dialfaseSelecionada", dialMaior.toFixed(2));
     }   
 
 
@@ -1303,8 +1345,6 @@ document.addEventListener('keydown', function(event) {
         
         // Chamar a função salvar
         salvarOpcao();
-
-        console.log('✅ Salvamento ativado por Enter');
     }
 });
 

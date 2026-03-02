@@ -147,10 +147,26 @@
         console.log(`Usuário logado: ${localStorage.getItem("usuario")} | Categoria: ${categoria}`);
     }
 
+    function configurarNavegacaoHeader() {
+        document.addEventListener('click', function(event) {
+            const botao = event.target.closest('button[data-nav-target]');
+            if (!botao) return;
+
+            const destino = botao.getAttribute('data-nav-target');
+            if (destino) {
+                window.location.href = destino;
+            }
+        });
+    }
+
     // Executa quando o DOM estiver pronto
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', aplicarPermissoes);
+        document.addEventListener('DOMContentLoaded', function() {
+            configurarNavegacaoHeader();
+            aplicarPermissoes();
+        });
     } else {
+        configurarNavegacaoHeader();
         aplicarPermissoes();
     }
 })();

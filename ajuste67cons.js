@@ -129,18 +129,47 @@ async function salvarOpcao() {
 
 }
 
+function inicializarNavegacaoPorDataTarget() {
+    const botoesNavegacao = document.querySelectorAll('button[data-nav-target]');
+    botoesNavegacao.forEach((botao) => {
+        botao.addEventListener('click', () => {
+            const target = botao.getAttribute('data-nav-target');
+            if (target) {
+                window.location.href = target;
+            }
+        });
+    });
+}
+
 
 
 window.onload = function () {
+    inicializarNavegacaoPorDataTarget();
+
+    const botaoSalvar = document.getElementById('botaoSalvar');
+    if (botaoSalvar) {
+        botaoSalvar.addEventListener('click', salvarOpcao);
+    }
+
+    const botaoLegendas = document.getElementById('botaoLegendas');
+    if (botaoLegendas) {
+        botaoLegendas.addEventListener('click', ativarLegendas);
+    }
+
+    const tituloPrincipal = document.querySelector('h1');
+    if (tituloPrincipal) {
+        tituloPrincipal.classList.add('loaded');
+    }
+
     // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaoajustesGDhtml");
     if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
+        botaoParametro.classList.add("nav-active");
     }
 
     const botaoParametro2 = document.getElementById("botaojuste67conshtml");
     if (botaoParametro2) {
-        botaoParametro2.style.backgroundColor = "#cf0808";
+        botaoParametro2.classList.add("nav-active");
     }
     // -----------------manter o botão vermelho selecionado-------------------
 
@@ -211,7 +240,7 @@ window.onload = function () {
 
 
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada"));
-    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 0.33;
+    const desequilibrio = (parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 33) / 100;
 
 
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML

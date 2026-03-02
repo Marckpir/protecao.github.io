@@ -1,7 +1,35 @@
 
 //FUNÇÃO PARA SALVAR OS CAMPOS PREENCHIDOS NO LOCAL STORAGE E REALIZAR ALGUNS CÁLCULOS NECESSÁRIOS PARA A PROTEÇÃO
 
-window.onload = function () {
+document.addEventListener('click', function (event) {
+    const navButton = event.target.closest('button[data-nav-target]');
+    if (navButton) {
+        const target = navButton.getAttribute('data-nav-target');
+        if (target) {
+            window.location.href = target;
+        }
+        return;
+    }
+
+    const saveButton = event.target.closest('#botaoSalvar');
+    if (saveButton) {
+        salvarOpcao();
+    }
+});
+
+document.addEventListener('change', function (event) {
+    const relaySelect = event.target.closest('#tabelaselecionadahtml');
+    if (relaySelect && typeof salvarTabela === 'function') {
+        salvarTabela();
+    }
+});
+
+window.addEventListener('load', function () {
+
+    const header = document.querySelector('h1');
+    if (header) {
+        header.classList.add('loaded');
+    }
 
 
     // -----------------manter o botão vermelho selecionado-------------------
@@ -116,13 +144,17 @@ window.onload = function () {
 
     const especificacaonormaantiga = localStorage.getItem("EspecificacaoNormaAntigaTC") || '';
 
-    const especificacaoImpedanciaBurden = localStorage.getItem("impedanciaburdendoTC") + ' Ω' || '';
+    const especificacaoImpedanciaBurdenValor = localStorage.getItem("impedanciaburdendoTC");
+    const especificacaoImpedanciaBurden = especificacaoImpedanciaBurdenValor ? especificacaoImpedanciaBurdenValor + ' Ω' : '';
 
-    const especificacaoImpedanciaTotalDoTrecho = localStorage.getItem("impedanciatotaldotrecho") + ' Ω' || '';
+    const especificacaoImpedanciaTotalDoTrechoValor = localStorage.getItem("impedanciatotaldotrecho");
+    const especificacaoImpedanciaTotalDoTrecho = especificacaoImpedanciaTotalDoTrechoValor ? especificacaoImpedanciaTotalDoTrechoValor + ' Ω' : '';
 
-    const especificacaoTensaoSaturacaonominal = localStorage.getItem("tensaoSaturacaotrecho") + ' V' || '';
+    const especificacaoTensaoSaturacaonominalValor = localStorage.getItem("tensaoSaturacaotrecho");
+    const especificacaoTensaoSaturacaonominal = especificacaoTensaoSaturacaonominalValor ? especificacaoTensaoSaturacaonominalValor + ' V' : '';
 
-    const tensaoSaturacaoCalculadaTC = localStorage.getItem("tensaoSaturacaoTC") + ' V' || '';
+    const tensaoSaturacaoCalculadaTCValor = localStorage.getItem("tensaoSaturacaoTC");
+    const tensaoSaturacaoCalculadaTC = tensaoSaturacaoCalculadaTCValor ? tensaoSaturacaoCalculadaTCValor + ' V' : '';
 
 
 
@@ -255,7 +287,7 @@ window.onload = function () {
 
 
 
-}
+});
 
 
 
@@ -267,8 +299,9 @@ function calcularSaturacaotensaoTC() {
 
 
 
-    const TCselecionado = localStorage.getItem("TCdeprotecaoSelecionada") / 5;
-    const curtoSelecionada = localStorage.getItem("curtoSelecionada") || 0;
+    const TCselecionadoBruto = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada"));
+    const TCselecionado = Number.isFinite(TCselecionadoBruto) && TCselecionadoBruto > 0 ? (TCselecionadoBruto / 5) : 0;
+    const curtoSelecionada = parseFloat(localStorage.getItem("curtoSelecionada")) || 0;
     const potenciaNominalTC = parseFloat(localStorage.getItem("potenciaNominalTC")) || 12.5;
     const erroSaturacaoTC = parseFloat(localStorage.getItem("erroSaturacaoTC")) || 10;
     const fatorMultiplicidadeTC = parseFloat(localStorage.getItem("fatorMultiplicidadeTC")) || 20;
@@ -376,7 +409,7 @@ function calcularSaturacaotensaoTC() {
 
     // Calcular a ICC refeltida no secundario do TC
     let iccrefletida = 0;
-    if (!isNaN(curtoSelecionada) && !isNaN(TCselecionado)) {
+    if (!isNaN(curtoSelecionada) && !isNaN(TCselecionado) && TCselecionado > 0) {
         iccrefletida = curtoSelecionada / TCselecionado;
     }
 
@@ -542,7 +575,7 @@ function dimensionarTCconformenorma() {
     //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
     const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0.92;
     const fatorPotenciaGDSelecionada = parseFloat(localStorage.getItem("fatorPotenciaGDSelecionada")) || 0.92;
-    const desequilibrioSelecionada = localStorage.getItem("desequilibrioSelecionada") || 33;
+    const desequilibrioSelecionada = (parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 33) / 100;
     const curtoSelecionada = localStorage.getItem("curtoSelecionada") || 0;
     const instmagconsumo1 = localStorage.getItem("imagtotalSelecionada") || 0;
 
@@ -552,7 +585,7 @@ function dimensionarTCconformenorma() {
     // Cria um array com os valores possíveis de TC
     // Esses valores são os valores nominais dos transformadores de corrente
     const valoresTC = [
-        5, 10, 15, 20, 25, 30, 40, 50, 75, 100,
+        5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100,
         150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000
     ];
 

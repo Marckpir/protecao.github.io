@@ -13,23 +13,37 @@ let imagtr2formatada = 0;
 
 let imagtotalformatada = 0;
 let imagtotalneutroformatada = 0;
+
+function obterJSONStorage(chave, fallback = null) {
+    const valorBruto = localStorage.getItem(chave);
+    if (!valorBruto) {
+        return fallback;
+    }
+
+    try {
+        return JSON.parse(valorBruto);
+    } catch (erro) {
+        return fallback;
+    }
+}
+
 //------------------------------------------------------------------
 function salvarOpcao() {
 
     //Armazenar todas as potencias em KVA em variaveis formato JSON e no localstorage
     for (let i = 1; i <= 10; i++) {
         const impedancia = parseFloat(document.getElementById(`impedanciahtml${i}`)?.value) || 0;
-        let tempo = document.getElementById(`tempotrhtml${i}`)?.value || "";
+        const tempo = parseFloat(document.getElementById(`tempotrhtml${i}`)?.value) || 0;
 
         if (impedancia > 0 && impedancia <= 4 && tempo > 2) {
             alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 4%, o tempo máximo permitido é 2s.`);
 
-        } else if (impedancia <= 5 && tempo > 3) {
+        } else if (impedancia > 4 && impedancia <= 5 && tempo > 3) {
             alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 5%, o tempo máximo permitido é 3s.`);
 
-        } else if (impedancia <= 6 && tempo > 4) {
+        } else if (impedancia > 5 && impedancia <= 6 && tempo > 4) {
             alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 6%, o tempo máximo permitido é 4s.`);
-        } else if (impedancia <= 7 && tempo > 5) {
+        } else if (impedancia > 6 && impedancia <= 7 && tempo > 5) {
             alert(`Rever preenchimento de tempo para o Trafo ${i}. Para impedância até 7%, o tempo máximo permitido é 5s.`);
         }
 
@@ -38,7 +52,7 @@ function salvarOpcao() {
             qtde: document.getElementById(`qtdehtml${i}`)?.value || "",
             z: document.getElementById(`impedanciahtml${i}`)?.value || "",
             imin: document.getElementById(`fatoriminhtml${i}`)?.value || "",
-            tempo: tempo
+            tempo: tempo || ""
         };
         localStorage.setItem(`trafo${i}JSON`, JSON.stringify(trafo));
     }
@@ -89,6 +103,35 @@ function salvarOpcao() {
 }
 //---------------------------------------------------------------------------------
 
+function configurarNavegacaoHeader() {
+    const headerTitulo = document.querySelector("h1");
+    if (!headerTitulo) {
+        return;
+    }
+
+    headerTitulo.addEventListener("click", function (event) {
+        const alvo = event.target instanceof HTMLElement
+            ? event.target.closest("button[data-nav-target]")
+            : null;
+
+        if (!(alvo instanceof HTMLButtonElement)) {
+            return;
+        }
+
+        const destino = alvo.dataset.navTarget;
+        if (destino) {
+            window.location.href = destino;
+        }
+    });
+}
+
+function configurarAcaoSalvar() {
+    const botaoSalvar = document.getElementById("botaoSalvar");
+    if (botaoSalvar) {
+        botaoSalvar.addEventListener("click", salvarOpcao);
+    }
+}
+
 //Carregar nos campos do HTML todos os valores calculados e armazenados no local storage
 window.onload = function () {
     calculaimagreal();
@@ -96,16 +139,24 @@ window.onload = function () {
     calculos();
     // calculoGerador();
 
+    const headerTitulo = document.querySelector("h1");
+    if (headerTitulo) {
+        headerTitulo.classList.add("loaded");
+    }
+
+    configurarNavegacaoHeader();
+    configurarAcaoSalvar();
+
     const botaoParametro = document.getElementById("botaotrafohtml");
     if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
+        botaoParametro.classList.add("nav-active");
     }
 
     // Controle de acesso movido para controle-acesso.js
 
     //Manter exibindo as grandezas de input dos trafos no HTML
     for (let i = 1; i <= 10; i++) {
-        const trafoSalvo = JSON.parse(localStorage.getItem(`trafo${i}JSON`));
+        const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         if (trafoSalvo) {
             if (document.getElementById(`potenciahtml${i}`)) {
                 document.getElementById(`potenciahtml${i}`).value = trafoSalvo.potencia || "";
@@ -126,7 +177,7 @@ window.onload = function () {
     }
 
     //Manter exibindo as correntes calculadas no HTML
-    const correntestrafos = JSON.parse(localStorage.getItem("correntestrafosJSON")) || {};
+    const correntestrafos = obterJSONStorage("correntestrafosJSON", {});
 
     for (let i = 1; i <= 10; i++) {
         // Exibe In (corrente nominal)
@@ -186,7 +237,7 @@ window.onload = function () {
     //----------------------------------------------------------------------------------------------
 
     // Exibir valores armazenados do motor no HTML
-    const motorSalvo = JSON.parse(localStorage.getItem("motorJSON"));
+    const motorSalvo = obterJSONStorage("motorJSON", null);
     if (motorSalvo) {
         if (document.getElementById("potenciaoperantemotorhtml")) {
             document.getElementById("potenciaoperantemotorhtml").value = motorSalvo.potenciaoperante || "";
@@ -221,7 +272,7 @@ function calcularEArmazenarIntrafoEImag() {
     let correntestrafosJSON = {};
 
     for (let i = 1; i <= 10; i++) {
-        const trafoSalvo = JSON.parse(localStorage.getItem(`trafo${i}JSON`));
+        const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         const potencia = trafoSalvo ? parseFloat(trafoSalvo.potencia) : 0;
         const qtde = trafoSalvo ? parseInt(trafoSalvo.qtde) : 0;
         const imin = trafoSalvo ? parseFloat(trafoSalvo.imin) : 0;
@@ -231,8 +282,8 @@ function calcularEArmazenarIntrafoEImag() {
         const imag = intrafo * imin;
         const imagindividual = intrafoindividual * imin;
 
-        const impedancia = parseFloat(trafoSalvo.z) || 0;
-        const iansitrafo = (100 / impedancia) * intrafoindividual;
+        const impedancia = trafoSalvo ? (parseFloat(trafoSalvo.z) || 0) : 0;
+        const iansitrafo = impedancia > 0 ? (100 / impedancia) * intrafoindividual : 0;
         const inansi = iansitrafo * 0.58;
 
 
@@ -263,12 +314,13 @@ function calcularEArmazenarIntrafoEImag() {
 
 function calculos() {
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada"));
-    const desequilibrioSelecionada = parseFloat(localStorage.getItem("desequilibrioSelecionada"));
+    const desequilibrioSelecionada = parseFloat(localStorage.getItem("desequilibrioSelecionada"))/100;
 
     let maiorImag = 0;
     let indexMaiorImag = -1;
     let maiorImagIn = 0;
     let maiorImagQtde = 1;
+    let maiorimin = 0;
 
     let somaInTotal = 0;
 
@@ -279,7 +331,7 @@ function calculos() {
 
     // Calcula In, Imag e soma total ponderada pela quantidade
     for (let i = 1; i <= 10; i++) {
-        const trafoSalvo = JSON.parse(localStorage.getItem(`trafo${i}JSON`));
+        const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         if (trafoSalvo) {
             const potencia = parseFloat(trafoSalvo.potencia) || 0;
             const imin = parseFloat(trafoSalvo.imin) || 0;
@@ -324,7 +376,8 @@ function calculos() {
     // Soma a potência total de todos os trafos:
     let somaPotenciaTotal = 0;
     for (let i = 1; i <= 10; i++) {
-        somaPotenciaTotal += qtdeArray[i] * (JSON.parse(localStorage.getItem(`trafo${i}JSON`))?.potencia || 0);
+        const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
+        somaPotenciaTotal += qtdeArray[i] * (parseFloat(trafoSalvo?.potencia) || 0);
     }
     localStorage.setItem("potenciatotaltrafos", somaPotenciaTotal);
 
@@ -357,11 +410,13 @@ function calculaimagreal() {
 
     const ICCselecionada = parseFloat(localStorage.getItem("curtoSelecionada")) || 0;
     const instselecionada = parseFloat(localStorage.getItem("imagtotalSelecionada")) || 0;
-    const desequilibrioneutro = parseFloat(localStorage.getItem("desequilibrioSelecionada"));
+    const desequilibrioneutro = parseFloat(localStorage.getItem("desequilibrioSelecionada"))/100;
 
-    const denominador = (1 / ICCselecionada) + (1 / instselecionada);
-
-    const inmagreal = 1 / denominador;
+    let inmagreal = 0;
+    if (ICCselecionada > 0 && instselecionada > 0) {
+        const denominador = (1 / ICCselecionada) + (1 / instselecionada);
+        inmagreal = denominador > 0 ? (1 / denominador) : 0;
+    }
 
     const inmagrelaneutro = inmagreal * desequilibrioneutro;
 

@@ -1,52 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
-        <style>
-            /* Oculta botões restritos por padrão */
-            #botaoconfightml:not(.btn-permitido),
-            #botaoajustesGDhtml:not(.btn-permitido),
-            #botaotabelaGDhtml:not(.btn-permitido),
-            #botaoestudosGDhtml:not(.btn-permitido),
-            #botaoanalisehtml:not(.btn-permitido) {
-                display: none !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
-            }
-            
-            /* Força exibição dos botões permitidos - com especificidade máxima */
-            #botaoconfightml.btn-permitido,
-            #botaodiagramahtml.btn-permitido,
-            #botaoparametrohtml.btn-permitido,
-            #botaotrafohtml.btn-permitido,
-            #botaotptchtml.btn-permitido,
-            #botaoajustehtml.btn-permitido,
-            #botaotabelarelehtml.btn-permitido,
-            #botaoestudoshtml.btn-permitido,
-            #botaoajustesGDhtml.btn-permitido,
-            #botaotabelaGDhtml.btn-permitido,
-            #botaoestudosGDhtml.btn-permitido,
-            #botaoanalisehtml.btn-permitido,
-            #botaosairhtml.btn-permitido {
-                display: flex !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                pointer-events: auto !important;
-            }
-            
-            /* Força ocultação dos botões bloqueados */
-            h1 button.btn-bloqueado {
-                display: none !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
-            }
-            
-            h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-            h1.loaded { opacity: 1; }
-        </style>
         <link rel="stylesheet" href="animacao.css">
         <link rel="stylesheet" href="botoes-header.css">
         <link rel="stylesheet" href="estudos.css" type="text/css">
@@ -64,12 +22,11 @@
 </head>
 
 <body>
-        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
-                <span id="titulodapagina"
-                        style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+        <div class="estudos-brand-row">
+                <span class="estudos-brand-title" id="titulodapagina">
                         COORDINATION WEB
                 </span>
-                <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+                <svg class="estudos-brand-svg" viewBox="0 0 350 350">
                         <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
                         <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
                         <!-- Curva de tempo definido -->
@@ -79,38 +36,24 @@
                 </svg>
         </div>
         <h1>
-                <button id="botaoconfightml" class="dark-mode-toggle"
-                        onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
-                <button id="botaodiagramahtml" class="dark-mode-toggle"
-                        onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
-                <button id="botaoparametrohtml" class="dark-mode-toggle"
-                        onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-                <button id="botaotrafohtml" class="dark-mode-toggle"
-                        onclick="window.location.href='transformadores.html';">TRAFOS</button>
-                <button id="botaotptchtml" class="dark-mode-toggle"
-                        onclick="window.location.href='TP-TC.html';">TP/TC</button>
-                <button id="botaoajustehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-                <button id="botaotabelarelehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='tabelarele.html';">TABELA</button>
-                <button id="botaoestudoshtml" class="dark-mode-toggle"
-                        onclick="window.location.href='estudos.html';">ESTUDOS</button>
-                <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-                <button id="botaotabelaGDhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
-                <button id="botaoestudosGDhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-                <button id="botaoanalisehtml" class="dark-mode-toggle"
-                        onclick="window.location.href='analise.html';">ANÁLISE</button>
-                <button id="botaosairhtml" class="dark-mode-toggle"
-                        onclick="window.location.href='index.html';">HOME</button>
+                <button id="botaoconfightml" class="dark-mode-toggle">CONFIGURAÇÕES</button>
+                <button id="botaodiagramahtml" class="dark-mode-toggle">DIAGRAMAS</button>
+                <button id="botaoparametrohtml" class="dark-mode-toggle">PARÂMETROS</button>
+                <button id="botaotrafohtml" class="dark-mode-toggle">TRAFOS</button>
+                <button id="botaotptchtml" class="dark-mode-toggle">TP/TC</button>
+                <button id="botaoajustehtml" class="dark-mode-toggle">AJUSTES</button>
+                <button id="botaotabelarelehtml" class="dark-mode-toggle">TABELA</button>
+                <button id="botaoestudoshtml" class="dark-mode-toggle">ESTUDOS</button>
+                <button id="botaoajustesGDhtml" class="dark-mode-toggle">AJUSTES GD</button>
+                <button id="botaotabelaGDhtml" class="dark-mode-toggle">TABELA GD</button>
+                <button id="botaoestudosGDhtml" class="dark-mode-toggle">ESTUDOS GD</button>
+                <button id="botaoanalisehtml" class="dark-mode-toggle">ANÁLISE</button>
+                <button id="botaosairhtml" class="dark-mode-toggle">SAIR</button>
         </h1>
         <br>
 
-        <div style="text-align: center; margin: 12px 0;">
-                <button onclick="window.print()" class="dark-mode-toggle"
-                        style="padding: 8px 18px; font-size: 1em;">Imprimir</button>
+        <div class="estudos-print-wrap">
+                <button id="estudos-print-btn" class="dark-mode-toggle estudos-print-btn">Imprimir</button>
                 <br>
         </div>
 
@@ -125,8 +68,8 @@
                                 <div>
 
                         <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
-                        <input type="file" id="imageInput" accept="image/*" multiple
-                                style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #f8f8f8; font-size: 1em; color: #222; cursor: pointer;">
+                        <input class="estudos-file-input" type="file" id="imageInput" accept="image/*" multiple
+                               >
 
                 </div>
 
@@ -138,8 +81,8 @@
         <div>
 
                 <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
-                <input type="file" id="imageInput" accept="image/*" multiple
-                        style="padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #f8f8f8; font-size: 1em; color: #222; cursor: pointer;">
+                <input class="estudos-file-input" type="file" id="imageInput" accept="image/*" multiple
+                       >
 
         </div> -->
 
@@ -147,162 +90,161 @@
 
 
         <div id="tabelaselo">
-                <table style="background-color: #fff; color: #000; width: 100%; table-layout: fixed;">
+                <table class="estudos-selo-table">
                         <colgroup>
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
+                                <col class="estudos-col-10">
 
 
 
                         </colgroup>
                         <tr>
-                                <td colspan="6" rowspan="4" style="height: 400px; vertical-align: top;">
+                                <td class="estudos-selo-h400-top" colspan="6" rowspan="4">
                                         Local para selo de análise de conformidade com normas CEMIG e ABNT
                                 </td>
                                 <td colspan="3">
                                         <div>Informações complementares</div>
                                         <div>Coordenadas, transformador, nº orçamento, etc.</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
-                                <td colspan="1" rowspan="4" class="vertical"
-                                        style="width: 6%; min-width: 60px; max-width: 80px; text-align: center;">
+                                <td colspan="1" rowspan="4" class="vertical estudos-selo-vertical-col">
                                         PARA USO DA CEMIG
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="3">
                                         <div>Carga instalada (kW)</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="3">
                                         <div>Demanda da instalação (kVA)</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="3">
                                         <div>Demanda de contrato (kW)</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="7" style="height: 50px;">
+                                <td class="estudos-h-50" colspan="7">
                                         <div>Dados e logotipo do projetista (opcional)</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                                 <td colspan="3">
                                         <div>Formato do projeto</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="10" style="height: 50px;">
+                                <td class="estudos-h-50" colspan="10">
                                         <div>Título / conteúdo</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4" style="height: 50px;">
+                                <td class="estudos-h-50" colspan="4">
                                         <div>Nome do empreendimento</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                                 <td colspan="3">
                                         <div>CPF/CNPJ</div>
-                                        <input style="width: 80%;">
+                                        <input class="estudos-input-w80">
                                 </td>
                                 <td colspan="3">
                                         <div>Finalidade</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4" style="height: 50px;">
+                                <td class="estudos-h-50" colspan="4">
                                         <div>Endereço</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                                 <td colspan="3">
                                         <div>Bairro</div>
-                                        <input style="width: 80%;">
+                                        <input class="estudos-input-w80">
                                 </td>
                                 <td colspan="3">
                                         <div>Cidade</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="10">
                                         <div>Número e data da ART de projeto</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4" style="height: 50px;">
+                                <td class="estudos-h-50" colspan="4">
                                         <div>Proprietário<br>Nome</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                                 <td colspan="3">
                                         <div>CPF/CNPJ / Identidade</div>
-                                        <input style="width: 80%;">
+                                        <input class="estudos-input-w80">
                                 </td>
                                 <td colspan="3">
                                         <div>Telefone</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4" style="height: 50px;">
+                                <td class="estudos-h-50" colspan="4">
                                         <div>Contratante (se houver)<br>Nome</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                                 <td colspan="3">
                                         <div>CPF/CNPJ / Identidade</div>
-                                        <input style="width: 80%;">
+                                        <input class="estudos-input-w80">
                                 </td>
                                 <td colspan="3">
                                         <div>Telefone</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="10">
                                         <div>Endereço completo para correspondência do PROPRIETÁRIO</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="10">
                                         <div>Endereço completo para correspondência do PROJETISTA</div>
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
                                 </td>
                         </tr>
                         <tr>
-                                <td colspan="4" style="height: 100px;">
+                                <td class="estudos-h-100" colspan="4">
                                         <div>RT (Engª)</div>
-                                        <input style="width: 90%;">
-                                        <input style="width: 90%;">
+                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90">
                                         <div>Nome<br>Telefone</div>
                                 </td>
                                 <td colspan="3">
-                                        <div style="height: 50px;">CREA / Estado</div>
-                                        <input style="width: 80%;">
+                                        <div class="estudos-h-50">CREA / Estado</div>
+                                        <input class="estudos-input-w80">
                                 </td>
                                 <td colspan="1">
-                                        <div style="height: 50px;">Folha</div>
-                                        <input style="width: 80%;">
+                                        <div class="estudos-h-50">Folha</div>
+                                        <input class="estudos-input-w80">
                                 </td>
                                 <td colspan="2">
-                                        <div style="height: 50px;">Data</div>
-                                        <input style="width: 80%;">
+                                        <div class="estudos-h-50">Data</div>
+                                        <input class="estudos-input-w80">
                                 </td>
                         </tr>
                 </table>
@@ -311,27 +253,23 @@
         <br><br><br><br><br><br>
 
 
-        <div id="tituloestudodeprotecao"
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block" id="tituloestudodeprotecao">
                 <h2>ESTUDOS DE PROTEÇÃO E SELETIVIDADE</h2>
         </div>
         <br>
 
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Justificativa de apresentação</h2>
         </div>
 
-        <div id="objetivotexto" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="estudos-flex-col-center" id="objetivotexto">
 
-                <textarea
-                        style="width: 210mm; min-height: 80px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
+                <textarea class="estudos-textarea-lg">
         Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente de carga ao sistema, incluindo dados elétricos, cálculos, dimensionamentos, ajustes das proteções no relé e plotagem de gráficos.
                 </textarea>
         </div>
 
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Informações da Conexão</h2>
         </div>
 
@@ -368,20 +306,17 @@
 
         </div>
 
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block estudos-title-break-start">
                 <h2>Diagrama Unifilar:</h2>
         </div>
         <br>
 
-        <div id="diagramaunifilar"
-                style="max-width: 210mm; width: 210mm; margin: 0 auto; display: flex; justify-content: center; align-items: center; border: 2px solid #000; border-radius: 20px; overflow: hidden; background: #ffffff;">
-                <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
+        <div class="estudos-diagrama-box" id="diagramaunifilar">
+                <div class="estudos-max210-center" id="gallery"></div>
         </div>
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
         </div>
         <br>
@@ -390,170 +325,149 @@
 
                 <div class="calculotrafos-texto-tr01">
                         <span>In TRF01 =</span>
-                        <span id="formula-trf01" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf01" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf01"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf01">
+                                <span class="estudos-block-center" id="numerador-trf01">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf01">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf01" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf01" style="display:block; text-align:center;"></span>
-                                <span id="v-trf01"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf01">
+                                <span class="estudos-block-center" id="s-trf01"></span>
+                                <span class="estudos-frac-den" id="v-trf01"></span>
                         </span>
                         = <span id="resultado-trf01"></span>
                 </div><br>
 
                 <div class="calculotrafos-texto-tr02">
                         <span>In TRF02 =</span>
-                        <span id="formula-trf02" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf02" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf02"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf02">
+                                <span class="estudos-block-center" id="numerador-trf02">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf02">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf02" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf02" style="display:block; text-align:center;"></span>
-                                <span id="v-trf02"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf02">
+                                <span class="estudos-block-center" id="s-trf02"></span>
+                                <span class="estudos-frac-den" id="v-trf02"></span>
                         </span>
                         = <span id="resultado-trf02"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr03">
                         <span>In TRF03 =</span>
-                        <span id="formula-trf03" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf03" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf03"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf03">
+                                <span class="estudos-block-center" id="numerador-trf03">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf03">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf03" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf03" style="display:block; text-align:center;"></span>
-                                <span id="v-trf03"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf03">
+                                <span class="estudos-block-center" id="s-trf03"></span>
+                                <span class="estudos-frac-den" id="v-trf03"></span>
                         </span>
                         = <span id="resultado-trf03"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr04">
                         <span>In TRF04 =</span>
-                        <span id="formula-trf04" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf04" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf04"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf04">
+                                <span class="estudos-block-center" id="numerador-trf04">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf04">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf04" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf04" style="display:block; text-align:center;"></span>
-                                <span id="v-trf04"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf04">
+                                <span class="estudos-block-center" id="s-trf04"></span>
+                                <span class="estudos-frac-den" id="v-trf04"></span>
                         </span>
                         = <span id="resultado-trf04"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr05">
                         <span>In TRF05 =</span>
-                        <span id="formula-trf05" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf05" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf05"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf05">
+                                <span class="estudos-block-center" id="numerador-trf05">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf05">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf05" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf05" style="display:block; text-align:center;"></span>
-                                <span id="v-trf05"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf05">
+                                <span class="estudos-block-center" id="s-trf05"></span>
+                                <span class="estudos-frac-den" id="v-trf05"></span>
                         </span>
                         = <span id="resultado-trf05"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr06">
                         <span>In TRF06 =</span>
-                        <span id="formula-trf06" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf06" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf06"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf06">
+                                <span class="estudos-block-center" id="numerador-trf06">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf06">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf06" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf06" style="display:block; text-align:center;"></span>
-                                <span id="v-trf06"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf06">
+                                <span class="estudos-block-center" id="s-trf06"></span>
+                                <span class="estudos-frac-den" id="v-trf06"></span>
                         </span>
                         = <span id="resultado-trf06"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr07">
                         <span>In TRF07 =</span>
-                        <span id="formula-trf07" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf07" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf07"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf07">
+                                <span class="estudos-block-center" id="numerador-trf07">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf07">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf07" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf07" style="display:block; text-align:center;"></span>
-                                <span id="v-trf07"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf07">
+                                <span class="estudos-block-center" id="s-trf07"></span>
+                                <span class="estudos-frac-den" id="v-trf07"></span>
                         </span>
                         = <span id="resultado-trf07"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr08">
                         <span>In TRF08 =</span>
-                        <span id="formula-trf08" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf08" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf08"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf08">
+                                <span class="estudos-block-center" id="numerador-trf08">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf08">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf08" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf08" style="display:block; text-align:center;"></span>
-                                <span id="v-trf08"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf08">
+                                <span class="estudos-block-center" id="s-trf08"></span>
+                                <span class="estudos-frac-den" id="v-trf08"></span>
                         </span>
                         = <span id="resultado-trf08"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr09">
                         <span>In TRF09 =</span>
-                        <span id="formula-trf09" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf09" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf09"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf09">
+                                <span class="estudos-block-center" id="numerador-trf09">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf09">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf09" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf09" style="display:block; text-align:center;"></span>
-                                <span id="v-trf09"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf09">
+                                <span class="estudos-block-center" id="s-trf09"></span>
+                                <span class="estudos-frac-den" id="v-trf09"></span>
                         </span>
                         = <span id="resultado-trf09"></span>
                 </div><br>
                 <div class="calculotrafos-texto-tr10">
                         <span>In TRF10 =</span>
-                        <span id="formula-trf10" style="display:inline-block; vertical-align:middle;">
-                                <span id="numerador-trf10" style="display:block; text-align:center;">S</span>
-                                <span id="denominador-trf10"
-                                        style="border-top:1px solid; display:block; text-align:center;">V &times;
+                        <span class="estudos-inline-middle" id="formula-trf10">
+                                <span class="estudos-block-center" id="numerador-trf10">S</span>
+                                <span class="estudos-frac-den" id="denominador-trf10">V &times;
                                         &radic;3</span>
                         </span>
                         =
-                        <span id="valores-trf10" style="display:inline-block; vertical-align:middle;">
-                                <span id="s-trf10" style="display:block; text-align:center;"></span>
-                                <span id="v-trf10"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle" id="valores-trf10">
+                                <span class="estudos-block-center" id="s-trf10"></span>
+                                <span class="estudos-frac-den" id="v-trf10"></span>
                         </span>
                         = <span id="resultado-trf10"></span>
                 </div>
         </div>
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Cálculo das Correntes ANSI e NANSI</h2>
         </div>
         <br>
@@ -561,14 +475,13 @@
 
         <div id="calculoANSIeNANSI">
 
-                <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em; margin-bottom: 24px;">
-                        <div style="margin-bottom: 12px;">
+                <div class="estudos-times-block">
+                        <div class="estudos-mb-12">
                                 <span>I<sub>FASE ANSI</sub></span>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">100</span>
-                                        <span
-                                                style="border-top:1px solid; display:block; text-align:center;">Z(%)</span>
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">100</span>
+                                        <span class="estudos-frac-den">Z(%)</span>
                                 </span>
                                 &times; In (do transformador)
                         </div>
@@ -580,122 +493,112 @@
                 </div>
 
 
-                <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em;">
-                        <div class="calculotrafos-texto-tr01" style="margin-bottom: 8px;">
+                <div class="estudos-auto-001">
+                        <div class="calculotrafos-texto-tr01 estudos-mb-8">
                                 <span>I FASE ANSI TR01</span>
                                 =
-                                <span id="frac-ansi-tr01" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr01" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr01"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr01">
+                                        <span class="estudos-block-center" id="num-ansi-tr01">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr01"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr01"></span>
                                 =
                                 <span id="resultado-ansi-tr01"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr02" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr02 estudos-mb-8">
                                 <span>I FASE ANSI TR02</span>
                                 =
-                                <span id="frac-ansi-tr02" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr02" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr02"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr02">
+                                        <span class="estudos-block-center" id="num-ansi-tr02">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr02"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr02"></span>
                                 =
                                 <span id="resultado-ansi-tr02"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr03" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr03 estudos-mb-8">
                                 <span>I FASE ANSI TR03</span>
                                 =
-                                <span id="frac-ansi-tr03" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr03" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr03"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr03">
+                                        <span class="estudos-block-center" id="num-ansi-tr03">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr03"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr03"></span>
                                 =
                                 <span id="resultado-ansi-tr03"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr04" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr04 estudos-mb-8">
                                 <span>I FASE ANSI TR04</span>
                                 =
-                                <span id="frac-ansi-tr04" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr04" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr04"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr04">
+                                        <span class="estudos-block-center" id="num-ansi-tr04">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr04"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr04"></span>
                                 =
                                 <span id="resultado-ansi-tr04"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr05" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr05 estudos-mb-8">
                                 <span>I FASE ANSI TR05</span>
                                 =
-                                <span id="frac-ansi-tr05" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr05" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr05"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr05">
+                                        <span class="estudos-block-center" id="num-ansi-tr05">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr05"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr05"></span>
                                 =
                                 <span id="resultado-ansi-tr05"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr06" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr06 estudos-mb-8">
                                 <span>I FASE ANSI TR06</span>
                                 =
-                                <span id="frac-ansi-tr06" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr06" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr06"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr06">
+                                        <span class="estudos-block-center" id="num-ansi-tr06">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr06"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr06"></span>
                                 =
                                 <span id="resultado-ansi-tr06"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr07" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr07 estudos-mb-8">
                                 <span>I FASE ANSI TR07</span>
                                 =
-                                <span id="frac-ansi-tr07" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr07" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr07"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr07">
+                                        <span class="estudos-block-center" id="num-ansi-tr07">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr07"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr07"></span>
                                 =
                                 <span id="resultado-ansi-tr07"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr08" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr08 estudos-mb-8">
                                 <span>I FASE ANSI TR08</span>
                                 =
-                                <span id="frac-ansi-tr08" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr08" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr08"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr08">
+                                        <span class="estudos-block-center" id="num-ansi-tr08">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr08"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr08"></span>
                                 =
                                 <span id="resultado-ansi-tr08"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr09" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr09 estudos-mb-8">
                                 <span>I FASE ANSI TR09</span>
                                 =
-                                <span id="frac-ansi-tr09" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr09" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr09"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr09">
+                                        <span class="estudos-block-center" id="num-ansi-tr09">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr09"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr09"></span>
                                 =
                                 <span id="resultado-ansi-tr09"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr10" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr10 estudos-mb-8">
                                 <span>I FASE ANSI TR10</span>
                                 =
-                                <span id="frac-ansi-tr10" style="display:inline-block; vertical-align:middle;">
-                                        <span id="num-ansi-tr10" style="display:block; text-align:center;">100</span>
-                                        <span id="den-ansi-tr10"
-                                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle" id="frac-ansi-tr10">
+                                        <span class="estudos-block-center" id="num-ansi-tr10">100</span>
+                                        <span class="estudos-frac-den" id="den-ansi-tr10"></span>
                                 </span>
                                 &times; <span id="in-ansi-tr10"></span>
                                 =
@@ -704,7 +607,7 @@
 
                         <br>
 
-                        <div class="calculotrafos-texto-tr01" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr01 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR01</span>
                                 =
                                 <span id="coef-neutro-tr01">0,58</span> &times; <span
@@ -712,7 +615,7 @@
                                 =
                                 <span id="resultado-neutro-tr01"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr02" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr02 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR02</span>
                                 =
                                 <span id="coef-neutro-tr02">0,58</span> &times; <span
@@ -720,7 +623,7 @@
                                 =
                                 <span id="resultado-neutro-tr02"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr03" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr03 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR03</span>
                                 =
                                 <span id="coef-neutro-tr03">0,58</span> &times; <span
@@ -728,7 +631,7 @@
                                 =
                                 <span id="resultado-neutro-tr03"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr04" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr04 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR04</span>
                                 =
                                 <span id="coef-neutro-tr04">0,58</span> &times; <span
@@ -736,7 +639,7 @@
                                 =
                                 <span id="resultado-neutro-tr04"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr05" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr05 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR05</span>
                                 =
                                 <span id="coef-neutro-tr05">0,58</span> &times; <span
@@ -744,7 +647,7 @@
                                 =
                                 <span id="resultado-neutro-tr05"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr06" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr06 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR06</span>
                                 =
                                 <span id="coef-neutro-tr06">0,58</span> &times; <span
@@ -752,7 +655,7 @@
                                 =
                                 <span id="resultado-neutro-tr06"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr07" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr07 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR07</span>
                                 =
                                 <span id="coef-neutro-tr07">0,58</span> &times; <span
@@ -760,7 +663,7 @@
                                 =
                                 <span id="resultado-neutro-tr07"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr08" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr08 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR08</span>
                                 =
                                 <span id="coef-neutro-tr08">0,58</span> &times; <span
@@ -768,7 +671,7 @@
                                 =
                                 <span id="resultado-neutro-tr08"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr09" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr09 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR09</span>
                                 =
                                 <span id="coef-neutro-tr09">0,58</span> &times; <span
@@ -776,7 +679,7 @@
                                 =
                                 <span id="resultado-neutro-tr09"></span>
                         </div><br>
-                        <div class="calculotrafos-texto-tr10" style="margin-bottom: 8px;">
+                        <div class="calculotrafos-texto-tr10 estudos-mb-8">
                                 <span>I NEUTRO ANSI TR10</span>
                                 =
                                 <span id="coef-neutro-tr10">0,58</span> &times; <span
@@ -793,8 +696,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Tabela Transformadores</h2>
         </div>
         <br>
@@ -943,8 +845,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Cálculo Corrente de Magnetização Total</h2>
         </div>
         <br>
@@ -961,46 +862,46 @@
                         <li>In dos demais transformadores = Corrente nominal dos demais transformadores</li>
                         <p>
                                 <strong>Imag total =</strong><br>
-                                <span style="margin-left: 12px;">
+                                <span class="estudos-ml-12">
                                         <span id="in-maior-trafo"></span><span id="M-maior-trafo"></span>
                                 </span>
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-1"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-2"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-3"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-4"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-5"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-6"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-7"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-8"></span>
                                 </span><br>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-9"></span>
                                 </span>
 
-                                <span style="margin-left: 32px;">
+                                <span class="estudos-ml-32">
                                         <span id="in-trafo-10"></span>
                                 </span>
                         </p>
@@ -1011,13 +912,12 @@
         </div>
 
 
-                <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <br>
+        <div class="estudos-title-block">
                 <h2>Cálculo de Magnetização Real</h2>
         </div>
         <br>
-        
+
         <div id="calculomagnetizacaoreal">
 
 
@@ -1031,108 +931,96 @@
 
 
 
-                <div style="font-family: 'Times New Roman', Times, serif; font-size: 1.1em; margin-bottom: 24px;">
-                        <div style="margin-bottom: 12px;">
+                <div class="estudos-times-block">
+                        <div class="estudos-mb-12">
                                 <strong>I<sub>inrush-real</sub></strong>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">
                                                 V<sub>ff</sub>
-                                                <span style="display:block; font-size: 0.8em;">
-                                                        <span
-                                                                style="border-top:1px solid; display:block; text-align:center;">√3</span>
+                                                <span class="estudos-block-fs-08">
+                                                        <span class="estudos-frac-den">√3</span>
                                                 </span>
                                         </span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">&nbsp;
+                                        <span class="estudos-frac-den">&nbsp;
                                                 Z<sub>total</sub></span>
                                 </span>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">V<sub>ff</sub></span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">√3</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;"> &nbsp;
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">V<sub>ff</sub></span>
+                                        <span class="estudos-frac-den">√3</span>
+                                        <span class="estudos-frac-den"> &nbsp;
                                                 (Z<sub>s</sub> + Z<sub>in</sub>)</span>
                                 </span>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">
                                                 V<sub>ff</sub>
-                                                <span style="display:block; font-size: 0.8em;">
-                                                        <span
-                                                                style="border-top:1px solid; display:block; text-align:center;">√3</span>
+                                                <span class="estudos-block-fs-08">
+                                                        <span class="estudos-frac-den">√3</span>
                                                 </span>
                                         </span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">
+                                        <span class="estudos-frac-den">
                                                 &nbsp;
-                                                <span style="white-space:nowrap;">
-                                                        <span style="display:inline-block; vertical-align:middle;">
-                                                                <span
-                                                                        style="display:block; text-align:center;">V<sub>ff</sub></span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">√3</span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">&nbsp;
+                                                <span class="estudos-nowrap">
+                                                        <span class="estudos-inline-middle">
+                                                                <span class="estudos-block-center">V<sub>ff</sub></span>
+                                                                <span class="estudos-frac-den">√3</span>
+                                                                <span class="estudos-frac-den">&nbsp;
                                                                         I<sub>cc3∅</sub></span>
                                                         </span>
                                                         +
-                                                        <span style="display:inline-block; vertical-align:middle;">
-                                                                <span
-                                                                        style="display:block; text-align:center;">V<sub>ff</sub></span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">√3</span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">√3
+                                                        <span class="estudos-inline-middle">
+                                                                <span class="estudos-block-center">V<sub>ff</sub></span>
+                                                                <span class="estudos-frac-den">√3</span>
+                                                                <span class="estudos-frac-den">√3
                                                                         &nbsp; I<sub>inrush</sub></span>
                                                         </span>
                                                 </span>
                                         </span>
                                 </span>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">1</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">
-                                                <span style="white-space:nowrap;">
-                                                        <span style="display:inline-block; vertical-align:middle;">
-                                                                <span style="display:block; text-align:center;">1</span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">I<sub>cc3∅</sub></span>
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">1</span>
+                                        <span class="estudos-frac-den">
+                                                <span class="estudos-nowrap">
+                                                        <span class="estudos-inline-middle">
+                                                                <span class="estudos-block-center">1</span>
+                                                                <span class="estudos-frac-den">I<sub>cc3∅</sub></span>
                                                         </span>
                                                         +
-                                                        <span style="display:inline-block; vertical-align:middle;">
-                                                                <span style="display:block; text-align:center;">1</span>
-                                                                <span
-                                                                        style="border-top:1px solid; display:block; text-align:center;">I<sub>inrush</sub></span>
+                                                        <span class="estudos-inline-middle">
+                                                                <span class="estudos-block-center">1</span>
+                                                                <span class="estudos-frac-den">I<sub>inrush</sub></span>
                                                         </span>
                                                 </span>
                                         </span>
                                 </span>
                         </div>
 
-                        <div style="margin-bottom: 12px;">
+                        <div class="estudos-mb-12">
                                 <strong>I<sub>inrush-real</sub></strong>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">1</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">
-                                                <span style="white-space:nowrap;">
-                                                        <span style="display:inline-block; vertical-align:middle;">
-                                                                <span style="display:block; text-align:center;">1</span>
-                                                                <span id="inrush-cc3f"
-                                                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">1</span>
+                                        <span class="estudos-frac-den">
+                                                <span class="estudos-nowrap">
+                                                        <span class="estudos-inline-middle">
+                                                                <span class="estudos-block-center">1</span>
+                                                                <span class="estudos-frac-den" id="inrush-cc3f"></span>
                                                         </span>
                                                         +
-                                                        <span style="display:inline-block; vertical-align:middle;">
-                                                                <span style="display:block; text-align:center;">1</span>
-                                                                <span id="inrush-in"
-                                                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                                                        <span class="estudos-inline-middle">
+                                                                <span class="estudos-block-center">1</span>
+                                                                <span class="estudos-frac-den" id="inrush-in"></span>
                                                         </span>
                                                 </span>
                                         </span>
                                 </span>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">1</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">1</span>
+                                        <span class="estudos-frac-den">
                                                 <span id="divisao-icc"></span> + <span id="divisao-inrush"></span>
                                         </span>
                                 </span>
@@ -1141,11 +1029,10 @@
                         <div>
                                 <strong>I<sub>inrush-real</sub></strong>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">1</span>
-                                        <span id="resultado-divisao"
-                                                style="border-top:1px solid; display:block; text-align:center;">
-                                                
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">1</span>
+                                        <span class="estudos-frac-den" id="resultado-divisao">
+
                                         </span>
                                 </span>
                                 =
@@ -1156,8 +1043,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Critérios para dimensionamento dos transformadores de corrente (TC) de Proteção</h2>
         </div>
         <br>
@@ -1169,16 +1055,16 @@
                         em suportar uma corrente de até 50 vezes a corrente de primário: </p>
 
                 <p>I primário TC >=
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">Icc trifásica</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">50</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">Icc trifásica</span>
+                                <span class="estudos-frac-den">50</span>
                         </span>
 
                 </p>
                 <p>I primário TC >=
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span id="curtoTC" style="display:block; text-align:center;"></span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">50</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center" id="curtoTC"></span>
+                                <span class="estudos-frac-den">50</span>
                         </span>
                 <p>I primário TC >= <span id="tc-saturacao-primario"></span> A</p>
 
@@ -1192,17 +1078,16 @@
                         de primário: </p>
 
                 <p>I primário TC >=
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">I rush</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">20</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">I rush</span>
+                                <span class="estudos-frac-den">20</span>
                         </span>
 
 
                 <p>I primário TC >=
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span class="imag-total-valor" style="display:block; text-align:center;"></span>
-                                <span id="corrente-magnetizacao-tc-divisor"
-                                        style="border-top:1px solid; display:block; text-align:center;">20</span>
+                        <span class="estudos-inline-middle">
+                                <span class="imag-total-valor estudos-block-center"></span>
+                                <span class="estudos-frac-den" id="corrente-magnetizacao-tc-divisor">20</span>
                         </span>
 
 
@@ -1218,31 +1103,30 @@
                 <p>A corrente de primário do TC deve possuir capacidade nominal superior à corrente de
                         partida da instalação:</p>
 
-                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">P(kW) * tolerânica de
+                <p>Ip = <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">P(kW) * tolerânica de
                                         105%</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V
+                                <span class="estudos-frac-den">V
                                         × √3 × 0,92</span>
                         </span>
                 </p>
 
-                <p>Ip = <span style="display:inline-block; vertical-align:middle;">
-                                <span class="ip-partida-numerador-TC" style="display:block; text-align:center;"></span>
-                                <span class="ip-partida-denominador"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                <p>Ip = <span class="estudos-inline-middle">
+                                <span class="ip-partida-numerador-TC estudos-block-center"></span>
+                                <span class="ip-partida-denominador estudos-frac-den"></span>
                         </span>
                         = <span class="ip-partida-resultado-TC"></span>
                 </p>
                 </p>
 
 
-                <p><span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">I primário TC >= Ip</span>
+                <p><span class="estudos-inline-middle">
+                                <span class="estudos-block-center">I primário TC >= Ip</span>
 
                         </span></p>
 
                 I primário TC >=
-                <span style="display:inline-block; vertical-align:middle;">
+                <span class="estudos-inline-middle">
                         <span class="ip-partida-resultado-TC"></span>
 
                 </span>
@@ -1251,7 +1135,7 @@
 
                 <strong>4) Critério de precisão de leitura do TC:</strong>
 
-                <p style="text-align: justify;">Considerando as limitações de leitura dos transformadores de corrente
+                <p class="estudos-text-justify">Considerando as limitações de leitura dos transformadores de corrente
                         (TCs) de proteção,
                         cujo erro máximo permitido é de 10%, a medição torna-se confiável somente
                         acima dessa faixa de sensibilidade. Portanto, deve-se garantir que a
@@ -1288,14 +1172,14 @@
                         <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> ×
                                 Z<sub>total</sub></p>
                         <p><strong>I<sub>cc</sub> =</strong>
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">I<sub>cc3∅</sub></span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">RTC</span>
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">I<sub>cc3∅</sub></span>
+                                        <span class="estudos-frac-den">RTC</span>
                                 </span>
                                 =
-                                <span style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">5000</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">50</span>
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">5000</span>
+                                        <span class="estudos-frac-den">50</span>
                                 </span>
                                 = <strong>100,00 A</strong>
                         </p>
@@ -1307,14 +1191,14 @@
                 <h2>Impedância do Relé (Z<sub>relé</sub>)</h2>
                 <p>Relé: SIEMENS-7SR1004-GD, Consumo: 0,20 VA / 5 A (Fase e Neutro)</p>
                 <p>Z<sub>relé</sub> =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">0,2</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">5²</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">0,2</span>
+                                <span class="estudos-frac-den">5²</span>
                         </span>
                         + 3 ×
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">0,2</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">5²</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">0,2</span>
+                                <span class="estudos-frac-den">5²</span>
                         </span>
                         = 0,008 + 0,024 = <strong>0,0320 Ω</strong>
                 </p>
@@ -1322,9 +1206,9 @@
                 <h2>Impedância dos Condutores (Z<sub>fiação</sub>)</h2>
                 <p>Condutores de cobre de 2,5 mm² com 3 metros:</p>
                 <p>Z<sub>fiação</sub> =
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">0,02 × 3</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">2,5</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">0,02 × 3</span>
+                                <span class="estudos-frac-den">2,5</span>
                         </span>
                         = <strong>0,0240 Ω</strong>
                 </p>
@@ -1343,8 +1227,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Dimensionamento TC</h2>
         </div>
         <br>
@@ -1354,8 +1237,7 @@
                 <p>O transformador de corrente definido para atender os critérios avaliados será:</p>
                 <span class="tc-especificacao"></span>
                 <br><br>
-                <textarea
-                        style="width: 100%; min-height: 60px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;"
+                <textarea class="estudos-textarea-md"
                         placeholder="Observações ou justificativas técnicas do dimensionamento do TC">Com especificação 12,5 VA 10P20</textarea>
                 <p>Conforme norma:<br><em>Ligação ao secundário dos TC de proteção: no mínimo deverão ser conectadas as
                                 3
@@ -1366,8 +1248,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Dimensionamento TP de Proteção</h2>
         </div>
         <br>
@@ -1403,8 +1284,7 @@
 
 
                 <p>Características Técnicas Mínimas do TP:</p>
-                <textarea
-                        style="width: 100%; min-height: 60px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;">
+                <textarea class="estudos-textarea-md">
 • Atender à ABNT NBR 6855
 • Potência térmica de 400 VA
 • Classe de exatidão 0,6P75
@@ -1413,8 +1293,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Cálculo e dimensionamento Curvas de Fase</h2>
         </div>
         <br>
@@ -1445,44 +1324,40 @@
                 </div>
                 <p>
                         <span>In fase:</span>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">P</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">P</span>
+                                <span class="estudos-frac-den">V × √3 × FP</span>
                         </span>
                         =
-                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                <span class="numerador-potencia-nominal"
-                                        style="display:block; text-align:center;">300,00</span>
-                                <span class="ip-partida-denominador"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="fraction estudos-inline-middle">
+                                <span class="numerador-potencia-nominal estudos-block-center">300,00</span>
+                                <span class="ip-partida-denominador estudos-frac-den"></span>
                         </span>
                         = <span class="corrente-nominal-fase"></span>
                 </p>
                 <p>
                         <span class="label">Ip fase:</span>
-                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">P * 105%</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">V × √3 × FP</span>
+                        <span class="fraction estudos-inline-middle">
+                                <span class="estudos-block-center">P * 105%</span>
+                                <span class="estudos-frac-den">V × √3 × FP</span>
                         </span>
                         =
-                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                <span class="ip-partida-numerador" style="display:block; text-align:center;"></span>
-                                <span class="ip-partida-denominador"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="fraction estudos-inline-middle">
+                                <span class="ip-partida-numerador estudos-block-center"></span>
+                                <span class="ip-partida-denominador estudos-frac-den"></span>
                         </span>
                         = <span class="ip-partida-resultado"></span>
                 </p>
                 <p>
                         <span class="label">Ip fase em P.U:</span>
-                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">Ip</span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                        <span class="fraction estudos-inline-middle">
+                                <span class="estudos-block-center">Ip</span>
+                                <span class="estudos-frac-den">Prim TC</span>
                         </span>
                         =
-                        <span class="fraction" style="display:inline-block; vertical-align:middle;">
-                                <span class="ip-partida-resultado" style="display:block; text-align:center;"></span>
-                                <span class="tc-especificacao-valor"
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="fraction estudos-inline-middle">
+                                <span class="ip-partida-resultado estudos-block-center"></span>
+                                <span class="tc-especificacao-valor estudos-frac-den"></span>
                         </span>
                         = <span class="corrente-ip-pu"></span>
                 </p>
@@ -1490,56 +1365,56 @@
 
                 <h3>Parâmetros Considerados</h3>
                 <p>Para o cálculo do dial de fase, serão considerados os seguintes parâmetros:</p>
-                <table style="border-collapse: collapse;">
+                <table class="estudos-border-collapse">
                         <tr>
-                                <td style="padding: 2px 8px;">Tipo de curva:</td>
-                                <td class="curva-fase" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Tipo de curva:</td>
+                                <td class="curva-fase estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Fator alfa (a):</td>
-                                <td class="fator-alfa-fase" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Fator alfa (a):</td>
+                                <td class="fator-alfa-fase estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Fator beta (b):</td>
-                                <td class="fator-beta-fase" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Fator beta (b):</td>
+                                <td class="fator-beta-fase estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Tempo de magnetização (t):</td>
-                                <td class="tempo-mag-fase" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Tempo de magnetização (t):</td>
+                                <td class="tempo-mag-fase estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Corrente de magnetização (Imag):</td>
-                                <td class="imag-total-valor" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Corrente de magnetização (Imag):</td>
+                                <td class="imag-total-valor estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Corrente nominal (In):</td>
-                                <td class="corrente-nominal-fase" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Corrente nominal (In):</td>
+                                <td class="corrente-nominal-fase estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Fator M (Imag/In):</td>
-                                <td class="fator-m" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Fator M (Imag/In):</td>
+                                <td class="fator-m estudos-pad-2-8"></td>
                         </tr>
                         <tr>
-                                <td style="padding: 2px 8px;">Constante k:</td>
-                                <td class="fator-k-fase" style="padding: 2px 8px;"></td>
+                                <td class="estudos-pad-2-8">Constante k:</td>
+                                <td class="fator-k-fase estudos-pad-2-8"></td>
                         </tr>
                 </table>
 
 
                 <h3>Calculo do dial:</h3>
-                <p class="formula1" style="font-size: 1.2em;"></p>
+                <p class="formula1 estudos-fs-12"></p>
 
-                <p class="formula2" style="font-size: 1.2em;"></p>
+                <p class="formula2 estudos-fs-12"></p>
 
-                <p class="formula3" style="font-size: 1.2em;"></p>
+                <p class="formula3 estudos-fs-12"></p>
 
-                <p class="formula4" style="font-size: 1.2em;"></p>
+                <p class="formula4 estudos-fs-12"></p>
 
-                <p class="formula5" style="font-size: 1.2em;"></p>
+                <p class="formula5 estudos-fs-12"></p>
 
-                <p class="formula6" style="font-size: 1.1em;"></p>
+                <p class="formula6 estudos-fs-11"></p>
 
-                <p class="formula7" style="font-size: 1.1em;"></p>
+                <p class="formula7 estudos-fs-11"></p>
 
                 <p>Dial calculado:<span class="dial-fase-calculado"></span></p>
 
@@ -1560,7 +1435,7 @@
                         </div>
 
                         <h3>Fórmula:</h3>
-                        <p id="formula" style="font-size: 1.1em;"></p>
+                        <p class="estudos-fs-11" id="formula"></p>
                 </div> -->
 
 
@@ -1592,17 +1467,15 @@
 
                                 <p>
                                         <span>I<sub>inst</sub> fase P.U:</span>
-                                        <span style="display:inline-block; vertical-align:middle;">
-                                                <span style="display:block; text-align:center;">I<sub>inst</sub></span>
-                                                <span style="border-top:1px solid; display:block; text-align:center;">Prim
+                                        <span class="estudos-inline-middle">
+                                                <span class="estudos-block-center">I<sub>inst</sub></span>
+                                                <span class="estudos-frac-den">Prim
                                                         TC</span>
                                         </span>
                                         =
-                                        <span style="display:inline-block; vertical-align:middle;">
-                                                <span class="inst-fase-resultado"
-                                                        style="display:block; text-align:center;"></span>
-                                                <span class="tc-especificacao-valor"
-                                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                                        <span class="estudos-inline-middle">
+                                                <span class="inst-fase-resultado estudos-block-center"></span>
+                                                <span class="tc-especificacao-valor estudos-frac-den"></span>
                                         </span>
                                         = <span class="inst-valor-pu"></span>
                                 </p>
@@ -1612,8 +1485,7 @@
         </div>
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Cálculo e dimensionamento Curvas de Neutro</h2>
         </div>
         <br>
@@ -1632,17 +1504,16 @@
 
 
                 <span>Ip<sub>Neutro</sub>P.U =</span>
-                <span style="display:inline-block; vertical-align:middle;">
-                        <span style="display:block; text-align:center;">I<sub>P neutro</sub></span>
-                        <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                <span class="estudos-inline-middle">
+                        <span class="estudos-block-center">I<sub>P neutro</sub></span>
+                        <span class="estudos-frac-den">Prim TC</span>
                 </span><br><br>
 
                 <span>Ip<sub>Neutro</sub>P.U =</span>
 
-                <span style="display:inline-block; vertical-align:middle;">
-                        <span class="ip-neutro" style="display:block; text-align:center;"></span>
-                        <span class=tc-especificacao-valor
-                                style="border-top:1px solid; display:block; text-align:center;"></span>
+                <span class="estudos-inline-middle">
+                        <span class="ip-neutro estudos-block-center"></span>
+                        <span class="estudos-frac-den" class=tc-especificacao-valor></span>
                 </span><br>
 
                 <p><span>Ip<sub>Neutro</sub>P.U =</span>
@@ -1664,17 +1535,16 @@
                 <span>I<sub>inst</sub> neutro=</span><span class="inst-neutro-resultado"></span>
 
                 <p><span>I<sub>inst</sub> neutro P.U=</span>
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span style="display:block; text-align:center;">I<sub>Inst neutro</sub></span>
-                                <span style="border-top:1px solid; display:block; text-align:center;">Prim TC</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">I<sub>Inst neutro</sub></span>
+                                <span class="estudos-frac-den">Prim TC</span>
                         </span><br>
 
                 <p><span>I<sub>inst</sub> neutro P.U=</span>
 
-                        <span style="display:inline-block; vertical-align:middle;">
-                                <span class="inst-neutro-resultado" style="display:block; text-align:center;"></span>
-                                <span class=tc-especificacao-valor
-                                        style="border-top:1px solid; display:block; text-align:center;"></span>
+                        <span class="estudos-inline-middle">
+                                <span class="inst-neutro-resultado estudos-block-center"></span>
+                                <span class="estudos-frac-den" class=tc-especificacao-valor></span>
                         </span><br>
 
                 <p><span>I<sub>inst</sub> neutro P.U=</span>
@@ -1708,9 +1578,9 @@
 
 
                 <p><span class="p-ajuste-pu"><span>P ajuste P.U:</span>
-                                <span class="fracao-p-ajuste-pu" style="display:inline-block; vertical-align:middle;">
-                                        <span style="display:block; text-align:center;">Potência reversa</span>
-                                        <span style="border-top:1px solid; display:block; text-align:center;">Primário
+                                <span class="fracao-p-ajuste-pu estudos-inline-middle">
+                                        <span class="estudos-block-center">Potência reversa</span>
+                                        <span class="estudos-frac-den">Primário
                                                 do TP<sub>FF</sub> × √3 × Primário do TC</span>
                                 </span>
 
@@ -1719,11 +1589,10 @@
                 </p>
 
                 <p><span class="p-ajuste-pu"><span>P ajuste P.U:</span>
-                                <span class="fracao-p-ajuste-pu" style="display:inline-block; vertical-align:middle;">
-                                        <span class="potencia-reversa-gerador"
-                                                style="display:block; text-align:center;">Potência reversa</span>
-                                        <span class="denominador-potreversa-ajuste-pu"
-                                                style="border-top:1px solid; display:block; text-align:center;">V × √3 ×
+                                <span class="fracao-p-ajuste-pu estudos-inline-middle">
+                                        <span class="potencia-reversa-gerador estudos-block-center">Potência
+                                                reversa</span>
+                                        <span class="denominador-potreversa-ajuste-pu estudos-frac-den">V × √3 ×
                                                 Primário do TC</span>
                                 </span>
 
@@ -1754,8 +1623,7 @@
 
 
         <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
+        <div class="estudos-title-block">
                 <h2>Resumo de Parâmetros</h2>
         </div>
         <br>
@@ -1863,34 +1731,32 @@
 
 
         <div id="tituloreles">
-                        <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
-                <h2>Parâmetros do Relé de Proteção</h2>
-        </div>
-        <br>
+                <br>
+                <div class="estudos-title-block">
+                        <h2>Parâmetros do Relé de Proteção</h2>
+                </div>
+                <br>
 
 
-                
 
-                        <div id="tabelareles" classe="tabelaparametrizacaoreles"></div>
-                
+
+                <div id="tabelareles" classe="tabelaparametrizacaoreles"></div>
+
 
         </div>
 
         <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
         <h3>Imagens carregadas:</h3>
-        <div id="gallery" style="max-width: 210mm; margin: 0 auto;"></div>
+        <div class="estudos-max210-center" id="gallery"></div>
         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
 
 
         <div id="curvaProtecao">
-                        <br>
-        <div
-                style="background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;">
-                <h2>Plotagem Curva de Proteção</h2>
-        </div>
-        <br>
+                <br>
+                <div class="estudos-title-block">
+                        <h2>Plotagem Curva de Proteção</h2>
+                </div>
+                <br>
 
                 <canvas id="grafico"></canvas>
         </div>

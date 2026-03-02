@@ -32,11 +32,40 @@ function salvarOpcao() {
     }
 }
 
+function inicializarNavegacaoPorDataTarget() {
+    const botoesNavegacao = document.querySelectorAll('button[data-nav-target]');
+    botoesNavegacao.forEach((botao) => {
+        if (botao.dataset.navBound === 'true') {
+            return;
+        }
+
+        botao.addEventListener('click', () => {
+            const target = botao.getAttribute('data-nav-target');
+            if (target) {
+                window.location.href = target;
+            }
+        });
+
+        botao.dataset.navBound = 'true';
+    });
+}
+
 
 // inicializa quando o DOM estiver pronto
 window.addEventListener('DOMContentLoaded', () => {
-    const botaoParametro = document.getElementById("botaodiagramahtml");
-    if (botaoParametro) botaoParametro.style.backgroundColor = "#cf0808";
+    inicializarNavegacaoPorDataTarget();
+
+    const botaoParametro = document.getElementById('botaodiagramahtml');
+    if (botaoParametro) {
+        botaoParametro.classList.add('diagramas-header-active');
+    }
+
+    const botaoSalvar = document.getElementById('botaoSalvar');
+    if (botaoSalvar && botaoSalvar.dataset.bound !== 'true') {
+        botaoSalvar.addEventListener('click', salvarOpcao);
+        botaoSalvar.dataset.bound = 'true';
+    }
+
     carregarOpcao();
 
     // Controle de acesso movido para controle-acesso.js

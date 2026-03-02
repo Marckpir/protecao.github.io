@@ -5,6 +5,107 @@ body {
     text-align: center;
 }
 
+#botaoconfightml:not(.btn-permitido),
+#botaoajustesGDhtml:not(.btn-permitido),
+#botaotabelaGDhtml:not(.btn-permitido),
+#botaoestudosGDhtml:not(.btn-permitido),
+#botaoanalisehtml:not(.btn-permitido) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#botaoconfightml.btn-permitido,
+#botaodiagramahtml.btn-permitido,
+#botaoparametrohtml.btn-permitido,
+#botaotrafohtml.btn-permitido,
+#botaotptchtml.btn-permitido,
+#botaoajustehtml.btn-permitido,
+#botaotabelarelehtml.btn-permitido,
+#botaoestudoshtml.btn-permitido,
+#botaoajustesGDhtml.btn-permitido,
+#botaotabelaGDhtml.btn-permitido,
+#botaoestudosGDhtml.btn-permitido,
+#botaoanalisehtml.btn-permitido,
+#botaosairhtml.btn-permitido {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+h1 button.btn-bloqueado {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+h1 {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+h1.loaded {
+    opacity: 1;
+}
+
+h1 button.nav-active,
+h1 button.nav-active:hover,
+h1 button.nav-active:focus-visible {
+    background-color: #cf0808 !important;
+    color: rgb(227, 224, 64);
+}
+
+.page-brand-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.page-brand-title {
+    font-family: 'Impact', 'Arial Black', cursive, sans-serif;
+    font-size: 2em;
+    letter-spacing: 2px;
+    color: rgb(2, 68, 2);
+}
+
+.page-brand-graphic {
+    width: 4%;
+    height: 2em;
+    vertical-align: middle;
+}
+
+.tabelas-centralizadas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 10vh;
+    text-align: center;
+}
+
+.transformadores-caption {
+    font-weight: bold;
+    background-color: rgb(2, 68, 2);
+    color: rgb(227, 224, 64);
+    font-size: 20px;
+    caption-side: top;
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.value-label-bold {
+    font-weight: bold;
+}
+
+.motor-cell {
+    background-color: rgb(2, 68, 2);
+    color: white;
+}
+
 
 
 
@@ -34,11 +135,10 @@ td {
     border-radius: 5px;
 }
 
-button {
+button:not(.dark-mode-toggle) {
     color: rgb(227, 224, 64);
     font-size: 10px;
-    margin-bottom: 10px black;
-    margin: 20px black;
+    margin: 20px;
     border: #34335c solid 2px;
     background-color: rgb(2, 68, 2);
     width: 100px;
@@ -47,7 +147,7 @@ button {
     border-radius: 10px;
 }
 
-button:hover {
+button:not(.dark-mode-toggle):hover {
     background-color: #cf0808;
 }
 

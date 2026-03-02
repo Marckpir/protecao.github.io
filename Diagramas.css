@@ -5,6 +5,141 @@ body {
     background-attachment: fixed;
     text-align: center;
 }
+
+/* Controle de visibilidade de botões por permissão */
+#botaoconfightml:not(.btn-permitido),
+#botaoajustesGDhtml:not(.btn-permitido),
+#botaotabelaGDhtml:not(.btn-permitido),
+#botaoestudosGDhtml:not(.btn-permitido),
+#botaoanalisehtml:not(.btn-permitido) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#botaoconfightml.btn-permitido,
+#botaodiagramahtml.btn-permitido,
+#botaoparametrohtml.btn-permitido,
+#botaotrafohtml.btn-permitido,
+#botaotptchtml.btn-permitido,
+#botaoajustehtml.btn-permitido,
+#botaotabelarelehtml.btn-permitido,
+#botaoestudoshtml.btn-permitido,
+#botaoajustesGDhtml.btn-permitido,
+#botaotabelaGDhtml.btn-permitido,
+#botaoestudosGDhtml.btn-permitido,
+#botaoanalisehtml.btn-permitido,
+#botaosairhtml.btn-permitido {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+h1 button.btn-bloqueado {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+h1 {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+h1.loaded {
+    opacity: 1;
+}
+
+#botaodiagramahtml.diagramas-header-active {
+    background-color: #cf0808;
+}
+
+.diagramas-brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.diagramas-brand-title {
+    font-family: 'Impact', 'Arial Black', cursive, sans-serif;
+    font-size: 2em;
+    letter-spacing: 2px;
+    color: rgb(2, 68, 2);
+}
+
+.diagramas-brand-svg {
+    width: 4%;
+    height: 2em;
+    vertical-align: middle;
+}
+
+.diagramas-header-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 0;
+}
+
+.diagramas-label-wrap {
+    padding: 0;
+    margin: 16px 0;
+}
+
+.diagramas-label {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #024402;
+    margin-right: 10px;
+}
+
+.diagramas-select-wrap {
+    padding: 5px;
+    margin: 5px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+.diagramas-select {
+    width: 50%;
+    min-width: 300px;
+    max-width: 800px;
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 0.96em;
+    border-radius: 6px;
+    border: 1px solid #024402;
+    background: #f6fff6;
+    color: #024402;
+    font-weight: bold;
+    appearance: auto;
+    text-align: left;
+    text-align-last: left;
+}
+
+.diagramas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.diagramas-item {
+    display: none;
+}
+
+.diagramas-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    display: block;
+}
 /* .container {
     width: 80%;
     margin: auto;

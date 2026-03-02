@@ -44,6 +44,21 @@ async function salvarOpcao() {
     const anguloFaseSelecionadoGD = anguloFase.value;
     localStorage.setItem("anguloFaseSelecionadoGD", anguloFaseSelecionadoGD);
 
+    const amtnominalfasehtml = document.getElementById("amtnominalfasehtml");
+    if (amtnominalfasehtml) {
+        localStorage.setItem("amtnominalfaseSelecionadaGD", amtnominalfasehtml.value);
+        localStorage.setItem("amtnominalfaseIndexGD", String(amtnominalfasehtml.selectedIndex));
+        const anguloNominalSelecionadoFase = extrairAnguloSelecionadoDoAMT(amtnominalfasehtml);
+        if (anguloNominalSelecionadoFase !== null) {
+            localStorage.setItem("anguloFaseNominalSelecionadoGD", String(anguloNominalSelecionadoFase));
+        }
+    }
+
+    const AMTpadraofase = document.getElementById("AMTpadraofasehtml");
+    if (AMTpadraofase) {
+        localStorage.setItem("AMTpadraofasehtmlGD", AMTpadraofase.textContent || "45°");
+    }
+
     //Captura dos valores de fase dos campos preenchiveis do HTML 
     const IPpercentual = document.getElementById("IPpercentualhtml");
     let IPpercentualSelecionadaGD = parseFloat(IPpercentual.value);
@@ -71,6 +86,21 @@ async function salvarOpcao() {
     const anguloNeutro = document.getElementById("anguloneutrohtml");
     const anguloNeutroSelecionadoGD = anguloNeutro.value;
     localStorage.setItem("anguloNeutroSelecionadoGD", anguloNeutroSelecionadoGD);
+
+    const amtnominalneutrohtml = document.getElementById("amtnominalneutrohtml");
+    if (amtnominalneutrohtml) {
+        localStorage.setItem("amtnominalneutroSelecionadaGD", amtnominalneutrohtml.value);
+        localStorage.setItem("amtnominalneutroIndexGD", String(amtnominalneutrohtml.selectedIndex));
+        const anguloNominalSelecionado = extrairAnguloSelecionadoDoAMT(amtnominalneutrohtml);
+        if (anguloNominalSelecionado !== null) {
+            localStorage.setItem("anguloNeutroNominalSelecionadoGD", String(anguloNominalSelecionado));
+        }
+    }
+
+    const AMTpadraoneutro = document.getElementById("AMTpadraoneutrohtml");
+    if (AMTpadraoneutro) {
+        localStorage.setItem("AMTpadraoneutrohtmlGD", AMTpadraoneutro.textContent || "-110°");
+    }
 
     const IPpercentualneutro = document.getElementById("IPpercentualneutrohtml");
     let IPpercentualneutroSelecionadaGD = parseFloat(IPpercentualneutro.value);
@@ -110,16 +140,99 @@ async function salvarOpcao() {
     location.reload();//recarrega a página sempre que o botão é clicado
 }
 
+function inicializarNavegacaoPorDataTarget() {
+    const botoesNavegacao = document.querySelectorAll('button[data-nav-target]');
+    botoesNavegacao.forEach((botao) => {
+        botao.addEventListener('click', () => {
+            const target = botao.getAttribute('data-nav-target');
+            if (target) {
+                window.location.href = target;
+            }
+        });
+    });
+}
+
+function extrairAnguloSelecionadoDoAMT(selectElement) {
+    if (!selectElement || selectElement.selectedIndex < 0) {
+        return null;
+    }
+
+    const textoOpcao = selectElement.options[selectElement.selectedIndex].textContent || "";
+    const matchAngulo = textoOpcao.match(/-?\d+(?:[\.,]\d+)?/);
+
+    if (!matchAngulo) {
+        return null;
+    }
+
+    const valor = parseFloat(matchAngulo[0].replace(',', '.'));
+    return Number.isNaN(valor) ? null : valor;
+}
+
+function atualizarAMTPadraoNeutro() {
+    const campoManual = document.getElementById("anguloneutrohtml");
+    const selectNominal = document.getElementById("amtnominalneutrohtml");
+    const campoExibicao = document.getElementById("AMTpadraoneutrohtml");
+
+    if (!campoExibicao) {
+        return;
+    }
+
+    const valorManual = campoManual ? parseFloat(campoManual.value) : NaN;
+    if (!Number.isNaN(valorManual)) {
+        campoExibicao.textContent = `${valorManual}°`;
+        return;
+    }
+
+    const valorSelecionado = extrairAnguloSelecionadoDoAMT(selectNominal);
+    campoExibicao.textContent = valorSelecionado !== null ? `${valorSelecionado}°` : "-110°";
+}
+
+function atualizarAMTPadraoFase() {
+    const campoManual = document.getElementById("angulofasehtml");
+    const selectNominal = document.getElementById("amtnominalfasehtml");
+    const campoExibicao = document.getElementById("AMTpadraofasehtml");
+
+    if (!campoExibicao) {
+        return;
+    }
+
+    const valorManual = campoManual ? parseFloat(campoManual.value) : NaN;
+    if (!Number.isNaN(valorManual)) {
+        campoExibicao.textContent = `${valorManual}°`;
+        return;
+    }
+
+    const valorSelecionado = extrairAnguloSelecionadoDoAMT(selectNominal);
+    campoExibicao.textContent = valorSelecionado !== null ? `${valorSelecionado}°` : "45°";
+}
+
 window.onload = function () {
+    inicializarNavegacaoPorDataTarget();
+
+    const botaoSalvar = document.getElementById('botaoSalvar');
+    if (botaoSalvar) {
+        botaoSalvar.addEventListener('click', salvarOpcao);
+    }
+
+    const botaoLegendas = document.getElementById('botaoLegendas');
+    if (botaoLegendas) {
+        botaoLegendas.addEventListener('click', ativarLegendas);
+    }
+
+    const tituloPrincipal = document.querySelector('h1');
+    if (tituloPrincipal) {
+        tituloPrincipal.classList.add('loaded');
+    }
+
     // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaoajustesGDhtml");
     if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
+        botaoParametro.classList.add("nav-active");
     }
 
     const botaoParametro2 = document.getElementById("botaoajustes67injhtml");
     if (botaoParametro2) {
-        botaoParametro2.style.backgroundColor = "#cf0808";
+        botaoParametro2.classList.add("nav-active");
     }
     // -----------------manter o botão vermelho selecionado-------------------
 
@@ -137,11 +250,28 @@ window.onload = function () {
     }
 
 
-    const AMTpadraofase = document.getElementById("AMTpadraofasehtml");
-    if (anguloFaseArmazenada !== null && anguloFaseArmazenada !== undefined && anguloFaseArmazenada !== "" && !isNaN(anguloFaseArmazenada)) {
-        AMTpadraofase.textContent = anguloFaseArmazenada + "°"; // Exibe o valor com o símbolo de grau
-    } else {
-        AMTpadraofase.textContent = "45°"; // Valor padrão se não houver no localStorage
+    const amtnominalfasehtml = document.getElementById("amtnominalfasehtml");
+    const indiceNominalFaseArmazenado = parseInt(localStorage.getItem("amtnominalfaseIndexGD"), 10);
+    if (amtnominalfasehtml && Number.isInteger(indiceNominalFaseArmazenado) && indiceNominalFaseArmazenado >= 0 && indiceNominalFaseArmazenado < amtnominalfasehtml.options.length) {
+        amtnominalfasehtml.selectedIndex = indiceNominalFaseArmazenado;
+    }
+
+    atualizarAMTPadraoFase();
+
+    const AMTpadraoFaseArmazenado = localStorage.getItem("AMTpadraofasehtmlGD");
+    if ((!anguloFase.value || Number.isNaN(parseFloat(anguloFase.value))) && AMTpadraoFaseArmazenado) {
+        const AMTpadraofase = document.getElementById("AMTpadraofasehtml");
+        if (AMTpadraofase) {
+            AMTpadraofase.textContent = AMTpadraoFaseArmazenado;
+        }
+    }
+
+    if (anguloFase) {
+        anguloFase.addEventListener("input", atualizarAMTPadraoFase);
+        anguloFase.addEventListener("change", atualizarAMTPadraoFase);
+    }
+    if (amtnominalfasehtml) {
+        amtnominalfasehtml.addEventListener("change", atualizarAMTPadraoFase);
     }
 
 
@@ -185,11 +315,28 @@ window.onload = function () {
     }
 
 
-    const AMTpadraoneutro = document.getElementById("AMTpadraoneutrohtml");
-    if (anguloNeutroArmazenada !== null && anguloNeutroArmazenada !== undefined && anguloNeutroArmazenada !== "" && !isNaN(anguloNeutroArmazenada)) {
-        AMTpadraoneutro.textContent = anguloNeutroArmazenada + "°"; // Exibe o valor com o símbolo de grau
-    } else {
-        AMTpadraoneutro.textContent = "-110°"; // Valor padrão se não houver no localStorage
+    const amtnominalneutrohtml = document.getElementById("amtnominalneutrohtml");
+    const indiceNominalNeutroArmazenado = parseInt(localStorage.getItem("amtnominalneutroIndexGD"), 10);
+    if (amtnominalneutrohtml && Number.isInteger(indiceNominalNeutroArmazenado) && indiceNominalNeutroArmazenado >= 0 && indiceNominalNeutroArmazenado < amtnominalneutrohtml.options.length) {
+        amtnominalneutrohtml.selectedIndex = indiceNominalNeutroArmazenado;
+    }
+
+    atualizarAMTPadraoNeutro();
+
+    const AMTpadraoNeutroArmazenado = localStorage.getItem("AMTpadraoneutrohtmlGD");
+    if ((!anguloNeutro.value || Number.isNaN(parseFloat(anguloNeutro.value))) && AMTpadraoNeutroArmazenado) {
+        const AMTpadraoneutro = document.getElementById("AMTpadraoneutrohtml");
+        if (AMTpadraoneutro) {
+            AMTpadraoneutro.textContent = AMTpadraoNeutroArmazenado;
+        }
+    }
+
+    if (anguloNeutro) {
+        anguloNeutro.addEventListener("input", atualizarAMTPadraoNeutro);
+        anguloNeutro.addEventListener("change", atualizarAMTPadraoNeutro);
+    }
+    if (amtnominalneutrohtml) {
+        amtnominalneutrohtml.addEventListener("change", atualizarAMTPadraoNeutro);
     }
 
 
@@ -230,7 +377,7 @@ window.onload = function () {
     // const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionadaGD") || 0;
     const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada")) || 0;
     const curtoArmazenada = parseFloat(localStorage.getItem("curtoSelecionada")) || 0;
-    const desequilibrio = parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 0;
+    const desequilibrio = (parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 33) / 100;
 
 
     let correnteprimaria = parseFloat(localStorage.getItem("InominalfaseGD")) || 0;

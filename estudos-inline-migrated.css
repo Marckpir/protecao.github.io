@@ -1,0 +1,146 @@
+﻿/* ---- estilos migrados de estudos.html ---- */
+
+.estudos-brand-row {
+    display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;
+}
+
+.estudos-brand-title {
+    font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);
+}
+
+.estudos-brand-svg {
+    width: 4%; height: 2em; vertical-align: middle;
+}
+
+.estudos-print-wrap {
+    text-align: center; margin: 12px 0;
+}
+
+.estudos-print-btn {
+    padding: 8px 18px; font-size: 1em;
+}
+
+.estudos-file-input {
+    padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; background: #f8f8f8; font-size: 1em; color: #222; cursor: pointer;
+}
+
+.estudos-selo-table {
+    background-color: #fff; color: #000; width: 100%; table-layout: fixed;
+}
+
+.estudos-col-10 {
+    width: 10%;
+}
+
+.estudos-selo-h400-top {
+    height: 400px; vertical-align: top;
+}
+
+.estudos-input-w90 {
+    width: 90%;
+}
+
+.estudos-selo-vertical-col {
+    width: 6%; min-width: 60px; max-width: 80px; text-align: center;
+}
+
+.estudos-h-50 {
+    height: 50px;
+}
+
+.estudos-input-w80 {
+    width: 80%;
+}
+
+.estudos-h-100 {
+    height: 100px;
+}
+
+.estudos-title-block {
+    background: linear-gradient(135deg, #f8f8f8 0%, #e0e0e0 100%); color: #222; width: 100%; max-width: 225mm; border-bottom: 2px solid #000; display: flex; flex-direction: column; align-items: center; margin: 0 auto; border: 2px solid #000; box-sizing: border-box; border-radius: 12px; padding: 2px 0;
+}
+
+.estudos-flex-col-center {
+    display: flex; flex-direction: column; align-items: center;
+}
+
+.estudos-textarea-lg {
+    width: 210mm; min-height: 80px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;
+}
+
+.estudos-diagrama-box {
+    max-width: 210mm; width: 210mm; margin: 0 auto; display: flex; justify-content: center; align-items: center; border: 2px solid #000; border-radius: 20px; overflow: hidden; background: #ffffff;
+}
+
+.estudos-max210-center {
+    max-width: 210mm; margin: 0 auto;
+}
+
+.estudos-inline-middle {
+    display:inline-block; vertical-align:middle;
+}
+
+.estudos-block-center {
+    display:block; text-align:center;
+}
+
+.estudos-frac-den {
+    border-top:1px solid; display:block; text-align:center;
+}
+
+.estudos-times-block {
+    font-family: 'Times New Roman', Times, serif; font-size: 1.1em; margin-bottom: 24px;
+}
+
+.estudos-mb-12 {
+    margin-bottom: 12px;
+}
+
+.estudos-auto-001 {
+    font-family: 'Times New Roman', Times, serif; font-size: 1.1em;
+}
+
+.estudos-mb-8 {
+    margin-bottom: 8px;
+}
+
+.estudos-ml-12 {
+    margin-left: 12px;
+}
+
+.estudos-ml-32 {
+    margin-left: 32px;
+}
+
+.estudos-block-fs-08 {
+    display:block; font-size: 0.8em;
+}
+
+.estudos-nowrap {
+    white-space:nowrap;
+}
+
+.estudos-text-justify {
+    text-align: justify;
+}
+
+.estudos-textarea-md {
+    width: 100%; min-height: 60px; resize: vertical; font-family: 'Times New Roman', Times, serif; font-size: 1em;
+}
+
+.estudos-border-collapse {
+    border-collapse: collapse;
+}
+
+.estudos-pad-2-8 {
+    padding: 2px 8px;
+}
+
+.estudos-fs-12 {
+    font-size: 1.2em;
+}
+
+.estudos-fs-11 {
+    font-size: 1.1em;
+}
+

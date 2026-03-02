@@ -5,11 +5,114 @@ body {
     text-align: center;
 }
 
-button {
+/* Oculta botões restritos por padrão */
+#botaoconfightml:not(.btn-permitido),
+#botaoajustesGDhtml:not(.btn-permitido),
+#botaotabelaGDhtml:not(.btn-permitido),
+#botaoestudosGDhtml:not(.btn-permitido),
+#botaoanalisehtml:not(.btn-permitido) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Força exibição dos botões permitidos */
+#botaoconfightml.btn-permitido,
+#botaodiagramahtml.btn-permitido,
+#botaoparametrohtml.btn-permitido,
+#botaotrafohtml.btn-permitido,
+#botaotptchtml.btn-permitido,
+#botaoajustehtml.btn-permitido,
+#botaotabelarelehtml.btn-permitido,
+#botaoestudoshtml.btn-permitido,
+#botaoajustesGDhtml.btn-permitido,
+#botaotabelaGDhtml.btn-permitido,
+#botaoestudosGDhtml.btn-permitido,
+#botaoanalisehtml.btn-permitido,
+#botaosairhtml.btn-permitido {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+/* Força ocultação dos botões bloqueados */
+h1 button.btn-bloqueado {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+h1 {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+h1.loaded {
+    opacity: 1;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.brand-title {
+    font-family: 'Impact', 'Arial Black', cursive, sans-serif;
+    font-size: 2em;
+    letter-spacing: 2px;
+    color: rgb(2, 68, 2);
+}
+
+.brand-svg {
+    width: 4%;
+    height: 2em;
+    vertical-align: middle;
+}
+
+.alertapotminima-caption {
+    font-weight: bold;
+    background-color: rgb(186, 59, 59);
+    color: rgb(250, 250, 250);
+    font-size: 14px;
+    caption-side: top;
+    padding: 5px;
+    border: 3px solid white;
+}
+
+.caption-principal {
+    font-weight: bold;
+    background-color: rgb(2, 68, 2) !important;
+    color: rgb(227, 224, 64) !important;
+    font-size: 20px;
+    caption-side: top;
+    padding: 5px;
+    border: 0;
+}
+
+.dial-ideal-celula {
+    background-color: #ffeb3b !important;
+    color: black !important;
+    width: 100%;
+}
+
+.linha-oculta {
+    display: none;
+}
+
+.botao-legendas {
+    float: right;
+    margin-right: 30px;
+}
+
+button:not(.dark-mode-toggle) {
     color: rgb(227, 224, 64);
     font-size: 10px;
-    margin-bottom: 10px black;
-    margin: 20px black ;
+    margin-bottom: 10px;
+    margin: 20px;
     border: #34335c solid 2px;
     background-color: rgb(2, 68, 2);
     width: 100px;
@@ -17,26 +120,32 @@ button {
     line-height: 1px;
     border-radius: 10px;
 }
-button:hover {
+button:not(.dark-mode-toggle):hover {
     background-color: #cf0808;
 }
 
 canvas {
     background-color: rgb(255, 255, 255);
     border: 5px solid black;
-    max-width: 700px;
+    max-width: 100%;
     max-height: 650px;
 }
 
 .grafico-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    flex: 0 1 46%;
+    min-width: 320px;
+    align-self: stretch;
 }
 
 #grafico {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    max-width: 760px;
+    height: 100%;
+    min-height: 560px;
 }
 
 #botaoSalvar {
@@ -49,9 +158,23 @@ canvas {
 
 .conteiner-geral {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    width: min(98%, 1400px);
+    max-width: 98%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
 
+.tabelas-lado-esquerdo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 0 1 52%;
+    min-width: 320px;
+    max-width: 52%;
+    box-sizing: border-box;
 }
 
 .tabela-containerfase {
@@ -77,7 +200,7 @@ thead{
 th {
     /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
-    text-align: auto;
+    text-align: left;
     /* color: rgb(224, 248, 6); */
     border-radius: 5px;
     /* border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
@@ -86,15 +209,15 @@ th {
 }
 
 td {
-    text-align: auto;
+    text-align: left;
     /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
-    text-align: auto;
+    text-align: left;
     border-radius: 5px;
     color: rgb(224, 248, 6);
     background-color: rgb(2, 68, 2);
 
-    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    border-color: transparent;
     
 }
 
@@ -119,7 +242,7 @@ td {
     text-align: left;
     /* Centraliza o conteúdo */
     border: 1px solid white;
-    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);;
+    border-color: white;
     /* Mantém bordas visíveis */
     background-color: rgb(186, 59, 59);
     border-radius: 5px;
@@ -162,22 +285,22 @@ td {
 th {
     /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
-    text-align: auto;
+    text-align: left;
     /* color: rgb(224, 248, 6); */
     border-radius: 5px;
     /* border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
 }
 
 td {
-    text-align: auto;
+    text-align: left;
     /* border: 3px solid rgb(0, 0, 0); */
     padding: 1px;
-    text-align: auto;
+    text-align: left;
     border-radius: 5px;
     color: rgb(224, 248, 6);
     background-color: rgb(2, 68, 2);
 
-    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
+    border-color: transparent;
 }
 
 #tabelaneutro {
@@ -199,7 +322,7 @@ td {
     text-align: left;
     /* Centraliza o conteúdo */
     border: 1px solid white;
-    border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);;
+    border-color: white;
     /* Mantém bordas visíveis */
     background-color: rgb(67, 77, 206);
     border-radius: 5px;
@@ -214,7 +337,7 @@ td {
 }
 
 select {
-    text-align: auto;
+    text-align: left;
     width: 100%;
     height: 25px;
     margin-left: 0px;
@@ -236,9 +359,9 @@ select {
 
     html,
     body {
-        width: 100vw;
-        max-width: 100vw;
-        overflow-x: visible;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
         box-sizing: border-box;
     }
 
@@ -264,7 +387,7 @@ select {
         padding: 2px;
     }
 
-    button,
+    button:not(.dark-mode-toggle),
     #botaoSalvar {
         font-size: 12px;
         padding: 6px 0;
@@ -299,9 +422,9 @@ select {
 
     #grafico,
     canvas#grafico {
-        width: 100vw !important;
-        height: 500px !important;
-        max-width: 100vw !important;
+        width: 100% !important;
+        height: 420px !important;
+        max-width: 100% !important;
         min-width: 0 !important;
         display: block;
         margin: 0 auto;
@@ -311,6 +434,16 @@ select {
     .conteiner-geral {
         flex-direction: column;
         gap: 10px;
+        width: 98%;
+        max-width: 98%;
+        margin: 0 auto;
+    }
+
+    .tabelas-lado-esquerdo,
+    .grafico-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     .tabela-containerfase,
@@ -345,11 +478,13 @@ select {
     .conteiner-geral {
         display: flex;
         flex-direction: row;
-        gap: 12px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        width: 100vw;
+        gap: 10px;
+        align-items: stretch;
+        justify-content: center;
+        width: 98%;
+        max-width: 98%;
         min-width: 0;
+        margin: 0 auto;
         box-sizing: border-box;
     }
 
@@ -357,9 +492,9 @@ select {
         display: flex;
         flex-direction: column;
         gap: 4px;
-        width: 10vw;
+        width: 48%;
         min-width: 0;
-        max-width: 45vw;
+        max-width: 48%;
         box-sizing: border-box;
     }
 
@@ -375,12 +510,11 @@ select {
     }
 
     .grafico-container {
-        width: 100vw !important;
-        max-width: 100vw !important;
+        width: 48% !important;
+        max-width: 48% !important;
         min-width: 0 !important;
-        height: 100%;
-        margin-left: auto;
-        margin-right: 0;
+        height: auto;
+        margin: 0 auto;
         display: flex;
         align-items: flex-start;
         justify-content: center;
@@ -389,16 +523,17 @@ select {
 
     #grafico,
     canvas#grafico {
-        width: 90% !important;
-        max-width: 90% !important;
-        min-width: 500px !important;
-        height: 525px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        height: 100% !important;
+        min-height: 500px;
         display: block;
         margin: 0 auto;
         background-color: rgb(235, 235, 220);
     }
 
-    button,
+    button:not(.dark-mode-toggle),
     #botaoSalvar {
         font-size: 11px;
         padding: 2px 0;
@@ -440,16 +575,18 @@ select {
         .conteiner-geral {
             flex-direction: column;
             gap: 8px;
-            width: 100vw;
+            width: 98%;
+            max-width: 98%;
             min-width: 0;
+            margin: 0 auto;
             box-sizing: border-box;
         }
 
         .tabelas-lado-esquerdo {
             flex-direction: column;
             gap: 2px;
-            width: 100vw;
-            max-width: 100vw;
+            width: 100%;
+            max-width: 100%;
             min-width: 0;
             box-sizing: border-box;
         }
@@ -458,15 +595,15 @@ select {
         .tabela-containerneutro {
             font-size: 9px;
             padding: 0;
-            width: 100vw;
+            width: 100%;
             min-width: 0;
             box-sizing: border-box;
             display: block;
         }
 
         .grafico-container {
-            width: 100vw !important;
-            max-width: 100vw !important;
+            width: 100% !important;
+            max-width: 100% !important;
             min-width: 0 !important;
             height: auto;
             margin: 0 auto;
@@ -478,16 +615,16 @@ select {
 
         #grafico,
         canvas#grafico {
-            width: 98vw !important;
-            max-width: 98vw !important;
+            width: 100% !important;
+            max-width: 100% !important;
             min-width: 0 !important;
-            height: 500px !important;
+            height: 420px !important;
             display: block;
             margin: 0 auto;
             background-color: rgb(235, 235, 220);
         }
 
-        button,
+        button:not(.dark-mode-toggle),
         #botaoSalvar {
             font-size: 10px;
             padding: 2px 0;
@@ -523,11 +660,13 @@ select {
     .conteiner-geral {
         display: flex;
         flex-direction: row;
-        gap: 20px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        width: 100vw;
+        gap: 14px;
+        align-items: stretch;
+        justify-content: center;
+        width: min(98%, 1600px);
+        max-width: 98%;
         min-width: 0;
+        margin: 0 auto;
         box-sizing: border-box;
     }
 
@@ -535,27 +674,23 @@ select {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        width: 15vw; /* diminuído de 20vw */
+        width: 46%;
         min-width: 0;
-        max-width: 30vw; /* diminuído de 45vw */
+        max-width: 46%;
         box-sizing: border-box;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         }
 
         .tabela-containerfase,
         .tabela-containerneutro {
         font-size: 12px;
         padding: 0;
-        width: 70%; /* diminuído de 90% */
+        width: 100%;
         min-width: 0;
         box-sizing: border-box;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 0;
+        margin-right: 0;
         }
 
 canvas {
@@ -567,12 +702,18 @@ canvas {
 
 .grafico-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    width: 50%;
+    max-width: 50%;
+    min-width: 0;
 }
 
 #grafico {
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    max-width: 860px;
+    height: 100%;
+    min-height: 620px;
 }
 }

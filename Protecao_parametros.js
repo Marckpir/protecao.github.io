@@ -29,7 +29,7 @@ function salvarOpcao() {
     if (!desequilibrio || desequilibrio.value === "" || isNaN(desequilibrio.value) || desequilibrio.value <= 0) {
         desequilibrio.value = 33; // Valor padrão se o campo estiver vazio
     }
-    const desequilibrioSelecionada = desequilibrio.value / 100;
+    const desequilibrioSelecionada = desequilibrio.value;
     localStorage.setItem("desequilibrioSelecionada", desequilibrioSelecionada);
 
     console.log("Desequilibrio selecionada:", desequilibrioSelecionada); // Debug: verificar valor de desequilibrioSelecionada
@@ -117,13 +117,92 @@ function salvarOpcao() {
 
 }
 
+function obterPotenciaGeradorValida() {
+    const potenciaInput = document.getElementById("potenciageradorhtml");
+    const valorBruto = potenciaInput && typeof potenciaInput.value === "string"
+        ? potenciaInput.value.trim().replace(",", ".")
+        : "";
+
+    if (!valorBruto) {
+        return 0;
+    }
+
+    const potencia = Number(valorBruto);
+    if (!Number.isFinite(potencia) || potencia <= 0) {
+        return 0;
+    }
+
+    return potencia;
+}
+
+function atualizarVisibilidadeCamposGerador() {
+    const mostrarCampos = obterPotenciaGeradorValida() > 0;
+
+    const linhasDependentes = [
+        document.getElementById("rowFatorPotenciaGerador"),
+        document.getElementById("rowToleranciaGerador"),
+        document.getElementById("rowPotenciaReversaGerador"),
+        document.getElementById("rowPotenciaReversaGeradorPU")
+    ];
+
+    linhasDependentes.forEach(function (linha) {
+        if (!linha) return;
+        if (mostrarCampos) {
+            linha.classList.remove("campo-oculto");
+        } else {
+            linha.classList.add("campo-oculto");
+        }
+    });
+}
+
+function aplicarRestricoesCategoriaUsuario() {
+    const categoriaUsuario = (localStorage.getItem("usuarioCategoria") || "").toLowerCase().trim();
+    if (categoriaUsuario !== "usuario") {
+        return;
+    }
+
+    const camposAdmin = document.querySelectorAll(".displayadm");
+    camposAdmin.forEach(function (campo) {
+        if (campo instanceof HTMLElement) {
+            campo.classList.add("campo-oculto");
+        }
+    });
+}
+
+function configurarNavegacaoHeader() {
+    const headerTitulo = document.querySelector("h1");
+    if (!headerTitulo) {
+        return;
+    }
+
+    headerTitulo.addEventListener("click", function (event) {
+        const alvo = event.target instanceof HTMLElement
+            ? event.target.closest("button[data-nav-target]")
+            : null;
+
+        if (!(alvo instanceof HTMLButtonElement)) {
+            return;
+        }
+
+        const destino = alvo.dataset.navTarget;
+        if (destino) {
+            window.location.href = destino;
+        }
+    });
+}
+
 
 window.onload = function () {
     // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaoparametrohtml");
     if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
+        botaoParametro.classList.add("nav-active");
     }
+    const headerTitulo = document.querySelector("h1");
+    if (headerTitulo) {
+        headerTitulo.classList.add("loaded");
+    }
+    configurarNavegacaoHeader();
     // --------------------------------------------------------------------------
 
     //------REGISTRAR LOGIN E MOSTRAR SOMENTE OPÇÕES DE USUARIO-----------------------------------------------------------------------------------
@@ -174,7 +253,7 @@ window.onload = function () {
     const desequilibrio = document.getElementById("desequilibrio");
     const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada") || 33;
     if (desequilibrioSalva) {
-        desequilibrio.value = desequilibrioSalva * 100;
+        desequilibrio.value = desequilibrioSalva;
     }
     //-----------------------------------------------------------------------------------------
     const potenciaGD = document.getElementById("potenciaGDhtml");
@@ -235,7 +314,7 @@ window.onload = function () {
     const desequilibrioajustadahtml = document.getElementById("valorAjustadoDesequilibrio");
     const desequilibrioajustadastorage = localStorage.getItem("desequilibrioSelecionada");
     if (desequilibrioajustadastorage !== "" && desequilibrioajustadastorage !== null && desequilibrioajustadastorage != 0) {
-        desequilibrioajustadahtml.textContent = desequilibrioajustadastorage * 100 + " %";
+        desequilibrioajustadahtml.textContent = desequilibrioajustadastorage + " %";
     } else {
         desequilibrioajustadahtml.textContent = "33" + " %";
     }
@@ -268,7 +347,7 @@ window.onload = function () {
     // Persisti os valores do gerador a diesel no HTML
 
     // Exibir valores armazenados do gerador a diesel no HTML
-    const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON"));
+    const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON")) || {};
     if (geradorSalvo) {
         if (document.getElementById("potenciageradorhtml")) {
             document.getElementById("potenciageradorhtml").value = geradorSalvo.potencia || "";
@@ -317,6 +396,17 @@ window.onload = function () {
     } else {
         toleranciaGeradorAjustadaHtml.textContent = "5 %";
     }
+
+    const potenciaGeradorInput = document.getElementById("potenciageradorhtml");
+    if (potenciaGeradorInput) {
+        potenciaGeradorInput.addEventListener("input", atualizarVisibilidadeCamposGerador);
+        potenciaGeradorInput.addEventListener("change", atualizarVisibilidadeCamposGerador);
+        potenciaGeradorInput.addEventListener("blur", atualizarVisibilidadeCamposGerador);
+        potenciaGeradorInput.addEventListener("keyup", atualizarVisibilidadeCamposGerador);
+    }
+
+    atualizarVisibilidadeCamposGerador();
+    aplicarRestricoesCategoriaUsuario();
 
 
 

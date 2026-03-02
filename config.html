@@ -4,49 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
-    <style>
-        /* Oculta botões restritos por padrão */
-        #botaoconfightml:not(.btn-permitido),
-        #botaoajustesGDhtml:not(.btn-permitido),
-        #botaotabelaGDhtml:not(.btn-permitido),
-        #botaoestudosGDhtml:not(.btn-permitido),
-        #botaoanalisehtml:not(.btn-permitido) {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-        
-        /* Força exibição dos botões permitidos - com especificidade máxima */
-        #botaoconfightml.btn-permitido,
-        #botaodiagramahtml.btn-permitido,
-        #botaoparametrohtml.btn-permitido,
-        #botaotrafohtml.btn-permitido,
-        #botaotptchtml.btn-permitido,
-        #botaoajustehtml.btn-permitido,
-        #botaotabelarelehtml.btn-permitido,
-        #botaoestudoshtml.btn-permitido,
-        #botaoajustesGDhtml.btn-permitido,
-        #botaotabelaGDhtml.btn-permitido,
-        #botaoestudosGDhtml.btn-permitido,
-        #botaoanalisehtml.btn-permitido,
-        #botaosairhtml.btn-permitido {
-            display: flex !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-        }
-        
-        /* Força ocultação dos botões bloqueados */
-        h1 button.btn-bloqueado {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
-    </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
     <link rel="stylesheet" href="config.css" type="text/css">
@@ -58,111 +15,91 @@
 </head>
 
 <body>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
-        <span
-            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+    <div class="config-brand-wrap">
+        <span class="config-brand-title">
             COORDINATION WEB
         </span>
-        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+        <svg viewBox="0 0 350 350" class="config-brand-graphic">
             <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
             <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
             <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
                 stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
         </svg>
     </div>
-    <div id="botoesdoheader"
-        style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 0px;">
-        <h1>
-            <button id="botaoconfightml" class="dark-mode-toggle"
-                onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
-            <button id="botaodiagramahtml" class="dark-mode-toggle"
-                onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
-            <button id="botaoparametrohtml" class="dark-mode-toggle"
-                onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-            <button id="botaotrafohtml" class="dark-mode-toggle"
-                onclick="window.location.href='transformadores.html';">TRAFOS</button>
-            <button id="botaotptchtml" class="dark-mode-toggle"
-                onclick="window.location.href='TP-TC.html';">TP/TC</button>
-            <button id="botaoajustehtml" class="dark-mode-toggle"
-                onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-            <button id="botaotabelarelehtml" class="dark-mode-toggle"
-                onclick="window.location.href='tabelarele.html';">TABELA</button>
-            <button id="botaoestudoshtml" class="dark-mode-toggle"
-                onclick="window.location.href='estudos.html';">ESTUDOS</button>
-            <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-                onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-            <button id="botaotabelaGDhtml" class="dark-mode-toggle"
-                onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
-            <button id="botaoestudosGDhtml" class="dark-mode-toggle"
-                onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-            <button id="botaoanalisehtml" class="dark-mode-toggle"
-                onclick="window.location.href='analise.html';">ANÁLISE</button>
-            <button id="botaosairhtml" class="dark-mode-toggle"
-                onclick="window.location.href='index.html';">HOME</button>
+    <div id="botoesdoheader" class="config-header-wrap">
+        <h1 class="config-header-title">
+            <button id="botaoconfightml" class="dark-mode-toggle" data-nav-target="config.html">CONFIGURAÇÕES</button>
+            <button id="botaodiagramahtml" class="dark-mode-toggle" data-nav-target="Diagramas.html">DIAGRAMAS</button>
+            <button id="botaoparametrohtml" class="dark-mode-toggle" data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
+            <button id="botaotrafohtml" class="dark-mode-toggle" data-nav-target="transformadores.html">TRAFOS</button>
+            <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
+            <button id="botaoajustehtml" class="dark-mode-toggle" data-nav-target="protecaoajuste.html">AJUSTES</button>
+            <button id="botaotabelarelehtml" class="dark-mode-toggle" data-nav-target="tabelarele.html">TABELA</button>
+            <button id="botaoestudoshtml" class="dark-mode-toggle" data-nav-target="estudos.html">ESTUDOS</button>
+            <button id="botaoajustesGDhtml" class="dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES GD</button>
+            <button id="botaotabelaGDhtml" class="dark-mode-toggle" data-nav-target="tabelaGD.html">TABELA GD</button>
+            <button id="botaoestudosGDhtml" class="dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS GD</button>
+            <button id="botaoanalisehtml" class="dark-mode-toggle" data-nav-target="analise.html">ANÁLISE</button>
+            <button id="botaosairhtml" class="dark-mode-toggle" data-nav-target="index.html">SAIR</button>
         </h1>
     </div>
     <br>
 
-    <div id="labelDiagrama" style="padding: 0px; margin: 16px 0;">
-        <label for="tipoDiagrama" style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">
+    <div id="labelDiagrama" class="config-page-label-wrap">
+        <label for="tipoDiagrama" class="config-page-label">
             Gerenciamento de Usuários
         </label>
     </div>
 
     <!-- Seção de Gerenciamento de Usuários -->
-    <div
-        style="max-width: 1200px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px;">
+    <div class="config-main-card">
 
-        <div id="statusMessage" style="padding: 12px; margin: 10px 0; border-radius: 4px; display: none;"></div>
+        <div id="statusMessage" class="status-message is-hidden"></div>
 
         <!-- Formulário de Cadastro -->
-        <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-            <h3 style="color: #024402; margin-top: 0;">Cadastrar Novo Usuário</h3>
-            <form id="userForm"
-                style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 15px; align-items: end;">
-                <div>
-                    <label style="display: block; font-weight: bold; color: #024402; margin-bottom: 5px;">Email:</label>
+        <div class="config-section-card">
+            <h3 class="config-section-title">Cadastrar Novo Usuário</h3>
+            <form id="userForm" class="user-form-grid">
+                <div class="field-group">
+                    <label class="field-label">Email:</label>
                     <input type="email" id="email" placeholder="email@exemplo.com" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px;">
+                        class="input-control">
                 </div>
-                <div>
-                    <label style="display: block; font-weight: bold; color: #024402; margin-bottom: 5px;">Senha:</label>
+                <div class="field-group">
+                    <label class="field-label">Senha:</label>
                     <input type="password" id="senha" placeholder="Mínimo 6 caracteres" minlength="6" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px;">
+                        class="input-control">
                 </div>
-                <div>
-                    <label
-                        style="display: block; font-weight: bold; color: #024402; margin-bottom: 5px;">Categoria:</label>
-                    <select id="categoria" required
-                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px; height: 42px; line-height: 22px; background-color: white; color: #333; appearance: auto; cursor: pointer;">
+                <div class="field-group">
+                    <label class="field-label">Categoria:</label>
+                    <select id="categoria" required class="input-control select-control">
                         <option value="">Selecione</option>
                         <option value="usuario">Usuário</option>
                         <option value="tecnico">Técnico</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
-                <button type="submit"
-                    style="background-color: #024402; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; white-space: nowrap;">
+                <button type="submit" class="btn-action btn-action-primary btn-submit-user">
                     Cadastrar
                 </button>
             </form>
         </div>
 
         <!-- Teste de Login -->
-        <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-            <h3 style="color: #024402; margin-top: 0;">Teste de Login</h3>
-            <form id="loginForm" style="display: flex; gap: 15px; align-items: end; max-width: 800px;">
-                <div style="flex: 1;">
-                    <label style="display: block; font-weight: bold; color: #024402; margin-bottom: 5px;">Email:</label>
+        <div class="config-section-card config-login-card">
+            <h3 class="config-section-title">Teste de Login</h3>
+            <form id="loginForm" class="login-form-row">
+                <div class="field-group field-grow">
+                    <label class="field-label">Email:</label>
                     <input type="email" id="loginEmail" placeholder="email@exemplo.com" required 
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px; height: 42px;">
+                           class="input-control input-control-lg">
                 </div>
-                <div style="flex: 1;">
-                    <label style="display: block; font-weight: bold; color: #024402; margin-bottom: 5px;">Senha:</label>
+                <div class="field-group field-grow">
+                    <label class="field-label">Senha:</label>
                     <input type="password" id="loginSenha" placeholder="Digite a senha" required
-                           style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-size: 14px; height: 42px;">
+                           class="input-control input-control-lg">
                 </div>
-                <button type="submit" style="background-color: #2196F3; color: white; padding: 0 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; white-space: nowrap; height: 42px; display: flex; align-items: center; justify-content: center;">
+                <button type="submit" class="btn-action btn-action-info btn-login-validate">
                     Validar Login
                 </button>
             </form>
@@ -170,20 +107,17 @@
 
         <!-- Lista de Usuários -->
         <div>
-            <h3 style="color: #024402;">Usuários Cadastrados</h3>
-            <div id="userCount" style="margin: 10px 0; font-weight: bold; color: #024402;"></div>
-            <div style="overflow-x: auto;">
-                <table id="userTable"
-                    style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 10px;">
+            <h3 class="config-section-title">Usuários Cadastrados</h3>
+            <div id="userCount" class="count-text"></div>
+            <div class="table-wrapper">
+                <table id="userTable" class="data-table">
                     <thead>
-                        <tr style="background-color: #024402; color: white;">
-                            <th
-                                style="padding: 10px; text-align: left; border: 1px solid #ddd; border-radius: 8px 0 0 0;">
+                        <tr class="table-head-primary">
+                            <th class="table-head-cell table-head-cell-left">
                                 Email</th>
-                            <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Categoria</th>
-                            <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Data de Criação</th>
-                            <th
-                                style="padding: 10px; text-align: center; border: 1px solid #ddd; border-radius: 0 8px 0 0;">
+                            <th class="table-head-cell">Categoria</th>
+                            <th class="table-head-cell">Data de Criação</th>
+                            <th class="table-head-cell table-head-cell-center table-head-cell-right">
                                 Ações</th>
                         </tr>
                     </thead>
@@ -194,28 +128,26 @@
     </div>
 
     <!-- Botão para mostrar/ocultar logs -->
-    <div style="max-width: 1200px; margin: 30px auto; text-align: center; clear: both;">
-        <button id="toggleLogsBtn" onclick="toggleLogs()"
-            style="background-color: #2196F3; color: white; padding: 15px 35px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: all 0.3s; white-space: nowrap; display: inline-block; min-width: 280px; height: auto;">
+    <div class="logs-toggle-wrap">
+        <button id="toggleLogsBtn" class="btn-action btn-logs btn-logs-show">
             📊 Exibir Logs de Acesso
         </button>
     </div>
 
     <!-- Seção de Logs (inicialmente oculta) -->
-    <div id="logsSection" style="display: none; max-width: 1200px; margin: 0 auto 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 8px; clear: both;">
-        <h3 style="color: #024402; border-bottom: 2px solid #024402; padding-bottom: 10px; margin-top: 0;">
+    <div id="logsSection" class="config-main-card logs-section is-hidden">
+        <h3 class="logs-section-title">
             📋 Histórico de Acessos
         </h3>
-        <div id="logCount" style="margin: 10px 0; font-weight: bold; color: #024402;"></div>
-        <div style="overflow-x: auto;">
-            <table id="logTable"
-                style="width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 10px;">
+        <div id="logCount" class="count-text"></div>
+        <div class="table-wrapper">
+            <table id="logTable" class="data-table">
                 <thead>
-                    <tr style="background-color: #2196F3; color: white;">
-                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd; border-radius: 8px 0 0 0;">
+                    <tr class="table-head-info">
+                        <th class="table-head-cell table-head-cell-left">
                             Email</th>
-                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Categoria</th>
-                        <th style="padding: 10px; text-align: left; border: 1px solid #ddd; border-radius: 0 8px 0 0;">
+                        <th class="table-head-cell">Categoria</th>
+                        <th class="table-head-cell table-head-cell-right">
                             Data e Hora do Acesso</th>
                     </tr>
                 </thead>
@@ -227,413 +159,6 @@
     <br><br>
 
     <script src="config.js"></script>
-    <script>
-        // Aguardar carreg amento completo
-        window.addEventListener('load', function () {
-            console.log('Página carregada, inicializando sistema...');
-            // -----------------manter o botão vermelho selecionado-------------------
-            const botaoConfig = document.getElementById("botaoconfightml");
-            if (botaoConfig) {
-                botaoConfig.style.backgroundColor = "#cf0808";
-            }
-
-            //------REGISTRAR LOGIN E MOSTRAR SOMENTE OPÇÕES DE USUARIO-----------------------------------------------------------------------------------
-            // ocultar campos para usuarios que não sejam adm 
-            // Oculta todos os campos com a classe "displayadm" se o usuário não for "adm"
-            // Verificar se o usuário está registrado no banco de dados do Supabase
-            const usuarioLogado = localStorage.getItem("usuario");
-            if (!usuarioLogado) {
-                window.location.href = "index.html"; // ou a página inicial desejada
-            }
-
-            //---------------------------------------------------------------------------------------
-
-
-            if (typeof supabase === 'undefined' || typeof dcodeIO === 'undefined') {
-                console.error('Bibliotecas não carregadas corretamente');
-                document.getElementById('statusMessage').textContent = '❌ Erro: Bibliotecas não carregadas';
-                document.getElementById('statusMessage').style.display = 'block';
-                document.getElementById('statusMessage').style.backgroundColor = '#f8d7da';
-                document.getElementById('statusMessage').style.color = '#721c24';
-                return;
-            }
-
-            const supabaseUrl = "https://nelzhukmxrgdoarsxcek.supabase.co";
-            const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHpodWtteHJnZG9hcnN4Y2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMDIxNzUsImV4cCI6MjA3MTU3ODE3NX0.KHvfJHVimKwiraEzbyZWyLnTO5P5VEvM86GlyE7y09k";
-            const { createClient } = supabase;
-            const sb = createClient(supabaseUrl, supabaseKey);
-            const bcrypt = dcodeIO.bcrypt;
-
-            const form = document.getElementById("userForm");
-            const tableBody = document.querySelector("#userTable tbody");
-            const statusMessage = document.getElementById("statusMessage");
-            const userCount = document.getElementById("userCount");
-
-            function showMessage(message, type = 'success') {
-                statusMessage.textContent = message;
-                statusMessage.style.display = 'block';
-                statusMessage.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
-                statusMessage.style.color = type === 'success' ? '#155724' : '#721c24';
-                statusMessage.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
-                setTimeout(() => { statusMessage.style.display = 'none'; }, 5000);
-            }
-
-            function validarEmail(email) {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            }
-
-            async function emailExiste(email) {
-                const { data } = await sb.from("users_login").select("email").eq("email", email).single();
-                return data !== null;
-            }
-
-            function formatarData(dataISO) {
-                if (!dataISO) return 'N/A';
-                
-                // Parse manual da string ISO UTC
-                // Exemplo: "2026-01-20T22:10:19.000Z"
-                const match = dataISO.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/);
-                if (!match) return dataISO;
-                
-                let [_, ano, mes, dia, hora, minuto, segundo] = match;
-                hora = parseInt(hora);
-                
-                // Subtrai 3 horas para converter UTC para Brasília (UTC-3)
-                hora -= 3;
-                
-                // Ajusta se a hora ficou negativa (mudou de dia)
-                if (hora < 0) {
-                    hora += 24;
-                    dia = parseInt(dia) - 1;
-                    if (dia < 1) {
-                        // Simplificado: não trata mudança de mês
-                        dia = 1;
-                    }
-                    dia = dia.toString().padStart(2, '0');
-                }
-                
-                hora = hora.toString().padStart(2, '0');
-                
-                return `${dia}/${mes}/${ano} ${hora}:${minuto}:${segundo}`;
-            }
-
-            async function loadUsers() {
-                console.log('Carregando usuários...');
-                try {
-                    const { data, error } = await sb.from("users_login")
-                        .select("id, email, categoria, created_at")
-                        .order('created_at', { ascending: false });
-
-                    console.log('Dados:', data, 'Erro:', error);
-
-                    if (error) throw error;
-
-                    tableBody.innerHTML = "";
-
-                    if (!data || data.length === 0) {
-                        tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;">Nenhum usuário cadastrado</td></tr>';
-                        userCount.textContent = 'Total: 0 usuários';
-                        return;
-                    }
-
-                    userCount.textContent = `Total: ${data.length} usuário(s) cadastrado(s)`;
-
-                    data.forEach(user => {
-                        const row = document.createElement("tr");
-                        row.style.backgroundColor = '#fff';
-                        row.innerHTML = `
-                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">${user.email}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
-                                <span style="background-color: ${user.categoria === 'admin' ? '#ff9800' : user.categoria === 'tecnico' ? '#2196F3' : '#4CAF50'}; 
-                                             color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;">
-                                    ${user.categoria.toUpperCase()}
-                                </span>
-                            </td>
-                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">${formatarData(user.created_at)}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; border-radius: 6px;">
-                                <button onclick="editUser('${user.id}', '${user.email}', '${user.categoria}')" 
-                                        style="background-color: #2196F3; color: white; padding: 5px 10px; border: none; border-radius: 3px; cursor: pointer; margin-right: 5px;">
-                                    ✏️ Editar
-                                </button>
-                                <button onclick="deleteUser('${user.id}', '${user.email}')" 
-                                        style="background-color: #f44336; color: white; padding: 5px 10px; border: none; border-radius: 3px; cursor: pointer;">
-                                    🗑️ Excluir
-                                </button>
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                } catch (error) {
-                    console.error('Erro:', error);
-                    showMessage('Erro ao carregar usuários: ' + error.message, 'error');
-                }
-            }
-
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const email = document.getElementById("email").value.trim().toLowerCase();
-                const senha = document.getElementById("senha").value;
-                const categoria = document.getElementById("categoria").value;
-
-                if (!validarEmail(email)) {
-                    showMessage('Email inválido!', 'error');
-                    return;
-                }
-
-                if (senha.length < 6) {
-                    showMessage('A senha deve ter no mínimo 6 caracteres!', 'error');
-                    return;
-                }
-
-                if (!categoria) {
-                    showMessage('Selecione uma categoria!', 'error');
-                    return;
-                }
-
-                try {
-                    if (await emailExiste(email)) {
-                        showMessage('Este email já está cadastrado!', 'error');
-                        return;
-                    }
-
-                    const hash = bcrypt.hashSync(senha, 10);
-                    const { error } = await sb.from("users_login").insert([{
-                        email, categoria, senha: hash
-                    }]);
-
-                    if (error) throw error;
-
-                    showMessage(`✅ Usuário ${email} cadastrado com sucesso!`, 'success');
-                    loadUsers();
-                    form.reset();
-                } catch (error) {
-                    showMessage('❌ Erro ao cadastrar: ' + error.message, 'error');
-                }
-            });
-
-            // Função para toggle de logs
-            window.toggleLogs = async function() {
-                const logsSection = document.getElementById('logsSection');
-                const toggleBtn = document.getElementById('toggleLogsBtn');
-                
-                if (logsSection.style.display === 'none') {
-                    logsSection.style.display = 'block';
-                    toggleBtn.textContent = '📊 Ocultar Logs de Acesso';
-                    toggleBtn.style.backgroundColor = '#ff9800';
-                    await loadLoginLogs();
-                } else {
-                    logsSection.style.display = 'none';
-                    toggleBtn.textContent = '📊 Exibir Logs de Acesso';
-                    toggleBtn.style.backgroundColor = '#2196F3';
-                }
-            };
-
-            // Função para carregar logs de login
-            async function loadLoginLogs() {
-                console.log('Carregando logs de acesso...');
-                const logTableBody = document.querySelector("#logTable tbody");
-                const logCount = document.getElementById("logCount");
-                
-                try {
-                    const { data, error } = await sb.from("login_logs")
-                        .select("email, categoria, login_timestamp")
-                        .order('login_timestamp', { ascending: false })
-                        .limit(100); // Limita aos últimos 100 logs
-
-                    console.log('Logs retornados:', data);
-                    console.log('Erro (se houver):', error);
-
-                    if (error) {
-                        console.error('Erro detalhado:', error);
-                        throw error;
-                    }
-
-                    logTableBody.innerHTML = "";
-
-                    if (!data || data.length === 0) {
-                        logTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 20px; color: #666;">Nenhum log de acesso registrado</td></tr>';
-                        logCount.textContent = 'Total: 0 acessos registrados';
-                        return;
-                    }
-
-                    logCount.textContent = `Total: ${data.length} acesso(s) registrado(s) (últimos 100)`;
-
-                    data.forEach((log, index) => {
-                        const row = document.createElement("tr");
-                        row.style.backgroundColor = index % 2 === 0 ? '#f9f9f9' : '#fff';
-                        row.innerHTML = `
-                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">${log.email}</td>
-                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
-                                <span style="background-color: ${log.categoria === 'admin' ? '#ff9800' : log.categoria === 'tecnico' ? '#2196F3' : '#4CAF50'}; 
-                                             color: white; padding: 4px 8px; border-radius: 3px; font-size: 12px; font-weight: bold;">
-                                    ${log.categoria.toUpperCase()}
-                                </span>
-                            </td>
-                            <td style="padding: 10px; border: 1px solid #ddd; border-radius: 6px;">${formatarData(log.login_timestamp)}</td>
-                        `;
-                        logTableBody.appendChild(row);
-                    });
-                } catch (error) {
-                    console.error('Erro ao carregar logs:', error);
-                    let errorMsg = error.message;
-                    if (error.message.includes('relation') || error.message.includes('does not exist')) {
-                        errorMsg = 'Tabela "login_logs" não encontrada. Execute o SQL no Supabase primeiro!';
-                    }
-                    logTableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 20px; color: #d32f2f;">
-                        ❌ Erro ao carregar logs: ${errorMsg}<br><br>
-                        <small>Verifique o console (F12) para mais detalhes</small>
-                    </td></tr>`;
-                    logCount.textContent = 'Erro ao carregar logs';
-                }
-            }
-
-            // Teste de Login
-            const loginForm = document.getElementById("loginForm");
-            loginForm.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const email = document.getElementById("loginEmail").value.trim().toLowerCase();
-                const senha = document.getElementById("loginSenha").value;
-
-                if (!validarEmail(email)) {
-                    showMessage('Email inválido!', 'error');
-                    return;
-                }
-
-                try {
-                    const { data, error } = await sb
-                        .from("users_login")
-                        .select("id, email, senha, categoria, created_at")
-                        .eq("email", email)
-                        .single();
-
-                    if (error || !data) {
-                        showMessage('❌ Usuário não encontrado!', 'error');
-                        return;
-                    }
-
-                    const senhaCorreta = bcrypt.compareSync(senha, data.senha);
-
-                    if (senhaCorreta) {
-                        // Registra o log de acesso no banco de dados
-                        console.log('Tentando inserir log de acesso...');
-                        const { data: logData, error: logError } = await sb.from("login_logs").insert([{
-                            email: data.email,
-                            categoria: data.categoria,
-                            login_timestamp: new Date().toISOString()
-                        }]);
-                        
-                        if (logError) {
-                            console.error('Erro ao inserir log:', logError);
-                            showMessage(`⚠️ Login válido mas erro ao registrar log: ${logError.message}\n\nEmail: ${data.email}\nCategoria: ${data.categoria}`, 'error');
-                        } else {
-                            console.log('Log inserido com sucesso!', logData);
-                            showMessage(`✅ Login válido!\n\nEmail: ${data.email}\nCategoria: ${data.categoria}\nCadastrado em: ${formatarData(data.created_at)}`, 'success');
-                        }
-                    } else {
-                        showMessage('❌ Senha incorreta!', 'error');
-                    }
-
-                    loginForm.reset();
-                } catch (error) {
-                    console.error('Erro na validação:', error);
-                    showMessage('❌ Erro ao validar login: ' + error.message, 'error');
-                }
-            });
-
-            window.editUser = async function (id, email, categoriaAtual) {
-                const novaCategoria = prompt(`Editar: ${email}\nNova categoria (admin/tecnico/usuario):`, categoriaAtual);
-                if (!novaCategoria) return;
-
-                const cat = novaCategoria.toLowerCase().trim();
-                if (!['admin', 'tecnico', 'usuario'].includes(cat)) {
-                    showMessage('Categoria inválida!', 'error');
-                    return;
-                }
-
-                const alterarSenha = confirm('Alterar senha também?');
-                let updateData = { categoria: cat };
-
-                if (alterarSenha) {
-                    const novaSenha = prompt('Nova senha (mínimo 6 caracteres):');
-                    if (!novaSenha || novaSenha.length < 6) {
-                        showMessage('Senha inválida!', 'error');
-                        return;
-                    }
-                    updateData.senha = bcrypt.hashSync(novaSenha, 10);
-                }
-
-                try {
-                    const { error } = await sb.from("users_login").update(updateData).eq("id", id);
-                    if (error) throw error;
-                    showMessage('✅ Usuário atualizado!', 'success');
-                    loadUsers();
-                } catch (error) {
-                    showMessage('❌ Erro ao editar: ' + error.message, 'error');
-                }
-            };
-
-            window.deleteUser = async function (id, email) {
-                if (!confirm(`⚠️ Excluir ${email}?\nEsta ação não pode ser desfeita!`)) return;
-                try {
-                    const { error } = await sb.from("users_login").delete().eq("id", id);
-                    if (error) throw error;
-                    showMessage(`✅ Usuário ${email} excluído!`, 'success');
-                    loadUsers();
-                } catch (error) {
-                    showMessage('❌ Erro ao excluir: ' + error.message, 'error');
-                }
-            };
-
-            loadUsers();
-
-            // Gerar curva vermelha no SVG
-            function gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos) {
-                let d = "";
-                let primeiro = true;
-                for (let i = 0; i <= pontos; i++) {
-                    let corrente = iMin + (iMax - iMin) * (i / pontos);
-                    let denominador = Math.pow(corrente / ip, alfa) - k;
-                    if (denominador <= 0) continue;
-                    let tempo = dial * (beta / denominador);
-                    if (tempo > 1000) tempo = 1000;
-                    let svgX = 50 + (corrente - iMin) * 500 / (iMax - iMin);
-                    let svgY = 350 - (tempo * 300 / 1000);
-                    if (primeiro) {
-                        d += `M${svgX},${svgY}`;
-                        primeiro = false;
-                    } else {
-                        d += ` L${svgX},${svgY}`;
-                    }
-                }
-                return d;
-            }
-
-            // Parâmetros da curva
-            const dial = 90000;
-            const beta = 300;
-            const alfa = 2;
-            const k = 1;
-            const ip = 0.5;
-            const iMin = ip * 2.01;
-            const iMax = 300;
-            const pontos = 1000;
-
-            const dInverso = gerarCurvaTempoInversoSVG(dial, beta, alfa, k, ip, iMin, iMax, pontos);
-
-            const svg = document.querySelector("svg");
-            if (svg) {
-                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                path.setAttribute("class", "curva-inversa");
-                path.setAttribute("fill", "none");
-                path.setAttribute("stroke", "#ff0080");
-                path.setAttribute("stroke-width", "3");
-                path.setAttribute("stroke-dasharray", "1000");
-                path.setAttribute("stroke-dashoffset", "1000");
-                path.setAttribute("d", dInverso);
-                svg.appendChild(path);
-            }
-        });
-    </script>
 
 </body>
 

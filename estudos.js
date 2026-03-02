@@ -8,6 +8,9 @@
 //INICIALIZAR DO CARREGAMENTO DA PAGINA 
 document.addEventListener('DOMContentLoaded', function () {
 
+    configurarEventosHeaderEImpressao();
+    configurarQuebrasDinamicasImpressao();
+
     exibirCorrenteMinimaSeNecessario();
 
     // Aguardar MathJax carregar com retry
@@ -49,11 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     carregarFormulas();
 
-    const botaoParametro = document.getElementById("botaoestudoshtml");
-    if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
-    }
-
     // Controle de acesso movido para controle-acesso.js
 
     // Carregar o script do gráfico
@@ -79,6 +77,139 @@ document.addEventListener('DOMContentLoaded', function () {
     // location.reload();
 
 });
+
+function configurarEventosHeaderEImpressao() {
+    const rotasHeader = {
+        botaoconfightml: 'config.html',
+        botaodiagramahtml: 'Diagramas.html',
+        botaoparametrohtml: 'Protecao_parametros.html',
+        botaotrafohtml: 'transformadores.html',
+        botaotptchtml: 'TP-TC.html',
+        botaoajustehtml: 'protecaoajuste.html',
+        botaotabelarelehtml: 'tabelarele.html',
+        botaoestudoshtml: 'estudos.html',
+        botaoajustesGDhtml: 'ajustesGD.html',
+        botaotabelaGDhtml: 'tabelaGD.html',
+        botaoestudosGDhtml: 'estudosGD.html',
+        botaoanalisehtml: 'analise.html',
+        botaosairhtml: 'index.html'
+    };
+
+    Object.entries(rotasHeader).forEach(([id, rota]) => {
+        const botao = document.getElementById(id);
+        if (!botao || botao.dataset.estudosBound === 'true') {
+            return;
+        }
+
+        botao.addEventListener('click', () => {
+            window.location.href = rota;
+        });
+        botao.dataset.estudosBound = 'true';
+    });
+
+    const botaoEstudos = document.getElementById('botaoestudoshtml');
+    if (botaoEstudos) {
+        botaoEstudos.classList.add('estudos-header-active');
+    }
+
+    const botaoImprimir = document.getElementById('estudos-print-btn');
+    if (botaoImprimir && botaoImprimir.dataset.estudosBound !== 'true') {
+        botaoImprimir.addEventListener('click', () => window.print());
+        botaoImprimir.dataset.estudosBound = 'true';
+    }
+}
+
+function configurarQuebrasDinamicasImpressao() {
+    if (window.__estudosPrintBreaksConfigured) {
+        return;
+    }
+    window.__estudosPrintBreaksConfigured = true;
+
+    const aplicarQuebras = () => {
+        atualizarQuebrasTitulosNaImpressao();
+    };
+
+    const limparQuebras = () => {
+        limparQuebrasTitulosNaImpressao();
+    };
+
+    window.addEventListener('beforeprint', aplicarQuebras);
+    window.addEventListener('afterprint', limparQuebras);
+
+    if (window.matchMedia) {
+        const mediaPrint = window.matchMedia('print');
+        const onPrintMediaChange = (event) => {
+            if (event.matches) {
+                aplicarQuebras();
+            } else {
+                limparQuebras();
+            }
+        };
+
+        if (typeof mediaPrint.addEventListener === 'function') {
+            mediaPrint.addEventListener('change', onPrintMediaChange);
+        } else if (typeof mediaPrint.addListener === 'function') {
+            mediaPrint.addListener(onPrintMediaChange);
+        }
+    }
+}
+
+function limparQuebrasTitulosNaImpressao() {
+    document.querySelectorAll('.estudos-title-force-break-print').forEach((el) => {
+        el.classList.remove('estudos-title-force-break-print');
+    });
+}
+
+function atualizarQuebrasTitulosNaImpressao() {
+    limparQuebrasTitulosNaImpressao();
+
+    const titulos = Array.from(document.querySelectorAll('.estudos-title-block'));
+    if (titulos.length < 4) {
+        return;
+    }
+
+    titulos.forEach((titulo, indice) => {
+        if (indice >= 3) {
+            titulo.classList.add('estudos-title-force-break-print');
+        }
+    });
+}
+
+function obterPrimeiroBlocoAposTitulo(titulo, proximoTitulo) {
+    let cursor = titulo.nextElementSibling;
+
+    while (cursor && cursor !== proximoTitulo) {
+        const tag = cursor.tagName ? cursor.tagName.toLowerCase() : '';
+        const vazio = !cursor.textContent || cursor.textContent.trim() === '';
+        if (tag !== 'br' && !vazio) {
+            return cursor;
+        }
+        cursor = cursor.nextElementSibling;
+    }
+
+    return null;
+}
+
+function obterAlturaSecao(titulo, proximoTitulo) {
+    let altura = obterAlturaExterna(titulo);
+    let cursor = titulo.nextElementSibling;
+
+    while (cursor && cursor !== proximoTitulo) {
+        altura += obterAlturaExterna(cursor);
+        cursor = cursor.nextElementSibling;
+    }
+
+    return altura;
+}
+
+function obterAlturaExterna(elemento) {
+    const estilo = window.getComputedStyle(elemento);
+    const margemSuperior = parseFloat(estilo.marginTop) || 0;
+    const margemInferior = parseFloat(estilo.marginBottom) || 0;
+    const altura = elemento.getBoundingClientRect().height || 0;
+
+    return altura + margemSuperior + margemInferior;
+}
 
 
 
@@ -687,10 +818,12 @@ function carregarVariaveisEstudo() {
     atualizarFormulasCalculoDial();
 
 // Função centralizada para atualizar todas as fórmulas do cálculo do dial
-function atualizarFormulasCalculoDial() {
+function atualizarFormulasCalculoDial(tentativa = 0) {
     // Verificar se MathJax está disponível antes de prosseguir
     if (typeof MathJax === 'undefined' || !MathJax.typesetPromise) {
-        console.log('MathJax não disponível ainda em atualizarFormulasCalculoDial');
+        if (tentativa < 40) {
+            setTimeout(() => atualizarFormulasCalculoDial(tentativa + 1), 300);
+        }
         return;
     }
 
@@ -836,6 +969,11 @@ function atualizarFormulasCalculoDial() {
             el7.style.display = 'none';
         }
     }
+
+    const formulasDial = Array.from(document.querySelectorAll('.formula1, .formula2, .formula3, .formula4, .formula5, .formula6, .formula7'));
+    if (formulasDial.length > 0) {
+        MathJax.typesetPromise(formulasDial).catch(err => console.error('Erro ao renderizar fórmulas do dial:', err));
+    }
 }
     // Preencher campo dial-fase com dialCalculadoPlantaSemMotores
     const dialCalculadoPlantaSemMotores = localStorage.getItem('dialCalculadoPlantaSemMotores');
@@ -899,7 +1037,7 @@ function atualizarFormulasCalculoDial() {
     const desequilibrioNeutroEls = document.querySelectorAll('.Desequelibrio-neutro');
     desequilibrioNeutroEls.forEach(el => {
         if (desequilibrioSelecionada !== null && !isNaN(desequilibrioSelecionada)) {
-            el.textContent = desequilibrioSelecionada*100 + ' %';
+            el.textContent = desequilibrioSelecionada + ' %';
         }
     });
 
@@ -1093,37 +1231,6 @@ function imprimirPaginaEmPDF() {
 }
 
 
-
-// Adicionar estilos de impressão apenas se não existirem
-if (!document.querySelector('style[media="print"]')) {
-    const estiloImpressao = document.createElement("style");
-    estiloImpressao.media = "print";
-    estiloImpressao.textContent = `
-@page {
-    size: A4 portrait;
-    margin: 20mm;
-}
-body {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-}
-button {
-    display: none !important;
-}
-table {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-tr, td, th {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-`;
-    document.head.appendChild(estiloImpressao);
-}
-
-
-
 function atualizarFormula() {
     const campos = ["beta", "imag", "in", "alpha", "k", "dt"];
     const valores = campos.reduce((obj, id) => {
@@ -1160,27 +1267,6 @@ function carregarScript(src, callback) {
     script.onerror = () => console.error('Erro ao carregar script:', src);
     document.head.appendChild(script);
 }
-
-// Carregar o script do gráfico após o DOM estar pronto
-document.addEventListener('DOMContentLoaded', function () {
-
-
-    // Carregar o script do gráfico primeiro
-    carregarScript('grafico5051consumo.js', function () {
-
-
-        // Aguardar um pouco e então carregar as fórmulas
-        setTimeout(() => {
-            verificarMathJax();
-        }, 1000);
-    });
-
-    // Configurar botão se existir
-    const botaoParametro = document.getElementById("botaoestudoshtml");
-    if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
-    }
-});
 
 function verificarMathJax() {
     if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
@@ -1219,48 +1305,8 @@ function carregarTabelaReles() {
 
 
 function adicionarEstilosTabelaParametrizacaoReles() {
-    if (!document.getElementById('estilo-tabela-parametrizacao-reles')) {
-        const style = document.createElement('style');
-        style.id = 'estilo-tabela-parametrizacao-reles';
-        style.textContent = `
-.tabelaparametrizacaoreles {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.05em;
-    background: #fff; /* fundo branco */
-    color: #000;      /* letras pretas */
-    border: 2px solid #34335c;
-    border-radius: 10px;
-    padding: 20px 30px;
-    margin: 40px auto;
-    width: 210mm;
-    max-width: 100vw;
-    box-shadow: 0 2px 10px rgba(52, 51, 92, 0.10);
-    text-align: left;
+    return;
 }
-
-.tabelaparametrizacaoreles table {
-    border-collapse: collapse;
-    width: 100%;
-    background: #fff;
-    color: #000; /* letras pretas */
-}
-
-.tabelaparametrizacaoreles th,
-.tabelaparametrizacaoreles td {
-    border: 1px solid #34335c;
-    padding: 8px;
-    text-align: left;
-    font-size: 1em;
-    color: #000; /* letras pretas */
-}
-        `;
-        document.head.appendChild(style);
-    }
-}
-
-// Chame a função ao carregar a página
-document.addEventListener('DOMContentLoaded', adicionarEstilosTabelaParametrizacaoReles);
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.getElementById("gallery");
@@ -1273,8 +1319,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (imagemSelecionada) {
         const img = document.createElement("img");
         img.src = imagemSelecionada;
-        img.style.maxWidth = "100%";
-        img.style.height = "auto";
+        img.classList.add('estudos-gallery-image');
         gallery.appendChild(img);
     }
 });
