@@ -1016,10 +1016,10 @@ textarea {
         background: #fff !important;
         border: 1px solid #000 !important;
         border-radius: 10px !important;
-        padding: 20px 30px !important;
+        padding: 4mm 2mm !important;
         margin: 0 auto !important;
         width: 100% !important;
-        max-width: 180mm !important;
+        max-width: 100% !important;
         height: auto !important;
         box-shadow: none !important;
         text-align: left !important;
@@ -1056,10 +1056,17 @@ textarea {
         box-sizing: border-box !important;
     }
 
-    /* Garantir que título e gráfico iniciem juntos na mesma página */
-    #curvaProtecao {
+    #titulo-curva-protecao {
         page-break-before: always !important;
         break-before: page !important;
+        page-break-after: avoid !important;
+        break-after: avoid-page !important;
+    }
+
+    /* Garantir que título e gráfico iniciem juntos na mesma página */
+    #curvaProtecao {
+        page-break-before: auto !important;
+        break-before: auto !important;
         page-break-inside: avoid !important;
         break-inside: avoid-page !important;
     }
@@ -1090,8 +1097,7 @@ textarea {
     #dimensionamentotpprotecao,
     .calculosfuncoes,
     #calculogeradordiesel,
-    #tabelaresumofuncoes,
-    #curvaProtecao {
+    #tabelaresumofuncoes {
         page-break-inside: auto !important;
         break-inside: auto !important;
         margin-bottom: 10mm !important;

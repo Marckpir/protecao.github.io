@@ -5,6 +5,77 @@ body {
     background-attachment: fixed;
     text-align: center;
 }
+
+.topo-centro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+#titulodapagina {
+    font-family: 'Impact', 'Arial Black', cursive, sans-serif;
+    font-size: 2em;
+    letter-spacing: 2px;
+    color: rgb(2, 68, 2);
+}
+
+.logo-svg {
+    width: 4%;
+    height: 2em;
+    vertical-align: middle;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+h1.loaded {
+    opacity: 1;
+}
+
+#botaoconfightml:not(.btn-permitido),
+#botaoajustesGDhtml:not(.btn-permitido),
+#botaotabelaGDhtml:not(.btn-permitido),
+#botaoestudosGDhtml:not(.btn-permitido),
+#botaoanalisehtml:not(.btn-permitido) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#botaoconfightml.btn-permitido,
+#botaodiagramahtml.btn-permitido,
+#botaoparametrohtml.btn-permitido,
+#botaotrafohtml.btn-permitido,
+#botaotptchtml.btn-permitido,
+#botaoajustehtml.btn-permitido,
+#botaotabelarelehtml.btn-permitido,
+#botaoestudoshtml.btn-permitido,
+#botaoajustesGDhtml.btn-permitido,
+#botaotabelaGDhtml.btn-permitido,
+#botaoestudosGDhtml.btn-permitido,
+#botaoanalisehtml.btn-permitido,
+#botaosairhtml.btn-permitido {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+h1 button.btn-bloqueado {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
 /* .container {
     width: 80%;
     margin: auto;

@@ -4,55 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
-    <style>
-        /* Oculta botões restritos por padrão */
-        #botaoconfightml:not(.btn-permitido),
-        #botaoajustesGDhtml:not(.btn-permitido),
-        #botaotabelaGDhtml:not(.btn-permitido),
-        #botaoestudosGDhtml:not(.btn-permitido),
-        #botaoanalisehtml:not(.btn-permitido) {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-
-        /* Força exibição dos botões permitidos - com especificidade máxima */
-        #botaoconfightml.btn-permitido,
-        #botaodiagramahtml.btn-permitido,
-        #botaoparametrohtml.btn-permitido,
-        #botaotrafohtml.btn-permitido,
-        #botaotptchtml.btn-permitido,
-        #botaoajustehtml.btn-permitido,
-        #botaotabelarelehtml.btn-permitido,
-        #botaoestudoshtml.btn-permitido,
-        #botaoajustesGDhtml.btn-permitido,
-        #botaotabelaGDhtml.btn-permitido,
-        #botaoestudosGDhtml.btn-permitido,
-        #botaoanalisehtml.btn-permitido,
-        #botaosairhtml.btn-permitido {
-            display: flex !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-        }
-
-        /* Força ocultação dos botões bloqueados */
-        h1 button.btn-bloqueado {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-
-        h1 {
-            opacity: 0;
-            transition: opacity 0.2s ease-in;
-        }
-
-        h1.loaded {
-            opacity: 1;
-        }
-    </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
     <link rel="stylesheet" href="analise.css" type="text/css">
@@ -69,12 +20,11 @@
 </head>
 
 <body>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
-        <span id="titulodapagina"
-            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+    <div class="analise-brand-row">
+        <span id="titulodapagina" class="analise-brand-title">
             COORDINATION WEB
         </span>
-        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+        <svg viewBox="0 0 350 350" class="analise-brand-svg">
             <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
             <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
             <!-- Curva de tempo definido -->
@@ -82,36 +32,27 @@
                 stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
         </svg>
     </div>
-    <h1>
+    <h1 class="analise-header-title">
 
-        <button id="botaoconfightml" class="dark-mode-toggle"
-            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
-        <button id="botaodiagramahtml" class="dark-mode-toggle"
-            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoconfightml" class="dark-mode-toggle" data-nav-target="config.html">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle" data-nav-target="Diagramas.html">DIAGRAMAS</button>
         <button id="botaoparametrohtml" class="dark-mode-toggle"
-            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle"
-            onclick="window.location.href='transformadores.html';">TRAFOS</button>
-        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle"
-            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle"
-            onclick="window.location.href='tabelarele.html';">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle"
-            onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle" data-nav-target="transformadores.html">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle" data-nav-target="protecaoajuste.html">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle" data-nav-target="tabelarele.html">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle" data-nav-target="estudos.html">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" data-nav-target="tabelaGD.html">TABELA
             GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
-            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-        <button id="botaoanalisehtml" class="dark-mode-toggle"
-            onclick="window.location.href='analise.html';">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle" data-nav-target="analise.html">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" data-nav-target="index.html">SAIR</button>
 
     </h1>
     <br>
-    <div style="display: flex; justify-content: center; margin-top: 24px;">
+    <div class="analise-parametros-wrap">
         <table>
             <thead>
                 <tr>
@@ -168,8 +109,8 @@
     </div>
 
     <br>
-    <div style="background: #fff; padding: 16px; border-radius: 8px; max-width: 700px; margin: 0 auto;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 1.1em; background: #fff; color: #000;">
+    <div class="analise-card analise-card-notas">
+        <table class="analise-table analise-table-notas">
             <tr>
                 <th colspan="2" style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000;">NOTA 1:
                 </th>
@@ -228,9 +169,8 @@
 
     <br><br>
 
-    <div style="background: #fff; padding: 16px; border-radius: 8px; max-width: 500px; margin: 0 auto;">
-        <table
-            style="width: 100%; margin: 24px auto; border-collapse: collapse; font-size: 1em; background: #fff; color: #000; border: 2.5px solid #000;">
+    <div class="analise-card analise-card-selo">
+        <table class="analise-table analise-table-selo">
             <tr>
                 <td rowspan="2"
                     style="border: 1px solid #ccc; padding: 8px; background: #fff; color: #000; text-align: center; vertical-align: middle; height: 55px;">
@@ -284,10 +224,10 @@
 
     <br><br>
 
-    <div style="background: #fff; padding: 16px; border-radius: 8px; max-width: 100%; margin: 0 auto;">
+    <div class="analise-card analise-card-atalhos">
 
         <table id="tabelaatalho"
-        style="width:100%; border-collapse:collapse; background:#fff; color:#000; font-size:1em; border:2px solid #000;">
+            style="width:100%; border-collapse:collapse; background:#fff; color:#000; font-size:1em; border:2px solid #000;">
             <thead>
                 <tr style="background:#ffffff; color:#000;">
                     <th colspan="12" style="padding:8px; border:1px solid #000;">ATALHOS</th>
@@ -353,18 +293,20 @@
 
     <h1>CARTA DE EMAIL</h1>
 
-    <div style="background: #fff; padding: 12px; border-radius: 8px; max-width: 700px; margin: 0 auto;">
+    <!-- <div class="analise-card analise-card-assunto">
         <h2 id="assuntoemail"></h2>
-    </div>
+    </div> -->
     <br><br>
 
-    <div id="email-container" class="container" style="text-align: justify;">
-        <p><span id="saudacao">Boa tarde</span>, <span id="contato-nome"></span> (<span id="email-texto"></span>).</p>
+    <div id="email-container" class="container analise-email-container">
+        <h2 id="assuntoemail"></h2>
+        <p><span id="saudacao">Boa tarde</span>, <span id="contato-nome"></span> (<span id="email-texto"></span>),
+            (<span id="telefone-texto"></span>).</p>
         <p>
             Durante a análise da(s) NS(s) <span id="numero-ns">1140348899, 1140348816, 1140349051</span>, foram
             identificados alguns itens necessários para alteração na solicitação para que a aprovação seja concluída.
             Segue
-            itens de correção à serem observados:
+            itens de correção a serem observados:
         </p>
 
         <div class="editable-section" id="projeto-eletrico">
@@ -397,7 +339,7 @@
                     edificações coletivas.</a></li>
         </ul>
 
-        <p style="color: red; font-weight: bold;">
+        <p class="analise-aviso-importante">
             Informamos que tabelas, gráficos, cálculos, dimensionamentos e demais modelos de estudos que venham a ser
             encaminhados nesse
             email, são apenas para
@@ -406,7 +348,7 @@
             conforme necessidades da conexão do empreendimento antes de encaminhar o projeto/estudos para aprovação na
             CEMIG!
         </p>
-        <p style="font-weight: bold; color: #000;">
+        <p class="analise-aviso-negrito">
             Com exceção das alterações solicitadas acima, não deverá ser realizada nenhuma outra mudança!
         </p>
         <p>
@@ -430,24 +372,23 @@
         </div>
 
         <div class="action-panel">
-            <button onclick="adicionarItem()">Add item</button>
-            <button class="delete-button" onclick="removerUltimoItem()">Delete</button>
+            <button id="btnAdicionarItem">Add item</button>
+            <button id="btnRemoverItem" class="delete-button">Delete</button>
+            <button id="btnCopiar" class="copiar-button">Copiar</button>
         </div>
     </div>
     <br><br>
 
 
 
-    <div id="nota-operacao"
-        style="background: #fff; color: #000; padding: 8px; border-radius: 4px; text-align: center; max-width: 250px; margin: 0 auto;">
+    <div id="nota-operacao" class="analise-nota-operacao-title">
         <span>NOTA PARA OPERAÇÃO</span>
     </div>
 
     <br><br>
 
-    <div
-        style="background: #fff; padding: 16px; border-radius: 8px; max-width: 400px; margin: 0 auto; margin-bottom: 32px;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 1em; background: #fff; color: #000;">
+    <div class="analise-card analise-card-operacao">
+        <table class="analise-table analise-table-operacao">
             <!-- Lista de IDs presentes nesta tabela:
                 in-operacao
                 alimentador-operacao
@@ -518,7 +459,7 @@
         </table>
     </div>
 
-    <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
+    <button id="botaoSalvar">Salvar</button>
 
 
 

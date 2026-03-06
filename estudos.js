@@ -211,6 +211,27 @@ function obterAlturaExterna(elemento) {
     return altura + margemSuperior + margemInferior;
 }
 
+function obterImagConformeStatusMagnetizacaoReal() {
+    const statusMagnetizacaoReal = localStorage.getItem('magnetizacaoreal');
+    const imagPadrao = parseFloat(localStorage.getItem('imagtotalSelecionada'));
+    const imagReal = parseFloat(localStorage.getItem('inmagrealSelecionada'));
+
+    const imagPadraoValida = Number.isFinite(imagPadrao);
+    const imagRealValida = Number.isFinite(imagReal);
+    const usarMagnetizacaoReal = statusMagnetizacaoReal === 'ligado' && imagRealValida;
+
+    const imagAplicada = usarMagnetizacaoReal
+        ? imagReal
+        : (imagPadraoValida ? imagPadrao : NaN);
+
+    return {
+        imagAplicada,
+        imagPadrao,
+        imagReal,
+        usarMagnetizacaoReal
+    };
+}
+
 
 
 // -----------------------------------------------------------
@@ -535,11 +556,11 @@ function carregarVariaveisEstudo() {
         }
     }
 
-    // Preencher campo de imag total dos trafos
-    const imagTotal = parseFloat(localStorage.getItem('imagtotalSelecionada'));
+    // Preencher campo de imag total dos trafos conforme status de magnetização real
+    const { imagAplicada: imagTotal, imagPadrao: imagTotalPadrao } = obterImagConformeStatusMagnetizacaoReal();
     const imagTotalEls = document.querySelectorAll('.imag-total-valor');
     imagTotalEls.forEach(el => {
-        if (imagTotal !== null && !isNaN(imagTotal)) {
+        if (!isNaN(imagTotal)) {
             el.textContent = imagTotal.toFixed(2) + ' A';
         }
     });
@@ -557,8 +578,8 @@ function carregarVariaveisEstudo() {
 
     // Carregar corrente de inrush no calculo de imag real no HTML
     const inrushInEl = document.getElementById('inrush-in');
-    if (inrushInEl && imagTotal !== null && !isNaN(imagTotal)) {
-        inrushInEl.textContent = imagTotal.toFixed(2) + ' A';
+    if (inrushInEl && !isNaN(imagTotalPadrao)) {
+        inrushInEl.textContent = imagTotalPadrao.toFixed(2) + ' A';
     }
 
     // Calcular 1/curtoSelecionada e preencher em divisao-icc com 2 casas decimais
@@ -569,8 +590,8 @@ function carregarVariaveisEstudo() {
 
     // Calcular 1/imagTotal e preencher em divisao-inrush com 2 casas decimais
     const divisaoInrushEl = document.getElementById('divisao-inrush');
-    if (divisaoInrushEl && imagTotal !== null && !isNaN(imagTotal) && imagTotal !== 0) {
-        divisaoInrushEl.textContent = (1 / imagTotal).toFixed(6);
+    if (divisaoInrushEl && !isNaN(imagTotalPadrao) && imagTotalPadrao !== 0) {
+        divisaoInrushEl.textContent = (1 / imagTotalPadrao).toFixed(6);
     }
 
 
@@ -828,7 +849,7 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
     }
 
     // Obter valores do localStorage
-    const imagTotal = parseFloat(localStorage.getItem('imagtotalSelecionada'));
+    const { imagAplicada: imagTotal } = obterImagConformeStatusMagnetizacaoReal();
     const correnteNominalFase = localStorage.getItem('Inominalfase');
     const tempomagFase = 0.100;
     
@@ -1308,8 +1329,28 @@ function adicionarEstilosTabelaParametrizacaoReles() {
     return;
 }
 
+function aplicarVisibilidadeMagnetizacaoReal() {
+    const tituloMagnetizacaoReal = document.getElementById('titulo-calculomagnetizacaoreal');
+    const calculoMagnetizacaoReal = document.getElementById('calculomagnetizacaoreal');
+    const magnetizacaoReal = localStorage.getItem('magnetizacaoreal');
+    const exibirMagnetizacaoReal = magnetizacaoReal === 'ligado';
+
+    if (tituloMagnetizacaoReal) {
+        tituloMagnetizacaoReal.style.display = exibirMagnetizacaoReal ? '' : 'none';
+    }
+
+    if (calculoMagnetizacaoReal) {
+        calculoMagnetizacaoReal.style.display = exibirMagnetizacaoReal ? '' : 'none';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    aplicarVisibilidadeMagnetizacaoReal();
+
     const gallery = document.getElementById("gallery");
+    const tituloDiagramaUnifilar = document.getElementById("titulo-diagrama-unifilar");
+    const diagramaUnifilar = document.getElementById("diagramaunifilar");
+
     if (!gallery) return;
 
     gallery.innerHTML = "";
@@ -1321,6 +1362,20 @@ document.addEventListener('DOMContentLoaded', function() {
         img.src = imagemSelecionada;
         img.classList.add('estudos-gallery-image');
         gallery.appendChild(img);
+
+        if (tituloDiagramaUnifilar) {
+            tituloDiagramaUnifilar.style.display = "";
+        }
+        if (diagramaUnifilar) {
+            diagramaUnifilar.style.display = "";
+        }
+    } else {
+        if (tituloDiagramaUnifilar) {
+            tituloDiagramaUnifilar.style.display = "none";
+        }
+        if (diagramaUnifilar) {
+            diagramaUnifilar.style.display = "none";
+        }
     }
 });
 

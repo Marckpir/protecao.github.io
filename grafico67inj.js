@@ -25,23 +25,35 @@ function ChartGenerator() {
     // Datasets vazios para inserção manual de pontos
     const datasets = [];
     
-    // Importar valores do localStorage
+    // Importar valores de ajuste67inj do localStorage
     const x1 = JSON.parse(localStorage.getItem('pontosCurvaFaseX')) || [];
     const y1 = JSON.parse(localStorage.getItem('pontosCurvaFaseY')) || [];
     const x2 = JSON.parse(localStorage.getItem('pontosCurvaNeutroX')) || [];
     const y2 = JSON.parse(localStorage.getItem('pontosCurvaNeutroY')) || [];
-    
-    // Importar valores específicos do localStorage
-    const correnteprimaria = parseFloat(localStorage.getItem('Inominalfase')) || 0;
-    const inominalneutro = parseFloat(localStorage.getItem('Inominalneutroconsumo')) || 0;
-    const ip1 = parseFloat(localStorage.getItem('Ipdeconsumo')) || 0;
-    const ip2 = parseFloat(localStorage.getItem('IpdeneutroSelecionada')) || 0;
-    const Instfaseconsumo = parseFloat(localStorage.getItem('Instfaseconsumo')) || 0;
-    const Iinstneutro = parseFloat(localStorage.getItem('IinstneutroSelecionada')) || 0;
-    const imagBase = parseFloat(localStorage.getItem('Imagresultante')) || 0;
-    const imagneutro = parseFloat(localStorage.getItem('imagtotalneutroSelecionada')) || 0;
-    const curtoArmazenada = parseFloat(localStorage.getItem('curtoSelecionada')) || 0;
-    const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {
+
+    // Importar valores específicos de ajuste67inj
+    const anguloFase = localStorage.getItem('anguloFaseSelecionadoGD') || '';
+    const amtnominalfase = localStorage.getItem('amtnominalfaseSelecionadaGD') || '';
+    const AMTpadraofase = localStorage.getItem('AMTpadraofasehtmlGD') || '';
+    const ip1 = parseFloat(localStorage.getItem('IpfaseGD')) || 0;
+    const percentualIP = parseFloat(localStorage.getItem('PercentualIPSelecionadaGD')) || 0;
+    const curvafase = localStorage.getItem('curvafaseSelecionadaGD') || '';
+    const dialfase = parseFloat(localStorage.getItem('dialfaseSelecionadaGD')) || 0;
+
+    const anguloNeutro = localStorage.getItem('anguloNeutroSelecionadoGD') || '';
+    const amtnominalneutro = localStorage.getItem('amtnominalneutroSelecionadaGD') || '';
+    const AMTpadraoneutro = localStorage.getItem('AMTpadraoneutrohtmlGD') || '';
+    const ip2 = parseFloat(localStorage.getItem('IpdeneutroSelecionadaGD')) || 0;
+    const percentualIPneutro = parseFloat(localStorage.getItem('PercentualIPneutroSelecionadaGD')) || 0;
+    const curvaneutro = localStorage.getItem('curvaneutroSelecionadaGD') || '';
+    const dialneutro = parseFloat(localStorage.getItem('dialneutroSelecionadaGD')) || 0;
+
+    const inominalfase = parseFloat(localStorage.getItem('Inominalhtml')) || 0;
+    const inominalneutro = parseFloat(localStorage.getItem('InominalneutroGD')) || 0;
+    const imagBase = parseFloat(localStorage.getItem('ImagGD')) || 0;
+    const imagneutro = parseFloat(localStorage.getItem('imagneutroGD')) || 0;
+    const curtoArmazenada = parseFloat(localStorage.getItem('curtoGD')) || 0;
+    const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosGD')) || {
         trafo1: {}, trafo2: {}, trafo3: {}, trafo4: {}, trafo5: {},
         trafo6: {}, trafo7: {}, trafo8: {}, trafo9: {}, trafo10: {}
     };

@@ -132,6 +132,44 @@ function configurarAcaoSalvar() {
     }
 }
 
+function aplicarEstadoMagnetizacaoReal(estado) {
+    const conteudoMagnetizacaoReal = document.getElementById("magnetizacao-real-conteudo");
+    const botaoMagnetizacaoReal = document.getElementById("botaoMagnetizacaoReal");
+    const estaLigado = estado !== "desligado";
+
+    if (conteudoMagnetizacaoReal) {
+        conteudoMagnetizacaoReal.style.display = estaLigado ? "" : "none";
+    }
+
+    if (botaoMagnetizacaoReal) {
+        botaoMagnetizacaoReal.textContent = estaLigado
+            ? "Ocultar magnetização real"
+            : "Exibir magnetização real";
+        botaoMagnetizacaoReal.setAttribute("aria-pressed", estaLigado ? "true" : "false");
+    }
+}
+
+function configurarMagnetizacaoRealToggle() {
+    const botaoMagnetizacaoReal = document.getElementById("botaoMagnetizacaoReal");
+    if (!botaoMagnetizacaoReal) {
+        return;
+    }
+
+    const estadoSalvo = localStorage.getItem("magnetizacaoreal");
+    const estadoInicial = estadoSalvo === "ligado" ? "ligado" : "desligado";
+
+    localStorage.setItem("magnetizacaoreal", estadoInicial);
+    aplicarEstadoMagnetizacaoReal(estadoInicial);
+
+    botaoMagnetizacaoReal.addEventListener("click", function () {
+        const estadoAtual = localStorage.getItem("magnetizacaoreal") === "desligado" ? "desligado" : "ligado";
+        const novoEstado = estadoAtual === "ligado" ? "desligado" : "ligado";
+
+        localStorage.setItem("magnetizacaoreal", novoEstado);
+        aplicarEstadoMagnetizacaoReal(novoEstado);
+    });
+}
+
 //Carregar nos campos do HTML todos os valores calculados e armazenados no local storage
 window.onload = function () {
     calculaimagreal();
@@ -146,6 +184,7 @@ window.onload = function () {
 
     configurarNavegacaoHeader();
     configurarAcaoSalvar();
+    configurarMagnetizacaoRealToggle();
 
     const botaoParametro = document.getElementById("botaotrafohtml");
     if (botaoParametro) {

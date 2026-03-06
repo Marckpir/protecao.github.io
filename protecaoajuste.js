@@ -176,6 +176,7 @@ window.addEventListener('load', function () {
     const imagpercentual = document.getElementById("imagpercentual");
     const imagreal = document.getElementById("imagreal");
     const imagrealcalculada = document.getElementById("imagrealcalculadahtml");
+    const celulaExibirMagReal = document.querySelector(".exibirmagreal");
 
     const imagsimuladahtml = document.getElementById("imagsimuladahtml");
     const ideffasehtml = document.getElementById("idef-fase-html");
@@ -234,6 +235,11 @@ window.addEventListener('load', function () {
     const idefneutroArmazenada = parseFloat(localStorage.getItem("idefneutroSelecionada"));
     const tdefneutroArmazenada = parseFloat(localStorage.getItem("tdefneutroSelecionada"));
 
+    const statusMagnetizacaoReal = localStorage.getItem("magnetizacaoreal");
+    if (celulaExibirMagReal) {
+        celulaExibirMagReal.classList.toggle("ativo", statusMagnetizacaoReal === "ligado");
+    }
+
 
 
 
@@ -262,8 +268,18 @@ window.addEventListener('load', function () {
 
     // Calculo da  corrente instantanea de fase somando a tolerancia a corrente de magnetização nominal
 
-    // Calcula Imaginstantanea usando imagsimuladaArmazenada se houver, senão usa imagArmazenada
-    var imagBase = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : imagArmazenada;
+    // Prioridade: Imag simulada (se preenchida) > Magnetização real > Magnetização total
+    const imagsimuladaValida = Number.isFinite(imagsimuladaArmazenada);
+    const magnetizacaoRealLigada = statusMagnetizacaoReal === "ligado";
+    const imagrealcalculadaValida = magnetizacaoRealLigada && Number.isFinite(imagrealcalculadaArmazenada);
+    var imagBase = imagsimuladaValida
+        ? imagsimuladaArmazenada
+        : (imagrealcalculadaValida ? imagrealcalculadaArmazenada : imagArmazenada);
+
+    if (!Number.isFinite(imagBase)) {
+        imagBase = 0;
+    }
+
     var Imaginstantanea = imagBase * (1 * imagpercentualArmazenada / 100);
     imagtotalformatada = Imaginstantanea;
     localStorage.setItem("Instfaseconsumo", imagtotalformatada);
@@ -330,7 +346,7 @@ Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
 IPpercentualhtml.value = (!isNaN(Ippercentual) && Ippercentual !== null) ? Ippercentual : 0;
 
 IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
-tipodecurvahtml.value = curvafaseArmazenada || '';
+tipodecurvahtml.value = curvafaseArmazenada;
 
 // Validar dialfaseArmazenada
 dialfasehtml.value = (!isNaN(parseFloat(dialfasereal)) && dialfasereal !== null) ? dialfasereal : '';
@@ -341,7 +357,7 @@ const dialrealfase = document.getElementById("dialrealfase");
 
 
 
-imagfase.textContent = (!isNaN(imagresultanteArmazenada) && imagresultanteArmazenada !== null) ? imagresultanteArmazenada.toFixed(2) + " A" : "0.00 A";
+imagfase.textContent = Number.isFinite(imagBase) ? imagBase.toFixed(2) + " A" : "0.00 A";
 
 // Validar imagpercentualArmazenada
 imagpercentual.value = (!isNaN(imagpercentualArmazenada) && imagpercentualArmazenada !== null) ? imagpercentualArmazenada : 0;

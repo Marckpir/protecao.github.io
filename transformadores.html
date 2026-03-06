@@ -409,21 +409,29 @@
 
         <br>
 
-        <table>
-            <tr>
-                <td>MAGNETIZAÇÃO REAL FASE:</td>
-                <td>
-                    <div class="input-container"><label type="number" id="imagrealfase">A</label></div>
-                </td>
-            </tr>
+        <div class="magnetizacao-real-bloco">
+            <div class="magnetizacao-real-controle">
+                <button id="botaoMagnetizacaoReal" class="botao-magnetizacao-real" type="button">Ocultar magnetização real</button>
+            </div>
 
-            <tr>
-                <td>MAGNETIZAÇÃO REAL NEUTRO:</td>
-                <td>
-                    <div class="input-container"><label type="number" id="imagrealneutro">A</label></div>
-                </td>
-            </tr>
-        </table>
+            <div id="magnetizacao-real-conteudo">
+                <table>
+                    <tr>
+                        <td>MAGNETIZAÇÃO REAL FASE:</td>
+                        <td>
+                            <div class="input-container"><label type="number" id="imagrealfase">A</label></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>MAGNETIZAÇÃO REAL NEUTRO:</td>
+                        <td>
+                            <div class="input-container"><label type="number" id="imagrealneutro">A</label></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <br>
        
 

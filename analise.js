@@ -5,11 +5,181 @@
 
 
 
+function inicializarNavegacaoPorDataTarget() {
+    const botoesNavegacao = document.querySelectorAll('button[data-nav-target]');
+    botoesNavegacao.forEach((botao) => {
+        if (botao.dataset.navBound === 'true') {
+            return;
+        }
+
+        botao.addEventListener('click', () => {
+            const target = botao.getAttribute('data-nav-target');
+            if (target) {
+                window.location.href = target;
+            }
+        });
+
+        botao.dataset.navBound = 'true';
+    });
+}
+
+function obterConteudoEmailContainerParaCopia() {
+    const emailContainer = document.getElementById('email-container');
+    if (!emailContainer) {
+        return { html: '', texto: '' };
+    }
+
+    const clone = emailContainer.cloneNode(true);
+    const painelAcoes = clone.querySelector('.action-panel');
+    if (painelAcoes) {
+        painelAcoes.remove();
+    }
+
+    const sandbox = document.createElement('div');
+    sandbox.style.position = 'fixed';
+    sandbox.style.left = '-99999px';
+    sandbox.style.top = '0';
+    sandbox.style.pointerEvents = 'none';
+    sandbox.style.opacity = '0';
+    sandbox.appendChild(clone);
+    document.body.appendChild(sandbox);
+
+    const propriedadesImportantes = [
+        'font-family', 'font-size', 'font-weight', 'font-style', 'line-height',
+        'color', 'background-color', 'text-align', 'text-decoration', 'letter-spacing',
+        'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
+        'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+        'border-top', 'border-right', 'border-bottom', 'border-left',
+        'border-radius', 'display', 'list-style-type', 'white-space'
+    ];
+
+    const todosElementos = [clone, ...clone.querySelectorAll('*')];
+    todosElementos.forEach((elemento) => {
+        const estilos = window.getComputedStyle(elemento);
+        const estiloInline = propriedadesImportantes
+            .map((prop) => `${prop}: ${estilos.getPropertyValue(prop)};`)
+            .join(' ');
+        elemento.setAttribute('style', `${elemento.getAttribute('style') || ''}; ${estiloInline}`);
+    });
+
+    const avisoImportante = clone.querySelector('.analise-aviso-importante');
+    if (avisoImportante) {
+        avisoImportante.style.color = '#ff0000';
+        avisoImportante.style.fontWeight = '700';
+    }
+
+    const avisoNegrito = clone.querySelector('.analise-aviso-negrito');
+    if (avisoNegrito) {
+        avisoNegrito.style.color = '#000000';
+        avisoNegrito.style.fontWeight = '700';
+    }
+
+    const htmlFragmento = clone.outerHTML;
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>${htmlFragmento}</body></html>`;
+    const texto = (clone.innerText || '').trim();
+
+    document.body.removeChild(sandbox);
+
+    return { html, texto };
+}
+
+async function copiarTextoEmailContainer() {
+    const { html, texto } = obterConteudoEmailContainerParaCopia();
+    const textoParaCopiar = texto;
+    if (!textoParaCopiar) {
+        window.alert('Não foi possível localizar conteúdo para copiar.');
+        return;
+    }
+
+    try {
+        if (navigator.clipboard && window.ClipboardItem) {
+            const item = new ClipboardItem({
+                'text/html': new Blob([html], { type: 'text/html' }),
+                'text/plain': new Blob([textoParaCopiar], { type: 'text/plain' })
+            });
+            await navigator.clipboard.write([item]);
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(textoParaCopiar);
+        } else {
+            throw new Error('Clipboard API indisponível');
+        }
+        window.alert('Texto copiado com sucesso! Agora você pode colar no Word.');
+        return;
+    } catch (erroClipboard) {
+    }
+
+    const areaTemporaria = document.createElement('div');
+    areaTemporaria.setAttribute('contenteditable', 'true');
+    areaTemporaria.innerHTML = html;
+    areaTemporaria.style.position = 'fixed';
+    areaTemporaria.style.opacity = '0';
+    areaTemporaria.style.pointerEvents = 'none';
+    areaTemporaria.style.left = '-99999px';
+    document.body.appendChild(areaTemporaria);
+
+    const selecao = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(areaTemporaria);
+    selecao.removeAllRanges();
+    selecao.addRange(range);
+
+    const listenerCopia = (event) => {
+        event.preventDefault();
+        if (event.clipboardData) {
+            event.clipboardData.setData('text/html', html);
+            event.clipboardData.setData('text/plain', textoParaCopiar);
+        }
+    };
+
+    document.addEventListener('copy', listenerCopia);
+    const copiado = document.execCommand('copy');
+    document.removeEventListener('copy', listenerCopia);
+    document.body.removeChild(areaTemporaria);
+    selecao.removeAllRanges();
+
+    if (copiado) {
+        window.alert('Texto copiado com sucesso! Agora você pode colar no Word.');
+    } else {
+        window.alert('Não foi possível copiar automaticamente.');
+    }
+}
+
 window.onload = function () {
+    inicializarNavegacaoPorDataTarget();
+
+    const tituloHeader = document.querySelector('.analise-header-title');
+    if (tituloHeader) {
+        tituloHeader.classList.add('loaded');
+    }
+
     // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaoanalisehtml");
     if (botaoParametro) {
-        botaoParametro.style.backgroundColor = "#cf0808";
+        botaoParametro.classList.add('analise-header-active');
+    }
+
+    const botaoSalvar = document.getElementById('botaoSalvar');
+    if (botaoSalvar && botaoSalvar.dataset.bound !== 'true') {
+        botaoSalvar.addEventListener('click', salvarOpcao);
+        botaoSalvar.dataset.bound = 'true';
+    }
+
+    const btnAdicionarItem = document.getElementById('btnAdicionarItem');
+    if (btnAdicionarItem && btnAdicionarItem.dataset.bound !== 'true') {
+        btnAdicionarItem.addEventListener('click', adicionarItem);
+        btnAdicionarItem.dataset.bound = 'true';
+    }
+
+    const btnRemoverItem = document.getElementById('btnRemoverItem');
+    if (btnRemoverItem && btnRemoverItem.dataset.bound !== 'true') {
+        btnRemoverItem.addEventListener('click', removerUltimoItem);
+        btnRemoverItem.dataset.bound = 'true';
+    }
+
+    const btnCopiar = document.getElementById('btnCopiar');
+    if (btnCopiar && btnCopiar.dataset.bound !== 'true') {
+        btnCopiar.addEventListener('click', copiarTextoEmailContainer);
+        btnCopiar.dataset.bound = 'true';
     }
 
     // Controle de acesso movido para controle-acesso.js
@@ -178,6 +348,78 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const resultsDiv = document.getElementById('results');
 
+function atualizarContatoNaPagina(contato) {
+    if (!contato) {
+        return;
+    }
+
+    const nomeEl = document.getElementById('contato-nome');
+    if (nomeEl) {
+        nomeEl.textContent = contato.nome || '';
+    }
+
+    const emailEl = document.getElementById('email-texto');
+    if (emailEl) {
+        emailEl.textContent = contato.email || '';
+    }
+
+    const telefoneEl = document.getElementById('telefone-texto');
+    if (telefoneEl) {
+        telefoneEl.textContent = contato.telefone || '';
+    }
+
+    const responsavelEl = document.getElementById('responsavel-tecnico');
+    if (responsavelEl && contato.nome) {
+        responsavelEl.textContent = contato.nome;
+    }
+}
+
+function renderizarResultadosBusca(filtered) {
+    resultsDiv.innerHTML = '';
+
+    if (!filtered || filtered.length === 0) {
+        resultsDiv.innerHTML = '<div>Nenhum contato encontrado.</div>';
+        return;
+    }
+
+    filtered.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'result-item';
+        item.innerHTML = `
+                    <div class="analise-result-line"><strong>Nome:</strong> ${c.nome || '—'}</div>
+                    <div class="analise-result-line"><strong>Email:</strong> ${c.email || '—'}</div>
+                    <div class="analise-result-line"><strong>Telefone:</strong> ${c.telefone || '—'}</div>
+                `;
+        resultsDiv.appendChild(item);
+    });
+}
+
+function executarBuscaRT() {
+    const query = (searchInput.value || '').toLowerCase().trim();
+    localStorage.setItem('rt_query', searchInput.value || '');
+
+    if (query.length === 0) {
+        resultsDiv.innerHTML = '<div>Digite um nome, e-mail ou telefone para pesquisar.</div>';
+        return;
+    }
+
+    const filtered = contatos.filter(c =>
+        (c.nome && c.nome.toLowerCase().includes(query)) ||
+        (c.email && c.email.toLowerCase().includes(query)) ||
+        (c.telefone && c.telefone.toLowerCase().includes(query))
+    );
+
+    renderizarResultadosBusca(filtered);
+
+    if (filtered.length > 0) {
+        const contato = filtered[0];
+        localStorage.setItem('contato_nome', contato.nome || '');
+        localStorage.setItem('contato_email', contato.email || '');
+        localStorage.setItem('contato_telefone', contato.telefone || '');
+        atualizarContatoNaPagina(contato);
+    }
+}
+
 // Carrega o arquivo automaticamente
 fetch('listaRTs.txt')
     .then(response => response.text())
@@ -200,49 +442,33 @@ fetch('listaRTs.txt')
 
         searchInput.disabled = false;
         searchBtn.disabled = false;
-        resultsDiv.innerHTML = '<div>✅ Arquivo carregado. Agora pesquise pelo nome.</div>';
+
+        const queryPersistida = localStorage.getItem('rt_query') || '';
+        if (queryPersistida) {
+            searchInput.value = queryPersistida;
+            executarBuscaRT();
+        } else {
+            resultsDiv.innerHTML = '<div>✅ Arquivo carregado. Agora pesquise pelo nome.</div>';
+
+            const contatoPersistido = {
+                nome: localStorage.getItem('contato_nome') || '',
+                email: localStorage.getItem('contato_email') || '',
+                telefone: localStorage.getItem('contato_telefone') || ''
+            };
+            if (contatoPersistido.nome || contatoPersistido.email || contatoPersistido.telefone) {
+                atualizarContatoNaPagina(contatoPersistido);
+            }
+        }
     })
     .catch(() => {
         resultsDiv.innerHTML = '<div>❌ Erro ao carregar o arquivo de contatos.</div>';
     });
 
-searchBtn.addEventListener('click', function () {
-    const query = searchInput.value.toLowerCase();
-    resultsDiv.innerHTML = '';
-    if (query.length === 0) return;
-
-    const filtered = contatos.filter(c =>
-        (c.nome && c.nome.toLowerCase().includes(query)) ||
-        (c.email && c.email.toLowerCase().includes(query)) ||
-        (c.telefone && c.telefone.toLowerCase().includes(query))
-    );
-
-    if (filtered.length === 0) {
-        resultsDiv.innerHTML = '<div>Nenhum contato encontrado.</div>';
-        return;
+searchBtn.addEventListener('click', executarBuscaRT);
+searchInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        executarBuscaRT();
     }
-
-    filtered.forEach(c => {
-        const item = document.createElement('div');
-        item.className = 'result-item';
-        item.innerHTML = `
-                    <div style="text-align: left;"><strong>Nome:</strong> ${c.nome || '—'}</div>
-                    <div style="text-align: left;"><strong>Email:</strong> ${c.email || '—'}</div>
-                    <div style="text-align: left;"><strong>Telefone:</strong> ${c.telefone || '—'}</div>
-                `; resultsDiv.appendChild(item);
-    });
-
-    if (filtered.length > 0) {
-        // Armazena o primeiro contato encontrado no localStorage
-        var contato = filtered[0];
-        localStorage.setItem('contato_nome', contato.nome || '');
-        localStorage.setItem('contato_email', contato.email || '');
-        localStorage.setItem('contato_telefone', contato.telefone || '');
-    }
-
-
-
-
 });
 
 // gerarcarta();
@@ -277,7 +503,7 @@ function adicionarItem() {
 
     const textarea = document.createElement('textarea');
     textarea.placeholder = "Novo item...";
-    textarea.style.textAlign = "left";
+    textarea.classList.add('analise-item-textarea');
 
     // Carrega texto salvo se existir
     const itemsSalvos = JSON.parse(localStorage.getItem('itensProjetoEletrico') || '[]');
@@ -355,6 +581,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = localStorage.getItem('contato_email');
     if (email) {
         document.getElementById('email-texto').textContent = email;
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const telefone = localStorage.getItem('contato_telefone');
+    if (telefone) {
+        document.getElementById('telefone-texto').textContent = telefone;
     }
 });
 

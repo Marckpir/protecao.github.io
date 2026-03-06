@@ -55,9 +55,8 @@
             ]
         },
         usuario: {
-            // Usuário tem acesso a: DIAGRAMAS, PARÂMETROS, TRAFOS, TP/TC, AJUSTES, TABELA, ESTUDOS
+            // Usuário tem acesso a: PARÂMETROS, TRAFOS, TP/TC, AJUSTES, TABELA, ESTUDOS
             permitidos: [
-                'botaodiagramahtml',    // DIAGRAMAS
                 'botaoparametrohtml',   // PARÂMETROS
                 'botaotrafohtml',       // TRAFOS
                 'botaotptchtml',        // TP/TC

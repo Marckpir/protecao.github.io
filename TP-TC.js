@@ -458,6 +458,8 @@ function salvarOpcao() {
 
     // Exportar valores dos campos para o localStorage
 
+    // const tcdeProtecaoideal = localStorage.getItem("valorTCideal") || "";
+
     //exporta selecao do TC de protecao
     const TCdeprotecao = document.getElementById("tcdeProtecao");
     const TCdeprotecaoEscolhido = TCdeprotecao.value;
@@ -465,7 +467,7 @@ function salvarOpcao() {
 
     //exporta o valor do RTP selecionado 
     const TPdeprotecao = document.getElementById("TPdeprotecaohtml");
-    const TPdeprotecaoSelecionada = TPdeprotecao.value;
+    const TPdeprotecaoSelecionada = TPdeprotecao.value || 120;
     localStorage.setItem("TPdeprotecaoSelecionada", TPdeprotecaoSelecionada);
 
     // Se houver TC de proteção selecionado, não exibir TC calculado
@@ -486,7 +488,7 @@ function salvarOpcao() {
 
     //exporta o valor do RTP auxiliar selecionado
     const RTPauxiliar = document.getElementById("RTPauxiliarhtml");
-    const RTPauxiliarSelecionada = RTPauxiliar.value;
+    const RTPauxiliarSelecionada = RTPauxiliar.value || 120;
     localStorage.setItem("RTPauxiliarSelecionada", RTPauxiliarSelecionada);
 
     // ----------------------------------------------------------------------

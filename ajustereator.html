@@ -4,49 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Critical CSS: Oculta botões restritos IMEDIATAMENTE -->
-    <style>
-        /* Oculta botões restritos por padrão */
-        #botaoconfightml:not(.btn-permitido),
-        #botaoajustesGDhtml:not(.btn-permitido),
-        #botaotabelaGDhtml:not(.btn-permitido),
-        #botaoestudosGDhtml:not(.btn-permitido),
-        #botaoanalisehtml:not(.btn-permitido) {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-        
-        /* Força exibição dos botões permitidos - com especificidade máxima */
-        #botaoconfightml.btn-permitido,
-        #botaodiagramahtml.btn-permitido,
-        #botaoparametrohtml.btn-permitido,
-        #botaotrafohtml.btn-permitido,
-        #botaotptchtml.btn-permitido,
-        #botaoajustehtml.btn-permitido,
-        #botaotabelarelehtml.btn-permitido,
-        #botaoestudoshtml.btn-permitido,
-        #botaoajustesGDhtml.btn-permitido,
-        #botaotabelaGDhtml.btn-permitido,
-        #botaoestudosGDhtml.btn-permitido,
-        #botaoanalisehtml.btn-permitido,
-        #botaosairhtml.btn-permitido {
-            display: flex !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-        }
-        
-        /* Força ocultação dos botões bloqueados */
-        h1 button.btn-bloqueado {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-        }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
-    </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
     <link rel="stylesheet" href="ajustereator.css" type="text/css">
@@ -57,12 +14,11 @@
 </head>
 
 <body>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 12px; text-align: center;">
-        <span id="titulodapagina"
-            style="font-family: 'Impact', 'Arial Black', cursive, sans-serif; font-size: 2em; letter-spacing: 2px; color: rgb(2, 68, 2);">
+    <div class="topo-centro">
+        <span id="titulodapagina">
             COORDINATION WEB
         </span>
-        <svg viewBox="0 0 350 350" style="width: 4%; height: 2em; vertical-align: middle;">
+        <svg viewBox="0 0 350 350" class="logo-svg">
             <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
             <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
             <!-- Curva de tempo definido -->
@@ -99,7 +55,7 @@
 
     </h1>
     <br>
-    <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
+    <div class="titulo-funcoes-gd">FUNÇÕES PARA AJUSTES DE
         PROTEÇÃO GD</div>
     <br>
     <div>
@@ -129,148 +85,12 @@
 
     <br>
 
-        <style>
-            .styled-container {
-                max-width: 760px;
-                margin: 1rem auto;
-                background: linear-gradient(180deg, #fbfff8 0%, #ffffff 100%);
-                border: 1px solid #d6e6d6;
-                border-radius: 12px;
-                padding: 18px;
-                box-shadow: 0 8px 20px rgba(2, 68, 2, 0.06);
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-                align-items: center;
-                font-family: "Segoe UI", Roboto, Arial, sans-serif;
-                color: #024402;
-            }
-
-            .styled-container h1 {
-                grid-column: 1 / -1;
-                margin: 0 0 6px;
-                text-align: center;
-                font-size: 1.15rem;
-                letter-spacing: 0.4px;
-            }
-
-            .field {
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-
-            label {
-                font-weight: 600;
-                font-size: 0.95rem;
-            }
-
-            select,
-            input[type="number"] {
-                width: 100%;
-                padding: 2px 10px;
-                border-radius: 8px;
-                border: 1px solid #cfe6cf;
-                background: #fff;
-                box-sizing: border-box;
-                transition: box-shadow .15s ease, transform .08s ease;
-                display: block;
-                margin: 0 auto;
-                text-align: center;
-            }
-
-            #potencia {
-                width: 100%;
-                max-width: 420px;
-                padding: 8px 12px;
-                font-size: 1rem;
-                border-radius: 8px;
-                border: 1px solid #cfe6cf;
-                background: #fff;
-                box-sizing: border-box;
-                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-                transition: box-shadow .15s ease, transform .08s ease;
-            }
-
-            #potencia:focus {
-                outline: none;
-                box-shadow: 0 0 0 4px rgba(2, 68, 2, 0.06);
-                transform: translateY(-1px);
-            }
-
-            /* placeholder color */
-            #potencia::placeholder {
-                color: #9bb79b;
-            }
-
-            /* remove number input spinners for WebKit */
-            #potencia::-webkit-outer-spin-button,
-            #potencia::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-
-            /* remove spinners for Firefox */
-            /* #potencia[type="number"] {
-                -moz-appearance: textfield;
-            } */
-
-            select:focus,
-            input[type="number"]:focus {
-                outline: none;
-                box-shadow: 0 0 0 4px rgba(2, 68, 2, 0.06);
-                transform: translateY(-1px);
-            }
-
-            #botaoCalcular {
-                grid-column: 1 / -1;
-                justify-self: center;
-                padding: 10px 20px;
-                border-radius: 10px;
-                border: #34335c solid 2px;
-                background-color: rgb(2, 68, 2);
-                color: #fff;
-                font-weight: 700;
-                cursor: pointer;
-                margin-top: 6px;
-            }
-
-            #botaoCalcular:hover {
-
-                background-color: red;
-            }
-
-            .result {
-                grid-column: 1 / -1;
-                margin-top: 20px;
-                background: #e9f5ff;
-                padding: 15px;
-                border-radius: 6px;
-                color: #022;
-                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-                min-height: 48px;
-                text-align: left;
-
-                font-size: 1rem;
-            }
-
-            @media (max-width: 640px) {
-                .styled-container {
-                    grid-template-columns: 1fr;
-                    padding: 14px;
-                }
-            }
-        </style>
-
         <div class="styled-container">
             <h1>Definição de Referência Aterramento</h1>
 
-            <div class="field" style="grid-column: 1 / -1; justify-self: center;">
+            <div class="field field-full-center">
                 <label for="tipo">Tipo de Aterramento:</label>
-                <select id="tipo" style="width: 100%; max-width: 320px; margin: 2 auto; display: block; text-align: center;">
+                <select id="tipo" class="tipo-select">
                     <option value="reator">Reator de aterramento</option>
                     <option value="zigzag">Transformador zig-zag</option>
                     <option value="estrela">Transformador estrela-aterrado</option>
@@ -286,7 +106,7 @@
                 </select>
             </div> -->
 
-            <div class="field" style="grid-column: 1 / -1;">
+            <div class="field field-full">
                 <label for="potencia">Potência Transformador de acoplamento (kVA):</label>
                 <input type="number" id="potencia" placeholder="Ex: 1500" />
             </div>
@@ -397,12 +217,23 @@
                 const potencia = parseFloat(document.getElementById("potencia").value);
                 const resultado = document.getElementById("resultado");
 
+                localStorage.setItem("ajustereatorTipo", tipo);
+                localStorage.setItem("ajustereatorPotencia", document.getElementById("potencia").value || "");
+
                 if (isNaN(potencia)) {
                     resultado.innerHTML = "<strong>Informe uma potência válida.</strong>";
+                    localStorage.setItem("ajustereatorResultado", resultado.innerHTML);
                     return;
                 }
 
-                const dados = tabelas[tipo][tensao];
+                const tensaoKey = String(tensao);
+                const dados = tabelas[tipo]?.[tensaoKey];
+                if (!dados || !Array.isArray(dados)) {
+                    resultado.innerHTML = "<strong>Tensão não encontrada na tabela de referência.</strong>";
+                    localStorage.setItem("ajustereatorResultado", resultado.innerHTML);
+                    return;
+                }
+
                 for (let d of dados) {
                     if (potencia <= d.max) {
                         if (tipo === "reator") {
@@ -432,18 +263,48 @@
               Ineutro (curta duração 2s): ${d.ineutro2} A
             `;
                         }
+                        localStorage.setItem("ajustereatorResultado", resultado.innerHTML);
                         return;
                     }
                 }
 
                 resultado.innerHTML = "<strong>Faixa de potência não encontrada na tabela.</strong>";
+                localStorage.setItem("ajustereatorResultado", resultado.innerHTML);
             }
 
             document.getElementById("potencia").addEventListener("keydown", function (event) {
                 if (event.key === "Enter") {
+                    event.preventDefault();
                     calcular();
                 }
             });
+
+            document.getElementById("tipo").addEventListener("change", function () {
+                localStorage.setItem("ajustereatorTipo", this.value);
+                calcular();
+            });
+
+            (function restaurarValoresSalvos() {
+                const tipoSalvo = localStorage.getItem("ajustereatorTipo");
+                const potenciaSalva = localStorage.getItem("ajustereatorPotencia");
+                const resultadoSalvo = localStorage.getItem("ajustereatorResultado");
+
+                const tipoEl = document.getElementById("tipo");
+                const potenciaEl = document.getElementById("potencia");
+                const resultadoEl = document.getElementById("resultado");
+
+                if (tipoEl && tipoSalvo) {
+                    tipoEl.value = tipoSalvo;
+                }
+
+                if (potenciaEl && potenciaSalva !== null) {
+                    potenciaEl.value = potenciaSalva;
+                }
+
+                if (resultadoEl && resultadoSalvo) {
+                    resultadoEl.innerHTML = resultadoSalvo;
+                }
+            })();
         </script>
 
 

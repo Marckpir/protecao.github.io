@@ -133,6 +133,40 @@ h1 button.btn-bloqueado {
     margin-right: 4px;
 }
 
+.parametros-data-table tbody td:nth-child(2) {
+    width: 220px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.parametros-data-table .cell-right {
+    text-align: left;
+}
+
+.parametros-data-table tbody td:nth-child(2) .input-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    width: 100%;
+}
+
+.parametros-data-table tbody td:nth-child(2) > select,
+.parametros-data-table tbody td:nth-child(2) input,
+.parametros-data-table tbody td:nth-child(2) .input-container > select,
+.parametros-data-table tbody td:nth-child(2) .input-container > input {
+    width: calc(100% - 12px);
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.parametros-data-table tbody td:nth-child(2) .field-gap-11,
+.parametros-data-table tbody td:nth-child(2) .field-gap-4 {
+    margin-right: 0;
+}
+
 .value-label {
     font-weight: bold;
 }
@@ -187,8 +221,14 @@ body[data-user-role="usuario"] .displayadm {
 input {
     width: 120px;
     margin: 5px;
-    padding: 5px;
-    text-align: center;
+    padding: 6px 8px;
+    text-align: left;
+    background-color: #ffffff;
+    border: 1px solid #96bb96;
+    border-radius: 8px;
+    color: #0f2f0f;
+    font-weight: 600;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 button:not(.dark-mode-toggle) {
     color: rgb(227, 224, 64);
@@ -242,13 +282,35 @@ display: block;
 text-align: right;
 
  }
- select { 
-    text-align: center;
+select { 
+    text-align: left;
     width: 140px;
     height:25px;
+    background-color: #ffffff;
+    border: 1px solid #96bb96;
+     border-radius: 8px;
+    color: #0f2f0f;
+    font-weight: 600;
+     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     /* margin-left: 150px; */
 
 
+}
+
+select option {
+    text-align: left;
+}
+
+input::placeholder {
+    color: #5f7a5f;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #7faa7f;
+    box-shadow: 0 0 0 3px rgba(156, 196, 156, 0.28);
+    background-color: #ffffff;
 }
 
 th, td{
