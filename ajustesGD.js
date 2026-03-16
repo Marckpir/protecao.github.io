@@ -19,18 +19,6 @@ window.onload = function () {
 
 }
 
-
-
-
-
-
-  
-
-
-
-
-
-
 // --------------------------------------------------------------// 
 // Código para gerar a curva tempo inverso em SVG
 // Esta função gera uma curva de tempo

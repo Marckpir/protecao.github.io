@@ -16,7 +16,7 @@
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
+
         /* Força exibição dos botões permitidos - com especificidade máxima */
         #botaoconfightml.btn-permitido,
         #botaodiagramahtml.btn-permitido,
@@ -36,16 +36,22 @@
             visibility: visible !important;
             pointer-events: auto !important;
         }
-        
+
         /* Força ocultação dos botões bloqueados */
         h1 button.btn-bloqueado {
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
+
+        h1 {
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+
+        h1.loaded {
+            opacity: 1;
+        }
     </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
@@ -108,7 +114,7 @@
     <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
         PROTEÇÃO GD</div>
     <br>
-<div>
+    <div>
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
@@ -153,6 +159,7 @@
 
         <div style="display: flex; justify-content: center;">
             <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+                
 
 
 
@@ -163,9 +170,19 @@
                         <th style="width: 20%;">Valor Ajustado 1° Estágio</th>
                         <th style="width: 20%;">Valor Ajustado 2° Estágio</th>
                     </tr>
+                    
                 </thead>
 
                 <tbody>
+                    <tr colspan="4" style="background-color: #e0e0e0; font-weight: bold;">
+                        <td colspan="1">Ligação Secundária do TP de Proteção:</td>
+                        <td colspan="3">
+                            <div class="input-container">
+                                <label id="ligacao-secundaria-tp-html"></label>
+                            </div>
+                        </td>
+                 
+                    </tr>
                     <tr>
                         <td>Tensão Primária Linha :</td>
                         <td>
@@ -179,7 +196,7 @@
                                 <label id="sensibilidade-superior-tensao-primaria-linha-ajustada-html"></label>
                             </div>
                         </td>
-                                                <td>
+                        <td>
                             <div class="input-container">
                                 <label id="sensibilidade-superior-tensao-primaria-linha-ajustada-html-2"></label>
                             </div>
@@ -200,7 +217,7 @@
                                 <label id="sensibilidade-superior-tensao-primaria-fase-ajustada-html"></label>
                             </div>
                         </td>
-                                                <td>
+                        <td>
                             <div class="input-container">
                                 <label id="sensibilidade-superior-tensao-primaria-fase-ajustada-html-2"></label>
                             </div>
@@ -245,7 +262,7 @@
                                 <label id="sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2"></label>
                             </div>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td colspan="2">Tempos dos estágios :</td>
                         <!-- <td>
                             <div class="input-container">
@@ -298,7 +315,7 @@
 
                     </tr>
 
-                     <tr>
+                    <tr>
                         <td>AJUSTE P.U MANUAL 2° ESTÁGIO:</td>
                         <td>
                             <div class="input-container">
@@ -345,7 +362,7 @@
 
         <br><br>
 
-        
+
     </div>
 
 

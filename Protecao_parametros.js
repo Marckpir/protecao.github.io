@@ -1,3 +1,30 @@
+// document.addEventListener('DOMContentLoaded', function () {
+//     function atualizarCamposGD() {
+//         var potenciaGD = document.getElementById('potenciaGDhtml');
+//         // Usa valor salvo se campo estiver vazio
+//         var potenciaGDValor = potenciaGD && potenciaGD.value && potenciaGD.value.trim() !== '' ? potenciaGD.value : localStorage.getItem('potenciaGDcontratada');
+//         var show = potenciaGDValor && potenciaGDValor.trim() !== '';
+
+//         // Oculta/exibe as linhas da tabela
+//         var linhaFatorPotenciaGD = potenciaGD.closest('tr').nextElementSibling;
+//         var linhaTipoUsina = linhaFatorPotenciaGD.nextElementSibling;
+//         var linhaTipoModalidade = linhaTipoUsina.nextElementSibling;
+//         var linhaTipoParalelismo = linhaTipoModalidade.nextElementSibling;
+
+//         if (linhaFatorPotenciaGD) linhaFatorPotenciaGD.style.display = show ? '' : 'none';
+//         if (linhaTipoUsina) linhaTipoUsina.style.display = show ? '' : 'none';
+//         // Modalidade só aparece se for Sem Inversor
+//         var tipoUsina = document.getElementById('tipoUsina');
+//         if (linhaTipoModalidade) linhaTipoModalidade.style.display = show && tipoUsina && tipoUsina.value === 'Sem Inversor' ? '' : 'none';
+//         if (linhaTipoParalelismo) linhaTipoParalelismo.style.display = show ? '' : 'none';
+//     }
+//     var potenciaGD = document.getElementById('potenciaGDhtml');
+//     if (potenciaGD) {
+//         potenciaGD.addEventListener('input', atualizarCamposGD);
+//         potenciaGD.addEventListener('change', atualizarCamposGD);
+//     }
+//     atualizarCamposGD();
+// });
 //FUNÇÃO PARA SALVAR OS CAMPOS PREENCHIDOS NO LOCAL STORAGE E REALIZAR ALGUNS CÁLCULOS NECESSÁRIOS PARA A PROTEÇÃO
 
 function salvarOpcao() {
@@ -10,6 +37,7 @@ function salvarOpcao() {
     localStorage.setItem("tensaoSelecionada", tensaoSelecionada);
 
     //-----------------------------------------------------------------------------------------
+
     const demandaPotencia = document.getElementById("demandaConsumo");
     const demandadecontrato = demandaPotencia.value;
     //localStorage.setItem("demandaSelecionada", demandaSelecionada);
@@ -38,16 +66,8 @@ function salvarOpcao() {
 
     const potenciaGD = document.getElementById("potenciaGDhtml");
     const potenciaGDcontratada = potenciaGD.value;
-    //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
     localStorage.setItem("potenciaGDcontratada", potenciaGDcontratada);
-    //-----------------------------------------------------------------------------------------
-
-    const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
-    if (!fatorPotenciaGD || fatorPotenciaGD.value === "" || isNaN(fatorPotenciaGD.value) || fatorPotenciaGD.value <= 0) {
-        fatorPotenciaGD.value = 92; // Valor padrão se o campo estiver vazio
-    }
-    const fatorPotenciaGDSelecionada = fatorPotenciaGD.value / 100;
-    localStorage.setItem("fatorPotenciaGDSelecionada", fatorPotenciaGDSelecionada);
+    //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
     //-----------------------------------------------------------------------------------------
     // --- Novo bloco para tipoUsina ---
     const tipoUsina = document.getElementById("tipoUsina");
@@ -59,6 +79,51 @@ function salvarOpcao() {
         tipoUsinaSelecionada = tipoUsina.value;
     }
     localStorage.setItem("tipoUsinaGDSelecionada", tipoUsinaSelecionada);
+
+    //-----------------------------------------------------------------------------------------
+
+    // Persistência do campo TIPO DE MODALIDADE
+    const tipoModalidade = document.getElementById("TipoModalidade");
+    const valorAjustadoTipoModalidade = document.getElementById("valorAjustadoTipoModalidade");
+    let tipoModalidadeSelecionado = "Isolado";
+    if (tipoModalidade && tipoModalidade.value !== "") {
+        tipoModalidadeSelecionado = tipoModalidade.value;
+    }
+    localStorage.setItem("tipoModalidadeSelecionado", tipoModalidadeSelecionado);
+    if (valorAjustadoTipoModalidade) {
+        valorAjustadoTipoModalidade.textContent = tipoModalidadeSelecionado;
+    }
+    if (tipoModalidade) {
+        tipoModalidade.value = tipoModalidadeSelecionado;
+    }
+
+    //-----------------------------------------------------------------------------------------------
+    // Persistência do campo TIPO DE PARALELISMO
+    const tipoParalelismo = document.getElementById("tipoParalelismo");
+    const valorAjustadoTipoParalelismo = document.getElementById("valorAjustadoTipoParalelismo");
+    let tipoParalelismoSelecionado = "Com Injeção";
+    if (tipoParalelismo && tipoParalelismo.value !== "") {
+        tipoParalelismoSelecionado = tipoParalelismo.value;
+    }
+    localStorage.setItem("tipoParalelismoSelecionado", tipoParalelismoSelecionado);
+    if (valorAjustadoTipoParalelismo) {
+        valorAjustadoTipoParalelismo.textContent = tipoParalelismoSelecionado;
+    }
+    if (tipoParalelismo) {
+        tipoParalelismo.value = tipoParalelismoSelecionado;
+    }
+
+
+    //-----------------------------------------------------------------------------------------
+
+    const fatorPotenciaGD = document.getElementById("fatorPotenciaGDhtml");
+    if (!fatorPotenciaGD || fatorPotenciaGD.value === "" || isNaN(fatorPotenciaGD.value) || fatorPotenciaGD.value <= 0) {
+        fatorPotenciaGD.value = 92; // Valor padrão se o campo estiver vazio
+    }
+    const fatorPotenciaGDSelecionada = fatorPotenciaGD.value / 100;
+    localStorage.setItem("fatorPotenciaGDSelecionada", fatorPotenciaGDSelecionada);
+    //-----------------------------------------------------------------------------------------
+
 
     //-----------------------------------------------------------------------------------------
     const iccTrifasicaGemini = localStorage.getItem("ICCtrifasicagemini");
@@ -85,7 +150,7 @@ function salvarOpcao() {
     //-----------------------------------------------------------------------------------------
     // CALCULAR A I NOMINAL DE NEUTRO GD
 
-    let inominalneutroGD = inominalGD * desequilibrioSelecionada;
+    let inominalneutroGD = inominalGD * desequilibrioSelecionada / 100;
     if (inominalneutroGD > 40) {
         inominalneutroGD = 40;
     }
@@ -93,7 +158,7 @@ function salvarOpcao() {
 
 
     //-----------------------------------------------------------------------------------------
- 
+
 
 
     //Armazenar informações de input do gerador no formato JSON e armazenar no local storage
@@ -116,6 +181,87 @@ function salvarOpcao() {
     location.reload();
 
 }
+
+//-funções na inicialização do DOM 
+
+document.addEventListener('DOMContentLoaded', function () {
+    var tipoUsina = document.getElementById('tipoUsina');
+    var rowTipoModalidade = document.getElementById('rowTipoModalidade');
+    if (tipoUsina && rowTipoModalidade) {
+        tipoUsina.addEventListener('change', function () {
+            if (tipoUsina.value === 'Sem Inversor') {
+                rowTipoModalidade.style.display = '';
+            } else {
+                rowTipoModalidade.style.display = 'none';
+            }
+        });
+        // Inicializa o estado correto ao carregar usando valor persistido
+        var tipoUsinaSalva = localStorage.getItem('tipoUsinaGDSelecionada') || tipoUsina.value;
+        if (tipoUsinaSalva === 'Sem Inversor') {
+            rowTipoModalidade.style.display = '';
+        } else {
+            rowTipoModalidade.style.display = 'none';
+        }
+    }
+
+    //exibição dos campos de GD 
+
+    function atualizarCamposGD() {
+        var potenciaGD = document.getElementById('potenciaGDhtml');
+        // Usa valor salvo se campo estiver vazio
+        var potenciaGDValor = potenciaGD && potenciaGD.value && potenciaGD.value.trim() !== '' ? potenciaGD.value : localStorage.getItem('potenciaGDcontratada');
+        var show = potenciaGDValor && potenciaGDValor.trim() !== '';
+
+        // Oculta/exibe as linhas da tabela
+        var linhaFatorPotenciaGD = potenciaGD.closest('tr').nextElementSibling;
+        var linhaTipoUsina = linhaFatorPotenciaGD.nextElementSibling;
+        var linhaTipoModalidade = linhaTipoUsina.nextElementSibling;
+        var linhaTipoParalelismo = linhaTipoModalidade.nextElementSibling;
+
+        if (linhaFatorPotenciaGD) linhaFatorPotenciaGD.style.display = show ? '' : 'none';
+        if (linhaTipoUsina) linhaTipoUsina.style.display = show ? '' : 'none';
+        // Modalidade só aparece se for Sem Inversor
+        var tipoUsina = document.getElementById('tipoUsina');
+        if (linhaTipoModalidade) linhaTipoModalidade.style.display = show && tipoUsina && tipoUsina.value === 'Sem Inversor' ? '' : 'none';
+        if (linhaTipoParalelismo) linhaTipoParalelismo.style.display = show ? '' : 'none';
+    }
+    var potenciaGD = document.getElementById('potenciaGDhtml');
+    if (potenciaGD) {
+        potenciaGD.addEventListener('input', atualizarCamposGD);
+        potenciaGD.addEventListener('change', atualizarCamposGD);
+    }
+    atualizarCamposGD();
+});
+
+// document.addEventListener('DOMContentLoaded', function () {
+//     var tipoUsina = document.getElementById('tipoUsina');
+//     var rowTipoModalidade = document.getElementById('rowTipoModalidade');
+//     var tipoParalelismo = document.getElementById('tipoParalelismo');
+//     var valorAjustadoTipoParalelismo = document.getElementById('valorAjustadoTipoParalelismo');
+//     tipoUsina.addEventListener('change', function () {
+//         if (tipoUsina.value === 'Sem Inversor') {
+//             rowTipoModalidade.style.display = '';
+//         } else {
+//             rowTipoModalidade.style.display = 'none';
+//         }
+//     });
+//     // Inicializa o estado correto ao carregar
+//     if (tipoUsina.value === 'Sem Inversor') {
+//         rowTipoModalidade.style.display = '';
+//     } else {
+//         rowTipoModalidade.style.display = 'none';
+//     }
+
+//     // Inicializa valorAjustadoTipoParalelismo com 'Com Injeção'
+//     if (tipoParalelismo) {
+//         tipoParalelismo.value = 'Com Injeção';
+//     }
+//     if (valorAjustadoTipoParalelismo) {
+//         valorAjustadoTipoParalelismo.textContent = 'Com Injeção';
+//     }
+// });
+
+// fim das funções na inicialização do DOM
 
 function obterPotenciaGeradorValida() {
     const potenciaInput = document.getElementById("potenciageradorhtml");
@@ -228,7 +374,7 @@ window.onload = function () {
     calculoGerador();
 
     //-----------------------------------------------------------------------------------------
-    
+
 
     const tensao = document.getElementById("tensaoprimaria");
     const tensaoSalva = localStorage.getItem("tensaoSelecionada");
@@ -268,8 +414,8 @@ window.onload = function () {
         fatorPotenciaGD.value = fatorPotenciaGDSalva * 100;
     }
     //-----------------------------------------------------------------------------------------
-    // Persistir o valor do tipo de usina no campo e no valor ajustado
-    const tipoUsina = document.getElementById("valorAjustadoTipoUsina");
+    // Lógica para restaurar tipoUsinaGDSelecionada
+    const tipoUsina = document.getElementById("tipoUsina");
     const tipoUsinaSalva = localStorage.getItem("tipoUsinaGDSelecionada") || "Com Inversor";
     if (tipoUsina) {
         tipoUsina.value = tipoUsinaSalva;
@@ -278,6 +424,30 @@ window.onload = function () {
     if (valorAjustadoTipoUsina) {
         valorAjustadoTipoUsina.textContent = tipoUsinaSalva;
     }
+
+    //-----------------------------------------------------------------------------------------
+    // Lógica para restaurar tipoModalidadeSelecionado
+    const tipoModalidade = document.getElementById("TipoModalidade");
+    const tipoModalidadeSalva = localStorage.getItem("tipoModalidadeSelecionado") || "Isolado";
+    if (tipoModalidade) {
+        tipoModalidade.value = tipoModalidadeSalva;
+    }
+    const valorAjustadoTipoModalidade = document.getElementById("valorAjustadoTipoModalidade");
+    if (valorAjustadoTipoModalidade) {
+        valorAjustadoTipoModalidade.textContent = tipoModalidadeSalva;
+    }
+    //-----------------------------------------------------------------------------------------------
+    // Lógica para restaurar tipoParalelismoSelecionado
+    const tipoParalelismo = document.getElementById("tipoParalelismo");
+    const tipoParalelismoSalva = localStorage.getItem("tipoParalelismoSelecionado") || "Com Injeção";
+    if (tipoParalelismo) {
+        tipoParalelismo.value = tipoParalelismoSalva;
+    }
+    const valorAjustadoTipoParalelismo = document.getElementById("valorAjustadoTipoParalelismo");
+    if (valorAjustadoTipoParalelismo) {
+        valorAjustadoTipoParalelismo.textContent = tipoParalelismoSalva;
+    }
+
     //-----------------------------------------------------------------------------------------
     const curto = document.getElementById("icctrifasica");
     const curtoSalva = localStorage.getItem("curtoSelecionada");
@@ -420,8 +590,8 @@ window.onload = function () {
 function calculoGerador() {
     const geradorSalvo = JSON.parse(localStorage.getItem("geradorJSON")) || {};
     const potenciagerador = parseFloat(geradorSalvo.potencia) || 0;
-    const fatorpotenciagerador = geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== "" 
-        ? parseFloat(geradorSalvo.fatorpotencia) 
+    const fatorpotenciagerador = geradorSalvo.fatorpotencia !== undefined && geradorSalvo.fatorpotencia !== ""
+        ? parseFloat(geradorSalvo.fatorpotencia)
         : 80;
     // Se não houver valor no localStorage, assume valor 5
     const toleranciagerador = geradorSalvo.tolerancia !== undefined && geradorSalvo.tolerancia !== ""
@@ -444,15 +614,15 @@ function calculoGerador() {
     }
 
 
- 
+
     localStorage.setItem("statusfuncao32diesel", statusfuncao32diesel);
     localStorage.setItem("potenciaReversaGerador", potenciaReversa);
     localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
     localStorage.setItem("potenciadieselPU", potenciadieselPU);
 
-    
 
-    
+
+
 
 
 

@@ -24,10 +24,21 @@ window.onload = function () {
 
     // Controle de acesso movido para controle-acesso.js
 
+
+    const ligacaoSecundariaTP = localStorage.getItem("ligacaodabobinaSelecionada");
+    if (ligacaoSecundariaTP !== null) {
+        const ligacaoSecundariaTPHtml = document.getElementById("ligacao-secundaria-tp-html");
+        if (ligacaoSecundariaTPHtml) {
+            ligacaoSecundariaTPHtml.textContent = ligacaoSecundariaTP;
+        }
+    }
     const tensaoPrimariaFF = localStorage.getItem("tensaoprimariaFF");
     const tensaoPrimariaFN = localStorage.getItem("tensaoprimariaFN");
     const tensaoSecundariaFFTP = localStorage.getItem("tensaoSecundariaFFTP");
     const tensaoSecundariaFNTP = localStorage.getItem("tensaoSecundariaFNTP");
+
+
+    
 
     const tensaoPrimariaLinhaHtml = document.getElementById("tensao-primaria-linha-html");
     if (tensaoPrimariaLinhaHtml && tensaoPrimariaFF) {
@@ -117,7 +128,7 @@ window.onload = function () {
     const tensaoPrimariaFaseValor = tensaoPrimariaFaseHtml ? parseFloat(tensaoPrimariaFaseHtml.textContent) : 0;
     const tensaoPrimariaFaseAjustadaValor = (tensaoPrimariaFaseValor * valorDesequilibrioDimensionado / 100).toFixed(2);
     tensaoPrimariaFaseAjustada.textContent = tensaoPrimariaFaseAjustadaValor + " V";
-    
+
     localStorage.setItem("tensaoPrimariaFaseAjustada25", tensaoPrimariaFaseAjustadaValor);
 
     const tensaoSecundariaFasecalculada = document.getElementById("tensao-ajustada-secundaria-linha-html");
@@ -125,7 +136,7 @@ window.onload = function () {
     const tensaoSecundariaFaseCalculada = (tensaoSecundariaFase * valorDesequilibrioDimensionado / 100).toFixed(2);
     tensaoSecundariaFasecalculada.textContent = tensaoSecundariaFaseCalculada + " V";
 
-    
+
 
     // Calcular e preencher para tensao-ajustada-secundaria-fase-html
     const tensaoSecundariaFaseAjustada = document.getElementById("tensao-ajustada-secundaria-fase-html");
@@ -256,7 +267,7 @@ svg.appendChild(path);
 
 
 
-  
+
 
 
 

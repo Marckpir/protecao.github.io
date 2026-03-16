@@ -30,17 +30,21 @@
 
         <button id="botaoconfightml" class="dark-mode-toggle" data-nav-target="config.html">CONFIGURAÇÕES</button>
         <button id="botaodiagramahtml" class="dark-mode-toggle" data-nav-target="Diagramas.html">DIAGRAMAS</button>
-        <button id="botaoparametrohtml" class="dark-mode-toggle" data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
         <button id="botaotrafohtml" class="dark-mode-toggle" data-nav-target="transformadores.html">TRAFOS</button>
         <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
         <button id="botaoajustehtml" class="dark-mode-toggle" data-nav-target="protecaoajuste.html">AJUSTES</button>
         <button id="botaotabelarelehtml" class="dark-mode-toggle" data-nav-target="tabelarele.html">TABELA</button>
         <button id="botaoestudoshtml" class="dark-mode-toggle" data-nav-target="estudos.html">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="displayadm dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES GD</button>
+        <button id="botaoajustesGDhtml" class="displayadm dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES
+            GD</button>
         <button id="botaotabelaGDhtml" class="displayadm dark-mode-toggle" data-nav-target="tabelaGD.html">TABELA
             GD</button>
-        <button id="botaoestudosGDhtml" class="displayadm dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS GD</button>
-        <button id="botaoanalisehtml" class="displayadm dark-mode-toggle" data-nav-target="analise.html">ANÁLISE</button>
+        <button id="botaoestudosGDhtml" class="displayadm dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS
+            GD</button>
+        <button id="botaoanalisehtml" class="displayadm dark-mode-toggle"
+            data-nav-target="analise.html">ANÁLISE</button>
         <button id="botaosairhtml" class="dark-mode-toggle" data-nav-target="index.html">SAIR</button>
 
     </h1>
@@ -62,7 +66,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>TENSÃO PRIMÁRIA:</td>
+                    <td>TENSÃO DA CONEXÃO:</td>
                     <td class="cell-right">
                         <select id="tensaoprimaria" size="1" class="field-left field-gap-11">
                             <option>13.8</option>
@@ -78,7 +82,7 @@
                 </tr>
 
                 <tr>
-                    <td>DEMANDA CONSUMO:</td>
+                    <td>POTÊNCIA DE CONSUMO:</td>
                     <td>
                         <div class="input-container input-align-left field-gap-11">
                             <input id="demandaConsumo" type="number" placeholder="Digite um valor"
@@ -115,7 +119,7 @@
                 </tr>
 
                 <tr class="displayadm">
-                    <td>DEMANDA GERAÇÃO(GD):</td>
+                    <td>POTÊNCIA DE GERAÇÃO(GD):</td>
                     <td>
                         <div class="input-container input-align-left field-gap-11">
                             <input type="number" id="potenciaGDhtml" placeholder="Digite um valor"
@@ -125,6 +129,8 @@
                     </td>
                     <td id="valorAjustadoPotenciaGD"></td>
                 </tr>
+
+
                 <tr class="displayadm">
                     <td>FATOR DE POTÊNCIA GD:</td>
                     <td>
@@ -141,7 +147,7 @@
                     <td>
                         <div class="input-container input-align-left field-gap-11">
                             <select id="tipoUsina" class="field-left field-gap-11">
-                                <option value="">Selecione</option>
+                                <!-- <option value="">Selecione</option> -->
                                 <option value="Com Inversor">Com Inversor</option>
                                 <option value="Sem Inversor">Sem Inversor</option>
                             </select>
@@ -150,12 +156,25 @@
                     </td>
                     <td id="valorAjustadoTipoUsina"></td>
                 </tr>
+                <tr class="displayadm" id="rowTipoModalidade">
+                    <td>TIPO DE MODALIDADE:</td>
+                    <td>
+                        <select id="TipoModalidade" size="0" class="field-left field-gap-11">
+                            <!-- <option>Selecione</option> -->
+                            <option>Isolado</option>
+                            <option>Não-Isolado</option>
+                        </select>
+                    </td>
+                    <td id="valorAjustadoTipoModalidade"></td>
+                </tr>
+                
+                   
                 <tr class="displayadm">
                     <td>TIPO DE PARALELISMO:</td>
                     <td>
                         <div class="input-container input-align-left field-gap-11">
                             <select id="tipoParalelismo" class="field-left field-gap-11">
-                                <option value="">Selecione</option>
+                                <!-- <option value="">Selecione</option> -->
                                 <option value="Com Injeção">Com Injeção</option>
                                 <option value="Sem Injeção">Sem Injeção</option>
                             </select>
@@ -324,6 +343,7 @@
 
 
     <script src="Protecao_parametros.js"></script>
+
 
 </body>
 

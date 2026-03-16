@@ -1,3 +1,4 @@
+
 // Debug: mostrar todos os itens do localStorage
 // console.log('Itens no localStorage:');
 // for (let i = 0; i < localStorage.length; i++) {
@@ -55,11 +56,35 @@ document.addEventListener('DOMContentLoaded', function () {
     // Controle de acesso movido para controle-acesso.js
 
     // Carregar o script do gráfico
+    // carregarScript('grafico5051consumo.js', function () {
+    //     setTimeout(() => {
+    //         verificarMathJax();
+    //     }, 1000);
+    // });
+
+    // Carregar o script do gráfico de GD
+    // carregarScript2('grafico67inj.js', function () {
+    //     setTimeout(() => {
+    //         verificarMathJax();
+    //     }, 1000);
+    // });
+
     carregarScript('grafico5051consumo.js', function () {
-        setTimeout(() => {
-            verificarMathJax();
-        }, 1000);
+        // Inicializa o gráfico no canvas 'grafico'
+        if (typeof inicializarGrafico5051 === 'function') {
+            inicializarGrafico5051();
+        }
     });
+
+    carregarScript('grafico67inj.js', function () {
+        // Inicializa o gráfico no canvas 'graficoGD'
+        if (typeof inicializarGrafico67inj === 'function') {
+            inicializarGrafico67inj();
+        }
+    });
+
+
+
 
     // Carregar tabela de relés
     setTimeout(() => {
@@ -77,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     carregarConteudosAjustesGDComplementares();
 
     //incluirimagensrele();
- // Recarregar a página após salvar as opções
+    // Recarregar a página após salvar as opções
     // location.reload();
 
 });
@@ -140,17 +165,41 @@ function carregarConteudoAjuste32() {
     const toleranciaConsumo = parseNumero(localStorage.getItem('tolerancia-consumo-32'), 105);
     const tempoConsumo = parseNumero(localStorage.getItem('tempo-consumo-32'), 15);
 
+    const potenciaBase = parseNumero(localStorage.getItem('potenciabase'));
+
+    document.querySelectorAll('.denominador-potencia-base').forEach(el => {
+        el.textContent = Number.isFinite(potenciaBase) ? `${potenciaBase.toFixed(2)} kW` : '-';
+    });
+
     preencher('estudo32-inj-tolerancia', `${toleranciaInjecao.toFixed(0)} %`);
     preencher('estudo32-inj-nominal', Number.isFinite(potenciaNominalInjecao) ? `${potenciaNominalInjecao.toFixed(2)} kW` : '-');
-    preencher('estudo32-inj-pico', Number.isFinite(potenciaPicoInjecao) ? `${potenciaPicoInjecao.toFixed(2)} kW` : '-');
-    preencher('estudo32-inj-pu', Number.isFinite(potenciaPuInjecao) ? `${potenciaPuInjecao.toFixed(3)} P.U` : '-');
+    document.querySelectorAll('.estudo32-inj-pico').forEach(el => {
+        el.textContent = Number.isFinite(potenciaPicoInjecao) ? `${potenciaPicoInjecao.toFixed(2)} kW` : '-';
+    });
+    document.querySelectorAll('.estudo32-inj-pu').forEach(el => {
+        el.textContent = Number.isFinite(potenciaPuInjecao) ? `${potenciaPuInjecao.toFixed(3)} P.U` : '-';
+    });
     preencher('estudo32-inj-tempo', `${tempoInjecao.toFixed(0)} s`);
+    document.querySelectorAll('.estudo32-inj-tempo').forEach(el => {
+        el.textContent = `${tempoInjecao.toFixed(0)} s`;
+    });
 
     preencher('estudo32-cons-tolerancia', `${toleranciaConsumo.toFixed(0)} %`);
     preencher('estudo32-cons-nominal', Number.isFinite(potenciaNominalConsumo) ? `${potenciaNominalConsumo.toFixed(2)} kW` : '-');
     preencher('estudo32-cons-pico', Number.isFinite(potenciaPicoConsumo) ? `${potenciaPicoConsumo.toFixed(2)} kW` : '-');
+    document.querySelectorAll('.estudo32-cons-pico').forEach(el => {
+        el.textContent = Number.isFinite(potenciaPicoConsumo) ? `${potenciaPicoConsumo.toFixed(2)} kW` : '-';
+    });
+    document.querySelectorAll('.estudo32-cons-pu').forEach(el => {
+        el.textContent = Number.isFinite(potenciaPuConsumo) ? `${potenciaPuConsumo.toFixed(3)} P.U` : '-';
+    });
     preencher('estudo32-cons-pu', Number.isFinite(potenciaPuConsumo) ? `${potenciaPuConsumo.toFixed(3)} P.U` : '-');
+    document.querySelectorAll('.estudo32-cons-tempo').forEach(el => {
+        el.textContent = `${tempoConsumo.toFixed(0)} s`;
+    });
     preencher('estudo32-cons-tempo', `${tempoConsumo.toFixed(0)} s`);
+
+
 }
 
 function carregarConteudosAjustesGDComplementares() {
@@ -194,16 +243,56 @@ function carregarConteudosAjustesGDComplementares() {
     };
 
     // Ajuste 27
-    preencher('estudo27-est1', localStorage.getItem('ajustemanual27primeiroestagio') || '0.8', ' P.U', ['#ajuste-pu-subtensao-html', '.ajuste-pu-subtensao-automatica']);
-    preencher('estudo27-t1', localStorage.getItem('ajustemanual27tempo') || '3', ' s', ['#ajuste-tempo-subtensao-html', '.ajuste-tempo-subtensao-automatica', '#tempos-estagios-html']);
-    preencher('estudo27-est2', localStorage.getItem('ajustemanual27segundoestagio') || '0.5', ' P.U', ['#ajuste-pu-subtensao-html-2', '.ajuste-pu-subtensao-automatica-2']);
-    preencher('estudo27-t2', localStorage.getItem('ajustemanual27tempo2') || '1', ' s', ['#ajuste-tempo-subtensao-html-2', '.ajuste-tempo-subtensao-automatica-2']);
-    preencher('estudo27-tr1', localStorage.getItem('tempoEstagio27-1-real'), ' s', ['#sensibilidade-superior-tempos-estagios-ajustada-html']);
-    preencher('estudo27-tr2', localStorage.getItem('tempoEstagio27-2-real'), ' s', ['#sensibilidade-superior-tempos-estagios-ajustada-html-2']);
-    preencher('estudo27-vp1', localStorage.getItem('tensaoPrimariaFaseAjustada27-1'), ' V', ['#sensibilidade-superior-tensao-primaria-fase-ajustada-html']);
-    preencher('estudo27-vs1', localStorage.getItem('tensaoSecundariaFaseAjustada27-1'), ' V', ['#sensibilidade-superior-tensao-secundaria-fase-ajustada-html']);
-    preencher('estudo27-vp2', localStorage.getItem('tensaoPrimariaFaseAjustada27-2'), ' V', ['#sensibilidade-superior-tensao-primaria-fase-ajustada-html-2']);
-    preencher('estudo27-vs2', localStorage.getItem('tensaoSecundariaFaseAjustada27-2'), ' V', ['#sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2']);
+    document.querySelectorAll('.estudo27-est1').forEach(el => {
+        const valorLabel = textoLabel(['#ajuste-pu-subtensao-html', '.ajuste-pu-subtensao-automatica']);
+        const valor = localStorage.getItem('ajustemanual27primeiroestagio') || '0.8';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' P.U');
+    });
+    document.querySelectorAll('.estudo27-t1').forEach(el => {
+        const valorLabel = textoLabel(['#ajuste-tempo-subtensao-html', '.ajuste-tempo-subtensao-automatica', '#tempos-estagios-html']);
+        const valor = localStorage.getItem('ajustemanual27tempo') || '3';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo27-est2').forEach(el => {
+        const valorLabel = textoLabel(['#ajuste-pu-subtensao-html-2', '.ajuste-pu-subtensao-automatica-2']);
+        const valor = localStorage.getItem('ajustemanual27segundoestagio') || '0.5';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' P.U');
+    });
+    document.querySelectorAll('.estudo27-t2').forEach(el => {
+        const valorLabel = textoLabel(['#ajuste-tempo-subtensao-html-2', '.ajuste-tempo-subtensao-automatica-2']);
+        const valor = localStorage.getItem('ajustemanual27tempo2') || '1';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo27-tr1').forEach(el => {
+        const valorLabel = textoLabel(['#sensibilidade-superior-tempos-estagios-ajustada-html']);
+        const valor = localStorage.getItem('tempoEstagio27-1-real');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo27-tr2').forEach(el => {
+        const valorLabel = textoLabel(['#sensibilidade-superior-tempos-estagios-ajustada-html-2']);
+        const valor = localStorage.getItem('tempoEstagio27-2-real');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo27-vp1').forEach(el => {
+        const valorLabel = textoLabel(['#sensibilidade-superior-tensao-primaria-fase-ajustada-html']);
+        const valor = localStorage.getItem('tensaoPrimariaFaseAjustada27-1');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
+    document.querySelectorAll('.estudo27-vs1').forEach(el => {
+        const valorLabel = textoLabel(['#sensibilidade-superior-tensao-secundaria-fase-ajustada-html']);
+        const valor = localStorage.getItem('tensaoSecundariaFaseAjustada27-1');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
+    document.querySelectorAll('.estudo27-vp2').forEach(el => {
+        const valorLabel = textoLabel(['#sensibilidade-superior-tensao-primaria-fase-ajustada-html-2']);
+        const valor = localStorage.getItem('tensaoPrimariaFaseAjustada27-2');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
+    document.querySelectorAll('.estudo27-vs2').forEach(el => {
+        const valorLabel = textoLabel(['#sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2']);
+        const valor = localStorage.getItem('tensaoSecundariaFaseAjustada27-2');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
 
     // Ajuste 27 - Estágios de subtensão (tabela detalhada)
     const parseNumero = (valor, padrao = NaN) => {
@@ -258,30 +347,74 @@ function carregarConteudosAjustesGDComplementares() {
         ? (tensaoSecundariaLinha * puSub2)
         : (Number.isFinite(vsfAj2) ? vsfAj2 * raiz3 : NaN);
 
-    preencher('estudo27-sub-vpl-aj1', formatarValor(vplAj1, 'V'));
-    preencher('estudo27-sub-vpf-aj1', formatarValor(vpfAj1, 'V'));
-    preencher('estudo27-sub-vsl-aj1', formatarValor(vslAj1, 'V'));
-    preencher('estudo27-sub-vsf-aj1', formatarValor(vsfAj1, 'V'));
+    document.querySelectorAll('.estudo27-sub-vpl-aj1').forEach(el => el.textContent = formatarValor(vplAj1, 'V'));
+    document.querySelectorAll('.estudo27-sub-vpf-aj1').forEach(el => el.textContent = formatarValor(vpfAj1, 'V'));
+    document.querySelectorAll('.estudo27-sub-vsl-aj1').forEach(el => el.textContent = formatarValor(vslAj1, 'V'));
+    document.querySelectorAll('.estudo27-sub-vsf-aj1').forEach(el => el.textContent = formatarValor(vsfAj1, 'V'));
 
-    preencher('estudo27-sub-vpl-aj2', formatarValor(vplAj2, 'V'));
-    preencher('estudo27-sub-vpf-aj2', formatarValor(vpfAj2, 'V'));
-    preencher('estudo27-sub-vsl-aj2', formatarValor(vslAj2, 'V'));
-    preencher('estudo27-sub-vsf-aj2', formatarValor(vsfAj2, 'V'));
+    document.querySelectorAll('.estudo27-sub-vpl-aj2').forEach(el => el.textContent = formatarValor(vplAj2, 'V'));
+    document.querySelectorAll('.estudo27-sub-vpf-aj2').forEach(el => el.textContent = formatarValor(vpfAj2, 'V'));
+    document.querySelectorAll('.estudo27-sub-vsl-aj2').forEach(el => el.textContent = formatarValor(vslAj2, 'V'));
+    document.querySelectorAll('.estudo27-sub-vsf-aj2').forEach(el => el.textContent = formatarValor(vsfAj2, 'V'));
 
-    preencher('estudo27-sub-t-aj1', Number.isFinite(tempoSub1) ? `${tempoSub1} s` : '-', '', ['#ajuste-tempo-subtensao-html', '.ajuste-tempo-subtensao-automatica']);
-    preencher('estudo27-sub-t-aj2', Number.isFinite(tempoSub2) ? `${tempoSub2} s` : '-', '', ['#ajuste-tempo-subtensao-html-2', '.ajuste-tempo-subtensao-automatica-2']);
+    document.querySelectorAll('.estudo27-sub-t-aj1').forEach(el => {
+        el.textContent = Number.isFinite(tempoSub1) ? `${tempoSub1} s` : '-';
+    });
+    document.querySelectorAll('.estudo27-sub-t-aj2').forEach(el => {
+        el.textContent = Number.isFinite(tempoSub2) ? `${tempoSub2} s` : '-';
+    });
 
     // Ajuste 59
-    preencher('estudo59-est1', localStorage.getItem('ajustemanual59primeiroestagio') || '1.10', ' P.U', ['#ajuste-pu-sobretensao-html', '.ajuste-pu-sobretensao-automatica']);
-    preencher('estudo59-t1', localStorage.getItem('ajustemanual59tempo') || '3', ' s', ['#ajuste-tempo-sobretensao-html', '.ajuste-tempo-sobretensao-automatica', '#tempo-estagios-html']);
-    preencher('estudo59-est2', localStorage.getItem('ajustemanual59segundoestagio') || '1.18', ' P.U', ['#ajuste-pu-sobretensao-html-2', '.ajuste-pu-sobretensao-automatica-2']);
-    preencher('estudo59-t2', localStorage.getItem('ajustemanual59tempo2') || '0.5', ' s', ['#ajuste-tempo-sobretensao-html-2', '.ajuste-tempo-sobretensao-automatica-2']);
-    preencher('estudo59-tr1', localStorage.getItem('tempoEstagio59-1-real') || '3', ' s', ['#sensibilidade-superior-tempo-estagios-ajustada-html']);
-    preencher('estudo59-tr2', localStorage.getItem('tempoEstagio59-2-real') || '0.5', ' s', ['#sensibilidade-superior-tempo-estagios-ajustada-html-2']);
-    preencher('estudo59-vp1', localStorage.getItem('tensaoPrimariaFaseAjustada59-1'), ' V', ['#sensibilidade-superior-tensao-primaria-fase-ajustada-html']);
-    preencher('estudo59-vs1', localStorage.getItem('tensaoSecundariaFaseAjustada59-1'), ' V', ['#sensibilidade-superior-tensao-secundaria-fase-ajustada-html']);
-    preencher('estudo59-vp2', localStorage.getItem('tensaoPrimariaFaseAjustada59-2'), ' V', ['#sensibilidade-superior-tensao-primaria-fase-ajustada-html-2']);
-    preencher('estudo59-vs2', localStorage.getItem('tensaoSecundariaFaseAjustada59-2'), ' V', ['#sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2']);
+    document.querySelectorAll('.estudo59-est1').forEach(el => {
+        const valorLabel = textoLabel(['.ajuste-pu-sobretensao-html', '.ajuste-pu-sobretensao-automatica']);
+        const valor = localStorage.getItem('ajustemanual59primeiroestagio') || '1.10';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' P.U');
+    });
+    document.querySelectorAll('.estudo59-t1').forEach(el => {
+        const valorLabel = textoLabel(['.ajuste-tempo-sobretensao-html', '.ajuste-tempo-sobretensao-automatica', '.tempo-estagios-html']);
+        const valor = localStorage.getItem('ajustemanual59tempo') || '3';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo59-est2').forEach(el => {
+        const valorLabel = textoLabel(['.ajuste-pu-sobretensao-html-2', '.ajuste-pu-sobretensao-automatica-2']);
+        const valor = localStorage.getItem('ajustemanual59segundoestagio') || '1.18';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' P.U');
+    });
+    document.querySelectorAll('.estudo59-t2').forEach(el => {
+        const valorLabel = textoLabel(['.ajuste-tempo-sobretensao-html-2', '.ajuste-tempo-sobretensao-automatica-2']);
+        const valor = localStorage.getItem('ajustemanual59tempo2') || '0.5';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo59-tr1').forEach(el => {
+        const valorLabel = textoLabel(['.sensibilidade-superior-tempo-estagios-ajustada-html']);
+        const valor = localStorage.getItem('tempoEstagio59-1-real') || '3';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo59-tr2').forEach(el => {
+        const valorLabel = textoLabel(['.sensibilidade-superior-tempo-estagios-ajustada-html-2']);
+        const valor = localStorage.getItem('tempoEstagio59-2-real') || '0.5';
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' s');
+    });
+    document.querySelectorAll('.estudo59-vp1').forEach(el => {
+        const valorLabel = textoLabel(['.sensibilidade-superior-tensao-primaria-fase-ajustada-html']);
+        const valor = localStorage.getItem('tensaoPrimariaFaseAjustada59-1');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
+    document.querySelectorAll('.estudo59-vs1').forEach(el => {
+        const valorLabel = textoLabel(['.sensibilidade-superior-tensao-secundaria-fase-ajustada-html']);
+        const valor = localStorage.getItem('tensaoSecundariaFaseAjustada59-1');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
+    document.querySelectorAll('.estudo59-vp2').forEach(el => {
+        const valorLabel = textoLabel(['.sensibilidade-superior-tensao-primaria-fase-ajustada-html-2']);
+        const valor = localStorage.getItem('tensaoPrimariaFaseAjustada59-2');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
+    document.querySelectorAll('.estudo59-vs2').forEach(el => {
+        const valorLabel = textoLabel(['.sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2']);
+        const valor = localStorage.getItem('tensaoSecundariaFaseAjustada59-2');
+        el.textContent = aplicarSufixoSeNecessario(valorLabel || valor, ' V');
+    });
 
     // Ajuste 59 - Estágios de sobretensão (tabela detalhada)
     const puSob1 = parseNumero(localStorage.getItem('ajustemanual59primeiroestagio'), 1.10);
@@ -321,31 +454,83 @@ function carregarConteudosAjustesGDComplementares() {
     preencher('estudo59-sob-vpf-base', formatarValor(tensaoPrimariaFase, 'V'));
     preencher('estudo59-sob-vsl-base', formatarValor(tensaoSecundariaLinha, 'V'));
     preencher('estudo59-sob-vsf-base', formatarValor(tensaoSecundariaFase, 'V'));
+    document.querySelectorAll('.estudo59-sob-vpl-aj1').forEach(el => el.textContent = formatarValor(vplSobAj1, 'V'));
+    document.querySelectorAll('.estudo59-sob-vpf-aj1').forEach(el => el.textContent = formatarValor(vpfSobAj1, 'V'));
+    document.querySelectorAll('.estudo59-sob-vsl-aj1').forEach(el => el.textContent = formatarValor(vslSobAj1, 'V'));
+    document.querySelectorAll('.estudo59-sob-vsf-aj1').forEach(el => el.textContent = formatarValor(vsfSobAj1, 'V'));
 
-    preencher('estudo59-sob-vpl-aj1', formatarValor(vplSobAj1, 'V'));
-    preencher('estudo59-sob-vpf-aj1', formatarValor(vpfSobAj1, 'V'));
-    preencher('estudo59-sob-vsl-aj1', formatarValor(vslSobAj1, 'V'));
-    preencher('estudo59-sob-vsf-aj1', formatarValor(vsfSobAj1, 'V'));
-
-    preencher('estudo59-sob-vpl-aj2', formatarValor(vplSobAj2, 'V'));
-    preencher('estudo59-sob-vpf-aj2', formatarValor(vpfSobAj2, 'V'));
-    preencher('estudo59-sob-vsl-aj2', formatarValor(vslSobAj2, 'V'));
-    preencher('estudo59-sob-vsf-aj2', formatarValor(vsfSobAj2, 'V'));
+    document.querySelectorAll('.estudo59-sob-vpl-aj2').forEach(el => el.textContent = formatarValor(vplSobAj2, 'V'));
+    document.querySelectorAll('.estudo59-sob-vpf-aj2').forEach(el => el.textContent = formatarValor(vpfSobAj2, 'V'));
+    document.querySelectorAll('.estudo59-sob-vsl-aj2').forEach(el => el.textContent = formatarValor(vslSobAj2, 'V'));
+    document.querySelectorAll('.estudo59-sob-vsf-aj2').forEach(el => el.textContent = formatarValor(vsfSobAj2, 'V'));
 
     preencher('estudo59-sob-t-aj1', `${tempoSob1} s`, '', ['#ajuste-tempo-sobretensao-html', '.ajuste-tempo-sobretensao-automatica']);
     preencher('estudo59-sob-t-aj2', `${tempoSob2} s`, '', ['#ajuste-tempo-sobretensao-html-2', '.ajuste-tempo-sobretensao-automatica-2']);
 
     // Ajuste 81
-    preencher('estudo81u-e1', localStorage.getItem('ajustereal81Uprimeiroestagio') || '56.9 Hz', '', ['#subfrequencia-html-1']);
-    preencher('estudo81u-t1', localStorage.getItem('ajustereal81Utempo1') || '0.20 s', '', ['#subfrequencia-tempo-html-1']);
-    preencher('estudo81u-e2', localStorage.getItem('ajustereal81Usegundoestagio') || '57.4 Hz', '', ['#subfrequencia-html-2']);
-    preencher('estudo81u-t2', localStorage.getItem('ajustereal81Utempo2') || '5.50 s', '', ['#subfrequencia-tempo-html-2']);
-    preencher('estudo81u-e3', localStorage.getItem('ajustereal81Uterceiroestagio') || '58.5 Hz', '', ['#subfrequencia-html-3']);
-    preencher('estudo81u-t3', localStorage.getItem('ajustereal81Utempo3') || '20.50 s', '', ['#subfrequencia-tempo-html-3']);
-    preencher('estudo81o-e1', localStorage.getItem('ajustereal81Oprimeiroestagio') || '62.60 Hz', '', ['#sobrefrequencia-html-1']);
-    preencher('estudo81o-t1', localStorage.getItem('ajustereal81Otempo1') || '10.50 s', '', ['#sobrefrequencia-tempo-html-1']);
-    preencher('estudo81o-e2', localStorage.getItem('ajustereal81Osegundoestagio') || '63.10 Hz', '', ['#sobrefrequencia-html-2']);
-    preencher('estudo81o-t2', localStorage.getItem('ajustereal81Otempo2') || '0.20 s', '', ['#sobrefrequencia-tempo-html-2']);
+    // Preencher todos os elementos com a classe 'estudo81u-e1'
+    document.querySelectorAll('.estudo81u-e1').forEach(el => {
+        const valorLabel = document.querySelector('#subfrequencia-html-1');
+        const valor = localStorage.getItem('ajustereal81Uprimeiroestagio') || '56.9 Hz';
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = valor;
+        }
+    });
+    document.querySelectorAll('.estudo81u-t1').forEach(el => {
+        const valorLabel = document.querySelector('#subfrequencia-tempo-html-1');
+        const valor = localStorage.getItem('ajustereal81Utempo1') || '0.20 s';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81u-e2').forEach(el => {
+        const valorLabel = document.querySelector('#subfrequencia-html-2');
+        const valor = localStorage.getItem('ajustereal81Usegundoestagio') || '57.4 Hz';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81u-t2').forEach(el => {
+        const valorLabel = document.querySelector('#subfrequencia-tempo-html-2');
+        const valor = localStorage.getItem('ajustereal81Utempo2') || '5.50 s';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81u-e3').forEach(el => {
+        const valorLabel = document.querySelector('#subfrequencia-html-3');
+        const valor = localStorage.getItem('ajustereal81Uterceiroestagio') || '58.5 Hz';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81u-t3').forEach(el => {
+        const valorLabel = document.querySelector('#subfrequencia-tempo-html-3');
+        const valor = localStorage.getItem('ajustereal81Utempo3') || '20.50 s';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81o-e1').forEach(el => {
+        const valorLabel = document.querySelector('#sobrefrequencia-html-1');
+        const valor = localStorage.getItem('ajustereal81Oprimeiroestagio') || '62.60 Hz';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81o-t1').forEach(el => {
+        const valorLabel = document.querySelector('#sobrefrequencia-tempo-html-1');
+        const valor = localStorage.getItem('ajustereal81Otempo1') || '10.50 s';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81o-e2').forEach(el => {
+        const valorLabel = document.querySelector('#sobrefrequencia-html-2');
+        const valor = localStorage.getItem('ajustereal81Osegundoestagio') || '63.10 Hz';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
+
+    document.querySelectorAll('.estudo81o-t2').forEach(el => {
+        const valorLabel = document.querySelector('#sobrefrequencia-tempo-html-2');
+        const valor = localStorage.getItem('ajustereal81Otempo2') || '0.20 s';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : valor;
+    });
 
     // Ajuste 46
     preencher('estudo46-ip', localStorage.getItem('Ipajustada46'), '', ['#ip-46-ajustada-html']);
@@ -353,13 +538,66 @@ function carregarConteudosAjustesGDComplementares() {
     preencher('estudo46-dial', localStorage.getItem('Dialajustado46'), '', ['#dial-46-ajustada-html']);
     preencher('estudo46-idef', localStorage.getItem('Idefajustada46'), '', ['#idef-46-ajustada-html']);
     preencher('estudo46-tempo', localStorage.getItem('Tempodefinido46'), ' s', ['#tempodefinido-ajustada-html']);
-    preencher('estudo46-idefreal', localStorage.getItem('Idef46real'), ' A', ['#idef-46-real-html']);
-    preencher('estudo46-idefpureal', localStorage.getItem('Idef46PUreal'), '', ['#idef-46-pu-html']);
-    preencher('estudo46-temporeal', localStorage.getItem('tempoDefinido46real'), ' s', ['#tempodefinido-real-html']);
+
+    
+    document.querySelectorAll('.estudo46-idefreal').forEach(el => {
+        const valorLabel = document.querySelector('.idef-46-real-html');
+        const valor = localStorage.getItem('Idef46real');
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : (valor ? valor + ' A' : '-');
+    });
+
+    document.querySelectorAll('.estudo46-idefpureal').forEach(el => {
+        const valorLabel = document.querySelector('#idef-46-pu-html');
+        const valor = localStorage.getItem('Idef46PUreal');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim() + ' P.U';
+        } else if (valor && valor.trim() !== '') {
+            el.textContent = valor + ' P.U';
+        } else {
+            el.textContent = '-';
+        }
+    });
+
+
+    document.querySelectorAll('.estudo46-temporeal').forEach(el => {
+        const valorLabel = document.querySelector('#tempodefinido-real-html');
+        const valor = localStorage.getItem('tempoDefinido46real');
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() : (valor ? valor + ' s' : '-');
+    });
 
     // Ajuste 47
-    preencher('estudo47-tolerancia', localStorage.getItem('ToleranciaDeseqAjustada47') || '20', ' %', ['#desequilibrio-dimensionado-html']);
-    preencher('estudo47-tempo', localStorage.getItem('TempoDeseqAjustada47') || '0.2', ' s', ['#tempo-desequilibrio-dimensionado-html']);
+    document.querySelectorAll('.estudo47-tolerancia').forEach(el => {
+        const valorLabel = document.querySelector('#desequilibrio-dimensionado-html');
+        const valor = localStorage.getItem('ToleranciaDeseqAjustada47')/100 || '0.20';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() + ' P.U' : valor + ' P.U';
+    });
+    document.querySelectorAll('.estudo47-tempo').forEach(el => {
+        const valorLabel = document.querySelector('#tempo-desequilibrio-dimensionado-html');
+        const valor = localStorage.getItem('TempoDeseqAjustada47') || '0.2';
+        el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() + ' s' : valor + ' s';
+    });
+
+    document.querySelectorAll('.estudo47-vpl').forEach(el => {
+        const valor = localStorage.getItem('tensaoPrimariaLinhaAjustada47');
+        el.textContent = (valor && !isNaN(valor)) ? valor + ' V' : '-';
+    });
+
+    document.querySelectorAll('.estudo47-vpf').forEach(el => {
+        const valor = localStorage.getItem('tensaoPrimariaFaseAjustada47');
+        el.textContent = (valor && !isNaN(valor)) ? valor + ' V' : '-';
+    });
+
+    document.querySelectorAll('.estudo47-vsl').forEach(el => {
+        const valor = localStorage.getItem('tensaoSecundariaLinhaAjustada47');
+        el.textContent = (valor && !isNaN(valor)) ? valor + ' V' : '-';
+    });
+
+    document.querySelectorAll('.estudo47-vsf').forEach(el => {
+        const valor = localStorage.getItem('tensaoSecundariaFaseAjustada47');
+        el.textContent = (valor && !isNaN(valor)) ? valor + ' V' : '-';
+    });
+
+    //Importar 
 
     // Ajuste 25
     const tensaoDeseq25 = parseNumero(localStorage.getItem('TensaoDeseqAjustada25'), 10);
@@ -373,22 +611,68 @@ function carregarConteudosAjustesGDComplementares() {
     const vsl25Aj = Number.isFinite(tensaoSecundariaLinha) && Number.isFinite(fatorTensao25) ? tensaoSecundariaLinha * fatorTensao25 : NaN;
     const vsf25Aj = Number.isFinite(tensaoSecundariaFase) && Number.isFinite(fatorTensao25) ? tensaoSecundariaFase * fatorTensao25 : NaN;
 
-    preencher('estudo25-sync-vpl-base', formatarValor(tensaoPrimariaLinha, 'V'));
-    preencher('estudo25-sync-vpl-aj', formatarValor(vpl25Aj, 'V'));
-    preencher('estudo25-sync-vpf-base', formatarValor(tensaoPrimariaFase, 'V'));
-    preencher('estudo25-sync-vpf-aj', formatarValor(vpf25Aj, 'V'));
-    preencher('estudo25-sync-vsl-base', formatarValor(tensaoSecundariaLinha, 'V'));
-    preencher('estudo25-sync-vsl-aj', formatarValor(vsl25Aj, 'V'));
-    preencher('estudo25-sync-vsf-base', formatarValor(tensaoSecundariaFase, 'V'));
-    preencher('estudo25-sync-vsf-aj', formatarValor(vsf25Aj, 'V'));
+    document.querySelectorAll('.estudo25-sync-vpl-base').forEach(el => {
+        el.textContent = formatarValor(tensaoPrimariaLinha, 'V');
+    });
 
-    preencher('estudo25-ajuste-tensao', `${tensaoDeseq25} %`, '', ['#tensao-desequilibrio-dimensionado-html']);
-    preencher('estudo25-val-tensao', `${tensaoDeseq25} %`, '', ['#tensao-desequilibrio-dimensionado-html']);
-    preencher('estudo25-ajuste-freq', `${freqDeseq25} Hz`, '', ['[id="frequência-desequilibrio-dimensionado-html"]']);
-    preencher('estudo25-val-freq', `${freqDeseq25} Hz`, '', ['[id="frequência-desequilibrio-dimensionado-html"]']);
-    preencher('estudo25-ajuste-angulo', `${anguloDeseq25} °`, '', ['#angulo-desequilibrio-dimensionado-html']);
-    preencher('estudo25-val-angulo', `${anguloDeseq25} °`, '', ['#angulo-desequilibrio-dimensionado-html']);
-    preencher('estudo25-val-condicao', condicao25, '', ['#condicao-seccionamento-dimensionado-html']);
+    document.querySelectorAll('.estudo25-sync-vpl-aj').forEach(el => {
+        el.textContent = formatarValor(vpl25Aj, 'V');
+    });
+    document.querySelectorAll('.estudo25-sync-vpf-base').forEach(el => {
+        el.textContent = formatarValor(tensaoPrimariaFase, 'V');
+    });
+    document.querySelectorAll('.estudo25-sync-vpf-aj').forEach(el => {
+        el.textContent = formatarValor(vpf25Aj, 'V');
+    });
+    document.querySelectorAll('.estudo25-sync-vsl-base').forEach(el => {
+        el.textContent = formatarValor(tensaoSecundariaLinha, 'V');
+    });
+    document.querySelectorAll('.estudo25-sync-vsl-aj').forEach(el => {
+        el.textContent = formatarValor(vsl25Aj, 'V');
+    });
+    document.querySelectorAll('.estudo25-sync-vsf-base').forEach(el => {
+        el.textContent = formatarValor(tensaoSecundariaFase, 'V');
+    });
+    document.querySelectorAll('.estudo25-sync-vsf-aj').forEach(el => {
+        el.textContent = formatarValor(vsf25Aj, 'V');
+    });
+
+    
+    document.querySelectorAll('.estudo25-val-tensao').forEach(el => {
+        const valorLabel = document.querySelector('#tensao-desequilibrio-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim() + ' %';
+        } else {
+            el.textContent = `${tensaoDeseq25} %`;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-val-freq').forEach(el => {
+        const valorLabel = document.querySelector('[id="frequência-desequilibrio-dimensionado-html"]');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim() + ' Hz';
+        } else {
+            el.textContent = `${freqDeseq25} Hz`;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-val-angulo').forEach(el => {
+        const valorLabel = document.querySelector('#angulo-desequilibrio-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim() + ' °';
+        } else {
+            el.textContent = `${anguloDeseq25} °`;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-val-condicao').forEach(el => {
+        const valorLabel = document.querySelector('#condicao-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = condicao25;
+        }
+    });
 
     // Compatibilidade com IDs antigos
     preencher('estudo25-vp', formatarValor(vpf25Aj, 'V'));
@@ -430,6 +714,8 @@ function carregarConteudoAjuste51V() {
         return null;
     };
 
+    
+
     const preencher = (id, valor, seletoresLabel = []) => {
         const el = document.getElementById(id);
         if (!el) return;
@@ -438,26 +724,81 @@ function carregarConteudoAjuste51V() {
     };
 
     preencher('estudo51v-ligacao-secundaria', localStorage.getItem('ligacaodabobinaSelecionada') || '-', ['.tp-fechamento']);
-    preencher('estudo51v-ip', maiorIp > 0 ? `${maiorIp.toFixed(2)} A` : '-', ['.ip-partida-resultado']);
-    preencher('estudo51v-corrente-sup', maiorIp > 0 ? `${(maiorIp * (sensibilidadeSuperiorCorrente / 100)).toFixed(2)} A` : '-');
+    document.querySelectorAll('.estudo51v-ligacao-secundaria').forEach(el => {
+        el.textContent = localStorage.getItem('ligacaodabobinaSelecionada') || '-';
+    });
+
+
+    
+    document.querySelectorAll('.estudo51v-ip').forEach(el => {
+        el.textContent = maiorIp > 0 ? `${maiorIp.toFixed(2)} A` : '-';
+    });
+
+
+    // Preencher campo corrente superior considerando classe .estudo51v-corrente-sup
+    document.querySelectorAll('.estudo51v-corrente-sup').forEach(el => {
+        if (maiorIp > 0 && sensibilidadeSuperiorCorrente > 0) {
+            el.textContent = (maiorIp * (sensibilidadeSuperiorCorrente / 100)).toFixed(2) + ' A';
+        } else {
+            el.textContent = '-';
+        }
+    });
     preencher('estudo51v-corrente-inf', maiorIp > 0 ? `${(maiorIp * (sensibilidadeInferiorCorrente / 100)).toFixed(2)} A` : '-');
+    document.querySelectorAll('.estudo51v-corrente-inf').forEach(el => {
+        if (maiorIp > 0 && sensibilidadeInferiorCorrente > 0) {
+            el.textContent = (maiorIp * (sensibilidadeInferiorCorrente / 100)).toFixed(2) + ' A';
+        } else {
+            el.textContent = '-';
+        }
+    });
+    
     preencher('estudo51v-curva', curva, ['.curva-fase']);
+    document.querySelectorAll('.estudo51v-curva').forEach(el => {
+        el.textContent = curva;
+    });
+    
     preencher('estudo51v-dial', dial, ['.dial-fase-ajustado']);
+    document.querySelectorAll('.estudo51v-dial').forEach(el => {
+        el.textContent = dial;
+    });
+    
+    document.querySelectorAll('.estudo51v-tp-linha').forEach(el => {
+        el.textContent = tensaoPrimariaFF > 0 ? `${tensaoPrimariaFF.toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-tp-fase').forEach(el => {
+        el.textContent = tensaoPrimariaFN > 0 ? `${tensaoPrimariaFN.toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-ts-linha').forEach(el => {
+        el.textContent = tensaoSecundariaFF > 0 ? `${tensaoSecundariaFF.toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-ts-fase').forEach(el => {
+        el.textContent = tensaoSecundariaFN > 0 ? `${tensaoSecundariaFN.toFixed(2)} V` : '-';
+    });
 
-    preencher('estudo51v-tp-linha', tensaoPrimariaFF > 0 ? `${tensaoPrimariaFF.toFixed(2)} V` : '-', ['.tp-primaria-ff']);
-    preencher('estudo51v-tp-fase', tensaoPrimariaFN > 0 ? `${tensaoPrimariaFN.toFixed(2)} V` : '-', ['.tp-primaria-fn']);
-    preencher('estudo51v-ts-linha', tensaoSecundariaFF > 0 ? `${tensaoSecundariaFF.toFixed(2)} V` : '-', ['.tp-secundaria-ff']);
-    preencher('estudo51v-ts-fase', tensaoSecundariaFN > 0 ? `${tensaoSecundariaFN.toFixed(2)} V` : '-', ['.tp-secundaria-fn']);
-
-    preencher('estudo51v-tp-linha-ajustada', tensaoPrimariaFF > 0 ? `${(tensaoPrimariaFF * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-');
-    preencher('estudo51v-tp-fase-ajustada', tensaoPrimariaFN > 0 ? `${(tensaoPrimariaFN * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-');
-    preencher('estudo51v-ts-linha-ajustada', tensaoSecundariaFF > 0 ? `${(tensaoSecundariaFF * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-');
-    preencher('estudo51v-ts-fase-ajustada', tensaoSecundariaFN > 0 ? `${(tensaoSecundariaFN * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-');
-
-    preencher('estudo51v-sens-sup-tensao', `${sensibilidadeSuperiorTensao.toFixed(2)} %`);
-    preencher('estudo51v-sens-inf-tensao', `${sensibilidadeInferiorTensao.toFixed(2)} %`);
-    preencher('estudo51v-sens-sup-corrente', `${sensibilidadeSuperiorCorrente.toFixed(2)} %`);
-    preencher('estudo51v-sens-inf-corrente', `${sensibilidadeInferiorCorrente.toFixed(2)} %`);
+    document.querySelectorAll('.estudo51v-tp-linha-ajustada').forEach(el => {
+        el.textContent = tensaoPrimariaFF > 0 ? `${(tensaoPrimariaFF * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-tp-fase-ajustada').forEach(el => {
+        el.textContent = tensaoPrimariaFN > 0 ? `${(tensaoPrimariaFN * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-ts-linha-ajustada').forEach(el => {
+        el.textContent = tensaoSecundariaFF > 0 ? `${(tensaoSecundariaFF * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-ts-fase-ajustada').forEach(el => {
+        el.textContent = tensaoSecundariaFN > 0 ? `${(tensaoSecundariaFN * (sensibilidadeSuperiorTensao / 100)).toFixed(2)} V` : '-';
+    });
+    document.querySelectorAll('.estudo51v-sens-sup-tensao').forEach(el => {
+        el.textContent = `${sensibilidadeSuperiorTensao.toFixed(2)} %`;
+    });
+    document.querySelectorAll('.estudo51v-sens-inf-tensao').forEach(el => {
+        el.textContent = `${sensibilidadeInferiorTensao.toFixed(2)} %`;
+    });
+    document.querySelectorAll('.estudo51v-sens-sup-corrente').forEach(el => {
+        el.textContent = `${sensibilidadeSuperiorCorrente.toFixed(2)} %`;
+    });
+    document.querySelectorAll('.estudo51v-sens-inf-corrente').forEach(el => {
+        el.textContent = `${sensibilidadeInferiorCorrente.toFixed(2)} %`;
+    });
 }
 
 function configurarEventosHeaderEImpressao() {
@@ -637,6 +978,45 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    // // Preencher campo demanda-contratada-gd com demandacalculada
+    // const demandaCalculadaGD = localStorage.getItem('demandaSelecionadaGD');
+    // const potenciaContratadaGD = localStorage.getItem('potenciaGDcontratada');
+    // document.querySelectorAll('.ip-partida-numerador-TC-GD').forEach(el => {
+    //     if (demandaCalculadaGD !== null && !isNaN(demandaCalculadaGD)) {
+    //         el.textContent = demandaCalculadaGD + ' kW';
+    //     }
+    // });
+
+    // Preencher campo potencia-gd com potenciaGDSelecionada
+    const demandaCalculadaGD = localStorage.getItem('demandaSelecionadaGD');
+    const potenciaGDSelecionada = localStorage.getItem('potenciaGDcontratada');
+    document.querySelectorAll('.potencia-gd').forEach(el => {
+        if (potenciaGDSelecionada !== null && !isNaN(potenciaGDSelecionada)) {
+            el.textContent = potenciaGDSelecionada + ' kW';
+        }
+    });
+
+    // Preencher campo potencia-de-injecao-gd com potenciaGDSelecionada
+    const potenciaInjecaoGDSelecionada = localStorage.getItem('potenciaGDSelecionada');
+    const tipoParalelismoSelecionado = localStorage.getItem('tipoParalelismoSelecionado');
+    const inominalminimaTCGD = localStorage.getItem('inominalminimaTCGD');
+    document.querySelectorAll('.potencia-de-injecao-gd').forEach(el => {
+        if (potenciaInjecaoGDSelecionada !== null && !isNaN(potenciaInjecaoGDSelecionada) && tipoParalelismoSelecionado === 'Sem Injeção') {
+            el.textContent = '0  ' + 'kW' + '(Sem Injeção - GRID ZERO)';
+
+        } else if (potenciaInjecaoGDSelecionada !== null && !isNaN(potenciaInjecaoGDSelecionada) && tipoParalelismoSelecionado === 'Com Injeção' && inominalminimaTCGD !== null && inominalminimaTCGD === 'Sim') {
+            el.textContent = potenciaInjecaoGDSelecionada + ' kW' + '(Considerando Injeção Mínima devido limitação do Sistema de Proteção)';
+        } else if (potenciaInjecaoGDSelecionada !== null && !isNaN(potenciaInjecaoGDSelecionada) && tipoParalelismoSelecionado === 'Com Injeção' && inominalminimaTCGD !== null && inominalminimaTCGD === 'Não') {
+            el.textContent = potenciaInjecaoGDSelecionada + ' kW';
+
+
+
+        }
+    });
+
+    console.log('Potência de Injeção GD:', potenciaInjecaoGDSelecionada, 'Tipo de Paralelismo:', tipoParalelismoSelecionado, 'Injeção Mínima TC GD:', inominalminimaTCGD);
+
+    //---------------------------------------------------------------------------
     const fatorPotencia = localStorage.getItem('fatorPotenciaSelecionada');
     if (fatorPotencia !== null) {
         const fatorEl = document.getElementById('fator-potencia');
@@ -644,6 +1024,16 @@ function carregarVariaveisEstudo() {
             fatorEl.textContent = fatorPotencia * 100 + '%';
         }
     }
+
+    const fatorPotenciaGD = localStorage.getItem('fatorPotenciaGDSelecionada');
+    if (fatorPotenciaGD !== null) {
+        const fatorGDEl = document.getElementById('fator-potencia-gd');
+        if (fatorGDEl) {
+            fatorGDEl.textContent = fatorPotenciaGD * 100 + '%';
+        }
+    }
+
+
 
     const iccPontoConexao = localStorage.getItem('curtoSelecionada');
     if (iccPontoConexao !== null) {
@@ -1038,6 +1428,13 @@ function carregarVariaveisEstudo() {
         percentualIPEl.textContent = percentualIP + ' %';
     }
 
+    // importar o IP GD fase percentual do localStorage
+    const percentualIPGD = localStorage.getItem('PercentualIPSelecionadaGD');
+    const percentualIPGDEl = document.getElementById('percentual-ip-gd');
+    if (percentualIPGDEl && percentualIPGD !== null) {
+        percentualIPGDEl.textContent = percentualIPGD + ' %';
+    }
+
     // Representar o numerador do calculo de ip de partida fase 
     // Preencher campo numerador-potencia-nominal com demanda contratada
     const numeradorPotenciaNominalEls = document.querySelectorAll('.numerador-potencia-nominal');
@@ -1047,6 +1444,16 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    // Representar o numerador do calculo de ip de partida fase GD
+    // Preencher campo numerador-potencia-nominal com demanda contratada
+    const numeradorPotenciaNominalGDEls = document.querySelectorAll('.numerador-potencia-nominal-gd');
+    numeradorPotenciaNominalGDEls.forEach(el => {
+        if (potenciaGDSelecionada !== null && !isNaN(potenciaGDSelecionada)) {
+            el.textContent = potenciaGDSelecionada;
+        }
+    });
+
+    // Preencher campo ip-partida-numerador considerando demanda contratada e incremento percentual
     const ipPartidaNumeradorEls = document.querySelectorAll('.ip-partida-numerador');
     ipPartidaNumeradorEls.forEach(el => {
         if (demandacalculada !== null && !isNaN(demandacalculada)) {
@@ -1056,11 +1463,25 @@ function carregarVariaveisEstudo() {
 
             //             const incremento = (parseFloat(demandacalculada) * parseFloat(percentualIP) / 100);
             // el.textContent = `${demandacalculada} + ${incremento.toFixed(2)}`;
-            
+
         }
     });
 
-    // Para ip-partida-numerador-TC
+    // Preencher campo ip-partida-numerador GD considerando Potencia contratada  GD e incremento percentual
+    const ipPartidaNumeradorGDEls = document.querySelectorAll('.ip-partida-numerador-gd');
+    ipPartidaNumeradorGDEls.forEach(el => {
+        if (potenciaGDSelecionada !== null && !isNaN(potenciaGDSelecionada)) {
+            // Interpolação: mostra demanda + incremento percentual
+            const incremento = parseFloat((percentualIPGD) / 100);
+            el.textContent = `${potenciaGDSelecionada} * ${incremento.toFixed(2)}`;
+
+            //             const incremento = (parseFloat(demandacalculada) * parseFloat(percentualIP) / 100);
+            // el.textContent = `${demandacalculada} + ${incremento.toFixed(2)}`;
+
+        }
+    });
+
+    // Para ip-partida-numerador-TC para consumo
     const ipPartidaNumeradorTCEls = document.querySelectorAll('.ip-partida-numerador-TC');
     ipPartidaNumeradorTCEls.forEach(el => {
         if (demandadecontrato !== null && !isNaN(demandadecontrato)) {
@@ -1078,11 +1499,29 @@ function carregarVariaveisEstudo() {
         }
     });
 
-    // Representar o denominador do calculo de ip de partida fase
+    //Incluir corrente nominal de fase GD
+    const correnteNominalFaseGD = localStorage.getItem('InominalfaseGD');
+    const correnteNominalFaseGDEls = document.querySelectorAll('.corrente-nominal-fase-gd');
+    correnteNominalFaseGDEls.forEach(el => {
+        if (correnteNominalFaseGD !== null && !isNaN(correnteNominalFaseGD)) {
+            el.textContent = parseFloat(correnteNominalFaseGD).toFixed(2) + ' A';
+        }
+    });
+
+
+    // Representar o denominador do calculo de ip de partida fase consumo
     const ipPartidaDenominadorEls = document.querySelectorAll('.ip-partida-denominador');
     ipPartidaDenominadorEls.forEach(el => {
         if (tensaoAtendimento !== null && !isNaN(tensaoAtendimento) && fatorPotencia !== null && !isNaN(fatorPotencia)) {
             el.textContent = `${tensaoAtendimento} × √3 × ${fatorPotencia}`;
+        }
+    });
+
+    // Representar o denominador do calculo de ip de partida fase GD
+    const ipPartidaDenominadorGDEls = document.querySelectorAll('.ip-partida-denominador-gd');
+    ipPartidaDenominadorGDEls.forEach(el => {
+        if (tensaoAtendimento !== null && !isNaN(tensaoAtendimento) && fatorPotenciaGD !== null && !isNaN(fatorPotenciaGD)) {
+            el.textContent = `${tensaoAtendimento} × √3 × ${fatorPotenciaGD}`;
         }
     });
 
@@ -1095,18 +1534,41 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    // Preencher campo ip-partida-resultado-GD considerando IpdeconsumoGD
+    const ipDeConsumoGD = localStorage.getItem('IpfaseGD');
+    const ipPartidaResultadoGDEls = document.querySelectorAll('.ip-partida-resultado-gd');
+    ipPartidaResultadoGDEls.forEach(el => {
+        if (ipDeConsumoGD !== null && !isNaN(ipDeConsumoGD)) {
+            el.textContent = parseFloat(ipDeConsumoGD).toFixed(2) + ' A';
+        }
+    });
+
     // Preencher campo ip-partida-resultado-TC considerando IpdeconsumoTC
     const ipDeConsumoTC = demandadecontrato * ((parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
-
-    // console.log('fatorPotencia:', fatorPotencia); // Debug: verificar valor de fatorPotencia
-    // console.log('tensaoAtendimento:', tensaoAtendimento); // Debug: verificar valor de tensaoAtendimento
-    // console.log('percentualIP:', percentualIP); // Debug: verificar valor de percentualIP
-    // console.log('demandadecontrato:', demandadecontrato); // Debug: verificar valor de demandadecontrato
-    // console.log('ipDeConsumoTC:', ipDeConsumoTC); // Debug: verificar valor de ipDeConsumoTC
     const ipPartidaResultadoTCEls = document.querySelectorAll('.ip-partida-resultado-TC');
     ipPartidaResultadoTCEls.forEach(el => {
         if (ipDeConsumoTC !== null && !isNaN(ipDeConsumoTC)) {
             el.textContent = parseFloat(ipDeConsumoTC).toFixed(2) + ' A';
+        }
+    });
+
+    // Preencher campo ip-partida-resultado-TC-GD considerando IpdeconsumoTC
+    const ipDeConsumoTCGD = potenciaGDSelecionada * ((parseFloat(percentualIPGD) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotenciaGD);
+    const ipPartidaResultadoTCGDEls = document.querySelectorAll('.ip-partida-resultado-TC-GD');
+    ipPartidaResultadoTCGDEls.forEach(el => {
+        if (ipDeConsumoTCGD !== null && !isNaN(ipDeConsumoTCGD)) {
+            el.textContent = parseFloat(ipDeConsumoTCGD).toFixed(2) + ' A';
+        }
+    });
+
+
+    //calculo e preenchimento da corrente correspondente a 10% do TC de proteção
+    const TCdeprotecaoSelecionada = localStorage.getItem('TCdeprotecaoSelecionada');
+    const corrente10PercentTC = (parseFloat(TCdeprotecaoSelecionada)) * 0.1; // Corrente correspondente a 10% do TC de proteção
+    const corrente10PercentTCEls = document.querySelectorAll('.corrente-10-percent-tc');
+    corrente10PercentTCEls.forEach(el => {
+        if (TCdeprotecaoSelecionada !== null && !isNaN(TCdeprotecaoSelecionada)) {
+            el.textContent = corrente10PercentTC.toFixed(2) + ' A';
         }
     });
 
@@ -1130,6 +1592,7 @@ function carregarVariaveisEstudo() {
 
 
     // Preencher campos de TP primária e secundária
+    const tpProtecaoRelacao = localStorage.getItem('TPdeprotecaoSelecionada');
     const tpPrimariaFF = localStorage.getItem('tensaoprimariaFF');
     const tpPrimariaFN = localStorage.getItem('tensaoprimariaFN');
     const tpSecundariaFF = localStorage.getItem('tensaoSecundariaFFTP');
@@ -1138,6 +1601,12 @@ function carregarVariaveisEstudo() {
     const tpFechamento = localStorage.getItem('ligacaodabobinaSelecionada');
 
     // Preencher campos de TP primária e secundária usando classes
+    document.querySelectorAll('.relacao-tp-gd').forEach(el => {
+        if (tpProtecaoRelacao !== null) el.textContent = tpProtecaoRelacao + ' :1';
+    });
+
+
+
     document.querySelectorAll('.tp-fechamento').forEach(el => {
         if (tpFechamento !== null) el.textContent = tpFechamento;
     });
@@ -1157,7 +1626,7 @@ function carregarVariaveisEstudo() {
         if (rtpLabel !== null) el.textContent = rtpLabel + ' :1';
     });
 
-
+    // Importar ipPUSelecionada do localStorage e preencher em corrente-ip-pu
     const ipPUSelecionada = localStorage.getItem('ipPUSelecionada');
     const correnteIpPuEls = document.querySelectorAll('.corrente-ip-pu');
     correnteIpPuEls.forEach(el => {
@@ -1166,6 +1635,18 @@ function carregarVariaveisEstudo() {
         }
     });
 
+
+    // Importar IpPUSelecionadaGD do localStorage e preencher em corrente-ip-pu-gd
+    const ipPUSelecionadaGD = localStorage.getItem('ipPUSelecionadaGD');
+    const correnteIpPuGDEls = document.querySelectorAll('.corrente-ip-pu-gd');
+    correnteIpPuGDEls.forEach(el => {
+        if (ipPUSelecionadaGD !== null && !isNaN(ipPUSelecionadaGD)) {
+            el.textContent = parseFloat(ipPUSelecionadaGD).toFixed(2) + ' P.U';
+        }
+    });
+
+
+    // Importar curva de fase selecionada do localStorage e preencher em curva-fase
     const curvaFaseSelecionada = localStorage.getItem('curvafaseSelecionada');
     const curvaFaseEls = document.querySelectorAll('.curva-fase');
     curvaFaseEls.forEach(el => {
@@ -1173,7 +1654,42 @@ function carregarVariaveisEstudo() {
             el.textContent = curvaFaseSelecionada;
         }
     });
+
+    // Importar curva de fase GD selecionada do localstorage e preencher em curva-fase-gd
+    const curvaFaseSelecionadaGD = localStorage.getItem('curvafaseSelecionadaGD');
+    const curvaFaseElsGD = document.querySelectorAll('.curva-fase-gd');
+    curvaFaseElsGD.forEach(el => {
+        if (curvaFaseSelecionadaGD !== null) {
+            el.textContent = curvaFaseSelecionadaGD;
+        }
+    });
+
+
     // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
+
+
+    //----------------------INICIO PRENCHIMENTO FUNÇÃO 67 CONSUMO FASE--------------------------------
+
+    // Importar AMT padrão fase e neutro GD do localStorage
+
+    //importa AMT padrão fase GD do localStorage , e preenche angulo-amt-fase-gd com o resultado se nao tiver vazio
+    const AMTpadraofasehtmlGD = localStorage.getItem('AMTpadraofasehtmlGD');
+    const anguloAmtFaseGDEls = document.querySelectorAll('.angulo-amt-fase-gd');
+    anguloAmtFaseGDEls.forEach(el => {
+        if (AMTpadraofasehtmlGD !== null) {
+            el.textContent = AMTpadraofasehtmlGD;
+        }
+    });
+
+
+    //importa AMT padrão neutro GD do localstorage , e preenche angulo-amt-neutro com o resultado se não tiver vazio
+    const AMTpadraoneutrohtmlGD = localStorage.getItem('AMTpadraoneutrohtmlGD');
+    const anguloAmtNeutroGDEls = document.querySelectorAll('.angulo-amt-neutro-gd');
+    anguloAmtNeutroGDEls.forEach(el => {
+        if (AMTpadraoneutrohtmlGD !== null) {
+            el.textContent = AMTpadraoneutrohtmlGD;
+        }
+    });
 
 
 
@@ -1220,141 +1736,145 @@ function carregarVariaveisEstudo() {
     //Preencher formulas do dial 
     atualizarFormulasCalculoDial();
 
-// Função centralizada para atualizar todas as fórmulas do cálculo do dial
-function atualizarFormulasCalculoDial(tentativa = 0) {
-    // Verificar se MathJax está disponível antes de prosseguir
-    if (typeof MathJax === 'undefined' || !MathJax.typesetPromise) {
-        if (tentativa < 40) {
-            setTimeout(() => atualizarFormulasCalculoDial(tentativa + 1), 300);
+    // Função centralizada para atualizar todas as fórmulas do cálculo do dial
+    function atualizarFormulasCalculoDial(tentativa = 0) {
+        // Verificar se MathJax está disponível antes de prosseguir
+        if (typeof MathJax === 'undefined' || !MathJax.typesetPromise) {
+            if (tentativa < 40) {
+                setTimeout(() => atualizarFormulasCalculoDial(tentativa + 1), 300);
+            }
+            return;
         }
-        return;
-    }
 
-    // Obter valores do localStorage
-    const { imagAplicada: imagTotal } = obterImagConformeStatusMagnetizacaoReal();
-    const correnteNominalFase = localStorage.getItem('Inominalfase');
-    const tempomagFase = 0.100;
-    
-    const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
-    const betaFase = dadosCurva.beta || 'β';
-    const alfaFase = dadosCurva.alfa || 'α';
-    const kFase = dadosCurva.k || 'k';
+        // Obter valores do localStorage
+        const { imagAplicada: imagTotal } = obterImagConformeStatusMagnetizacaoReal();
+        const correnteNominalFase = localStorage.getItem('Inominalfase');
+        const tempomagFase = 0.100;
 
-    const parsedIn = parseFloat(correnteNominalFase);
+        const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+        const betaFase = dadosCurva.beta || 'β';
+        const alfaFase = dadosCurva.alfa || 'α';
+        const kFase = dadosCurva.k || 'k';
 
-    // Preencher fórmula para .formula1
-    const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'imag'}}{${'In'}} \\right)^{\\alpha}- ${'k'}}{\\beta}  \\right) \\times ${'t'}`;
-    const formulaEl1 = document.querySelector(".formula1");
-    if (formulaEl1) {
-        formulaEl1.innerHTML = `\\(${latex1}\\)`;
-    }
+        const parsedIn = parseFloat(correnteNominalFase);
 
-    // Preencher fórmula para .formula2
-    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${parseFloat(correnteNominalFase).toFixed(2)}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    const formulaEl2 = document.querySelector(".formula2");
-    if (formulaEl2) {
-        formulaEl2.innerHTML = `\\(${latex2}\\)`;
-    }
+        // Preencher fórmula para .formula1
+        const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'imag'}}{${'In'}} \\right)^{\\alpha}- ${'k'}}{\\beta}  \\right) \\times ${'t'}`;
+        const formulaEl1 = document.querySelector(".formula1");
+        if (formulaEl1) {
+            formulaEl1.innerHTML = `\\(${latex1}\\)`;
+        }
 
-    // Preencher fórmula para .formula3 (mesma lógica que formula2)
-    // calcular resultado da fração imagTotal / correnteNominalFase e usar esse valor direto na fórmula
-    let fracValue = null;
-    if (!isNaN(imagTotal) && !isNaN(parsedIn) && parsedIn !== 0) {
-        fracValue = imagTotal / parsedIn;
-    }
+        // Preencher fórmula para .formula2
+        const latex2 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${parseFloat(correnteNominalFase).toFixed(2)}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        const formulaEl2 = document.querySelector(".formula2");
+        if (formulaEl2) {
+            formulaEl2.innerHTML = `\\(${latex2}\\)`;
+        }
 
-    let latex3;
-    if (fracValue !== null) {
-        // utiliza o valor numérico da fração diretamente
-        latex3 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    } else {
-        // fallback para exibir a fração caso não seja possível calcular (p.ex. valores ausentes)
-        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
-        latex3 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    }
-    const formulaEl3 = document.querySelector(".formula3");
-    if (formulaEl3) {
-        formulaEl3.innerHTML = `\\(${latex3}\\)`;
-    }
+        // Preencher fórmula para .formula3 (mesma lógica que formula2)
+        // calcular resultado da fração imagTotal / correnteNominalFase e usar esse valor direto na fórmula
+        let fracValue = null;
+        if (!isNaN(imagTotal) && !isNaN(parsedIn) && parsedIn !== 0) {
+            fracValue = imagTotal / parsedIn;
+        }
 
-    // Preencher fórmula4 usando o resultado da exponenciação do fracValue (se disponível)
-    let expValue = null;
-    if (fracValue !== null && !isNaN(fracValue) && !isNaN(alfaFase)) {
-        expValue = Math.pow(fracValue, alfaFase);
-    }
-
-    let latex4;
-    if (expValue !== null && !isNaN(expValue)) {
-        latex4 = `DT = \\left( \\frac{${expValue.toFixed(2)}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    } else if (fracValue !== null && !isNaN(fracValue)) {
-        latex4 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    } else {
-        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
-        latex4 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}}{${betaFase}} - ${kFase} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    }
-
-    const formulaEl4 = document.querySelector(".formula4");
-    if (formulaEl4) {
-        formulaEl4.innerHTML = `\\(${latex4}\\)`;
-    }
-
-    // Formula 5
-    const formulaEl5 = document.querySelector('.formula5');
-    let expValueLocal = null;
-    if (fracValue !== null && !isNaN(fracValue) && !isNaN(Number(alfaFase))) {
-        expValueLocal = Math.pow(fracValue, Number(alfaFase));
-    }
-
-    const kNum = Number(kFase);
-    let resultadoExpMenosK = null;
-    if (expValueLocal !== null && !isNaN(expValueLocal) && !isNaN(kNum)) {
-        resultadoExpMenosK = expValueLocal - kNum;
-    }
-
-    const betaNum = Number(betaFase);
-    const tNum = Number(tempomagFase);
-
-    let latex5;
-    if (resultadoExpMenosK !== null && !isNaN(resultadoExpMenosK)) {
-        latex5 = `DT = \\left( \\frac{${resultadoExpMenosK.toFixed(2)}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
-    } else if (expValueLocal !== null && !isNaN(expValueLocal)) {
-        latex5 = `DT = \\left( \\frac{${expValueLocal.toFixed(2)} - ${kNum}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
-    } else {
-        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
-        latex5 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}} - ${kNum}}{${betaFase}} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    }
-
-    if (formulaEl5) {
-        formulaEl5.innerHTML = `\\(${latex5}\\)`;
-    }
-
-    // Formula 6
-    const el6 = document.querySelector('.formula6');
-    if (el6) {
-        if (resultadoExpMenosK !== null && isFinite(resultadoExpMenosK) && isFinite(betaNum) && betaNum !== 0) {
-            const divisao = resultadoExpMenosK / betaNum;
-            const latex6 = `DT = \\left( ${divisao.toFixed(2)} \\right) \\times ${tempomagFase.toFixed(3)}`;
-            el6.style.display = '';
-            el6.innerHTML = `\\(${latex6}\\)`;
+        let latex3;
+        if (fracValue !== null) {
+            // utiliza o valor numérico da fração diretamente
+            latex3 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
         } else {
-            el6.innerHTML = '';
-            el6.style.display = 'none';
+            // fallback para exibir a fração caso não seja possível calcular (p.ex. valores ausentes)
+            const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
+            latex3 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
         }
-    }
+        const formulaEl3 = document.querySelector(".formula3");
+        if (formulaEl3) {
+            formulaEl3.innerHTML = `\\(${latex3}\\)`;
+        }
 
-    // Formula 7
-    const el7 = document.querySelector('.formula7');
-    if (el7) {
-        if (fracValue !== null && isFinite(fracValue) && isFinite(Number(alfaFase)) && isFinite(betaNum) && betaNum !== 0 && isFinite(kNum)) {
-            const expValueF7 = Math.pow(fracValue, Number(alfaFase));
-            if (isFinite(expValueF7)) {
-                const numerador = expValueF7 - kNum;
-                if (isFinite(numerador)) {
-                    const divisao = numerador / betaNum;
-                    if (isFinite(divisao)) {
-                        const resultadoFinal = divisao * tempomagFase;
-                        el7.style.display = '';
-                        el7.innerHTML = `DT = ${resultadoFinal.toFixed(2)}`;
+        // Preencher fórmula4 usando o resultado da exponenciação do fracValue (se disponível)
+        let expValue = null;
+        if (fracValue !== null && !isNaN(fracValue) && !isNaN(alfaFase)) {
+            expValue = Math.pow(fracValue, alfaFase);
+        }
+
+        let latex4;
+        if (expValue !== null && !isNaN(expValue)) {
+            latex4 = `DT = \\left( \\frac{${expValue.toFixed(2)}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        } else if (fracValue !== null && !isNaN(fracValue)) {
+            latex4 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        } else {
+            const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
+            latex4 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}}{${betaFase}} - ${kFase} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        }
+
+        const formulaEl4 = document.querySelector(".formula4");
+        if (formulaEl4) {
+            formulaEl4.innerHTML = `\\(${latex4}\\)`;
+        }
+
+        // Formula 5
+        const formulaEl5 = document.querySelector('.formula5');
+        let expValueLocal = null;
+        if (fracValue !== null && !isNaN(fracValue) && !isNaN(Number(alfaFase))) {
+            expValueLocal = Math.pow(fracValue, Number(alfaFase));
+        }
+
+        const kNum = Number(kFase);
+        let resultadoExpMenosK = null;
+        if (expValueLocal !== null && !isNaN(expValueLocal) && !isNaN(kNum)) {
+            resultadoExpMenosK = expValueLocal - kNum;
+        }
+
+        const betaNum = Number(betaFase);
+        const tNum = Number(tempomagFase);
+
+        let latex5;
+        if (resultadoExpMenosK !== null && !isNaN(resultadoExpMenosK)) {
+            latex5 = `DT = \\left( \\frac{${resultadoExpMenosK.toFixed(2)}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
+        } else if (expValueLocal !== null && !isNaN(expValueLocal)) {
+            latex5 = `DT = \\left( \\frac{${expValueLocal.toFixed(2)} - ${kNum}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
+        } else {
+            const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
+            latex5 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}} - ${kNum}}{${betaFase}} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        }
+
+        if (formulaEl5) {
+            formulaEl5.innerHTML = `\\(${latex5}\\)`;
+        }
+
+        // Formula 6
+        const el6 = document.querySelector('.formula6');
+        if (el6) {
+            if (resultadoExpMenosK !== null && isFinite(resultadoExpMenosK) && isFinite(betaNum) && betaNum !== 0) {
+                const divisao = resultadoExpMenosK / betaNum;
+                const latex6 = `DT = \\left( ${divisao.toFixed(2)} \\right) \\times ${tempomagFase.toFixed(3)}`;
+                el6.style.display = '';
+                el6.innerHTML = `\\(${latex6}\\)`;
+            } else {
+                el6.innerHTML = '';
+                el6.style.display = 'none';
+            }
+        }
+
+        // Formula 7
+        const el7 = document.querySelector('.formula7');
+        if (el7) {
+            if (fracValue !== null && isFinite(fracValue) && isFinite(Number(alfaFase)) && isFinite(betaNum) && betaNum !== 0 && isFinite(kNum)) {
+                const expValueF7 = Math.pow(fracValue, Number(alfaFase));
+                if (isFinite(expValueF7)) {
+                    const numerador = expValueF7 - kNum;
+                    if (isFinite(numerador)) {
+                        const divisao = numerador / betaNum;
+                        if (isFinite(divisao)) {
+                            const resultadoFinal = divisao * tempomagFase;
+                            el7.style.display = '';
+                            el7.innerHTML = `DT = ${resultadoFinal.toFixed(2)}`;
+                        } else {
+                            el7.innerHTML = '';
+                            el7.style.display = 'none';
+                        }
                     } else {
                         el7.innerHTML = '';
                         el7.style.display = 'none';
@@ -1367,17 +1887,13 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
                 el7.innerHTML = '';
                 el7.style.display = 'none';
             }
-        } else {
-            el7.innerHTML = '';
-            el7.style.display = 'none';
+        }
+
+        const formulasDial = Array.from(document.querySelectorAll('.formula1, .formula2, .formula3, .formula4, .formula5, .formula6, .formula7'));
+        if (formulasDial.length > 0) {
+            MathJax.typesetPromise(formulasDial).catch(err => console.error('Erro ao renderizar fórmulas do dial:', err));
         }
     }
-
-    const formulasDial = Array.from(document.querySelectorAll('.formula1, .formula2, .formula3, .formula4, .formula5, .formula6, .formula7'));
-    if (formulasDial.length > 0) {
-        MathJax.typesetPromise(formulasDial).catch(err => console.error('Erro ao renderizar fórmulas do dial:', err));
-    }
-}
     // Preencher campo dial-fase com dialCalculadoPlantaSemMotores
     const dialCalculadoPlantaSemMotores = localStorage.getItem('dialCalculadoPlantaSemMotores');
     const dialFaseEls = document.querySelectorAll('.dial-fase-calculado');
@@ -1396,7 +1912,14 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
         }
     });
 
-
+    // Preencher o campo dial-fase-ajustado-gd com dialFaseAjustadoGD
+    const dialFaseAjustadoGD = localStorage.getItem('dialfaseSelecionadaGD');
+    const dialFaseAjustadoGDEls = document.querySelectorAll('.dial-fase-ajustado-gd');
+    dialFaseAjustadoGDEls.forEach(el => {
+        if (dialFaseAjustadoGD !== null && !isNaN(dialFaseAjustadoGD)) {
+            el.textContent = parseFloat(dialFaseAjustadoGD).toFixed(2);
+        }
+    });
 
     // Preencher campo tolerancia-imag com imagpercentualSelecionada
     const imagPercentualSelecionada = localStorage.getItem('imagpercentualSelecionada');
@@ -1462,6 +1985,15 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
         }
     });
 
+    // Preencher campo ip-neutro-gd com IpdeneutroSelecionadaGD
+    const ipNeutroSelecionadaGD = localStorage.getItem('IpdeneutroSelecionadaGD');
+    const ipNeutroGDEls = document.querySelectorAll('.ip-neutro-gd');
+    ipNeutroGDEls.forEach(el => {
+        if (ipNeutroSelecionadaGD !== null && !isNaN(ipNeutroSelecionadaGD)) {
+            el.textContent = parseFloat(ipNeutroSelecionadaGD).toFixed(2) + ' A';
+        }
+    });
+
     // Preencher campo in-neutro-PU com ipneutroPUSelecionada
     const ipneutroPUSelecionada = localStorage.getItem('ipneutroPUSelecionada');
     const inNeutroPuEls = document.querySelectorAll('.ip-neutro-PU');
@@ -1471,7 +2003,16 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
         }
     });
 
+    //Preencher campo ip-neutro-PU-gd com ipneutroPUSelecionadaGD
+    const ipneutroPUSelecionadaGD = localStorage.getItem('ipneutroPUSelecionadaGD');
+    const ipNeutroPuGDEls = document.querySelectorAll('.ip-neutro-PU-gd');
+    ipNeutroPuGDEls.forEach(el => {
+        if (ipneutroPUSelecionadaGD !== null && !isNaN(ipneutroPUSelecionadaGD)) {
+            el.textContent = parseFloat(ipneutroPUSelecionadaGD).toFixed(2) + ' P.U';
+        }
+    });
 
+    // Preencher tempo-neutro-ip com dialNeutroSelecionada
     const dialNeutroSelecionada = localStorage.getItem('dialneutroSelecionada');
     const tempoNeutroIpEls = document.querySelectorAll('.tempo-neutro-ip');
     tempoNeutroIpEls.forEach(el => {
@@ -1480,6 +2021,14 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
         }
     });
 
+    //Preencher tempo-neutro-ip-gd com dialNeutroSelecionadaGD
+    const dialNeutroSelecionadaGD = localStorage.getItem('dialneutroSelecionadaGD');
+    const tempoNeutroIpGDEls = document.querySelectorAll('.tempo-neutro-ip-gd');
+    tempoNeutroIpGDEls.forEach(el => {
+        if (dialNeutroSelecionadaGD !== null && !isNaN(dialNeutroSelecionadaGD)) {
+            el.textContent = parseFloat(dialNeutroSelecionadaGD).toFixed(2) + " s";
+        }
+    });
 
     // Preencher campo inst-neutro-resultado com InstneutroSelecionada
     const instNeutroSelecionada = localStorage.getItem('IinstneutroSelecionada');
@@ -1624,7 +2173,7 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
 
 
 
- // Recarregar a página após salvar as opções
+    // Recarregar a página após salvar as opções
     //  location.reload();
 
 }
@@ -1670,6 +2219,16 @@ function carregarScript(src, callback) {
     script.onerror = () => console.error('Erro ao carregar script:', src);
     document.head.appendChild(script);
 }
+
+function carregarScript2(src, callback) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = callback;
+    script.onerror = () => console.error('Erro ao carregar script:', src);
+    document.head.appendChild(script);
+}
+
+
 
 function verificarMathJax() {
     if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
@@ -1726,7 +2285,7 @@ function aplicarVisibilidadeMagnetizacaoReal() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     aplicarVisibilidadeMagnetizacaoReal();
 
     const gallery = document.getElementById("gallery");
@@ -1761,11 +2320,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-    // Limpa a imagemSelecionada e a galeria
-    // clearButton.addEventListener("click", () => {
-    //     localStorage.removeItem("imagemSelecionada");
-    //     gallery.innerHTML = "";
-    // });
+// Limpa a imagemSelecionada e a galeria
+// clearButton.addEventListener("click", () => {
+//     localStorage.removeItem("imagemSelecionada");
+//     gallery.innerHTML = "";
+// });
 
 
 

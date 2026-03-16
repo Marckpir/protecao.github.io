@@ -16,7 +16,7 @@
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
+
         /* Força exibição dos botões permitidos - com especificidade máxima */
         #botaoconfightml.btn-permitido,
         #botaodiagramahtml.btn-permitido,
@@ -36,16 +36,22 @@
             visibility: visible !important;
             pointer-events: auto !important;
         }
-        
+
         /* Força ocultação dos botões bloqueados */
         h1 button.btn-bloqueado {
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
+
+        h1 {
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+
+        h1.loaded {
+            opacity: 1;
+        }
     </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
@@ -108,7 +114,7 @@
     <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
         PROTEÇÃO GD</div>
     <br>
-<div>
+    <div>
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
@@ -161,13 +167,14 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Ligação Secundária do TP de Proteção:</td>
-                        <td>
+                    <tr colspan="3" style="background-color: #e0e0e0; font-weight: bold;">
+                        <td colspan="1">LIGAÇÃO DO TP DE PROTEÇÃO:</td>
+                        <td colspan="2">
                             <div class="input-container">
                                 <label id="ligacao-secundaria-tp-html"></label>
                             </div>
                         </td>
+
                     </tr>
 
                     <!-- <tr>
@@ -215,8 +222,9 @@
 
 
 
-                    <tr>
+                    <tr colspan=3>
                         <td>Curva :</td>
+                        <td></td>
                         <td>
                             <div class="input-container">
                                 <label id="curva-html"></label>
@@ -226,6 +234,7 @@
 
                     <tr>
                         <td>Dial :</td>
+                        <td></td>
                         <td>
                             <div class="input-container">
                                 <label id="dial-html"></label>

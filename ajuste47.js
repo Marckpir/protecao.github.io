@@ -23,6 +23,14 @@ window.onload = function () {
 
     // Controle de acesso movido para controle-acesso.js
 
+    const ligacaoSecundariaTP = localStorage.getItem("ligacaodabobinaSelecionada");
+    if (ligacaoSecundariaTP !== null) {
+        const ligacaoSecundariaTPHtml = document.getElementById("ligacao-secundaria-tp-html");
+        if (ligacaoSecundariaTPHtml) {
+            ligacaoSecundariaTPHtml.textContent = ligacaoSecundariaTP;
+        }
+    }
+
     const tensaoPrimariaFF = localStorage.getItem("tensaoprimariaFF");
     const tensaoPrimariaFN = localStorage.getItem("tensaoprimariaFN");
     const tensaoSecundariaFFTP = localStorage.getItem("tensaoSecundariaFFTP");
@@ -95,10 +103,12 @@ window.onload = function () {
 
 
     // Preencher o campo de tensão calculando valor base pela porcentagem definida
-    const tensaoPrimariaFasecalculada = document.getElementById("tensao-ajustada-primaria-linha-html");
-    const tensaoPrimariaFase = tensaoPrimariaLinhaHtml ? parseFloat(tensaoPrimariaLinhaHtml.textContent) : 0;
-    const tensaoPrimariaFaseCalculada = (tensaoPrimariaFase * valorDesequilibrioDimensionado / 100).toFixed(2);
-    tensaoPrimariaFasecalculada.textContent = tensaoPrimariaFaseCalculada + " V";
+    const tensaoPrimariaLinhaCalculada = document.getElementById("tensao-ajustada-primaria-linha-html");
+    const tensaoPrimariaLinha = tensaoPrimariaLinhaHtml ? parseFloat(tensaoPrimariaLinhaHtml.textContent) : 0;
+    const tensaoPrimariaLinhaCalculadaValor = (tensaoPrimariaLinha * valorDesequilibrioDimensionado / 100).toFixed(2);
+    tensaoPrimariaLinhaCalculada.textContent = tensaoPrimariaLinhaCalculadaValor + " V";
+
+    localStorage.setItem("tensaoPrimariaLinhaAjustada47", tensaoPrimariaLinhaCalculadaValor);
 
     // Calcular e preencher para tensao-ajustada-primaria-fase-html
     const tensaoPrimariaFaseAjustada = document.getElementById("tensao-ajustada-primaria-fase-html");
@@ -106,13 +116,15 @@ window.onload = function () {
     const tensaoPrimariaFaseAjustadaValor = (tensaoPrimariaFaseValor * valorDesequilibrioDimensionado / 100).toFixed(2);
     tensaoPrimariaFaseAjustada.textContent = tensaoPrimariaFaseAjustadaValor + " V";
 
+    localStorage.setItem("tensaoPrimariaFaseAjustada47", tensaoPrimariaFaseAjustadaValor);
 
-
-
+    // Calcular e preencher para tensao-ajustada-secundaria-linha-html
     const tensaoSecundariaFasecalculada = document.getElementById("tensao-ajustada-secundaria-linha-html");
-    const tensaoSecundariaFase = tensaoSecundariaLinhaHtml ? parseFloat(tensaoSecundariaLinhaHtml.textContent) : 0;
-    const tensaoSecundariaFaseCalculada = (tensaoSecundariaFase * valorDesequilibrioDimensionado / 100).toFixed(2);
-    tensaoSecundariaFasecalculada.textContent = tensaoSecundariaFaseCalculada + " V";
+    const tensaoSecundariaLinha = tensaoSecundariaLinhaHtml ? parseFloat(tensaoSecundariaLinhaHtml.textContent) : 0;
+    const tensaoSecundariaLinhaCalculada = (tensaoSecundariaLinha * valorDesequilibrioDimensionado / 100).toFixed(2);
+    tensaoSecundariaFasecalculada.textContent = tensaoSecundariaLinhaCalculada + " V";
+
+    localStorage.setItem("tensaoSecundariaLinhaAjustada47", tensaoSecundariaLinhaCalculada);
 
     // Calcular e preencher para tensao-ajustada-secundaria-fase-html
     const tensaoSecundariaFaseAjustada = document.getElementById("tensao-ajustada-secundaria-fase-html");
@@ -120,6 +132,7 @@ window.onload = function () {
     const tensaoSecundariaFaseAjustadaValor = (tensaoSecundariaFaseValor * valorDesequilibrioDimensionado / 100).toFixed(2);
     tensaoSecundariaFaseAjustada.textContent = tensaoSecundariaFaseAjustadaValor + " V";
 
+    localStorage.setItem("tensaoSecundariaFaseAjustada47", tensaoSecundariaFaseAjustadaValor);
 
 
 

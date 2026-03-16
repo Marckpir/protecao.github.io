@@ -313,7 +313,7 @@
             <div class="section-title"></div>
             <div class="item-row">
                 <div class="item-number">1)</div>
-                <textarea>Exemplo de texto: Foi verificado no projeto elétrico aprovado que o transformador de corrente informado é de 150:5A, contudo, no estudo de proteção foi informado um TC de 200:5A;</textarea>
+                <textarea></textarea>
             </div>
         </div>
 
@@ -356,7 +356,7 @@
             à nota de serviço em questão.
         </p>
         <p>
-            Pedimos que se possível, informar telefone e e-mail de contato atualizado do responsável técnico.
+            Pedimos que se possível, informar telefone e E-mail de contato atualizado do responsável técnico.
         </p>
         <p>
             Informamos que o prazo limite para as alterações solicitadas é de 24 horas. Para que haja liberação do
@@ -486,17 +486,11 @@
         }
 
         function updateDataTermino(value) {
-            // Tenta converter para Date
-            const [dia, mes, ano] = value.split('.');
-            if (dia && mes && ano) {
-                const data = new Date(`${ano}-${mes}-${dia}`);
-                if (!isNaN(data)) {
-                    data.setDate(data.getDate() + 30);
-                    const dataTermino = formatDateBR(data);
-                    document.getElementById('datatermino').textContent = dataTermino;
-                    localStorage.setItem('datatermino', dataTermino);
-                }
-            }
+            // Sempre define datatermino como a data atual
+            const hoje = new Date();
+            const dataTermino = formatDateBR(hoje);
+            document.getElementById('datatermino').textContent = dataTermino;
+            localStorage.setItem('datatermino', dataTermino);
         }
 
         document.addEventListener('DOMContentLoaded', function () {

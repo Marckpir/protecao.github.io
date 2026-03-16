@@ -573,13 +573,28 @@ function dimensionarTCconformenorma() {
     const TCdeprotecaoSelecionada = parseFloat(localStorage.getItem("TCdeprotecaoEscolhido")) || 0; // Valor padrão de TC de proteção
     const tensaoSelecionada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
     const demandaSelecionada = parseFloat(localStorage.getItem("demandadecontrato")) || 0;
-    const potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDcontratada")) || 0;
-    //localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
+    let potenciaGDSelecionada = parseFloat(localStorage.getItem("potenciaGDcontratada")) || 0;
+
     const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0.92;
     const fatorPotenciaGDSelecionada = parseFloat(localStorage.getItem("fatorPotenciaGDSelecionada")) || 0.92;
+    const tipoParalelismoSelecionado = localStorage.getItem("tipoParalelismoSelecionado") || "Com Injeção";
+
+    
     const desequilibrioSelecionada = (parseFloat(localStorage.getItem("desequilibrioSelecionada")) || 33) / 100;
     const curtoSelecionada = localStorage.getItem("curtoSelecionada") || 0;
     const instmagconsumo1 = localStorage.getItem("imagtotalSelecionada") || 0;
+
+    // Verifica se a GD sera com injeção ou sem injeção , para considerar a demanda minima
+    // nos demais calculos.
+    // Ajusta potenciaGDSelecionada conforme tipoParalelismoSelecionado
+    if (
+        tipoParalelismoSelecionado &&
+        tipoParalelismoSelecionado !== "" &&
+        tipoParalelismoSelecionado === "Sem Injeção"
+    ) {
+        potenciaGDSelecionada = 0;
+    }
+    
 
 
     //---------------------------Codigo para definir o TC Ideal---------------------------------------------------------------
@@ -591,15 +606,19 @@ function dimensionarTCconformenorma() {
         150, 200, 250, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000
     ];
 
+    //---------------------inicio calculo das correntes nominais reais 
     // calcula o valor de corrente nominal de consumo
     let inominalDemanda = 0;
     inominalDemanda = (demandaSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaSelecionada));
 
-
-
-    // calcula o valor de corrente nominal de consumo para GD
+    // calcula o valor de corrente nominal de potencia para GD
     let inominalDemandaGD = 0;
     inominalDemandaGD = (potenciaGDSelecionada / (tensaoSelecionada * Math.sqrt(3) * fatorPotenciaGDSelecionada));
+
+    //---------------------fim calculo das correntes nominais reais 
+
+
+    //-----------------inicio de de determinações dos valores referente aos criterios para definir o TC
 
     // faz a divisão do valor da corrente de curto por 50 para comparar com os valores do array
     let iprimTccurto = curtoSelecionada / 50;
@@ -608,26 +627,50 @@ function dimensionarTCconformenorma() {
     let instMagconsumo = instmagconsumo1 / 20;
 
     // Converte os valores para números calculados nesse escopo no formato de numeros flutuantes
+
+    // Converter corrente de curto
     let iprimTccurtoNum = parseFloat(iprimTccurto);
+
+    //Converter corrente instantanea de fase 
     let instMagconsumoNum = parseFloat(instMagconsumo) * 1.05;
+
+    //converter valor das corrente nominais de consumo e de injeção, escolhendo qual o maior valor e salvando na variavel
     let inominalDemandaNum = Math.max(parseFloat(inominalDemanda), parseFloat(inominalDemandaGD));
+
+    //converter valor do RTC de proteção Selecionada pelo usuario
     let RTCselecionado = parseFloat(TCdeprotecaoSelecionada) / 5;
 
+    //-----------------fim de de determinações dos valores referente aos criterios para definir o TC
+
+    //-----------------inicio de varredura na lista de valores de TC para encontrar o valor ideal conforme os critérios estabelecidos
     // Busca o maior valor em valoresTC que atenda todos os critérios
     let valorTCdimensionado = null;
     for (let i = 0; i < valoresTC.length; i++) {
         const valor = valoresTC[i];
+
         if (
+            //o valor do tc que esta na posicao i , é maior ou igual a 105% do valor da corrente nominal de demanda ou injeção, escolhendo o maior valor entre os dois
             valor >= inominalDemandaNum * 1.05 &&
+            //o valor do tc que esta na posicao i , é maior ou igual a corrente de curto dividida por 50
             valor >= iprimTccurtoNum &&
+            //o valor do tc que esta na posicao i , é maior ou igual a corrente instantanea de magnetização
             valor >= instMagconsumoNum
         ) {
             valorTCdimensionado = valor; // pega o menor possível dentro da condição
             break; // para no primeiro (menor) que atende
         }
     }
+    //-----------------fim  de varredura na lista de valores de TC para encontrar o valor ideal conforme os critérios estabelecidos
 
-    //Cacula o RTC ideal 
+        console.log("inominalDemandaNum:", inominalDemandaNum);
+        console.log("iprimTccurtoNum:", iprimTccurtoNum);
+        console.log("instMagconsumoNum:", instMagconsumoNum);
+
+    console.log("valor do tc dimensionado:",valorTCdimensionado);
+
+    //-----------------Inicio da etapa de determinação de quais valores serão armazenados no localstorage-----------------
+    // Etapa para calcular a potencia minima do TC dimensionado, considerando o valor do TC de proteção selecionado caso haja um valor selecionado, caso contrário considerar o TC dimensionado para esse cálculo
+    //Verifica se o valor do TC dimensionado é diferente de nulo para calcular o RTC dimensionado, caso contrário o RTC dimensionado permanece nulo 
     let RTCdimensionado = 0;
     if (valorTCdimensionado !== null) {
         RTCdimensionado = (valorTCdimensionado / 5).toFixed(2);
@@ -635,36 +678,45 @@ function dimensionarTCconformenorma() {
         RTCdimensionado = null;
     }
 
-    //Calcula a potência mínima referente a 10% do TC selecionado
 
-    // Se o valor do TC selecionado for nulo, define a potência mínima como 0
+    //Calcula a potência mínima referente a 10% do TC dimensionado (calculado)
+    let potenciaMinima=0;
+    //se o valor do TC de proteção selecionado for nulo, vazio ou zero, calcular a potência mínima com base no TC dimensionado, caso contrário calcular com base no TC de proteção selecionado
+    if(TCdeprotecaoSelecionada === null || TCdeprotecaoSelecionada === "" || TCdeprotecaoSelecionada === 0){
+         potenciaMinima = valorTCdimensionado * 0.1 * tensaoSelecionada * Math.sqrt(3) * (fatorPotenciaSelecionada);
+    }
+    else {
+        potenciaMinima = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * (fatorPotenciaSelecionada);
+    }
+
+    console.log("potencia minima", potenciaMinima);
+
+    //Calcula a potência mínima referente a 10% do TC selecionado
+    // Se o valor do TC preenchido pelo usuario for nulo, define a potência mínima desse TC como 0
     let potenciaMinima2 = 0;
     if (TCdeprotecaoSelecionada === null) {
         potenciaMinima2 = 0;
     }
-    // Caso contrário, calcula a potência mínima com base no valor do TC Selecionado
+    // Caso contrário, calcula a potência mínima com base no valor do TC preenchido pelo usuário
     else {
         potenciaMinima2 = TCdeprotecaoSelecionada * 0.1 * tensaoSelecionada * Math.sqrt(3) * (fatorPotenciaSelecionada);
     }
 
 
 
-    //Calcula a potência mínima referente a 10% do TC dimensionado
-
-    let potenciaMinima = valorTCdimensionado * 0.1 * tensaoSelecionada * Math.sqrt(3) * (fatorPotenciaSelecionada);
-
-
-
-    // Armazena o valor TC dimensionado no localStorage
+    // Armazena o valor TC dimensionado (calculado) no localStorage
     if (valorTCdimensionado !== null) {
         localStorage.setItem("valorTCideal", valorTCdimensionado);
     } else {
         localStorage.removeItem("valorTCideal");
     }
 
-    // Exibe no console o valor de TCdeprotecaoSelecionada
-    const TCdeprotecaoSelecionadaemka = 0;
-    // Armazenar o RTC Selecionado caso não haja valor no TC selecionado
+    // Armazena o valor do TC de proteção selecionado no localStorage, caso haja um valor selecionado, caso contrário armazena o valor do TC dimensionado
+    //const TCdeprotecaoSelecionadaemka = 0;//não sei para que serve essa variável, mas ela é usada para armazenar o valor do TC de proteção selecionado em kA, caso haja um valor selecionado, caso contrário armazena o valor do TC dimensionado em kA
+    
+    // Armazena no localStorage o valor de RTC dimensionado, do TC dimensionado e do TC em kA, no lugar do TC de proteção selecionado, 
+    // caso o valor do TC de proteção selecionado seja nulo, vazio ou zero, 
+    // caso contrário armazena os valores do TC de proteção selecionado
     if (TCdeprotecaoSelecionada === null || TCdeprotecaoSelecionada === "" || TCdeprotecaoSelecionada === 0) {
         localStorage.setItem("RTCselecionado", RTCdimensionado);
         localStorage.setItem("TCdeprotecaoSelecionada", valorTCdimensionado);
@@ -685,10 +737,12 @@ function dimensionarTCconformenorma() {
         localStorage.setItem("potenciaMinimaSelecionada", potenciaMinima2.toFixed(2));
     }
     // ----------------------------------------------------------------------
+    //-----------------Fim da etapa de determinação de quais valores serão armazenados no localstorage-----------------
     // ------------------------fim calculos dos TCs-----------------------------------------------
 
 
-    //-----calcular potencia base para calculos de P.U --------------------
+    //-------------INICIO DOS CALCULOS DE POTENCIA BASE PARA CALCULOS DE P.U --------------------
+    //-----calcular potencia base (denominador) para calculos de P.U --------------------
 
     // Calcula a potência base considerando tc dimensionado caso o TC selecionado seja nulo
     let potenciabase = 0;
@@ -703,7 +757,6 @@ function dimensionarTCconformenorma() {
 
     // Armazena a potencia base no localstorage 
     localStorage.setItem("potenciabase", potenciabase); // Armazena a potência base no localStorage
-
 
     //-------------FIM DOS CALCULOS DE POTENCIA BASE PARA CALCULOS DE P.U --------------------
 
@@ -763,8 +816,10 @@ function dimensionarTCconformenorma() {
     // Armazena a tensão secundária do TP de neutro no localStorage
     localStorage.setItem("tensaoSecundariaFNTP", tensaoSecundariaFNTP.toFixed(2));
 
-    //compara potencia minima com a demanda selecionada, se a demanda selecionada for menor que a potencia minima 
-    //então uma variavel armazena a potencia selecionada que sera demanda de contrato e a potencia minima é salva no localStorage
+    //compara potencia minima com a demanda selecionada (preenchida pelo usuario) com a pontecia minima referente a precisao 
+    // dos 10% do TC Selecionado caso tenha sido preenchida, ou do TC calculado, 
+    // caso não tenha sido preenchido pelo usuario, se a demanda preenchida for menor que a potencia minima 
+    //então uma variavel armazena a potencia preenchida(selecionada) que sera demanda de contrato e a potencia minima é salva no localStorage
 
     if (demandaSelecionada < potenciaMinima) {
         localStorage.setItem("demandaSelecionada", potenciaMinima.toFixed(2));
@@ -780,11 +835,11 @@ function dimensionarTCconformenorma() {
 
     if (potenciaGDSelecionada < potenciaMinima) {
         localStorage.setItem("potenciaGDSelecionada", potenciaMinima.toFixed(2));
-        localStorage.setItem("potenciaGDcontratada", potenciaGDSelecionada);
+        //localStorage.setItem("potenciaGDcontratada", potenciaGDSelecionada);
 
     } else {
         localStorage.setItem("potenciaGDSelecionada", potenciaGDSelecionada);
-        localStorage.setItem("potenciaGDcontratada", potenciaGDSelecionada);
+        //localStorage.setItem("potenciaGDcontratada", potenciaGDSelecionada);
     }
 
     //----------------------CALCULARIA O MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
@@ -801,14 +856,20 @@ function dimensionarTCconformenorma() {
     }
 
 
-    // Verifica se a corrente nominal de demanda é menor que a corrente mínima de consumo
+    // Verifica se a corrente nominal de demanda (consumo) é menor que a corrente mínima do TC dimensionado
+    // ou do TC selecionado, se for o valor é substituído pela corrente mínima do TC dimensionado 
+    // ou do TC selecionado, escolhendo o maior valor entre os dois, e uma variável armazena se 
+    // a corrente nominal de consumo foi ajustada para atender a corrente mínima do TC dimensionado ou do TC selecionado
 
     let inominalminimaTC;
     if (inominalDemanda < correntedeconsumominimaSelecionado && correntedeconsumominimaSelecionado > 0) {
         inominalDemanda = correntedeconsumominimaSelecionado;
+        
+
         inominalminimaTC = "Sim";
     } else if (inominalDemanda < correntedeconsumominima && correntedeconsumominima > 0 && correntedeconsumominimaSelecionado === 0) {
         inominalDemanda = correntedeconsumominima;
+        
 
         inominalminimaTC = "Sim";
     } else {
@@ -816,38 +877,47 @@ function dimensionarTCconformenorma() {
     }
 
 
+    // Verifica se a corrente nominal de demanda de GD (injeção) é menor que a corrente mínima do TC dimensionado
+    // ou do TC selecionado, se for o valor é substituído pela corrente mínima do TC dimensionado 
+    // ou do TC selecionado, escolhendo o maior valor entre os dois, e uma variável armazena se 
+    // a corrente nominal de injeção foi ajustada para atender a corrente mínima do TC dimensionado ou do TC selecionado
+    let inominalminimaTCGD;
+        if (inominalDemandaGD < correntedeconsumominimaSelecionado && correntedeconsumominimaSelecionado > 0) {
+        
+        inominalDemandaGD = correntedeconsumominimaSelecionado;
 
-    // let inominalminimaTC; // Variável para armazenar se a corrente nominal de consumo é menor que a mínima
-    // if (inominalDemanda < correntedeconsumominima) {
-    //     inominalDemanda = correntedeconsumominima;
-    //     inominalminimaTC = "Sim";
-    // } else {
-    //     inominalminimaTC = "Não";
-    // }
+        inominalminimaTCGD = "Sim";
+    } else if (inominalDemandaGD < correntedeconsumominima && correntedeconsumominima > 0 && correntedeconsumominimaSelecionado === 0) {
+        
+        inominalDemandaGD = correntedeconsumominima;
+
+        inominalminimaTCGD = "Sim";
+    } else {
+        inominalminimaTCGD = "Não";
+    }
 
 
-    //armazena a corrente nominal de consumo no localStorage
+    //armazena a corrente nominal de consumo mínima no localStorage
     localStorage.setItem("inominalminimaTC", inominalminimaTC); // Armazena a corrente nominal de consumo no localStorage
     localStorage.setItem("correntedeconsumominima", correntedeconsumominima.toFixed(2));
     localStorage.setItem("Inominalfase", inominalDemanda.toFixed(2));
 
+    
+
+    //armazena a corrente nominal de injeção mínima no localStorage
+    localStorage.setItem("inominalminimaTCGD", inominalminimaTCGD);
+    localStorage.setItem("correntedeGDminima", correntedeconsumominima.toFixed(2));
     localStorage.setItem("InominalfaseGD", inominalDemandaGD.toFixed(2));
 
 
     //-----------FIM DO CALCULO DO MINIMO DE CORRENTE DE CONSUMO PARA O TC DE PROTEÇÃO-----------------------------
+
 
     const valorTCSelecionado2 = localStorage.getItem("valorTCideal");
     let tcProtecaoIdeal = document.getElementById("tcdeProtecaoideal");
     if (tcProtecaoIdeal) {
         tcProtecaoIdeal.textContent = valorTCSelecionado2 !== null ? valorTCSelecionado2 + " :5" : "";
     }
-
-
-    //--------------------calucla TC em kA para o rele SEG-----------------------------------------
-    // const TCdeprotecaoSelecionadaemka = (TCdeprotecaoSelecionada / 1000).toFixed(3);
-    // localStorage.setItem("TCdeprotecaoSelecionadaemka", TCdeprotecaoSelecionadaemka);
-    //---------------------------------------------------------------------------------------------
-
 
 
 }

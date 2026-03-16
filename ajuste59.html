@@ -16,7 +16,7 @@
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
+
         /* Força exibição dos botões permitidos - com especificidade máxima */
         #botaoconfightml.btn-permitido,
         #botaodiagramahtml.btn-permitido,
@@ -36,16 +36,22 @@
             visibility: visible !important;
             pointer-events: auto !important;
         }
-        
+
         /* Força ocultação dos botões bloqueados */
         h1 button.btn-bloqueado {
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
+
+        h1 {
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+
+        h1.loaded {
+            opacity: 1;
+        }
     </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
@@ -80,24 +86,35 @@
 
         <button id="botaoconfightml" class="dark-mode-toggle"
             onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
-        <button id="botaodiagramahtml" class="dark-mode-toggle" onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
-        <button id="botaoparametrohtml" class="dark-mode-toggle" onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
         <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle" onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle" onclick="window.location.href='tabelarele.html';">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle" onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle" onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle" onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
-        <button id="botaoanalisehtml" class="dark-mode-toggle" onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
+            GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
         <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
 
     </h1>
     <br>
-    <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE PROTEÇÃO GD</div>
+    <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
+        PROTEÇÃO GD</div>
     <br>
-<div>
+    <div>
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
@@ -122,7 +139,7 @@
             onclick="window.location.href='ajuste25.html';">25</button>
     </div>
 
-                <br>
+    <br>
     <div class="tabela-containerfase">
         <div
             style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
@@ -151,6 +168,15 @@
                 </thead>
 
                 <tbody>
+                    <tr colspan="4" style="background-color: #e0e0e0; font-weight: bold;">
+                        <td colspan="1">LIGAÇÃO DO TP DE PROTEÇÃO:</td>
+                        <td colspan="3">
+                            <div class="input-container">
+                                <label id="ligacao-secundaria-tp-html"></label>
+                            </div>
+                        </td>
+
+                    </tr>
                     <tr>
                         <td>Tensão Primária Linha :</td>
                         <td>
@@ -164,7 +190,7 @@
                                 <label id="sensibilidade-superior-tensao-primaria-linha-ajustada-html"></label>
                             </div>
                         </td>
-                                                <td>
+                        <td>
                             <div class="input-container">
                                 <label id="sensibilidade-superior-tensao-primaria-linha-ajustada-html-2"></label>
                             </div>
@@ -185,7 +211,7 @@
                                 <label id="sensibilidade-superior-tensao-primaria-fase-ajustada-html"></label>
                             </div>
                         </td>
-                                                <td>
+                        <td>
                             <div class="input-container">
                                 <label id="sensibilidade-superior-tensao-primaria-fase-ajustada-html-2"></label>
                             </div>
@@ -230,7 +256,7 @@
                                 <label id="sensibilidade-superior-tensao-secundaria-fase-ajustada-html-2"></label>
                             </div>
                     </tr>
-                                        <tr>
+                    <tr>
                         <td colspan="2">Tempo dos estágios :</td>
                         <!-- <td>
                             <div class="input-container">
@@ -282,7 +308,7 @@
 
                     </tr>
 
-                     <tr>
+                    <tr>
                         <td>AJUSTE P.U MANUAL 2° ESTÁGIO:</td>
                         <td>
                             <div class="input-container">
@@ -329,7 +355,7 @@
 
         <br><br>
 
-        
+
     </div>
 
 
@@ -339,7 +365,7 @@
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
 
 
-        <script src="ajuste59.js"></script>
+    <script src="ajuste59.js"></script>
 </body>
 
 </html>
