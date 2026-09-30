@@ -246,24 +246,10 @@ button:not(.dark-mode-toggle):hover {
     background-color: #cf0808;
 }
 
-.tabela-container {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;
-    width: 100%;
-    font-size: 15px;
-    /* height: 100vh; Garante que o contêiner ocupe toda a tela */
-}
+
+/* (Fechado seletor pendente para evitar erro de sintaxe) */
 
 
-th, td , caption {
-    border: 0px solid #fefcfb;
-    padding: 8px 8px;
-    text-align: center;
-    background-color: #5c4033;
-    font-size: 15px;
-    border-radius: 5px;
-}
 
 
 .parametro {
@@ -329,6 +315,66 @@ th, td{
 
 }
 
+/* --- PADRÃO VISUAL DE TABELAS (ajuste67inj.css) --- */
+#tabelafase, #tabelaneutro, .tabela-container > table {
+    width: 50% !important;
+    margin: 0 auto 16px auto !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10) !important;
+    background: #e8fbe8 !important;
+    border: 1.5px solid #b2e0b2 !important;
+}
+#tabelafase th, #tabelafase td,
+#tabelaneutro th, #tabelaneutro td,
+.tabela-container > table th, .tabela-container > table td {
+    padding: 14px 10px !important;
+    text-align: left !important;
+    border: none !important;
+    background: #e8fbe8 !important;
+    font-size: 15px !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    color: #111 !important;
+}
+#tabelafase th, #tabelaneutro th,
+.tabela-container > table th {
+    background: #c6f7c6 !important;
+    color: #1c641c !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #b2e0b2 !important;
+    letter-spacing: 0.5px !important;
+}
+#tabelafase tr, #tabelaneutro tr,
+.tabela-container > table tr {
+    transition: background 0.18s;
+}
+#tabelafase tbody tr:hover, #tabelaneutro tbody tr:hover,
+.tabela-container > table tbody tr:hover {
+    background: #d6f5d6 !important;
+}
+
+.tabela-titulo {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 18px 0 14px 0;
+    background: transparent;
+    color: #073507;
+    border-radius: 0;
+    border: none;
+    letter-spacing: 1px;
+    box-shadow: none;
+    margin-bottom: 0;
+
+}
+
+
+/* --- FIM PADRÃO VISUAL DE TABELAS --- */
 
 @media (max-width: 600px) {
     html, body {

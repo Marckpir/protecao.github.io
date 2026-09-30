@@ -16,7 +16,7 @@
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
+
         /* Força exibição dos botões permitidos - com especificidade máxima */
         #botaoconfightml.btn-permitido,
         #botaodiagramahtml.btn-permitido,
@@ -36,20 +36,27 @@
             visibility: visible !important;
             pointer-events: auto !important;
         }
-        
+
         /* Força ocultação dos botões bloqueados */
         h1 button.btn-bloqueado {
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
         }
-        
-        h1 { opacity: 0; transition: opacity 0.2s ease-in; }
-        h1.loaded { opacity: 1; }
+
+        h1 {
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+
+        h1.loaded {
+            opacity: 1;
+        }
     </style>
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
     <link rel="stylesheet" href="ajuste81U-81O.css" type="text/css">
+    <link rel="stylesheet" href="ajuste59.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <title>ESTUDOS</title>
@@ -89,12 +96,12 @@
         <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
         <button id="botaoajustehtml" class="dark-mode-toggle"
             onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelarelehtml" class="dark-mode-toggle"
             onclick="window.location.href='tabelarele.html';">TABELA</button>
         <button id="botaoestudoshtml" class="dark-mode-toggle"
             onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
         <button id="botaoestudosGDhtml" class="dark-mode-toggle"
@@ -108,11 +115,11 @@
     <div style="font-weight: bold; font-size: 1.1em; color: #024402; margin-right: 10px;">FUNÇÕES PARA AJUSTES DE
         PROTEÇÃO GD</div>
     <br>
-<div>
+    <div>
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
-            onclick="window.location.href='ajuste32.html';">32-1/32-2</button>
+            onclick="window.location.href='ajuste32.html';">32-POTÊNCIA</button>
         <button id="botaoajustes67injhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajuste67inj.html';">67-INJEÇÃO</button>
         <button id="botaojuste67conshtml" class="dark-mode-toggle"
@@ -132,22 +139,17 @@
         <button id="botaoajuste25html" class="dark-mode-toggle"
             onclick="window.location.href='ajuste25.html';">25</button>
     </div>
-    <br>
+
     <div class="tabela-containerfase">
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
-            AJUSTES 81 U RELÉ DE SUBFREQUÊNCIA</div>
-
-
+        <div class="tabela-titulo">
+            AJUSTES 81 U RELÉ DE SUBFREQUÊNCIA
+        </div>
         <br>
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
-            ESTÁGIOS DE SUBFREQUÊNCIA</div>
-
+        <div class="tabela-titulo">
+            ESTÁGIOS DE SUBFREQUÊNCIA
+        </div>
         <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+            <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
 
 
 
@@ -155,9 +157,9 @@
                     <tr>
                         <th style="width: 40%;">Parâmetros</th>
 
-                        <th style="width: 20%;">Valor Ajustado 1° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 2° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 3° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 1° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 2° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 3° Estágio</th>
                     </tr>
                 </thead>
 
@@ -205,29 +207,20 @@
 
                 </tbody>
             </table>
-
-            <br>
-
-
-
         </div>
 
-        <br><br>
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
-            AJUSTE MANUAL</div>
+        <div class="tabela-titulo">
+            AJUSTE MANUAL SUBFREQUÊNCIA
+        </div>
         <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
-
-
+            <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
 
                 <thead>
                     <tr>
                         <th style="width: 40%;">Parâmetros</th>
-                        <th style="width: 20%;">Valor Ajustado 1° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 2° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 3° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 1° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 2° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 3° Estágio</th>
                     </tr>
                 </thead>
 
@@ -250,7 +243,7 @@
                             <div class="input-container">
                                 <input id="subfrequencia-manual-html-3">
                             </div>
-                            </td>
+                        </td>
                     </tr>
 
 
@@ -273,53 +266,37 @@
                             </div>
                         </td>
                     </tr>
-                    
-
-
-
-
-
-
 
                 </tbody>
             </table>
 
-            <br>
-
-
-
         </div>
 
-        <br><br>
-
+        <div class="grafico-container" style="margin-top: 12px; width: 95%;">
+            <div style="font-weight: bold; color: #1c641c; margin-bottom: 8px;">GRÁFICO 81-U - ESTÁGIOS DE SUBFREQUÊNCIA</div>
+            <canvas id="grafico-subfrequencia-81u" style="max-width: 900px; width: 100%; height: 340px;"></canvas>
+        </div>
 
     </div>
 
 
-       <div class="tabela-containerfase">
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
-            AJUSTES 81 O RELÉ DE SOBREFREQUÊNCIA</div>
-
-
+    <div class="tabela-containerfase">
+        <div class="tabela-titulo">
+            AJUSTES 81 O RELÉ DE SOBREFREQUÊNCIA
+        </div>
         <br>
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
-            ESTÁGIOS DE SOBREFREQUÊNCIA</div>
-
+        <div class="tabela-titulo">
+            ESTÁGIOS DE SOBREFREQUÊNCIA
+        </div>
         <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
-
-
+            <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
 
                 <thead>
                     <tr>
                         <th style="width: 40%;">Parâmetros</th>
 
-                        <th style="width: 20%;">Valor Ajustado 1° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 2° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 1° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 2° Estágio</th>
                         <!-- <th style="width: 20%;">Valor Ajustado 3° Estágio</th> -->
                     </tr>
                 </thead>
@@ -327,7 +304,6 @@
                 <tbody>
                     <tr>
                         <td>Frequência :</td>
-
 
                         <td>
                             <div class="input-container">
@@ -371,25 +347,19 @@
 
             <br>
 
-
-
         </div>
 
-        <br><br>
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
-            AJUSTE MANUAL</div>
+        <div class="tabela-titulo">
+            AJUSTE MANUAL SOBREFREQUÊNCIA
+        </div>
         <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
-
-
+            <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
 
                 <thead>
                     <tr>
                         <th style="width: 40%;">Parâmetros</th>
-                        <th style="width: 20%;">Valor Ajustado 1° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 2° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 1° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 2° Estágio</th>
                         <!-- <th style="width: 20%;">Valor Ajustado 3° Estágio</th> -->
                     </tr>
                 </thead>
@@ -397,7 +367,6 @@
                 <tbody>
                     <tr>
                         <td>Frequência :</td>
-
 
                         <td>
                             <div class="input-container">
@@ -436,13 +405,6 @@
                             </div>
                         </td> -->
                     </tr>
-                    
-
-
-
-
-
-
 
                 </tbody>
             </table>
@@ -453,19 +415,18 @@
 
         </div>
 
+        <div class="grafico-container" style="margin-top: 12px; width: 95%;">
+            <div style="font-weight: bold; color: #1c641c; margin-bottom: 8px;">GRÁFICO 81-O - ESTÁGIOS DE SOBREFREQUÊNCIA</div>
+            <canvas id="grafico-sobrefrequencia-81o" style="max-width: 900px; width: 100%; height: 340px;"></canvas>
+        </div>
+
         <br><br>
 
-
     </div>
-
-
-
 
     <br><br>
 
     <button id="botaoSalvar" onclick="salvarOpcao()">Salvar</button>
-
-
 
     <script src="ajuste81U-81O.js"></script>
 </body>

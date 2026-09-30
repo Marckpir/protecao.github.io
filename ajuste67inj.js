@@ -40,10 +40,15 @@ var legenda = localStorage.getItem('statuslegenda') || 'none'; // Variável para
 
 async function salvarOpcao() {
 
+
+    //-- INICIO DA CAPTURA DOS VALORES DE FASE DOS CAMPOS PREENCHIVEIS DO HTML
+
+    // importa o valor do angulo de fase do input e depois manda para o local storage
     const anguloFase = document.getElementById("angulofasehtml");
     const anguloFaseSelecionadoGD = anguloFase.value;
     localStorage.setItem("anguloFaseSelecionadoGD", anguloFaseSelecionadoGD);
 
+    // importa o valor do angulo maximo torque do select e depois manda para o local storage
     const amtnominalfasehtml = document.getElementById("amtnominalfasehtml");
     if (amtnominalfasehtml) {
         localStorage.setItem("amtnominalfaseSelecionadaGD", amtnominalfasehtml.value);
@@ -54,6 +59,8 @@ async function salvarOpcao() {
         }
     }
 
+
+    // importa o valor do angulo maximo torque do select e depois manda para o local storage
     const AMTpadraofase = document.getElementById("AMTpadraofasehtml");
     if (AMTpadraofase) {
         localStorage.setItem("AMTpadraofasehtmlGD", AMTpadraofase.textContent || "45°");
@@ -70,16 +77,21 @@ async function salvarOpcao() {
 
     localStorage.setItem("PercentualIPSelecionadaGD", IPpercentualSelecionadaGD);
 
+    // importa o valor do campo preenhcido no html e armaznea em variavel interna do js e depois armazena no local storage para ser usado em outras telas
     const curvafasehtml = document.getElementById("tipodecurvahtml");
-    const curvafaseSelecionadaGD = curvafasehtml.value;
+    const curvafaseEscolhidaGD = curvafasehtml.value;
 
-    localStorage.setItem("curvafaseSelecionadaGD", curvafaseSelecionadaGD);
+    localStorage.setItem("curvafaseEscolhidaGD", curvafaseEscolhidaGD);
 
 
     const dialfase = document.getElementById("dialfasehtml");
-    const dialfaseSelecionadaGD = dialfase.value;
+    const dialfaseEscolhidoGD = dialfase.value;
 
-    localStorage.setItem("dialfaseSelecionadaGD", dialfaseSelecionadaGD);
+    localStorage.setItem("dialfaseEscolhidoGD", dialfaseEscolhidoGD);
+
+
+    //-----FIM DA CAPTURA DOS VALORES PREENCHIVEIS DE FASE----------------
+
 
     //Captura dos valores de neutro dos campos preenchiveis do HTML 
 
@@ -112,29 +124,41 @@ async function salvarOpcao() {
 
     localStorage.setItem("PercentualIPneutroSelecionadaGD", IPpercentualneutroSelecionadaGD);
 
-    const curvaneutro = document.getElementById("tipodecurvaneutrohtml");
-    const curvaneutroSelecionadaGD = curvaneutro.value;
 
-    localStorage.setItem("curvaneutroSelecionadaGD", curvaneutroSelecionadaGD);
+    //importar valor do input no html e armazenar em variavel interna do js e depois armazenar no local storage para ser usado em outras telas
+    let curvaneutro = document.getElementById("tipodecurvaneutrohtml");
+    let curvaneutroEscolhidaGD = curvaneutro.value;
+
+    if (curvaneutroEscolhidaGD !== null && curvaneutroEscolhidaGD !== undefined && curvaneutroEscolhidaGD !== "") {
+        localStorage.setItem("curvaneutroSelecionadaGD", curvaneutroEscolhidaGD);
+        localStorage.setItem("curvaneutroEscolhidaGD", curvaneutroEscolhidaGD);
+    } else {
+        curvaneutroEscolhidaGD = "";
+        localStorage.setItem("curvaneutroSelecionadaGD", curvaneutroEscolhidaGD);
+        localStorage.setItem("curvaneutroEscolhidaGD", curvaneutroEscolhidaGD);
+    }
+
+
+    
 
 
     const dialneutro = document.getElementById("dialneutrohtml");
-    let dialneutroSelecionadaGD = dialneutro.value;
-    if (!dialneutroSelecionadaGD || isNaN(parseFloat(dialneutroSelecionadaGD))) {
-        dialneutroSelecionadaGD = 5;
-        dialneutro.value = 5;
+    let dialneutroEscolhidoGD = dialneutro.value;
+    if (!dialneutroEscolhidoGD || isNaN(parseFloat(dialneutroEscolhidoGD))) {
+        dialneutroEscolhidoGD = "";
+        dialneutro.value = "";
     }
     // Validação: dialneutro deve estar entre 5 e 9
-    if (parseFloat(dialneutroSelecionadaGD) < 5 || parseFloat(dialneutroSelecionadaGD) > 9) {
+    if (parseFloat(dialneutroEscolhidoGD) < 5 || parseFloat(dialneutroEscolhidoGD) > 9) {
         await validarPercentualMinimo(
             0,
             "O valor do dial neutro deve estar entre 5 e 9."
         );
-        dialneutroSelecionadaGD = 5;
+        dialneutroEscolhidoGD = 5;
         dialneutro.value = 5;
     }
 
-    localStorage.setItem("dialneutroSelecionadaGD", dialneutroSelecionadaGD);
+    localStorage.setItem("dialneutroEscolhidoGD", dialneutroEscolhidoGD);
 
     //-----------------------------------------------------------------------------------------
     location.reload();//recarrega a página sempre que o botão é clicado
@@ -238,10 +262,13 @@ window.onload = function () {
 
     // Controle de acesso movido para controle-acesso.js
 
+
+    //INICIO DO CODIGO DE IMPORTAÇÃO DOS VALORES DE FASE DO LOCAL STORAGE PARA O HTML
+
     //Resgata todos os valores do html para as variaveis internas do js e salva nos campos HTML
     const anguloFase = document.getElementById("angulofasehtml");
     // Recupera o valor do ângulo de fase do localStorage e atualiza o campo HTML
-    let anguloFaseArmazenada = parseFloat(localStorage.getItem("anguloFaseSelecionadoGD"));
+    let anguloFaseArmazenada = parseFloat(localStorage.getItem("anguloFaseSelecionadoGD")) || "45°";
     if (anguloFaseArmazenada !== null && anguloFaseArmazenada !== undefined && anguloFaseArmazenada !== "" && !isNaN(anguloFaseArmazenada)) {
         // let anguloFaseFloat = parseFloat(anguloFaseArmazenada);
         anguloFase.value = anguloFaseArmazenada;
@@ -276,29 +303,85 @@ window.onload = function () {
 
 
     const IPpercentualhtml = document.getElementById("IPpercentualhtml");
-    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionadaGD")) || 0;
+    const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionadaGD")) || 105;
     if (Ippercentual !== null && Ippercentual !== undefined && Ippercentual !== "" && !isNaN(Ippercentual)) {
         IPpercentualhtml.value = Ippercentual;
     } else {
         IPpercentualhtml.value = "105"; // Valor padrão se não houver no localStorage
     }
 
+    // persistir curvafaseGD no html, campoi input e no label
 
-    const tipodecurvahtml = document.getElementById("tipodecurvahtml");
-    const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionadaGD");
-    if (curvafaseArmazenada !== null && curvafaseArmazenada !== undefined && curvafaseArmazenada !== "") {
-        tipodecurvahtml.value = curvafaseArmazenada;
+    let curvafaseEscolhidaGD = localStorage.getItem("curvafaseEscolhidaGD");
+    let curvafaseSelecionadaGD = localStorage.getItem("curvafaseSelecionadaGD");
+    let curvafaseArmazenada;
+
+    let tipodecurvahtml = document.getElementById("tipodecurvahtml");
+    let curvafaseAjustadahtmlGD = document.getElementById("curva-fase-ajustada-html");
+
+    if (curvafaseEscolhidaGD !== null && curvafaseEscolhidaGD !== undefined && curvafaseEscolhidaGD !== "") {
+
+        curvafaseArmazenada = curvafaseEscolhidaGD;
+        curvafaseSelecionadaGD = curvafaseEscolhidaGD;
+        localStorage.setItem("curvafaseSelecionadaGD", curvafaseSelecionadaGD);
+        tipodecurvahtml.value = curvafaseEscolhidaGD;
+        curvafaseAjustadahtmlGD.textContent = curvafaseEscolhidaGD;
+
     } else {
-        tipodecurvahtml.value = ""; // Valor padrão se não houver no localStorage
+
+        curvafaseEscolhidaGD = "";
+        curvafaseSelecionadaGD = "IEC-E.I";
+        curvafaseArmazenada = "";
+        localStorage.setItem("curvafaseEscolhidaGD", curvafaseEscolhidaGD);
+        localStorage.setItem("curvafaseSelecionadaGD", curvafaseSelecionadaGD);
+        curvafaseAjustadahtmlGD.textContent = "IEC-E.I";
     }
 
-    const dialfasehtml = document.getElementById("dialfasehtml");
-    const dialfaseArmazenada = parseFloat(localStorage.getItem("dialfaseSelecionadaGD")) || 0.1;
-    if (dialfaseArmazenada !== null && dialfaseArmazenada !== undefined && dialfaseArmazenada !== "") {
-        dialfasehtml.value = dialfaseArmazenada;
+
+    const curvaidealGDhtml = document.getElementById("curvaideal-gd");
+    curvaidealGDhtml.textContent = "IEC-E.I";
+
+
+    const dialidealGDhtml = document.getElementById("dialideal-gd");
+    dialidealGDhtml.textContent = "0.1";
+
+
+
+    let dialfaseEscolhidoGD = localStorage.getItem("dialfaseEscolhidoGD");
+    let dialfaseSelecionadaGD = localStorage.getItem("dialfaseSelecionadaGD");
+    let dialfaseArmazenada;
+
+    let dialfasehtml = document.getElementById("dialfasehtml");
+    let dialfaseAjustadahtmlGD = document.getElementById("dial-fase-ajustada-html-gd");
+
+    // const dialfaseArmazenada = parseFloat(localStorage.getItem("dialfaseSelecionadaGD")) || 0.1;
+
+    if (dialfaseEscolhidoGD !== null && dialfaseEscolhidoGD !== undefined && dialfaseEscolhidoGD !== "") {
+
+        dialfaseArmazenada = dialfaseEscolhidoGD;
+        dialfaseSelecionadaGD = dialfaseEscolhidoGD;
+        localStorage.setItem("dialfaseSelecionadaGD", dialfaseSelecionadaGD);
+        dialfasehtml.value = dialfaseEscolhidoGD;
+        dialfaseAjustadahtmlGD.textContent = dialfaseSelecionadaGD;
+
+
+
+        //dialfasehtml.value = dialfaseArmazenada;
     } else {
-        dialfasehtml.value = 0.1; // Valor padrão se não houver no localStorage
+
+        dialfaseEscolhidoGD = "";
+        dialfaseSelecionadaGD = 0.1;
+        dialfaseArmazenada = "";
+        localStorage.setItem("dialfaseEscolhidoGD", dialfaseEscolhidoGD);
+        localStorage.setItem("dialfaseSelecionadaGD", dialfaseSelecionadaGD);
+        
+        dialfaseAjustadahtmlGD.textContent = 0.1;
+
+
+
+        // dialfasehtml.value = 0.1; // Valor padrão se não houver no localStorage
     }
+
 
 
 
@@ -323,7 +406,7 @@ window.onload = function () {
 
     atualizarAMTPadraoNeutro();
 
-    const AMTpadraoNeutroArmazenado = localStorage.getItem("AMTpadraoneutrohtmlGD");
+    const AMTpadraoNeutroArmazenado = localStorage.getItem("AMTpadraoneutrohtmlGD") || "-110°";
     if ((!anguloNeutro.value || Number.isNaN(parseFloat(anguloNeutro.value))) && AMTpadraoNeutroArmazenado) {
         const AMTpadraoneutro = document.getElementById("AMTpadraoneutrohtml");
         if (AMTpadraoneutro) {
@@ -342,29 +425,62 @@ window.onload = function () {
 
 
     const IPpercentualneutrohtml = document.getElementById("IPpercentualneutrohtml");
-    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD")) || 0;
+    const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionadaGD")) || 105;
     if (ipneutropercentualArmazenada !== null && ipneutropercentualArmazenada !== undefined && ipneutropercentualArmazenada !== "" && !isNaN(ipneutropercentualArmazenada)) {
         IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
     } else {
         IPpercentualneutrohtml.value = "105"; // Valor padrão se não houver no localStorage
     }
 
-
-    const tipodecurvaneutrohtml = document.getElementById("tipodecurvaneutrohtml");
-    const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionadaGD");
+    let curvaneutroSelecionadaGD=0;
+    let tipodecurvaneutrohtml = document.getElementById("tipodecurvaneutrohtml");
+    let curvaneutroArmazenada = localStorage.getItem("curvaneutroEscolhidaGD");
     if (curvaneutroArmazenada !== null && curvaneutroArmazenada !== undefined && curvaneutroArmazenada !== "") {
         tipodecurvaneutrohtml.value = curvaneutroArmazenada;
+        curvaneutroSelecionadaGD = curvaneutroArmazenada;
+        localStorage.setItem("curvaneutroSelecionadaGD", curvaneutroArmazenada);
     } else {
-        tipodecurvaneutrohtml.value = ""; // Valor padrão se não houver no localStorage
+        tipodecurvaneutrohtml.value = "";
+        curvaneutroSelecionadaGD = "Definite-Time";
+        localStorage.setItem("curvaneutroSelecionadaGD", "");
+        curvaneutroArmazenada = "";
+    }
+
+    const curvaidealneutroidealhtml = document.getElementById("curva-neutro-ideal-gd");
+    curvaidealneutroidealhtml.textContent = curvaneutroSelecionadaGD || "Definite-Time";
+
+    const curvaneutroAjustadahtmlGD = document.getElementById("curva-neutro-ajustada-html-gd");
+    curvaneutroAjustadahtmlGD.textContent = curvaneutroSelecionadaGD || "Definite-Time";
+
+
+    //define o dial ideal para neutro de injeção
+    const dialneutroidealhtml = document.getElementById("dial-neutro-ideal-gd");
+    dialneutroidealhtml.textContent = "5.00" + " s";
+
+    //definir o dial de neutro selecionado que irá para o localstorage
+
+    let dialneutroSelecionadaGD = 0;
+    let dialneutrohtmlGDselecionada = document.getElementById("dial-neutro-ajustada-html");
+    let dialneutrogdescolhido = localStorage.getItem("dialneutroEscolhidoGD");
+    if (dialneutrogdescolhido !== null && dialneutrogdescolhido !== undefined && dialneutrogdescolhido !== "") {
+        dialneutroSelecionadaGD = dialneutrogdescolhido;
+        dialneutrohtmlGDselecionada.textContent = dialneutrogdescolhido + " s";
+        localStorage.setItem("dialneutroSelecionadaGD", dialneutroSelecionadaGD);
+    } else {
+        dialneutroSelecionadaGD = 5;
+        dialneutrohtmlGDselecionada.textContent = dialneutroSelecionadaGD + " s";
+        localStorage.setItem("dialneutroSelecionadaGD", dialneutroSelecionadaGD);
     }
 
 
+
+
     const dialneutrohtml = document.getElementById("dialneutrohtml");
-    const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionadaGD") || 5;
+    const dialneutroArmazenada = localStorage.getItem("dialneutroEscolhidoGD");
     if (dialneutroArmazenada !== null && dialneutroArmazenada !== undefined && dialneutroArmazenada !== "") {
         dialneutrohtml.value = dialneutroArmazenada;
     } else {
-        dialneutrohtml.value = 5; // Valor padrão se não houver no localStorage
+        dialneutrohtml.value = ""; // Valor padrão se não houver no localStorage
     }
 
 
@@ -499,7 +615,7 @@ window.onload = function () {
     inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
     IPpercentualneutrohtml.value = ipneutropercentualArmazenada;
     IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
-    tipodecurvaneutrohtml.value = curvaneutroArmazenada;
+    tipodecurvaneutrohtml.value = curvaneutroArmazenada || "";
     dialneutrohtml.value = dialneutroArmazenada;
 
 
@@ -513,10 +629,11 @@ window.onload = function () {
     console.log("IPpercentual: ", Ippercentual);
 
     IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
-    tipodecurvahtml.value = curvafaseArmazenada || '';
+
+    tipodecurvahtml.value = curvafaseEscolhidaGD;
 
     // Validar dialfaseArmazenada
-    dialfasehtml.value = (!isNaN(parseFloat(dialfaseArmazenada)) && dialfaseArmazenada !== null) ? dialfaseArmazenada : '';
+    dialfasehtml.value = (!isNaN(parseFloat(dialfaseEscolhidoGD)) && dialfaseEscolhidoGD !== null) ? dialfaseEscolhidoGD : '';
 
 
 
@@ -526,6 +643,7 @@ window.onload = function () {
     IPpercentualneutrohtml.value = (!isNaN(ipneutropercentualArmazenada) && ipneutropercentualArmazenada !== null) ? ipneutropercentualArmazenada : 0;
 
     IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
+
     tipodecurvaneutrohtml.value = curvaneutroArmazenada || '';
 
     // Validar dialneutroArmazenada
@@ -561,7 +679,7 @@ window.onload = function () {
     //    console.log(correnteFormatada);
     // Definição do tipo de curva de fase 
 
-    curvafase = curvafaseArmazenada;
+    curvafase = curvafaseSelecionadaGD;
 
     switch (curvafase) {
 
@@ -606,15 +724,15 @@ window.onload = function () {
     }
 
     const dadosCurvaUsuarioFase = {
-        tipoCurva: curvafaseArmazenada,
-        dial: dialfaseArmazenada,
+        tipoCurva: curvafaseSelecionadaGD,
+        dial: dialfaseSelecionadaGD,
         alfa: alfa1,
         beta: beta1,
         k: k1
     };
     localStorage.setItem("dadoscurvausariofase", JSON.stringify(dadosCurvaUsuarioFase));
 
-    curvaneutro = curvaneutroArmazenada;
+    curvaneutro = curvaneutroSelecionadaGD;
 
     switch (curvaneutro) {
 
@@ -659,10 +777,11 @@ window.onload = function () {
     //------------------------------------------------------------------
     // Reprodução das variaveis no gráfico de coordenação
     // Definição das variáveis comuns
-    let dial1 = dialfaseArmazenada;
+    let dial1 = dialfaseSelecionadaGD;
 
     let ip1 = correnteFormatada;
     let iccGD = ip1 * (Math.sqrt((dial1 * beta1 + k1) / 0.01));
+    localStorage.setItem("iccGD", iccGD);
     //let  iccGD = 10000;
     let Iinst1 = iccGD;
     let x1 = [iccGD];
@@ -720,7 +839,7 @@ window.onload = function () {
 
     // Segunda curva
     // Definição das variáveis comuns
-    let dial2 = dialneutroArmazenada;
+    let dial2 = dialneutroSelecionadaGD;
     let Iinst2 = 20000;
     let ip2 = ipneutro;
     let x2 = [20000];
@@ -771,10 +890,10 @@ window.onload = function () {
     }
 
     // Armazena os pontos x e y de fase e neutro no localStorage separadamente em formato JSON
-    localStorage.setItem("pontosCurvaFaseX", JSON.stringify(x1));
-    localStorage.setItem("pontosCurvaFaseY", JSON.stringify(y1));
-    localStorage.setItem("pontosCurvaNeutroX", JSON.stringify(x2));
-    localStorage.setItem("pontosCurvaNeutroY", JSON.stringify(y2));
+    localStorage.setItem("pontosCurvaFaseXGD", JSON.stringify(x1));
+    localStorage.setItem("pontosCurvaFaseYGD", JSON.stringify(y1));
+    localStorage.setItem("pontosCurvaNeutroXGD", JSON.stringify(x2));
+    localStorage.setItem("pontosCurvaNeutroYGD", JSON.stringify(y2));
 
 
 
@@ -792,8 +911,8 @@ window.onload = function () {
 
     // Configuração do gráfico logarítmico
 
-    let ctx = document.getElementById('grafico').getContext('2d');
-
+    const graficoCanvas = document.getElementById('grafico');
+    const ctx = graficoCanvas.getContext('2d');
 
     let grafico = new Chart(ctx, {
         type: 'line',
@@ -889,6 +1008,8 @@ window.onload = function () {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            devicePixelRatio: window.devicePixelRatio || 1,
+            animation: false,
             plugins: {
                 legend: {
                     position: legenda // <-- Define se aparece legenda(top,bottom,left,right ou none)
@@ -940,8 +1061,21 @@ window.onload = function () {
         }
     });
 
+    const ajustarTamanhoGrafico = () => {
+        if (!graficoCanvas) return;
+        const container = graficoCanvas.parentElement;
+        if (!container) return;
+        const largura = Math.max(280, Math.floor(container.clientWidth));
+        const altura = Math.max(420, Math.floor(container.clientHeight || 560));
+        graficoCanvas.style.width = `${largura}px`;
+        graficoCanvas.style.height = `${altura}px`;
+        graficoCanvas.width = largura * (window.devicePixelRatio || 1);
+        graficoCanvas.height = altura * (window.devicePixelRatio || 1);
+        grafico.resize();
+    };
 
-
+    ajustarTamanhoGrafico();
+    window.addEventListener('resize', ajustarTamanhoGrafico);
 
     // verificarAlertaPotMinima();
 };

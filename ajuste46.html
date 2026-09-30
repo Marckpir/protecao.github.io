@@ -50,6 +50,7 @@
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
     <link rel="stylesheet" href="ajuste46.css" type="text/css">
+    <link rel="stylesheet" href="ajuste59.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
     <title>ESTUDOS</title>
@@ -89,12 +90,12 @@
         <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
         <button id="botaoajustehtml" class="dark-mode-toggle"
             onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelarelehtml" class="dark-mode-toggle"
             onclick="window.location.href='tabelarele.html';">TABELA</button>
         <button id="botaoestudoshtml" class="dark-mode-toggle"
             onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
         <button id="botaoestudosGDhtml" class="dark-mode-toggle"
@@ -112,7 +113,7 @@
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
-            onclick="window.location.href='ajuste32.html';">32-1/32-2</button>
+            onclick="window.location.href='ajuste32.html';">32-POTÊNCIA</button>
         <button id="botaoajustes67injhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajuste67inj.html';">67-INJEÇÃO</button>
         <button id="botaojuste67conshtml" class="dark-mode-toggle"
@@ -134,16 +135,13 @@
     </div>
 
 
-    <br>
+    
     <div class="tabela-containerfase">
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
+        <div class="tabela-titulo">
             AJUSTES 46 DESEQUILÍBRIO DE CORRENTE (SOBRECORRENTE DE SEQUÊNCIA NEGATIVA)
-
         </div>
         <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+            <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
                 <thead>
                     <tr>
                         <th style="width: 70%;">Parâmetros</th>
@@ -278,6 +276,11 @@
 
 
 
+        </div>
+
+        <div class="grafico-container" style="margin-top: 12px; width: 95%;">
+            <div style="font-weight: bold; color: #1c641c; margin-bottom: 8px;">GRÁFICO ANSI 46 - DESEQUILÍBRIO (%) X TEMPO</div>
+            <canvas id="grafico-funcao-46" style="max-width: 900px; width: 100%; height: 340px;"></canvas>
         </div>
 
 

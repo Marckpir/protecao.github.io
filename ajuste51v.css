@@ -1,3 +1,59 @@
+/* Título da tabela igual ajuste32 */
+.tabela-titulo {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 18px 0 14px 0;
+    background: transparent;
+    color: #073507;
+    border-radius: 0;
+    border: none;
+    letter-spacing: 1px;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+/* Tabela clean e profissional igual ajuste32 */
+#tabelafase {
+    width: 95%;
+    margin: 0 auto 16px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10);
+    background: #fff;
+    border: none;
+}
+
+#tabelafase th, #tabelafase td {
+    padding: 6px 8px;
+    min-height: 24px;
+    text-align: left;
+    border: none;
+    background: #e8fbe8;
+    font-size: 15px;
+    box-shadow: none;
+    white-space: nowrap;
+    color: #222;
+}
+
+#tabelafase th {
+    background: #e8fbe8;
+    color: #6a9c6a;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #e0e0e0;
+    letter-spacing: 0.5px;
+}
+
+#tabelafase tr {
+    transition: background 0.18s;
+}
+#tabelafase tbody tr:hover {
+    background: #f0f8f0;
+}
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #8fbc8f, #1c641c);
@@ -58,11 +114,14 @@ canvas {
     table-layout: fixed;
     background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 0px;
-    color: rgb(224, 248, 6);
-    font-size: 12px;
-    border: none;
+        margin: 24px auto 32px auto;
+        padding: 0 0 24px 0;
+        background: none;
+        border-radius: 18px;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     border-collapse: collapse;
     margin-left: 0px;
 }
@@ -90,18 +149,18 @@ td {
 
 }
 
-#tabelafase th,
-#tabelafase td {
-    width: 100%;
-    /* Ajusta cada coluna para ocupar 25% da largura total */
-
-    padding: 3px;
-    /* Adiciona espaçamento interno */
-    text-align: left;
+#tabelafase th {
+    background: #b2e0b2;
+    color: #1c641c;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: none;
+    letter-spacing: 0.5px;
+}
     /* Centraliza o conteúdo */
     border: 3px solid #000;
     /* Mantém bordas visíveis */
-    background-color: rgb(11, 68, 0);
+    background-color: #e8fbe8;
 }
 
 #tabelafase .input-container input,

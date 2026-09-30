@@ -1,3 +1,11 @@
+function inicializarGrafico5051() {
+    var ctx = document.getElementById('grafico').getContext('2d');
+    // ... código para criar o gráfico ...
+ChartGenerator();
+}
+
+
+
 // Importa statuslegenda do localStorage ou usa valor padrão
 var legenda = localStorage.getItem('statuslegenda') || 'top';
 
@@ -18,8 +26,8 @@ function ChartGenerator() {
     const ctx = canvas.getContext('2d');
     
     // Destruir gráfico existente se houver
-    if (window.chartInstance) {
-        window.chartInstance.destroy();
+    if (window.chartInstanceConsumo) {
+        window.chartInstanceConsumo.destroy();
     }
     
     // Datasets vazios para inserção manual de pontos
@@ -210,8 +218,9 @@ function ChartGenerator() {
     const somaCorrentePartida = parseFloat(localStorage.getItem("somaCorrentePartidaOperante"));
     const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
     const tempoPartida = parseFloat(motorData.tempopartida);
-    
+
     if (somaCorrentePartida > 0 && tempoPartida > 0) {
+        // Ponto do motor
         datasets.push({
             label: 'Ip motor+carga operante = ' + somaCorrentePartida.toFixed(2) + ' A,' + tempoPartida.toFixed(2) + ' s',
             data: [{ x: somaCorrentePartida, y: tempoPartida }],
@@ -221,6 +230,23 @@ function ChartGenerator() {
             pointRadius: 4,
             pointStyle: 'rect',
             showLine: false
+        });
+        // Curva do motor 
+        datasets.push({
+            label: 'Curva motor+carga operante',
+            data: [
+                { x: somaCorrentePartida, y: tempoPartida },
+                { x: (() => {
+                            const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
+                            return parseFloat(motorData.correntenominal) || null;
+                        })(), y: 0.01 }
+            ],
+            borderColor: 'darkgreen',
+            borderWidth: 3,
+            pointRadius: 0,
+            fill: false,
+            showLine: true,
+            borderDash: [2, 0]
         });
     }
     
@@ -287,6 +313,9 @@ function ChartGenerator() {
             });
         }
     }
+
+    //incluir curva do motor+carga operante
+    
     
     // Configuração do gráfico    
     const chartConfig = {
@@ -384,7 +413,8 @@ generateLabels: function(chart) {
     };
     
     // Criar e armazenar o gráfico
-    window.chartInstance = new Chart(ctx, chartConfig);
+    window.chartInstanceConsumo = new Chart(ctx, chartConfig);
     
-    return window.chartInstance;
+    return window.chartInstanceConsumo;
 }
+

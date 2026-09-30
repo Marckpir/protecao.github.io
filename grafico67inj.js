@@ -1,3 +1,13 @@
+// grafico67inj.js
+function inicializarGrafico67inj() {
+    var ctx = document.getElementById('graficoGD').getContext('2d');
+    // ... código para criar o gráfico ...
+ChartGenerator();
+}
+
+
+
+
 // Importa statuslegenda do localStorage ou usa valor padrão
 var legenda = localStorage.getItem('statuslegenda') || 'top';
 
@@ -9,7 +19,7 @@ window.onload = function () {
 function ChartGenerator() {
     
     // Verificar se o canvas existe
-    const canvas = document.getElementById('grafico');
+    const canvas = document.getElementById('graficoGD');
     if (!canvas) {
         console.error('Canvas com id "grafico" não encontrado');
         return null;
@@ -18,42 +28,30 @@ function ChartGenerator() {
     const ctx = canvas.getContext('2d');
     
     // Destruir gráfico existente se houver
-    if (window.chartInstance) {
-        window.chartInstance.destroy();
+    if (window.chartInstanceGD) {
+        window.chartInstanceGD.destroy();
     }
     
     // Datasets vazios para inserção manual de pontos
     const datasets = [];
     
     // Importar valores de ajuste67inj do localStorage
-    const x1 = JSON.parse(localStorage.getItem('pontosCurvaFaseX')) || [];
-    const y1 = JSON.parse(localStorage.getItem('pontosCurvaFaseY')) || [];
-    const x2 = JSON.parse(localStorage.getItem('pontosCurvaNeutroX')) || [];
-    const y2 = JSON.parse(localStorage.getItem('pontosCurvaNeutroY')) || [];
+    const x1 = JSON.parse(localStorage.getItem('pontosCurvaFaseXGD')) || [];
+    const y1 = JSON.parse(localStorage.getItem('pontosCurvaFaseYGD')) || [];
+    const x2 = JSON.parse(localStorage.getItem('pontosCurvaNeutroXGD')) || [];
+    const y2 = JSON.parse(localStorage.getItem('pontosCurvaNeutroYGD')) || [];
 
     // Importar valores específicos de ajuste67inj
-    const anguloFase = localStorage.getItem('anguloFaseSelecionadoGD') || '';
-    const amtnominalfase = localStorage.getItem('amtnominalfaseSelecionadaGD') || '';
-    const AMTpadraofase = localStorage.getItem('AMTpadraofasehtmlGD') || '';
-    const ip1 = parseFloat(localStorage.getItem('IpfaseGD')) || 0;
-    const percentualIP = parseFloat(localStorage.getItem('PercentualIPSelecionadaGD')) || 0;
-    const curvafase = localStorage.getItem('curvafaseSelecionadaGD') || '';
-    const dialfase = parseFloat(localStorage.getItem('dialfaseSelecionadaGD')) || 0;
-
-    const anguloNeutro = localStorage.getItem('anguloNeutroSelecionadoGD') || '';
-    const amtnominalneutro = localStorage.getItem('amtnominalneutroSelecionadaGD') || '';
-    const AMTpadraoneutro = localStorage.getItem('AMTpadraoneutrohtmlGD') || '';
-    const ip2 = parseFloat(localStorage.getItem('IpdeneutroSelecionadaGD')) || 0;
-    const percentualIPneutro = parseFloat(localStorage.getItem('PercentualIPneutroSelecionadaGD')) || 0;
-    const curvaneutro = localStorage.getItem('curvaneutroSelecionadaGD') || '';
-    const dialneutro = parseFloat(localStorage.getItem('dialneutroSelecionadaGD')) || 0;
-
-    const inominalfase = parseFloat(localStorage.getItem('Inominalhtml')) || 0;
+    const correnteprimaria = parseFloat(localStorage.getItem('InominalfaseGD')) || 0;
     const inominalneutro = parseFloat(localStorage.getItem('InominalneutroGD')) || 0;
-    const imagBase = parseFloat(localStorage.getItem('ImagGD')) || 0;
-    const imagneutro = parseFloat(localStorage.getItem('imagneutroGD')) || 0;
-    const curtoArmazenada = parseFloat(localStorage.getItem('curtoGD')) || 0;
-    const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosGD')) || {
+    const ip1 = parseFloat(localStorage.getItem('IpfaseGD')) || 0;
+    const ip2 = parseFloat(localStorage.getItem('IpdeneutroSelecionadaGD')) || 0;
+    const Instfaseconsumo = parseFloat(localStorage.getItem('iccGD')) || 0;
+    const Iinstneutro = parseFloat(localStorage.getItem('IinstneutroSelecionada')) || 0;
+    const imagBase = parseFloat(localStorage.getItem('Imagresultante')) || 0;
+    const imagneutro = parseFloat(localStorage.getItem('imagtotalneutroSelecionada')) || 0;
+    const curtoArmazenada = parseFloat(localStorage.getItem('curtoSelecionada')) || 0;
+    const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {
         trafo1: {}, trafo2: {}, trafo3: {}, trafo4: {}, trafo5: {},
         trafo6: {}, trafo7: {}, trafo8: {}, trafo9: {}, trafo10: {}
     };
@@ -170,135 +168,135 @@ function ChartGenerator() {
         });
 
         // I inst fase
-        datasets.push({
-            label: 'I inst fase = ' + Instfaseconsumo.toFixed(2) + ' A',
-            data: [{ x: Instfaseconsumo, y: 0.01 }],
-            backgroundColor: 'red',
-            borderColor: 'red',
-            borderWidth: 2,
-            pointRadius: 4,
-            pointStyle: 'triangle',
-            showLine: false
-        });
+        // datasets.push({
+        //     label: 'I inst fase = ' + Instfaseconsumo.toFixed(2) + ' A',
+        //     data: [{ x: Instfaseconsumo, y: 0.01 }],
+        //     backgroundColor: 'red',
+        //     borderColor: 'red',
+        //     borderWidth: 2,
+        //     pointRadius: 4,
+        //     pointStyle: 'triangle',
+        //     showLine: false
+        // });
 
         // I inst neutro
-        datasets.push({
-            label: 'I inst neutro = ' + Iinstneutro.toFixed(2) + ' A',
-            data: [{ x: Iinstneutro, y: 0.01 }],
-            backgroundColor: 'blue',
-            borderColor: 'blue',
-            borderWidth: 2,
-            pointRadius: 4,
-            pointStyle: 'triangle',
-            showLine: false
-        });
+        // datasets.push({
+        //     label: 'I inst neutro = ' + Iinstneutro.toFixed(2) + ' A',
+        //     data: [{ x: Iinstneutro, y: 0.01 }],
+        //     backgroundColor: 'blue',
+        //     borderColor: 'blue',
+        //     borderWidth: 2,
+        //     pointRadius: 4,
+        //     pointStyle: 'triangle',
+        //     showLine: false
+        // });
 
         // I mag fase
-        datasets.push({
-            label: 'I mag fase = ' + imagBase.toFixed(2) + ' A',
-            data: [{ x: imagBase, y: 0.1 }],
-            backgroundColor: 'red',
-            borderColor: 'red',
-            borderWidth: 2,
-            pointRadius: 4,
-            pointStyle: 'circle',
-            showLine: false
-        });
+        // datasets.push({
+        //     label: 'I mag fase = ' + imagBase.toFixed(2) + ' A',
+        //     data: [{ x: imagBase, y: 0.1 }],
+        //     backgroundColor: 'red',
+        //     borderColor: 'red',
+        //     borderWidth: 2,
+        //     pointRadius: 4,
+        //     pointStyle: 'circle',
+        //     showLine: false
+        // });
 
         // I mag neutro
-        datasets.push({
-            label: 'I mag neutro = ' + imagneutro.toFixed(2) + ' A',
-            data: [{ x: imagneutro, y: 0.1 }],
-            backgroundColor: 'blue',
-            borderColor: 'blue',
-            borderWidth: 2,
-            pointRadius: 4,
-            pointStyle: 'circle',
-            showLine: false
-        });
+        // datasets.push({
+        //     label: 'I mag neutro = ' + imagneutro.toFixed(2) + ' A',
+        //     data: [{ x: imagneutro, y: 0.1 }],
+        //     backgroundColor: 'blue',
+        //     borderColor: 'blue',
+        //     borderWidth: 2,
+        //     pointRadius: 4,
+        //     pointStyle: 'circle',
+        //     showLine: false
+        // });
     
     
-    // Partida motor+carga operante
-    const somaCorrentePartida = parseFloat(localStorage.getItem("somaCorrentePartidaOperante"));
-    const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
-    const tempoPartida = parseFloat(motorData.tempopartida);
+    // // Partida motor+carga operante
+    // const somaCorrentePartida = parseFloat(localStorage.getItem("somaCorrentePartidaOperante"));
+    // const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
+    // const tempoPartida = parseFloat(motorData.tempopartida);
     
-    if (somaCorrentePartida > 0 && tempoPartida > 0) {
-        datasets.push({
-            label: 'Ip motor+carga operante = ' + somaCorrentePartida.toFixed(2) + ' A,' + tempoPartida.toFixed(2) + ' s',
-            data: [{ x: somaCorrentePartida, y: tempoPartida }],
-            backgroundColor: 'green',
-            borderColor: 'green',
-            borderWidth: 2,
-            pointRadius: 4,
-            pointStyle: 'rect',
-            showLine: false
-        });
-    }
+    // if (somaCorrentePartida > 0 && tempoPartida > 0) {
+    //     datasets.push({
+    //         label: 'Ip motor+carga operante = ' + somaCorrentePartida.toFixed(2) + ' A,' + tempoPartida.toFixed(2) + ' s',
+    //         data: [{ x: somaCorrentePartida, y: tempoPartida }],
+    //         backgroundColor: 'green',
+    //         borderColor: 'green',
+    //         borderWidth: 2,
+    //         pointRadius: 4,
+    //         pointStyle: 'rect',
+    //         showLine: false
+    //     });
+    // }
     
     // ICC Trifásica
    
-        datasets.push({
-            label: 'ICC Trifásica = ' + curtoArmazenada.toFixed(2) + ' A',
-            data: [{ x: curtoArmazenada, y: 0.01 }],
-            backgroundColor: 'black',
-            borderColor: 'black',
-            borderWidth: 2,
-            pointRadius: 4,
-            pointStyle: 'star',
-            showLine: false
-        });
+        // datasets.push({
+        //     label: 'ICC Trifásica = ' + curtoArmazenada.toFixed(2) + ' A',
+        //     data: [{ x: curtoArmazenada, y: 0.01 }],
+        //     backgroundColor: 'black',
+        //     borderColor: 'black',
+        //     borderWidth: 2,
+        //     pointRadius: 4,
+        //     pointStyle: 'star',
+        //     showLine: false
+        // });
         
         // Linha pontilhada vertical de curto circuito
-        datasets.push({
-            label: 'Curto Circuito',
-            data: [
-                { x: curtoArmazenada, y: 0.01 },
-                { x: curtoArmazenada, y: 1000 }
-            ],
-            borderColor: 'black',
-            borderWidth: 2,
-            borderDash: [10, 5],
-            pointRadius: 0,
-            fill: false,
-            showLine: true
-        });
+        // datasets.push({
+        //     label: 'Curto Circuito',
+        //     data: [
+        //         { x: curtoArmazenada, y: 0.01 },
+        //         { x: curtoArmazenada, y: 1000 }
+        //     ],
+        //     borderColor: 'black',
+        //     borderWidth: 2,
+        //     borderDash: [10, 5],
+        //     pointRadius: 0,
+        //     fill: false,
+        //     showLine: true
+        // });
     
     
     // Pontos I ANSI (1-10)
-    const ansiColors = ['red', 'blue', 'green', 'purple', 'brown', 'pink', 'cyan', 'magenta', 'gray', 'black'];
-    for (let i = 1; i <= 10; i++) {
-        const trafo = correntesTrafos[`trafo${i}`];
-        if (trafo && trafo.iansi > 0 && trafo.tempo > 0) {
-            datasets.push({
-                label: `I ANSI trafo ${i} = ${trafo.iansi.toFixed(2)} A`,
-                data: [{ x: trafo.iansi, y: trafo.tempo }],
-                backgroundColor: 'orange',
-                borderColor: ansiColors[i-1],
-                borderWidth: 2,
-                pointRadius: 5,
-                pointStyle: 'triangle',
-                showLine: false
-            });
-        }
-    }
+    // const ansiColors = ['red', 'blue', 'green', 'purple', 'brown', 'pink', 'cyan', 'magenta', 'gray', 'black'];
+    // for (let i = 1; i <= 10; i++) {
+    //     const trafo = correntesTrafos[`trafo${i}`];
+    //     if (trafo && trafo.iansi > 0 && trafo.tempo > 0) {
+    //         datasets.push({
+    //             label: `I ANSI trafo ${i} = ${trafo.iansi.toFixed(2)} A`,
+    //             data: [{ x: trafo.iansi, y: trafo.tempo }],
+    //             backgroundColor: 'orange',
+    //             borderColor: ansiColors[i-1],
+    //             borderWidth: 2,
+    //             pointRadius: 5,
+    //             pointStyle: 'triangle',
+    //             showLine: false
+    //         });
+    //     }
+    // }
     
     // Pontos I NANSI (1-10)
-    for (let i = 1; i <= 10; i++) {
-        const trafo = correntesTrafos[`trafo${i}`];
-        if (trafo && trafo.inansi > 0 && trafo.tempo > 0) {
-            datasets.push({
-                label: `I NANSI trafo ${i} = ${trafo.inansi.toFixed(2)} A`,
-                data: [{ x: trafo.inansi, y: trafo.tempo }],
-                backgroundColor: 'yellow',
-                borderColor: ansiColors[i-1],
-                borderWidth: 2,
-                pointRadius: 5,
-                pointStyle: 'rectRot',
-                showLine: false
-            });
-        }
-    }
+    // for (let i = 1; i <= 10; i++) {
+    //     const trafo = correntesTrafos[`trafo${i}`];
+    //     if (trafo && trafo.inansi > 0 && trafo.tempo > 0) {
+    //         datasets.push({
+    //             label: `I NANSI trafo ${i} = ${trafo.inansi.toFixed(2)} A`,
+    //             data: [{ x: trafo.inansi, y: trafo.tempo }],
+    //             backgroundColor: 'yellow',
+    //             borderColor: ansiColors[i-1],
+    //             borderWidth: 2,
+    //             pointRadius: 5,
+    //             pointStyle: 'rectRot',
+    //             showLine: false
+    //         });
+    //     }
+    // }
     
     // Configuração do gráfico    
     const chartConfig = {
@@ -396,7 +394,8 @@ generateLabels: function(chart) {
     };
     
     // Criar e armazenar o gráfico
-    window.chartInstance = new Chart(ctx, chartConfig);
+    window.chartInstanceGD = new Chart(ctx, chartConfig);
     
-    return window.chartInstance;
+    return window.chartInstanceGD;
 }
+

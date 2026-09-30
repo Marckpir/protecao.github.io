@@ -1,3 +1,45 @@
+/* Título da tabela igual ajuste32 */
+.tabela-titulo {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 18px 0 14px 0;
+    background: transparent;
+    color: #073507;
+    border-radius: 0;
+    border: none;
+    letter-spacing: 1px;
+    box-shadow: none;
+    margin-bottom: 0;
+}
+/* Fundo amarelo para células especiais */
+.dial-ideal-celula, .exibirmagreal {
+    background: #fff89a !important;
+    color: #111 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+.exibirmagreal {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px !important;
+    vertical-align: middle;
+    text-align: left;
+    border-radius: 8px !important;
+     background: #fff89a !important;
+}
+
+.exibirmagreal.ativo {
+    display: table-cell;
+}
+
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #8fbc8f, #1c641c);
@@ -69,7 +111,7 @@ button.nav-active {
     background-color: #cf0808;
 }
 
-.aj67c-brand-row {
+.aj67-brand-row {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,37 +119,56 @@ button.nav-active {
     text-align: center;
 }
 
-.aj67c-brand-title {
+.aj67-brand-title {
     font-family: 'Impact', 'Arial Black', cursive, sans-serif;
     font-size: 2em;
     letter-spacing: 2px;
     color: rgb(2, 68, 2);
 }
 
-.aj67c-brand-svg {
+.aj67-brand-svg {
     width: 4%;
     height: 2em;
     vertical-align: middle;
 }
 
-.aj67c-subtitle {
+/*codigo novo */
+.alertapotminima-caption {
+    font-weight: bold;
+    background-color: rgb(186, 59, 59);
+    color: rgb(250, 250, 250);
+    font-size: 14px;
+    caption-side: top;
+    padding: 5px;
+    border: 3px solid white;
+}
+/*fim codigo novo*/
+
+
+.aj67-subtitle {
     font-weight: bold;
     font-size: 1.1em;
     color: #024402;
     margin-right: 10px;
 }
 
-.aj67c-table-title {
+.aj67-table-title,
+.aj67-table-caption {
     font-weight: bold;
     background-color: rgb(2, 68, 2);
     color: rgb(227, 224, 64);
-    font-size: 20px;
+    font-size: 16px;
     caption-side: top;
     padding: 5px;
     border: 3px solid #000000;
 }
 
-.aj67c-alert-caption {
+.aj67-legendas-btn {
+    float: right;
+    margin-right: 30px;
+}
+
+.aj67-alert-caption {
     font-weight: bold;
     background-color: rgb(186, 59, 59);
     color: rgb(250, 250, 250);
@@ -117,39 +178,18 @@ button.nav-active {
     border: 3px solid #000000;
 }
 
-.aj67c-highlight-cell {
-    background-color: #ffeb3b;
+.aj67-highlight-cell {
+    background-color: #d9e078;
     color: black;
     width: 100%;
-}
-
-#tabelafase td.aj67c-highlight-cell,
-#tabelaneutro td.aj67c-highlight-cell {
-    background-color: #ffeb3b;
-    color: black;
-}
-
-#tabelafase td.aj67c-highlight-cell b,
-#tabelafase td.aj67c-highlight-cell label,
-#tabelaneutro td.aj67c-highlight-cell b,
-#tabelaneutro td.aj67c-highlight-cell label {
-    color: black;
-}
-
-.linha-oculta {
-    display: none;
-}
-
-.aj67c-legendas-btn {
-    float: right;
-    margin-right: 30px;
 }
 
 canvas {
     background-color: rgb(255, 255, 255);
     border: 5px solid black;
-    max-width: 700px;
+    max-width: 100%;
     max-height: 650px;
+    border-radius: 30px;
 }
 
 .grafico-container {
@@ -160,15 +200,22 @@ canvas {
     flex: 0 1 46%;
     min-width: 320px;
     align-self: stretch;
+    min-height: 500px; /* altura aumentada */
+    height: 500px;     /* altura aumentada */
 }
 
 #grafico {
     width: 100%;
     max-width: 760px;
     height: 100%;
-    min-height: 560px;
+    min-height: 700px;
+    height: 700px;
 }
 
+canvas#grafico {
+    min-height: 700px;
+    height: 700px;
+}
 #botaoSalvar {
     margin-top: 15px;
     padding: 10px 20px;
@@ -224,37 +271,100 @@ td {
     border: 3px solid rgb(0, 0, 0);
     padding: 1px;
     text-align: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
+/* Tabelas padronizadas igual ajuste67inj */
+/* Tabela de fase: verde claro, tabela de neutro: azul claro */
 #tabelafase {
-    width: 100%;
-    /* Garante que a tabela ocupe toda a largura disponível */
-    table-layout: fixed;
-    /* Mantém colunas com largura uniforme */
-    border-collapse: collapse;
-    /* Elimina espaços extras entre células */
-
+    width: 95%;
+    margin: 0 auto 16px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10);
+    background: #e8fbe8;
+    border: 1.5px solid #b2e0b2;
+    min-height: 220px;
+}
+#tabelaneutro {
+    width: 95%;
+    margin: 0 auto 16px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10);
+    background: #e6ecfa;
+    border: 1.5px solid #b2d7e0;
+    min-height: 220px;
 }
 
-#tabelafase th,
-#tabelafase td {
-    width: auto;
 
-    padding: 3px;
-    /* Adiciona espaçamento interno */
+#tabelafase th, #tabelafase td {
+    padding: 3px 4px;
     text-align: left;
-    /* Centraliza o conteúdo */
-    border: 1px solid white;
-    border-color: white;
-    background-color: rgb(186, 59, 59);
+    border: none;
+    background: #e8fbe8;
+    font-size: 15px;
+    box-shadow: none;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#tabelafase th {
+    background: #c6f7c6;
+    color: #1c641c;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #b2e0b2;
+    letter-spacing: 0.5px;
+}
+
+#tabelaneutro th, #tabelaneutro td {
+    padding: 3px 4px;
+    text-align: left;
+    border: none;
+    background: #e6ecfa;
+    font-size: 15px;
+    box-shadow: none;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#tabelaneutro th {
+    background: #c6e4f7;
+    color: #1c641c;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #b2d7e0;
+    letter-spacing: 0.5px;
+}
+
+#tabelafase tr {
+    transition: background 0.18s;
+}
+#tabelafase tbody tr:hover {
+    background: #d6f5d6;
+}
+#tabelaneutro tr {
+    transition: background 0.18s;
+}
+#tabelaneutro tbody tr:hover {
+    background: #d6e4f7;
 }
 
 #tabelafase .input-container input,
-#tabelafase .input-container label {
+#tabelafase .input-container label,
+#tabelaneutro .input-container input,
+#tabelaneutro .input-container label {
     width: 90%;
-    /* Faz com que os inputs e labels ocupem toda a célula */
     display: block;
-    /* Garante alinhamento uniforme */
 }
 
 .tabela-containerneutro {
@@ -283,34 +393,7 @@ td {
     text-align: auto;
 }
 
-#tabelaneutro {
-    width: 100%;
-    /* Garante que a tabela ocupe toda a largura disponível */
-    table-layout: fixed;
-    /* Mantém colunas com largura uniforme */
-    border-collapse: collapse;
-    /* Elimina espaços extras entre células */
-}
-
-#tabelaneutro th,
-#tabelaneutro td {
-    width: auto;
-    padding: 3px;
-    /* Adiciona espaçamento interno */
-    text-align: left;
-    /* Centraliza o conteúdo */
-    border: 1px solid white;
-    border-color: white;
-    background-color: rgb(84, 91, 194);
-}
-
-#tabelaneutro .input-container input,
-#tabelaneutro .input-container label {
-    width: 90%;
-    /* Faz com que os inputs e labels ocupem toda a célula */
-    display: block;
-    /* Garante alinhamento uniforme */
-}
+/* Removido: regras antigas de tabelaneutro */
 
 select {
     text-align: left;
@@ -319,42 +402,49 @@ select {
     margin-left: 0px;
     box-sizing: border-box;
     background-color: #ffffff;
-    border: 1px solid #9ab79a;
-    border-radius: 6px;
-    color: #113311;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 0 10px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #96bb96;
+    border-radius: 8px;
+    color: #0f2f0f;
+    font-weight: 600;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 input {
-    background-color: #ffffff;
-    border: 1px solid #9ab79a;
-    border-radius: 6px;
-    color: #113311;
-    font-size: 13px;
-    font-weight: 500;
     height: 32px;
-    padding: 0 10px;
     box-sizing: border-box;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+    border: 1px solid #96bb96;
+    border-radius: 8px;
+    color: #0f2f0f;
+    font-weight: 600;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 input::placeholder {
-    color: #4f6f4f;
-    opacity: 1;
+    color: #5f7a5f;
 }
 
 input:focus,
 select:focus {
-    border-color: #4f8a4f;
-    box-shadow: 0 0 0 2px rgba(79, 138, 79, 0.22);
     outline: none;
+    border-color: #7faa7f;
+    box-shadow: 0 0 0 3px rgba(156, 196, 156, 0.28);
     background-color: #ffffff;
 }
 
+.caption-principal {
+    font-weight: bold;
+    background-color: rgb(2, 68, 2) !important;
+    color: rgb(227, 224, 64) !important;
+    font-size: 20px;
+    caption-side: top;
+    padding: 5px;
+    border: 0;
+}
 
+.linha-oculta {
+    display: none;
+}
 
 /* FAZ FICAR PISCANDO O ALERTA DE POTÊNCIA MÍNIMA */
 .piscando-lento {
@@ -709,6 +799,20 @@ select:focus {
         width: 100%;
         max-width: 860px;
         height: 100%;
-        min-height: 620px;
+        min-height: 700px; /* altura aumentada */
+        max-height: 700px; /* altura aumentada */
     }
+
+    .tabelas-lado-esquerdo,
+.grafico-container {
+    min-height: 560px; /* Same as #grafico min-height */
+    height: 100%;
+    align-self: stretch;
 }
+}
+
+
+
+
+
+

@@ -34,42 +34,40 @@
     </div>
     <h1>
 
-        <button id="botaoconfightml" class="dark-mode-toggle" data-nav-target="config.html">CONFIGURAÇÕES</button>
-        <button id="botaodiagramahtml" class="dark-mode-toggle" data-nav-target="Diagramas.html">DIAGRAMAS</button>
-        <button id="botaoparametrohtml" class="dark-mode-toggle" data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" data-nav-target="transformadores.html">TRAFOS</button>
-        <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle" data-nav-target="protecaoajuste.html">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle" data-nav-target="tabelarele.html">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle" data-nav-target="estudos.html">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" data-nav-target="tabelaGD.html">TABELA
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS GD</button>
-        <button id="botaoanalisehtml" class="dark-mode-toggle" data-nav-target="analise.html">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" data-nav-target="index.html">SAIR</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
 
     </h1>
     <br>
 
-    
+
+    <div class="tp-tc-caption-main">
+        DIMENSIONAMENTO TP E TC DE PROTEÇÃO<br>
+    </div>
     <div class="tabela-container tp-tc-table-wrapper">
         <table>
-            <caption class="tp-tc-caption-main">
-                DIMENSIONAMENTO TP E TC DE PROTEÇÃO<br>
-            </caption>
-
-
-
-
-
-
-
-
-
-
-
-
 
             <tr>
                 <td colspan="2" class="tp-tc-cell-label">TC DE PROTEÇÃO:</td>
@@ -81,7 +79,8 @@
                 </td>
                 <td class="tp-tc-cell-transparent">
                     <div class="tp-tc-card-stack">
-                        <div id="exibicaotccalculado" class="label-container tp-tc-result-card tp-tc-result-card--yellow">
+                        <div id="exibicaotccalculado"
+                            class="label-container tp-tc-result-card tp-tc-result-card--yellow">
                             <span class="tp-tc-chip-yellow"><b>TC
                                     Calculado:</b></span>
                             <label id="tcdeProtecaoideal" type="text" class="tp-tc-label-inline"></label>
@@ -109,30 +108,45 @@
                     </div>
                 </td>
             </tr>
+        </table>
+    </div>
 
+    <div class="tabela-container tp-tc-table-wrapper">
+        <table>
 
-
-
-            <tr rowspan="2">
-                <td colspan="2" class="tp-tc-cell-label">RTP DE PROTEÇÃO:</td>
+            <tr rowspan="3">
+                <td colspan="2" class="tp-tc-cell-label">TP DE PROTEÇÃO:</td>
                 <td>
                     <div class="input-container tp-tc-input-inline">
-                        <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor" class="tp-tc-control-left">
+                        <input id="TPdeprotecaohtml" type="number" placeholder="Digite um valor"
+                            class="tp-tc-control-left">
                         <span class="unidade">:1V</span>
                     </div>
                 </td>
-                <td rowspan="2" class="tp-tc-cell-tensao">
+                <td rowspan="3" class="tp-tc-cell-tensao">
 
 
                     <div class="label-container tp-tc-tensao-card tp-tc-result-card tp-tc-result-card--green">
-                        <span><b>TENSÃO SECUNDÁRIO F-F:</b></span>
-                        <label id="tensaosecundariaffhtml" type="text" class="tp-tc-tensao-valor"></label>
+                        <span><b>Ligação do TP Dimensionada:</b></span>
+                        <label id="ligacaodotpdimensionadahtml" type="text" class="tp-tc-label-inline"></label>
                         <span class="unidade"></span>
                     </div>
                     <br>
                     <div class="label-container tp-tc-tensao-card tp-tc-result-card tp-tc-result-card--green">
-                        <span><b>TENSÃO SECUNDÁRIO F-N:</b></span>
-                        <label id="tensaosecundariafnhtml" type="text" class="tp-tc-tensao-valor"></label>
+                        <span><b>RTP Calculado:</b></span>
+                        <label id="rtphtml" type="text" class="tp-tc-label-inline"></label>
+                        <span class="unidade"></span>
+                    </div>
+                    <br>
+                    <div class="label-container tp-tc-tensao-card tp-tc-result-card tp-tc-result-card--green">
+                        <span><b>Tensão Secundária F-F:</b></span>
+                        <label id="tensaosecundariaffhtml" type="text" class="tp-tc-label-inline"></label>
+                        <span class="unidade"></span>
+                    </div>
+                    <br>
+                    <div class="label-container tp-tc-tensao-card tp-tc-result-card tp-tc-result-card--green">
+                        <span><b>Tensão Secundária F-N:</b></span>
+                        <label id="tensaosecundariafnhtml" type="text" class="tp-tc-label-inline"></label>
                         <span class="unidade"></span>
                     </div>
 
@@ -144,13 +158,14 @@
                 <td colspan="2" class="tp-tc-cell-label">LIGAÇÃO DO TP DE PROTEÇÃO:</td>
                 <td>
                     <select id="ligacaodabobinahtml" class="tp-tc-select-gap-md">
+                        <option value=""></option>
                         <option>Estrela-Estrela</option>
                         <option>Triangulo-Estrela</option>
                     </select>
                 </td>
             </tr>
-
-
+        </table>
+    </div>
 
 
     </div>
@@ -160,33 +175,42 @@
 
 
 
-    
 
 
-    <tr>
-        <td colspan="2">
-            <div class="tp-tc-aux-row">
-                <span class="tp-tc-aux-label">RTP AUXILIAR ALIMENTAÇÃO:</span>
-            </td>
-                
+    <div class="tabela-container tp-tc-table-wrapper">
+
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="tp-tc-aux-row">
+                        <span class="tp-tc-aux-label">TP ALIMENTAÇÃO AUXILIAR:</span>
+                </td>
+
                 <td>
-                <div class="input-container tp-tc-input-inline">
-                    <input id="RTPauxiliarhtml" type="text" class="tp-tc-control-left" placeholder="Digite um valor">
-                    <span class="unidade">:1 V</span>
-                </div>
+                    <div class="input-container tp-tc-input-inline">
+                        <input id="RTPauxiliarhtml" type="text" class="tp-tc-control-left"
+                            placeholder="Digite um valor">
+                        <span class="unidade">:1 V</span>
+                    </div>
                 </td>
 
                 <td class="tp-tc-cell-transparent">
-                <div class="label-container tp-tc-result-card tp-tc-result-card--green">
-                    <span><b>TENSÃO SECUNDÁRIA AUXILIAR:</b><br> <label id="tensaosecundariaauxiliarhtml" type="text"
-                            class="tp-tc-label-inline"></label></span>
-                    <span class="unidade"></span>
-                </div>
+                    <div class="label-container tp-tc-result-card tp-tc-result-card--green">
+                        <span><b>RTP Alimentação Auxiliar:</b><br> <label id="rtpauxiliarhtml" type="text"
+                                class="tp-tc-label-inline"></label></span>
+                        <span class="unidade"></span>
+                    </div>
+                    <br>
+                    <div class="label-container tp-tc-result-card tp-tc-result-card--green">
+                        <span><b>Tensão Secundária Auxiliar:</b><br> <label id="tensaosecundariaauxiliarhtml"
+                                type="text" class="tp-tc-label-inline"></label></span>
+                        <span class="unidade"></span>
+                    </div>
                 </td>
-        </td>
-    </tr>
+                </td>
+            </tr>
 
-    <!-- <tr>
+            <!-- <tr>
                 <td>RELÉ DE PROTEÇÃO:</td>
 
                 <td>
@@ -219,172 +243,174 @@
                 </td>
 
             </tr> -->
-    </table>
+        </table>
+
+    </div>
+    </div>
+
+
+    <div class="tp-tc-caption-main">
+        DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO)<br>
+    </div>
+ 
+
+    <div class="tabela-container tp-tc-table-wrapper">
+        <table>
+            <tr>
+                <td>Potência TC de proteção (ABNT NBR 6856:2015) (VA):</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <select id="input-potencia-Nominal-TC-html" class="tp-tc-control-left">
+                            <option value=""></option>
+                            <option value="2.5VA">2.5VA</option>
+                            <option value="5VA">5VA</option>
+                            <option value="12.5VA">12.5VA</option>
+                            <option value="22.5VA">22.5VA</option>
+                            <option value="45VA">45VA</option>
+                            <option value="90VA">90VA</option>
+                        </select>
+
+                    </div>
+                </td>
+
+                <td rowspan="3"> <span id="label-especificacao-norma-nova-html"></span> </td>
+
+            </tr>
+            <tr>
+                <td>Erro máximo TC de proteção (%):</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <select id="input-erro-saturacao-TC-html" class="tp-tc-control-left">
+                            <option value=""></option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Fator de multiplicidade máximo TC de proteção:</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <select id="input-fator-multiplicidade-TC-html" class="tp-tc-control-left">
+                            <option value=""></option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            <option value="60">60</option>
+                            <option value="70">70</option>
+                            <option value="80">80</option>
+                        </select>
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Comprimento do condutor (TC ao RELÉ):</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <input id="input-comprimento-Condutor-TC-html" type="text" class="tp-tc-control-left">
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+                <td> <span id="label-especificacao-condutor-html"></span> </td>
+            </tr>
+            <tr>
+                <td>Bitola do condutor (TC ao RELÉ):</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <input id="input-bitola-Condutor-TC-html" type="text" class="tp-tc-control-left">
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+                <td> <span id="label-especificacao-bitola-html"></span> </td>
+            </tr>
+            <tr>
+                <td>Resistividade do condutor (TC ao RELÉ):</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <input id="input-resistividade-Condutor-TC-html" type="text" class="tp-tc-control-left">
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+                <td> <span id="label-especificacao-resistividade-html"></span> </td>
+            </tr>
+            <tr>
+                <td>Potência monofásica bobina do Relé:</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <input id="input-potencia-bobina-rele-html" type="text" class="tp-tc-control-left">
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+                <td> <span id="label-especificacao-potencia-bobina-rele-html"></span> </td>
+            </tr>
+            <tr>
+                <td>Relação X/R do curto-circuito assimétrico no ponto:</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <input id="input-relacao-xr-curto-html" type="text" class="tp-tc-control-left">
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+                <td> <span id="label-especificacao-relacao-xr-curto-html"></span> </td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2">Especificação TC de proteção (ABNT NBR 6856:1992):</td>
+
+                <td> <span id="label-especificacao-norma-antiga-html"></span> </td>
+            </tr>
+            <tr>
+                <td colspan="2">Z Burden do TC:</td>
+
+                <td> <span id="label-burden-calculado-tc-html"></span> </td>
+            </tr>
+            <tr>
+                <td colspan="2">Impedância total da carga acoplada:</td>
+
+                <td> <span id="label-impedancia-calculada-total-html"></span> </td>
+            </tr>
+            <tr>
+                <td colspan="2">Tensão de saturação nominal:</td>
+
+                <td> <span id="label-tensao-saturacao-nominal-html"></span> </td>
+            </tr>
+            <tr>
+                <td colspan="2">Tensão de saturação Calculada:</td>
+                <td>
+                    <div class="input-container tp-tc-input-start">
+                        <label id="label-tensao-saturacao-calculada-TC-html" class="tp-tc-control-left"></label>
+                        <span class="unidade"></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+
 
 
     </div>
 
-    <div class="tp-tc-saturacao-section">
-        <h2 class="tp-tc-section-title"> DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO)</h2>
+    <div id="notificacaodasaturacao" class="tp-tc-notice-wrap">
 
-        <div class="tabela-container tp-tc-table-wrapper">
-            <table>
-                <tr>
-                    <td>Potência TC de proteção (ABNT NBR 6856:2015) (VA):</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <select id="input-potencia-Nominal-TC-html" class="tp-tc-control-left">
-                                <option value=""></option>
-                                <option value="2.5VA">2.5VA</option>
-                                <option value="5VA">5VA</option>
-                                <option value="12.5VA">12.5VA</option>
-                                <option value="22.5VA">22.5VA</option>
-                                <option value="45VA">45VA</option>
-                                <option value="90VA">90VA</option>
-                            </select>
+        <label id="label-notificacao-saturacao-tc-html" class="tp-tc-notice-label">
+            A tensão de saturação calculada é menor ou igual à nominal
 
-                        </div>
-                    </td>
+        </label>
 
-                    <td rowspan="3"> <span id="label-especificacao-norma-nova-html"></span> </td>
-
-                </tr>
-                <tr>
-                    <td>Erro máximo TC de proteção (%):</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <select id="input-erro-saturacao-TC-html" class="tp-tc-control-left">
-                                <option value=""></option>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                            </select>
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Fator de multiplicidade máximo TC de proteção:</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <select id="input-fator-multiplicidade-TC-html" class="tp-tc-control-left">
-                                <option value=""></option>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                                <option value="50">50</option>
-                                <option value="60">60</option>
-                                <option value="70">70</option>
-                                <option value="80">80</option>
-                            </select>
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td>Comprimento do condutor (TC ao RELÉ):</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <input id="input-comprimento-Condutor-TC-html" type="text" class="tp-tc-control-left">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td> <span id="label-especificacao-condutor-html"></span> </td>
-                </tr>
-                <tr>
-                    <td>Bitola do condutor (TC ao RELÉ):</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <input id="input-bitola-Condutor-TC-html" type="text" class="tp-tc-control-left">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td> <span id="label-especificacao-bitola-html"></span> </td>
-                </tr>
-                <tr>
-                    <td>Resistividade do condutor (TC ao RELÉ):</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <input id="input-resistividade-Condutor-TC-html" type="text" class="tp-tc-control-left">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td> <span id="label-especificacao-resistividade-html"></span> </td>
-                </tr>
-                <tr>
-                    <td>Potência monofásica bobina do Relé:</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <input id="input-potencia-bobina-rele-html" type="text" class="tp-tc-control-left">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td> <span id="label-especificacao-potencia-bobina-rele-html"></span> </td>
-                </tr>
-                <tr>
-                    <td>Relação X/R do curto-circuito assimétrico no ponto (opcional):</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <input id="input-relacao-xr-curto-html" type="text" class="tp-tc-control-left">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td> <span id="label-especificacao-relacao-xr-curto-html"></span> </td>
-                </tr>
-
-
-                <tr>
-                    <td colspan="2">Especificação TC de proteção (ABNT NBR 6856:1992):</td>
-
-                    <td> <span id="label-especificacao-norma-antiga-html"></span> </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Z Burden do TC:</td>
-
-                    <td> <span id="label-burden-calculado-tc-html"></span> </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Impedância total da carga acoplada:</td>
-
-                    <td> <span id="label-impedancia-calculada-total-html"></span> </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Tensão de saturação nominal:</td>
-
-                    <td> <span id="label-tensao-saturacao-nominal-html"></span> </td>
-                </tr>
-                <tr>
-                    <td colspan="2">Tensão de saturação Calculada:</td>
-                    <td>
-                        <div class="input-container tp-tc-input-start">
-                            <label id="label-tensao-saturacao-calculada-TC-html"
-                                class="tp-tc-control-left"></label>
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-
-
-
-
-
-
-        </div>
-
-        <div id="notificacaodasaturacao" class="tp-tc-notice-wrap">
-
-            <label id="label-notificacao-saturacao-tc-html" class="tp-tc-notice-label">
-                A tensão de saturação calculada é menor ou igual à nominal
-
-            </label>
-
-        </div>
+    </div>
 
     </div>
 

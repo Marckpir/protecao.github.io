@@ -9,10 +9,17 @@
 //INICIALIZAR DO CARREGAMENTO DA PAGINA 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Configurações de eventos e quebras de página para impressão
     configurarEventosHeaderEImpressao();
+    
+    // configurações de quebras de página para impressão
     configurarQuebrasDinamicasImpressao();
 
+    // Exibir ou ocultar a corrente mínima para consumo e GD conforme necessário
     exibirCorrenteMinimaSeNecessario();
+
+    // Exibir ou ocultar a corrente mínima para GD conforme necessário
+    exibirCorrenteMinimaGDSeNecessario();
 
     // Aguardar MathJax carregar com retry
     function carregarFormulas() {
@@ -539,7 +546,7 @@ function carregarConteudosAjustesGDComplementares() {
     preencher('estudo46-idef', localStorage.getItem('Idefajustada46'), '', ['#idef-46-ajustada-html']);
     preencher('estudo46-tempo', localStorage.getItem('Tempodefinido46'), ' s', ['#tempodefinido-ajustada-html']);
 
-    
+
     document.querySelectorAll('.estudo46-idefreal').forEach(el => {
         const valorLabel = document.querySelector('.idef-46-real-html');
         const valor = localStorage.getItem('Idef46real');
@@ -568,7 +575,7 @@ function carregarConteudosAjustesGDComplementares() {
     // Ajuste 47
     document.querySelectorAll('.estudo47-tolerancia').forEach(el => {
         const valorLabel = document.querySelector('#desequilibrio-dimensionado-html');
-        const valor = localStorage.getItem('ToleranciaDeseqAjustada47')/100 || '0.20';
+        const valor = localStorage.getItem('ToleranciaDeseqAjustada47') / 100 || '0.20';
         el.textContent = (valorLabel && valorLabel.textContent.trim() !== '') ? valorLabel.textContent.trim() + ' P.U' : valor + ' P.U';
     });
     document.querySelectorAll('.estudo47-tempo').forEach(el => {
@@ -603,7 +610,15 @@ function carregarConteudosAjustesGDComplementares() {
     const tensaoDeseq25 = parseNumero(localStorage.getItem('TensaoDeseqAjustada25'), 10);
     const freqDeseq25 = parseNumero(localStorage.getItem('FrequenciaDeseqAjustada25'), 0.3);
     const anguloDeseq25 = parseNumero(localStorage.getItem('AnguloDeseqAjustada25'), 10);
-    const condicao25 = localStorage.getItem('CondicaoSeccionamentoAjustada25') || 'LINHA-VIVA/BARRA-MORTA';
+    const condicao25 = localStorage.getItem('CondicaoSeccionamentoAjustada25') || 'LINHA-VIVA/BARRA-VIVA';
+    const condicao2_25 = localStorage.getItem('Condicao2SeccionamentoAjustada25') || 'LINHA-VIVA/BARRA-MORTA';
+    const condicao3_25 = localStorage.getItem('Condicao3SeccionamentoAjustada25') || 'LINHA-MORTA/BARRA-VIVA';
+    const condicao4_25 = localStorage.getItem('Condicao4SeccionamentoAjustada25') || 'LINHA-MORTA/BARRA-MORTA';
+
+    const DescricaoSeccionamentoAjustada25 = localStorage.getItem('DescricaoSeccionamentoAjustada25') || 'FECHAMENTO DO DISJUNTOR PERMITIDO';
+    const Descricao2SeccionamentoAjustada25 = localStorage.getItem('Descricao2SeccionamentoAjustada25') || 'FECHAMENTO DO DISJUNTOR PERMITIDO';
+    const Descricao3SeccionamentoAjustada25 = localStorage.getItem('Descricao3SeccionamentoAjustada25') || 'FECHAMENTO DO DISJUNTOR BLOQUEADO';
+    const Descricao4SeccionamentoAjustada25 = localStorage.getItem('Descricao4SeccionamentoAjustada25') || 'FECHAMENTO DO DISJUNTOR BLOQUEADO';
 
     const fatorTensao25 = Number.isFinite(tensaoDeseq25) ? (tensaoDeseq25 / 100) : NaN;
     const vpl25Aj = Number.isFinite(tensaoPrimariaLinha) && Number.isFinite(fatorTensao25) ? tensaoPrimariaLinha * fatorTensao25 : NaN;
@@ -637,7 +652,7 @@ function carregarConteudosAjustesGDComplementares() {
         el.textContent = formatarValor(vsf25Aj, 'V');
     });
 
-    
+
     document.querySelectorAll('.estudo25-val-tensao').forEach(el => {
         const valorLabel = document.querySelector('#tensao-desequilibrio-dimensionado-html');
         if (valorLabel && valorLabel.textContent.trim() !== '') {
@@ -674,12 +689,106 @@ function carregarConteudosAjustesGDComplementares() {
         }
     });
 
-    // Compatibilidade com IDs antigos
-    preencher('estudo25-vp', formatarValor(vpf25Aj, 'V'));
-    preencher('estudo25-tensaodeseq', `${tensaoDeseq25} %`, '', ['#tensao-desequilibrio-dimensionado-html']);
-    preencher('estudo25-freqdeseq', `${freqDeseq25} Hz`, '', ['[id="frequência-desequilibrio-dimensionado-html"]']);
-    preencher('estudo25-angulodeseq', `${anguloDeseq25} °`, '', ['#angulo-desequilibrio-dimensionado-html']);
-    preencher('estudo25-condicao', condicao25, '', ['#condicao-seccionamento-dimensionado-html']);
+    document.querySelectorAll('.estudo25-val-condicao2').forEach(el => {
+        const valorLabel = document.querySelector('#condicao2-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = condicao2_25;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-val-condicao3').forEach(el => {
+        const valorLabel = document.querySelector('#condicao3-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = condicao3_25;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-val-condicao4').forEach(el => {
+        const valorLabel = document.querySelector('#condicao4-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = condicao4_25;
+        }
+    });
+
+
+    document.querySelectorAll('.estudo25-desc-operacao').forEach(el => {
+        const valorLabel = document.querySelector('#descricao-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = DescricaoSeccionamentoAjustada25;
+        }
+    });
+
+
+    document.querySelectorAll('.estudo25-desc-operacao2').forEach(el => {
+        const valorLabel = document.querySelector('#descricao2-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = Descricao2SeccionamentoAjustada25;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-desc-operacao3').forEach(el => {
+        const valorLabel = document.querySelector('#descricao3-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = Descricao3SeccionamentoAjustada25;
+        }
+    });
+
+    document.querySelectorAll('.estudo25-desc-operacao4').forEach(el => {
+        const valorLabel = document.querySelector('#descricao4-seccionamento-dimensionado-html');
+        if (valorLabel && valorLabel.textContent.trim() !== '') {
+            el.textContent = valorLabel.textContent.trim();
+        } else {
+            el.textContent = Descricao4SeccionamentoAjustada25;
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Compatibilidade com IDs antigos
+preencher('estudo25-vp', formatarValor(vpf25Aj, 'V'));
+preencher('estudo25-tensaodeseq', `${tensaoDeseq25} %`, '', ['#tensao-desequilibrio-dimensionado-html']);
+preencher('estudo25-freqdeseq', `${freqDeseq25} Hz`, '', ['[id="frequência-desequilibrio-dimensionado-html"]']);
+preencher('estudo25-angulodeseq', `${anguloDeseq25} °`, '', ['#angulo-desequilibrio-dimensionado-html']);
+
+
+preencher('estudo25-condicao', condicao25, '', ['#condicao-seccionamento-dimensionado-html']);
+preencher('estudo25-condicao2', condicao2_25, '', ['#condicao2-seccionamento-dimensionado-html']);
+preencher('estudo25-condicao3', condicao3_25, '', ['#condicao3-seccionamento-dimensionado-html']);
+preencher('estudo25-condicao4', condicao4_25, '', ['#condicao4-seccionamento-dimensionado-html']);
+
+
+preencher('estudo25-desc-operacao', DescricaoSeccionamentoAjustada25, '', ['#descricao-seccionamento-dimensionado-html']);
+preencher('estudo25-desc-operacao2', Descricao2SeccionamentoAjustada25, '', ['#descricao2-seccionamento-dimensionado-html']);
+preencher('estudo25-desc-operacao3', Descricao3SeccionamentoAjustada25, '', ['#descricao3-seccionamento-dimensionado-html']);
+preencher('estudo25-desc-operacao4', Descricao4SeccionamentoAjustada25, '', ['#descricao4-seccionamento-dimensionado-html']);
+
+
+
+
+
+
 }
 
 function carregarConteudoAjuste51V() {
@@ -714,7 +823,7 @@ function carregarConteudoAjuste51V() {
         return null;
     };
 
-    
+
 
     const preencher = (id, valor, seletoresLabel = []) => {
         const el = document.getElementById(id);
@@ -729,7 +838,7 @@ function carregarConteudoAjuste51V() {
     });
 
 
-    
+
     document.querySelectorAll('.estudo51v-ip').forEach(el => {
         el.textContent = maiorIp > 0 ? `${maiorIp.toFixed(2)} A` : '-';
     });
@@ -751,17 +860,17 @@ function carregarConteudoAjuste51V() {
             el.textContent = '-';
         }
     });
-    
+
     preencher('estudo51v-curva', curva, ['.curva-fase']);
     document.querySelectorAll('.estudo51v-curva').forEach(el => {
         el.textContent = curva;
     });
-    
+
     preencher('estudo51v-dial', dial, ['.dial-fase-ajustado']);
     document.querySelectorAll('.estudo51v-dial').forEach(el => {
         el.textContent = dial;
     });
-    
+
     document.querySelectorAll('.estudo51v-tp-linha').forEach(el => {
         el.textContent = tensaoPrimariaFF > 0 ? `${tensaoPrimariaFF.toFixed(2)} V` : '-';
     });
@@ -988,21 +1097,22 @@ function carregarVariaveisEstudo() {
     // });
 
     // Preencher campo potencia-gd com potenciaGDSelecionada
-    const demandaCalculadaGD = localStorage.getItem('demandaSelecionadaGD');
-    const potenciaGDSelecionada = localStorage.getItem('potenciaGDcontratada');
+    const potenciaGDcontratada = parseFloat(localStorage.getItem('potenciaGDcontratada')) || 0;
+    const potenciaGDSelecionada = parseFloat(localStorage.getItem('potenciaGDSelecionada')) || 0;
     document.querySelectorAll('.potencia-gd').forEach(el => {
-        if (potenciaGDSelecionada !== null && !isNaN(potenciaGDSelecionada)) {
-            el.textContent = potenciaGDSelecionada + ' kW';
+        if (potenciaGDcontratada !== null && !isNaN(potenciaGDcontratada)) {
+            el.textContent = potenciaGDcontratada + ' kW';
         }
     });
 
+
     // Preencher campo potencia-de-injecao-gd com potenciaGDSelecionada
-    const potenciaInjecaoGDSelecionada = localStorage.getItem('potenciaGDSelecionada');
+    const potenciaInjecaoGDSelecionada = parseFloat(localStorage.getItem('potenciaGDSelecionada')) || 0;
     const tipoParalelismoSelecionado = localStorage.getItem('tipoParalelismoSelecionado');
     const inominalminimaTCGD = localStorage.getItem('inominalminimaTCGD');
     document.querySelectorAll('.potencia-de-injecao-gd').forEach(el => {
         if (potenciaInjecaoGDSelecionada !== null && !isNaN(potenciaInjecaoGDSelecionada) && tipoParalelismoSelecionado === 'Sem Injeção') {
-            el.textContent = '0  ' + 'kW' + '(Sem Injeção - GRID ZERO)';
+            el.textContent = '0  ' + 'kW' + ' (Sem Injeção - CONEXÃO GRID ZERO)';
 
         } else if (potenciaInjecaoGDSelecionada !== null && !isNaN(potenciaInjecaoGDSelecionada) && tipoParalelismoSelecionado === 'Com Injeção' && inominalminimaTCGD !== null && inominalminimaTCGD === 'Sim') {
             el.textContent = potenciaInjecaoGDSelecionada + ' kW' + '(Considerando Injeção Mínima devido limitação do Sistema de Proteção)';
@@ -1070,6 +1180,24 @@ function carregarVariaveisEstudo() {
 
 
     // ---------FIM DO CARREGAMENTO DAS VARIAVEIS DOS PARAMETROS ELETRICO -------------------
+
+
+    //-----------INICIO CONDIÇÃO PARA EXIBIÇÃO DE CAMPOS DE REFERÊNCIA DE ATERRAMENTO ----------------
+
+    //Se a pontencia da GD for menor que 300 kw, não exibe referencia-aterramento-bloco
+
+    const potenciaGD = parseFloat(localStorage.getItem('potenciaGDcontratada')) || 0;
+    if (potenciaGD <= 300) {
+        const refAterramentoEls = document.getElementsByClassName('referencia-aterramento-bloco');
+        Array.from(refAterramentoEls).forEach(el => {
+            el.style.display = 'none';
+        });
+    }
+
+
+
+
+
 
     //-----------------FUNÇÃO PARA CARREGA CAMPOS E CALCULOS DE CORRENTES DOS TRAFOS-------------
 
@@ -1404,9 +1532,11 @@ function carregarVariaveisEstudo() {
 
     // Carregar corrente de curto no calculo de TC no HTML  
     const curtoSelecionadaTC = localStorage.getItem('curtoSelecionada');
-    const curtoTCEl = document.getElementById('curtoTC');
+    const curtoTCEl = document.querySelectorAll('.curtoTC');
     if (curtoTCEl && curtoSelecionadaTC !== null) {
-        curtoTCEl.textContent = curtoSelecionadaTC + ' A';
+        curtoTCEl.forEach(el => {
+            el.textContent = curtoSelecionadaTC + ' A';
+        });
     }
 
     // Calcular curtoSelecionadaTC / 50 e preencher em tc-saturacao-primario
@@ -1481,6 +1611,8 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    console.log('Demanda ipPartidaNumeradorGDEls:', potenciaGDSelecionada, 'Percentual IP GD:', percentualIPGD);
+
     // Para ip-partida-numerador-TC para consumo
     const ipPartidaNumeradorTCEls = document.querySelectorAll('.ip-partida-numerador-TC');
     ipPartidaNumeradorTCEls.forEach(el => {
@@ -1525,7 +1657,8 @@ function carregarVariaveisEstudo() {
         }
     });
 
-    // Preencher campo ip-partida-resultado considerando Ipdeconsumo
+    // Preencher campo ip-partida-resultado considerando Ipdeconsumo e IpdeconsumoGD, o maior valor entre os dois será o valor de partida do IP
+
     const ipDeConsumo = localStorage.getItem('Ipdeconsumo');
     const ipPartidaResultadoEls = document.querySelectorAll('.ip-partida-resultado');
     ipPartidaResultadoEls.forEach(el => {
@@ -1542,6 +1675,19 @@ function carregarVariaveisEstudo() {
             el.textContent = parseFloat(ipDeConsumoGD).toFixed(2) + ' A';
         }
     });
+
+
+    //comparar os valores de Ipdeconsumo e IpdeconsumoGD e preencher o maior valor em ip-partida-resultado-final
+    const ipPartidaResultadoFinalEls = document.querySelectorAll('.ip-partida-resultado-maior');
+  
+
+    if (!isNaN(ipDeConsumo) && !isNaN(ipDeConsumoGD)) {
+        const maiorIp = Math.max(ipDeConsumo, ipDeConsumoGD);
+        ipPartidaResultadoFinalEls.forEach(el => {
+            el.textContent = maiorIp.toFixed(2) + ' A';
+        });
+    }
+
 
     // Preencher campo ip-partida-resultado-TC considerando IpdeconsumoTC
     const ipDeConsumoTC = demandadecontrato * ((parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
@@ -1578,6 +1724,24 @@ function carregarVariaveisEstudo() {
     tcEspecificacaoEls.forEach(el => {
         if (tcEspecificacao !== null && !isNaN(tcEspecificacao)) {
             el.textContent = "Relação de transformação do TC = " + parseFloat(tcEspecificacao) + ' : 5 A';
+        }
+    });
+
+
+    //preencher corrente primaria do TC de proteção em tc-corrente-primaria
+    const tcCorrentePrimariaEls = document.querySelectorAll('.tc-corrente-primaria');
+    tcCorrentePrimariaEls.forEach(el => {
+        if (tcEspecificacao !== null && !isNaN(tcEspecificacao)) {
+            el.textContent = parseFloat(tcEspecificacao) + ' A';
+        }
+    });
+
+    //preencher relacao de transformacao do TC de proteção em rtc-especificacao com a variavel RTCselecionado do localStorage
+    const rtcSelecionada = localStorage.getItem('RTCselecionado');
+    const tcRelacaoTransformacaoEls = document.querySelectorAll('.rtc-especificacao');
+    tcRelacaoTransformacaoEls.forEach(el => {
+        if (rtcSelecionada !== null && !isNaN(rtcSelecionada)) {
+            el.textContent = parseFloat(rtcSelecionada);
         }
     });
 
@@ -2327,7 +2491,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // });
 
 
-
+// Função para exibir ou ocultar a seção de corrente mínima para consumo com base no valor de inominalminimaTC
 function exibirCorrenteMinimaSeNecessario() {
     // Certifique-se de que o valor está correto e sem espaços extras
     const inomimalMinimaTC = localStorage.getItem('inominalminimaTC');
@@ -2338,6 +2502,21 @@ function exibirCorrenteMinimaSeNecessario() {
         el.style.display = (inomimalMinimaTC === "Sim") ? '' : 'none';
     });
 }
+
+
+// Chame a função para exibir ou ocultar a corrente mínima para gd ao carregar a página
+function exibirCorrenteMinimaGDSeNecessario() {
+    const inomimalMinimaGD = localStorage.getItem('inominalminimaTCGD');
+    const tipoParalelismo = localStorage.getItem('tipoParalelismoSelecionado');
+    const correnteMinimaGDEls = document.querySelectorAll('.correnteminima-gd');
+    correnteMinimaGDEls.forEach(el => {
+        el.style.display = (inomimalMinimaGD === "Sim" || tipoParalelismo === "Sem Injeção") ? '' : 'none';
+    });
+}
+
+console.log('inomimalMinimaGD:', inomimalMinimaGD, 'tipoParalelismo:', tipoParalelismo);
+console.log('tipoParalelismo:', tipoParalelismo);
+
 
 // --------------------------------------------------------------// 
 // Código para gerar a curva tempo inverso em SVG

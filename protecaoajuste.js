@@ -52,12 +52,20 @@ async function salvarOpcao() {
         await validarPercentualMinimo(IPpercentualSelecionada, "");
         IPpercentualSelecionada = 105;
         IPpercentual.value = 105; // Atualiza o campo no HTML
-                // alert("O valor percentual de IP não pode ser menor que 100 %.");
-        
+        // alert("O valor percentual de IP não pode ser menor que 100 %.");
+
     }
 
+
+
+
     const curvafase = document.getElementById("tipodecurvahtml");
-    const curvafaseSelecionada = curvafase.value;
+
+    const curvafaseEscolhida = curvafase.value;
+
+
+    localStorage.setItem("curvafaseEscolhida", curvafaseEscolhida);
+
 
     const dialfase = document.getElementById("dialfasehtml");
     const dialfasereal = dialfase.value;
@@ -67,7 +75,7 @@ async function salvarOpcao() {
         await validarPercentualMinimo(imagpercentualSelecionada, "");
         imagpercentualSelecionada = 105;
         imagfase.value = 105; // Atualiza o campo no HTML
-        
+
     }
 
     const imagsimulada = document.getElementById("imagsimuladahtml");
@@ -93,8 +101,17 @@ async function salvarOpcao() {
         IPpercentualneutro.value = 105; // Atualiza o campo no HTML
     }
 
+
+
     const curvaneutro = document.getElementById("tipodecurvaneutrohtml");
-    const curvaneutroSelecionada = curvaneutro.value;
+    const curvaneutroEscolhida = curvaneutro.value;
+
+    localStorage.setItem("curvaneutroEscolhida", curvaneutroEscolhida);
+    // const curvaneutroSelecionada = curvaneutro.value;
+
+
+
+
 
     const dialneutro = document.getElementById("dialcurvaneutrohtml");
     const dialneutroreal = dialneutro.value;
@@ -115,7 +132,7 @@ async function salvarOpcao() {
 
     //armazenamento dos valores de fase no local storage
     localStorage.setItem("PercentualIPSelecionada", IPpercentualSelecionada);
-    localStorage.setItem("curvafaseSelecionada", curvafaseSelecionada);
+
     localStorage.setItem("dialfasereal", dialfasereal);
     localStorage.setItem("imagpercentualSelecionada", imagpercentualSelecionada);
     localStorage.setItem("imagsimuladaSelecionada", imagsimuladaSelecionada);
@@ -125,7 +142,7 @@ async function salvarOpcao() {
 
     //armazenamento dos valores de neutro no local storage
     localStorage.setItem("PercentualIPneutroSelecionada", IPpercentualneutroSelecionada);
-    localStorage.setItem("curvaneutroSelecionada", curvaneutroSelecionada);
+
     localStorage.setItem("dialneutroreal", dialneutroreal);
     localStorage.setItem("imagneutropercentualSelecionada", imagneutropercentualSelecionada);
     localStorage.setItem("idefneutroSelecionada", idefdeneutroSelecionada);
@@ -157,11 +174,6 @@ window.addEventListener('load', function () {
     // Controle de acesso movido para controle-acesso.js
 
     calculadialideal();
-    
-
-    
-
-    
 
 
 
@@ -170,8 +182,12 @@ window.addEventListener('load', function () {
     const IPpercentualhtml = document.getElementById("IPpercentualhtml");
     const IPrealhtml = document.getElementById("IPrealhtml");
     const tipodecurvahtml = document.getElementById("tipodecurvahtml");
-     // Padrão 1000 se não houver valor
+    const curvaFaseAjustadaHtml = document.getElementById("curva-fase-ajustada-html");
+
+    
     const dialfasehtml = document.getElementById("dialfasehtml");
+    dialfasehtml.value = parseFloat(localStorage.getItem("dialfasereal"));
+
     const imagfase = document.getElementById("imagfase");
     const imagpercentual = document.getElementById("imagpercentual");
     const imagreal = document.getElementById("imagreal");
@@ -190,7 +206,8 @@ window.addEventListener('load', function () {
     const IPpercentualneutrohtml = document.getElementById("IPpercentualneutrohtml");
     const IPrealneutrohtml = document.getElementById("IPrealneutrohtml");
     const tipodecurvaneutrohtml = document.getElementById("tipodecurvaneutrohtml");
-    const dialcurvaneutrohtml = document.getElementById("dialcurvaneutrohtml") ;
+    const curvaNeutroAjustadaHtml = document.getElementById("curva-neutro-ajustada-html");
+    const dialcurvaneutrohtml = document.getElementById("dialcurvaneutrohtml");
     const dialidealneutro = document.getElementById("dialidealneutro");
     const dialrealneutro = document.getElementById("dialrealneutro");
 
@@ -208,8 +225,33 @@ window.addEventListener('load', function () {
     const potenciaArmazenada = parseFloat(localStorage.getItem("demandaSelecionada"));
     const fatorpArmazenada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada"));
     const Ippercentual = parseFloat(localStorage.getItem("PercentualIPSelecionada")) || 105;
-    const curvafaseArmazenada = localStorage.getItem("curvafaseSelecionada");
-    const dialfasereal = localStorage.getItem("dialfasereal");
+    let curvafaseEscolhida = localStorage.getItem("curvafaseEscolhida");
+    let curvafaseSelecionada = localStorage.getItem("curvafaseSelecionada");
+
+
+    let curvafaseArmazenada;
+    if (!curvafaseEscolhida || curvafaseEscolhida === null || curvafaseEscolhida === undefined) {
+
+        curvafaseEscolhida = "";
+        curvafaseSelecionada = "IEC-E.I"; // Valor padrão caso não exista no localStorage 
+        curvafaseArmazenada = "IEC-E.I"; // Valor padrão caso não exista no localStorage  
+        localStorage.setItem("curvafaseEscolhida", curvafaseEscolhida);
+        localStorage.setItem("curvafaseSelecionada", curvafaseSelecionada);
+
+    }
+
+    else {
+        curvafaseArmazenada = curvafaseEscolhida;
+        curvafaseSelecionada = curvafaseEscolhida;
+        localStorage.setItem("curvafaseSelecionada", curvafaseSelecionada);
+
+    }
+
+
+    const curvafaseideal = document.getElementById("curva-fase-ideal-html");
+    curvafaseideal.textContent = "IEC-E.I"; // Exibe a curva ideal na tela
+
+
     const dialfaseArmazenada = localStorage.getItem("dialfaseSelecionada");
     const imagArmazenada = parseFloat(localStorage.getItem("imagtotalSelecionada"));
     const imagpercentualArmazenada = parseFloat(localStorage.getItem("imagpercentualSelecionada")) || 105;
@@ -228,7 +270,34 @@ window.addEventListener('load', function () {
     //Resgata todos os valores de neutro do local storage para as variaveis internas do js e salva nos campos HTML
 
     const ipneutropercentualArmazenada = parseFloat(localStorage.getItem("PercentualIPneutroSelecionada")) || 105;
-    const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionada");
+    let curvaneutroEscolhida = localStorage.getItem("curvaneutroEscolhida");
+    let curvaneutroSelecionada = localStorage.getItem("curvaneutroSelecionada");
+
+    let curvaneutroArmazenada;
+    if (!curvaneutroEscolhida || curvaneutroEscolhida === null || curvaneutroEscolhida === undefined) {
+        curvaneutroEscolhida = "";
+        curvaneutroSelecionada = "Definite-Time"; // Valor padrão caso não exista no localStorage
+        curvaneutroArmazenada = "Definite-Time"; // Valor padrão caso não exista no localStorage
+        localStorage.setItem("curvaneutroEscolhida", curvaneutroEscolhida);
+        localStorage.setItem("curvaneutroSelecionada", curvaneutroSelecionada);
+    } else {
+        curvaneutroArmazenada = curvaneutroEscolhida;
+        curvaneutroSelecionada = curvaneutroEscolhida;
+        localStorage.setItem("curvaneutroSelecionada", curvaneutroSelecionada);
+    }
+
+    const curvaNeutroIdeal = document.getElementById("curva-neutro-ideal-html");
+    curvaNeutroIdeal.textContent = "Definite-Time"; // Exibe a curva ideal na tela
+    // const curvaneutroArmazenada = localStorage.getItem("curvaneutroSelecionada");
+
+
+
+
+
+
+
+
+
     const dialneutroArmazenada = localStorage.getItem("dialneutroSelecionada");
     const dialneutroreal = parseFloat(localStorage.getItem("dialneutroreal"));
     const imagneutroArmazenada = parseFloat(localStorage.getItem("imagneutropercentualSelecionada")) || 105;
@@ -254,10 +323,10 @@ window.addEventListener('load', function () {
 
     //codigo novo
     var correnteprimaria = parseFloat(localStorage.getItem("Inominalfase"));
-//fim do codigo novo
+    //fim do codigo novo
 
 
-   
+
     var correnteIP = correnteprimaria * (1 * Ippercentual / 100);
     correnteFormatada = correnteIP;
 
@@ -338,71 +407,77 @@ window.addEventListener('load', function () {
 
 
 
-//alimenta todos os campos da tela com os valores do local storage diretamente no HTML
+    //alimenta todos os campos da tela com os valores do local storage diretamente no HTML
 
-Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
+    Inominalhtml.textContent = correnteprimaria.toFixed(2) + " A";
 
-// Validar antes de definir valores nos campos
-IPpercentualhtml.value = (!isNaN(Ippercentual) && Ippercentual !== null) ? Ippercentual : 0;
+    // Validar antes de definir valores nos campos
+    IPpercentualhtml.value = (!isNaN(Ippercentual) && Ippercentual !== null) ? Ippercentual : 0;
 
-IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
-tipodecurvahtml.value = curvafaseArmazenada;
-
-// Validar dialfaseArmazenada
-dialfasehtml.value = (!isNaN(parseFloat(dialfasereal)) && dialfasereal !== null) ? dialfasereal : '';
-
-// Atualizar o campo dialrealfase com o dial efetivo na inicialização
-const dialrealfase = document.getElementById("dialrealfase");
+    IPrealhtml.textContent = correnteFormatada.toFixed(2) + " A";
 
 
+    tipodecurvahtml.value = curvafaseEscolhida;
 
+    curvaFaseAjustadaHtml.textContent = curvafaseArmazenada;
 
-imagfase.textContent = Number.isFinite(imagBase) ? imagBase.toFixed(2) + " A" : "0.00 A";
+    // Validar dialfaseArmazenada
+    // dialfasehtml.value = (!isNaN(parseFloat(dialfasereal)) && dialfasereal !== null) ? dialfasereal : '';
 
-// Validar imagpercentualArmazenada
-imagpercentual.value = (!isNaN(imagpercentualArmazenada) && imagpercentualArmazenada !== null) ? imagpercentualArmazenada : 0;
-
-imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
-imagrealcalculada.textContent = (!isNaN(imagrealcalculadaArmazenada) && imagrealcalculadaArmazenada !== null) ? imagrealcalculadaArmazenada.toFixed(2) + " A" : "0.00 A";
-
-// Validar imagsimuladaArmazenada
-imagsimuladahtml.value = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : '';
-
-// Validar ideffaseArmazenada e tdeffaseArmazenada
-ideffasehtml.value = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada !== null) ? ideffaseArmazenada : '';
-tdeffasehtml.value = (!isNaN(tdeffaseArmazenada) && tdeffaseArmazenada !== null) ? tdeffaseArmazenada : '';
-
-inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
-
-// Validar ipneutropercentualArmazenada
-IPpercentualneutrohtml.value = (!isNaN(ipneutropercentualArmazenada) && ipneutropercentualArmazenada !== null) ? ipneutropercentualArmazenada : 0;
-
-IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
-tipodecurvaneutrohtml.value = curvaneutroArmazenada || '';
-
-// Validar dialneutroArmazenada
-dialcurvaneutrohtml.value = (!isNaN(parseFloat(dialneutroreal)) && dialneutroreal !== null) ? dialneutroreal : '';
-
-
-dialidealneutro.textContent = dialneutroArmazenada ? dialneutroArmazenada + " s" : '';
-
-dialrealneutro.textContent = dialneutroArmazenada ? dialneutroArmazenada + " s" : '';
+    // Atualizar o campo dialrealfase com o dial efetivo na inicialização
+    const dialrealfase = document.getElementById("dialrealfase");
 
 
 
 
-Imagneutro.textContent = imagneutro.toFixed(2) + " A";
+    imagfase.textContent = Number.isFinite(imagBase) ? imagBase.toFixed(2) + " A" : "0.00 A";
 
-// Validar imagneutroArmazenada
-Imagneutropercentual.value = (!isNaN(imagneutroArmazenada) && imagneutroArmazenada !== null) ? imagneutroArmazenada : 0;
+    // Validar imagpercentualArmazenada
+    imagpercentual.value = (!isNaN(imagpercentualArmazenada) && imagpercentualArmazenada !== null) ? imagpercentualArmazenada : 0;
 
-Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
+    imagreal.textContent = imagtotalformatada.toFixed(2) + " A";
+    imagrealcalculada.textContent = (!isNaN(imagrealcalculadaArmazenada) && imagrealcalculadaArmazenada !== null) ? imagrealcalculadaArmazenada.toFixed(2) + " A" : "0.00 A";
 
-// Validar idefneutroArmazenada e tdefneutroArmazenada
-idefneutrohtml.value = (!isNaN(idefneutroArmazenada) && idefneutroArmazenada !== null) ? idefneutroArmazenada : '';
-tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !== null) ? tdefneutroArmazenada : '';
+    // Validar imagsimuladaArmazenada
+    imagsimuladahtml.value = (!isNaN(imagsimuladaArmazenada) && imagsimuladaArmazenada !== null) ? imagsimuladaArmazenada : '';
 
-// ...existing code...
+    // Validar ideffaseArmazenada e tdeffaseArmazenada
+    ideffasehtml.value = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada !== null) ? ideffaseArmazenada : '';
+    tdeffasehtml.value = (!isNaN(tdeffaseArmazenada) && tdeffaseArmazenada !== null) ? tdeffaseArmazenada : '';
+
+    inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
+
+    // Validar ipneutropercentualArmazenada
+    IPpercentualneutrohtml.value = (!isNaN(ipneutropercentualArmazenada) && ipneutropercentualArmazenada !== null) ? ipneutropercentualArmazenada : 0;
+
+    IPrealneutrohtml.textContent = ipneutro.toFixed(2) + " A";
+    tipodecurvaneutrohtml.value = curvaneutroEscolhida || '';
+
+    curvaNeutroAjustadaHtml.textContent = curvaneutroArmazenada || '';
+
+    // Validar dialneutroArmazenada
+    dialcurvaneutrohtml.value = (!isNaN(parseFloat(dialneutroreal)) && dialneutroreal !== null) ? dialneutroreal : '';
+
+
+    dialidealneutro.textContent = dialneutroArmazenada ? dialneutroArmazenada + " s" : '';
+
+    dialrealneutro.textContent = dialneutroArmazenada ? dialneutroArmazenada + " s" : '';
+
+
+
+
+    Imagneutro.textContent = imagneutro.toFixed(2) + " A";
+
+    // Validar imagneutroArmazenada
+    Imagneutropercentual.value = (!isNaN(imagneutroArmazenada) && imagneutroArmazenada !== null) ? imagneutroArmazenada : 0;
+
+    Iinstneutrohtml.textContent = Iinstneutro.toFixed(2) + " A";
+
+    // Validar idefneutroArmazenada e tdefneutroArmazenada
+    idefneutrohtml.value = (!isNaN(idefneutroArmazenada) && idefneutroArmazenada !== null) ? idefneutroArmazenada : '';
+    tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !== null) ? tdefneutroArmazenada : '';
+
+    // ...existing code...
 
 
 
@@ -650,7 +725,7 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
     localStorage.setItem("pontosCurvaNeutroX", JSON.stringify(x2));
     localStorage.setItem("pontosCurvaNeutroY", JSON.stringify(y2));
 
- 
+
 
 
     // Exibe no console todas as informações de correntestrafosJSON, se houver
@@ -660,14 +735,32 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
         return Number.isFinite(numero) ? numero : null;
     };
 
+
+
+
+
+
+
+
     const correntesTrafos = {};
+    // Arrays para pontos filtrados
+    const pontosANSI = [];
+    const pontosNANSI = [];
+    // Cores para cada trafo (ajuste conforme necessário)
+    const coresANSI = ['red', 'blue', 'green', 'purple', 'brown', 'pink', 'cyan', 'magenta', 'gray', 'black'];
+    const coresNANSI = ['red', 'blue', 'green', 'purple', 'brown', 'pink', 'cyan', 'magenta', 'gray', 'black'];
     for (let indice = 1; indice <= 10; indice++) {
         const trafo = correntesTrafosStorage[`trafo${indice}`] || {};
-        correntesTrafos[`trafo${indice}`] = {
-            iansi: toNumberOrNull(trafo.iansi),
-            inansi: toNumberOrNull(trafo.inansi),
-            tempo: toNumberOrNull(trafo.tempo)
-        };
+        const iansi = toNumberOrNull(trafo.iansi);
+        const inansi = toNumberOrNull(trafo.inansi);
+        const tempo = toNumberOrNull(trafo.tempo);
+        correntesTrafos[`trafo${indice}`] = { iansi, inansi, tempo };
+        if (iansi > 0 && tempo > 0) {
+            pontosANSI.push({ x: iansi, y: tempo, cor: coresANSI[indice - 1] });
+        }
+        if (inansi > 0 && tempo > 0) {
+            pontosNANSI.push({ x: inansi, y: tempo, cor: coresNANSI[indice - 1] });
+        }
     }
 
 
@@ -848,246 +941,49 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
                     showLine: true
                 },
                 // I ANSI pontos
-                {
-                    label: 'I ANSI 1',
-                    data: [
-                        { x: correntesTrafos.trafo1.iansi, y: correntesTrafos.trafo1.tempo }
-                    ],
+                // Pontos filtrados ANSI
+                ...pontosANSI.map((p, idx) => ({
+                    label: `I ANSI ${idx + 1}`,
+                    data: [{ x: p.x, y: p.y }],
                     backgroundColor: 'orange',
-                    borderColor: 'red',
+                    borderColor: p.cor,
                     borderWidth: 2,
                     pointRadius: 5,
                     pointStyle: 'triangle',
                     showLine: false
-                },
-                {
-                    label: 'I ANSI 2',
-                    data: [
-                        { x: correntesTrafos.trafo2.iansi, y: correntesTrafos.trafo2.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'blue',
+                })),
+                // Pontos filtrados NANSI
+                ...pontosNANSI.map((p, idx) => ({
+                    label: `I NANSI ${idx + 1}`,
+                    data: [{ x: p.x, y: p.y }],
+                    backgroundColor: 'yellow',
+                    borderColor: p.cor,
                     borderWidth: 2,
                     pointRadius: 5,
-                    pointStyle: 'triangle',
+                    pointStyle: 'rectRot',
                     showLine: false
-                },
+                })),
+
+                // Linha personalizada conectando  exemplificando a partida do motor de maior corrente
                 {
-                    label: 'I ANSI 3',
+                    label: 'Motor de maior corrente de partida',
                     data: [
-                        { x: correntesTrafos.trafo3.iansi, y: correntesTrafos.trafo3.tempo }
+                        { x: parseFloat(localStorage.getItem("somaCorrentePartidaOperante")), 
+                            y: (() => {
+                            const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
+                            return parseFloat(motorData.tempopartida) || null;
+                        })() },
+                        { x: (() => {
+                            const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
+                            return parseFloat(motorData.correntenominal) || null;
+                        })(), y: 0.01 }
                     ],
-                    backgroundColor: 'orange',
                     borderColor: 'green',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 4',
-                    data: [
-                        { x: correntesTrafos.trafo4.iansi, y: correntesTrafos.trafo4.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'purple',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 5',
-                    data: [
-                        { x: correntesTrafos.trafo5.iansi, y: correntesTrafos.trafo5.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'brown',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 6',
-                    data: [
-                        { x: correntesTrafos.trafo6.iansi, y: correntesTrafos.trafo6.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'pink',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 7',
-                    data: [
-                        { x: correntesTrafos.trafo7.iansi, y: correntesTrafos.trafo7.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'cyan',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 8',
-                    data: [
-                        { x: correntesTrafos.trafo8.iansi, y: correntesTrafos.trafo8.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'magenta',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 9',
-                    data: [
-                        { x: correntesTrafos.trafo9.iansi, y: correntesTrafos.trafo9.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'gray',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                {
-                    label: 'I ANSI 10',
-                    data: [
-                        { x: correntesTrafos.trafo10.iansi, y: correntesTrafos.trafo10.tempo }
-                    ],
-                    backgroundColor: 'orange',
-                    borderColor: 'black',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'triangle',
-                    showLine: false
-                },
-                // I NANSI pontos
-                {
-                    label: 'I NANSI 1',
-                    data: [
-                        { x: correntesTrafos.trafo1.inansi, y: correntesTrafos.trafo1.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'red',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 2',
-                    data: [
-                        { x: correntesTrafos.trafo2.inansi, y: correntesTrafos.trafo2.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'blue',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 3',
-                    data: [
-                        { x: correntesTrafos.trafo3.inansi, y: correntesTrafos.trafo3.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'green',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 4',
-                    data: [
-                        { x: correntesTrafos.trafo4.inansi, y: correntesTrafos.trafo4.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'purple',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 5',
-                    data: [
-                        { x: correntesTrafos.trafo5.inansi, y: correntesTrafos.trafo5.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'brown',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 6',
-                    data: [
-                        { x: correntesTrafos.trafo6.inansi, y: correntesTrafos.trafo6.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'pink',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 7',
-                    data: [
-                        { x: correntesTrafos.trafo7.inansi, y: correntesTrafos.trafo7.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'cyan',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 8',
-                    data: [
-                        { x: correntesTrafos.trafo8.inansi, y: correntesTrafos.trafo8.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'magenta',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 9',
-                    data: [
-                        { x: correntesTrafos.trafo9.inansi, y: correntesTrafos.trafo9.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'gray',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
-                },
-                {
-                    label: 'I NANSI 10',
-                    data: [
-                        { x: correntesTrafos.trafo10.inansi, y: correntesTrafos.trafo10.tempo }
-                    ],
-                    backgroundColor: 'yellow',
-                    borderColor: 'black',
-                    borderWidth: 2,
-                    pointRadius: 5,
-                    pointStyle: 'rectRot',
-                    showLine: false
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    fill: false,
+                    showLine: true,
+                    borderDash: [2, 0], // linha contínua
                 },
 
 
@@ -1163,7 +1059,7 @@ tdefneutrohtml.value = (!isNaN(tdefneutroArmazenada) && tdefneutroArmazenada !==
 
     //Mantem exibindo o dial ideal no HTML 
     const dialIdealTag = document.getElementById("dialideal");
-  
+
 
 
     calculadialideal();
@@ -1258,8 +1154,8 @@ function calculadialideal() {
         const dialCalculadoSeguro = Number.isFinite(dial_calculado) ? dial_calculado : 0;
         const dialCalculadoPlantaSeguro = Number.isFinite(dial_calculado_planta) ? dial_calculado_planta : 0;
         const dialMaior = Math.max(dialCalculadoSeguro, dialCalculadoPlantaSeguro);
-        localStorage.setItem("dialfaseSelecionada", dialMaior.toFixed(2));
-    }   
+        localStorage.setItem("dialfaseSelecionada", dialMaior.toFixed(3));
+    }
 
 
     // // Setar valor 1.0 s para dialidealneutro no HTML
@@ -1273,7 +1169,7 @@ function calculadialideal() {
     if (!isNaN(dialneutroreal)) {
         localStorage.setItem("dialneutroSelecionada", dialneutroreal);
     } else {
-        
+
         localStorage.setItem("dialneutroSelecionada", dialneutrocalculado);
     }
 
@@ -1295,17 +1191,16 @@ function ativarLegendas() {
 // Função para gerar alerta dos 10% do primario do TC de proteção
 
 function verificarAlertaPotMinima() {
-    const status = localStorage.getItem("inominalminimaTC");
-    const alertaDiv = document.querySelector(".alertapotminima");
-    if (status) {
-        if (status === "Sim") {
-            alertaDiv.style.display = "";
-            // Adiciona classe para piscar lentamente
-            alertaDiv.classList.add("piscando-lento");
-        } else {
-            alertaDiv.style.display = "none";
-            alertaDiv.classList.remove("piscando-lento");
-        }
+    const status = (localStorage.getItem("inominalminimaTC") || "").trim().toLowerCase();
+    const alertaDiv = document.querySelector(".alertapotminima-caption");
+    if (!alertaDiv) return;
+
+    if (status === "sim") {
+        alertaDiv.classList.add("ativo");
+        alertaDiv.classList.add("piscando-lento");
+    } else {
+        alertaDiv.classList.remove("ativo");
+        alertaDiv.classList.remove("piscando-lento");
     }
 }
 
@@ -1353,12 +1248,12 @@ function validarPercentualMinimo(valor, mensagem) {
 
 
 // Event listener para capturar Enter em qualquer lugar da página
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     // Verificar se a tecla pressionada é Enter (código 13 ou 'Enter')
     if (event.key === 'Enter' || event.keyCode === 13) {
         // Evitar comportamento padrão (submissão de formulário)
         event.preventDefault();
-        
+
         // Chamar a função salvar
         salvarOpcao();
     }

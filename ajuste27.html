@@ -95,12 +95,12 @@
         <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
         <button id="botaoajustehtml" class="dark-mode-toggle"
             onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelarelehtml" class="dark-mode-toggle"
             onclick="window.location.href='tabelarele.html';">TABELA</button>
         <button id="botaoestudoshtml" class="dark-mode-toggle"
             onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
         <button id="botaoestudosGDhtml" class="dark-mode-toggle"
@@ -118,7 +118,7 @@
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
-            onclick="window.location.href='ajuste32.html';">32-1/32-2</button>
+            onclick="window.location.href='ajuste32.html';">32-POTÊNCIA</button>
         <button id="botaoajustes67injhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajuste67inj.html';">67-INJEÇÃO</button>
         <button id="botaojuste67conshtml" class="dark-mode-toggle"
@@ -139,49 +139,39 @@
             onclick="window.location.href='ajuste25.html';">25</button>
     </div>
 
-    <br>
-
-
-
 
     <div class="tabela-containerfase">
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
+        <div class="tabela-titulo">
             AJUSTES 27 RELÉ DE SUBTENSÃO
-
         </div>
         <br>
-        <div
+        <!-- <div
             style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
 
-            ESTÁGIOS DE SUBTENSÃO</div>
+            ESTÁGIOS DE SUBTENSÃO</div> -->
 
         <div style="display: flex; justify-content: center;">
             <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
-                
-
-
 
                 <thead>
                     <tr>
                         <th style="width: 40%;">Parâmetros</th>
                         <th style="width: 20%;">Valores Base</th>
-                        <th style="width: 20%;">Valor Ajustado 1° Estágio</th>
-                        <th style="width: 20%;">Valor Ajustado 2° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 1° Estágio</th>
+                        <th style="width: 20%;">Valor Ajustado<br> 2° Estágio</th>
                     </tr>
-                    
+
                 </thead>
 
                 <tbody>
                     <tr colspan="4" style="background-color: #e0e0e0; font-weight: bold;">
-                        <td colspan="1">Ligação Secundária do TP de Proteção:</td>
+                        <td colspan="1">Ligação do TP de Proteção:</td>
                         <td colspan="3">
                             <div class="input-container">
                                 <label id="ligacao-secundaria-tp-html"></label>
                             </div>
                         </td>
-                 
+
                     </tr>
                     <tr>
                         <td>Tensão Primária Linha :</td>
@@ -264,11 +254,6 @@
                     </tr>
                     <tr>
                         <td colspan="2">Tempos dos estágios :</td>
-                        <!-- <td>
-                            <div class="input-container">
-                                <label id="tempos-estagios-html"></label>
-                            </div>
-                        </td> -->
 
                         <td>
                             <div class="input-container">
@@ -294,8 +279,7 @@
                                 <label class="ajuste-pu-subtensao-automatica"></label>
                             </div>
                         </td>
-
-
+                        <td></td>
                     </tr>
 
                     <tr>
@@ -310,9 +294,7 @@
                                 <label class="ajuste-tempo-subtensao-automatica"></label>
                             </div>
                         </td>
-
-
-
+                        <td></td>
                     </tr>
 
                     <tr>
@@ -328,7 +310,7 @@
                             </div>
                         </td>
 
-
+                        <td></td>
                     </tr>
 
                     <tr>
@@ -343,17 +325,10 @@
                                 <label class="ajuste-tempo-subtensao-automatica-2"></label>
                             </div>
                         </td>
-
+                        <td></td>
 
 
                     </tr>
-
-
-
-
-
-
-
 
                 </tbody>
             </table>
@@ -364,8 +339,6 @@
 
 
     </div>
-
-
 
     <br><br>
 

@@ -83,11 +83,11 @@ h1 button.nav-active:focus-visible {
     align-items: center;
     justify-content: center;
     width: 100vw;
-    min-height: 10vh;
+    /* min-height: 10vh; */
     text-align: center;
 }
 
-.transformadores-caption {
+/* .transformadores-caption {
     font-weight: bold;
     background-color: rgb(2, 68, 2);
     color: rgb(227, 224, 64);
@@ -95,19 +95,19 @@ h1 button.nav-active:focus-visible {
     caption-side: top;
     padding: 5px;
     border: 1px solid transparent;
-}
-
+} */
+/* 
 .value-label-bold {
     font-weight: bold;
-}
+} */
 
-.motor-cell {
+/* .motor-cell {
     background-color: rgb(2, 68, 2);
     color: white;
-}
+} */
 
 .magnetizacao-real-bloco {
-    width: 70%;
+    width: 80%;
 }
 
 .magnetizacao-real-controle {
@@ -130,22 +130,20 @@ h1 button.nav-active:focus-visible {
 
 
 
-table {
+/* table {
     table-layout: fixed;
-    /* background-color: rgb(2, 68, 2); */
     width: 70%;
-    border-collapse: separate; /* permite bordas arredondadas */
+    border-collapse: separate; 
     border-spacing: 0;
     margin-top: 0px;
     color: rgb(208, 228, 31);
     font-size: 12px;
-    /* border: 0px solid white; */
-    border-radius: 12px; /* ajuste o valor conforme desejar */
-    overflow: hidden; /* faz com que os cantos arredondados funcionem visualmente */
+    border-radius: 12px; 
+    overflow: hidden; 
     border-radius: 5px;
-}
+} */
 
-th,
+/* th,
 td {
     background-color: rgb(2, 68, 2); 
     border: 1px solid #8fbc8f;
@@ -153,7 +151,7 @@ td {
     text-align: center;
     padding: 4px 5px;
     border-radius: 5px;
-}
+} */
 
 button:not(.dark-mode-toggle) {
     color: rgb(227, 224, 64);
@@ -206,32 +204,27 @@ select:focus {
 }
 
 
-label {
+/* label {
     font-weight: bold;
     color: rgb(255, 255, 255);
-    /* Muda a cor do texto */
     font-size: 16px;
     border-radius: 5px;
     
-}
+} */
 
-th {
+/* th {
     background-color: rgb(2, 68, 2);
-    /* color: white; */
-    /* Texto branco */
     font-size: 18px;
     text-transform: uppercase;
     padding: 4px 5px;
     border-radius: 5px;
     
-}
+} */
 
-td:first-child {
+/* td:first-child {
     background-color: rgb(2, 68, 2);
     font-weight: bold;
-    /* Texto em negrito */
     text-align: left;
-    /* Centralizar texto */
     padding: 4px 5px;
     border-radius: 5px;
     
@@ -245,11 +238,11 @@ tr:first-child {
     text-align: center;
     padding: 4px 5px;
     border-radius: 5px;
-}
+} */
 
 
 
-td:nth-child(6),
+/* td:nth-child(6),
 td:nth-child(7),
 td:nth-child(8),
 td:nth-child(9),
@@ -265,13 +258,12 @@ th:nth-child(10) {
     text-align: center;
     padding: 4px 5px;
     border-radius: 5px;
-}
+} */
 
 
 
-td {
+/* td {
     padding: 4px 5px;
-    /* ou ajuste para o valor desejado */
     text-align: center;
     vertical-align: middle;
     border-radius: 5px;
@@ -289,7 +281,7 @@ td input[type="text"] {
     display: block;
     text-align: center;
     border-radius: 5px;
-}
+} */
 
 .input-container {
     display: block;
@@ -298,8 +290,83 @@ td input[type="text"] {
     padding: 0;
     margin: 0;
     border-radius: 5px;
+    text-align: center;
 }
 
+.motor-table-multipla {
+    width: min(98vw, 1500px);
+    table-layout: fixed;
+}
+
+.motor-table-multipla th,
+.motor-table-multipla td {
+    padding: 4px;
+}
+
+.motor-table-multipla td input {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.motor-table-multipla td:nth-child(1) input {
+    min-width: 130px;
+}
+
+.motor-table-multipla td:nth-child(2) input,
+.motor-table-multipla td:nth-child(6) input,
+.motor-table-multipla td:nth-child(8) input {
+    min-width: 60px;
+}
+
+.motor-table-multipla td:nth-child(3) input,
+.motor-table-multipla td:nth-child(4) input,
+.motor-table-multipla td:nth-child(5) input,
+.motor-table-multipla td:nth-child(7) input,
+.motor-table-multipla td:nth-child(11) input,
+.motor-table-multipla td:nth-child(12) input {
+    min-width: 90px;
+}
+
+.motor-table-multipla td:nth-child(9) input,
+.motor-table-multipla td:nth-child(10) input {
+    min-width: 170px;
+}
+
+.motor-cell-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.motor-cell-actions input {
+    flex: 1;
+}
+
+.motor-remove-row {
+    width: auto !important;
+    height: 32px !important;
+    margin: 0 !important;
+    padding: 0 8px;
+    font-size: 12px !important;
+}
+
+.motor-table-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+#adicionarMotorBtn {
+    width: auto !important;
+    min-width: 130px;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 12px;
+    font-size: 12px !important;
+}
+/* 
 td label {
     width: 120%;
     height: 100%;
@@ -310,10 +377,9 @@ td label {
     box-sizing: border-box;
     display: block;
     text-align: left;
-    /* vertical-align: middle; */
     border-radius: 5px;
     
-}
+} */
 
 #botaoSalvar {
     margin-top: 15px;
@@ -391,3 +457,412 @@ td label {
         box-sizing: border-box;
     }
 }
+
+/* --- PADRÃO VISUAL DE TABELAS (PRIORIDADE FINAL) --- */
+.tabela-container > table th, .tabela-container > table td {
+    
+    color: #111 !important;
+    background: #e8fbe8 !important;
+    border: none !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    color: #000000 !important;
+}
+.tabela-container > table th {
+    background: #c6f7c6 !important;
+    color: #1c641c !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-bottom: 0px solid #b2e0b2 !important;
+    letter-spacing: 0.5px !important;
+}
+.tabela-container > table tr {
+    transition: background 0.18s !important;
+}
+.tabela-container > table tbody tr:hover {
+    background: #d6f5d6 !important;
+}
+/* --- FIM PADRÃO VISUAL DE TABELAS (PRIORIDADE FINAL) --- */
+/* --- FORÇA COR PRETA EM TODAS AS TDs DE TABELAS MODERNAS --- */
+.tabela-container > table td, .tabela-container > table td * {
+    color: #111 !important;
+}
+/* --- FIM --- */
+/* --- GARANTE BORDAS ARREDONDADAS NAS TABELAS MODERNAS --- */
+.tabela-container > table {
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1.5px solid #b2e0b2 !important;
+}
+.tabela-container > table th,
+.tabela-container > table td {
+    border-radius: 0 !important;
+    border: none !important;
+}
+.tabela-container > table th:first-child,
+.tabela-container > table td:first-child {
+    border-top-left-radius: 18px !important;
+    border-bottom-left-radius: 18px !important;
+}
+.tabela-container > table th:last-child,
+.tabela-container > table td:last-child {
+    border-top-right-radius: 18px !important;
+    border-bottom-right-radius: 18px !important;
+}
+/* --- FIM --- */
+/* --- PREENCHIMENTO MODERNO SEM BORDAS INTERNAS --- */
+.tabela-container > table {
+    width: 80% !important;
+    background: #e8fbe8 !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1.5px solid #b2e0b2 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+    .magnetizacao-table th {
+        background: #c6f7c6 !important;
+        color: #1c641c !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        border-bottom: 2px solid #b2e0b2 !important;
+        letter-spacing: 0.5px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        padding: 8px 4px !important;
+        height: 38px !important;
+        min-width: 40px !important;
+        max-width: 80px !important;
+        box-sizing: border-box !important;
+    background: #c6f7c6 !important;
+    color: #1c641c !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #b2e0b2 !important;
+}
+.tabela-container > table tr {
+    transition: background 0.18s !important;
+}
+.tabela-container > table tbody tr:hover {
+    background: #d6f5d6 !important;
+}
+
+.magnetizacao-table {
+    width: 80% !important;
+    background: #e8fbe8 !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1.5px solid #b2e0b2 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    margin: 0px auto !important;
+    padding: 10px !important;
+    font-size: 16px !important;
+    color: #111 !important;
+    text-align: center !important;
+}
+
+.magnetizacao-table td {
+    vertical-align: middle !important;
+    text-align: left !important;
+    padding: 8px 4px !important;
+}
+
+.magnetizacao-table .input-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.magnetizacao-table .input-container input[type="number"] {
+    width: 80px !important;
+    min-width: 60px !important;
+    max-width: 100px !important;
+    margin: 0 !important;
+    padding: 4px 2px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+}
+
+.magnetizacao-total-table {
+    width: 80% !important;
+    margin: 18px auto 0 auto !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1.5px solid #b2e0b2 !important;
+    background: #e8fbe8 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10) !important;
+}
+.magnetizacao-total-table td {
+    color: #111 !important;
+    background: #e8fbe8 !important;
+    border: none !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    padding: 14px 10px !important;
+}
+.magnetizacao-total-table td:first-child {
+    font-weight: bold !important;
+    color: #1c641c !important;
+    width: 60%;
+}
+.magnetizacao-total-table td:last-child {
+    text-align: right !important;
+    width: 40%;
+}
+.magnetizacao-total-table .input-container label {
+    font-size: 15px !important;
+    color: #111 !important;
+    font-weight: bold !important;
+    background: none !important;
+    padding: 0;
+}
+
+/* --- ESTILO MODERNO PARA TABELA DE MAGNETIZAÇÃO REAL (GARANTIDO) --- */
+#magnetizacao-real-conteudo > table {
+    width: 100% !important;
+    margin: 18px auto 0 auto !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1.5px solid #b2e0b2 !important;
+    background: #e8fbe8 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10) !important;
+}
+#magnetizacao-real-conteudo > table td {
+    color: #111 !important;
+    background: #e8fbe8 !important;
+    border: none !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    padding: 14px 10px !important;
+}
+#magnetizacao-real-conteudo > table td:first-child {
+    font-weight: bold !important;
+    color: #1c641c !important;
+    width: 60%;
+}
+#magnetizacao-real-conteudo > table td:last-child {
+    text-align: right !important;
+    width: 40%;
+}
+#magnetizacao-real-conteudo .input-container label {
+    font-size: 15px !important;
+    color: #111 !important;
+    font-weight: bold !important;
+    background: none !important;
+    padding: 0;
+}
+
+
+.tabela-motor-container {
+    width: 96vw !important;
+    max-width: 1700px !important;
+    margin: 20px auto !important;
+    border-radius: 18px !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    border: 1.5px solid #b2e0b2 !important;
+    background: #e8fbe8 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10) !important;
+}
+
+/* --- ESTILO MODERNO PARA TABELA DE MOTOR --- */
+.tabela-motor-container .motor-table {
+    width: 100% !important;
+    background: #e8fbe8 !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: none !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    font-size: 15px !important;
+    color: #111 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(1),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(1) {
+    width: 16% !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(2),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(2),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(6),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(6) {
+    width: 5.5% !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(3),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(3),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(4),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(4),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(5),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(5),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(7),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(7),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(8),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(8),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(11),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(11),
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(12),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(12) {
+    width: 6.5% !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(9),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(9) {
+    width: 12% !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla th:nth-child(10),
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(10) {
+    width: 11% !important;
+}
+
+.tabela-motor-container .motor-table.motor-table-multipla td:nth-child(1) input {
+    text-align: left !important;
+}
+.tabela-motor-container .motor-table th {
+    background: #c6f7c6 !important;
+    color: #1c641c !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #b2e0b2 !important;
+    text-align: center !important;
+    padding: 14px 10px !important;
+    letter-spacing: 0.5px !important;
+}
+.tabela-motor-container .motor-table td {
+    background: #e8fbe8 !important;
+    color: #111 !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: center !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 12px 8px !important;
+    vertical-align: middle !important;
+    white-space: normal !important;
+}
+.tabela-motor-container .motor-table td.motor-cell {
+    font-weight: bold !important;
+    color: #1c641c !important;
+    background: #e8fbe8 !important;
+}
+.tabela-motor-container .motor-table .input-container input[type="number"],
+.tabela-motor-container .motor-table .input-container input[type="text"],
+.tabela-motor-container .motor-table td input {
+    background: #fff !important;
+    color: #111 !important;
+    border: 1.5px solid #1c641c !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    padding: 6px 8px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    text-align: center !important;
+    font-size: 15px !important;
+}
+.tabela-motor-container .motor-table .input-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.tabela-motor-container .motor-table label.value-label-bold {
+    color: #1c641c !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+
+.tabela-titulo {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 18px 0 14px 0;
+    background: transparent;
+    color: #073507;
+    border-radius: 0;
+    border: none;
+    letter-spacing: 1px;
+    box-shadow: none;
+    margin-bottom: 0;
+
+}
+@media (max-width: 600px) {
+    .tabela-motor-container {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        display: block;
+    }
+    .tabela-motor-container .motor-table {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        font-size: 9px !important;
+    }
+    .tabela-motor-container .motor-table th,
+    .tabela-motor-container .motor-table td {
+        padding: 3px 1px !important;
+        font-size: 8px !important;
+        word-break: break-word;
+        max-width: none;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    .tabela-motor-container .motor-table .input-container input[type="number"],
+    .tabela-motor-container .motor-table .input-container input[type="text"],
+    .tabela-motor-container .motor-table td input {
+        font-size: 12px !important;
+        padding: 2px !important;
+    }
+}
+/* --- FIM ESTILO MODERNO TABELA MOTOR --- */
+
+
+
+
+
+/* --- FIM --- */
+
+/* --- FIM --- */

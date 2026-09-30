@@ -106,6 +106,45 @@ body {
     margin-bottom: 32px;
 }
 
+.analise-card-teste-dial {
+    max-width: 1100px;
+}
+
+.analise-card-teste-dial .analise-table-operacao tr td {
+    vertical-align: middle;
+}
+
+.analise-card-teste-dial .analise-table-operacao tr td:first-child {
+    width: 42%;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.analise-card-teste-dial .analise-table-operacao tr td:last-child {
+    width: 58%;
+}
+
+.analise-card-teste-dial input[id^="testeDial"],
+.analise-card-teste-dial input[id^="testeTempo"] {
+    display: block;
+    width: 100% !important;
+    margin: 0;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    border: 1px solid #9b9b9b;
+    border-radius: 4px;
+    background: #fff;
+    color: #000;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.analise-card-teste-dial input[id^="testeDial"][readonly],
+.analise-card-teste-dial input[id^="testeTempo"][readonly] {
+    background: #f7f7f7;
+    font-weight: 700;
+}
+
 .analise-table {
     width: 100%;
     border-collapse: collapse;
@@ -464,7 +503,81 @@ th, td{
         }
 
 
+        /* INICIO ESTILOS PARA O EMAIL */
 
+        #nt_container {
+  font-family: "Segoe UI", Arial;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 550px;
+  margin: 40px auto;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+}
+
+#nt_container h2 {
+  text-align: center;
+  color: #1b5e20;
+  margin-bottom: 20px;
+}
+
+#nt_container label {
+  font-weight: 600;
+  color: #2e7d32;
+  display: block;
+  margin-top: 10px;
+}
+
+.nt_input, .nt_textarea {
+  width: 90%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+  outline: none;
+  font-size: 14px;
+  text-align:left;
+}
+
+.nt_corpo{
+   width: 100%; 
+}
+
+.nt_textarea {
+  height: 200px;
+  resize: vertical;
+}
+
+.nt_input:focus, .nt_textarea:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 5px rgba(46,125,50,0.4);
+}
+
+#nt_btnEnviar {
+  width: 100%;
+  padding: 12px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#nt_btnEnviar:hover {
+  background: #1b5e20;
+}
+
+#nt_footer {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #4e944f;
+}
+
+/* FIM DO ESTILO PARA OS EMAIL */
 
 @media (max-width: 600px) {
     html, body {
@@ -515,4 +628,112 @@ th, td{
     }
 
 
+}
+
+/* ===================================================================
+   MELHORIAS DE LAYOUT PROFISSIONAL
+   (mantém cabeçalho, títulos, fundo e paleta de cores já existentes)
+   =================================================================== */
+
+/* Ritmo vertical consistente entre as seções da página */
+.analise-parametros-wrap,
+.search-container,
+.analise-card,
+#nt_container,
+.analise-email-container,
+#nota-operacao {
+    margin-bottom: 28px;
+}
+
+/* Elevação e cantos arredondados para todos os "cards" brancos */
+.analise-card,
+.analise-email-container,
+.search-container {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Cartão da tabela de parâmetros (Matrícula / NS / Tipo de análise) */
+.analise-parametros-wrap table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    min-width: 420px;
+}
+
+.analise-parametros-wrap th {
+    padding: 10px 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+.analise-parametros-wrap td {
+    padding: 10px 14px;
+}
+
+/* Realce sutil ao passar o mouse sobre linhas de tabela (legibilidade) */
+.analise-table tbody tr:hover td,
+#tabelaatalho tbody tr:hover td,
+.analise-parametros-wrap tbody tr:hover td {
+    filter: brightness(0.97);
+}
+
+/* Campos de formulário com aparência consistente e moderna */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input:not([type]),
+select,
+textarea {
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input:not([type]):focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: rgb(2, 68, 2);
+    box-shadow: 0 0 0 3px rgba(2, 68, 2, 0.18);
+}
+
+/* Botões de ação (Copiar, Salvar, etc.) com toque mais profissional */
+.copiar-button,
+#botaoSalvar {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    letter-spacing: 0.4px;
+}
+
+.copiar-button:hover,
+#botaoSalvar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Títulos de seção (ex: "CARTA DE EMAIL") com melhor destaque visual */
+body > h1:not(.analise-header-title) {
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    letter-spacing: 1px;
+    margin: 36px auto 20px;
+}
+
+/* Cartão "NOTA PARA OPERAÇÃO" com leve profundidade */
+.analise-nota-operacao-title {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Limite de largura confortável para leitura em telas grandes */
+@media (min-width: 1300px) {
+    .analise-card-atalhos {
+        max-width: 1300px;
+    }
 }

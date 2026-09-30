@@ -8,6 +8,199 @@
 
 
 
+let graficoPotenciaTempoInjecao = null;
+let graficoPotenciaTempoConsumo = null;
+
+function atualizarGraficoPotenciaTempoInjecao(potenciaReal, tempoSegundos) {
+    // Canvas alvo do gráfico de injeção.
+    const canvas = document.getElementById("grafico-potencia-tempo-injecao");
+    if (!canvas || typeof Chart === "undefined") return;
+
+    // Normaliza e valida entradas numéricas antes de desenhar.
+    const tempo = Number(tempoSegundos);
+    const potencia = Number(potenciaReal);
+    if (!isFinite(tempo) || !isFinite(potencia) || tempo <= 0 || potencia < 0) return;
+
+    // Define escala horizontal e parâmetros visuais do degrau.
+    const xMaximo = Math.max(potencia * 1.8, potencia + 1, 1);
+    const TEMPO_INICIO_DEGRAU_PADRAO = 240;
+    const tempoInfinitoVisual = Math.max(TEMPO_INICIO_DEGRAU_PADRAO, tempo + 10);
+    const yMaximoVisivel = Math.max(tempo * 1.2, tempo + 5, 60);
+
+    // Curva em degrau sem o trecho horizontal superior:
+    // 1) Queda vertical na potência limite
+    // 2) Trecho plano no tempo de trip para potências acima do limite
+    const dadosDegrau = [
+        { x: potencia, y: tempoInfinitoVisual },
+        { x: potencia, y: tempo },
+        { x: xMaximo, y: tempo }
+    ];
+
+    // Se o gráfico já existe, apenas atualiza dados e limites (evita recriar o objeto Chart).
+    if (graficoPotenciaTempoInjecao) {
+        graficoPotenciaTempoInjecao.data.datasets[0].data = dadosDegrau;
+        graficoPotenciaTempoInjecao.options.scales.x.max = xMaximo;
+        graficoPotenciaTempoInjecao.options.scales.y.max = yMaximoVisivel;
+        graficoPotenciaTempoInjecao.update();
+        return;
+    }
+
+    // Primeira renderização do gráfico de injeção.
+    const contexto = canvas.getContext("2d");
+    graficoPotenciaTempoInjecao = new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                label: "Curva Função 32 Injeção",
+                data: dadosDegrau,
+                borderColor: "#d35400",
+                backgroundColor: "rgba(211, 84, 0, 0.15)",
+                borderWidth: 3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: false,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                title: {
+                    display: true,
+                    text: "Relação Potência por Tempo - 32 Injeção"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const x = context.parsed.x.toFixed(2);
+                            const y = context.parsed.y.toFixed(2);
+                            return `Potência: ${x} kW | Tempo: ${y} s`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: "linear",
+                    min: 0,
+                    max: xMaximo,
+                    title: {
+                        display: true,
+                        text: "Potência Real (kW)"
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: yMaximoVisivel,
+                    title: {
+                        display: true,
+                        text: "Tempo (s)"
+                    }
+                }
+            }
+        }
+    });
+}
+
+function atualizarGraficoPotenciaTempoConsumo(potenciaReal, tempoSegundos) {
+    // Canvas alvo do gráfico de consumo.
+    const canvas = document.getElementById("grafico-potencia-tempo-consumo");
+    if (!canvas || typeof Chart === "undefined") return;
+
+    // Normaliza e valida entradas numéricas antes de desenhar.
+    const tempo = Number(tempoSegundos);
+    const potencia = Number(potenciaReal);
+    if (!isFinite(tempo) || !isFinite(potencia) || tempo <= 0 || potencia < 0) return;
+
+    // Mesma lógica da injeção para manter consistência visual e de interpretação.
+    const xMaximo = Math.max(potencia * 1.8, potencia + 1, 1);
+    const TEMPO_INICIO_DEGRAU_PADRAO = 240;
+    const tempoInfinitoVisual = Math.max(TEMPO_INICIO_DEGRAU_PADRAO, tempo + 10);
+    const yMaximoVisivel = Math.max(tempo * 1.2, tempo + 5, 60);
+
+    // Degrau sem trecho horizontal superior visível.
+    const dadosDegrau = [
+        { x: potencia, y: tempoInfinitoVisual },
+        { x: potencia, y: tempo },
+        { x: xMaximo, y: tempo }
+    ];
+
+    // Atualização incremental quando já existe instância de gráfico.
+    if (graficoPotenciaTempoConsumo) {
+        graficoPotenciaTempoConsumo.data.datasets[0].data = dadosDegrau;
+        graficoPotenciaTempoConsumo.options.scales.x.max = xMaximo;
+        graficoPotenciaTempoConsumo.options.scales.y.max = yMaximoVisivel;
+        graficoPotenciaTempoConsumo.update();
+        return;
+    }
+
+    // Primeira renderização do gráfico de consumo.
+    const contexto = canvas.getContext("2d");
+    graficoPotenciaTempoConsumo = new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                label: "Curva Função 32 Consumo",
+                data: dadosDegrau,
+                borderColor: "#d35400",
+                backgroundColor: "rgba(211, 84, 0, 0.15)",
+                borderWidth: 3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: false,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                title: {
+                    display: true,
+                    text: "Relação Potência por Tempo - 32 Consumo"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const x = context.parsed.x.toFixed(2);
+                            const y = context.parsed.y.toFixed(2);
+                            return `Potência: ${x} kW | Tempo: ${y} s`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: "linear",
+                    min: 0,
+                    max: xMaximo,
+                    title: {
+                        display: true,
+                        text: "Potência Real (kW)"
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: yMaximoVisivel,
+                    title: {
+                        display: true,
+                        text: "Tempo (s)"
+                    }
+                }
+            }
+        }
+    });
+}
+
 window.onload = function () {
     // -----------------manter o botão vermelho selecionado-------------------
     const botaoParametro = document.getElementById("botaoajustesGDhtml");
@@ -97,6 +290,28 @@ window.onload = function () {
 
     calcularfuncoes32();
 
+    // Mantém gráfico/valores de injeção em tempo real durante edição.
+    const tempoInjecaoInput = document.getElementById("tempo-injecao-html");
+    if (tempoInjecaoInput) {
+        tempoInjecaoInput.addEventListener("input", calcularfuncoes32);
+    }
+
+    const toleranciaInjecaoInput = document.getElementById("tolerancia-injecao-html");
+    if (toleranciaInjecaoInput) {
+        toleranciaInjecaoInput.addEventListener("input", calcularfuncoes32);
+    }
+
+    // Mantém gráfico/valores de consumo em tempo real durante edição.
+    const tempoConsumoInput = document.getElementById("tempo-consumo-html");
+    if (tempoConsumoInput) {
+        tempoConsumoInput.addEventListener("input", calcularfuncoes32);
+    }
+
+    const toleranciaConsumoInput = document.getElementById("tolerancia-consumo-html");
+    if (toleranciaConsumoInput) {
+        toleranciaConsumoInput.addEventListener("input", calcularfuncoes32);
+    }
+
 
 
 }
@@ -174,6 +389,10 @@ function calcularfuncoes32() {
         potenciaRealInjecaoElem.textContent = potenciaInjecao.toFixed(2) + " kW";
     }
 
+    // Atualiza o gráfico de injeção com os valores calculados no ciclo atual.
+    const tempoInjecaoAtual = parseFloat(document.getElementById("tempo-injecao-html")?.value) || 0;
+    atualizarGraficoPotenciaTempoInjecao(potenciaInjecao, tempoInjecaoAtual);
+
     // Calcula a potência de injeção em P.U.
     let potenciaInjecaoPU = 0;
     if (potenciabase !== 0) {
@@ -219,6 +438,10 @@ function calcularfuncoes32() {
     if (potenciaRealConsumoElem) {
         potenciaRealConsumoElem.textContent = potenciaConsumo.toFixed(2) + " kW";
     }
+
+    // Atualiza o gráfico de consumo com os valores calculados no ciclo atual.
+    const tempoConsumoAtual = parseFloat(document.getElementById("tempo-consumo-html")?.value) || 0;
+    atualizarGraficoPotenciaTempoConsumo(potenciaConsumo, tempoConsumoAtual);
 
     // Calcula a potência de consumo em P.U.
     let potenciaConsumoPU = 0;

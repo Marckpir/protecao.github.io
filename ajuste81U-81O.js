@@ -2,11 +2,238 @@
 
 
 
+let graficoSubfrequencia81U = null;
+let graficoSobrefrequencia81O = null;
 
+function parseNumeroFlex(valor) {
+    if (valor === null || valor === undefined) return NaN;
+    const texto = String(valor).replace(/[^0-9,.-]/g, "").replace(",", ".");
+    return Number(texto);
+}
 
+function obterValorManualOuLabel(idManual, idLabel) {
+    const manual = document.getElementById(idManual);
+    const label = document.getElementById(idLabel);
 
+    const valorManual = parseNumeroFlex(manual?.value);
+    if (isFinite(valorManual) && valorManual > 0) {
+        return valorManual;
+    }
 
+    const valorLabel = parseNumeroFlex(label?.textContent);
+    return isFinite(valorLabel) ? valorLabel : NaN;
+}
 
+function atualizarGraficoSubfrequencia81U() {
+    const canvas = document.getElementById("grafico-subfrequencia-81u");
+    if (!canvas || typeof Chart === "undefined") return;
+
+    const f1 = obterValorManualOuLabel("subfrequencia-manual-html-1", "subfrequencia-html-1");
+    const f2 = obterValorManualOuLabel("subfrequencia-manual-html-2", "subfrequencia-html-2");
+    const f3 = obterValorManualOuLabel("subfrequencia-manual-html-3", "subfrequencia-html-3");
+
+    const t1 = obterValorManualOuLabel("subfrequencia-tempo-manual-html-1", "subfrequencia-tempo-html-1");
+    const t2 = obterValorManualOuLabel("subfrequencia-tempo-manual-html-2", "subfrequencia-tempo-html-2");
+    const t3 = obterValorManualOuLabel("subfrequencia-tempo-manual-html-3", "subfrequencia-tempo-html-3");
+
+    if (![f1, f2, f3, t1, t2, t3].every((n) => isFinite(n) && n > 0)) {
+        return;
+    }
+
+    // Ordena por frequência crescente para montar os degraus corretamente.
+    const estagios = [
+        { f: f1, t: t1 },
+        { f: f2, t: t2 },
+        { f: f3, t: t3 }
+    ].sort((a, b) => a.f - b.f);
+
+    const xMin = Math.max(0, estagios[0].f - 0.8);
+    const xMax = estagios[2].f + 0.8;
+    const yMax = Math.max(estagios[0].t, estagios[1].t, estagios[2].t) * 1.2;
+
+    // Curva em degraus para subfrequência:
+    // x <= f1 -> t1, f1<x<=f2 -> t2, f2<x<=f3 -> t3
+    const dadosDegrau = [
+        { x: xMin, y: estagios[0].t },
+        { x: estagios[0].f, y: estagios[0].t },
+        { x: estagios[0].f, y: estagios[1].t },
+        { x: estagios[1].f, y: estagios[1].t },
+        { x: estagios[1].f, y: estagios[2].t },
+        { x: estagios[2].f, y: estagios[2].t }
+    ];
+
+    if (graficoSubfrequencia81U) {
+        graficoSubfrequencia81U.data.datasets[0].data = dadosDegrau;
+        graficoSubfrequencia81U.options.scales.x.min = xMin;
+        graficoSubfrequencia81U.options.scales.x.max = xMax;
+        graficoSubfrequencia81U.options.scales.y.max = yMax;
+        graficoSubfrequencia81U.update();
+        return;
+    }
+
+    const contexto = canvas.getContext("2d");
+    graficoSubfrequencia81U = new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                label: "Curva Função 81-U Subfrequência",
+                data: dadosDegrau,
+                borderColor: "#d35400",
+                backgroundColor: "rgba(211, 84, 0, 0.15)",
+                borderWidth: 3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: false,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                title: {
+                    display: true,
+                    text: "Relação Frequência por Tempo - 81-U"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const x = context.parsed.x.toFixed(2);
+                            const y = context.parsed.y.toFixed(2);
+                            return `Frequência: ${x} Hz | Tempo: ${y} s`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: "linear",
+                    min: xMin,
+                    max: xMax,
+                    title: {
+                        display: true,
+                        text: "Frequência (Hz)"
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: yMax,
+                    title: {
+                        display: true,
+                        text: "Tempo (s)"
+                    }
+                }
+            }
+        }
+    });
+}
+
+function atualizarGraficoSobrefrequencia81O() {
+    const canvas = document.getElementById("grafico-sobrefrequencia-81o");
+    if (!canvas || typeof Chart === "undefined") return;
+
+    const f1 = obterValorManualOuLabel("sobrefrequencia-manual-html-1", "sobrefrequencia-html-1");
+    const f2 = obterValorManualOuLabel("sobrefrequencia-manual-html-2", "sobrefrequencia-html-2");
+
+    const t1 = obterValorManualOuLabel("sobrefrequencia-tempo-manual-html-1", "sobrefrequencia-tempo-html-1");
+    const t2 = obterValorManualOuLabel("sobrefrequencia-tempo-manual-html-2", "sobrefrequencia-tempo-html-2");
+
+    if (![f1, f2, t1, t2].every((n) => isFinite(n) && n > 0)) {
+        return;
+    }
+
+    // Ordena por frequência crescente para representar os dois degraus.
+    const estagios = [
+        { f: f1, t: t1 },
+        { f: f2, t: t2 }
+    ].sort((a, b) => a.f - b.f);
+
+    const xMin = Math.max(0, estagios[0].f - 0.8);
+    const xMax = estagios[1].f + 0.8;
+    const yMax = Math.max(estagios[0].t, estagios[1].t) * 1.2;
+
+    // Curva em degraus para sobrefrequência:
+    // f1<=x<=f2 -> t1 e x>f2 -> t2.
+    const dadosDegrau = [
+        { x: estagios[0].f, y: estagios[0].t },
+        { x: estagios[1].f, y: estagios[0].t },
+        { x: estagios[1].f, y: estagios[1].t },
+        { x: xMax, y: estagios[1].t }
+    ];
+
+    if (graficoSobrefrequencia81O) {
+        graficoSobrefrequencia81O.data.datasets[0].data = dadosDegrau;
+        graficoSobrefrequencia81O.options.scales.x.min = xMin;
+        graficoSobrefrequencia81O.options.scales.x.max = xMax;
+        graficoSobrefrequencia81O.options.scales.y.max = yMax;
+        graficoSobrefrequencia81O.update();
+        return;
+    }
+
+    const contexto = canvas.getContext("2d");
+    graficoSobrefrequencia81O = new Chart(contexto, {
+        type: "line",
+        data: {
+            datasets: [{
+                label: "Curva Função 81-O Sobrefrequência",
+                data: dadosDegrau,
+                borderColor: "#d35400",
+                backgroundColor: "rgba(211, 84, 0, 0.15)",
+                borderWidth: 3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: false,
+                tension: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: "bottom"
+                },
+                title: {
+                    display: true,
+                    text: "Relação Frequência por Tempo - 81-O"
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const x = context.parsed.x.toFixed(2);
+                            const y = context.parsed.y.toFixed(2);
+                            return `Frequência: ${x} Hz | Tempo: ${y} s`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: "linear",
+                    min: xMin,
+                    max: xMax,
+                    title: {
+                        display: true,
+                        text: "Frequência (Hz)"
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: yMax,
+                    title: {
+                        display: true,
+                        text: "Tempo (s)"
+                    }
+                }
+            }
+        }
+    });
+}
 
 window.onload = function () {
     // -----------------manter o botão vermelho selecionado-------------------
@@ -168,6 +395,38 @@ window.onload = function () {
         sobrefreqTempo2.textContent = tempoSobrefreq2 !== null && tempoSobrefreq2 !== "" ? tempoSobrefreq2 + " s" : "0.20 s";
     }
     localStorage.setItem("ajustereal81Otempo2", sobrefreqTempo2.textContent);
+
+    // Renderiza gráfico inicial com os valores atuais da página.
+    atualizarGraficoSubfrequencia81U();
+    atualizarGraficoSobrefrequencia81O();
+
+    // Atualiza o gráfico em tempo real durante ajustes manuais de subfrequência.
+    [
+        "subfrequencia-manual-html-1",
+        "subfrequencia-manual-html-2",
+        "subfrequencia-manual-html-3",
+        "subfrequencia-tempo-manual-html-1",
+        "subfrequencia-tempo-manual-html-2",
+        "subfrequencia-tempo-manual-html-3"
+    ].forEach((id) => {
+        const elem = document.getElementById(id);
+        if (elem) {
+            elem.addEventListener("input", atualizarGraficoSubfrequencia81U);
+        }
+    });
+
+    // Atualiza o gráfico em tempo real durante ajustes manuais de sobrefrequência.
+    [
+        "sobrefrequencia-manual-html-1",
+        "sobrefrequencia-manual-html-2",
+        "sobrefrequencia-tempo-manual-html-1",
+        "sobrefrequencia-tempo-manual-html-2"
+    ].forEach((id) => {
+        const elem = document.getElementById(id);
+        if (elem) {
+            elem.addEventListener("input", atualizarGraficoSobrefrequencia81O);
+        }
+    });
 
 
 }

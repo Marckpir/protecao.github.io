@@ -56,6 +56,7 @@
     <link rel="stylesheet" href="animacao.css">
     <link rel="stylesheet" href="botoes-header.css">
     <link rel="stylesheet" href="ajuste25.css" type="text/css">
+    <link rel="stylesheet" href="ajuste59.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>ESTUDOS</title>
     <script src="controle-acesso.js"></script>
@@ -94,12 +95,12 @@
         <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
         <button id="botaoajustehtml" class="dark-mode-toggle"
             onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelarelehtml" class="dark-mode-toggle"
             onclick="window.location.href='tabelarele.html';">TABELA</button>
         <button id="botaoestudoshtml" class="dark-mode-toggle"
             onclick="window.location.href='estudos.html';">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
-            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
         <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
         <button id="botaoestudosGDhtml" class="dark-mode-toggle"
@@ -117,7 +118,7 @@
         <button id="botaoareatorhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajustereator.html';">Reator</button>
         <button id="botaoajuste32html" class="dark-mode-toggle"
-            onclick="window.location.href='ajuste32.html';">32-1/32-2</button>
+            onclick="window.location.href='ajuste32.html';">32-POTÊNCIA</button>
         <button id="botaoajustes67injhtml" class="dark-mode-toggle"
             onclick="window.location.href='ajuste67inj.html';">67-INJEÇÃO</button>
         <button id="botaojuste67conshtml" class="dark-mode-toggle"
@@ -138,141 +139,19 @@
             onclick="window.location.href='ajuste25.html';">25</button>
     </div>
 
-    <br>
-    <div class="tabela-containerfase">
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
+    <!-- <div
+        style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
 
-            AJUSTES 25 RELÉ DE SINCRONISMO
+        AJUSTES 25 RELÉ DE SINCRONISMO
 
-        </div>
-        <br>
-
-
-        <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
-
-
-
-                <thead>
-                    <tr>
-                        <th style="width: 40%;">Parâmetros</th>
-                        <th style="width: 20%;">Valores Base</th>
-                        <th style="width: 20%;">Valor Ajustado</th>
-                        <!-- <th style="width: 20%;">Valor P.U</th> -->
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr colspan="3" style="background-color: #e0e0e0; font-weight: bold;">
-                        <td colspan="1">Ligação Secundária do TP de Proteção:</td>
-                        <td colspan="2">
-                            <div class="input-container">
-                                <label id="ligacao-secundaria-tp-html"></label>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>Tensão Primária Linha :</td>
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-primaria-linha-html"></label>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-ajustada-primaria-linha-html"></label>
-                            </div>
-                        </td>
-                        <!-- <td>
-                            <div class="input-container">
-                                <label id="tensao-pu-primaria-linha-html"></label>
-                            </div>
-                        </td> -->
-                    </tr>
-
-
-                    <tr>
-                        <td>Tensão Primária Fase :</td>
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-primaria-fase-html"></label>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-ajustada-primaria-fase-html"></label>
-                            </div>
-                        </td>
-                        <!-- <td>
-                            <div class="input-container">
-                                <label id="tensao-pu-primaria-fase-html"></label>
-                            </div>
-                        </td> -->
-                    </tr>
-
-                    <tr>
-                        <td>Tensão Secundária Linha :</td>
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-secundaria-linha-html"></label>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-ajustada-secundaria-linha-html"></label>
-                            </div>
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <td>Tensão Secundária Fase :</td>
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-secundaria-fase-html"></label>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="input-container">
-                                <label id="tensao-ajustada-secundaria-fase-html"></label>
-                            </div>
-                        </td>
-
-                    </tr>
-
-
-
-
-
-
-
-
-
-
-                </tbody>
-            </table>
-
-        </div>
-
-        <br><br>
-
-
-    </div>
+    </div> -->
 
     <div class="tabela-containerfase">
-        <div
-            style="display: flex; justify-content: center; align-items: center; max-width: 49%; font-weight: bold; background-color: rgb(2, 68, 2); color: rgb(227, 224, 64); font-size: 16px; caption-side: top; padding: 5px; border: 3px solid #000000; margin: 0 auto;">
-
+        <div class="tabela-titulo">
             AJUSTES 25 RELÉ DE SINCRONISMO
         </div>
         <div style="display: flex; justify-content: center;">
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
+            <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
 
 
 
@@ -332,40 +211,150 @@
                             </div>
                         </td>
 
-
-
                     </tr>
 
                 </tbody>
             </table>
         </div>
 
+        <div class="tabela-containerfase">
+            <div class="tabela-titulo">
+                TENSÕES AJUSTADAS
+            </div>
+         
+
+            <div style="display: flex; justify-content: center;">
+                <table id="tabelafase" style="max-width: 100%" class="tabela-ajuste">
 
 
-        <br><br>
+
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Parâmetros</th>
+                            <th style="width: 20%;">Valores Base</th>
+                            <th style="width: 20%;">Valor Ajustado</th>
+                            <!-- <th style="width: 20%;">Valor P.U</th> -->
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr colspan="3" style="background-color: #e0e0e0; font-weight: bold;">
+                            <td colspan="1">Ligação Secundária do TP de Proteção:</td>
+                            <td colspan="2">
+                                <div class="input-container">
+                                    <label id="ligacao-secundaria-tp-html"></label>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Tensão Primária Linha :</td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-primaria-linha-html"></label>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-ajustada-primaria-linha-html"></label>
+                                </div>
+                            </td>
+                            <!-- <td>
+                            <div class="input-container">
+                                <label id="tensao-pu-primaria-linha-html"></label>
+                            </div>
+                        </td> -->
+                        </tr>
+
+
+                        <tr>
+                            <td>Tensão Primária Fase :</td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-primaria-fase-html"></label>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-ajustada-primaria-fase-html"></label>
+                                </div>
+                            </td>
+                            <!-- <td>
+                            <div class="input-container">
+                                <label id="tensao-pu-primaria-fase-html"></label>
+                            </div>
+                        </td> -->
+                        </tr>
+
+                        <tr>
+                            <td>Tensão Secundária Linha :</td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-secundaria-linha-html"></label>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-ajustada-secundaria-linha-html"></label>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Tensão Secundária Fase :</td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-secundaria-fase-html"></label>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="input-container">
+                                    <label id="tensao-ajustada-secundaria-fase-html"></label>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="tabela-titulo">
+
+            CONDIÇÕES DE SECCIONAMENTO DO DISJUNTOR
+
+        </div>
+
         <div style="display: flex; justify-content: center;">
 
-            <table id="tabelafase" style="max-width: 50%" class="tabela-ajuste">
-
-
-
+            <table id="tabelaseccionamento" style="max-width: 100%" class="tabela-ajuste">
 
                 <thead>
                     <tr>
-                        <th style="width: 30%;">Parâmetros</th>
-                        <th style="width: 35%;">Ajuste</th>
-                        <th style="width: 35%;">Valores Ajustados</th>
+                        <th style="width: 20%;">Parâmetros</th>
+                        <!-- <th style="width: 20%;">Ajuste</th> -->
+                        <th style="width: 30%;">Descrição</th>
+                        <th style="width: 20%;">Valores Ajustados</th>
+                        <th style="width: 30%;">Descrições Ajustadas</th>
 
                     </tr>
                 </thead>
 
                 <tbody>
-
-
-
                     <tr>
-                        <td>Condição de seccionamento do disjuntor:</td>
-                        <td>
+                        <td>Condição 1 de seccionamento do disjuntor:</td>
+                        <!-- <td>
                             <div class="input-container">
                                 <select id="condicao-seccionamento-ajustada-html">
                                     <option value=""></option>
@@ -375,20 +364,155 @@
                                     <option value="LINHA-MORTA/BARRA-MORTA">LINHA-MORTA/BARRA-MORTA</option>
                                 </select>
                             </div>
+                        </td> -->
+                        <td>
+                            <div class="input-container">
+                                <select id="descricao-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="FECHAMENTO DO DISJUNTOR PERMITIDO">FECHAMENTO DO DISJUNTOR PERMITIDO
+                                    </option>
+                                    <option value="FECHAMENTO DO DISJUNTOR BLOQUEADO">FECHAMENTO DO DISJUNTOR BLOQUEADO
+                                    </option>
+
+                                </select>
+                            </div>
+
                         </td>
                         <td>
                             <div class="input-container">
                                 <label id="condicao-seccionamento-dimensionado-html"></label>
                             </div>
                         </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="descricao-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
+                    </tr>
 
 
 
+
+                    <tr>
+                        <td>Condição 2 de seccionamento do disjuntor:</td>
+                        <!-- <td>
+                            <div class="input-container">
+                                <select id="condicao2-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="LINHA-VIVA/BARRA-VIVA">LINHA-VIVA/BARRA-VIVA</option>
+                                    <option value="LINHA-VIVA/BARRA-MORTA">LINHA-VIVA/BARRA-MORTA</option>
+                                    <option value="LINHA-MORTA/BARRA-VIVA">LINHA-MORTA/BARRA-VIVA</option>
+                                    <option value="LINHA-MORTA/BARRA-MORTA">LINHA-MORTA/BARRA-MORTA</option>
+                                </select>
+                            </div>
+                        </td> -->
+                        <td>
+                            <div class="input-container">
+                                <select id="descricao2-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="FECHAMENTO DO DISJUNTOR PERMITIDO">FECHAMENTO DO DISJUNTOR PERMITIDO
+                                    </option>
+                                    <option value="FECHAMENTO DO DISJUNTOR BLOQUEADO">FECHAMENTO DO DISJUNTOR BLOQUEADO
+                                    </option>
+
+                                </select>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="condicao2-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="descricao2-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Condição 3 de seccionamento do disjuntor:</td>
+                        <!-- <td>
+                            <div class="input-container">
+                                <select id="condicao3-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="LINHA-VIVA/BARRA-VIVA">LINHA-VIVA/BARRA-VIVA</option>
+                                    <option value="LINHA-VIVA/BARRA-MORTA">LINHA-VIVA/BARRA-MORTA</option>
+                                    <option value="LINHA-MORTA/BARRA-VIVA">LINHA-MORTA/BARRA-VIVA</option>
+                                    <option value="LINHA-MORTA/BARRA-MORTA">LINHA-MORTA/BARRA-MORTA</option>
+                                </select>
+                            </div>
+                        </td> -->
+                        <td>
+                            <div class="input-container">
+                                <select id="descricao3-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="FECHAMENTO DO DISJUNTOR PERMITIDO">FECHAMENTO DO DISJUNTOR PERMITIDO
+                                    </option>
+                                    <option value="FECHAMENTO DO DISJUNTOR BLOQUEADO">FECHAMENTO DO DISJUNTOR BLOQUEADO
+                                    </option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="condicao3-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="descricao3-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Condição 4 de seccionamento do disjuntor:</td>
+                        <!-- <td>
+                            <div class="input-container">
+                                <select id="condicao4-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="LINHA-VIVA/BARRA-VIVA">LINHA-VIVA/BARRA-VIVA</option>
+                                    <option value="LINHA-VIVA/BARRA-MORTA">LINHA-VIVA/BARRA-MORTA</option>
+                                    <option value="LINHA-MORTA/BARRA-VIVA">LINHA-MORTA/BARRA-VIVA</option>
+                                    <option value="LINHA-MORTA/BARRA-MORTA">LINHA-MORTA/BARRA-MORTA</option>
+                                </select>
+                            </div>
+                        </td> -->
+                        <td>
+                            <div class="input-container">
+                                <select id="descricao4-seccionamento-ajustada-html">
+                                    <option value=""></option>
+                                    <option value="FECHAMENTO DO DISJUNTOR PERMITIDO">FECHAMENTO DO DISJUNTOR PERMITIDO
+                                    </option>
+                                    <option value="FECHAMENTO DO DISJUNTOR BLOQUEADO">FECHAMENTO DO DISJUNTOR BLOQUEADO
+                                    </option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="condicao4-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-container">
+                                <label id="descricao4-seccionamento-dimensionado-html"></label>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
+
+
+
+
+
+
             </table>
         </div>
     </div>
+
 
 
 

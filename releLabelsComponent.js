@@ -176,6 +176,11 @@ export function mountReleLabelsComponent(options) {
     const escalaX = imageEl.clientWidth / imageEl.naturalWidth;
     const escalaY = imageEl.clientHeight / imageEl.naturalHeight;
 
+    // Calcular deslocamento horizontal se a imagem estiver centralizada dentro do wrapper
+    const wrapperWidth = containerEl.clientWidth;
+    const imgWidth = imageEl.clientWidth;
+    const offsetX = (wrapperWidth > imgWidth) ? (wrapperWidth - imgWidth) / 2 : 0;
+
     areas.forEach(function (area, indice) {
       const numero = indice + 1;
       const classeUnica = `${labelClassPrefix}${numero}`;
@@ -193,7 +198,7 @@ export function mountReleLabelsComponent(options) {
         }
       }
 
-      label.style.left = `${area.x * escalaX}px`;
+      label.style.left = `${offsetX + area.x * escalaX}px`;
       label.style.top = `${area.y * escalaY}px`;
       label.style.width = `${area.w * escalaX}px`;
       label.style.height = `${area.h * escalaY}px`;

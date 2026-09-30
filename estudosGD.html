@@ -36,19 +36,35 @@
                 </svg>
         </div>
         <h1>
-                <button id="botaoconfightml" class="dark-mode-toggle">CONFIGURAÇÕES</button>
-                <button id="botaodiagramahtml" class="dark-mode-toggle">DIAGRAMAS</button>
-                <button id="botaoparametrohtml" class="dark-mode-toggle">PARÂMETROS</button>
-                <button id="botaotrafohtml" class="dark-mode-toggle">TRAFOS</button>
-                <button id="botaotptchtml" class="dark-mode-toggle">TP/TC</button>
-                <button id="botaoajustehtml" class="dark-mode-toggle">AJUSTES</button>
-                <button id="botaotabelarelehtml" class="dark-mode-toggle">TABELA</button>
-                <button id="botaoestudoshtml" class="dark-mode-toggle">ESTUDOS</button>
-                <button id="botaoajustesGDhtml" class="dark-mode-toggle">AJUSTES GD</button>
-                <button id="botaotabelaGDhtml" class="dark-mode-toggle">TABELA GD</button>
-                <button id="botaoestudosGDhtml" class="dark-mode-toggle">ESTUDOS GD</button>
-                <button id="botaoanalisehtml" class="dark-mode-toggle">ANÁLISE</button>
-                <button id="botaosairhtml" class="dark-mode-toggle">SAIR</button>
+
+                <button id="botaoconfightml" class="dark-mode-toggle"
+                        onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+                <button id="botaodiagramahtml" class="dark-mode-toggle"
+                        onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
+                <button id="botaoparametrohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+                <button id="botaotrafohtml" class="dark-mode-toggle"
+                        onclick="window.location.href='transformadores.html';">TRAFOS</button>
+                <button id="botaotptchtml" class="dark-mode-toggle"
+                        onclick="window.location.href='TP-TC.html';">TP/TC</button>
+                <button id="botaoajustehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+                <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+                <button id="botaotabelarelehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='tabelarele.html';">TABELA</button>
+                <button id="botaoestudoshtml" class="dark-mode-toggle"
+                        onclick="window.location.href='estudos.html';">ESTUDOS</button>
+                <button id="botaotabelaGDhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='tabelaGD.html';">TABELA
+                        GD</button>
+                <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+                <button id="botaoanalisehtml" class="dark-mode-toggle"
+                        onclick="window.location.href='analise.html';">ANÁLISE</button>
+                <button id="botaosairhtml" class="dark-mode-toggle"
+                        onclick="window.location.href='index.html';">SAIR</button>
+
         </h1>
         <br>
 
@@ -288,6 +304,10 @@
                                 <td id="tensao-atendimento"></td>
                         </tr>
                         <tr>
+                                <th>Frequência Nominal:</th>
+                                <td id="frequencia-nominal">60 Hz</td>
+                        </tr>
+                        <tr>
                                 <th>Demanda Contratada:</th>
                                 <td class="demanda-contratada-consumo"></td>
                         </tr>
@@ -303,7 +323,7 @@
                                 <th>Fator de Potência (GD):</th>
                                 <td id="fator-potencia-gd"></td>
                         </tr>
-                        <tr>
+                        <tr class="correnteminima-gd">
                                 <th>Potência de injeção (GD):</th>
                                 <td class="potencia-de-injecao-gd"></td>
                         </tr>
@@ -334,12 +354,12 @@
         </div>
 
         <br>
-        <div class="estudos-title-block">
+        <div class="estudos-title-block referencia-aterramento-bloco">
                 <h2>DEFINIÇÃO DE REFERÊNCIA DE ATERRAMENTO</h2>
         </div>
         <br>
 
-        <div class="calculosfuncoes" id="conteudo-ajustereator">
+        <div class="calculosfuncoes referencia-aterramento-bloco" id="conteudo-ajustereator">
                 <p>Conforme exigido em norma foi dimensionado como <strong>referência de aterramento</strong>, os
                         parâmetros abaixo:</p>
                 <p>Tipo de aterramento selecionado: <span id="ajustereator-tipo-estudo"></span></p>
@@ -1098,7 +1118,7 @@
                 </p>
                 <p>I primário TC >=
                         <span class="estudos-inline-middle">
-                                <span class="estudos-block-center" id="curtoTC"></span>
+                                <span class="estudos-block-center" class="curtoTC"></span>
                                 <span class="estudos-frac-den">50</span>
                         </span>
                 <p>I primário TC >= <span id="tc-saturacao-primario"></span> A</p>
@@ -1328,14 +1348,53 @@
         <br>
 
 
-        <div id="especificacaodotc">
-                <p>O transformador de corrente definido para atender os critérios avaliados será:</p>
-                <span class="tc-especificacao"></span>
-                <br><br>
-                <textarea class="estudos-textarea-md"
-                        placeholder="Observações ou justificativas técnicas do dimensionamento do TC">Com especificação 12,5 VA 10P20</textarea>
-                <p>Conforme norma:<br><em>Ligação ao secundário dos TC de proteção: no mínimo deverão ser conectadas as
-                                3
+  <div id="especificacaodotc">
+
+                <div>
+                        Transformador de Corrente com função de Proteção - TC<br><br>
+                        Critérios:<br><br>
+                         Nível máximo de curto-circuito indicado: <span class="curtoTC"></span><br>
+                         Corrente máxima de carga em regime: <span class="ip-partida-resultado-maior"></span><br><br>
+                        (1) Corrente Nominal Primária (Ip): <span class="tc-corrente-primaria"></span>;<br>
+                        (2) Corrente Nominal Secundária: <span>5</span> A;<br>
+                        (3) Relação de Transformação: <span class="rtc-especificacao"></span>:1;<br>
+                        <!-- (4) Classe de Tensão: <span>15 KV</span>;<br>
+                        (5) Freqüência Nominal: <span>60</span> Hz;<br>
+                        (6) Classe de exatidão: <span>Norma ASA 10B50 ou equivalente ABNT</span>;<br>
+                        (7) Fator de sobrecorrente: <span>50xIp</span>;<br>
+                        (8) Fator térmico: <span>1,2</span>.<br> -->
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+                <!-- <p>O transformador de corrente definido para atender os critérios avaliados será:</p>
+                <span class="tc-especificacao"></span> -->
+                
+                <textarea class="estudos-textarea-md" placeholder="Observações ou justificativas técnicas do dimensionamento do TC">            
+(4) Classe de Tensão: 15 KV
+(5) Freqüência Nominal: 60 Hz;
+(6) Classe de exatidão: Norma ASA 10B50 (Com especificação 12,5 VA 10P20) ou equivalente ABNT;
+(7) Fator de sobrecorrente: 50xIp;
+(8) Fator térmico: 1,2.
+
+
+
+
+                </textarea>
+
+
+
+
+                <p>Conforme norma:<br><em>Ligação ao secundário dos TC de proteção: no mínimo deverão ser conectadas as 3
                                 fases e o neutro, sendo recomendável especial atenção à polaridade dos TC para que a
                                 proteção possa atuar da forma correta.</em></p>
 
@@ -1348,43 +1407,55 @@
         </div>
         <br>
 
-        <div id="dimensionamentotpprotecao">
-                <p>O sistema de proteção deve ser alimentado pela tensão secundária do(s) TP de proteção.</p>
-                <p>
-                        Conforme norma:<em> Nas unidades consumidoras com geração própria devem ser usados 3 (três) TP
-                                para proteção: 13,8/1,73 ou 22/1,73 ou 34,5/1,73 conforme o sistema de distribuição da
-                                CEMIG. Se não houver geração própria, pode ser usado apenas um TP para o sistema de
-                                proteção.</em>
-                </p>
-                <p>O TP será dimensionado conforme critérios:</p>
+                <div id="dimensionamentotpprotecao">
+                        <p>O sistema de proteção deve ser alimentado pela tensão secundária do(s) TP de proteção.</p>
+                        <p>
+                                Conforme norma:<em> Nas unidades consumidoras com geração própria devem ser usados 3
+                                        (três) TP
+                                        para proteção: 13,8/1,73 ou 22/1,73 ou 34,5/1,73 conforme o sistema de
+                                        distribuição da
+                                        CEMIG. Se não houver geração própria, pode ser usado apenas um TP para o sistema
+                                        de
+                                        proteção.</em>
+                        </p>
+                        <p>O TP será dimensionado conforme critérios:</p>
 
-                <p>Ligação:<span class="tp-fechamento"></span></p>
+                        <p>Ligação:<span class="tp-fechamento"></span></p>
 
-                <p>Tensão Primária F-F:<span class="tp-primaria-ff"></span>
+                        <p>Tensão Primária F-F:<span class="tp-primaria-ff"></span>
 
-                </p>
+                        </p>
 
-                <p>Tensão Primária F-N:<span class="tp-primaria-fn"></span>
+                        <p>Tensão Primária F-N:<span class="tp-primaria-fn"></span>
 
-                </p>
+                        </p>
 
-                <p>Tensão Secundária F-F:<span class="tp-secundaria-ff"></span>
-
-
-
-                </p>
-                <p>Tensão Secundária F-N:<span class="tp-secundaria-fn"></span></p>
-
-                <p>Relação de transformação do TP=<span class="rtp-label"></span></p>
+                        <p>Tensão Secundária F-F:<span class="tp-secundaria-ff"></span>
 
 
-                <p>Características Técnicas Mínimas do TP:</p>
-                <textarea class="estudos-textarea-md">
-                • Atender à ABNT NBR 6855
-                • Potência térmica de 400 VA
-                • Classe de exatidão 0,6P75
+
+                        </p>
+                        <p>Tensão Secundária F-N:<span class="tp-secundaria-fn"></span></p>
+
+                        <p>Relação de transformação do TP=<span class="rtp-label"></span></p>
+
+
+                        <p>Características Técnicas Mínimas do TP:</p>
+                        <textarea class="estudos-textarea-md">
+(1) Atender à ABNT NBR 6855
+(2) Classe tensão: 15 KV;
+(3) Freqüência nominal: 60 Hz;
+(4) Carga nominal mínima: 400 VA;
+(5) Classe de exatidão: 0,6P75 (0,6%) ou equivalente ABNT;
+
+
+
+
+
+
+
                 </textarea>
-        </div>
+                </div>
 
 
         <br>
@@ -1409,20 +1480,22 @@
 
                 <h3>1º Estágio - Função 51 Sentido Injeção (Sobrecorrente de fase tempo inverso)</h3>
 
-                <div class="correnteminima">
+                <div class="correnteminima-gd">
 
                         Conforme a norma ND-5.3:<br>
                         <em>A corrente de partida deverá ser superior a 10% da corrente primária nominal dos TC de
                                 proteção para assegurar uma melhor exatidão.</em>
 
-                        <p>Apesar da potência de consumo de contrato ser de <span
-                                        class="demanda-contratada-consumo"></span>,
+                        <p>Apesar da potência da usina ser de <span class="potencia-gd"></span>, para o dimensionamento
+                                do TC de proteção
+                                <!-- <span class="demanda-contratada-consumo"></span> -->
                                 será priorizado o dimensionamento para que o TC suporte a corrente de saturação de
                                 curto-circuito.
                                 Devido as limitações de
                                 sensibilidade do TC de
-                                proteção e conforme a norma será adotada a demanda mínima de <span
-                                        class="numerador-potencia-nominal"></span> kW que tem como resultado a corrente
+                                proteção e conforme a norma será adotada a potência de injeção mínima de <span
+                                        class="numerador-potencia-nominal-gd"></span> kW que tem como resultado a
+                                corrente
                                 de 10% do primário do TC de
                                 proteção dimensionado.
 
@@ -1460,6 +1533,10 @@
                         </span>
                         = <span class="ip-partida-resultado-TC-GD"></span>
                 </p>
+
+                <h3>Conversão para P.U</h3>
+
+
                 <p>
                         <span class="label">Ip fase em P.U:</span>
                         <span class="fraction estudos-inline-middle">
@@ -1672,6 +1749,7 @@
                         </span>
                         = <span class="ip-partida-resultado"></span>
                 </p>
+                <h3>Conversão para P.U</h3>
                 <p>
                         <span class="label">Ip fase em P.U:</span>
                         <span class="fraction estudos-inline-middle">
@@ -1775,37 +1853,38 @@
 
                 <p><span>Tempo máximo real de magnetização:</span> 1,94 s (1942,5 ms)</p> -->
 
-                <h3>2º Estágio - Função 50 SentidoConsumo (Sobrecorrente de Fase Instantânea)</h3>
+                <h3>2º Estágio - Função 50 Sentido Consumo (Sobrecorrente de Fase Instantânea)</h3>
 
                 <span>I<sub>inst</sub> fase=</span> Imag * <span class="imag-tolerancia-percentual"></span>
 
 
                 <br>
 
-                <span>I<sub>inst</sub> fase=<span class="imag-total-valor"></span>
-                        <span class="valor-torlerancia-imag"></span>
-                        =
-                        <span class="inst-fase-resultado"></span>
-                        <br>
-                        <span>I<sub>inst</sub> fase=<span class="inst-fase-resultado"></span>
+                <span>I<sub>inst</sub> fase</span>=<span class="imag-total-valor"></span>
+                <span class="valor-torlerancia-imag"></span>
+                =
+                <span class="inst-fase-resultado"></span>
+                <br>
+                <span>I<sub>inst</sub> fase=</span><span class="inst-fase-resultado"></span>
 
-                                <p>
-                                        <span>I<sub>inst</sub> fase P.U:</span>
-                                        <span class="estudos-inline-middle">
-                                                <span class="estudos-block-center">I<sub>inst</sub></span>
-                                                <span class="estudos-frac-den">Prim
-                                                        TC</span>
-                                        </span>
-                                        =
-                                        <span class="estudos-inline-middle">
-                                                <span class="inst-fase-resultado estudos-block-center"></span>
-                                                <span class="tc-especificacao-valor estudos-frac-den"></span>
-                                        </span>
-                                        = <span class="inst-valor-pu"></span>
-                                </p>
-                                <p>
-                                        <span>Tempo para atuação:</span> 0,00 s ou o menor valor possível.
-                                </p>
+                <h3>Conversão para P.U</h3>
+                <p>
+                        <span>I<sub>inst</sub> fase P.U:</span>
+                        <span class="estudos-inline-middle">
+                                <span class="estudos-block-center">I<sub>inst</sub></span>
+                                <span class="estudos-frac-den">Prim
+                                        TC</span>
+                        </span>
+                        =
+                        <span class="estudos-inline-middle">
+                                <span class="inst-fase-resultado estudos-block-center"></span>
+                                <span class="tc-especificacao-valor estudos-frac-den"></span>
+                        </span>
+                        = <span class="inst-valor-pu"></span>
+                </p>
+                <p>
+                        <span>Tempo para atuação:</span> 0,00 s ou o menor valor possível.
+                </p>
         </div>
 
 
@@ -1840,24 +1919,19 @@
                 <span>Ip<sub>Neutro</sub>=</span>
                 <span class="ip-neutro-gd"></span><br><br>
 
-
+                <h3>Conversão para P.U</h3>
 
                 <span>Ip<sub>Neutro</sub>P.U =</span>
                 <span class="estudos-inline-middle">
                         <span class="estudos-block-center">I<sub>P neutro</sub></span>
                         <span class="estudos-frac-den">Prim TC</span>
-                </span><br><br>
-
-                <span>Ip<sub>Neutro</sub>P.U =</span>
+                </span> =
 
                 <span class="estudos-inline-middle">
                         <span class="ip-neutro-gd estudos-block-center"></span>
                         <span class="estudos-frac-den tc-especificacao-valor"></span>
-                </span><br>
+                </span> = <span class="ip-neutro-PU-gd"></span>
 
-                <p><span>Ip<sub>Neutro</sub>P.U =</span>
-                        <span class="ip-neutro-PU-gd"></span>
-                </p>
                 <p><span>Curva:</span> Tempo Definido</p>
                 <p><span>Tempo de atuação= </span><span class="tempo-neutro-ip-gd"></span></p>
 
@@ -1924,24 +1998,19 @@
                 <span>Ip<sub>Neutro</sub>=</span>
                 <span class="ip-neutro"></span><br><br>
 
-
+                <h3>Conversão para P.U</h3>
 
                 <span>Ip<sub>Neutro</sub>P.U =</span>
                 <span class="estudos-inline-middle">
                         <span class="estudos-block-center">I<sub>P neutro</sub></span>
                         <span class="estudos-frac-den">Prim TC</span>
-                </span><br><br>
-
-                <span>Ip<sub>Neutro</sub>P.U =</span>
+                </span> =
 
                 <span class="estudos-inline-middle">
                         <span class="ip-neutro estudos-block-center"></span>
                         <span class="estudos-frac-den tc-especificacao-valor"></span>
-                </span><br>
+                </span> = </span><span class="ip-neutro-PU"></span>
 
-                <p><span>Ip<sub>Neutro</sub>P.U =</span>
-                        <span class="ip-neutro-PU"></span>
-                </p>
                 <p><span>Curva:</span> Tempo Definido</p>
                 <p><span>Tempo de atuação= </span><span class="tempo-neutro-ip"></span></p>
 
@@ -1957,22 +2026,19 @@
 
                 <span>I<sub>inst</sub> neutro=</span><span class="inst-neutro-resultado"></span>
 
+                <h3>Conversão para P.U</h3>
+
                 <p><span>I<sub>inst</sub> neutro P.U=</span>
                         <span class="estudos-inline-middle">
                                 <span class="estudos-block-center">I<sub>Inst neutro</sub></span>
                                 <span class="estudos-frac-den">Prim TC</span>
-                        </span><br>
-
-                <p><span>I<sub>inst</sub> neutro P.U=</span>
+                        </span> =
 
                         <span class="estudos-inline-middle">
                                 <span class="inst-neutro-resultado estudos-block-center"></span>
                                 <span class="estudos-frac-den tc-especificacao-valor"></span>
-                        </span><br>
+                        </span> = <span class="inst-neutro-PU"></span>
 
-                <p><span>I<sub>inst</sub> neutro P.U=</span>
-                        <span class="inst-neutro-PU"></span>
-                </p>
 
                 <p><span>Tempo de atuação:</span> 0,00 s ou o menor tempo possível</p>
         </div>
@@ -2213,52 +2279,48 @@
                 <br><br>
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Cálculo</strong></td>
+                                <td><strong>Valor de Ajuste</strong></td>
+                        </tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Corrente superior:</td>
-                                <td class="estudos-pad-2-8">
-                                        <div><span class="estudo51v-ip"></span> x <span
-                                                        class="estudo51v-sens-sup-corrente"></span> = <span
-                                                        class="estudo51v-corrente-sup"></span> </div>
-                                </td>
+                                <td class="estudos-pad-2-8"><span class="estudo51v-ip"></span> x <span
+                                                class="estudo51v-sens-sup-corrente"></span> =</td>
+                                <td class="estudos-pad-2-8 estudo51v-corrente-sup"></td>
+
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Corrente inferior:</td>
-                                <td class="estudos-pad-2-8">
-                                        <div><span class="estudo51v-ip"></span> x <span
-                                                        class="estudo51v-sens-inf-corrente"></span> = <span
-                                                        class="estudo51v-corrente-inf"></span> </div>
-                                </td>
+                                <td class="estudos-pad-2-8"><span class="estudo51v-ip"></span> x <span
+                                                class="estudo51v-sens-inf-corrente"></span> = </td>
+                                <td class="estudos-pad-2-8 estudo51v-corrente-inf"></td>
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Tensão primária de linha superior parametrizada:</td>
-                                <td class="estudos-pad-2-8">
-                                        <div><span class="estudo51v-tp-linha"></span> x <span
-                                                        class="estudo51v-sens-sup-tensao"></span> = <span
-                                                        class="estudo51v-tp-linha-ajustada"></span> </div>
-                                </td>
+                                <td class="estudos-pad-2-8"><span class="estudo51v-tp-linha"></span> x <span
+                                                class="estudo51v-sens-sup-tensao"></span> = </td>
+                                <td class="estudos-pad-2-8 estudo51v-tp-linha-ajustada"></td>
+
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Tensão primária de fase inferior parametrizada:</td>
-                                <td class="estudos-pad-2-8">
-                                        <div><span class="estudo51v-tp-fase"></span> x <span
-                                                        class="estudo51v-sens-sup-tensao"></span> = <span
-                                                        class="estudo51v-tp-fase-ajustada"></span> </div>
-                                </td>
+                                <td class="estudos-pad-2-8"><span class="estudo51v-tp-fase"></span> x <span
+                                                class="estudo51v-sens-sup-tensao"></span> = </td>
+                                <td class="estudos-pad-2-8 estudo51v-tp-fase-ajustada"></td>
+
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Tensão secundária de linha superior parametrizada:</td>
-                                <td class="estudos-pad-2-8">
-                                        <div><span class="estudo51v-ts-linha"></span> x <span
-                                                        class="estudo51v-sens-sup-tensao"></span> = <span
-                                                        class="estudo51v-ts-linha-ajustada"></span> </div>
-                                </td>
+                                <td class="estudos-pad-2-8"><span class="estudo51v-ts-linha"></span> x <span
+                                                class="estudo51v-sens-sup-tensao"></span> = </td>
+                                <td class="estudos-pad-2-8 estudo51v-ts-linha-ajustada"></td>
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Tensão secundária de fase inferior parametrizada:</td>
-                                <td class="estudos-pad-2-8">
-                                        <div><span class="estudo51v-ts-fase"></span> x <span
-                                                        class="estudo51v-sens-sup-tensao"></span> = <span
-                                                        class="estudo51v-ts-fase-ajustada"></span> </div>
-                                </td>
+                                <td class="estudos-pad-2-8"><span class="estudo51v-ts-fase"></span> x <span
+                                                class="estudo51v-sens-sup-tensao"></span> = </td>
+                                <td class="estudos-pad-2-8 estudo51v-ts-fase-ajustada"></td>
                         </tr>
                 </table>
         </div>
@@ -2313,28 +2375,29 @@
 
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td><span>Tensão Nominal x Ajuste (P.U)</span></td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Cálculo</strong></td>
+                                <td><strong>Valor de Ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária linha:</td>
-                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo27-est1"></span>=<span
-                                                class="estudo27-sub-vpl-aj1"></span></td>
+                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo27-est1"></span>=</td>
+                                <td class="estudo27-sub-vpl-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária fase:</td>
-                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo27-est1"></span>=<span
-                                                class="estudo27-sub-vpf-aj1"></span></td>
+                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo27-est1"></span>=</td>
+                                <td class="estudo27-sub-vpf-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária linha:</td>
-                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo27-est1"></span>=<span
-                                                class="estudo27-sub-vsl-aj1"></span></td>
+                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo27-est1"></span>=</td>
+                                <td class="estudo27-sub-vsl-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária fase:</td>
-                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo27-est1"></span>=<span
-                                                class="estudo27-sub-vsf-aj1"></span></td>
+                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo27-est1"></span>=</td>
+                                <td class="estudo27-sub-vsf-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tempo de atuação primeiro estágio:</td>
@@ -2350,28 +2413,29 @@
 
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td><span>Tensão Nominal x Ajuste (P.U)</span></td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Cálculo</strong></td>
+                                <td><strong>Valor de Ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária linha:</td>
-                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo27-est2"></span>=<span
-                                                class="estudo27-sub-vpl-aj2"></span></td>
+                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo27-est2"></span>=</td>
+                                <td class="estudo27-sub-vpl-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária fase:</td>
-                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo27-est2"></span>=<span
-                                                class="estudo27-sub-vpf-aj2"></span></td>
+                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo27-est2"></span>=</td>
+                                <td class="estudo27-sub-vpf-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária linha:</td>
-                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo27-est2"></span>=<span
-                                                class="estudo27-sub-vsl-aj2"></span></td>
+                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo27-est2"></span>=</td>
+                                <td class="estudo27-sub-vsl-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária fase:</td>
-                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo27-est2"></span>=<span
-                                                class="estudo27-sub-vsf-aj2"></span></td>
+                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo27-est2"></span>=</td>
+                                <td class="estudo27-sub-vsf-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tempo de atuação segundo estágio:</td>
@@ -2428,28 +2492,30 @@
 
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td><span>Tensão Nominal x Ajuste (P.U)</span></td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Cálculo</strong></td>
+                                <td><strong>Valor de Ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária linha:</td>
-                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo59-est1"></span>=<span
-                                                class="estudo59-sob-vpl-aj1"></span></td>
+                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo59-est1"></span>=</td>
+                                <td class="estudo59-sob-vpl-aj1"></td>
+
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária fase:</td>
-                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo59-est1"></span>=<span
-                                                class="estudo59-sob-vpf-aj1"></span></td>
+                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo59-est1"></span>=</td>
+                                <td class="estudo59-sob-vpf-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária linha:</td>
-                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo59-est1"></span>=<span
-                                                class="estudo59-sob-vsl-aj1"></span></td>
+                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo59-est1"></span>=</td>
+                                <td class="estudo59-sob-vsl-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária fase:</td>
-                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo59-est1"></span>=<span
-                                                class="estudo59-sob-vsf-aj1"></span></td>
+                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo59-est1"></span>=</td>
+                                <td class="estudo59-sob-vsf-aj1"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tempo de atuação primeiro estágio:</td>
@@ -2465,28 +2531,29 @@
 
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td><span>Tensão Nominal x Ajuste (P.U)</span></td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Cálculo</strong></td>
+                                <td><strong>Valor de Ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária linha:</td>
-                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo59-est2"></span>=<span
-                                                class="estudo59-sob-vpl-aj2"></span></td>
+                                <td><span class="estudo51v-tp-linha"></span> x <span class="estudo59-est2"></span>=</td>
+                                <td class="estudo59-sob-vpl-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária fase:</td>
-                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo59-est2"></span>=<span
-                                                class="estudo59-sob-vpf-aj2"></span></td>
+                                <td><span class="estudo51v-tp-fase"></span> x <span class="estudo59-est2"></span>=</td>
+                                <td class="estudo59-sob-vpf-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária linha:</td>
-                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo59-est2"></span>=<span
-                                                class="estudo59-sob-vsl-aj2"></span></td>
+                                <td><span class="estudo51v-ts-linha"></span> x <span class="estudo59-est2"></span>=</td>
+                                <td class="estudo59-sob-vsl-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária fase:</td>
-                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo59-est2"></span>=<span
-                                                class="estudo59-sob-vsf-aj2"></span></td>
+                                <td><span class="estudo51v-ts-fase"></span> x <span class="estudo59-est2"></span>=</td>
+                                <td class="estudo59-sob-vsf-aj2"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tempo de atuação segundo estágio:</td>
@@ -2508,9 +2575,9 @@
 
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td>Valor Ajustado</td>
-                                <td>Tempo de ajuste</td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Valor Ajustado</strong></td>
+                                <td><strong>Tempo de ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Subfrequência 1º estágio</td>
@@ -2543,9 +2610,9 @@
                 <br><br>
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td>Valor Ajustado</td>
-                                <td>Tempo de ajuste</td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Valor Ajustado</strong></td>
+                                <td><strong>Tempo de ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Sobrefrequência 1º estágio</td>
@@ -2585,8 +2652,6 @@
 
                 <span>I<sub>def-46</sub> = </span><span class="estudo51v-ip"></span> x <span>20%</span>
 
-                <br>
-
                 <br><br>
 
 
@@ -2604,18 +2669,12 @@
                         <span class="estudos-inline-middle">
                                 <span class="estudos-block-center">I<sub>Idef-46</sub></span>
                                 <span class="estudos-frac-den">Prim TC</span>
-                        </span><br>
-
-                <p><span>I<sub>def-46-P.U</sub> = </span>
+                        </span> =
 
                         <span class="estudos-inline-middle">
                                 <span class="estudo46-idefreal estudos-block-center"></span>
                                 <span class="estudos-frac-den tc-especificacao-valor"></span>
-                        </span><br>
-
-                <p><span>I<sub>def-46-P.U</sub> = </span>
-                        <span class="estudo46-idefpureal"></span>
-                </p>
+                        </span> = <span class="estudo46-idefpureal"></span>
 
                 <p><span>Tempo Definido para função 46 = </span>
                         <span class="estudo46-temporeal"></span>
@@ -2690,28 +2749,38 @@
 
                 <table class="estudos-border-collapse" style="width: 100%;">
                         <tr>
-                                <td>Parâmetro</td>
-                                <td><span>Tensão Nominal x Ajuste (P.U)</span></td>
+                                <td><strong>Parâmetro</strong></td>
+                                <td><strong>Cálculo</strong></td>
+                                <td><strong>Valor de Ajuste</strong></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária linha:</td>
                                 <td><span class="estudo51v-tp-linha"></span> x <span class="estudo47-tolerancia"></span>
-                                        = <span class="estudo47-vpl"></span></td>
+                                        = </td>
+                                <!-- <span class="estudo47-vpl"></span> -->
+                                <td class="estudos-pad-2-8 estudo47-vpl"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão primária fase:</td>
                                 <td><span class="estudo51v-tp-fase"></span> x <span class="estudo47-tolerancia"></span>
-                                        = <span class="estudo47-vpf"></span></td>
+                                        = </td>
+                                <!-- <span class="estudo47-vpf"></span> -->
+                                <td class="estudos-pad-2-8 estudo47-vpf"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária linha:</td>
                                 <td><span class="estudo51v-ts-linha"></span> x <span class="estudo47-tolerancia"></span>
-                                        = <span class="estudo47-vsl"></span></td>
+                                        = </td>
+                                <!-- <span class="estudo47-vsl"></span> -->
+
+                                <td class="estudos-pad-2-8 estudo47-vsl"></td>
                         </tr>
                         <tr>
                                 <td>Ajuste tensão secundária fase:</td>
                                 <td><span class="estudo51v-ts-fase"></span> x <span class="estudo47-tolerancia"></span>
-                                        = <span class="estudo47-vsf"></span></td>
+                                        = </td>
+                                <!-- <span class="estudo47-vsf"></span> -->
+                                <td class="estudos-pad-2-8 estudo47-vsf"></td>
                         </tr>
                         <tr>
                                 <td class="estudos-pad-2-8">Tempo de Desequilíbrio 47</td>
@@ -2759,7 +2828,8 @@
                                 <tr>
                                         <th class="estudos-pad-2-8 estudos-text-left">Parâmetros</th>
                                         <th class="estudos-pad-2-8 estudos-text-left">Valores Base</th>
-                                        <th class="estudos-pad-2-8 estudos-text-left">Valor Ajustado</th>
+                                        <th class="estudos-pad-2-8 estudos-text-left">Cálculo</th>
+                                        <th class="estudos-pad-2-8 estudos-text-left">Valor de Ajuste</th>
                                 </tr>
                         </thead>
                         <tbody>
@@ -2768,32 +2838,32 @@
                                         <td class="estudos-pad-2-8 estudo25-sync-vpl-base"></td>
                                         <td><span class="estudo25-sync-vpl-base"></span> x <span
                                                         class="estudo25-val-tensao"></span>
-                                                = <span class="estudo47-vpl"></span></td>
-                                        <!-- <td class="estudos-pad-2-8 estudo25-sync-vpl-aj"></td> -->
+                                                =
+                                        <td class="estudos-pad-2-8 estudo47-vpl"></td>
                                 </tr>
                                 <tr>
                                         <td class="estudos-pad-2-8">Tensão Primária Fase</td>
                                         <td class="estudos-pad-2-8 estudo25-sync-vpf-base"></td>
                                         <td><span class="estudo25-sync-vpf-base"></span> x <span
                                                         class="estudo25-val-tensao"></span>
-                                                = <span class="estudo47-vpf"></span></td>
-                                        <!-- <td class="estudos-pad-2-8 estudo25-sync-vpf-aj"></td> -->
+                                                =
+                                        <td class="estudos-pad-2-8 estudo47-vpf"></td>
                                 </tr>
                                 <tr>
                                         <td class="estudos-pad-2-8">Tensão Secundária Linha</td>
                                         <td class="estudos-pad-2-8 estudo25-sync-vsl-base"></td>
                                         <td><span class="estudo25-sync-vsl-base"></span> x <span
                                                         class="estudo25-val-tensao"></span>
-                                                = <span class="estudo47-vsl"></span></td>
-                                        <!-- <td class="estudos-pad-2-8 estudo25-sync-vsl-aj"></td> -->
+                                                =
+                                        <td class="estudos-pad-2-8 estudo47-vsl"></td>
                                 </tr>
                                 <tr>
                                         <td class="estudos-pad-2-8">Tensão Secundária Fase</td>
                                         <td class="estudos-pad-2-8 estudo25-sync-vsf-base"></td>
                                         <td><span class="estudo25-sync-vsf-base"></span> x <span
                                                         class="estudo25-val-tensao"></span>
-                                                = <span class="estudo47-vsf"></span></td>
-                                        <!-- <td class="estudos-pad-2-8 estudo25-sync-vsf-aj"></td> -->
+                                                =
+                                        <td class="estudos-pad-2-8 estudo47-vsf"></td>
                                 </tr>
                         </tbody>
                 </table>
@@ -2802,30 +2872,57 @@
 
                 <br>
 
-                <strong> Condições de operação para manobras do disjuntor:</strong><br><br>
+                <strong> Condições de operação do disjuntor:</strong><br><br>
 
-                <table class="estudos-border-collapse" style="width: 100%;">
+                <table class="estudos-border-collapse" style="width: 100%; font-size: 13px;">
                         <thead>
                                 <tr>
                                         <th class="estudos-pad-2-8 estudos-text-left">Parâmetros</th>
                                         <th class="estudos-pad-2-8 estudos-text-left">Valores Ajustados</th>
+                                        <th class="estudos-pad-2-8 estudos-text-left">Descrição de Operação</th>
                                 </tr>
                         </thead>
                         <tbody>
                                 <tr>
                                         <td class="estudos-pad-2-8">Condição de seccionamento do disjuntor</td>
                                         <td class="estudos-pad-2-8 estudo25-val-condicao"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao"></td>
                                 </tr>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição2 de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao2"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao2"></td>
+                                </tr>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição3 de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao3"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao3"></td>
+                                </tr>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição4 de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao4"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao4"></td>
+                                </tr>
+
+
+
+
+
+
                         </tbody>
                 </table>
         </div>
 
         <br>
-        <div class="estudos-title-block">
-                <h2>CÁLCULO E PARAMETRIZAÇÃO - GERADOR DIESEL</h2>
+        <div class="habilitageradoradiesel"
+                style="background:transparent; border:none; padding:0; margin:0; box-shadow:none; color:inherit; display:flex; justify-content:center; align-items:center; width:100%;">
+
+                <div class="estudos-title-block">
+                        <h2>CÁLCULO E PARAMETRIZAÇÃO - GERADOR DIESEL</h2>
+                </div>
         </div>
         <br>
-        <div class="habilitageradoradiesel">
+        <div class="habilitageradoradiesel calculosfuncoes">
 
                 <p>A instalação possui geração a Diesel que entrará em operação através de paralelismo momentâneo com a
                         rede. Seguem os cálculos de seus parâmetros:</p>
@@ -2916,8 +3013,7 @@
 
                 <table class="resumo-parametros-tabela">
                         <tr class="linha-tp">
-                                <th colspan="3">
-                                        <strong class="titulo-tp">Relação de transformação do TP:</strong> <span
+                                <th colspan="3" class="titulo-tp">Relação de transformação do TP:<span
                                                 class="rtp-label"></span>
                                 </th>
                         </tr>
@@ -3335,7 +3431,7 @@
                                 <td class="estudos-pad-2-8 estudo81u-e1"></td>
                                 <td></td>
                         </tr>
-                                                <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Tempo Subfrequência 1º estágio</td>
                                 <td class="estudos-pad-2-8 estudo81u-t1"></td>
                                 <td></td>
@@ -3345,7 +3441,7 @@
                                 <td class="estudos-pad-2-8 estudo81u-e2"></td>
                                 <td></td>
                         </tr>
-                                                <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Tempo Subfrequência 2º estágio</td>
                                 <td class="estudos-pad-2-8 estudo81u-t2"></td>
                                 <td></td>
@@ -3355,7 +3451,7 @@
                                 <td class="estudos-pad-2-8 estudo81u-e3"></td>
                                 <td></td>
                         </tr>
-                                                <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Tempo Subfrequência 3º estágio</td>
                                 <td class="estudos-pad-2-8 estudo81u-t3"></td>
                                 <td></td>
@@ -3366,12 +3462,12 @@
                                 <td colspan="3"><strong>Relé de Sobre-Frequência função ANSI 81-O</strong>
                                 </td>
                         </tr>
-                         <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Subfrequência 1º estágio</td>
                                 <td class="estudos-pad-2-8 estudo81o-e1"></td>
                                 <td></td>
                         </tr>
-                                                <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Tempo Subfrequência 1º estágio</td>
                                 <td class="estudos-pad-2-8 estudo81o-t1"></td>
                                 <td></td>
@@ -3381,7 +3477,7 @@
                                 <td class="estudos-pad-2-8 estudo81o-e2"></td>
                                 <td></td>
                         </tr>
-                                                <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Tempo Subfrequência 2º estágio</td>
                                 <td class="estudos-pad-2-8 estudo81o-t2"></td>
                                 <td></td>
@@ -3391,12 +3487,12 @@
                                                 função ANSI 46</strong>
                                 </td>
                         </tr>
-                                                 <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Subfrequência 1º estágio</td>
                                 <td class="estudos-pad-2-8 estudo46-idefreal"></td>
                                 <td class="estudo46-idefpureal"></td>
                         </tr>
-                                                <tr>
+                        <tr>
                                 <td class="estudos-pad-2-8">Tempo Subfrequência 1º estágio</td>
                                 <td class="estudos-pad-2-8 estudo46-temporeal"></td>
                                 <td></td>
@@ -3406,7 +3502,7 @@
                                                 função ANSI 47</strong>
                                 </td>
                         </tr>
-                         <tr>
+                        <tr>
                                 <td>Ajuste tensão primária linha:</td>
                                 <td class="estudo47-vpl"></td>
                                 <td class="estudo47-tolerancia"></td>
@@ -3432,10 +3528,28 @@
                                 <td></td>
                         </tr>
                         <tr>
-                                <td colspan="3"><strong>Relé de Sincronismo função ANSI 25</strong>
-                                </td>
+                                <td colspan="3"><strong>Relé de Sincronismo função ANSI 25</strong></td>
+
                         </tr>
-                         <tr>
+                        <tr>
+                                <td class="estudos-pad-2-8">Tolerância de desequilíbrio de tensão (%):</td>
+                                <td class="estudos-pad-2-8 estudo25-val-tensao"></td>
+                                <td></td>
+                        </tr>
+                        <tr>
+                                <td class="estudos-pad-2-8">Tolerância de desequilíbrio de frequência (Hz):</td>
+                                <td class="estudos-pad-2-8 estudo25-val-freq"></td>
+                                <td></td>
+                        </tr>
+                        <tr>
+                                <td class="estudos-pad-2-8">Tolerância de desequilíbrio angular (°):</td>
+                                <td class="estudos-pad-2-8 estudo25-val-angulo"></td>
+                                <td></td>
+                        </tr>
+
+
+
+                        <tr>
                                 <td>Ajuste tolerância tensão primária linha:</td>
                                 <td class="estudo25-sync-vpl-aj"></td>
                                 <td class="estudo25-val-tensao"></td>
@@ -3455,22 +3569,11 @@
                                 <td class="estudo25-sync-vsf-aj"></td>
                                 <td class="estudo25-val-tensao"></td>
                         </tr>
-                                                  <tr>
-                                        <td class="estudos-pad-2-8">Condição de seccionamento do disjuntor:</td>
-                                        <td class="estudos-pad-2-8 estudo25-val-condicao"></td>
-                                        <td></td>
-                                </tr>
-
-
-
-
-
-
-
-
-
-
-
+                        <!-- <tr>
+                                <td class="estudos-pad-2-8">Condição de seccionamento do disjuntor:</td>
+                                <td class="estudos-pad-2-8 estudo25-val-condicao"></td>
+                                <td></td>
+                        </tr> -->
                         <!-- <tr class="habilitageradoradiesel">
                                 <td colspan="3" class="titulo-funcao"><strong class="funcao-32">Direcional de Potência
                                                 ANSI 32</strong></td>
@@ -3487,23 +3590,64 @@
                         </tr> -->
                 </table>
 
+                <br>
+                <strong> Condições de operação do disjuntor:</strong><br><br>
+
+                <table class="estudos-border-collapse" style="width: 100%; font-size: 13px;">
+                        <thead>
+                                <tr>
+                                        <th class="estudos-pad-2-8 estudos-text-left">Parâmetros</th>
+                                        <th class="estudos-pad-2-8 estudos-text-left">Valores Ajustados</th>
+                                        <th class="estudos-pad-2-8 estudos-text-left">Descrição de Operação</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao"></td>
+                                </tr>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição2 de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao2"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao2"></td>
+                                </tr>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição3 de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao3"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao3"></td>
+                                </tr>
+                                <tr>
+                                        <td class="estudos-pad-2-8">Condição4 de seccionamento do disjuntor</td>
+                                        <td class="estudos-pad-2-8 estudo25-val-condicao4"></td>
+                                        <td class="estudos-pad-2-8 estudo25-desc-operacao4"></td>
+                                </tr>
+
+
+
+
+
+
+                        </tbody>
+                </table>
+
+
         </div>
 
 
         <div id="tituloreles">
                 <br>
                 <div class="estudos-title-block">
-                        <h2>Parâmetros do Relé de Proteção</h2>
+                        <h2>Parâmetros do Relé de Proteção (Painel de Interface)</h2>
                 </div>
                 <br>
 
-
-
-
                 <div id="tabelareles" classe="tabelaparametrizacaoreles"></div>
 
-
         </div>
+
+
+       
 
         <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
         <h3>Imagens carregadas:</h3>
@@ -3528,6 +3672,85 @@
         <div id="curvaProtecaoGD">
                 <canvas id="graficoGD"></canvas>
         </div>
+
+
+
+         <!-- // -----------DIV criada para o painel interno, onde serão exibidos os parâmetros do relé de proteção do painel interno
+        //conforme tabela de parametrização do estudo----------------- -->
+
+        <!-- <div id="tituloreles-painel-interno">
+                <br>
+                <div class="estudos-title-block">
+                        <h2>Parâmetros do Relé de Proteção (Painel Interno)</h2>
+                </div>
+                <br>
+
+        </div> -->
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <br>
+        <div class="estudos-title-block" id="titulo-curva-protecao">
+                <h2>NOTAS OBRIGATÓRIAS</h2>
+        </div>
+        <br>
+
+        <div id="notas-obrigatorias">
+
+                a) A CEMIG fica autorizada a reproduzir cópias desse projeto para uso interno, se necessário,
+                bem como fazer arquivamento pelo processo que lhe for conveniente.<br><br>
+
+                b) As informações/detalhes não contidos neste projeto estão de acordo com a norma CEMIG ND-5.3,
+                (conforme informações do site da CEMIG).<br><br>
+
+                c) A carga declarada no projeto estará disponível para conferência no ato da ligação.<br><br>
+
+                d) A <strong class="nome-cliente">[NOME DO CLIENTE,PESSOA FISICA OU JURÍDICA]</strong>,
+                através de seu representante legal, declara que está ciente das responsabilidades legais
+                inerentes à energização acidental de circuitos elétricos da concessionária por equipamentos
+                de geração própria existentes na instalação, ou que vierem a ser instalados dentro de sua
+                propriedade.<br><br>
+
+                <h2>TERMO DE RESPONSABILIDADE:</h2>
+
+                e)Eu, <strong class="nome-responsavel-tecnico">[NOME DO RESPONSÁVEL TÉCNICO]</strong>, Engenheiro
+                Eletricista
+                CREA: <span class="crea">[CREA]</span>, Responsável técnico pelo projeto elétrico
+                relativo à edificação situada na
+                <span class="endereco">[ENDEREÇO DO EMPREENDIMENTO]</span>
+                , declaro conhecer o disposto na Lei Federal n° 5.194/66 de 24/12/66, na Lei n° 9.695/98 de 19/02/98,
+                e nas Resoluções, Instruções Normativas e Atos do CONFEA e do CREA-MG,
+                responsabilizando-me, única e exclusivamente, administrativa e judicialmente,
+                em caso de arguição de violação dos direitos autorais.<br><br>
+
+
+                <em><span class="cidade">[CIDADE]</span>, <span class="data">[DATA]</span>.</em>
+
+        </div>
+
+
+
+
+
+
+
+
 
 
 

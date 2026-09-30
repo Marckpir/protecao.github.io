@@ -189,46 +189,19 @@ document.addEventListener('DOMContentLoaded', function () {
     var rowTipoModalidade = document.getElementById('rowTipoModalidade');
     if (tipoUsina && rowTipoModalidade) {
         tipoUsina.addEventListener('change', function () {
-            if (tipoUsina.value === 'Sem Inversor') {
-                rowTipoModalidade.style.display = '';
-            } else {
-                rowTipoModalidade.style.display = 'none';
-            }
+            var potenciaGD = document.getElementById('potenciaGDhtml');
+            var valorBruto = potenciaGD ? potenciaGD.value.trim() : '';
+            var gdPreenchido = valorBruto !== '';
+            rowTipoModalidade.style.display = gdPreenchido && tipoUsina.value === 'Sem Inversor' ? '' : 'none';
         });
-        // Inicializa o estado correto ao carregar usando valor persistido
-        var tipoUsinaSalva = localStorage.getItem('tipoUsinaGDSelecionada') || tipoUsina.value;
-        if (tipoUsinaSalva === 'Sem Inversor') {
-            rowTipoModalidade.style.display = '';
-        } else {
-            rowTipoModalidade.style.display = 'none';
-        }
     }
 
-    //exibição dos campos de GD 
-
-    function atualizarCamposGD() {
-        var potenciaGD = document.getElementById('potenciaGDhtml');
-        // Usa valor salvo se campo estiver vazio
-        var potenciaGDValor = potenciaGD && potenciaGD.value && potenciaGD.value.trim() !== '' ? potenciaGD.value : localStorage.getItem('potenciaGDcontratada');
-        var show = potenciaGDValor && potenciaGDValor.trim() !== '';
-
-        // Oculta/exibe as linhas da tabela
-        var linhaFatorPotenciaGD = potenciaGD.closest('tr').nextElementSibling;
-        var linhaTipoUsina = linhaFatorPotenciaGD.nextElementSibling;
-        var linhaTipoModalidade = linhaTipoUsina.nextElementSibling;
-        var linhaTipoParalelismo = linhaTipoModalidade.nextElementSibling;
-
-        if (linhaFatorPotenciaGD) linhaFatorPotenciaGD.style.display = show ? '' : 'none';
-        if (linhaTipoUsina) linhaTipoUsina.style.display = show ? '' : 'none';
-        // Modalidade só aparece se for Sem Inversor
-        var tipoUsina = document.getElementById('tipoUsina');
-        if (linhaTipoModalidade) linhaTipoModalidade.style.display = show && tipoUsina && tipoUsina.value === 'Sem Inversor' ? '' : 'none';
-        if (linhaTipoParalelismo) linhaTipoParalelismo.style.display = show ? '' : 'none';
-    }
     var potenciaGD = document.getElementById('potenciaGDhtml');
     if (potenciaGD) {
         potenciaGD.addEventListener('input', atualizarCamposGD);
         potenciaGD.addEventListener('change', atualizarCamposGD);
+        potenciaGD.addEventListener('blur', atualizarCamposGD);
+        potenciaGD.addEventListener('keyup', atualizarCamposGD);
     }
     atualizarCamposGD();
 });
@@ -299,6 +272,28 @@ function atualizarVisibilidadeCamposGerador() {
             linha.classList.add("campo-oculto");
         }
     });
+}
+
+function atualizarCamposGD() {
+    var potenciaGD = document.getElementById('potenciaGDhtml');
+    var valorBruto = potenciaGD ? potenciaGD.value.trim() : '';
+    var show = valorBruto !== '';
+
+    var linhasDependentes = [
+        document.getElementById('rowFatorPotenciaGD'),
+        document.getElementById('rowTipoUsina'),
+        document.getElementById('rowTipoParalelismo')
+    ];
+    linhasDependentes.forEach(function (linha) {
+        if (!linha) return;
+        linha.style.display = show ? '' : 'none';
+    });
+
+    var tipoUsina = document.getElementById('tipoUsina');
+    var rowModalidade = document.getElementById('rowTipoModalidade');
+    if (rowModalidade) {
+        rowModalidade.style.display = show && tipoUsina && tipoUsina.value === 'Sem Inversor' ? '' : 'none';
+    }
 }
 
 function aplicarRestricoesCategoriaUsuario() {
@@ -397,7 +392,7 @@ window.onload = function () {
     }
     //-----------------------------------------------------------------------------------------
     const desequilibrio = document.getElementById("desequilibrio");
-    const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada") || 33;
+    const desequilibrioSalva = localStorage.getItem("desequilibrioSelecionada");
     if (desequilibrioSalva) {
         desequilibrio.value = desequilibrioSalva;
     }
@@ -577,10 +572,7 @@ window.onload = function () {
 
     atualizarVisibilidadeCamposGerador();
     aplicarRestricoesCategoriaUsuario();
-
-
-
-
+    atualizarCamposGD();
 
 
 }

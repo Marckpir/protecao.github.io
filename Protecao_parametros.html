@@ -26,34 +26,42 @@
                 stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
         </svg>
     </div>
-    <h1 class="header-title-fade">
+    <h1>
 
-        <button id="botaoconfightml" class="dark-mode-toggle" data-nav-target="config.html">CONFIGURAÇÕES</button>
-        <button id="botaodiagramahtml" class="dark-mode-toggle" data-nav-target="Diagramas.html">DIAGRAMAS</button>
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
         <button id="botaoparametrohtml" class="dark-mode-toggle"
-            data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" data-nav-target="transformadores.html">TRAFOS</button>
-        <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle" data-nav-target="protecaoajuste.html">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle" data-nav-target="tabelarele.html">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle" data-nav-target="estudos.html">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="displayadm dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
-        <button id="botaotabelaGDhtml" class="displayadm dark-mode-toggle" data-nav-target="tabelaGD.html">TABELA
-            GD</button>
-        <button id="botaoestudosGDhtml" class="displayadm dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS
-            GD</button>
-        <button id="botaoanalisehtml" class="displayadm dark-mode-toggle"
-            data-nav-target="analise.html">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" data-nav-target="index.html">SAIR</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
 
     </h1>
-    <br>
+
+    <div class="tabela-titulo">
+        PARÂMETROS ELÉTRICOS<br>
+    </div>
+
+
     <div class="tabela-container parametros-table-container">
         <table class="parametros-data-table">
-            <caption class="parametros-caption">
-                PARÂMETROS ELÉTRICOS<br>
-            </caption>
 
             <thead>
                 <tr>
@@ -118,71 +126,7 @@
                     <td id="valorAjustadoDesequilibrio"></td>
                 </tr>
 
-                <tr class="displayadm">
-                    <td>POTÊNCIA DE GERAÇÃO(GD):</td>
-                    <td>
-                        <div class="input-container input-align-left field-gap-11">
-                            <input type="number" id="potenciaGDhtml" placeholder="Digite um valor"
-                                class="field-left field-gap-4">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoPotenciaGD"></td>
-                </tr>
 
-
-                <tr class="displayadm">
-                    <td>FATOR DE POTÊNCIA GD:</td>
-                    <td>
-                        <div class="input-container input-align-left field-gap-11">
-                            <input id="fatorPotenciaGDhtml" type="number" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoFatorPotenciaGD"></td>
-                </tr>
-                <tr class="displayadm">
-                    <td>TIPO DE USINA:</td>
-                    <td>
-                        <div class="input-container input-align-left field-gap-11">
-                            <select id="tipoUsina" class="field-left field-gap-11">
-                                <!-- <option value="">Selecione</option> -->
-                                <option value="Com Inversor">Com Inversor</option>
-                                <option value="Sem Inversor">Sem Inversor</option>
-                            </select>
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoTipoUsina"></td>
-                </tr>
-                <tr class="displayadm" id="rowTipoModalidade">
-                    <td>TIPO DE MODALIDADE:</td>
-                    <td>
-                        <select id="TipoModalidade" size="0" class="field-left field-gap-11">
-                            <!-- <option>Selecione</option> -->
-                            <option>Isolado</option>
-                            <option>Não-Isolado</option>
-                        </select>
-                    </td>
-                    <td id="valorAjustadoTipoModalidade"></td>
-                </tr>
-                
-                   
-                <tr class="displayadm">
-                    <td>TIPO DE PARALELISMO:</td>
-                    <td>
-                        <div class="input-container input-align-left field-gap-11">
-                            <select id="tipoParalelismo" class="field-left field-gap-11">
-                                <!-- <option value="">Selecione</option> -->
-                                <option value="Com Injeção">Com Injeção</option>
-                                <option value="Sem Injeção">Sem Injeção</option>
-                            </select>
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoTipoParalelismo"></td>
-                </tr>
 
 
 
@@ -198,58 +142,7 @@
                     <td id="valorAjustadoICCTri"></td>
                 </tr>
 
-                <tr>
-                    <td>POTÊNCIA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <input type="number" id="potenciageradorhtml" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoPotenciaGerador"></td>
-                </tr>
-                <tr id="rowFatorPotenciaGerador" class="gerador-dependente">
-                    <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <input id="fatorpotenciageradorhtml" type="text" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoFatorPotenciaGerador"></td>
-                </tr>
-                <tr id="rowToleranciaGerador" class="displayadm gerador-dependente">
-                    <td>TOLERÂNCIA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <input id="toleranciageradorhtml" type="text" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoToleranciaGerador"></td>
-                </tr>
-                </tr>
-                <tr id="rowPotenciaReversaGerador" class="gerador-dependente">
-                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <label type="number" id="potenciareversageradorhtml" class="value-label"></label>
-                        </div>
-                    </td>
 
-                </tr>
-                <tr id="rowPotenciaReversaGeradorPU" class="gerador-dependente">
-                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL PU:</td>
-                    <td>
-                        <div class="input-container">
-                            <label type="number" id="potenciareversageradorPUhtml" class="value-label"></label>
-                        </div>
-                    </td>
-
-                </tr>
 
 
                 <!-- <tr>
@@ -290,6 +183,153 @@
 
 
     </div>
+
+    <div class="tabela-titulo">
+        GERAÇÃO DISTRIBUÍDA (GD)
+    </div>
+
+    <div class="tabela-container parametros-table-container">
+        <table class="parametros-data-table">
+            <thead>
+                <tr>
+                    <th>Parâmetros</th>
+                    <th>Ajuste</th>
+                    <th>Valor Ajustado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="displayadm">
+                    <td>POTÊNCIA DE GERAÇÃO(GD):</td>
+                    <td>
+                        <div class="input-container input-align-left field-gap-11">
+                            <input type="number" id="potenciaGDhtml" placeholder="Digite um valor"
+                                class="field-left field-gap-4">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoPotenciaGD"></td>
+                </tr>
+                <tr class="displayadm" id="rowFatorPotenciaGD">
+                    <td>FATOR DE POTÊNCIA GD:</td>
+                    <td>
+                        <div class="input-container input-align-left field-gap-11">
+                            <input id="fatorPotenciaGDhtml" type="number" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoFatorPotenciaGD"></td>
+                </tr>
+                <tr class="displayadm" id="rowTipoUsina">
+                    <td>TIPO DE USINA:</td>
+                    <td>
+                        <div class="input-container input-align-left field-gap-11">
+                            <select id="tipoUsina" class="field-left field-gap-11">
+                                <!-- <option value="">Selecione</option> -->
+                                <option value="Com Inversor">Com Inversor</option>
+                                <option value="Sem Inversor">Sem Inversor</option>
+                            </select>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoTipoUsina"></td>
+                </tr>
+                <tr class="displayadm" id="rowTipoModalidade">
+                    <td>TIPO DE MODALIDADE:</td>
+                    <td>
+                        <select id="TipoModalidade" size="0" class="field-left field-gap-11">
+                            <!-- <option>Selecione</option> -->
+                            <option>Isolado</option>
+                            <option>Não-Isolado</option>
+                        </select>
+                    </td>
+                    <td id="valorAjustadoTipoModalidade"></td>
+                </tr>
+                <tr class="displayadm" id="rowTipoParalelismo">
+                    <td>TIPO DE PARALELISMO:</td>
+                    <td>
+                        <div class="input-container input-align-left field-gap-11">
+                            <select id="tipoParalelismo" class="field-left field-gap-11">
+                                <!-- <option value="">Selecione</option> -->
+                                <option value="Com Injeção">Com Injeção</option>
+                                <option value="Sem Injeção">Sem Injeção</option>
+                            </select>
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoTipoParalelismo"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tabela-titulo">
+        GERADOR A DIESEL
+    </div>
+
+    <div class="tabela-container parametros-table-container">
+        <table class="parametros-data-table">
+            <thead>
+                <tr>
+                    <th>Parâmetros</th>
+                    <th>Ajuste</th>
+                    <th>Valor Ajustado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>POTÊNCIA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <input type="number" id="potenciageradorhtml" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoPotenciaGerador"></td>
+                </tr>
+                <tr id="rowFatorPotenciaGerador" class="gerador-dependente">
+                    <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <input id="fatorpotenciageradorhtml" type="text" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoFatorPotenciaGerador"></td>
+                </tr>
+                <tr id="rowToleranciaGerador" class="displayadm gerador-dependente">
+                    <td>TOLERÂNCIA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <input id="toleranciageradorhtml" type="text" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoToleranciaGerador"></td>
+                </tr>
+                <tr id="rowPotenciaReversaGerador" class="gerador-dependente">
+                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <label type="number" id="potenciareversageradorhtml" class="value-label"></label>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="rowPotenciaReversaGeradorPU" class="gerador-dependente">
+                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL PU:</td>
+                    <td>
+                        <div class="input-container">
+                            <label type="number" id="potenciareversageradorPUhtml" class="value-label"></label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <br><br>
     <!-- <div style="display: flex; justify-content: center; align-items: center;">
         <table>

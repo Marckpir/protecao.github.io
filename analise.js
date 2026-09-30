@@ -144,6 +144,998 @@ async function copiarTextoEmailContainer() {
     }
 }
 
+function montarTextoNotasParaCopia() {
+    const tensao = (document.getElementById('tensao-atendimento')?.innerText || '').trim();
+    const demanda = (document.getElementById('demanda-consumo')?.innerText || '').trim();
+    const rotuloPotencia = (document.getElementById('rotulo-potencia-gd')?.innerText || 'POTÊNCIA GD:').trim();
+    const potenciaGeracao = (document.getElementById('potencia-GD')?.innerText || '').trim();
+    const linhaInjecaoVisivel = document.getElementById('campoInjecaoZero')?.style.display !== 'none';
+    const potenciaInjecao = (document.getElementById('potencia-injecao')?.innerText || '0 KW (GRID ZERO)').trim();
+    const nota3 = (document.getElementById('nsedata')?.innerText || '').trim();
+    const nota4 = (document.getElementById('nota4')?.innerText || '').trim();
+    const nota5 = (document.getElementById('nota5')?.innerText || '').trim();
+    const observacaoInput = document.getElementById('observacao-nota6');
+    const observacao = (observacaoInput?.value || '').trim();
+
+    const linhas = [
+        'NOTA 1:',
+        `TENSÃO DE ATENDIMENTO:\t${tensao}`,
+        `DEMANDA DE CONSUMO:\t${demanda}`
+    ];
+
+    if (potenciaGeracao) {
+        linhas.push(`${rotuloPotencia}\t${potenciaGeracao}`);
+    }
+
+    if (linhaInjecaoVisivel) {
+        linhas.push(`POTÊNCIA DE INJEÇÃO:\t${potenciaInjecao}`);
+    }
+
+    linhas.push(
+        'NOTA 2:\tPROJETO EM CONFORMIDADE COM NORMAS CEMIG;',
+        `NOTA 3:\t${nota3}`,
+        `NOTA 4:\t${nota4}`,
+        `NOTA 5:\t${nota5}`,
+        'NOTA 6:\tCOPIA DO CLIENTE FOI ANEXADA NO APR WEB.'
+    );
+
+    if (observacao) {
+        linhas.push('OBSERVAÇÃO:', observacao);
+    }
+
+    return linhas.join('\n');
+}
+
+async function copiarNotasComObservacao() {
+    const texto = montarTextoNotasParaCopia();
+    if (!texto.trim()) {
+        window.alert('Não foi possível montar o texto das notas para cópia.');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(texto);
+        window.alert('Notas copiadas com sucesso!');
+        return;
+    } catch {
+        const areaTemporaria = document.createElement('textarea');
+        areaTemporaria.value = texto;
+        areaTemporaria.style.position = 'fixed';
+        areaTemporaria.style.left = '-99999px';
+        document.body.appendChild(areaTemporaria);
+        areaTemporaria.select();
+        const copiado = document.execCommand('copy');
+        document.body.removeChild(areaTemporaria);
+
+        if (copiado) {
+            window.alert('Notas copiadas com sucesso!');
+        } else {
+            window.alert('Não foi possível copiar automaticamente.');
+        }
+    }
+}
+
+function montarTextoOperacaoInAteTinst() {
+    const inOperacao = (document.getElementById('in-operacao')?.innerText || '').trim();
+    const alimentadorOperacao = (document.getElementById('alimentador-operacao')?.innerText || '').trim();
+    const tensaoOperacao = (document.getElementById('tensao-operacao')?.innerText || '').trim();
+    const ip51Operacao = (document.getElementById('ip51-operacao')?.innerText || '').trim();
+    const curvaOperacao = (document.getElementById('curva-operacao')?.innerText || '').trim();
+    const dialOperacao = (document.getElementById('dial-operacao')?.innerText || '').trim();
+    const iInst50Operacao = (document.getElementById('iinst50-operacao')?.innerText || '').trim();
+    const tInstOperacao = (document.getElementById('tinst-operacao')?.innerText || '').trim();
+
+    return [
+        `IN:\t${inOperacao}`,
+        `Alimentador:\t${alimentadorOperacao}`,
+        `Tensão:\t${tensaoOperacao}`,
+        `Ip 51:\t${ip51Operacao}`,
+        `Curva:\t${curvaOperacao}`,
+        `Dial:\t${dialOperacao}`,
+        `I inst 50:\t${iInst50Operacao}`,
+        `T inst:\t${tInstOperacao}`
+    ].join('\n');
+}
+
+async function copiarOperacaoInAteTinst() {
+    const texto = montarTextoOperacaoInAteTinst();
+    if (!texto.trim()) {
+        window.alert('Não foi possível montar o texto da nota de operação para cópia.');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(texto);
+        window.alert('Trecho de IN até T inst copiado com sucesso!');
+        return;
+    } catch {
+        const areaTemporaria = document.createElement('textarea');
+        areaTemporaria.value = texto;
+        areaTemporaria.style.position = 'fixed';
+        areaTemporaria.style.left = '-99999px';
+        document.body.appendChild(areaTemporaria);
+        areaTemporaria.select();
+        const copiado = document.execCommand('copy');
+        document.body.removeChild(areaTemporaria);
+
+        if (copiado) {
+            window.alert('Trecho de IN até T inst copiado com sucesso!');
+        } else {
+            window.alert('Não foi possível copiar automaticamente.');
+        }
+    }
+}
+
+function obterTextoCelulaTabelaAtalho(celula) {
+    if (!celula) {
+        return '';
+    }
+
+    const input = celula.querySelector('input, textarea, select');
+    if (input) {
+        return (input.value || '').trim();
+    }
+
+    return (celula.innerText || '').trim();
+}
+
+function montarTextoUltimasLinhasTabelaAtalho() {
+    const tabelaAtalho = document.getElementById('tabelaatalho');
+    if (!tabelaAtalho) {
+        return '';
+    }
+
+    const linhas = Array.from(tabelaAtalho.querySelectorAll('tbody tr'));
+    if (linhas.length === 0) {
+        return '';
+    }
+
+    const ultimasLinhas = linhas.slice(-2);
+    const linhasTexto = ultimasLinhas.map((linha) => {
+        const colunas = Array.from(linha.querySelectorAll('td'));
+        return colunas.map((celula) => obterTextoCelulaTabelaAtalho(celula)).join('\t');
+    });
+
+    return linhasTexto.join('\n');
+}
+
+async function copiarUltimasLinhasTabelaAtalho() {
+    const texto = montarTextoUltimasLinhasTabelaAtalho();
+    if (!texto.trim()) {
+        window.alert('Não foi possível localizar linhas para copiar.');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(texto);
+        window.alert('Linhas copiadas com sucesso!');
+        return;
+    } catch {
+        const areaTemporaria = document.createElement('textarea');
+        areaTemporaria.value = texto;
+        areaTemporaria.style.position = 'fixed';
+        areaTemporaria.style.left = '-99999px';
+        document.body.appendChild(areaTemporaria);
+        areaTemporaria.select();
+        const copiado = document.execCommand('copy');
+        document.body.removeChild(areaTemporaria);
+
+        if (copiado) {
+            window.alert('Linhas copiadas com sucesso!');
+        } else {
+            window.alert('Não foi possível copiar automaticamente.');
+        }
+    }
+}
+
+function converterNumeroEntrada(valor) {
+    if (valor === null || valor === undefined) {
+        return NaN;
+    }
+
+    const texto = String(valor).trim();
+    if (!texto) {
+        return NaN;
+    }
+
+    return parseFloat(texto.replace(/\./g, '').replace(',', '.'));
+}
+
+function formatarNumeroParaDisplay(valor, casas = 4) {
+    if (!isFinite(valor)) {
+        return '';
+    }
+
+    return Number(valor).toLocaleString('pt-BR', {
+        minimumFractionDigits: casas,
+        maximumFractionDigits: casas
+    });
+}
+
+function formatarNumeroParaEquacao(valor, casas = 4) {
+    if (!isFinite(valor)) {
+        return '?';
+    }
+
+    return Number(valor).toFixed(casas);
+}
+
+const estadoRenderEquacaoMathJax = {};
+
+function renderizarEquacaoMathJax(idElemento, expressaoTex) {
+    const elemento = document.getElementById(idElemento);
+    if (!elemento) {
+        return;
+    }
+
+    const tokenRender = (estadoRenderEquacaoMathJax[idElemento] || 0) + 1;
+    estadoRenderEquacaoMathJax[idElemento] = tokenRender;
+
+    const expressao = String(expressaoTex || '');
+    const fallbackLatex = `\\[${expressao}\\]`;
+
+    if (!window.MathJax) {
+        elemento.innerHTML = fallbackLatex;
+        return;
+    }
+
+    if (typeof window.MathJax.tex2svgPromise === 'function') {
+        window.MathJax.tex2svgPromise(expressao, { display: true })
+            .then((node) => {
+                if (estadoRenderEquacaoMathJax[idElemento] !== tokenRender) {
+                    return;
+                }
+
+                elemento.innerHTML = '';
+                const svg = node && typeof node.querySelector === 'function'
+                    ? node.querySelector('svg')
+                    : null;
+
+                if (svg) {
+                    const svgClone = svg.cloneNode(true);
+                    svgClone.style.maxWidth = '76%';
+                    svgClone.style.width = '76%';
+                    svgClone.style.height = 'auto';
+                    svgClone.style.display = 'block';
+                    svgClone.style.margin = '8px auto';
+                    elemento.style.textAlign = 'center';
+                    elemento.appendChild(svgClone);
+                } else if (node) {
+                    elemento.appendChild(node.cloneNode(true));
+                }
+            })
+            .catch(() => {
+                if (estadoRenderEquacaoMathJax[idElemento] !== tokenRender) {
+                    return;
+                }
+                elemento.innerHTML = fallbackLatex;
+                if (typeof window.MathJax.typesetPromise === 'function') {
+                    window.MathJax.typesetPromise([elemento]).catch(() => { });
+                }
+            });
+        return;
+    }
+
+    elemento.innerHTML = fallbackLatex;
+
+    if (typeof window.MathJax.typesetClear === 'function') {
+        window.MathJax.typesetClear([elemento]);
+    }
+
+    if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+        window.MathJax.typesetPromise([elemento]).catch(() => { });
+    }
+}
+
+function atualizarEquacaoDialPorTempo(tempo, beta, alfa, iInst, ip, k, dial) {
+    const divisao = iInst / ip;
+    const exponenciacao = Math.pow(divisao, alfa);
+    const subtracao = exponenciacao - k;
+    const fracaoFinal = subtracao / beta;
+
+    const tex = String.raw`\begin{aligned}
+\mathrm{DIAL} &= t\cdot\frac{\left(\frac{I_{inst}}{I_p}\right)^{\alpha}-k}{\beta} \\
+\frac{I_{inst}}{I_p} &= \frac{${formatarNumeroParaEquacao(iInst)}}{${formatarNumeroParaEquacao(ip)}} = ${formatarNumeroParaEquacao(divisao)} \\[6pt]
+\left(\frac{I_{inst}}{I_p}\right)^{\alpha} &= ${formatarNumeroParaEquacao(divisao)}^{${formatarNumeroParaEquacao(alfa)}} = ${formatarNumeroParaEquacao(exponenciacao)} \\[6pt]
+\left(\frac{I_{inst}}{I_p}\right)^{\alpha} - k &= ${formatarNumeroParaEquacao(exponenciacao)} - ${formatarNumeroParaEquacao(k)} = ${formatarNumeroParaEquacao(subtracao)} \\[6pt]
+\frac{\left(\frac{I_{inst}}{I_p}\right)^{\alpha}-k}{\beta} &= \frac{${formatarNumeroParaEquacao(subtracao)}}{${formatarNumeroParaEquacao(beta)}} = ${formatarNumeroParaEquacao(fracaoFinal)} \\[6pt]
+\mathrm{DIAL} &= ${formatarNumeroParaEquacao(tempo)}\cdot${formatarNumeroParaEquacao(fracaoFinal)} \\[6pt]
+\mathrm{DIAL} &= ${formatarNumeroParaEquacao(dial)}
+\end{aligned}`;
+    renderizarEquacaoMathJax('formulaDialCalcEq', tex);
+}
+
+function atualizarEquacaoTempoPorDial(dial, beta, alfa, iInst, ip, k, tempo) {
+    const divisao = iInst / ip;
+    const exponenciacao = Math.pow(divisao, alfa);
+    const subtracao = exponenciacao - k;
+    const fracaoTempo = beta / subtracao;
+
+    const tex = String.raw`\begin{aligned}
+t &= \mathrm{DIAL}\cdot\frac{\beta}{\left(\frac{I_{inst}}{I_p}\right)^{\alpha}-k} \\
+\frac{I_{inst}}{I_p} &= \frac{${formatarNumeroParaEquacao(iInst)}}{${formatarNumeroParaEquacao(ip)}} = ${formatarNumeroParaEquacao(divisao)} \\[6pt]
+\left(\frac{I_{inst}}{I_p}\right)^{\alpha} &= ${formatarNumeroParaEquacao(divisao)}^{${formatarNumeroParaEquacao(alfa)}} = ${formatarNumeroParaEquacao(exponenciacao)} \\[6pt]
+\left(\frac{I_{inst}}{I_p}\right)^{\alpha} - k &= ${formatarNumeroParaEquacao(exponenciacao)} - ${formatarNumeroParaEquacao(k)} = ${formatarNumeroParaEquacao(subtracao)} \\[6pt]
+\frac{\beta}{\left(\frac{I_{inst}}{I_p}\right)^{\alpha}-k} &= \frac{${formatarNumeroParaEquacao(beta)}}{${formatarNumeroParaEquacao(subtracao)}} = ${formatarNumeroParaEquacao(fracaoTempo)} \\[6pt]
+t &= ${formatarNumeroParaEquacao(dial)}\cdot${formatarNumeroParaEquacao(fracaoTempo)} \\[6pt]
+t &= ${formatarNumeroParaEquacao(tempo)}
+\end{aligned}`;
+    renderizarEquacaoMathJax('formulaTempoCalcEq', tex);
+}
+
+function obterDenominadorDial(beta, alfa, iInst, ip, k) {
+    if ([beta, alfa, iInst, ip, k].some((numero) => isNaN(numero))) {
+        return { valido: false, mensagem: 'Preencha Beta, Alfa, I inst, Ip e K com valores numéricos válidos.' };
+    }
+
+    if (beta === 0 || ip === 0) {
+        return { valido: false, mensagem: 'Beta e Ip devem ser diferentes de zero.' };
+    }
+
+    const denominador = Math.pow(iInst / ip, alfa) - k;
+    if (denominador <= 0) {
+        return { valido: false, mensagem: 'Combinação inválida: ((I inst / Ip)^Alfa - K) deve ser maior que zero.' };
+    }
+
+    return { valido: true, denominador };
+}
+
+function calcularDialPorTempo(exibirAlertas = false) {
+    const campoTempo = document.getElementById('testeDialTempoCalc');
+    const campoBeta = document.getElementById('testeDialBetaCalc');
+    const campoAlfa = document.getElementById('testeDialAlfaCalc');
+    const campoIinst = document.getElementById('testeDialIinstCalc');
+    const campoIp = document.getElementById('testeDialIpCalc');
+    const campoK = document.getElementById('testeDialKCalc');
+    const campoResultado = document.getElementById('testeDialResultadoCalc');
+
+    if (!campoTempo || !campoBeta || !campoAlfa || !campoIinst || !campoIp || !campoK || !campoResultado) {
+        return;
+    }
+
+    const tempo = converterNumeroEntrada(campoTempo.value);
+    const beta = converterNumeroEntrada(campoBeta.value);
+    const alfa = converterNumeroEntrada(campoAlfa.value);
+    const iInst = converterNumeroEntrada(campoIinst.value);
+    const ip = converterNumeroEntrada(campoIp.value);
+    const k = converterNumeroEntrada(campoK.value);
+
+    const validacao = obterDenominadorDial(beta, alfa, iInst, ip, k);
+    if (!validacao.valido) {
+        campoResultado.value = '';
+        atualizarEquacaoDialPorTempo(tempo, beta, alfa, iInst, ip, k, NaN);
+        if (exibirAlertas) {
+            window.alert(validacao.mensagem);
+        }
+        return;
+    }
+
+    if (isNaN(tempo) || tempo <= 0) {
+        campoResultado.value = '';
+        atualizarEquacaoDialPorTempo(tempo, beta, alfa, iInst, ip, k, NaN);
+        if (exibirAlertas) {
+            window.alert('Informe um Tempo válido para calcular o DIAL.');
+        }
+        return;
+    }
+
+    const dialCalculado = tempo * (validacao.denominador / beta);
+    if (!isFinite(dialCalculado) || dialCalculado <= 0) {
+        campoResultado.value = '';
+        atualizarEquacaoDialPorTempo(tempo, beta, alfa, iInst, ip, k, NaN);
+        if (exibirAlertas) {
+            window.alert('Não foi possível calcular um DIAL válido com os dados informados.');
+        }
+        return;
+    }
+
+    campoResultado.value = formatarNumeroParaDisplay(dialCalculado, 4);
+    atualizarEquacaoDialPorTempo(tempo, beta, alfa, iInst, ip, k, dialCalculado);
+}
+
+function calcularTempoPorDial(exibirAlertas = false) {
+    const campoDial = document.getElementById('testeTempoDialCalc');
+    const campoBeta = document.getElementById('testeTempoBetaCalc');
+    const campoAlfa = document.getElementById('testeTempoAlfaCalc');
+    const campoIinst = document.getElementById('testeTempoIinstCalc');
+    const campoIp = document.getElementById('testeTempoIpCalc');
+    const campoK = document.getElementById('testeTempoKCalc');
+    const campoResultado = document.getElementById('testeTempoResultadoCalc');
+
+    if (!campoDial || !campoBeta || !campoAlfa || !campoIinst || !campoIp || !campoK || !campoResultado) {
+        return;
+    }
+
+    const dial = converterNumeroEntrada(campoDial.value);
+    const beta = converterNumeroEntrada(campoBeta.value);
+    const alfa = converterNumeroEntrada(campoAlfa.value);
+    const iInst = converterNumeroEntrada(campoIinst.value);
+    const ip = converterNumeroEntrada(campoIp.value);
+    const k = converterNumeroEntrada(campoK.value);
+
+    const validacao = obterDenominadorDial(beta, alfa, iInst, ip, k);
+    if (!validacao.valido) {
+        campoResultado.value = '';
+        atualizarEquacaoTempoPorDial(dial, beta, alfa, iInst, ip, k, NaN);
+        if (exibirAlertas) {
+            window.alert(validacao.mensagem);
+        }
+        return;
+    }
+
+    if (isNaN(dial) || dial <= 0) {
+        campoResultado.value = '';
+        atualizarEquacaoTempoPorDial(dial, beta, alfa, iInst, ip, k, NaN);
+        if (exibirAlertas) {
+            window.alert('Informe um DIAL válido para calcular o Tempo.');
+        }
+        return;
+    }
+
+    const tempoCalculado = dial * (beta / validacao.denominador);
+    if (!isFinite(tempoCalculado) || tempoCalculado <= 0) {
+        campoResultado.value = '';
+        atualizarEquacaoTempoPorDial(dial, beta, alfa, iInst, ip, k, NaN);
+        if (exibirAlertas) {
+            window.alert('Não foi possível calcular um Tempo válido com os dados informados.');
+        }
+        return;
+    }
+
+    campoResultado.value = formatarNumeroParaDisplay(tempoCalculado, 4);
+    atualizarEquacaoTempoPorDial(dial, beta, alfa, iInst, ip, k, tempoCalculado);
+}
+
+function configurarTesteDial() {
+    const btnCalcularDial = document.getElementById('btnCalcularDialTeste');
+    if (btnCalcularDial && btnCalcularDial.dataset.bound !== 'true') {
+        btnCalcularDial.addEventListener('click', function () {
+            calcularDialPorTempo(true);
+        });
+        btnCalcularDial.dataset.bound = 'true';
+    }
+
+    const btnCalcularTempo = document.getElementById('btnCalcularTempoTeste');
+    if (btnCalcularTempo && btnCalcularTempo.dataset.bound !== 'true') {
+        btnCalcularTempo.addEventListener('click', function () {
+            calcularTempoPorDial(true);
+        });
+        btnCalcularTempo.dataset.bound = 'true';
+    }
+
+    [
+        'testeDialTempoCalc',
+        'testeDialBetaCalc',
+        'testeDialAlfaCalc',
+        'testeDialIinstCalc',
+        'testeDialIpCalc',
+        'testeDialKCalc'
+    ].forEach((idCampo) => {
+        const campo = document.getElementById(idCampo);
+        if (!campo || campo.dataset.bound === 'true') {
+            return;
+        }
+
+        campo.addEventListener('input', function () {
+            calcularDialPorTempo(false);
+        });
+        campo.dataset.bound = 'true';
+    });
+
+    [
+        'testeTempoDialCalc',
+        'testeTempoBetaCalc',
+        'testeTempoAlfaCalc',
+        'testeTempoIinstCalc',
+        'testeTempoIpCalc',
+        'testeTempoKCalc'
+    ].forEach((idCampo) => {
+        const campo = document.getElementById(idCampo);
+        if (!campo || campo.dataset.bound === 'true') {
+            return;
+        }
+
+        campo.addEventListener('input', function () {
+            calcularTempoPorDial(false);
+        });
+        campo.dataset.bound = 'true';
+    });
+
+    atualizarEquacaoDialPorTempo(NaN, NaN, NaN, NaN, NaN, NaN, NaN);
+    atualizarEquacaoTempoPorDial(NaN, NaN, NaN, NaN, NaN, NaN, NaN);
+}
+
+function copiarTextoSimplesComFallback(texto, mensagemSucesso) {
+    if (!texto || !texto.trim()) {
+        window.alert('Não foi possível localizar conteúdo para copiar.');
+        return;
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto)
+            .then(() => {
+                window.alert(mensagemSucesso);
+            })
+            .catch(() => {
+                const areaTemporaria = document.createElement('textarea');
+                areaTemporaria.value = texto;
+                areaTemporaria.style.position = 'fixed';
+                areaTemporaria.style.left = '-99999px';
+                document.body.appendChild(areaTemporaria);
+                areaTemporaria.select();
+                const copiado = document.execCommand('copy');
+                document.body.removeChild(areaTemporaria);
+
+                if (copiado) {
+                    window.alert(mensagemSucesso);
+                } else {
+                    window.alert('Não foi possível copiar automaticamente.');
+                }
+            });
+        return;
+    }
+
+    const areaTemporaria = document.createElement('textarea');
+    areaTemporaria.value = texto;
+    areaTemporaria.style.position = 'fixed';
+    areaTemporaria.style.left = '-99999px';
+    document.body.appendChild(areaTemporaria);
+    areaTemporaria.select();
+    const copiado = document.execCommand('copy');
+    document.body.removeChild(areaTemporaria);
+
+    if (copiado) {
+        window.alert(mensagemSucesso);
+    } else {
+        window.alert('Não foi possível copiar automaticamente.');
+    }
+}
+
+function obterBlobDoCanvas(canvas, tipo, qualidade) {
+    return new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+            resolve(blob || null);
+        }, tipo, qualidade);
+    });
+}
+
+function baixarCanvasComoJpg(canvas, nomeArquivoBase) {
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/jpeg', 0.95);
+    link.download = `${nomeArquivoBase}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function obterDadosImagemDial() {
+    const tempo = (document.getElementById('testeDialTempoCalc')?.value || '').trim();
+    const beta = (document.getElementById('testeDialBetaCalc')?.value || '').trim();
+    const alfa = (document.getElementById('testeDialAlfaCalc')?.value || '').trim();
+    const iinst = (document.getElementById('testeDialIinstCalc')?.value || '').trim();
+    const ip = (document.getElementById('testeDialIpCalc')?.value || '').trim();
+    const k = (document.getElementById('testeDialKCalc')?.value || '').trim();
+    const resultadoDial = (document.getElementById('testeDialResultadoCalc')?.value || '').trim();
+
+    return {
+        titulo: 'PARAMETROS PARA O CALCULO DO DIAL',
+        parametros: [
+            ['Tempo (s)', tempo],
+            ['Beta', beta],
+            ['Alfa', alfa],
+            ['I inst (A)', iinst],
+            ['Ip (A)', ip],
+            ['K', k],
+            ['DIAL de ajuste', resultadoDial]
+        ],
+        formula: [
+            'DIAL = t * (((Iinst / Ip)^alfa - K) / beta)',
+            `DIAL = ${tempo || '?'} * (((${iinst || '?'} / ${ip || '?'})^${alfa || '?'} - ${k || '?'}) / ${beta || '?'})`,
+            `DIAL = ${resultadoDial || '?'}`
+        ]
+    };
+}
+
+function obterDadosImagemTempo() {
+    const dial = (document.getElementById('testeTempoDialCalc')?.value || '').trim();
+    const beta = (document.getElementById('testeTempoBetaCalc')?.value || '').trim();
+    const alfa = (document.getElementById('testeTempoAlfaCalc')?.value || '').trim();
+    const iinst = (document.getElementById('testeTempoIinstCalc')?.value || '').trim();
+    const ip = (document.getElementById('testeTempoIpCalc')?.value || '').trim();
+    const k = (document.getElementById('testeTempoKCalc')?.value || '').trim();
+    const resultadoTempo = (document.getElementById('testeTempoResultadoCalc')?.value || '').trim();
+
+    return {
+        titulo: 'PARAMETROS PARA O CALCULO DO TEMPO',
+        parametros: [
+            ['DIAL (s)', dial],
+            ['Beta', beta],
+            ['Alfa', alfa],
+            ['I inst (A)', iinst],
+            ['Ip (A)', ip],
+            ['K', k],
+            ['Tempo calculado (s)', resultadoTempo]
+        ],
+        formula: [
+            't = DIAL * (beta / ((Iinst / Ip)^alfa - K))',
+            `t = ${dial || '?'} * (${beta || '?'} / (((${iinst || '?'} / ${ip || '?'})^${alfa || '?'}) - ${k || '?'}))`,
+            `t = ${resultadoTempo || '?'}`
+        ]
+    };
+}
+
+function quebrarTextoCanvas(ctx, texto, larguraMaxima) {
+    const palavras = String(texto || '').split(' ');
+    const linhas = [];
+    let atual = '';
+
+    for (const palavra of palavras) {
+        const tentativa = atual ? `${atual} ${palavra}` : palavra;
+        if (ctx.measureText(tentativa).width <= larguraMaxima || !atual) {
+            atual = tentativa;
+        } else {
+            linhas.push(atual);
+            atual = palavra;
+        }
+    }
+
+    if (atual) {
+        linhas.push(atual);
+    }
+
+    return linhas.length ? linhas : [''];
+}
+
+function criarCanvasResumoCalculo(dados) {
+    const canvas = document.createElement('canvas');
+    const largura = 1700;
+    const margem = 60;
+    const larguraUtil = largura - (margem * 2);
+    const contexto = canvas.getContext('2d');
+
+    if (!contexto) {
+        return null;
+    }
+
+    contexto.font = '700 52px Arial, sans-serif';
+    const alturaTitulo = 72;
+    const alturaLinhaParametro = 58;
+    const alturaEspaco = 26;
+    const alturaSubtitulo = 52;
+    const alturaLinhaFormula = 54;
+
+    contexto.font = '500 42px Arial, sans-serif';
+    const linhasFormula = [];
+    dados.formula.forEach((linha, indice) => {
+        contexto.font = indice === dados.formula.length - 1
+            ? '700 44px Arial, sans-serif'
+            : '500 42px Arial, sans-serif';
+        const quebradas = quebrarTextoCanvas(contexto, linha, larguraUtil - 40);
+        quebradas.forEach((item, idxInterno) => {
+            linhasFormula.push({ texto: item, destaque: indice === dados.formula.length - 1 && idxInterno === quebradas.length - 1 });
+        });
+    });
+
+    const alturaFormulaBloco = 40 + (linhasFormula.length * alturaLinhaFormula) + 20;
+    const altura = margem
+        + alturaTitulo
+        + alturaEspaco
+        + (dados.parametros.length * alturaLinhaParametro)
+        + alturaEspaco
+        + alturaSubtitulo
+        + alturaFormulaBloco
+        + margem;
+
+    canvas.width = largura;
+    canvas.height = altura;
+
+    contexto.fillStyle = '#ffffff';
+    contexto.fillRect(0, 0, largura, altura);
+
+    let y = margem;
+
+    contexto.fillStyle = '#111111';
+    contexto.font = '700 52px Arial, sans-serif';
+    contexto.fillText(dados.titulo, margem, y + 48);
+    y += alturaTitulo;
+
+    contexto.strokeStyle = '#d0d0d0';
+    contexto.lineWidth = 2;
+    contexto.beginPath();
+    contexto.moveTo(margem, y + 4);
+    contexto.lineTo(largura - margem, y + 4);
+    contexto.stroke();
+    y += alturaEspaco;
+
+    dados.parametros.forEach(([rotulo, valor], indice) => {
+        const destaque = indice === dados.parametros.length - 1;
+        contexto.font = destaque ? '700 44px Arial, sans-serif' : '500 42px Arial, sans-serif';
+        contexto.fillStyle = '#111111';
+        contexto.fillText(`${rotulo}:`, margem, y + 42);
+        contexto.font = destaque ? '700 44px Arial, sans-serif' : '500 42px Arial, sans-serif';
+        contexto.fillText(valor || '-', margem + 560, y + 42);
+        y += alturaLinhaParametro;
+    });
+
+    y += 8;
+    contexto.font = '700 46px Arial, sans-serif';
+    contexto.fillStyle = '#111111';
+    contexto.fillText('FORMULA', margem, y + 40);
+    y += alturaSubtitulo;
+
+    const blocoX = margem;
+    const blocoY = y;
+    const blocoW = larguraUtil;
+    const blocoH = alturaFormulaBloco;
+
+    contexto.fillStyle = '#eef8ee';
+    contexto.strokeStyle = '#cfe8cf';
+    contexto.lineWidth = 2;
+    contexto.beginPath();
+    contexto.roundRect(blocoX, blocoY, blocoW, blocoH, 14);
+    contexto.fill();
+    contexto.stroke();
+
+    let yFormula = blocoY + 54;
+    linhasFormula.forEach((linha) => {
+        contexto.font = linha.destaque ? '700 44px Arial, sans-serif' : '500 42px Arial, sans-serif';
+        contexto.fillStyle = '#111111';
+        contexto.fillText(linha.texto, blocoX + 20, yFormula);
+        yFormula += alturaLinhaFormula;
+    });
+
+    return canvas;
+}
+
+async function copiarResumoComoImagemJpg(tipo, nomeArquivoBase) {
+    const dados = tipo === 'dial' ? obterDadosImagemDial() : obterDadosImagemTempo();
+    const canvas = criarCanvasResumoCalculo(dados);
+    if (!canvas) {
+        window.alert('Não foi possível gerar a imagem do resumo.');
+        return;
+    }
+
+    const blobJpg = await obterBlobDoCanvas(canvas, 'image/jpeg', 0.95);
+    if (!blobJpg) {
+        window.alert('Não foi possível gerar a imagem JPG.');
+        return;
+    }
+
+    if (navigator.clipboard && window.ClipboardItem && navigator.clipboard.write) {
+        try {
+            await navigator.clipboard.write([
+                new ClipboardItem({ 'image/jpeg': blobJpg })
+            ]);
+            window.alert('Parâmetros e fórmula copiados como imagem JPG!');
+            return;
+        } catch {
+            try {
+                const blobPng = await obterBlobDoCanvas(canvas, 'image/png');
+                if (blobPng) {
+                    await navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': blobPng })
+                    ]);
+                    window.alert('Imagem copiada para a área de transferência (PNG).');
+                    return;
+                }
+            } catch {
+            }
+        }
+    }
+
+    baixarCanvasComoJpg(canvas, nomeArquivoBase);
+    window.alert('Seu navegador não permitiu copiar imagem. O arquivo JPG foi baixado automaticamente.');
+}
+
+async function copiarBlocoComoImagemJpg(idBloco, nomeArquivoBase) {
+    const elemento = document.getElementById(idBloco);
+    const tipo = idBloco === 'blocoDialParaImagem' ? 'dial' : 'tempo';
+    if (!elemento) {
+        await copiarResumoComoImagemJpg(tipo, nomeArquivoBase);
+        return;
+    }
+
+    if (typeof window.html2canvas !== 'function') {
+        await copiarResumoComoImagemJpg(tipo, nomeArquivoBase);
+        return;
+    }
+
+    try {
+        if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+            const formulasNoBloco = elemento.querySelectorAll('#formulaDialCalcEq, #formulaTempoCalcEq');
+            await window.MathJax.typesetPromise(Array.from(formulasNoBloco));
+        }
+
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const canvas = await window.html2canvas(elemento, {
+            backgroundColor: '#ffffff',
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            onclone: (documentoClone) => {
+                const elementosOcultos = documentoClone.querySelectorAll('[data-excluir-captura="true"]');
+                elementosOcultos.forEach((el) => {
+                    el.style.display = 'none';
+                });
+
+                // Evita sobreposição do MathJax na captura mantendo apenas a camada visual principal.
+                const assistivos = documentoClone.querySelectorAll('mjx-assistive-mml, .MJX_Assistive_MathML');
+                assistivos.forEach((el) => {
+                    el.remove();
+                });
+
+                const containersMath = documentoClone.querySelectorAll('mjx-container');
+                containersMath.forEach((container) => {
+                    const svgs = container.querySelectorAll('svg');
+                    svgs.forEach((svg, indice) => {
+                        if (indice > 0) {
+                            svg.remove();
+                            return;
+                        }
+
+                        svg.style.overflow = 'visible';
+                        svg.style.display = 'block';
+                        svg.style.marginBottom = '12px';
+                    });
+
+                    container.style.display = 'block';
+                    container.style.overflow = 'visible';
+                });
+
+                const blocosFormula = documentoClone.querySelectorAll('#formulaDialCalcEq, #formulaTempoCalcEq');
+                blocosFormula.forEach((bloco) => {
+                    bloco.style.overflow = 'visible';
+                    bloco.style.paddingBottom = '48px';
+                    bloco.style.marginBottom = '20px';
+
+                    const alturaFormula = bloco.scrollHeight || 0;
+                    if (alturaFormula > 0) {
+                        bloco.style.minHeight = `${alturaFormula + 30}px`;
+                    }
+                });
+
+                const blocoFormulaTempo = documentoClone.querySelector('#formulaTempoCalcEq');
+                if (blocoFormulaTempo) {
+                    const alturaTempo = blocoFormulaTempo.scrollHeight || 0;
+                    if (alturaTempo > 0) {
+                        blocoFormulaTempo.style.minHeight = `${alturaTempo + 54}px`;
+                    }
+                    blocoFormulaTempo.style.paddingBottom = '60px';
+                }
+
+                const blocosImagem = documentoClone.querySelectorAll('#blocoDialParaImagem, #blocoTempoParaImagem');
+                blocosImagem.forEach((bloco) => {
+                    bloco.style.paddingBottom = '42px';
+                    const alturaBloco = bloco.scrollHeight || 0;
+                    if (alturaBloco > 0) {
+                        bloco.style.minHeight = `${alturaBloco + 24}px`;
+                    }
+                });
+            }
+        });
+
+        const blobJpg = await obterBlobDoCanvas(canvas, 'image/jpeg', 0.95);
+        if (!blobJpg) {
+            await copiarResumoComoImagemJpg(tipo, nomeArquivoBase);
+            return;
+        }
+
+        if (navigator.clipboard && window.ClipboardItem && navigator.clipboard.write) {
+            try {
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'image/jpeg': blobJpg })
+                ]);
+                window.alert('Parâmetros e fórmula copiados como imagem JPG!');
+                return;
+            } catch {
+                try {
+                    const blobPng = await obterBlobDoCanvas(canvas, 'image/png');
+                    if (blobPng) {
+                        await navigator.clipboard.write([
+                            new ClipboardItem({ 'image/png': blobPng })
+                        ]);
+                        window.alert('Imagem copiada para a área de transferência (PNG).');
+                        return;
+                    }
+                } catch {
+                }
+            }
+        }
+
+        baixarCanvasComoJpg(canvas, nomeArquivoBase);
+        window.alert('Seu navegador não permitiu copiar imagem. O arquivo JPG foi baixado automaticamente.');
+    } catch {
+        await copiarResumoComoImagemJpg(tipo, nomeArquivoBase);
+    }
+}
+
+function montarTextoCopiarDialTeste() {
+    const tempo = (document.getElementById('testeDialTempoCalc')?.value || '').trim();
+    const beta = (document.getElementById('testeDialBetaCalc')?.value || '').trim();
+    const alfa = (document.getElementById('testeDialAlfaCalc')?.value || '').trim();
+    const iinst = (document.getElementById('testeDialIinstCalc')?.value || '').trim();
+    const ip = (document.getElementById('testeDialIpCalc')?.value || '').trim();
+    const k = (document.getElementById('testeDialKCalc')?.value || '').trim();
+    const resultadoDial = (document.getElementById('testeDialResultadoCalc')?.value || '').trim();
+
+    return [
+        'PARÂMETROS PARA O CALCULO DO DIAL',
+        `Tempo (s): ${tempo}`,
+        `Beta: ${beta}`,
+        `Alfa: ${alfa}`,
+        `I inst (A): ${iinst}`,
+        `Ip (A): ${ip}`,
+        `K: ${k}`,
+        '',
+        'FÓRMULA:',
+        'DIAL = t * (((Iinst / Ip)^alfa - K) / beta)',
+        `DIAL = ${tempo} * (((${iinst} / ${ip})^${alfa} - ${k}) / ${beta})`,
+        `DIAL = ${resultadoDial}`
+    ].join('\n');
+}
+
+function montarTextoCopiarTempoTeste() {
+    const dial = (document.getElementById('testeTempoDialCalc')?.value || '').trim();
+    const beta = (document.getElementById('testeTempoBetaCalc')?.value || '').trim();
+    const alfa = (document.getElementById('testeTempoAlfaCalc')?.value || '').trim();
+    const iinst = (document.getElementById('testeTempoIinstCalc')?.value || '').trim();
+    const ip = (document.getElementById('testeTempoIpCalc')?.value || '').trim();
+    const k = (document.getElementById('testeTempoKCalc')?.value || '').trim();
+    const resultadoTempo = (document.getElementById('testeTempoResultadoCalc')?.value || '').trim();
+
+    return [
+        'PARÂMETROS PARA O CALCULO DO TEMPO',
+        `DIAL (s): ${dial}`,
+        `Beta: ${beta}`,
+        `Alfa: ${alfa}`,
+        `I inst (A): ${iinst}`,
+        `Ip (A): ${ip}`,
+        `K: ${k}`,
+        '',
+        'FÓRMULA:',
+        't = DIAL * (beta / ((Iinst / Ip)^alfa - K))',
+        `t = ${dial} * (${beta} / (((${iinst} / ${ip})^${alfa}) - ${k}))`,
+        `t = ${resultadoTempo}`
+    ].join('\n');
+}
+
+function configurarBotoesCopiarTesteDial() {
+    const btnCopiarDial = document.getElementById('btnCopiarDialTesteDetalhes');
+    if (btnCopiarDial && btnCopiarDial.dataset.bound !== 'true') {
+        btnCopiarDial.addEventListener('click', function () {
+            const texto = montarTextoCopiarDialTeste();
+            copiarTextoSimplesComFallback(texto, 'Parâmetros e fórmula do DIAL copiados com sucesso!');
+        });
+        btnCopiarDial.dataset.bound = 'true';
+    }
+
+    const btnCopiarTempo = document.getElementById('btnCopiarTempoTesteDetalhes');
+    if (btnCopiarTempo && btnCopiarTempo.dataset.bound !== 'true') {
+        btnCopiarTempo.addEventListener('click', function () {
+            const texto = montarTextoCopiarTempoTeste();
+            copiarTextoSimplesComFallback(texto, 'Parâmetros e fórmula do TEMPO copiados com sucesso!');
+        });
+        btnCopiarTempo.dataset.bound = 'true';
+    }
+
+    const btnCopiarDialJpg = document.getElementById('btnCopiarDialTesteJpg');
+    if (btnCopiarDialJpg && btnCopiarDialJpg.dataset.bound !== 'true') {
+        btnCopiarDialJpg.addEventListener('click', function () {
+            copiarBlocoComoImagemJpg('blocoDialParaImagem', 'parametros-formula-dial');
+        });
+        btnCopiarDialJpg.dataset.bound = 'true';
+    }
+
+    const btnCopiarTempoJpg = document.getElementById('btnCopiarTempoTesteJpg');
+    if (btnCopiarTempoJpg && btnCopiarTempoJpg.dataset.bound !== 'true') {
+        btnCopiarTempoJpg.addEventListener('click', function () {
+            copiarBlocoComoImagemJpg('blocoTempoParaImagem', 'parametros-formula-tempo');
+        });
+        btnCopiarTempoJpg.dataset.bound = 'true';
+    }
+}
+
 window.onload = function () {
     inicializarNavegacaoPorDataTarget();
 
@@ -182,6 +1174,27 @@ window.onload = function () {
         btnCopiar.dataset.bound = 'true';
     }
 
+    const btnCopiarNotas = document.getElementById('btnCopiarNotas');
+    if (btnCopiarNotas && btnCopiarNotas.dataset.bound !== 'true') {
+        btnCopiarNotas.addEventListener('click', copiarNotasComObservacao);
+        btnCopiarNotas.dataset.bound = 'true';
+    }
+
+    const btnCopiarOperacaoInAteTinst = document.getElementById('btnCopiarOperacaoInAteTinst');
+    if (btnCopiarOperacaoInAteTinst && btnCopiarOperacaoInAteTinst.dataset.bound !== 'true') {
+        btnCopiarOperacaoInAteTinst.addEventListener('click', copiarOperacaoInAteTinst);
+        btnCopiarOperacaoInAteTinst.dataset.bound = 'true';
+    }
+
+    configurarTesteDial();
+    configurarBotoesCopiarTesteDial();
+
+    const btnCopiarAtalhosUltimasLinhas = document.getElementById('btnCopiarAtalhosUltimasLinhas');
+    if (btnCopiarAtalhosUltimasLinhas && btnCopiarAtalhosUltimasLinhas.dataset.bound !== 'true') {
+        btnCopiarAtalhosUltimasLinhas.addEventListener('click', copiarUltimasLinhasTabelaAtalho);
+        btnCopiarAtalhosUltimasLinhas.dataset.bound = 'true';
+    }
+
     // Controle de acesso movido para controle-acesso.js
 
     //--persistir os valores ajustados no html
@@ -215,6 +1228,13 @@ window.onload = function () {
     const tensaoAtendimento = localStorage.getItem("tensaoSelecionada");
     const demandaConsumo = localStorage.getItem("demandadecontrato");
     const potenciaGerador = localStorage.getItem("potenciaGDcontratada");
+    const tipoParalelismoSelecionado = localStorage.getItem("tipoParalelismoSelecionado") || "";
+    const tipoParalelismoNormalizado = tipoParalelismoSelecionado
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    const isSemInjecao = tipoParalelismoNormalizado === "sem injecao";
 
 
 
@@ -233,11 +1253,24 @@ window.onload = function () {
         document.getElementById("demanda-consumo").innerText = demandaConsumo + " KW;";
     }
 
+    const rotuloPotenciaGD = document.getElementById("rotulo-potencia-gd");
+    const campoInjecaoZero = document.getElementById("campoInjecaoZero");
+
+    if (rotuloPotenciaGD) {
+        rotuloPotenciaGD.innerText = isSemInjecao ? "POTÊNCIA DE GERAÇÃO:" : "POTÊNCIA GD:";
+    }
+
     if (potenciaGerador && potenciaGerador !== "0" && potenciaGerador !== "0.0") {
         document.getElementById("potencia-GD").innerText = potenciaGerador + " KW;";
         document.getElementById("campoGD").style.display = "";
+        if (campoInjecaoZero) {
+            campoInjecaoZero.style.display = isSemInjecao ? "" : "none";
+        }
     } else {
         document.getElementById("campoGD").style.display = "none";
+        if (campoInjecaoZero) {
+            campoInjecaoZero.style.display = "none";
+        }
     }
 
 
@@ -255,7 +1288,7 @@ window.onload = function () {
 
 
     // Preencher nsedata com valor de numeroNS, se não houver valor deixa 
-    const numeroNS = 'PROJETO NS :' + (localStorage.getItem("numeroNS") + '/' + anoAtual || '' + '/' + anoAtual) + ';';
+    const numeroNS = 'PROJETO NS:' + (localStorage.getItem("numeroNS") + '/' + anoAtual || '' + '/' + anoAtual) + ';';
     document.getElementById("nsedata").innerText = numeroNS;
 
 
@@ -264,9 +1297,9 @@ window.onload = function () {
     if (nota4Select) {
         const nota4Salva = localStorage.getItem("tipodeanalise");
         if (nota4Salva) {
-            nota4Select.textContent = 'TRATA-SE DE : ' + nota4Salva + ';';
+            nota4Select.textContent = 'TRATA-SE DE: ' + nota4Salva + ';';
         } else {
-            nota4Select.textContent = 'TRATA-SE DE : COORDENOGRAMA;';
+            nota4Select.textContent = 'TRATA-SE DE: COORDENOGRAMA;';
         }
     }
 
@@ -473,6 +1506,100 @@ searchInput.addEventListener('keydown', function (event) {
 
 // gerarcarta();
 //fim da funçao buscar contatos no arquivo listaRTs.txt
+
+// Preenchimento automático do nome do RT a partir da NS (tabela inf_rts no Supabase)
+(function () {
+    const numeroNSInputRT = document.getElementById('numeroNS');
+    if (!numeroNSInputRT || typeof supabase === 'undefined') {
+        return;
+    }
+
+    const supabaseUrl = "https://nelzhukmxrgdoarsxcek.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5lbHpodWtteHJnZG9hcnN4Y2VrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYwMDIxNzUsImV4cCI6MjA3MTU3ODE3NX0.KHvfJHVimKwiraEzbyZWyLnTO5P5VEvM86GlyE7y09k";
+    const sbRT = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function preencherRTPorNS() {
+        const ns = (numeroNSInputRT.value || '').trim();
+        if (!ns) {
+            return;
+        }
+
+        try {
+            const { data, error } = await sbRT
+                .from('inf_rts')
+                .select('nome_rt')
+                .eq('ns', ns)
+                .maybeSingle();
+
+            if (error) {
+                console.error('Erro ao buscar RT pela NS:', error);
+                return;
+            }
+
+            if (data && data.nome_rt) {
+                searchInput.value = data.nome_rt;
+                localStorage.setItem('rt_query', data.nome_rt);
+                if (!searchInput.disabled) {
+                    executarBuscaRT();
+                }
+            }
+        } catch (err) {
+            console.error('Erro ao consultar inf_rts:', err);
+        }
+    }
+
+    async function preencherDataInicioPlanejadoPorNS() {
+        const ns = (numeroNSInputRT.value || '').trim();
+        const dataInicioInput = document.getElementById('datainicioplanejado');
+        if (!ns || !dataInicioInput) {
+            return;
+        }
+
+        try {
+            const { data, error } = await sbRT
+                .from('indices')
+                .select('inicio_planejado')
+                .eq('nota', ns)
+                .eq('codigo_medidas', '0040')
+                .in('status_usuario', ['ANDM', 'ABER'])
+                .order('id', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
+            if (error) {
+                console.error('Erro ao buscar inicio_planejado pela NS:', error);
+                return;
+            }
+
+            if (data && data.inicio_planejado) {
+                dataInicioInput.value = data.inicio_planejado;
+                dataInicioInput.dispatchEvent(new Event('input'));
+            }
+        } catch (err) {
+            console.error('Erro ao consultar indices:', err);
+        }
+    }
+
+    let debounceTimerRT = null;
+    numeroNSInputRT.addEventListener('input', function () {
+        clearTimeout(debounceTimerRT);
+        debounceTimerRT = setTimeout(function () {
+            preencherRTPorNS();
+            preencherDataInicioPlanejadoPorNS();
+        }, 600);
+    });
+    numeroNSInputRT.addEventListener('blur', function () {
+        preencherRTPorNS();
+        preencherDataInicioPlanejadoPorNS();
+    });
+    numeroNSInputRT.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            clearTimeout(debounceTimerRT);
+            preencherRTPorNS();
+            preencherDataInicioPlanejadoPorNS();
+        }
+    });
+})();
 
 
 
@@ -837,7 +1964,86 @@ if (iinst50nOperacao && instNeutroSelecionada) {
 
 
 
+//INICIO AUTOMAÇÃO PARA ENVIO DE CARTA EMAIL 
 
+// Gera texto padrão
+function nt_gerarTexto(ns) {
+
+  let nome = localStorage.getItem("contato_nome") || "";
+  let email = localStorage.getItem("contato_email") || "";
+  let telefone = localStorage.getItem("contato_telefone") || "";
+
+  // Saudação automática
+  let hora = new Date().getHours();
+  let saudacao = "";
+
+  if (hora < 12) {
+    saudacao = "Bom dia";
+  } else if (hora < 18) {
+    saudacao = "Boa tarde";
+  } else {
+    saudacao = "Boa noite";
+  }
+
+  return `${saudacao}, ${nome} (${email}), ${telefone}.
+
+Durante a análise da(s) NS(s) (${ns}), foram identificados alguns itens necessários para alteração na solicitação para que a aprovação seja concluída.
+
+Segue itens de correção a serem observados.
+
+Informamos que o prazo limite para as alterações solicitadas é de 24 horas.
+
+Para que haja liberação do projeto elétrico aprovado, após alterações efetuadas no mesmo, favor anexar os novos arquivos diretamente no APRWEB.
+
+Salientamos a importância de que essas alterações sejam feitas de forma imediata.
+
+Att.
+
+Núcleo Técnico
+Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM
+www.cemig.com.br`;
+}
+
+// Inicialização segura
+function nt_init() {
+
+  let numeroNS = localStorage.getItem("numeroNS") || "";
+  let contatoEmail = localStorage.getItem("contato_email") || "";
+
+  document.getElementById("nt_ns").value = numeroNS;
+  document.getElementById("nt_destinatario").value = contatoEmail;
+  document.getElementById("nt_remetente").value = "resposta_nucleotecnico@cemig.com.br";
+
+  document.getElementById("nt_corpo").value = nt_gerarTexto(numeroNS);
+
+  // Atualiza corpo automaticamente ao mudar NS
+  document.getElementById("nt_ns").addEventListener("input", function() {
+    document.getElementById("nt_corpo").value = nt_gerarTexto(this.value);
+  });
+}
+
+// Função envio
+function nt_enviarEmail() {
+
+  var ns = document.getElementById("nt_ns").value;
+  var destinatario = document.getElementById("nt_destinatario").value;
+  var corpo = document.getElementById("nt_corpo").value;
+
+  var assunto = `Inconformidades NS (${ns})`;
+
+  var mailto = `mailto:${destinatario}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
+
+  window.location.href = mailto;
+}
+
+// Inicializa sem conflito com outros scripts
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", nt_init);
+} else {
+  nt_init();
+}
+
+//FIM DA AUTOMAÇÃO PARA ENVIO DE CARTA EMAIL
 
 
 

@@ -27,52 +27,75 @@
         </svg>
     </div>
     <h1>
-        <button id="botaoconfightml" class="dark-mode-toggle" data-nav-target="config.html">CONFIGURAÇÕES</button>
-        <button id="botaodiagramahtml" class="dark-mode-toggle" data-nav-target="Diagramas.html">DIAGRAMAS</button>
+
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            onclick="window.location.href='Diagramas.html';">DIAGRAMAS</button>
         <button id="botaoparametrohtml" class="dark-mode-toggle"
-            data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
-        <button id="botaotrafohtml" class="dark-mode-toggle" data-nav-target="transformadores.html">TRAFOS</button>
-        <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
-        <button id="botaoajustehtml" class="dark-mode-toggle" data-nav-target="protecaoajuste.html">AJUSTES</button>
-        <button id="botaotabelarelehtml" class="dark-mode-toggle" data-nav-target="tabelarele.html">TABELA</button>
-        <button id="botaoestudoshtml" class="dark-mode-toggle" data-nav-target="estudos.html">ESTUDOS</button>
-        <button id="botaoajustesGDhtml" class="dark-mode-toggle" data-nav-target="ajustesGD.html">AJUSTES GD</button>
-        <button id="botaotabelaGDhtml" class="dark-mode-toggle" data-nav-target="tabelaGD.html">TABELA
+            onclick="window.location.href='Protecao_parametros.html';">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            onclick="window.location.href='transformadores.html';">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" onclick="window.location.href='TP-TC.html';">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            onclick="window.location.href='protecaoajuste.html';">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='ajustesGD.html';">AJUSTES GD</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            onclick="window.location.href='tabelarele.html';">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudos.html';">ESTUDOS</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle" onclick="window.location.href='tabelaGD.html';">TABELA
             GD</button>
-        <button id="botaoestudosGDhtml" class="dark-mode-toggle" data-nav-target="estudosGD.html">ESTUDOS GD</button>
-        <button id="botaoanalisehtml" class="dark-mode-toggle" data-nav-target="analise.html">ANÁLISE</button>
-        <button id="botaosairhtml" class="dark-mode-toggle" data-nav-target="index.html">SAIR</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            onclick="window.location.href='estudosGD.html';">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            onclick="window.location.href='analise.html';">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle" onclick="window.location.href='index.html';">SAIR</button>
+
     </h1>
-    <br>
+
 
     <div class="conteiner-geral">
         <div class="tabelas-lado-esquerdo">
+
+            <div class="tabela-titulo">
+                AJUSTES FASE 50/51
+            </div>
+
             <div class="tabela-containerfase">
 
                 <table id="tabelafase">
-                    <caption class="alertapotminima alertapotminima-caption">
+                    <caption class="alertapotminima-caption">
 
-                        I nominal ajustada para sensibilidade miníma de 10% da corrente primária do TC de proteção!
+                        I nominal ajustada para sensibilidade mínima de 10% da corrente primária do TC de proteção!
 
                     </caption>
+
+
+                    <!-- <caption class="caption-principal">
+                        AJUSTES FASE 50/51
+                    </caption> -->
+                    <!-- <tr>
+                            <th class="caption-principal" colspan="5">AJUSTES FASE 50/51</th>
+                        </tr> -->
                     <thead>
                         <tr>
-                            <th class="caption-principal" colspan="5">AJUSTES FASE 50/51</th>
-                        </tr>
-                        <tr>
-                            <th>Parâmetros</th>
-                            <th>Ajuste</th>
-                            <th>Nominal</th>
-                            <th>Real</th>
-                            <th>P.U</th>
+                            <th style="width: 20%;">Parâmetros </th>
+                            <th style="width: 15%;">Ajuste</th>
+                            <th style="width: 20%;">Nominal</th>
+                            <th style="width: 15%;">Real</th>
+                            <th style="width: 15%;">P.U</th>
                         </tr>
                     </thead>
+
 
                     <tbody>
                         <tr>
                             <td>I Nominal/ I PICK-UP:</td>
                             <td>
-                                <div class="input-container">Tolerância (%)
+                                Tolerância (%)<br>
+                                <div class="input-container">
                                     <input type="number" id="IPpercentualhtml">
                                     <span class="unidade"></span>
                                 </div>
@@ -99,6 +122,7 @@
                             <td>
                                 <div class="input-container">
                                     <select id="tipodecurvahtml" size="1">
+                                        <option></option>
                                         <option>IEC-N.I</option>
                                         <option>IEC-V.I</option>
                                         <option>IEC-E.I</option>
@@ -108,6 +132,12 @@
                                     </select>
                                 </div>
                             </td>
+                            <!-- <td><label id="curva-fase-ideal-html"></label></td> -->
+                            <td class="curva-ideal-celula">
+                                <b>Curva ideal calculada</b>
+                                <div><label id="curva-fase-ideal-html"></label></div>
+                            </td>
+                            <td><label id="curva-fase-ajustada-html"></label></td>
                         </tr>
 
                         <tr>
@@ -119,12 +149,18 @@
                             </td>
 
 
-                            <td class="dial-ideal-celula"><b>Dial ideal
-                                    calculado</b>
+                            <td class="dial-ideal-celula">
+                                <b>Dial ideal<br> calculado</b>
+                                <div><label id="dialideal"></label></div>
+                            </td>
+
+
+
+                            <!-- <td class="dial-ideal-celula">Dial ideal <br>calculado
                                 <div class="input-container">
                                     <label id="dialideal"></label>
                                 </div>
-                            </td>
+                            </td> -->
                             <td id="dialrealfase"></td>
 
 
@@ -132,8 +168,8 @@
 
                         <tr>
                             <td>I mag / I inst:</td>
-                            <td>
-                                <div class="input-container">Tolerância (%)
+                            <td>Tolerância (%)<br>
+                                <div class="input-container">
                                     <input type="number" id="imagpercentual">
                                     <span class="unidade"></span>
                                 </div>
@@ -164,8 +200,8 @@
                                 </div>
                             </td>
 
-                            <td class="exibirmagreal"><b>Magnetização real
-                                    calculada</b>
+                            <td class="exibirmagreal">Magnetização real<br>
+                                calculada
                                 <div class="input-container">
                                     <label id="imagrealcalculadahtml"></label>
                                 </div>
@@ -214,22 +250,27 @@
 
             </div>
 
-            <br>
 
+            <div class="tabela-titulo">
+                AJUSTES NEUTRO 50N/51N
+            </div>
             <div class="tabela-containerneutro">
+
                 <table id="tabelaneutro">
-                    <caption class="caption-principal">
+                    <!-- <caption class="caption-principal">
                         AJUSTES NEUTRO 50N/51N
-                    </caption>
+                    </caption> -->
 
 
                     <thead>
                         <tr>
-                            <th>Parâmetros</th>
-                            <th>Ajuste</th>
-                            <th>Nominal</th>
-                            <th>Real</th>
-                            <th>P.U</th>
+
+                            <th style="width: 20%;">Parâmetros </th>
+                            <th style="width: 15%;">Ajuste</th>
+                            <th style="width: 20%;">Nominal</th>
+                            <th style="width: 15%;">Real</th>
+                            <th style="width: 15%;">P.U</th>
+
                         </tr>
                     </thead>
 
@@ -265,6 +306,7 @@
                                 <div class="input-container">
                                     <label id="Curvadeneutrohtml"></label>
                                     <select id="tipodecurvaneutrohtml" size="1">
+                                        <option></option>
                                         <option>IEC-N.I</option>
                                         <option>IEC-V.I</option>
                                         <option>IEC-E.I</option>
@@ -273,6 +315,11 @@
                                     </select>
                                 </div>
                             </td>
+                            <td class="curva-ideal-celula">
+                                <b>Curva ideal calculada</b>
+                                <div><label id="curva-neutro-ideal-html"></label></div>
+                            </td>
+                            <td><label id="curva-neutro-ajustada-html"></label></td>
                         </tr>
 
                         <tr>
@@ -283,11 +330,13 @@
                                     <span class="unidade"></span>
                                 </div>
                             </td>
-                            <td class="dial-ideal-celula"><b>Dial ideal
-                                    calculado</b>
-                                <div class="input-container">
-                                    <label id="dialidealneutro"></label>
-                                </div>
+
+
+
+
+                            <td class="dial-ideal-celula">
+                                <b>Dial ideal<br> calculado</b>
+                                <div><label id="dialidealneutro"></label></div>
                             </td>
                             <td id="dialrealneutro"></td>
                         </tr>
@@ -365,13 +414,6 @@
             <canvas id="grafico"></canvas>
         </div>
 
-
-
-
-        <br><br>
-
-
-        <br><br><br>
     </div>
     <button id="botaoSalvar" onclick="salvarOpcao()" type="button">Salvar</button>
 

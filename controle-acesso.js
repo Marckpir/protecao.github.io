@@ -1,19 +1,19 @@
 // Sistema de Controle de Acesso por Categoria de Usuário
 // Aplica permissões baseadas na categoria armazenada no localStorage
 
-(function() {
+(function () {
     // Verifica se há usuário logado
     function verificarLogin() {
         const categoria = localStorage.getItem("usuarioCategoria");
         const usuario = localStorage.getItem("usuario");
-        
+
         // Se não há usuário logado, redireciona para login
         if (!usuario || !categoria) {
             alert("Sessão expirada. Por favor, faça login novamente.");
             window.location.href = "index.html";
             return null;
         }
-        
+
         return categoria;
     }
 
@@ -75,18 +75,18 @@
 
         // Normaliza a categoria para lowercase
         const categoriaNormalizada = categoria.toLowerCase();
-        
+
         console.log('=== CONTROLE DE ACESSO ===');
         console.log('Categoria do usuário:', categoriaNormalizada);
-        
+
         // Adiciona classe de categoria ao body para controle via CSS
         document.body.setAttribute('data-user-role', categoriaNormalizada);
-        
+
         // Se a categoria não existe nas permissões, trata como usuário comum
         const botoesPermitidos = permissoes[categoriaNormalizada]?.permitidos || permissoes.usuario.permitidos;
-        
+
         console.log('Botões permitidos:', botoesPermitidos);
-        
+
         // Lista de todos os botões possíveis
         const todosOsBotoes = [
             'botaoconfightml',
@@ -147,7 +147,7 @@
     }
 
     function configurarNavegacaoHeader() {
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const botao = event.target.closest('button[data-nav-target]');
             if (!botao) return;
 
@@ -160,7 +160,7 @@
 
     // Executa quando o DOM estiver pronto
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             configurarNavegacaoHeader();
             aplicarPermissoes();
         });
@@ -169,3 +169,29 @@
         aplicarPermissoes();
     }
 })();
+
+
+
+// INICIO Controle de acesso para ocultar dimensionamento por tensão de saturação da aba TP-TC, para a categoria 'usuario'
+
+// Controle de acesso para ocultar a seção de saturação por tensão para a categoria 'usuario'
+const categoria = (localStorage.getItem('usuarioCategoria') || '').toLowerCase();
+// A div do título e a div da tabela de saturação estão próximas, então ocultamos ambas
+if (categoria === 'usuario') {
+    // Oculta o título
+    const tituloSaturacao = Array.from(document.getElementsByClassName('tp-tc-caption-main'))
+        .find(div => div.textContent && div.textContent.includes('DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO'));
+    if (tituloSaturacao) {
+        tituloSaturacao.style.display = 'none';
+    }
+    // Oculta a tabela de saturação (primeira tabela-container após o título)
+    const tabelas = document.getElementsByClassName('tabela-container');
+    for (let i = 0; i < tabelas.length; i++) {
+        if (tabelas[i].previousElementSibling === tituloSaturacao) {
+            tabelas[i].style.display = 'none';
+            break;
+        }
+    }
+}
+
+// FIM Controle de acesso para ocultar dimensionamento por tensão de saturação da aba TP-TC, para a categoria 'usuario'

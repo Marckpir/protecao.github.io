@@ -1,3 +1,43 @@
+#tabelaneutro .dial-ideal-celula,
+#tabelaneutro .curva-ideal-celula {
+    background: #fff89a !important;
+    color: #111 !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    font-size: 13px !important;
+    line-height: 1.1 !important;
+    max-width: 120px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    padding: 6px 4px !important;
+}
+
+#tabelafase th,
+#tabelafase td,
+#tabelafase .dial-ideal-celula,
+#tabelafase .curva-ideal-celula,
+#tabelafase td.exibirmagreal {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+}
+
+/* --- DESTAQUE PARA DIAL IDEAL CALCULADO, CURVA IDEAL E MAGNETIZAÇÃO REAL CALCULADA --- */
+#tabelafase .dial-ideal-celula,
+#tabelafase .curva-ideal-celula,
+#tabelafase .exibirmagreal {
+    background-color: #fff700 !important;
+    color: #111 !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+/* --- FIM DESTAQUE --- */
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #8fbc8f, #1c641c);
@@ -80,7 +120,12 @@ h1.loaded {
     font-size: 14px;
     caption-side: top;
     padding: 5px;
-    border: 3px solid white;
+    border: 0px solid white;
+    display: none;
+}
+
+.alertapotminima-caption.ativo {
+    display: table-caption;
 }
 
 .caption-principal {
@@ -93,8 +138,8 @@ h1.loaded {
     border: 0;
 }
 
-.dial-ideal-celula {
-    background-color: #ffeb3b !important;
+.dial-ideal-celula, .curva-ideal-celula {
+    background-color: #fff89a !important;
     color: black !important;
     width: 100%;
 }
@@ -120,6 +165,7 @@ button:not(.dark-mode-toggle) {
     line-height: 1px;
     border-radius: 10px;
 }
+
 button:not(.dark-mode-toggle):hover {
     background-color: #cf0808;
 }
@@ -129,6 +175,7 @@ canvas {
     border: 5px solid black;
     max-width: 100%;
     max-height: 650px;
+    border-radius: 30px;
 }
 
 .grafico-container {
@@ -139,6 +186,7 @@ canvas {
     flex: 0 1 46%;
     min-width: 320px;
     align-self: stretch;
+
 }
 
 #grafico {
@@ -146,6 +194,7 @@ canvas {
     max-width: 760px;
     height: 100%;
     min-height: 560px;
+
 }
 
 #botaoSalvar {
@@ -189,10 +238,10 @@ canvas {
     border-collapse: collapse;
     margin-left: 0px;
     border-radius: 5px;
-    
+
 }
 
-thead{
+thead {
     /* background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
     color: rgb(224, 248, 6);
 }
@@ -204,7 +253,7 @@ th {
     /* color: rgb(224, 248, 6); */
     border-radius: 5px;
     /* border-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f); */
-    
+
 
 }
 
@@ -218,7 +267,7 @@ td {
     background-color: rgb(2, 68, 2);
 
     border-color: transparent;
-    
+
 }
 
 #tabelafase {
@@ -232,21 +281,85 @@ td {
 
 }
 
-#tabelafase th,
-#tabelafase td {
-    width: 100%;
-    /* Ajusta cada coluna para ocupar 25% da largura total */
 
-    padding: 3px;
-    /* Adiciona espaçamento interno */
-    text-align: left;
-    /* Centraliza o conteúdo */
-    border: 1px solid white;
-    border-color: white;
-    /* Mantém bordas visíveis */
-    background-color: rgb(186, 59, 59);
-    border-radius: 5px;
+/* --- ESTILO MODERNO PARA TABELA DE AJUSTES (USUÁRIO) --- */
+#tabelafase {
+    width: 100%;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border: 1.5px solid #b2e0b2 !important;
+    background: #e8fbe8 !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 0 2px 18px 0 rgba(44, 44, 44, 0.10) !important;
+    font-size: 15px !important;
 }
+
+#tabelafase th {
+    background: #c6f7c6 !important;
+    color: #1c641c !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #b2e0b2 !important;
+    text-align: left !important;
+    padding: 14px 10px !important;
+    letter-spacing: 0.5px !important;
+}
+
+#tabelafase td {
+    background: #e8fbe8 !important;
+    color: #111 !important;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 12px 8px !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+    border-radius: 0 !important;
+}
+
+#tabelafase th:first-child,
+#tabelafase td:first-child {
+    border-top-left-radius: 18px !important;
+    border-bottom-left-radius: 18px !important;
+}
+
+#tabelafase th:last-child,
+#tabelafase td:last-child {
+    border-top-right-radius: 18px !important;
+    border-bottom-right-radius: 18px !important;
+}
+
+#tabelafase .input-container input[type="number"],
+#tabelafase .input-container input[type="text"] {
+    background: #fff !important;
+    color: #111 !important;
+    border: 1.5px solid #1c641c !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+    padding: 6px 8px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 60px !important;
+    min-height: 0 !important;
+    text-align: left !important;
+    font-size: 15px !important;
+    box-sizing: border-box !important;
+}
+
+#tabelafase .input-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* --- FIM ESTILO MODERNO TABELA DE AJUSTES --- */
 
 #tabelafase .input-container input,
 #tabelafase .input-container label {
@@ -264,7 +377,7 @@ td {
     vertical-align: middle;
     text-align: left;
     border-radius: 5px;
-    background-color: #ffeb3b!important;
+    background-color: #ffeb3b !important;
     color: #000;
 }
 
@@ -383,371 +496,290 @@ select:focus {
 .piscando-lento {
     animation: piscarLento 1.5s infinite;
 }
+
 @keyframes piscarLento {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
 }
 
 /* FIM DA LOGICA DE PISCAR ALERTA DE POTÊNCIA MÍNIMA */
-@media (max-width: 600px) {
 
-    html,
-    body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-        box-sizing: border-box;
-    }
 
-    .grades-title {
-        font-size: 13px;
-        padding: 4px;
-        margin-bottom: 4px;
-    }
 
-    .grades,
-    .form-section,
-    .header,
-    .parametro {
-        font-size: 11px;
-        padding: 4px;
-
-    }
-
-    input,
-    select,
-    textarea {
-        font-size: 12px;
-        padding: 2px;
-    }
-
-    button:not(.dark-mode-toggle),
-    #botaoSalvar {
-        font-size: 12px;
-        padding: 6px 0;
-    }
-
-    .tabela-container {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        padding: 0;
-        margin: 0;
-        overflow-x: auto;
-        box-sizing: border-box;
-        display: block;
-    }
-
-    table {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        /* min-width: 600px; */
-        box-sizing: border-box;
-    }
-
-    th,
-    td {
-        padding: 2px;
-        font-size: 10px;
-        word-break: break-word;
-        max-width: 90px;
-        overflow-x: auto;
-        box-sizing: border-box;
-    }
-
-    #grafico,
-    canvas#grafico {
-        width: 100% !important;
-        height: 420px !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        display: block;
-        margin: 0 auto;
-        background-color: rgb(235, 235, 220);
-    }
-
-    .conteiner-geral {
-        flex-direction: column;
-        gap: 10px;
-        width: 98%;
-        max-width: 98%;
-        margin: 0 auto;
-    }
-
-    .tabelas-lado-esquerdo,
-    .grafico-container {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-    }
-
-    .tabela-containerfase,
-    .tabela-containerneutro {
-        font-size: 10px;
-        margin-left: 0;
-    }
-
-    #tabelafase,
-    #tabelaneutro {
-        font-size: 10px;
+    /* --- PADRÃO VISUAL DE TABELAS (ajuste67cons.css) --- */
+    #tabelafase {
+        width: 95%;
+        margin: 0 auto 16px auto;
+        border-radius: 18px;
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-shadow: 0 2px 18px 0 rgba(44, 44, 44, 0.10);
+        background: #e8fbe8;
+        border: 1.5px solid #b2e0b2;
+        min-height: 220px;
     }
 
     #tabelafase th,
-    #tabelafase td,
+    #tabelafase td {
+        padding: 3px 4px;
+        text-align: left;
+        border: none;
+        background: #e8fbe8;
+        font-size: 15px;
+        box-shadow: none;
+        color: #111;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #tabelafase th {
+        background: #c6f7c6;
+        color: #1c641c;
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 2px solid #b2e0b2;
+        letter-spacing: 0.5px;
+    }
+
+    #tabelafase tr {
+        transition: background 0.18s;
+    }
+
+    #tabelafase tbody tr:hover {
+        background: #d6f5d6;
+    }
+
+    #tabelaneutro {
+        width: 95%;
+        margin: 0 auto 16px auto;
+        border-radius: 18px;
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-shadow: 0 2px 18px 0 rgba(44, 44, 44, 0.10);
+        background: #e6ecfa;
+        border: 1.5px solid #b2d7e0;
+        min-height: 220px;
+    }
+
     #tabelaneutro th,
     #tabelaneutro td {
-        padding: 2px;
-        font-size: 10px;
+        padding: 3px 4px;
+        text-align: left;
+        border: none;
+        background: #e6ecfa;
+        font-size: 15px;
+        box-shadow: none;
+        color: #111;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    .input-container input,
-    .input-container label {
-        width: 100%;
-        font-size: 12px;
+    #tabelaneutro th {
+        background: #c6e4f7;
+        color: #1c641c;
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 2px solid #b2d7e0;
+        letter-spacing: 0.5px;
     }
 
-}
-
-@media (max-width: 960px),
-(max-height: 540px) {
-    .conteiner-geral {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        align-items: stretch;
-        justify-content: center;
-        width: 98%;
-        max-width: 98%;
-        min-width: 0;
-        margin: 0 auto;
-        box-sizing: border-box;
+    #tabelaneutro tr {
+        transition: background 0.18s;
     }
 
-    .tabelas-lado-esquerdo {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        width: 48%;
-        min-width: 0;
-        max-width: 48%;
-        box-sizing: border-box;
+    #tabelaneutro tbody tr:hover {
+        background: #d6e4f7;
     }
 
-    .tabela-containerfase,
-    .tabela-containerneutro {
-        font-size: 10px;
-        padding: 0;
-        /* ainda mais reduzido */
+    #tabelafase .input-container input,
+    #tabelafase .input-container label,
+    #tabelaneutro .input-container input,
+    #tabelaneutro .input-container label {
         width: 90%;
-        min-width: 0;
-        box-sizing: border-box;
         display: block;
     }
 
-    .grafico-container {
-        width: 48% !important;
-        max-width: 48% !important;
-        min-width: 0 !important;
-        height: auto;
-        margin: 0 auto;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        box-sizing: border-box;
-    }
+    .tabela-titulo {
 
-    #grafico,
-    canvas#grafico {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        height: 100% !important;
-        min-height: 500px;
-        display: block;
-        margin: 0 auto;
-        background-color: rgb(235, 235, 220);
-    }
+        width: 100%;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 0px 0 0px 0;
+        background: transparent;
+        color: #073507;
+        border-radius: 0;
+        border: none;
+        letter-spacing: 1px;
+        box-shadow: none;
+        margin-bottom: 0;
+    } */
 
-    button:not(.dark-mode-toggle),
-    #botaoSalvar {
-        font-size: 11px;
-        padding: 2px 0;
-        width: 100px;
-        height: 50px;
-    }
 
-    input,
-    select,
-    textarea {
-        font-size: 10px;
-        padding: 0;
-        /* ainda mais reduzido */
-        height: 15px;
-        /* ainda mais reduzido */
-    }
 
-    #tabelafase,
-    #tabelaneutro {
-        font-size: 11px;
-        border-radius: 5px;
+
+    /* --- FIM PADRÃO VISUAL DE TABELAS --- */
+
+
+    /* --- FORÇA ESTILO FINAL IGUAL ajuste67cons PARA #tabelafase --- */
+    #tabelafase {
+        width: 95% !important;
+        margin: 0 auto 16px auto !important;
+        border-radius: 18px !important;
+        overflow: hidden !important;
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+        box-shadow: 0 2px 18px 0 rgba(44, 44, 44, 0.10) !important;
+        background: #e8fbe8 !important;
+        border: 1.5px solid #b2e0b2 !important;
+        min-height: 220px !important;
     }
 
     #tabelafase th,
-    #tabelafase td,
-    #tabelaneutro th,
-    #tabelaneutro td {
-        font-size: 10px;
-        padding: 0 2px;
-        /* ainda mais reduzido */
-        height: 13px;
-        /* ainda mais reduzido */
-        border-radius: 5px;
+    #tabelafase td {
+        padding: 3px 4px !important;
+        text-align: left !important;
+        border: none !important;
+        background: #e8fbe8 !important;
+        font-size: 15px !important;
+        box-shadow: none !important;
+        color: #111 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        min-height: 0 !important;
+        line-height: 1.1 !important;
     }
 
-
-    @media (max-width: 640px),
-    (max-height: 800px) {
-        .conteiner-geral {
-            flex-direction: column;
-            gap: 8px;
-            width: 98%;
-            max-width: 98%;
-            min-width: 0;
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
-
-        .tabelas-lado-esquerdo {
-            flex-direction: column;
-            gap: 2px;
-            width: 100%;
-            max-width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
-        }
-
-        .tabela-containerfase,
-        .tabela-containerneutro {
-            font-size: 9px;
-            padding: 0;
-            width: 100%;
-            min-width: 0;
-            box-sizing: border-box;
-            display: block;
-        }
-
-        .grafico-container {
-            width: 100% !important;
-            max-width: 100% !important;
-            min-width: 0 !important;
-            height: auto;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-        }
-
-        #grafico,
-        canvas#grafico {
-            width: 100% !important;
-            max-width: 100% !important;
-            min-width: 0 !important;
-            height: 420px !important;
-            display: block;
-            margin: 0 auto;
-            background-color: rgb(235, 235, 220);
-        }
-
-        button:not(.dark-mode-toggle),
-        #botaoSalvar {
-            font-size: 10px;
-            padding: 2px 0;
-            width: 90px;
-            height: 40px;
-        }
-
-        input,
-        select,
-        textarea {
-            font-size: 9px;
-            padding: 0;
-            height: 13px;
-        }
-
-        #tabelafase,
-        #tabelaneutro {
-            font-size: 9px;
-        }
-
-        #tabelafase th,
-        #tabelafase td,
-        #tabelaneutro th,
-        #tabelaneutro td {
-            font-size: 9px;
-            padding: 0 1px;
-            height: 11px;
-        }
-    }
-}
-
-@media (min-width: 1600px) {
-    .conteiner-geral {
-        display: flex;
-        flex-direction: row;
-        gap: 14px;
-        align-items: stretch;
-        justify-content: center;
-        width: min(98%, 1600px);
-        max-width: 98%;
-        min-width: 0;
-        margin: 0 auto;
-        box-sizing: border-box;
+    #tabelafase th {
+        background: #c6f7c6 !important;
+        color: #1c641c !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        border-bottom: 2px solid #b2e0b2 !important;
+        letter-spacing: 0.5px !important;
     }
 
-    .tabelas-lado-esquerdo {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 46%;
-        min-width: 0;
-        max-width: 46%;
-        box-sizing: border-box;
-        align-items: stretch;
-        }
+    #tabelafase tr {
+        transition: background 0.18s !important;
+    }
 
-        .tabela-containerfase,
-        .tabela-containerneutro {
-        font-size: 12px;
-        padding: 0;
-        width: 100%;
-        min-width: 0;
-        box-sizing: border-box;
-        display: block;
-        margin-left: 0;
-        margin-right: 0;
-        }
+    #tabelafase tbody tr:hover {
+        background: #d6f5d6 !important;
+    }
 
-canvas {
-    background-color: rgb(255, 255, 255);
-    border: 5px solid black;
-    max-width: 700px;
-    max-height: 650px;
-}
+    #tabelafase .input-container input,
+    #tabelafase .input-container label {
+        width: 90% !important;
+        display: block !important;
+    }
 
-.grafico-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    max-width: 50%;
-    min-width: 0;
-}
+    #tabelafase .dial-ideal-celula,
+    #tabelafase .curva-ideal-celula {
+        background: #fff89a !important;
+        color: #111 !important;
+        font-weight: bold !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+        font-size: 13px !important;
+        line-height: 1.1 !important;
+        max-width: 120px !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        padding: 6px 4px !important;
+    }
 
-#grafico {
-    width: 100%;
-    max-width: 860px;
-    height: 100%;
-    min-height: 620px;
-}
-}
+    #tabelafase td.exibirmagreal {
+        background: #ffeb3b !important;
+        color: #111 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-weight: bold !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+    }
+
+   
+
+    /* --- FIM DO ESTILO FINAL --- */
+    /* --- ESTILO BASEADO EM ajuste67cons.css PARA TABELA DE FASE --- */
+    #tabelafase {
+        width: 95%;
+        margin: 0 auto 16px auto;
+        border-radius: 18px;
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+        box-shadow: 0 2px 18px 0 rgba(44, 44, 44, 0.10);
+        background: #e8fbe8;
+        border: 1.5px solid #b2e0b2;
+        min-height: 220px;
+    }
+
+    #tabelafase th,
+    #tabelafase td {
+        padding: 3px 4px !important;
+        text-align: left !important;
+        border: none !important;
+        background: #e8fbe8 !important;
+        font-size: 15px !important;
+        box-shadow: none !important;
+        color: #111 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        min-height: 0 !important;
+        line-height: 1.1 !important;
+    }
+
+    #tabelafase th {
+        background: #c6f7c6 !important;
+        color: #1c641c !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        border-bottom: 2px solid #b2e0b2 !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    #tabelafase tr {
+        transition: background 0.18s !important;
+    }
+
+    #tabelafase tbody tr:hover {
+        background: #d6f5d6 !important;
+    }
+
+    #tabelafase .input-container input,
+    #tabelafase .input-container label {
+        width: 90% !important;
+        display: block !important;
+    }
+
+    #tabelafase .dial-ideal-celula, .curva-ideal-celula,
+    #tabelafase td.exibirmagreal {
+        background: #fff89a !important;
+        color: #111 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-weight: bold !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+    }
+
+    /* --- FIM DO ESTILO BASEADO EM ajuste67cons.css --- */

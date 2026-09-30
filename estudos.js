@@ -71,12 +71,282 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     carregarVariaveisEstudo();
+    carregarTabelaMotoresEmEstudos();
+    preencherValoresDinamicosMotor();
+    renderizarParametrosConsideradosMotores();
+    renderizarCalculoDialMotores();
 
-    //incluirimagensrele();
- // Recarregar a página após salvar as opções
+    exibirCalculoMotoresSeTabelaPreenchida();
+
+       //incluirimagensrele();
+    // Recarregar a página após salvar as opções
     // location.reload();
 
 });
+
+function escaparHtml(texto) {
+    return String(texto || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+
+//exibir calculo motores se a tabela de motores estiver preenchida com Sim se não estiver preenchida , ou estiver com Não não exibe
+function exibirCalculoMotoresSeTabelaPreenchida() {
+    const tabelaMotoresPreenchida = localStorage.getItem("tabelaMotoresPreenchida");
+    const containerMotores = document.querySelector('.exibircalculomotores');
+    
+    if (containerMotores) {
+        if (tabelaMotoresPreenchida === "Sim") {
+            containerMotores.style.display = 'block';
+        } else {
+            containerMotores.style.display = 'none';
+        }
+    }
+}
+
+
+
+
+// função para preencher os valores dinâmicos do motor na seção de estudos, utilizando os dados do localStorage e do JSON do motor, e aplicando as fórmulas de cálculo conforme a lógica especificada
+function preencherValoresDinamicosMotor() {
+    // Obter dados do localStorage
+    const demandadecontrato = parseFloat(localStorage.getItem('demandadecontrato')) || 0;
+    const fatorPotenciaSelecionada = parseFloat(localStorage.getItem('fatorPotenciaSelecionada')) || 92;
+    const motorJSON = obterJSONStorageSeguro('motorJSON', {});
+    const maiorCorrenteOperante = parseFloat(localStorage.getItem('maiorCorrenteoperante')) || 0;
+    
+    // Calcular valores conforme a lógica especificada
+    const fatorPotenciaDecimal = fatorPotenciaSelecionada;
+    const demandaTotalKva = demandadecontrato / fatorPotenciaDecimal;
+    const potenciaMotorKva = parseFloat(motorJSON.potenciamotorkva) || 0;
+    const potenciaOperante = demandaTotalKva - potenciaMotorKva;
+    const correntePartidaMotor = parseFloat(motorJSON.correntepartida) || 0;
+    const correnteOperantePlanta = maiorCorrenteOperante - correntePartidaMotor;
+    const tempoPartidaMotor = parseFloat(motorJSON.tempopartida) || 0;
+    
+    // Preencher os spans no HTML
+    const elementos = {
+        'demanda-contratada-motor': demandadecontrato.toFixed(0),
+        'fator-potencia-motor': fatorPotenciaDecimal.toFixed(2),
+        'demanda-total-kva': demandaTotalKva.toFixed(2),
+        'potencia-motor-kva': potenciaMotorKva.toFixed(2),
+        'potencia-operante-motor': potenciaOperante.toFixed(2),
+        'corrente-partida-motor': correntePartidaMotor.toFixed(2),
+        'corrente-operante-planta': correnteOperantePlanta.toFixed(2),
+        'corrente-partida-total': maiorCorrenteOperante.toFixed(2),
+        'corrente-partida-total-frase': maiorCorrenteOperante.toFixed(2),
+        'tempo-partida-motor': tempoPartidaMotor.toFixed(0)
+    };
+    
+    // Atualizar cada elemento
+    for (const [id, valor] of Object.entries(elementos)) {
+        const elemento = document.getElementById(id);
+        if (elemento) {
+            elemento.textContent = valor;
+        }
+    }
+}
+
+//-----Fim do preenchimento dos valores dinâmicos do motor na seção de estudos------------------
+
+function renderizarParametrosConsideradosMotores() {
+    const container = document.getElementById('parametros-considerados-motor');
+    if (!container) {
+        return;
+    }
+
+    const correntePartidaTotal = parseFloat(localStorage.getItem('maiorCorrenteoperante')) || 0;
+    const correntePartidaReferencia = parseFloat(localStorage.getItem('Ipdeconsumo')) || 0;
+    const curvaFaseSelecionada = localStorage.getItem('curvafaseSelecionada') || '-';
+    const motorJSON = obterJSONStorageSeguro('motorJSON', {});
+    const tempoPartida = parseFloat(motorJSON.tempopartida) || 0.1;
+
+    const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+    const beta = Number(dadosCurva.beta);
+    const alfa = Number(dadosCurva.alfa);
+    const k = Number(dadosCurva.k);
+
+    const fatorM = correntePartidaReferencia > 0 ? (correntePartidaTotal / correntePartidaReferencia) : 0;
+
+    container.innerHTML = `
+        <h3>Parâmetros Considerados</h3>
+        <p>Para o cálculo do dial de fase considerando os motores, serão considerados os seguintes parâmetros:</p>
+        <table class="estudos-border-collapse">
+            <tr>
+                <td class="estudos-pad-2-8">Tipo de curva:</td>
+                <td class="estudos-pad-2-8">${escaparHtml(curvaFaseSelecionada)}</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Fator alfa (a):</td>
+                <td class="estudos-pad-2-8">${isFinite(alfa) ? alfa.toFixed(2) : '-'}</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Fator beta (b):</td>
+                <td class="estudos-pad-2-8">${isFinite(beta) ? beta.toFixed(2) : '-'}</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Tempo de partida do motor (t):</td>
+                <td class="estudos-pad-2-8">${tempoPartida.toFixed(0)} s</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Corrente de partida total (Ip):</td>
+                <td class="estudos-pad-2-8">${correntePartidaTotal.toFixed(2)} A</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Corrente de partida 1 (Ip):</td>
+                <td class="estudos-pad-2-8">${correntePartidaReferencia.toFixed(2)} A</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Fator M (Ip/Ip1):</td>
+                <td class="estudos-pad-2-8">${fatorM.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td class="estudos-pad-2-8">Constante k:</td>
+                <td class="estudos-pad-2-8">${isFinite(k) ? k.toFixed(2) : '-'}</td>
+            </tr>
+        </table>
+    `;
+}
+
+function renderizarCalculoDialMotores() {
+    const container = document.getElementById('calculo-dial-motores');
+    if (!container) {
+        return;
+    }
+
+    const correntePartidaTotal = parseFloat(localStorage.getItem('maiorCorrenteoperante')) || 0;
+    const correntePartidaReferencia = parseFloat(localStorage.getItem('Ipdeconsumo')) || 0;
+    const motorJSON = obterJSONStorageSeguro('motorJSON', {});
+    const tempoPartida = parseFloat(motorJSON.tempopartida) || 0.1;
+
+    const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+    const beta = Number(dadosCurva.beta);
+    const alfa = Number(dadosCurva.alfa);
+    const k = Number(dadosCurva.k);
+
+    if (!isFinite(correntePartidaTotal) || correntePartidaTotal <= 0 || !isFinite(correntePartidaReferencia) || correntePartidaReferencia <= 0 || !isFinite(beta) || beta === 0 || !isFinite(alfa) || !isFinite(k)) {
+        container.innerHTML = '<p>Dados insuficientes para calcular o dial de fase dos motores.</p>';
+        return;
+    }
+
+    const m = correntePartidaTotal / correntePartidaReferencia;
+    const mElevado = Math.pow(m, alfa);
+    const numerador = mElevado - k;
+    const divisao = numerador / beta;
+    const dial = divisao * tempoPartida;
+
+    const latex1 = `DT = \\left( \\frac{\\left( \\frac{I_{inst}}{I_n} \\right)^{\\alpha}- k}{\\beta}  \\right) \\times t`;
+    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${correntePartidaTotal.toFixed(3)}}{${correntePartidaReferencia.toFixed(3)}} \\right)^{${alfa.toFixed(3)}}- ${k.toFixed(3)}}{${beta.toFixed(3)}}  \\right) \\times ${tempoPartida.toFixed(3)}`;
+    const latex3 = `DT = \\left( \\frac{\\left( ${m.toFixed(3)} \\right)^{${alfa.toFixed(3)}}- ${k.toFixed(3)}}{${beta.toFixed(3)}}  \\right) \\times ${tempoPartida.toFixed(3)}`;
+    const latex4 = `DT = \\left( \\frac{${mElevado.toFixed(3)} - ${k.toFixed(3)}}{${beta.toFixed(3)}}  \\right) \\times ${tempoPartida.toFixed(3)}`;
+    const latex5 = `DT = \\left( \\frac{${numerador.toFixed(3)}}{${beta.toFixed(3)}} \\right) \\times ${tempoPartida.toFixed(3)}`;
+    const latex6 = `DT = \\left( ${divisao.toFixed(3)} \\right) \\times ${tempoPartida.toFixed(3)}`;
+    const latex7 = `DT = ${dial.toFixed(3)}`;
+
+    container.innerHTML = `
+        <p class="formula1 estudos-fs-12">\\(${latex1}\\)</p>
+        <p class="formula2 estudos-fs-12">\\(${latex2}\\)</p>
+        <p class="formula3 estudos-fs-12">\\(${latex3}\\)</p>
+        <p class="formula4 estudos-fs-12">\\(${latex4}\\)</p>
+        <p class="formula5 estudos-fs-12">\\(${latex5}\\)</p>
+        <p class="formula6 estudos-fs-11">\\(${latex6}\\)</p>
+        <p class="formula7 estudos-fs-11">${latex7}</p>
+        <p>Dial calculado: <span class="dial-fase-calculado-motores">${dial.toFixed(2)}</span></p>
+    `;
+
+    const dialFraseEl = document.getElementById('dial-calculado-frase-motores');
+    if (dialFraseEl) {
+        dialFraseEl.textContent = dial.toFixed(2);
+    }
+
+    const tempoFraseEl = document.getElementById('tempo-partida-frase-motores');
+    if (tempoFraseEl) {
+        tempoFraseEl.textContent = tempoPartida.toFixed(0);
+    }
+
+    if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+        MathJax.typesetPromise(Array.from(container.querySelectorAll('.formula1, .formula2, .formula3, .formula4, .formula5, .formula6, .formula7')))
+            .catch(err => console.error('Erro ao renderizar fórmulas do dial de motores:', err));
+    }
+}
+
+function carregarTabelaMotoresEmEstudos() {
+    const container = document.getElementById('tabela-motores');
+    if (!container) {
+        return;
+    }
+
+    const blocoMotores = container.closest('.calculosfuncoes');
+    if (blocoMotores) {
+        blocoMotores.classList.add('estudos-motores-wide');
+    }
+
+    const motoresDetalhados = obterJSONStorageSeguro('tabelaMotoresJSON', []);
+    if (!Array.isArray(motoresDetalhados) || motoresDetalhados.length === 0) {
+        container.innerHTML = '<p>Nenhum motor informado.</p>';
+        return;
+    }
+
+    const linhas = motoresDetalhados.map((motor) => `
+        <tr>
+            <td>${escaparHtml(motor.motor)}</td>
+            <td>${escaparHtml(motor.cv)}</td>
+            <td>${escaparHtml(motor.potenciaKva)}</td>
+            <td>${escaparHtml(motor.potenciaKw)}</td>
+            <td>${escaparHtml(motor.correnteNominal)}</td>
+            <td>${escaparHtml(motor.ipIn)}</td>
+            <td>${escaparHtml(motor.correntePartida)}</td>
+            <td>${escaparHtml(motor.tempoPartida)}</td>
+            <td>${escaparHtml(motor.mecanismoPartida)}</td>
+            <td>${escaparHtml(motor.potenciaInstalacaoPartida)}</td>
+            <td>${escaparHtml(motor.correnteInstalacao)}</td>
+            <td>${escaparHtml(motor.correnteTotal)}</td>
+        </tr>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="estudos-motores-table-wrap">
+            <table class="estudos-motores-table" border="1" cellpadding="6" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Motor</th>
+                        <th>CV</th>
+                        <th>Potência<br>(kVA)</th>
+                        <th>Potência<br>(kW)</th>
+                        <th>Corrente<br>nominal</th>
+                        <th>Ip/In</th>
+                        <th>Corrente de<br>partida</th>
+                        <th>Tempo de<br>partida</th>
+                        <th>Mecanismo<br>de partida</th>
+                        <th>Potência aparente<br>na partida (kVA)</th>
+                        <th>Corrente da<br>instalação</th>
+                        <th>Corrente<br>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${linhas}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function obterJSONStorageSeguro(chave, fallback = null) {
+    const valorBruto = localStorage.getItem(chave);
+    if (!valorBruto) {
+        return fallback;
+    }
+
+    try {
+        return JSON.parse(valorBruto);
+    } catch (erro) {
+        return fallback;
+    }
+}
 
 function configurarEventosHeaderEImpressao() {
     const rotasHeader = {
@@ -483,11 +753,11 @@ function carregarVariaveisEstudo() {
 
 
     // ----------------------INICIO CALCULO DE IMAG TOTAL DOS TRAFOS-----------------------------
-    // Preencher campos de imag 
+    // Preencher campo da In do maior trafo 
     const inMaiorTrafo = parseFloat(localStorage.getItem('maiortrafoinSelecionada'));
     const inMaiorTrafoEl = document.getElementById('in-maior-trafo');
     if (inMaiorTrafoEl && !isNaN(inMaiorTrafo)) {
-        inMaiorTrafoEl.textContent = "In do maior trafo = " + "(" + inMaiorTrafo.toFixed(2);
+        inMaiorTrafoEl.textContent =  "(" + inMaiorTrafo.toFixed(2);
     }
 
     // Preencher campo de maior fator IMIN
@@ -503,7 +773,7 @@ function carregarVariaveisEstudo() {
     if (inTrafo2El) {
         if (!isNaN(maiorTrafoQtde) && maiorTrafoQtde > 1) {
             const maiorTrafoIn = parseFloat(localStorage.getItem('maiortrafoinSelecionada'));
-            inTrafo2El.textContent = !isNaN(maiorTrafoIn) ? `+ ( ${maiorTrafoIn.toFixed(2)} × ${maiorTrafoQtde - 1} )` : '';
+            inTrafo2El.textContent =  !isNaN(maiorTrafoIn) ? `+ ( ${maiorTrafoIn.toFixed(2)} x ${maiorTrafoQtde - 1} )` : '';
 
             // inTrafo2El.textContent = !isNaN(maiorTrafoIn) ? maiorTrafoIn.toFixed(2) + ' A' : '';
             inTrafo2El.style.display = '';
@@ -539,7 +809,7 @@ function carregarVariaveisEstudo() {
         if (inTrafoEl) {
             // Se qtde > 1, mostra x qtde, senão só corrente
             if (trafosArray[idx].qtde > 0 && trafosArray[idx].corrente > 0) {
-                inTrafoEl.textContent = `+ ( ${trafosArray[idx].corrente.toFixed(2)} × ${trafosArray[idx].qtde} )`;
+                inTrafoEl.textContent = `+ ( ${trafosArray[idx].corrente.toFixed(2)} x ${trafosArray[idx].qtde} )`;
                 // inTrafoEl.textContent = `+ ( ${trafosArray[idx].corrente.toFixed(2)} )`;
             }
             // else {
@@ -555,6 +825,17 @@ function carregarVariaveisEstudo() {
             inTrafoEl.style.display = 'none';
         }
     }
+
+
+    //preencher imag-total-norma-valor com o valor imagtotalSelecionada do localstorage
+    const imagTotalNormaValorEls = document.querySelectorAll('.imag-total-norma-valor');
+    const imagTotalNorma = localStorage.getItem('imagtotalSelecionada');
+    imagTotalNormaValorEls.forEach(el => {
+        if (imagTotalNorma !== null && !isNaN(imagTotalNorma)) {
+            el.textContent = parseFloat(imagTotalNorma).toFixed(2) + ' A';
+        }
+    });
+
 
     // Preencher campo de imag total dos trafos conforme status de magnetização real
     const { imagAplicada: imagTotal, imagPadrao: imagTotalPadrao } = obterImagConformeStatusMagnetizacaoReal();
@@ -631,11 +912,23 @@ function carregarVariaveisEstudo() {
     // ---------------INICIO DIMENSIONAMENTO DE TC------------------------------------
 
     // Carregar corrente de curto no calculo de TC no HTML  
-    const curtoSelecionadaTC = localStorage.getItem('curtoSelecionada');
-    const curtoTCEl = document.getElementById('curtoTC');
-    if (curtoTCEl && curtoSelecionadaTC !== null) {
-        curtoTCEl.textContent = curtoSelecionadaTC + ' A';
-    }
+    // const curtoSelecionadaTC = localStorage.getItem('curtoSelecionada');
+    // const curtoTCEl = document.getElementById('curtoTC');
+    // if (curtoTCEl && curtoSelecionadaTC !== null) {
+    //     curtoTCEl.textContent = curtoSelecionadaTC + ' A';
+    // }
+
+    const curtoSelecionadaTC = parseFloat(localStorage.getItem('curtoSelecionada'));
+const curtoTCEls = document.querySelectorAll('.curtoTC'); // pega todos os elementos com a classe
+
+if (curtoSelecionadaTC !== null) {
+    curtoTCEls.forEach(el => {
+        el.textContent = curtoSelecionadaTC + ' A';
+    });
+}
+
+
+
 
     // Calcular curtoSelecionadaTC / 50 e preencher em tc-saturacao-primario
     const tcSaturacaoPrimarioEl = document.getElementById('tc-saturacao-primario');
@@ -674,7 +967,7 @@ function carregarVariaveisEstudo() {
 
             //             const incremento = (parseFloat(demandacalculada) * parseFloat(percentualIP) / 100);
             // el.textContent = `${demandacalculada} + ${incremento.toFixed(2)}`;
-            
+
         }
     });
 
@@ -713,6 +1006,23 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    const ipDeConsumoNum = parseFloat(ipDeConsumo);
+    const instFaseConsumoNum = parseFloat(localStorage.getItem('Instfaseconsumo'));
+
+    const correnteInstantaneaFaseDialEls = document.querySelectorAll('.corrente-instantanea-fase-dial');
+    correnteInstantaneaFaseDialEls.forEach(el => {
+        if (!isNaN(instFaseConsumoNum)) {
+            el.textContent = instFaseConsumoNum.toFixed(2) + ' A';
+        }
+    });
+
+    const correntePartidaFaseDialEls = document.querySelectorAll('.corrente-partida-fase-dial');
+    correntePartidaFaseDialEls.forEach(el => {
+        if (!isNaN(ipDeConsumoNum)) {
+            el.textContent = ipDeConsumoNum.toFixed(2) + ' A';
+        }
+    });
+
     // Preencher campo ip-partida-resultado-TC considerando IpdeconsumoTC
     const ipDeConsumoTC = demandadecontrato * ((parseFloat(percentualIP) / 100)) / (tensaoAtendimento * Math.sqrt(3) * fatorPotencia);
 
@@ -728,12 +1038,39 @@ function carregarVariaveisEstudo() {
         }
     });
 
+    //calculo e preenchimento da corrente correspondente a 10% do TC de proteção
+    const TCdeprotecaoSelecionada = localStorage.getItem('TCdeprotecaoSelecionada');
+    const corrente10PercentTC = (parseFloat(TCdeprotecaoSelecionada)) * 0.1; // Corrente correspondente a 10% do TC de proteção
+    const corrente10PercentTCEls = document.querySelectorAll('.corrente-10-percent-tc');
+    corrente10PercentTCEls.forEach(el => {
+        if (TCdeprotecaoSelecionada !== null && !isNaN(TCdeprotecaoSelecionada)) {
+            el.textContent = corrente10PercentTC.toFixed(2) + ' A';
+        }
+    });
+
     // Preencher campo tc-especificacao considerando TcEspecificacaoSelecionada
     const tcEspecificacao = localStorage.getItem('TCdeprotecaoSelecionada');
     const tcEspecificacaoEls = document.querySelectorAll('.tc-especificacao');
     tcEspecificacaoEls.forEach(el => {
         if (tcEspecificacao !== null && !isNaN(tcEspecificacao)) {
             el.textContent = "Relação de transformação do TC = " + parseFloat(tcEspecificacao) + ' : 5 A';
+        }
+    });
+
+    // Preencher somente corrente primária do TC de proteção considerando TCdeprotecaoSelecionada
+    const tcCorrentePrimariaEls = document.querySelectorAll('.tc-corrente-primaria');
+    tcCorrentePrimariaEls.forEach(el => {
+        if (tcEspecificacao !== null && !isNaN(tcEspecificacao)) {
+            el.textContent = parseFloat(tcEspecificacao).toFixed(0) + ' A';
+        }
+    });
+
+    // Preencher campo RTC de protecao considerando RTCselecionado
+    const rtcEspecificacao = localStorage.getItem('RTCselecionado');
+    const rtcEspecificacaoEls = document.querySelectorAll('.rtc-especificacao');
+    rtcEspecificacaoEls.forEach(el => {
+        if (rtcEspecificacao !== null && !isNaN(rtcEspecificacao)) {
+            el.textContent = "RTC = " + parseFloat(rtcEspecificacao);
         }
     });
 
@@ -817,11 +1154,11 @@ function carregarVariaveisEstudo() {
         el.textContent = kFase;
     });
 
-    // Calcular fator m = imagTotal / correnteNominalFase e preencher em fator-m
+    // Calcular fator m = Iinst / Ip e preencher em fator-m
     // Preencher todos os elementos com a classe 'fator-m'
     const fatorMEls = document.querySelectorAll('.fator-m');
-    if (imagTotal !== null && correnteNominalFase !== null && !isNaN(imagTotal) && !isNaN(correnteNominalFase) && parseFloat(correnteNominalFase) !== 0) {
-        const fatorM = imagTotal / parseFloat(correnteNominalFase);
+    if (!isNaN(instFaseConsumoNum) && !isNaN(ipDeConsumoNum) && ipDeConsumoNum !== 0) {
+        const fatorM = instFaseConsumoNum / ipDeConsumoNum;
         fatorMEls.forEach(el => {
             el.textContent = fatorM.toFixed(2);
         });
@@ -838,141 +1175,148 @@ function carregarVariaveisEstudo() {
     //Preencher formulas do dial 
     atualizarFormulasCalculoDial();
 
-// Função centralizada para atualizar todas as fórmulas do cálculo do dial
-function atualizarFormulasCalculoDial(tentativa = 0) {
-    // Verificar se MathJax está disponível antes de prosseguir
-    if (typeof MathJax === 'undefined' || !MathJax.typesetPromise) {
-        if (tentativa < 40) {
-            setTimeout(() => atualizarFormulasCalculoDial(tentativa + 1), 300);
+    // Função centralizada para atualizar todas as fórmulas do cálculo do dial
+    function atualizarFormulasCalculoDial(tentativa = 0) {
+        // Verificar se MathJax está disponível antes de prosseguir
+        if (typeof MathJax === 'undefined' || !MathJax.typesetPromise) {
+            if (tentativa < 40) {
+                setTimeout(() => atualizarFormulasCalculoDial(tentativa + 1), 300);
+            }
+            return;
         }
-        return;
-    }
 
-    // Obter valores do localStorage
-    const { imagAplicada: imagTotal } = obterImagConformeStatusMagnetizacaoReal();
-    const correnteNominalFase = localStorage.getItem('Inominalfase');
-    const tempomagFase = 0.100;
-    
-    const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
-    const betaFase = dadosCurva.beta || 'β';
-    const alfaFase = dadosCurva.alfa || 'α';
-    const kFase = dadosCurva.k || 'k';
+        // Obter valores do localStorage
+        const instFaseConsumo = parseFloat(localStorage.getItem('Instfaseconsumo'));
+        const ipPartidaFase = parseFloat(localStorage.getItem('Ipdeconsumo'));
+        const tempomagFase = 0.100;
 
-    const parsedIn = parseFloat(correnteNominalFase);
+        const dadosCurva = JSON.parse(localStorage.getItem('dadoscurvausariofase')) || {};
+        const betaFase = dadosCurva.beta || 'β';
+        const alfaFase = dadosCurva.alfa || 'α';
+        const kFase = dadosCurva.k || 'k';
 
-    // Preencher fórmula para .formula1
-    const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'imag'}}{${'In'}} \\right)^{\\alpha}- ${'k'}}{\\beta}  \\right) \\times ${'t'}`;
-    const formulaEl1 = document.querySelector(".formula1");
-    if (formulaEl1) {
-        formulaEl1.innerHTML = `\\(${latex1}\\)`;
-    }
+        const parsedIp = ipPartidaFase;
 
-    // Preencher fórmula para .formula2
-    const latex2 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${parseFloat(correnteNominalFase).toFixed(2)}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    const formulaEl2 = document.querySelector(".formula2");
-    if (formulaEl2) {
-        formulaEl2.innerHTML = `\\(${latex2}\\)`;
-    }
+        // Preencher fórmula para .formula1
+        const latex1 = `DT = \\left( \\frac{\\left( \\frac{${'Iinst'}}{${'Ip'}} \\right)^{\\alpha}- ${'k'}}{\\beta}  \\right) \\times ${'t'}`;
+        const formulaEl1 = document.querySelector(".formula1");
+        if (formulaEl1) {
+            formulaEl1.innerHTML = `\\(${latex1}\\)`;
+        }
 
-    // Preencher fórmula para .formula3 (mesma lógica que formula2)
-    // calcular resultado da fração imagTotal / correnteNominalFase e usar esse valor direto na fórmula
-    let fracValue = null;
-    if (!isNaN(imagTotal) && !isNaN(parsedIn) && parsedIn !== 0) {
-        fracValue = imagTotal / parsedIn;
-    }
+        // Preencher fórmula para .formula2
+        const latex2 = `DT = \\left( \\frac{\\left( \\frac{${instFaseConsumo.toFixed(3)}}{${parseFloat(ipPartidaFase).toFixed(3)}} \\right)^{${Number(alfaFase).toFixed(3)}}- ${Number(kFase).toFixed(3)}}{${Number(betaFase).toFixed(3)}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        const formulaEl2 = document.querySelector(".formula2");
+        if (formulaEl2) {
+            formulaEl2.innerHTML = `\\(${latex2}\\)`;
+        }
 
-    let latex3;
-    if (fracValue !== null) {
-        // utiliza o valor numérico da fração diretamente
-        latex3 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    } else {
-        // fallback para exibir a fração caso não seja possível calcular (p.ex. valores ausentes)
-        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
-        latex3 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    }
-    const formulaEl3 = document.querySelector(".formula3");
-    if (formulaEl3) {
-        formulaEl3.innerHTML = `\\(${latex3}\\)`;
-    }
+        // Preencher fórmula para .formula3 (mesma lógica que formula2)
+        // calcular resultado da fração Iinst / Ip e usar esse valor direto na fórmula
+        let fracValue = null;
+        if (!isNaN(instFaseConsumo) && !isNaN(parsedIp) && parsedIp !== 0) {
+            fracValue = instFaseConsumo / parsedIp;
+        }
 
-    // Preencher fórmula4 usando o resultado da exponenciação do fracValue (se disponível)
-    let expValue = null;
-    if (fracValue !== null && !isNaN(fracValue) && !isNaN(alfaFase)) {
-        expValue = Math.pow(fracValue, alfaFase);
-    }
-
-    let latex4;
-    if (expValue !== null && !isNaN(expValue)) {
-        latex4 = `DT = \\left( \\frac{${expValue.toFixed(2)}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    } else if (fracValue !== null && !isNaN(fracValue)) {
-        latex4 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(2)} \\right)^{${alfaFase}}- ${kFase}}{${betaFase}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    } else {
-        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
-        latex4 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}}}{${betaFase}} - ${kFase} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    }
-
-    const formulaEl4 = document.querySelector(".formula4");
-    if (formulaEl4) {
-        formulaEl4.innerHTML = `\\(${latex4}\\)`;
-    }
-
-    // Formula 5
-    const formulaEl5 = document.querySelector('.formula5');
-    let expValueLocal = null;
-    if (fracValue !== null && !isNaN(fracValue) && !isNaN(Number(alfaFase))) {
-        expValueLocal = Math.pow(fracValue, Number(alfaFase));
-    }
-
-    const kNum = Number(kFase);
-    let resultadoExpMenosK = null;
-    if (expValueLocal !== null && !isNaN(expValueLocal) && !isNaN(kNum)) {
-        resultadoExpMenosK = expValueLocal - kNum;
-    }
-
-    const betaNum = Number(betaFase);
-    const tNum = Number(tempomagFase);
-
-    let latex5;
-    if (resultadoExpMenosK !== null && !isNaN(resultadoExpMenosK)) {
-        latex5 = `DT = \\left( \\frac{${resultadoExpMenosK.toFixed(2)}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
-    } else if (expValueLocal !== null && !isNaN(expValueLocal)) {
-        latex5 = `DT = \\left( \\frac{${expValueLocal.toFixed(2)} - ${kNum}}{${isNaN(betaNum) ? betaFase : betaNum}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
-    } else {
-        const inDisplay = !isNaN(parsedIn) ? parsedIn.toFixed(2) : 'In';
-        latex5 = `DT = \\left( \\frac{\\left( \\frac{${imagTotal.toFixed(2)}}{${inDisplay}} \\right)^{${alfaFase}} - ${kNum}}{${betaFase}} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
-    }
-
-    if (formulaEl5) {
-        formulaEl5.innerHTML = `\\(${latex5}\\)`;
-    }
-
-    // Formula 6
-    const el6 = document.querySelector('.formula6');
-    if (el6) {
-        if (resultadoExpMenosK !== null && isFinite(resultadoExpMenosK) && isFinite(betaNum) && betaNum !== 0) {
-            const divisao = resultadoExpMenosK / betaNum;
-            const latex6 = `DT = \\left( ${divisao.toFixed(2)} \\right) \\times ${tempomagFase.toFixed(3)}`;
-            el6.style.display = '';
-            el6.innerHTML = `\\(${latex6}\\)`;
+        let latex3;
+        if (fracValue !== null) {
+            // utiliza o valor numérico da fração diretamente
+            latex3 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(3)} \\right)^{${Number(alfaFase).toFixed(3)}}- ${Number(kFase).toFixed(3)}}{${Number(betaFase).toFixed(3)}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
         } else {
-            el6.innerHTML = '';
-            el6.style.display = 'none';
+            // fallback para exibir a fração caso não seja possível calcular (p.ex. valores ausentes)
+            const ipDisplay = !isNaN(parsedIp) ? parsedIp.toFixed(3) : 'Ip';
+            const iinstDisplay = !isNaN(instFaseConsumo) ? instFaseConsumo.toFixed(3) : 'Iinst';
+            latex3 = `DT = \\left( \\frac{\\left( \\frac{${iinstDisplay}}{${ipDisplay}} \\right)^{${Number(alfaFase).toFixed(3)}}- ${Number(kFase).toFixed(3)}}{${Number(betaFase).toFixed(3)}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
         }
-    }
+        const formulaEl3 = document.querySelector(".formula3");
+        if (formulaEl3) {
+            formulaEl3.innerHTML = `\\(${latex3}\\)`;
+        }
 
-    // Formula 7
-    const el7 = document.querySelector('.formula7');
-    if (el7) {
-        if (fracValue !== null && isFinite(fracValue) && isFinite(Number(alfaFase)) && isFinite(betaNum) && betaNum !== 0 && isFinite(kNum)) {
-            const expValueF7 = Math.pow(fracValue, Number(alfaFase));
-            if (isFinite(expValueF7)) {
-                const numerador = expValueF7 - kNum;
-                if (isFinite(numerador)) {
-                    const divisao = numerador / betaNum;
-                    if (isFinite(divisao)) {
-                        const resultadoFinal = divisao * tempomagFase;
-                        el7.style.display = '';
-                        el7.innerHTML = `DT = ${resultadoFinal.toFixed(2)}`;
+        // Preencher fórmula4 usando o resultado da exponenciação do fracValue (se disponível)
+        let expValue = null;
+        if (fracValue !== null && !isNaN(fracValue) && !isNaN(alfaFase)) {
+            expValue = Math.pow(fracValue, alfaFase);
+        }
+
+        let latex4;
+        if (expValue !== null && !isNaN(expValue)) {
+            latex4 = `DT = \\left( \\frac{${expValue.toFixed(3)}- ${Number(kFase).toFixed(3)}}{${Number(betaFase).toFixed(3)}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        } else if (fracValue !== null && !isNaN(fracValue)) {
+            latex4 = `DT = \\left( \\frac{\\left( ${fracValue.toFixed(3)} \\right)^{${Number(alfaFase).toFixed(3)}}- ${Number(kFase).toFixed(3)}}{${Number(betaFase).toFixed(3)}}  \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        } else {
+            const ipDisplay = !isNaN(parsedIp) ? parsedIp.toFixed(3) : 'Ip';
+            const iinstDisplay = !isNaN(instFaseConsumo) ? instFaseConsumo.toFixed(3) : 'Iinst';
+            latex4 = `DT = \\left( \\frac{\\left( \\frac{${iinstDisplay}}{${ipDisplay}} \\right)^{${Number(alfaFase).toFixed(3)}}}{${Number(betaFase).toFixed(3)}} - ${Number(kFase).toFixed(3)} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        }
+
+        const formulaEl4 = document.querySelector(".formula4");
+        if (formulaEl4) {
+            formulaEl4.innerHTML = `\\(${latex4}\\)`;
+        }
+
+        // Formula 5
+        const formulaEl5 = document.querySelector('.formula5');
+        let expValueLocal = null;
+        if (fracValue !== null && !isNaN(fracValue) && !isNaN(Number(alfaFase))) {
+            expValueLocal = Math.pow(fracValue, Number(alfaFase));
+        }
+
+        const kNum = Number(kFase);
+        let resultadoExpMenosK = null;
+        if (expValueLocal !== null && !isNaN(expValueLocal) && !isNaN(kNum)) {
+            resultadoExpMenosK = expValueLocal - kNum;
+        }
+
+        const betaNum = Number(betaFase);
+        const tNum = Number(tempomagFase);
+
+        let latex5;
+        if (resultadoExpMenosK !== null && !isNaN(resultadoExpMenosK)) {
+            latex5 = `DT = \\left( \\frac{${resultadoExpMenosK.toFixed(3)}}{${isNaN(betaNum) ? betaFase : betaNum.toFixed(3)}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
+        } else if (expValueLocal !== null && !isNaN(expValueLocal)) {
+            latex5 = `DT = \\left( \\frac{${expValueLocal.toFixed(3)} - ${kNum.toFixed(3)}}{${isNaN(betaNum) ? betaFase : betaNum.toFixed(3)}} \\right) \\times ${isNaN(tNum) ? tempomagFase : tNum.toFixed(3)}`;
+        } else {
+            const ipDisplay = !isNaN(parsedIp) ? parsedIp.toFixed(3) : 'Ip';
+            const iinstDisplay = !isNaN(instFaseConsumo) ? instFaseConsumo.toFixed(3) : 'Iinst';
+            latex5 = `DT = \\left( \\frac{\\left( \\frac{${iinstDisplay}}{${ipDisplay}} \\right)^{${Number(alfaFase).toFixed(3)}} - ${kNum.toFixed(3)}}{${Number(betaFase).toFixed(3)}} \\right) \\times ${parseFloat(tempomagFase).toFixed(3)}`;
+        }
+
+        if (formulaEl5) {
+            formulaEl5.innerHTML = `\\(${latex5}\\)`;
+        }
+
+        // Formula 6
+        const el6 = document.querySelector('.formula6');
+        if (el6) {
+            if (resultadoExpMenosK !== null && isFinite(resultadoExpMenosK) && isFinite(betaNum) && betaNum !== 0) {
+                const divisao = resultadoExpMenosK / betaNum;
+                const latex6 = `DT = \\left( ${divisao.toFixed(3)} \\right) \\times ${tempomagFase.toFixed(3)}`;
+                el6.style.display = '';
+                el6.innerHTML = `\\(${latex6}\\)`;
+            } else {
+                el6.innerHTML = '';
+                el6.style.display = 'none';
+            }
+        }
+
+        // Formula 7
+        const el7 = document.querySelector('.formula7');
+        if (el7) {
+            if (fracValue !== null && isFinite(fracValue) && isFinite(Number(alfaFase)) && isFinite(betaNum) && betaNum !== 0 && isFinite(kNum)) {
+                const expValueF7 = Math.pow(fracValue, Number(alfaFase));
+                if (isFinite(expValueF7)) {
+                    const numerador = expValueF7 - kNum;
+                    if (isFinite(numerador)) {
+                        const divisao = numerador / betaNum;
+                        if (isFinite(divisao)) {
+                            const resultadoFinal = divisao * tempomagFase;
+                            el7.style.display = '';
+                            el7.innerHTML = `DT = ${resultadoFinal.toFixed(3)}`;
+                        } else {
+                            el7.innerHTML = '';
+                            el7.style.display = 'none';
+                        }
                     } else {
                         el7.innerHTML = '';
                         el7.style.display = 'none';
@@ -985,17 +1329,13 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
                 el7.innerHTML = '';
                 el7.style.display = 'none';
             }
-        } else {
-            el7.innerHTML = '';
-            el7.style.display = 'none';
+        }
+
+        const formulasDial = Array.from(document.querySelectorAll('.formula1, .formula2, .formula3, .formula4, .formula5, .formula6, .formula7'));
+        if (formulasDial.length > 0) {
+            MathJax.typesetPromise(formulasDial).catch(err => console.error('Erro ao renderizar fórmulas do dial:', err));
         }
     }
-
-    const formulasDial = Array.from(document.querySelectorAll('.formula1, .formula2, .formula3, .formula4, .formula5, .formula6, .formula7'));
-    if (formulasDial.length > 0) {
-        MathJax.typesetPromise(formulasDial).catch(err => console.error('Erro ao renderizar fórmulas do dial:', err));
-    }
-}
     // Preencher campo dial-fase com dialCalculadoPlantaSemMotores
     const dialCalculadoPlantaSemMotores = localStorage.getItem('dialCalculadoPlantaSemMotores');
     const dialFaseEls = document.querySelectorAll('.dial-fase-calculado');
@@ -1035,11 +1375,10 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
     });
 
     // Preencher campo tolerancia-ip com ippercentualSelecionada
-    const instFaseConsumo = parseFloat(localStorage.getItem('Instfaseconsumo'));
     const instFaseResultadoEls = document.querySelectorAll('.inst-fase-resultado');
     instFaseResultadoEls.forEach(el => {
-        if (!isNaN(instFaseConsumo)) {
-            el.textContent = instFaseConsumo.toFixed(2) + ' A';
+        if (!isNaN(instFaseConsumoNum)) {
+            el.textContent = instFaseConsumoNum.toFixed(2) + ' A';
         }
     });
 
@@ -1242,7 +1581,7 @@ function atualizarFormulasCalculoDial(tentativa = 0) {
 
 
 
- // Recarregar a página após salvar as opções
+    // Recarregar a página após salvar as opções
     //  location.reload();
 
 }
@@ -1344,7 +1683,7 @@ function aplicarVisibilidadeMagnetizacaoReal() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     aplicarVisibilidadeMagnetizacaoReal();
 
     const gallery = document.getElementById("gallery");
@@ -1379,11 +1718,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-    // Limpa a imagemSelecionada e a galeria
-    // clearButton.addEventListener("click", () => {
-    //     localStorage.removeItem("imagemSelecionada");
-    //     gallery.innerHTML = "";
-    // });
+// Limpa a imagemSelecionada e a galeria
+// clearButton.addEventListener("click", () => {
+//     localStorage.removeItem("imagemSelecionada");
+//     gallery.innerHTML = "";
+// });
 
 
 

@@ -1,3 +1,17 @@
+.tabela-titulo {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 18px 0 14px 0;
+    background: transparent;
+    color: #1c641c;
+    border-radius: 0;
+    border: none;
+    letter-spacing: 1px;
+    box-shadow: none;
+    margin-bottom: 0;
+}
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #8fbc8f, #1c641c);
@@ -39,6 +53,14 @@ canvas {
     height: 400px;
 }
 
+#grafico-potencia-tempo-injecao {
+    border-radius: 16px;
+}
+
+#grafico-potencia-tempo-consumo {
+    border-radius: 16px;
+}
+
 #botaoSalvar {
     margin-top: 15px;
     padding: 10px 20px;
@@ -54,17 +76,34 @@ canvas {
 
 }
 
+
+
+/* Container geral das tabelas: mantém espaçamento e centralização */
 .tabela-containerfase {
-    table-layout: fixed;
-    background-color: linear-gradient(to bottom, #8fbc8f, #8fbc8f);
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 0px;
-    color: rgb(224, 248, 6);
-    font-size: 12px;
-    border: none;
-    border-collapse: collapse;
-    margin-left: 0px;
+    margin: 24px auto 32px auto;
+    padding: 0 0 24px 0;
+    background: none;
+    border-radius: 18px;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabela-containerfase .tabela-titulo {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    background-color: transparent;
+    color: #024402;
+    font-size: 18px;
+    padding: 10px 0 10px 0;
+    border-radius: 18px 18px 0 0;
+    border: 0px solid #000000;
+    margin-bottom: 0;
+    box-shadow: 0 2px 8px 0 rgba(44,44,44,0.10);
 }
 
 th {
@@ -80,28 +119,85 @@ td {
     text-align: auto;
 }
 
-#tabelafase {
-    width: 100%;
-    /* Garante que a tabela ocupe toda a largura disponível */
-    table-layout: fixed;
-    /* Mantém colunas com largura uniforme */
-    border-collapse: collapse;
-    /* Elimina espaços extras entre células */
 
+
+/* Tabela de INJEÇÃO: branca, clean, borda arredondada, sem linhas visíveis */
+#tabelafase, #tabelaconsumo {
+    width: 95%;
+    margin: 0 auto 16px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10);
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
 }
+
+
 
 #tabelafase th,
 #tabelafase td {
-    width: 100%;
-    /* Ajusta cada coluna para ocupar 25% da largura total */
+    padding: 14px 10px;
+    text-align: center;
+    border: none;
+    background: #fff;
+    font-size: 15px;
+    box-shadow: none;
+}
 
-    padding: 3px;
-    /* Adiciona espaçamento interno */
-    text-align: left;
-    /* Centraliza o conteúdo */
-    border: 3px solid #000;
-    /* Mantém bordas visíveis */
-    background-color: rgb(11, 68, 0);
+#tabelafase th {
+    background: #f7f7f7;
+    color: #1c641c;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #e0e0e0;
+    letter-spacing: 0.5px;
+}
+
+#tabelafase tr {
+    transition: background 0.18s;
+}
+#tabelafase tbody tr:hover {
+    background: #f0f8f0;
+}
+/* Tabela de CONSUMO: verde claro, borda fina, visual moderno */
+#tabelaconsumo, #tabelafase  {
+    width: 95%;
+    margin: 0 auto 16px auto;
+    border-radius: 18px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10);
+    background: #e8fbe8;
+    border: 1.5px solid #b2e0b2;
+}
+
+#tabelaconsumo th,
+#tabelaconsumo td, #tabelafase th, #tabelafase td {
+    padding: 14px 10px;
+    text-align: center;
+    border: none;
+    background: #e8fbe8;
+    font-size: 15px;
+    box-shadow: none;
+}
+
+#tabelaconsumo th, #tabelafase th {
+    background: #c6f7c6;
+    color: #1c641c;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 2px solid #b2e0b2;
+    letter-spacing: 0.5px;
+}
+
+#tabelaconsumo tr {
+    transition: background 0.18s;
+}
+#tabelaconsumo tbody tr:hover, #tabelafase tbody tr:hover {
+    background: #d6f5d6;
 }
 
 #tabelafase .input-container input,
@@ -160,12 +256,12 @@ td {
     background-color: rgb(84, 91, 194);
 }
 
-#tabelaneutro .input-container input,
-#tabelaneutro .input-container label {
-    width: 90%;
-    /* Faz com que os inputs e labels ocupem toda a célula */
-    display: block;
-    /* Garante alinhamento uniforme */
+#tabelafase .input-container input,
+#tabelafase .input-container label {
+        width: 95%;
+        display: block;
+        margin: 0 auto;
+        font-size: 15px;
 }
 
 select {

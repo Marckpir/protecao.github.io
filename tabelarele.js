@@ -238,10 +238,19 @@ window.onload = function () {
                 }
                 // Se já tem texto fixo, mantém o texto existente
             } else if (statusFuncao32 === "Desabilitado") {
-                // Sempre sobrescreve para "Desabilitado"
-                el.textContent = "Desabilitado";
+                // Sempre sobrescreve para "Desativado"
+                el.textContent = "Desativado";
             } else {
                 el.textContent = statusFuncao32;
+            }
+        });
+
+        // Atualizar status-funcao32-siemens de acordo com a condição
+        document.querySelectorAll('.status-funcao32-siemens').forEach(function (el) {
+            if (statusFuncao32 === "Habilitado") {
+                el.textContent = "Enabled";
+            } else if (statusFuncao32 === "Desativado") {
+                el.textContent = "Disabled";
             }
         });
     }
@@ -462,7 +471,7 @@ window.onload = function () {
             let valorNovo = parseFloat(dialFase);
             // Só substitui se o novo valor for maior que o existente
             if (isNaN(valorExistente) || valorNovo > valorExistente) {
-                el.textContent = dialFase;
+                el.textContent = dialFase.toFixed(2);
             }
             // Se o novo valor for menor ou igual, mantém o valor fixo existente
         });
@@ -596,6 +605,8 @@ window.onload = function () {
 
 
     // Ip Neutro PU Selecionada
+    // Se o novo valor de ipneutroPUSelecionada for menor que o existente, mantém o valor fixo existente
+    // Se o novo valor for maior que o existente, substitui o valor dinâmico
         let ipneutroPU = dados['ipneutroPUSelecionada'];
         if (ipneutroPU !== null && ipneutroPU !== undefined) {
             let valorDinamico = parseFloat(ipneutroPU)
@@ -686,15 +697,15 @@ window.onload = function () {
         if (tipoUsinaGDSelecionada.includes("Com Inversor")) {
 
             document.querySelectorAll('.ajuste-habilita-47').forEach(function (el) {
-                el.textContent = "Desabilitado";
+                el.textContent = "Desativado";
             });
 
             document.querySelectorAll('.ajuste-habilita-25').forEach(function (el) {
-                el.textContent = "Desabilitado";
+                el.textContent = "Desativado";
             });
 
             document.querySelectorAll('.ajuste-check-barra-morta').forEach(function (el) {
-                el.textContent = "Desabilitado";
+                el.textContent = "Desativado";
             });
 
             document.querySelectorAll('.ajuste-habilita-47-rempgd').forEach(function (el) {
@@ -705,14 +716,24 @@ window.onload = function () {
                 el.textContent = "OFF";
             });
 
+            // Substitui exibição de S CBM e S 25 por "Desativado" nas saídas
+            document.querySelectorAll('td, li, span').forEach(function (el) {
+                const texto = (el.textContent || '').trim();
+                if (texto === 'S CBM' || texto === 'S 25') {
+                    el.textContent = 'Desativado';
+                }
+            });
+
+            
+
 
         } else {
             document.querySelectorAll('.ajuste-habilita-47').forEach(function (el) {
-                el.textContent = "Habilitado";
+                el.textContent = "Ativado";
             });
 
             document.querySelectorAll('.ajuste-habilita-25').forEach(function (el) {
-                el.textContent = "Habilitado";
+                el.textContent = "Ativado";
             });
 
             document.querySelectorAll('.ajuste-check-barra-morta').forEach(function (el) {
@@ -749,37 +770,66 @@ window.onload = function () {
             document.querySelectorAll('.display81u3').forEach(function (el) {
                 el.style.display = "none";
             });
+
+           
+
+
+
+
+
         }
     }
 
 
     //preencher ajuste-vpoldn com tensaoprimariaFF*0,10
 
-    if (tensaoprimariaFF !== null && tensaoprimariaFF !== undefined) {
-        let vpoldn = (parseFloat(tensaoprimariaFF) * 0.10).toFixed(2) + " V";
+    if (valorAjusteTp !== null && valorAjusteTp !== undefined) {
+        let vpoldn = (parseFloat(valorAjusteTp) * 10).toFixed(2) + " V";
+        // let valor27_3_GD_Pextron = (parseFloat(valorAjusteTp) * 10).toFixed(2) + " V";
         document.querySelectorAll('.ajuste-vpoldn').forEach(function (el) {
             el.textContent = vpoldn;
         });
+
+        // document.querySelectorAll('.ajuste-27-3-GD-pextron').forEach(function (el) {
+        //     el.textContent = valor27_3_GD_Pextron;
+        // });
     }
 
     //Importar potenciaInjecaoCalculada32 do localstorage e atualizar campos
     let potenciaInjecaoCalculada32 = parseFloat(localStorage.getItem('potenciaInjecaoCalculada32'));
     if (potenciaInjecaoCalculada32 !== null && potenciaInjecaoCalculada32 !== undefined) {
-        potenciaInjecaoCalculada32 = (parseFloat(potenciaInjecaoCalculada32) * 1000).toFixed(2) + " W";
+        potenciaInjecaoCalculada32 = (parseFloat(potenciaInjecaoCalculada32) * 1000).toFixed(0) + " W";
         document.querySelectorAll('.ajuste-32-injecao').forEach(function (el) {
             el.textContent = potenciaInjecaoCalculada32;
+        });
+    }
+
+    //Importar tempo-injeção-32 do localstorage e atualizar camopos ajuste-32-injecao-tempo
+    let tempoInjecao32 = parseFloat(localStorage.getItem('tempo-injecao-32'));
+    if (tempoInjecao32 !== null && tempoInjecao32 !== undefined) {
+        tempoInjecao32 = parseFloat(tempoInjecao32).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-32-injecao-tempo').forEach(function (el) {
+            el.textContent = tempoInjecao32;
         });
     }
 
     //Importar potenciaConsumoCalculada32 do localstorage e atualizar campos
     let potenciaConsumoCalculada32 = parseFloat(localStorage.getItem('potenciaConsumoCalculada32'));
     if (potenciaConsumoCalculada32 !== null && potenciaConsumoCalculada32 !== undefined) {
-        potenciaConsumoCalculada32 = (parseFloat(potenciaConsumoCalculada32) * 1000).toFixed(2) + " W";
+        potenciaConsumoCalculada32 = (parseFloat(potenciaConsumoCalculada32) * 1000).toFixed(0) + " W";
         document.querySelectorAll('.ajuste-32-consumo').forEach(function (el) {
             el.textContent = potenciaConsumoCalculada32;
         });
     }
 
+    //Importar tempo-consumo-32 do localstorage e atualizar camopos ajuste-32-consumo-tempo
+    let tempoConsumo32 = parseFloat(localStorage.getItem('tempo-consumo-32'));
+    if (tempoConsumo32 !== null && tempoConsumo32 !== undefined) {
+        tempoConsumo32 = parseFloat(tempoConsumo32).toFixed(2) + " s";
+        document.querySelectorAll('.ajuste-32-consumo-tempo').forEach(function (el) {
+            el.textContent = tempoConsumo32;
+        });
+    }
 
     // Importar anguloFaseSelecionadoGD do localstorage e atualizar campos
     let anguloFaseSelecionadoGD = localStorage.getItem('anguloFaseSelecionadoGD');
@@ -949,6 +999,19 @@ window.onload = function () {
             el.textContent = valorTempoEstagio27_2_real;
         });
     }
+
+    //preencher campos de ajuste-27-3-GD-pextron com valor de tensaoprimariaFF*0,10
+
+        if (valorAjusteTp !== null && valorAjusteTp !== undefined) {
+       
+        let valor27_3_GD_Pextron = (parseFloat(valorAjusteTp) * 10).toFixed(2) + " V";
+
+
+        document.querySelectorAll('.ajuste-27-3-GD-pextron').forEach(function (el) {
+            el.textContent = valor27_3_GD_Pextron + " (Mínimo)";
+        });
+    }
+ 
 
 
     // Importar tensaoPrimariaFaseAjustada59-1 do localStorage e preencher campos ajuste-59-1-GD-pextron
@@ -1260,6 +1323,9 @@ window.onload = function () {
 
 
     //importar Ip neutro em pu do localStorage e preencher campos ajuste-ip-neutro-GD-pu
+    // Se o novo valor de ipneutroPUSelecionada for menor que o existente, mantém o valor fixo existente
+    // Se o novo valor for maior que o existente, substitui o valor dinâmico
+    
     let IpneutroGDpu = localStorage.getItem('ipneutroPUSelecionadaGD');
     if (
         IpneutroGDpu !== null &&
@@ -1267,10 +1333,31 @@ window.onload = function () {
         IpneutroGDpu !== "" &&
         !isNaN(parseFloat(IpneutroGDpu))
     ) {
-        let valorIpneutroGDpu = parseFloat(IpneutroGDpu).toFixed(2) + " xIn";
-        document.querySelectorAll('.ajuste-ipneutro-GD-pu').forEach(function (el) {
-            el.textContent = valorIpneutroGDpu;
-        });
+        const novoValor = parseFloat(IpneutroGDpu);
+        // Retrieve current displayed value from DOM elements to compare
+        let valorExistente = null;
+        const elementos = document.querySelectorAll('.ajuste-ipneutro-GD-pu');
+        if (elementos.length > 0) {
+            const textoAtual = elementos[0].textContent;
+            const valorNumericoAtual = parseFloat(textoAtual.replace(' xIn', '').trim());
+            if (!isNaN(valorNumericoAtual)) {
+                valorExistente = valorNumericoAtual;
+            }
+        }
+
+        // Only update if new value is greater than or equal to existing value (maintain floor logic)
+        if (valorExistente === null || novoValor >= valorExistente) {
+            let valorIpneutroGDpu = novoValor.toFixed(2) + " xIn";
+            elementos.forEach(function (el) {
+                el.textContent = valorIpneutroGDpu;
+            });
+        } else {
+            // Keep existing value with "xIn" suffix when maintaining the current value
+            let valorIpneutroGDpu = valorExistente.toFixed(2) + " xIn";
+            elementos.forEach(function (el) {
+                el.textContent = valorIpneutroGDpu;
+            });
+        }
     }
 
     //importar dial de injeção neutro do localStorage e preencher campos ajuste-dial-neutro-injecao-gd
@@ -1443,6 +1530,59 @@ function Salvaropcao() {
 }
 
 
+//-------- Função para preencher importar a imagem  da tela do rele e preencher os labels 
+
+import { mountReleLabelsComponent } from './releLabelsComponent.js';
+
+const textos = {
+    classeVermelho1: "Valor 4",
+    classeVermelho2: "Outro valor",
+    // ...
+};
+
+
+// Função para garantir que a imagem está carregada antes de renderizar os labels
+function renderizarLabelsQuandoImagemPronta() {
+    const container = document.querySelector('#meuContainer');
+    if (!container) return;
+    const img = container.querySelector('img');
+    if (!img) return;
+
+    // Ajusta a largura do container para igualar à tabela exibida
+    const tabelaVisivel = document.querySelector('.tabela[style*="display: block"]');
+    if (tabelaVisivel) {
+        container.style.width = tabelaVisivel.offsetWidth + 'px';
+        const img = container.querySelector('img');
+        if (img) {
+            img.style.width = '80%';
+            img.style.height = 'auto';
+            img.style.display = 'block';
+        }
+    }
+
+    if (img.complete && img.naturalWidth > 0) {
+        try {
+            mountReleLabelsComponent({
+                container: "#meuContainer",
+                textosPorClasse: textos
+            });
+        } catch (e) {
+            console.error("Erro ao montar o componente de labels:", e);
+        }
+    } else {
+        img.addEventListener('load', function handler() {
+            img.removeEventListener('load', handler);
+            renderizarLabelsQuandoImagemPronta();
+        });
+    }
+}
+
+// Chama a função após o carregamento da página
+window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(renderizarLabelsQuandoImagemPronta, 100);
+});
+
+
 
 
 
@@ -1504,7 +1644,92 @@ function baixarPDF() {
 }
 
 
-function baixarXLS() {
+function componenteHex(valor) {
+    const n = Math.max(0, Math.min(255, Number(valor) || 0));
+    return n.toString(16).padStart(2, '0').toUpperCase();
+}
+
+function cssColorParaARGB(corCss) {
+    if (!corCss) return null;
+
+    const cor = corCss.trim().toLowerCase();
+    if (cor === 'transparent') return null;
+
+    if (cor.startsWith('#')) {
+        const hex = cor.slice(1);
+        if (hex.length === 3) {
+            const r = hex[0] + hex[0];
+            const g = hex[1] + hex[1];
+            const b = hex[2] + hex[2];
+            return `FF${r}${g}${b}`.toUpperCase();
+        }
+        if (hex.length === 6) {
+            return `FF${hex}`.toUpperCase();
+        }
+        if (hex.length === 8) {
+            return hex.toUpperCase();
+        }
+    }
+
+    const rgba = cor.match(/rgba?\(([^)]+)\)/);
+    if (!rgba) return null;
+
+    const partes = rgba[1].split(',').map(p => p.trim());
+    const r = parseFloat(partes[0]);
+    const g = parseFloat(partes[1]);
+    const b = parseFloat(partes[2]);
+    const a = partes.length > 3 ? parseFloat(partes[3]) : 1;
+
+    if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b) || Number.isNaN(a) || a === 0) {
+        return null;
+    }
+
+    const alpha = componenteHex(Math.round(a * 255));
+    return `${alpha}${componenteHex(r)}${componenteHex(g)}${componenteHex(b)}`;
+}
+
+function obterTextoCelulaExportacao(celula) {
+    // Usa innerText para refletir o texto visível (incluindo itens de listas).
+    return (celula.innerText || '').replace(/\u00A0/g, ' ').trim();
+}
+
+function mapearAlinhamentoHorizontal(alinhamentoCss) {
+    const valor = (alinhamentoCss || '').toLowerCase();
+    if (valor.includes('center')) return 'center';
+    if (valor.includes('right') || valor.includes('end')) return 'right';
+    if (valor.includes('justify')) return 'justify';
+    return 'left';
+}
+
+function mapearAlinhamentoVertical(alinhamentoCss) {
+    const valor = (alinhamentoCss || '').toLowerCase();
+    if (valor.includes('middle') || valor.includes('center')) return 'middle';
+    if (valor.includes('bottom') || valor.includes('end')) return 'bottom';
+    return 'top';
+}
+
+function carregarScriptDinamico(src) {
+    return new Promise((resolve, reject) => {
+        const jaExiste = Array.from(document.scripts).some(s => s.src === src);
+        if (jaExiste) {
+            resolve();
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error(`Falha ao carregar script: ${src}`));
+        document.head.appendChild(script);
+    });
+}
+
+async function garantirExcelJS() {
+    if (window.ExcelJS) return;
+    await carregarScriptDinamico('https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js');
+}
+
+async function baixarXLS() {
     const seletor = document.getElementById("seletorTabela").value;
     if (!seletor) {
         alert("Selecione uma tabela antes de baixar o XLS.");
@@ -1516,34 +1741,122 @@ function baixarXLS() {
         return;
     }
 
-    // Clona a tabela para evitar alterações na original
-    const tabelaClone = tabelaSelecionada.cloneNode(true);
+    const tabelaHtml = tabelaSelecionada.querySelector('table') || tabelaSelecionada;
 
-    // Remove elementos indesejados (exemplo: botões ou elementos com classe 'no-export')
-    tabelaClone.querySelectorAll('button, .no-export').forEach(el => el.remove());
-
-    // Monta o HTML para exportação
-    const html = `
-        <html>
-        <head>
-            <meta charset="UTF-8">
-        </head>
-        <body>
-            ${tabelaClone.outerHTML}
-        </body>
-        </html>
-    `;
-
-    // Cria um Blob e faz o download
-    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
-    const url = URL.createObjectURL(blob);
-
-    // Nome do arquivo baseado no <h2> da tabela, se existir
-    let nomeArquivo = "tabela.xls";
-    const h2 = tabelaSelecionada.querySelector("h2");
-    if (h2 && h2.textContent) {
-        nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".xls";
+    try {
+        await garantirExcelJS();
+    } catch (erro) {
+        console.error(erro);
+        alert('Não foi possível carregar a biblioteca de exportação XLSX.');
+        return;
     }
+
+    const workbook = new window.ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Tabela');
+
+    const linhasHtml = Array.from(tabelaHtml.querySelectorAll('tr'));
+    const ocupadas = new Set();
+    let linhaExcel = 1;
+
+    linhasHtml.forEach((linha) => {
+        let colunaExcel = 1;
+        const celulas = Array.from(linha.children).filter((el) => el.tagName === 'TH' || el.tagName === 'TD');
+
+        celulas.forEach((celula) => {
+            while (ocupadas.has(`${linhaExcel}:${colunaExcel}`)) {
+                colunaExcel += 1;
+            }
+
+            const rowspan = parseInt(celula.getAttribute('rowspan') || '1', 10);
+            const colspan = parseInt(celula.getAttribute('colspan') || '1', 10);
+
+            const celulaExcel = worksheet.getCell(linhaExcel, colunaExcel);
+            celulaExcel.value = obterTextoCelulaExportacao(celula);
+
+            const estilo = window.getComputedStyle(celula);
+            const bgArgb = cssColorParaARGB(estilo.backgroundColor);
+            const fontArgb = cssColorParaARGB(estilo.color);
+            const isBold = parseInt(estilo.fontWeight, 10) >= 600 || estilo.fontWeight === 'bold';
+
+            if (bgArgb) {
+                celulaExcel.fill = {
+                    type: 'pattern',
+                    pattern: 'solid',
+                    fgColor: { argb: bgArgb }
+                };
+            }
+
+            celulaExcel.font = {
+                bold: isBold,
+                color: fontArgb ? { argb: fontArgb } : undefined,
+                name: 'Calibri',
+                size: 11
+            };
+
+            celulaExcel.alignment = {
+                horizontal: mapearAlinhamentoHorizontal(estilo.textAlign),
+                vertical: mapearAlinhamentoVertical(estilo.verticalAlign),
+                wrapText: true
+            };
+
+            celulaExcel.border = {
+                top: { style: 'thin', color: { argb: 'FF000000' } },
+                left: { style: 'thin', color: { argb: 'FF000000' } },
+                bottom: { style: 'thin', color: { argb: 'FF000000' } },
+                right: { style: 'thin', color: { argb: 'FF000000' } }
+            };
+
+            if (rowspan > 1 || colspan > 1) {
+                worksheet.mergeCells(linhaExcel, colunaExcel, linhaExcel + rowspan - 1, colunaExcel + colspan - 1);
+            }
+
+            for (let r = 0; r < rowspan; r += 1) {
+                for (let c = 0; c < colspan; c += 1) {
+                    if (r === 0 && c === 0) continue;
+                    ocupadas.add(`${linhaExcel + r}:${colunaExcel + c}`);
+                }
+            }
+
+            colunaExcel += colspan;
+        });
+
+        linhaExcel += 1;
+    });
+
+    worksheet.columns.forEach((coluna) => {
+        let max = 12;
+        coluna.eachCell({ includeEmpty: true }, (cell) => {
+            const valor = cell.value == null ? '' : String(cell.value);
+            max = Math.max(max, Math.min(80, valor.length + 2));
+        });
+        coluna.width = max;
+    });
+
+    // Nome do arquivo no padrão: MODELO_DE_REFERÊNCIA_(NOME DO RELE).xls
+    let nomeRele = "RELE";
+    const seletorTabelaEl = document.getElementById("seletorTabela");
+    if (seletorTabelaEl && seletorTabelaEl.selectedOptions && seletorTabelaEl.selectedOptions.length > 0) {
+        nomeRele = seletorTabelaEl.selectedOptions[0].textContent || nomeRele;
+    } else if (tabelaSelecionada.id) {
+        nomeRele = tabelaSelecionada.id;
+    }
+
+    // Remove prefixo numérico comum (ex: 101-)
+    nomeRele = nomeRele.replace(/^\s*\d+\s*[-_]\s*/, '');
+    // Remove caracteres inválidos para nome de arquivo no Windows
+    nomeRele = nomeRele.replace(/[\\/:*?"<>|]/g, '').trim();
+    if (!nomeRele) {
+        nomeRele = "RELE";
+    }
+
+    const nomeArquivo = `MODELO_DE_REFERÊNCIA_(${nomeRele}).xlsx`;
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob(
+        [buffer],
+        { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }
+    );
+    const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;

@@ -39,6 +39,10 @@ canvas {
     height: 400px;
 }
 
+#grafico-funcao-46 {
+    border-radius: 16px;
+}
+
 #botaoSalvar {
     margin-top: 15px;
     padding: 10px 20px;

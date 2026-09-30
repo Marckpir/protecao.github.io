@@ -156,15 +156,15 @@ h1.loaded {
 }
 
 .tp-tc-result-card--yellow {
-    background-color: rgb(248, 255, 47);
+    background-color: #fff89a ;
 }
 
 .tp-tc-result-card--green {
-    background-color: rgb(105, 252, 76);
+    background-color: #b2e0b2;;
 }
 
 .tp-tc-chip-yellow {
-    background: rgb(248, 255, 47);
+    background: #fff89a !important;
     padding: 1px 8px;
     border-radius: 8px;
 }
@@ -230,7 +230,7 @@ h1.loaded {
     margin: 0 auto;
 }
 
-.tp-tc-layout .tabela-container > table caption {
+.tp-tc-layout .tabela-container caption {
     margin-bottom: 8px;
 }
 
@@ -338,21 +338,18 @@ body[data-user-role="admin"] .tp-tc-saturacao-section,
 body[data-user-role="tecnico"] .tp-tc-saturacao-section {
     display: block !important;
 }
-/* .container {
-    width: 80%;
-    margin: auto;
-    background-color: rgb(8, 54, 14);
-    padding: 20px;
-    border-radius: 10px; */
-/* } */
-.header{
+
+
+
+
+/* .header{
     background-color: rgb(8, 54, 14);
     color: rgb(221, 227, 64);
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 1px;
-}
-
+} */
+/* 
 .form-section {
     background-color:rgb(8, 54, 14);
     color: white;
@@ -360,10 +357,10 @@ body[data-user-role="tecnico"] .tp-tc-saturacao-section {
     border-radius: 5px;
     margin-bottom: 20px;
     margin-top: 0px;
-}
+} */
 
 
-.grades {
+/* .grades {
     background-color: rgb(8, 54, 14);
     color: white;
     padding: 10px;
@@ -377,7 +374,8 @@ body[data-user-role="tecnico"] .tp-tc-saturacao-section {
     font-size: 15px;
     font-weight: bold;
     margin-bottom: 10px;
-}
+} */
+
 input {
     width: 120px;
     margin: 5px;
@@ -399,27 +397,6 @@ button:not(.dark-mode-toggle) {
 button:not(.dark-mode-toggle):hover {
     background-color: #cf0808;
 }
-
-.tabela-container {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;
-    width: 100%;
-    font-size: 15px;
-    border-radius: 5px;
-    /* height: 100vh; Garante que o contêiner ocupe toda a tela */
-}
-
-
-th, td {
-    border: 0px solid #fefcfb;
-    padding: 4px 5px;
-    text-align: center;
-    background-color: #5c4033;
-    font-size: 15px;
-    border-radius: 5px;
-}
-
 
 .parametro {
     background-color: rgb(2, 68, 2);
@@ -446,13 +423,6 @@ text-align: right;
 
 }
 
-th, td{
-    color: #ecec0b;
-    background-color: rgb(2, 68, 2);
-    text-align: left;
-}
-
-
 
 #botaoSalvar {
     margin-top: 15px;
@@ -462,6 +432,49 @@ th, td{
 
 }
 
+
+/* --- PADRÃO VISUAL DE TABELAS (ajuste67inj.css) --- */
+#tabelafase, #tabelaneutro, .tabela-container > table {
+    width: 95% !important;
+    margin: 0 auto 16px auto !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    box-shadow: 0 2px 18px 0 rgba(44,44,44,0.10) !important;
+    background: #e8fbe8 !important;
+    border: 1.5px solid #b2e0b2 !important;
+}
+#tabelafase th, #tabelafase td,
+#tabelaneutro th, #tabelaneutro td,
+.tabela-container > table th, .tabela-container > table td {
+    padding: 14px 10px !important;
+    text-align: left !important;
+    border: none !important;
+    background: #e8fbe8 !important;
+    font-size: 15px !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+    color: #111 !important;
+}
+#tabelafase th, #tabelaneutro th,
+.tabela-container > table th {
+    background: #c6f7c6 !important;
+    color: #1c641c !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #b2e0b2 !important;
+    letter-spacing: 0.5px !important;
+}
+#tabelafase tr, #tabelaneutro tr,
+.tabela-container > table tr {
+    transition: background 0.18s !important;
+}
+#tabelafase tbody tr:hover, #tabelaneutro tbody tr:hover,
+.tabela-container > table tbody tr:hover {
+    background: #d6f5d6 !important;
+}
+/* --- FIM PADRÃO VISUAL DE TABELAS --- */
 
 @media (max-width: 600px) {
     html, body {

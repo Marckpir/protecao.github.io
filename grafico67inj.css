@@ -5,13 +5,16 @@ canvas {
     max-height: 1123px; /* Aproximação A4 altura */
 }
 
-.grafico-container {
+.graficoGD-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#grafico {
+#graficoGD {
     width: 794px;   /* Largura A4 */
     height: 1123px; /* Altura A4 */
 }
+
+
+
