@@ -112,13 +112,15 @@ h1 button.nav-active:focus-visible {
 
 .magnetizacao-real-controle {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 8px;
 }
 
-.botao-magnetizacao-real {
+.botao-magnetizacao-real,
+.botao-limpar-trafos {
     width: auto !important;
-    min-width: 180px;
+    min-width: 120px;
     height: 38px !important;
     line-height: normal !important;
     margin: 0 !important;
@@ -629,6 +631,10 @@ td label {
     font-weight: bold !important;
     background: none !important;
     padding: 0;
+}
+
+.magnetizacao-total-table.potencia-total-trafos-table {
+    margin-bottom: 0 !important;
 }
 
 /* --- ESTILO MODERNO PARA TABELA DE MAGNETIZAÇÃO REAL (GARANTIDO) --- */

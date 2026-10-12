@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="animacao.css">
+    <link rel="stylesheet" href="botoes-header.css">
+    <link rel="stylesheet" href="formulario.css" type="text/css">
+    <title>FORMULÁRIO</title>
+    <script src="controle-acesso.js"></script>
+</head>
+
+<body>
+    <div class="topo-centro">
+        <span id="titulodapagina">
+            COORDINATION WEB
+        </span>
+        <svg viewBox="0 0 350 350" class="logo-svg">
+            <line x1="50" y1="350" x2="550" y2="350" class="eixo" />
+            <line x1="50" y1="50" x2="50" y2="350" class="eixo" />
+            <polyline class="curva-definida" fill="none" stroke="#00ff88" stroke-width="3" stroke-dasharray="1000"
+                stroke-dashoffset="1000" points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
+        </svg>
+    </div>
+
+    <h1>
+        <button id="botaoconfightml" class="dark-mode-toggle"
+            data-nav-target="config.html">CONFIGURAÇÕES</button>
+        <button id="botaoformulariohtml" class="dark-mode-toggle" type="button"
+            data-nav-target="formulario.html">FORMULÁRIO</button>
+        <button id="botaodiagramahtml" class="dark-mode-toggle"
+            data-nav-target="Diagramas.html">DIAGRAMAS</button>
+        <button id="botaoparametrohtml" class="dark-mode-toggle"
+            data-nav-target="Protecao_parametros.html">PARÂMETROS</button>
+        <button id="botaotrafohtml" class="dark-mode-toggle"
+            data-nav-target="transformadores.html">TRAFOS</button>
+        <button id="botaotptchtml" class="dark-mode-toggle" data-nav-target="TP-TC.html">TP/TC</button>
+        <button id="botaoajustehtml" class="dark-mode-toggle"
+            data-nav-target="protecaoajuste.html">AJUSTES</button>
+        <button id="botaoajustesGDhtml" class="dark-mode-toggle"
+            data-nav-target="ajustesGD.html">AJUSTES GD</button>
+        <button id="botaotabelarelehtml" class="dark-mode-toggle"
+            data-nav-target="tabelarele.html">TABELA</button>
+        <button id="botaoestudoshtml" class="dark-mode-toggle"
+            data-nav-target="estudos.html">ESTUDOS</button>
+        <button id="botaotabelaGDhtml" class="dark-mode-toggle"
+            data-nav-target="tabelaGD.html">TABELA GD</button>
+        <button id="botaoestudosGDhtml" class="dark-mode-toggle"
+            data-nav-target="estudosGD.html">ESTUDOS GD</button>
+        <button id="botaoanalisehtml" class="dark-mode-toggle"
+            data-nav-target="analise.html">ANÁLISE</button>
+        <button id="botaosairhtml" class="dark-mode-toggle"
+            data-nav-target="index.html">SAIR</button>
+    </h1>
+
+    <main class="formulario-main">
+        <div class="tabela-titulo">FORMULÁRIO DE PROJETO</div>
+        <div class="tabela-container parametros-table-container formulario-table-container">
+            <form id="formularioProjeto">
+                <table class="formulario-table">
+                    <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <label for="dadosProjetista">Dados e logotipo do projetista (opcional)</label>
+                                <input id="dadosProjetista" name="dadosProjetista" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="formatoProjeto">Formato do projeto</label>
+                                <input id="formatoProjeto" name="formatoProjeto" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <label for="tituloConteudo">Título / conteúdo</label>
+                                <input id="tituloConteudo" name="tituloConteudo" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label for="nomeEmpreendimento">Nome do empreendimento</label>
+                                <input id="nomeEmpreendimento" name="nomeEmpreendimento" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="cpfCnpjEmpreendimento">CPF/CNPJ</label>
+                                <input id="cpfCnpjEmpreendimento" name="cpfCnpjEmpreendimento" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="finalidade">Finalidade</label>
+                                <input id="finalidade" name="finalidade" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label for="enderecoEmpreendimento">Endereço</label>
+                                <input id="enderecoEmpreendimento" name="enderecoEmpreendimento" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="bairroEmpreendimento">Bairro</label>
+                                <input id="bairroEmpreendimento" name="bairroEmpreendimento" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="cidadeEmpreendimento">Cidade</label>
+                                <input id="cidadeEmpreendimento" name="cidadeEmpreendimento" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <label for="artProjeto">Número e data da ART de projeto</label>
+                                <input id="artProjeto" name="artProjeto" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label for="nomeProprietario">Proprietário — nome</label>
+                                <input id="nomeProprietario" name="nomeProprietario" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="documentoProprietario">CPF/CNPJ / identidade</label>
+                                <input id="documentoProprietario" name="documentoProprietario" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="telefoneProprietario">Telefone</label>
+                                <input id="telefoneProprietario" name="telefoneProprietario" type="tel">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label for="nomeContratante">Contratante (se houver) — nome</label>
+                                <input id="nomeContratante" name="nomeContratante" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="documentoContratante">CPF/CNPJ / identidade</label>
+                                <input id="documentoContratante" name="documentoContratante" type="text">
+                            </td>
+                            <td colspan="2">
+                                <label for="telefoneContratante">Telefone</label>
+                                <input id="telefoneContratante" name="telefoneContratante" type="tel">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <label for="enderecoCorrespondenciaProprietario">
+                                    Endereço completo para correspondência do proprietário
+                                </label>
+                                <input id="enderecoCorrespondenciaProprietario"
+                                    name="enderecoCorrespondenciaProprietario" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <label for="enderecoCorrespondenciaProjetista">
+                                    Endereço completo para correspondência do projetista
+                                </label>
+                                <input id="enderecoCorrespondenciaProjetista"
+                                    name="enderecoCorrespondenciaProjetista" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="responsavel-tecnico">
+                                <div class="responsavel-tecnico-nome">
+                                    <label for="nomeRT">Nome</label>
+                                    <input id="nomeRT" name="nomeRT" type="text">
+                                </div>
+                                <div class="responsavel-tecnico-detalhes">
+                                    <div>
+                                        <label for="registroRT">RT (Eng.ª/Eng.º) — registro</label>
+                                        <input id="registroRT" name="registroRT" type="text">
+                                    </div>
+                                    <div>
+                                        <label for="telefoneRT">Telefone</label>
+                                        <input id="telefoneRT" name="telefoneRT" type="tel">
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <label for="creaEstado">CREA / Estado</label>
+                                <input id="creaEstado" name="creaEstado" type="text">
+                            </td>
+                            <td>
+                                <label for="dataProjeto">Data</label>
+                                <input id="dataProjeto" name="dataProjeto" type="date">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="formulario-limpar-controle">
+            <button id="botaoLimparFormulario" class="botao-limpar-formulario" type="button">Limpar</button>
+        </div>
+    </main>
+    <script src="formulario.js"></script>
+</body>
+
+</html>

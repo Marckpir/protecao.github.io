@@ -175,7 +175,7 @@ window.addEventListener('load', function () {
 
     const especificacaoTClabel = especificacaoTC ? especificacaoTC : "12.5VA10P20";
 
-    const especificacaoCondutor = comprimentoCondutorTC ? comprimentoCondutorTC + " m" : "6 m";
+    const especificacaoCondutor = comprimentoCondutorTC ? comprimentoCondutorTC + " m" : "3 m";
     const especificacaoBitola = bitolaCondutorTC ? bitolaCondutorTC + " mm²" : "2.5 mm²";
     const especificacaoResistividade = resistividadeCondutorTC ? resistividadeCondutorTC + " Ω/km" : "6.72 Ω/km";
 
@@ -568,24 +568,25 @@ function salvarOpcao() {
     }
 
     const comprimentoCondutorTC = document.getElementById("input-comprimento-Condutor-TC-html");
-    localStorage.setItem("comprimentoCondutorTC", comprimentoCondutorTC ? comprimentoCondutorTC.value : "");
-    console.log("comprimentoCondutorTC exportada:", comprimentoCondutorTC ? comprimentoCondutorTC.value : "");
+    localStorage.setItem("comprimentoCondutorTC", comprimentoCondutorTC && comprimentoCondutorTC.value.trim() !== "" ? comprimentoCondutorTC.value : "3");
+    console.log("comprimentoCondutorTC exportada:", localStorage.getItem("comprimentoCondutorTC"));
 
     const bitolaCondutorTC = document.getElementById("input-bitola-Condutor-TC-html");
-    localStorage.setItem("bitolaCondutorTC", bitolaCondutorTC ? bitolaCondutorTC.value : "");
-    console.log("bitolaCondutorTC exportada:", bitolaCondutorTC ? bitolaCondutorTC.value : "");
+    localStorage.setItem("bitolaCondutorTC", bitolaCondutorTC && bitolaCondutorTC.value.trim() !== "" ? bitolaCondutorTC.value : "2.5");
+    console.log("bitolaCondutorTC exportada:", localStorage.getItem("bitolaCondutorTC"));
 
     const resistividadeCondutorTC = document.getElementById("input-resistividade-Condutor-TC-html");
-    localStorage.setItem("resistividadeCondutorTC", resistividadeCondutorTC ? resistividadeCondutorTC.value : "");
-    console.log("resistividadeCondutorTC exportada:", resistividadeCondutorTC ? resistividadeCondutorTC.value : "");
+    localStorage.setItem("resistividadeCondutorTC", resistividadeCondutorTC && resistividadeCondutorTC.value.trim() !== "" ? resistividadeCondutorTC.value : "6.72");
+    console.log("resistividadeCondutorTC exportada:", localStorage.getItem("resistividadeCondutorTC"));
 
     // const percentualBurdenTC = document.getElementById("input-percentual-burden-TC-html");
     // localStorage.setItem("percentualBurdenTC", percentualBurdenTC ? percentualBurdenTC.value : "");
     // console.log("percentualBurdenTC exportada:", percentualBurdenTC ? percentualBurdenTC.value : "");
 
     const potenciabobinarele = document.getElementById("input-potencia-bobina-rele-html");
-    localStorage.setItem("potenciabobinaRele", potenciabobinarele ? potenciabobinarele.value : "");
-    console.log("potenciabobinaRele exportada:", potenciabobinarele ? potenciabobinarele.value : "");
+    const valorPotenciaBobinaRele = potenciabobinarele && potenciabobinarele.value.trim() !== "" ? potenciabobinarele.value : "0.20";
+    localStorage.setItem("potenciabobinaRele", valorPotenciaBobinaRele);
+    console.log("potenciabobinaRele exportada:", valorPotenciaBobinaRele);
 
     const relacaoXRCurto = document.getElementById("input-relacao-xr-curto-html");
     localStorage.setItem("relacaoXRCurto", relacaoXRCurto ? relacaoXRCurto.value : "");

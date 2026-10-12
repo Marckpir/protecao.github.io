@@ -294,6 +294,15 @@ window.onload = function () {
         });
     }
 
+
+        
+    if (potenciaReversaGerador !== null && potenciaReversaGerador !== undefined) {
+        potenciaReversaGerador = parseFloat(potenciaReversaGerador).toFixed(2)/1000;
+        document.querySelectorAll('.potencia-reversa-gerador-kw').forEach(function (el) {
+            el.textContent = potenciaReversaGerador + " kW";
+        });
+    }
+
     // Novo trecho para potencia gerador-diesel-pu
     let potenciaDieselPU = dados['potenciadieselPU'];
     if (potenciaDieselPU !== null && potenciaDieselPU !== undefined) {

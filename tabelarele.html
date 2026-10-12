@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -97,6 +97,7 @@
                                 <option value="26-MICOM-P132">26-MICOM-P132</option>
                                 <option value="27-SIEMENS-7SJ600">27-SIEMENS-7SJ600</option>
                                 <option value="28-PEXTRON-URP7104-E-URP2405">28-PEXTRON-URP7104-E-URP2405</option>
+                                <option value="29-SCHNEIDER-VAMP57">29-SCHNEIDER-VAMP57</option>
                         </select>
                 </div>
 
@@ -1279,17 +1280,17 @@ ajuste-instneutro-pu
                                 <tr class="parametrosfuncao32diesel">
                                         <td>dP1 con</td>
                                         <td>Ativa direcional de potência ativa sentido consumo</td>
-                                        <td>Ativado</td>
+                                        <td>Desativado</td>
                                 </tr>
                                 <tr class="parametrosfuncao32diesel">
                                         <td>P1&gt;&gt;F Pp</td>
                                         <td>3,00...15000 W (RTC FN x RTP)</td>
-                                        <td class="ajuste-32-consumo"></td>
+                                        <td class="potencia-reversa-gerador"></td>
                                 </tr>
                                 <tr class="parametrosfuncao32diesel">
                                         <td>P1&gt;&gt;F t</td>
                                         <td>0...240 s</td>
-                                        <td class="ajuste-32-consumo-tempo"></td>
+                                        <td>15 s</td>
                                 </tr>
 
                                 <!-- <tr>
@@ -4227,17 +4228,17 @@ ajuste-instneutro-pu
                                 <tr class="parametrosfuncao32diesel">
                                         <td>dP con</td>
                                         <td>Ativa direcional de potência ativa sentido consumo</td>
-                                        <td>Ativado</td>
+                                        <td>Desativado</td>
                                 </tr>
                                 <tr class="parametrosfuncao32diesel">
                                         <td>Pr&gt;&gt;F Pp</td>
                                         <td>3,00...15000 W (RTC FN x RTP)</td>
-                                        <td class="ajuste-32-consumo"></td>
+                                        <td class="potencia-reversa-gerador"></td>
                                 </tr>
                                 <tr class="parametrosfuncao32diesel">
                                         <td>Pr&gt;&gt;F t</td>
                                         <td>0...240 s</td>
-                                        <td class="ajuste-32-consumo-tempo"></td>
+                                        <td>15 s</td>
                                 </tr>
 
                                 <!-- <tr>
@@ -7650,17 +7651,17 @@ ajuste-instneutro-pu
                                 <tr class="parametrosfuncao32diesel">
                                         <td>dP1 inv</td>
                                         <td>Ativa direcional de potência ativa sentido consumo</td>
-                                        <td>Ativado</td>
+                                        <td>Desativado</td>
                                 </tr>
                                 <tr class="parametrosfuncao32diesel">
                                         <td>P1&gt;&gt;F Pp</td>
                                         <td>3,00...15000 W (RTC FN x RTP)</td>
-                                        <td class="ajuste-32-consumo"></td>
+                                        <td class="potencia-reversa-gerador"></td>
                                 </tr>
                                 <tr class="parametrosfuncao32diesel">
                                         <td>P1&gt;&gt;F t</td>
                                         <td>0...240 s</td>
-                                        <td class="ajuste-32-consumo-tempo"></td>
+                                        <td>15 s</td>
                                 </tr>
 
                                 <!-- <tr>
@@ -11819,6 +11820,469 @@ ajuste-instneutro-pu
 
 
         </div> -->
+
+
+<!-- ----------NOVO CODIGO  -->
+
+<div id="29-SCHNEIDER-VAMP57" class="tabela">
+    <table border="1" class="trel-table-collapse">
+        <thead>
+            <tr>
+                <th colspan="5" class="trel-title-center">SCHNEIDER VAMP 57</th>
+            </tr>
+            <tr>
+                <th class="trel-w-12">Parâmetros</th>
+                <th class="trel-w-18">Software</th>
+                <th class="trel-w-38">Descritivo</th>
+                <th class="trel-w-18">Faixa de Ajuste</th>
+                <th class="trel-w-14">Ajuste</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td rowspan="7">PARÂMETROS DA INSTALAÇÃO</td>
+                <td>Adapted frequency</td>
+                <td>Frequência nominal da rede</td>
+                <td>45...65</td>
+                <td class="ajuste">60 Hz</td>
+            </tr>
+
+            <tr>
+                <td>CT primary</td>
+                <td>Corrente nominal primária dos TCs de fase</td>
+                <td>10...20000</td>
+                <td class="ajuste-tc-protecao"></td>
+            </tr>
+
+            <tr>
+                <td>CT secondary</td>
+                <td>Corrente nominal secundária dos TCs de fase</td>
+                <td>1...10</td>
+                <td class="ajuste"> 5 A</td>
+            </tr>
+
+            <tr>
+                <td>VT primary</td>
+                <td>Tensão nominal primária dos TPs</td>
+                <td>50...500000</td>
+                <td class="ajuste-tensao-primaria-ff"></td>
+            </tr>
+
+            <tr>
+                <td>VT secondary</td>
+                <td>Tensão nominal secundária dos TPs</td>
+                <td>50...250</td>
+                <td class="ajuste-tensao-secundaria-fn-tp"></td>
+            </tr>
+
+            <tr>
+                <td>Io1 CT primary</td>
+                <td>Corrente nominal primária dos TCs de neutro</td>
+                <td>10...20000</td>
+                <td class="ajuste-tc-protecao"></td>
+            </tr>
+
+            <tr>
+                <td>Io1 CT secondary</td>
+                <td>Corrente nominal secundária dos TCs de neutro</td>
+                <td>1...10</td>
+                <td class="ajuste">5 A</td>
+            </tr>
+
+            <tr>
+                <th colspan="5" class="trel-bg-dark-alt-white">
+                    50/51 : Phase Overcurrent
+                </th>
+            </tr>
+
+            <tr>
+                <td rowspan="7">Sobrecorrente Temporizada de Fase (ANSI 51)</td>
+                <td>Enable for I&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de sobrecorrente de fase</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">ON</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de sobrecorrente de fase - Valor Primário</td>
+                <td>0,05...5,00 xIn</td>
+                <td class="ajuste-i-partida-fase"></td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de sobrecorrente de fase - Valor Secundário</td>
+                <td>0,05...5,00 xIn</td>
+                <td class="ajuste-ip-pu"></td>
+            </tr>
+
+            <tr>
+                <td>Delay curve family</td>
+                <td>Família de Curvas</td>
+                <td>DT, IEC, IEE</td>
+                <td class="ajuste">IEC</td>
+            </tr>
+
+            <tr>
+                <td>Delay type</td>
+                <td>Tipo de curva</td>
+                <td>DT,VI,EI,NI</td>
+                <td class="ajuste-curva-fase"></td>
+            </tr>
+
+            <tr>
+                <td>Inv. Time coefficient k</td>
+                <td>Ajuste do dial de tempo</td>
+                <td>0,05...20</td>
+                <td class="ajuste-dt-fase"></td>
+            </tr>
+
+            <tr>
+                <td rowspan="5">Sobrecorrente de Fase (DESABILITADA)</td>
+                <td>Enable for I&gt;&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de sobrecorrente de fase</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">OFF</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do segundo estágio do elemento de sobrecorrente de fase - Valor Primário</td>
+                <td>0,1...20,00 xIn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do segundo estágio do elemento de sobrecorrente de fase - Valor Secundário</td>
+                <td>0,1...20,00 xIn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,05...20</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td rowspan="5">Sobrecorrente Instantânea de Fase (ANSI 50)</td>
+                <td>Enable for I&gt;&gt;&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o terceiro estágio do elemento de sobrecorrente de fase</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">ON</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do terceiro estágio do elemento de sobrecorrente de fase - Valor Primário</td>
+                <td>0,1...40,00 xIn</td>
+                <td class="ajuste-iinst-fase"></td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do terceiro estágio do elemento de sobrecorrente de fase - Valor Secundário</td>
+                <td>0,1...40,00 xIn</td>
+                <td class="ajuste-iinst-pu"></td>
+            </tr>
+
+            <tr>
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,04...1800</td>
+                <td class="ajuste">0.04 s</td>
+            </tr>
+                        <tr>
+                <th colspan="5" class="trel-bg-dark-alt-white">
+                    50N/51N : Ground Fault
+                </th>
+            </tr>
+
+            <tr>
+                <td rowspan="7">Sobrecorrente Temporizada de Neutro (ANSI 51N)</td>
+                <td>Enable for Io&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de sobrecorrente de neutro</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">ON</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de sobrecorrente de neutro - Valor Primário</td>
+                <td>0,005...8,00 xIn</td>
+                <td class="ajuste-i-partida-neutro"></td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do primeiro estágio do elemento de sobrecorrente de neutro - Valor Secundário</td>
+                <td>0,005...8,00 xIn</td>
+                <td class="ajuste-ipneutro-pu"></td>
+            </tr>
+
+            <tr>
+                <td>Delay curve family</td>
+                <td>Família de Curvas</td>
+                <td>DT, IEC, IEE</td>
+                <td class="ajuste">DT</td>
+            </tr>
+
+            <tr>
+                <td>Delay type</td>
+                <td>Tipo de curva</td>
+                <td>DT,VI,EI,NI</td>
+                <td class="ajuste">DT</td>
+            </tr>
+
+            <tr>
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,04...300</td>
+                <td class="ajuste-dt-neutro"></td>
+            </tr>
+
+            <tr>
+                <td rowspan="5">Sobrecorrente Instantânea de Neutro (ANSI 50N)</td>
+                <td>Enable for Io&gt;&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de sobrecorrente de neutro</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">ON</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do segundo estágio do elemento de sobrecorrente de neutro - Valor Primário</td>
+                <td>0,01...8,00 xIn</td>
+                <td class="ajuste-iinst-neutro"></td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do segundo estágio do elemento de sobrecorrente de neutro - Valor Secundário</td>
+                <td>0,01...8,00 xIn</td>
+                <td class="ajuste-instneutro-pu"></td>
+            </tr>
+
+            <tr>
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,04...300</td>
+                <td class="ajuste">0.04 s</td>
+            </tr>
+
+            <tr>
+                <td rowspan="5">Sobrecorrente de Neutro (DESABILITADA)</td>
+                <td>Enable for Io&gt;&gt;&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o terceiro estágio do elemento de sobrecorrente de neutro</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">OFF</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do terceiro estágio do elemento de sobrecorrente de neutro - Valor Primário</td>
+                <td>0,01...8,00 xIn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do terceiro estágio do elemento de sobrecorrente de neutro - Valor Secundário</td>
+                <td>0,01...8,00 xIn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,04...300</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td rowspan="5">Sobrecorrente de Neutro (DESABILITADA)</td>
+                <td>Enable for Io&gt;&gt;&gt;&gt;</td>
+                <td>Ajuste para habilitar ou desabilitar o quarto estágio do elemento de sobrecorrente de neutro</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">OFF</td>
+            </tr>
+
+            <tr>
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do quarto estágio do elemento de sobrecorrente de neutro - Valor Primário</td>
+                <td>0,01...8,00 xIn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td>Pick-up setting</td>
+                <td>Ajuste da corrente de pick-up do quarto estágio do elemento de sobrecorrente de neutro - Valor Secundário</td>
+                <td>0,01...8,00 xIn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr>
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,04...300</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <th colspan="5" class="trel-bg-dark-alt-white">
+                    Directional Power Protection
+                </th>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td rowspan="5">Direcional de Potência ANSI 32</td>
+                <td>Enable for P&lt;</td>
+                <td>Ajuste para habilitar ou desabilitar o primeiro estágio do elemento de direcional de potência</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">ON</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Pick-up setting</td>
+                <td>Ajuste de pick-up do primeiro estágio do elemento de direcional de potência - Valor Primário</td>
+                <td>-200,0...+200,0 xSn</td>
+                <td class="potencia-reversa-gerador-kw"></td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Pick-up setting</td>
+                <td>Ajuste de pick-up do primeiro estágio do elemento de direcional de potência - Valor Secundário</td>
+                <td>-200,0...+200,0 x%Sn</td>
+                <td class="potencia-reversa-gerador-sepams42">-1%</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,3...300</td>
+                <td class="ajuste">15.00 s</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td rowspan="5">Direcional de Potência (DESABILITADA)</td>
+                <td>Enable for P&lt;&lt;</td>
+                <td>Ajuste para habilitar ou desabilitar o segundo estágio do elemento de direcional de potência</td>
+                <td>ON/OFF</td>
+                <td class="ajuste">OFF</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Group</td>
+                <td>Grupo de ajuste ativo</td>
+                <td>1,2,3,4</td>
+                <td class="ajuste">1</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Pick-up setting</td>
+                <td>Ajuste de pick-up do segundo estágio do elemento de direcional de potência - Valor Primário</td>
+                <td>-200,0...+200,0 xSn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Pick-up setting</td>
+                <td>Ajuste de pick-up do segundo estágio do elemento de direcional de potência - Valor Secundário</td>
+                <td>-200,0...+200,0 x%Sn</td>
+                <td class="ajuste">-</td>
+            </tr>
+
+            <tr class="parametrosfuncao32diesel">
+                <td>Operation delay</td>
+                <td>Ajuste do tempo de atuação</td>
+                <td>0,3...300</td>
+                <td class="ajuste">-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- ----------RELES DE GD -------------- -->
 
         <div id="101-PEXTRON-URP-6100-Software-Versão-1.0.0.061" class="tabela">
 

@@ -286,9 +286,7 @@
 
         (function restaurarValoresSalvos() {
             const tipoSalvo = localStorage.getItem("ajustereatorTipo");
-            const potenciaGDcontratada = parseFloat(localStorage.getItem("potenciaGDcontratada")) || 0;
-
-            const potenciaSalva = localStorage.getItem("ajustereatorPotencia") || potenciaGDcontratada;
+            const potenciaAtual = localStorage.getItem("potenciaGDcontratada") || "";
             const resultadoSalvo = localStorage.getItem("ajustereatorResultado");
 
             const tipoEl = document.getElementById("tipo");
@@ -299,8 +297,8 @@
                 tipoEl.value = tipoSalvo;
             }
 
-            if (potenciaEl && potenciaSalva !== null) {
-                potenciaEl.value = potenciaSalva;
+            if (potenciaEl) {
+                potenciaEl.value = potenciaAtual;
             }
 
             if (resultadoEl && resultadoSalvo) {

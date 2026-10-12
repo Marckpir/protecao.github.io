@@ -609,6 +609,7 @@ function calculoGerador() {
 
     localStorage.setItem("statusfuncao32diesel", statusfuncao32diesel);
     localStorage.setItem("potenciaReversaGerador", potenciaReversa);
+    
     localStorage.setItem("tempogeradoradiesel", tempogeradoradiesel);
     localStorage.setItem("potenciadieselPU", potenciadieselPU);
 

@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     carregarVariaveisEstudo();
+    preencherFolhaSeloComDadosFormulario();
     carregarTabelaMotoresEmEstudos();
     preencherValoresDinamicosMotor();
     renderizarParametrosConsideradosMotores();
@@ -83,6 +84,44 @@ document.addEventListener('DOMContentLoaded', function () {
     // location.reload();
 
 });
+
+function preencherFolhaSeloComDadosFormulario() {
+    const campoFolha = document.querySelector('#tabelaselo [data-selo-folha]');
+    if (campoFolha) {
+        campoFolha.value = '1/1';
+    }
+
+    const dadosFormulario = obterJSONStorageSeguro('formularioProjetoDados', {});
+    if (!dadosFormulario || typeof dadosFormulario !== 'object' || Array.isArray(dadosFormulario)) {
+        return;
+    }
+
+    document.querySelectorAll('[data-form-field]').forEach((campo) => {
+        const nomeCampo = campo.dataset.formField;
+        const valor = dadosFormulario[nomeCampo];
+        if (typeof valor === 'string') {
+            let valorExibido = valor;
+            if (nomeCampo === 'dataProjeto' && /^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+                const [ano, mes, dia] = valor.split('-');
+                valorExibido = `${dia}/${mes}/${ano}`;
+            }
+
+            if (campo instanceof HTMLInputElement) {
+                campo.value = valorExibido;
+            } else {
+                campo.textContent = valorExibido;
+            }
+        }
+    });
+
+    const demandaContrato = localStorage.getItem('demandadecontrato');
+    const campoDemandaContrato = document.querySelector(
+        '#tabelaselo [data-local-storage-field="demandadecontrato"]'
+    );
+    if (campoDemandaContrato && demandaContrato !== null) {
+        campoDemandaContrato.value = `${demandaContrato} KW`;
+    }
+}
 
 function escaparHtml(texto) {
     return String(texto || '')
@@ -918,8 +957,8 @@ function carregarVariaveisEstudo() {
     //     curtoTCEl.textContent = curtoSelecionadaTC + ' A';
     // }
 
-    const curtoSelecionadaTC = parseFloat(localStorage.getItem('curtoSelecionada'));
-const curtoTCEls = document.querySelectorAll('.curtoTC'); // pega todos os elementos com a classe
+    let curtoSelecionadaTC = parseFloat(localStorage.getItem('curtoSelecionada'));
+let curtoTCEls = document.querySelectorAll('.curtoTC'); // pega todos os elementos com a classe
 
 if (curtoSelecionadaTC !== null) {
     curtoTCEls.forEach(el => {
@@ -1074,6 +1113,24 @@ if (curtoSelecionadaTC !== null) {
         }
     });
 
+
+    const rtcEspecificacaoEls2  = document.querySelectorAll('.rtc-valor-absoluto');
+    rtcEspecificacaoEls2.forEach(el => {
+        if (rtcEspecificacao !== null && !isNaN(rtcEspecificacao)) {
+            el.textContent = Math.abs(parseFloat(rtcEspecificacao));
+        }
+    });
+
+    //CALCULO DA CORRENTE DE CURTO CIRCUITO SECUNDARIA 
+
+const iccSecundariaEls = document.querySelectorAll('.icc-secundaria');
+if (curtoSelecionadaTC !== null && !isNaN(curtoSelecionadaTC)) {
+    iccSecundariaEls.forEach(el => {
+        el.textContent = (curtoSelecionadaTC / rtcEspecificacao).toFixed(2) + ' A';
+    });
+}
+
+
     // Preencher valor puro em tc-especificacao-valor
     const tcEspecificacaoValorEls = document.querySelectorAll('.tc-especificacao-valor');
     tcEspecificacaoValorEls.forEach(el => {
@@ -1130,7 +1187,124 @@ if (curtoSelecionadaTC !== null) {
     });
     // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
 
+//-----INICIO DIMENSIONAMENTO DE TC POR SATURAÇÃO -----------------
 
+
+    let potenciaBobinaRele = localStorage.getItem('potenciabobinaRele');
+    const potenciabobinareleEls = document.querySelectorAll('.potencia-bobina-rele');
+    potenciabobinareleEls.forEach(el => {
+        if (potenciaBobinaRele !== null) {
+            el.textContent = potenciaBobinaRele;
+        }
+    });
+
+
+
+    //calculo das resultantes de impedancia do TC de proteção
+
+
+            const resultanteImpedanciaTCneutro = parseFloat(potenciaBobinaRele) / Math.pow(5, 2);
+    const resultanteImpedancianeutroEls = document.querySelectorAll('.resultante-impedancia-tc-neutro');
+    resultanteImpedancianeutroEls.forEach(el => {
+        if (resultanteImpedanciaTCneutro !== null) {
+            el.textContent = resultanteImpedanciaTCneutro.toFixed(5);
+        }
+    });
+
+
+    const resultanteImpedanciaTCfase = parseFloat(potenciaBobinaRele) / Math.pow(5, 2)*3;
+    const resultanteImpedanciafaseEls = document.querySelectorAll('.resultante-impedancia-tc-fase');
+    resultanteImpedanciafaseEls.forEach(el => {
+        if (resultanteImpedanciaTCfase !== null) {
+            el.textContent = resultanteImpedanciaTCfase.toFixed(5);
+        }
+    });
+
+
+    //resultante da soma das duas impedancias 
+
+
+    const resultanteImpedanciaTC = parseFloat(resultanteImpedanciaTCneutro + resultanteImpedanciaTCfase);
+    const resultanteImpedanciaTCEls = document.querySelectorAll('.resultante-impedancia-tc');
+    resultanteImpedanciaTCEls.forEach(el => {
+        if (resultanteImpedanciaTC !== null) {
+            el.textContent = resultanteImpedanciaTC.toFixed(5);
+        }
+    });
+
+
+    //preencher o campo resistividade do codutor no html com a informação do localStorage
+    let resistividadeCondutor = localStorage.getItem('resistividadeCondutorTC');
+    const resistividadeCondutorEls = document.querySelectorAll('.condutor-resistividade');
+    resistividadeCondutorEls.forEach(el => {
+        if (resistividadeCondutor !== null) {
+            el.textContent = resistividadeCondutor;
+        }
+    });
+
+
+    //preencher o campo bitola condutor-bitola no html com a informação do localStorage 
+    let bitolaCondutor = localStorage.getItem('bitolaCondutorTC');
+    const bitolaCondutorEls = document.querySelectorAll('.condutor-bitola');
+    bitolaCondutorEls.forEach(el => {
+        if (bitolaCondutor !== null) {
+            el.textContent = bitolaCondutor;
+        }
+    });
+
+
+    //preencher o campo comprimento do condutor condutor-comprimento no html com a informação do localStorage 
+    let comprimentoCondutor = localStorage.getItem('comprimentoCondutorTC');
+    const comprimentoCondutorEls = document.querySelectorAll('.condutor-comprimento');
+    comprimentoCondutorEls.forEach(el => {
+        if (comprimentoCondutor !== null) {
+            el.textContent = comprimentoCondutor;
+        }
+    });
+
+    // Calcular e preencher a impedância resultante do condutor
+    const resultanteImpedanciaCondutor = (parseFloat(resistividadeCondutor) * parseFloat(comprimentoCondutor)) / 1000;
+    const resultanteImpedanciaCondutorEls = document.querySelectorAll('.resultante-impedancia-condutor');
+    resultanteImpedanciaCondutorEls.forEach(el => {
+        if (!isNaN(resultanteImpedanciaCondutor)) {
+            el.textContent = resultanteImpedanciaCondutor.toFixed(5);
+        }
+    });
+
+    // Preencher a impedância estimada do TC
+    const resultanteImpedanciaTCEstimadaEls = document.querySelectorAll('.resultante-impedancia-tc-estimada');
+    resultanteImpedanciaTCEstimadaEls.forEach(el => {
+        el.textContent = (0.50 * 1).toFixed(5);
+    });
+
+    // Preencher a porcentagem da impedância estimada do TC
+    const porcentagemImpedanciaTCEstimadaEls = document.querySelectorAll('.porcentagem-impedancia-tc-estimada');
+    porcentagemImpedanciaTCEstimadaEls.forEach(el => {
+        el.textContent = '50%';
+    });
+
+    // Calcular e preencher a impedância total
+    const resultanteImpedanciaTotal = resultanteImpedanciaCondutor + (0.50 * 1) + parseFloat(document.querySelector('.resultante-impedancia-tc').textContent || 0);
+    const resultanteImpedanciaTotalEls = document.querySelectorAll('.resultante-impedancia-total');
+    resultanteImpedanciaTotalEls.forEach(el => {
+        if (!isNaN(resultanteImpedanciaTotal)) {
+            el.textContent = resultanteImpedanciaTotal.toFixed(5);
+        }
+    });
+
+
+    //preencher o campo v-sat-calculada
+    const iccSecundaria = parseFloat(document.querySelector('.icc-secundaria').textContent || 0);
+    const resultanteImpedanciaTotalValor = parseFloat(document.querySelector('.resultante-impedancia-total').textContent || 0);
+    const vSatCalculadaEls = document.querySelectorAll('.v-sat-calculada');
+    vSatCalculadaEls.forEach(el => {
+        if (!isNaN(iccSecundaria) && !isNaN(resultanteImpedanciaTotalValor)) {
+            el.textContent = (iccSecundaria * resultanteImpedanciaTotalValor).toFixed(2) + ' V';
+        }
+    });
+
+
+//------ FIM DIMENSIONAMENTO DE TC POR SATURAÇÃO -----------------
 
     // Preencher campos fator-alfa-fase, fator-beta-fase, fator-k-fase importando de dadoscurvausariofase
 
@@ -1344,6 +1518,16 @@ if (curtoSelecionadaTC !== null) {
             el.textContent = parseFloat(dialCalculadoPlantaSemMotores).toFixed(2);
         }
     });
+
+    const textoDialAjustado = document.getElementById('texto_dial_ajustado');
+    if (textoDialAjustado) {
+        const dialCalculadoStorage = parseFloat(localStorage.getItem('dialCalculado'));
+        const dialSemMotoresStorage = parseFloat(dialCalculadoPlantaSemMotores);
+        const ocultar = localStorage.getItem('tabelaMotoresPreenchida') === 'Sim'
+            && !isNaN(dialCalculadoStorage) && !isNaN(dialSemMotoresStorage)
+            && dialCalculadoStorage > dialSemMotoresStorage;
+        textoDialAjustado.style.display = ocultar ? 'none' : '';
+    }
 
     // Preencher campo dial-fase-ajustado com dialFaseAjustado
     const dialFaseAjustado = localStorage.getItem('dialfaseSelecionada');

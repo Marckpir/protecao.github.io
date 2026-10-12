@@ -151,6 +151,8 @@ function montarTextoNotasParaCopia() {
     const potenciaGeracao = (document.getElementById('potencia-GD')?.innerText || '').trim();
     const linhaInjecaoVisivel = document.getElementById('campoInjecaoZero')?.style.display !== 'none';
     const potenciaInjecao = (document.getElementById('potencia-injecao')?.innerText || '0 KW (GRID ZERO)').trim();
+    const linhaGeradorDiesel = document.getElementById('campogeradordiesel');
+    const potenciaGeradorDiesel = (document.getElementById('potencia-gerador')?.innerText || '').trim();
     const nota3 = (document.getElementById('nsedata')?.innerText || '').trim();
     const nota4 = (document.getElementById('nota4')?.innerText || '').trim();
     const nota5 = (document.getElementById('nota5')?.innerText || '').trim();
@@ -169,6 +171,10 @@ function montarTextoNotasParaCopia() {
 
     if (linhaInjecaoVisivel) {
         linhas.push(`POTÊNCIA DE INJEÇÃO:\t${potenciaInjecao}`);
+    }
+
+    if (linhaGeradorDiesel && linhaGeradorDiesel.style.display !== 'none' && potenciaGeradorDiesel) {
+        linhas.push(`POTÊNCIA GERADOR A DIESEL:\t${potenciaGeradorDiesel}`);
     }
 
     linhas.push(

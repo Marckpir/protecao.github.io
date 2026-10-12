@@ -232,20 +232,35 @@ window.onload = function () {
         }
     }
 
-    const toleranciaInjecao32 = localStorage.getItem("tolerancia-injecao-32") || 105; // Valor padrão de 105 se não estiver definido
+    const tipoParalelismo = localStorage.getItem("tipoParalelismoSelecionado");
+    const toleranciaInjecao32 = tipoParalelismo === "Sem Injeção"
+        ? "5"
+        : tipoParalelismo === "Com Injeção"
+            ? "105"
+            : localStorage.getItem("tolerancia-injecao-32") || 105;
     if (toleranciaInjecao32 !== null) {
         const toleranciaInjecaoElem = document.getElementById("tolerancia-injecao-html");
         if (toleranciaInjecaoElem) {
             toleranciaInjecaoElem.value = toleranciaInjecao32;
         }
     }
+    if (tipoParalelismo === "Sem Injeção" || tipoParalelismo === "Com Injeção") {
+        localStorage.setItem("tolerancia-injecao-32", toleranciaInjecao32);
+    }
 
-    const tempoInjecao32 = localStorage.getItem("tempo-injecao-32") || 15; // Valor padrão de 15 se não estiver definido
+    const tempoInjecao32 = tipoParalelismo === "Sem Injeção"
+        ? "5"
+        : tipoParalelismo === "Com Injeção"
+            ? "15"
+            : localStorage.getItem("tempo-injecao-32") || 15;
     if (tempoInjecao32 !== null) {
         const tempoInjecaoElem = document.getElementById("tempo-injecao-html");
         if (tempoInjecaoElem) {
             tempoInjecaoElem.value = tempoInjecao32;
         }
+    }
+    if (tipoParalelismo === "Sem Injeção" || tipoParalelismo === "Com Injeção") {
+        localStorage.setItem("tempo-injecao-32", tempoInjecao32);
     }
     //-------------------------------------------------------------------------------------------
     // Preencher o campo de potência nominal de consumo com o valor da demanda selecionada

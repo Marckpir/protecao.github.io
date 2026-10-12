@@ -38,7 +38,7 @@ button:hover {
 #calculostc,
 #criteriocalculotcimpedancia,
 #especificacaodotc,
-#dimensionamentotpprotecao,
+.dimensionamentotpprotecao,
 .calculosfuncoes,
 #calculogeradordiesel,
 #tabelaresumofuncoes,
@@ -690,7 +690,7 @@ h1.loaded {
 /* ----------------------------------------------------- */
 /* estilização do dimensionamento tp proteção */
 
-#dimensionamentotpprotecao {
+.dimensionamentotpprotecao {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.05em;
     background: #f4f6fa;
@@ -1069,7 +1069,7 @@ textarea {
     #calculostc,
     #criteriocalculotcimpedancia,
     #especificacaodotc,
-    #dimensionamentotpprotecao,
+    .dimensionamentotpprotecao,
     .calculosfuncoes,
     #calculogeradordiesel,
     #tabelaresumofuncoes {
@@ -1306,7 +1306,7 @@ textarea {
     #calculostc,
     #criteriocalculotcimpedancia,
     #especificacaodotc,
-    #dimensionamentotpprotecao,
+    .dimensionamentotpprotecao,
     .calculosfuncoes,
     #calculogeradordiesel,
     #tabelaresumofuncoes {

@@ -184,11 +184,81 @@
 
     </div>
 
+ 
+
     <div class="tabela-titulo">
-        GERAÇÃO DISTRIBUÍDA (GD)
+        PARALELISMO MOMENTÂNEO
     </div>
 
     <div class="tabela-container parametros-table-container">
+        <table class="parametros-data-table">
+            <thead>
+                <tr>
+                    <th>Parâmetros</th>
+                    <th>Ajuste</th>
+                    <th>Valor Ajustado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>POTÊNCIA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <input type="number" id="potenciageradorhtml" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoPotenciaGerador"></td>
+                </tr>
+                <tr id="rowFatorPotenciaGerador" class="gerador-dependente">
+                    <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <input id="fatorpotenciageradorhtml" type="text" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoFatorPotenciaGerador"></td>
+                </tr>
+                <tr id="rowToleranciaGerador" class="displayadm gerador-dependente">
+                    <td>TOLERÂNCIA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <input id="toleranciageradorhtml" type="text" placeholder="Digite um valor"
+                                class="field-left field-gap-11">
+                            <span class="unidade"></span>
+                        </div>
+                    </td>
+                    <td id="valorAjustadoToleranciaGerador"></td>
+                </tr>
+                <tr id="rowPotenciaReversaGerador" class="gerador-dependente">
+                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL:</td>
+                    <td>
+                        <div class="input-container">
+                            <label type="number" id="potenciareversageradorhtml" class="value-label"></label>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="rowPotenciaReversaGeradorPU" class="gerador-dependente">
+                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL PU:</td>
+                    <td>
+                        <div class="input-container">
+                            <label type="number" id="potenciareversageradorPUhtml" class="value-label"></label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+       <div class="tabela-titulo displayadm">
+        PARALELISMO PERMANENTE 
+    </div>
+
+    <div class="tabela-container parametros-table-container displayadm">
         <table class="parametros-data-table">
             <thead>
                 <tr>
@@ -258,73 +328,6 @@
                         </div>
                     </td>
                     <td id="valorAjustadoTipoParalelismo"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="tabela-titulo">
-        GERADOR A DIESEL
-    </div>
-
-    <div class="tabela-container parametros-table-container">
-        <table class="parametros-data-table">
-            <thead>
-                <tr>
-                    <th>Parâmetros</th>
-                    <th>Ajuste</th>
-                    <th>Valor Ajustado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>POTÊNCIA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <input type="number" id="potenciageradorhtml" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoPotenciaGerador"></td>
-                </tr>
-                <tr id="rowFatorPotenciaGerador" class="gerador-dependente">
-                    <td>FATOR DE POTÊNCIA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <input id="fatorpotenciageradorhtml" type="text" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoFatorPotenciaGerador"></td>
-                </tr>
-                <tr id="rowToleranciaGerador" class="displayadm gerador-dependente">
-                    <td>TOLERÂNCIA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <input id="toleranciageradorhtml" type="text" placeholder="Digite um valor"
-                                class="field-left field-gap-11">
-                            <span class="unidade"></span>
-                        </div>
-                    </td>
-                    <td id="valorAjustadoToleranciaGerador"></td>
-                </tr>
-                <tr id="rowPotenciaReversaGerador" class="gerador-dependente">
-                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL:</td>
-                    <td>
-                        <div class="input-container">
-                            <label type="number" id="potenciareversageradorhtml" class="value-label"></label>
-                        </div>
-                    </td>
-                </tr>
-                <tr id="rowPotenciaReversaGeradorPU" class="gerador-dependente">
-                    <td colspan="2">POTÊNCIA REVERSA MÁXIMA GERADOR A DIESEL PU:</td>
-                    <td>
-                        <div class="input-container">
-                            <label type="number" id="potenciareversageradorPUhtml" class="value-label"></label>
-                        </div>
-                    </td>
                 </tr>
             </tbody>
         </table>

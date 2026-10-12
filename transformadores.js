@@ -101,6 +101,16 @@ function montarLinhaMotorDetalhado(dados = {}) {
 
     CAMPOS_TABELA_MOTORES.forEach((campo, indice) => {
         const td = document.createElement("td");
+
+        if (campo === "correntePartida" || campo === "correnteInstalacao" || campo === "correnteTotal") {
+            const label = document.createElement("span");
+            label.className = "motor-detalhe-label";
+            label.dataset.field = campo;
+            td.appendChild(label);
+            tr.appendChild(td);
+            return;
+        }
+
         const input = document.createElement("input");
         input.type = "text";
         input.className = "motor-detalhe-input";
@@ -108,6 +118,7 @@ function montarLinhaMotorDetalhado(dados = {}) {
         input.value = dados[campo] || "";
 
         if (indice === 0) {
+            input.readOnly = true;
             const wrapper = document.createElement("div");
             wrapper.className = "motor-cell-actions";
             wrapper.appendChild(input);
@@ -129,6 +140,36 @@ function montarLinhaMotorDetalhado(dados = {}) {
     return tr;
 }
 
+function calcularCorrentePartidaLinha(linha) {
+    const label = linha.querySelector('[data-field="correntePartida"]');
+    if (label) {
+        const nominal = converterNumeroBr(linha.querySelector('[data-field="correnteNominal"]')?.value);
+        const ipIn = converterNumeroBr(linha.querySelector('[data-field="ipIn"]')?.value);
+        label.textContent = (!isNaN(nominal) && !isNaN(ipIn))
+            ? (nominal * ipIn).toFixed(2).replace(".", ",")
+            : "";
+    }
+
+    const labelInstalacao = linha.querySelector('[data-field="correnteInstalacao"]');
+    if (labelInstalacao) {
+        const potencia = converterNumeroBr(linha.querySelector('[data-field="potenciaInstalacaoPartida"]')?.value);
+        const tensao = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
+        const fatorPotencia = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0;
+        const corrente = potencia / (tensao * fatorPotencia * Math.sqrt(3));
+        labelInstalacao.textContent = (isFinite(corrente) && corrente > 0)
+            ? corrente.toFixed(2).replace(".", ",")
+            : "";
+    }
+
+    const labelTotal = linha.querySelector('[data-field="correnteTotal"]');
+    if (labelTotal) {
+        const partida = converterNumeroBr(label?.textContent);
+        const instalacao = converterNumeroBr(labelInstalacao?.textContent);
+        const total = (isNaN(partida) ? 0 : partida) + (isNaN(instalacao) ? 0 : instalacao);
+        labelTotal.textContent = total > 0 ? total.toFixed(2).replace(".", ",") : "";
+    }
+}
+
 function coletarTabelaMotoresDetalhada() {
     const tbody = document.getElementById("motor-detalhes-body");
     if (!tbody) {
@@ -137,15 +178,30 @@ function coletarTabelaMotoresDetalhada() {
 
     const linhas = Array.from(tbody.querySelectorAll("tr"));
     const dados = linhas.map((linha) => {
+        calcularCorrentePartidaLinha(linha);
         const item = {};
         CAMPOS_TABELA_MOTORES.forEach((campo) => {
-            const input = linha.querySelector(`input[data-field="${campo}"]`);
-            item[campo] = input ? input.value.trim() : "";
+            const elemento = linha.querySelector(`[data-field="${campo}"]`);
+            item[campo] = elemento ? (elemento.value ?? elemento.textContent).trim() : "";
         });
         return item;
     });
 
-    return dados.filter((linha) => Object.values(linha).some((valor) => valor !== ""));
+    return dados.filter((linha) => CAMPOS_TABELA_MOTORES.some((campo) => campo !== "motor" && linha[campo] !== ""));
+}
+
+function renumerarMotoresTabelaDetalhada() {
+    const tbody = document.getElementById("motor-detalhes-body");
+    if (!tbody) {
+        return;
+    }
+
+    tbody.querySelectorAll("tr").forEach((linha, indice) => {
+        const input = linha.querySelector('input[data-field="motor"]');
+        if (input) {
+            input.value = `Motor ${indice + 1}`;
+        }
+    });
 }
 
 // Salvar a tabela de motores detalhados
@@ -199,8 +255,8 @@ function obterMaiorCorrenteOperanteTabelaDetalhada(motoresDetalhados) {
 }
 
 function calcularCorrenteTotalPartidaManual() {
-    const potenciaOperanteMotor = parseFloat(document.getElementById("potenciaoperantemotorhtml")?.value) || 0;
-    const correntePartidaMotor = parseFloat(document.getElementById("correntepartidamotorhtml")?.value) || 0;
+    const potenciaOperanteMotor = parseFloat(lerLabelMotorPrincipal("potenciaoperantemotorhtml")) || 0;
+    const correntePartidaMotor = parseFloat(lerLabelMotorPrincipal("correntepartidamotorhtml")) || 0;
     const tensaoArmazenada = parseFloat(localStorage.getItem("tensaoSelecionada")) || 0;
     const fatorPotencia = parseFloat(localStorage.getItem("fatorPotenciaSelecionada")) || 0;
 
@@ -214,7 +270,7 @@ function calcularCorrenteTotalPartidaManual() {
 }
 
 function atualizarCorrenteTotalPartidaMotor() {
-    // O cálculo agora é estritamente manual baseado na Tabela 1
+    preencherMotorPrincipalComTabelaDetalhada();
     const correnteFinal = calcularCorrenteTotalPartidaManual();
 
     localStorage.setItem("maiorCorrenteoperante", correnteFinal);
@@ -278,82 +334,52 @@ function obterMotorMaiorCorrenteTotalTabelaDetalhada(motoresDetalhados) {
     return melhorMotor;
 }
 
-function aplicarModoManualTabelaMotorPrincipal() {
-    [
-        "potenciaoperantemotorhtml",
-        "correntenominalmotorhtml",
-        "potenciamotorkvahtml",
-        "correntepartidamotorhtml",
-        "tempopartidamotorhtml"
-    ].forEach((idCampo) => {
-        const campo = document.getElementById(idCampo);
-        if (!campo) {
-            return;
+function obterMotorMaiorCorrenteTotalLinha(motoresDetalhados) {
+    let melhorMotor = null;
+    let maiorCorrente = -Infinity;
+
+    motoresDetalhados.forEach((motor) => {
+        const corrente = converterNumeroBr(motor.correnteTotal);
+        if (!isNaN(corrente) && corrente > maiorCorrente) {
+            maiorCorrente = corrente;
+            melhorMotor = motor;
         }
-
-        campo.disabled = false;
-        campo.readOnly = false;
     });
+
+    return melhorMotor;
+}
+function definirLabelMotorPrincipal(idCampo, valor) {
+    const campo = document.getElementById(idCampo);
+    if (campo) {
+        campo.textContent = isNaN(valor) ? "" : valor.toFixed(2);
+    }
 }
 
+function lerLabelMotorPrincipal(idCampo) {
+    return document.getElementById(idCampo)?.textContent.trim() || "";
+}
+
+// Preenche os labels com a linha de maior Corrente Total com os dados da tabela de motores
 function preencherMotorPrincipalComTabelaDetalhada() {
-    const motoresDetalhados = coletarTabelaMotoresDetalhada();
-    const motorMaiorCorrente = obterMotorMaiorCorrenteTotalTabelaDetalhada(motoresDetalhados);
+    const motor = obterMotorMaiorCorrenteTotalLinha(coletarTabelaMotoresDetalhada());
+    const dados = motor || {};
 
-    // Se não houver motor válido na tabela 2, mantém preenchimento manual da tabela 1.
-    if (!motorMaiorCorrente) {
-        aplicarModoManualTabelaMotorPrincipal();
-        return false;
-    }
+    definirLabelMotorPrincipal("potenciaoperantemotorhtml", converterNumeroBr(dados.potenciaInstalacaoPartida));
+    definirLabelMotorPrincipal("correntenominalmotorhtml", converterNumeroBr(dados.correnteInstalacao));
+    definirLabelMotorPrincipal("potenciamotorkvahtml", converterNumeroBr(dados.potenciaKva));
+    definirLabelMotorPrincipal("correntepartidamotorhtml", converterNumeroBr(dados.correntePartida));
+    definirLabelMotorPrincipal("tempopartidamotorhtml", converterNumeroBr(dados.tempoPartida));
 
-    const fatorPotenciaSelecionada = parseFloat(localStorage.getItem("fatorPotenciaSelecionada"));
-    const fatorPotencia = !isNaN(fatorPotenciaSelecionada) && fatorPotenciaSelecionada > 0 ? fatorPotenciaSelecionada : 1;
+    localStorage.setItem("motorJSON", JSON.stringify({
+        potenciaoperante: lerLabelMotorPrincipal("potenciaoperantemotorhtml"),
+        potenciamotorkva: lerLabelMotorPrincipal("potenciamotorkvahtml"),
+        correntenominal: lerLabelMotorPrincipal("correntenominalmotorhtml"),
+        correntepartida: lerLabelMotorPrincipal("correntepartidamotorhtml"),
+        tempopartida: lerLabelMotorPrincipal("tempopartidamotorhtml")
+    }));
 
-    const potenciaAparentePartida = converterNumeroBr(motorMaiorCorrente.potenciaInstalacaoPartida);
-    const potenciaMotorKva = converterNumeroBr(motorMaiorCorrente.potenciaKva);
-    const correnteNominal = converterNumeroBr(motorMaiorCorrente.correnteInstalacao);
-    const correntePartida = converterNumeroBr(motorMaiorCorrente.correntePartida);
-    const tempoPartida = converterNumeroBr(motorMaiorCorrente.tempoPartida);
-
-    const potenciaOperanteCalculada = !isNaN(potenciaAparentePartida)
-        ? potenciaAparentePartida
-        : NaN;
-
-    const campoPotenciaOperante = document.getElementById("potenciaoperantemotorhtml");
-    const campoPotenciaMotor = document.getElementById("potenciamotorkvahtml");
-    const campoCorrenteNominal = document.getElementById("correntenominalmotorhtml");
-    const campoCorrentePartida = document.getElementById("correntepartidamotorhtml");
-    const campoTempoPartida = document.getElementById("tempopartidamotorhtml");
-
-    if (campoPotenciaOperante && !isNaN(potenciaOperanteCalculada)) {
-        campoPotenciaOperante.value = potenciaOperanteCalculada.toFixed(2);
-    }
-    if (campoPotenciaMotor && !isNaN(potenciaMotorKva)) {
-        campoPotenciaMotor.value = potenciaMotorKva.toFixed(2);
-    }
-    if (campoCorrenteNominal && !isNaN(correnteNominal)) {
-        campoCorrenteNominal.value = correnteNominal.toFixed(2);
-    }
-    if (campoCorrentePartida && !isNaN(correntePartida)) {
-        campoCorrentePartida.value = correntePartida.toFixed(2);
-    }
-    if (campoTempoPartida && !isNaN(tempoPartida)) {
-        campoTempoPartida.value = tempoPartida.toFixed(2);
-    }
-
-    const motor = {
-        potenciaoperante: campoPotenciaOperante ? campoPotenciaOperante.value : "",
-        potenciamotorkva: campoPotenciaMotor ? campoPotenciaMotor.value : "",
-        correntenominal: campoCorrenteNominal ? campoCorrenteNominal.value : "",
-        correntepartida: campoCorrentePartida ? campoCorrentePartida.value : "",
-        tempopartida: campoTempoPartida ? campoTempoPartida.value : ""
-    };
-    localStorage.setItem("motorJSON", JSON.stringify(motor));
-    atualizarCorrenteTotalPartidaMotor(motoresDetalhados);
-
-    return true;
+    return !!motor;
 }
-
 function configurarTabelaMotoresDetalhada() {
     const tbody = document.getElementById("motor-detalhes-body");
     const botaoAdicionar = document.getElementById("adicionarMotorBtn");
@@ -372,8 +398,19 @@ function configurarTabelaMotoresDetalhada() {
         tbody.appendChild(montarLinhaMotorDetalhado());
     }
 
+    renumerarMotoresTabelaDetalhada();
+
     botaoAdicionar.addEventListener("click", function () {
+        const incompleta = Array.from(tbody.querySelectorAll("tr")).some((linha) =>
+            Array.from(linha.querySelectorAll("input")).some((input) => input.value.trim() === "")
+        );
+        if (incompleta) {
+            alert("Preencha todos os campos da linha atual antes de adicionar um novo motor.");
+            return;
+        }
+
         tbody.appendChild(montarLinhaMotorDetalhado());
+        renumerarMotoresTabelaDetalhada();
         salvarTabelaMotoresDetalhada();
         atualizarCorrenteTotalPartidaMotor();
     });
@@ -394,12 +431,14 @@ function configurarTabelaMotoresDetalhada() {
             linha.querySelectorAll("input").forEach((input) => {
                 input.value = "";
             });
+            renumerarMotoresTabelaDetalhada();
             salvarTabelaMotoresDetalhada();
             atualizarCorrenteTotalPartidaMotor();
             return;
         }
 
         linha.remove();
+        renumerarMotoresTabelaDetalhada();
         salvarTabelaMotoresDetalhada();
         atualizarCorrenteTotalPartidaMotor();
     });
@@ -463,11 +502,11 @@ function salvarOpcao() {
 
 
     // Armazenar informações de input do motor no formato JSON e armazenar no local storage
-    const potenciaOperanteMotor = document.getElementById("potenciaoperantemotorhtml")?.value || 0;
-    const potenciaMotorKva = document.getElementById("potenciamotorkvahtml")?.value || 0;
-    const correntenominalMotor = document.getElementById("correntenominalmotorhtml")?.value || 0;
-    const correntePartidaMotor = document.getElementById("correntepartidamotorhtml")?.value || 0;
-    const tempoPartidaMotor = document.getElementById("tempopartidamotorhtml")?.value || 0;
+    const potenciaOperanteMotor = lerLabelMotorPrincipal("potenciaoperantemotorhtml") || 0;
+    const potenciaMotorKva = lerLabelMotorPrincipal("potenciamotorkvahtml") || 0;
+    const correntenominalMotor = lerLabelMotorPrincipal("correntenominalmotorhtml") || 0;
+    const correntePartidaMotor = lerLabelMotorPrincipal("correntepartidamotorhtml") || 0;
+    const tempoPartidaMotor = lerLabelMotorPrincipal("tempopartidamotorhtml") || 0;
 
 
     // Validação dos campos obrigatórios do motor: se algum dos campos de corrente ou tempo de partida for preenchido, todos devem ser preenchidos
@@ -534,6 +573,64 @@ function configurarAcaoSalvar() {
     }
 }
 
+function configurarBotaoLimparTrafos() {
+    const botaoLimpar = document.getElementById("botaoLimparTrafos");
+    if (!botaoLimpar) {
+        return;
+    }
+
+    botaoLimpar.addEventListener("click", function () {
+        for (let i = 1; i <= 10; i++) {
+            const idsCampos = [
+                `potenciahtml${i}`,
+                `qtdehtml${i}`,
+                `impedanciahtml${i}`,
+                `fatoriminhtml${i}`,
+                `tempotrhtml${i}`
+            ];
+
+            idsCampos.forEach((id) => {
+                const campo = document.getElementById(id);
+                if (campo) {
+                    campo.value = "";
+                }
+            });
+
+            localStorage.setItem(`trafo${i}JSON`, JSON.stringify({
+                potencia: "",
+                qtde: "",
+                z: "",
+                imin: "",
+                tempo: ""
+            }));
+        }
+
+        calcularEArmazenarIntrafoEImag();
+        calculos();
+        calculaimagreal();
+
+        for (let i = 1; i <= 10; i++) {
+            [`intrhtml${i}`, `iansihtml${i}`, `inansihtml${i}`, `imagtrhtml${i}`].forEach((id) => {
+                const resultado = document.getElementById(id);
+                if (resultado) {
+                    resultado.textContent = "";
+                }
+            });
+        }
+
+        ["imagtotal", "imagtotalneutro", "imagrealfase", "imagrealneutro"].forEach((id) => {
+            const resultado = document.getElementById(id);
+            if (resultado) {
+                resultado.textContent = "A";
+            }
+        });
+
+        const tabelaTrafos = document.querySelector(".magnetizacao-table");
+        const primeiroCampo = tabelaTrafos?.querySelector('input[type="number"]');
+        primeiroCampo?.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+}
+
 function aplicarEstadoMagnetizacaoReal(estado) {
     const conteudoMagnetizacaoReal = document.getElementById("magnetizacao-real-conteudo");
     const botaoMagnetizacaoReal = document.getElementById("botaoMagnetizacaoReal");
@@ -572,6 +669,30 @@ function configurarMagnetizacaoRealToggle() {
     });
 }
 
+function configurarExibicaoProgressivaTrafos() {
+    const tabelaTrafos = document.querySelector(".magnetizacao-table");
+    if (!tabelaTrafos) {
+        return;
+    }
+
+    const linhas = Array.from(tabelaTrafos.querySelectorAll("tbody tr"));
+    const atualizarVisibilidade = () => {
+        let linhaAnteriorCompleta = true;
+
+        linhas.forEach((linha) => {
+            linha.hidden = !linhaAnteriorCompleta;
+
+            const campos = Array.from(linha.querySelectorAll('input[type="number"]'));
+            linhaAnteriorCompleta = linhaAnteriorCompleta
+                && campos.length > 0
+                && campos.every((campo) => campo.value.trim() !== "");
+        });
+    };
+
+    tabelaTrafos.addEventListener("input", atualizarVisibilidade);
+    atualizarVisibilidade();
+}
+
 //Carregar nos campos do HTML todos os valores calculados e armazenados no local storage
 window.onload = function () {
     calculaimagreal();
@@ -587,6 +708,7 @@ window.onload = function () {
     configurarNavegacaoHeader();
     configurarAcaoSalvar();
     configurarMagnetizacaoRealToggle();
+    configurarBotaoLimparTrafos();
     configurarTabelaMotoresDetalhada();
     let motorPreenchidoPelaTabela2 = false;
 
@@ -618,6 +740,7 @@ window.onload = function () {
             }
         }
     }
+    configurarExibicaoProgressivaTrafos();
 
     //Manter exibindo as correntes calculadas no HTML
     const correntestrafos = obterJSONStorage("correntestrafosJSON", {});
@@ -679,45 +802,8 @@ window.onload = function () {
 
     //----------------------------------------------------------------------------------------------
 
-    // Exibir valores armazenados do motor no HTML
-    const motorSalvo = obterJSONStorage("motorJSON", null);
-    if (motorSalvo) {
-        if (document.getElementById("potenciaoperantemotorhtml")) {
-            document.getElementById("potenciaoperantemotorhtml").value = motorSalvo.potenciaoperante || "";
-        }
-        if (document.getElementById("potenciamotorkvahtml")) {
-            document.getElementById("potenciamotorkvahtml").value = motorSalvo.potenciamotorkva || "";
-        }
-        if (document.getElementById("correntenominalmotorhtml")) {
-            document.getElementById("correntenominalmotorhtml").value = motorSalvo.correntenominal || "";
-        }
-        if (document.getElementById("correntepartidamotorhtml")) {
-            document.getElementById("correntepartidamotorhtml").value = motorSalvo.correntepartida || "";
-        }
-        if (document.getElementById("tempopartidamotorhtml")) {
-            document.getElementById("tempopartidamotorhtml").value = motorSalvo.tempopartida || "";
-        }
-    }
-
-    // motorPreenchidoPelaTabela2 = preencherMotorPrincipalComTabelaDetalhada(); // Desvinculado
-    // if (!motorPreenchidoPelaTabela2) {
-    aplicarModoManualTabelaMotorPrincipal();
+    // Preenche o motor de maior potência (CV) com os dados da tabela de motores
     atualizarCorrenteTotalPartidaMotor();
-    // }
-
-    [
-        "potenciaoperantemotorhtml",
-        "correntepartidamotorhtml"
-    ].forEach((idCampo) => {
-        const campo = document.getElementById(idCampo);
-        if (!campo) {
-            return;
-        }
-
-        campo.addEventListener("input", function () {
-            atualizarCorrenteTotalPartidaMotor();
-        });
-    });
 
     //console.log("corrente que esta no lstorage",correnteoperantearmazenada);
 
@@ -898,6 +984,11 @@ function calculos() {
         somaPotenciaTotal += qtdeArray[i] * (parseFloat(trafoSalvo?.potencia) || 0);
     }
     localStorage.setItem("potenciatotaltrafos", somaPotenciaTotal);
+
+    const labelPotenciaTotalTrafos = document.getElementById("potenciatotaltrafoshtml");
+    if (labelPotenciaTotalTrafos) {
+        labelPotenciaTotalTrafos.textContent = somaPotenciaTotal + " kVA";
+    }
 
     // Calcula a magnetização total: maior Imag + soma das In dos demais trafos
     imagtotalformatada = maiorImag + somaInTotal;

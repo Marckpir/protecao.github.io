@@ -38,7 +38,7 @@ button:hover {
 #calculostc,
 #criteriocalculotcimpedancia,
 #especificacaodotc,
-#dimensionamentotpprotecao,
+.dimensionamentotpprotecao,
 .calculosfuncoes,
 #calculogeradordiesel,
 #tabelaresumofuncoes,
@@ -153,7 +153,7 @@ h1.loaded {
 
 .estudos-selo-h400-top {
     height: 400px;
-    vertical-align: top;
+    vertical-align: top !important;
 }
 
 .estudos-input-w90 {
@@ -767,6 +767,10 @@ h1.loaded {
     text-align: left;
 }
 
+body[data-user-role="usuario"] #criteriocalculotcimpedancia {
+    display: none !important;
+}
+
 /* ----------------------------------------------------- */
 /* estilização do especificacao do tc */
 
@@ -787,7 +791,7 @@ h1.loaded {
 /* ----------------------------------------------------- */
 /* estilização do dimensionamento tp proteção */
 
-#dimensionamentotpprotecao {
+.dimensionamentotpprotecao {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.05em;
     background: #f4f6fa;
@@ -1168,7 +1172,7 @@ textarea {
     #calculostc,
     #criteriocalculotcimpedancia,
     #especificacaodotc,
-    #dimensionamentotpprotecao,
+    .dimensionamentotpprotecao,
     .calculosfuncoes,
     #calculogeradordiesel,
     #tabelaresumofuncoes {
@@ -1479,7 +1483,7 @@ textarea {
     #calculostc,
     #criteriocalculotcimpedancia,
     #especificacaodotc,
-    #dimensionamentotpprotecao,
+    .dimensionamentotpprotecao,
     .calculosfuncoes,
     #calculogeradordiesel,
     #tabelaresumofuncoes,

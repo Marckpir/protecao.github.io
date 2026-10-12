@@ -23,6 +23,7 @@
             // Admin tem acesso a todos os botões
             permitidos: [
                 'botaoconfightml',      // CONFIGURAÇÕES
+                'botaoformulariohtml',  // FORMULÁRIO
                 'botaodiagramahtml',    // DIAGRAMAS
                 'botaoparametrohtml',   // PARÂMETROS
                 'botaotrafohtml',       // TRAFOS
@@ -40,6 +41,7 @@
         tecnico: {
             // Técnico tem acesso a todos os botões EXCETO CONFIGURAÇÕES
             permitidos: [
+                'botaoformulariohtml',  // FORMULÁRIO
                 'botaodiagramahtml',    // DIAGRAMAS
                 'botaoparametrohtml',   // PARÂMETROS
                 'botaotrafohtml',       // TRAFOS
@@ -55,8 +57,10 @@
             ]
         },
         usuario: {
-            // Usuário tem acesso a: PARÂMETROS, TRAFOS, TP/TC, AJUSTES, TABELA, ESTUDOS
+            // Usuário tem acesso a: DIAGRAMAS, PARÂMETROS, TRAFOS, TP/TC, AJUSTES, TABELA, ESTUDOS
             permitidos: [
+                'botaoformulariohtml',  // FORMULÁRIO
+                'botaodiagramahtml',    // DIAGRAMAS
                 'botaoparametrohtml',   // PARÂMETROS
                 'botaotrafohtml',       // TRAFOS
                 'botaotptchtml',        // TP/TC
@@ -82,7 +86,7 @@
         // Adiciona classe de categoria ao body para controle via CSS
         document.body.setAttribute('data-user-role', categoriaNormalizada);
 
-        // Se a categoria não existe nas permissões, trata como usuário comum
+        // Mantém a navegação da página de formulário sujeita às permissões da categoria.
         const botoesPermitidos = permissoes[categoriaNormalizada]?.permitidos || permissoes.usuario.permitidos;
 
         console.log('Botões permitidos:', botoesPermitidos);
@@ -90,6 +94,7 @@
         // Lista de todos os botões possíveis
         const todosOsBotoes = [
             'botaoconfightml',
+            'botaoformulariohtml',
             'botaodiagramahtml',
             'botaoparametrohtml',
             'botaotrafohtml',
@@ -158,13 +163,42 @@
         });
     }
 
+    function configurarBotaoFormulario() {
+        const botaoConfiguracoes = document.getElementById('botaoconfightml');
+        const header = botaoConfiguracoes?.parentElement;
+        const botaoFormularioExistente = document.getElementById('botaoformulariohtml');
+        if (botaoFormularioExistente) {
+            if (window.location.pathname.toLowerCase().endsWith('/formulario.html')) {
+                botaoFormularioExistente.classList.add('nav-active');
+            }
+            return;
+        }
+
+        if (!botaoConfiguracoes || !header) {
+            return;
+        }
+
+        const botaoFormulario = document.createElement('button');
+        botaoFormulario.id = 'botaoformulariohtml';
+        botaoFormulario.className = 'dark-mode-toggle';
+        botaoFormulario.type = 'button';
+        botaoFormulario.textContent = 'FORMULÁRIO';
+        botaoFormulario.dataset.navTarget = 'formulario.html';
+        if (window.location.pathname.toLowerCase().endsWith('/formulario.html')) {
+            botaoFormulario.classList.add('nav-active');
+        }
+        botaoConfiguracoes.insertAdjacentElement('afterend', botaoFormulario);
+    }
+
     // Executa quando o DOM estiver pronto
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
+            configurarBotaoFormulario();
             configurarNavegacaoHeader();
             aplicarPermissoes();
         });
     } else {
+        configurarBotaoFormulario();
         configurarNavegacaoHeader();
         aplicarPermissoes();
     }
