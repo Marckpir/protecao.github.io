@@ -1,0 +1,51 @@
+Read , lines 360 to 430
+Completed with input: {
+  "path": "c:\\Users\\c057514\\OneDrive - CEMIG\\OTIMIZAÇÕES E MELHORIAS\\PROGRAMACAO_HTML\\coordination_web\\TP-TC.js",
+  "view_range": [
+    360,
+    430
+  ]
+}
+
+Read , lines 430 to 520
+Completed with input: {
+  "path": "c:\\Users\\c057514\\OneDrive - CEMIG\\OTIMIZAÇÕES E MELHORIAS\\PROGRAMACAO_HTML\\coordination_web\\TP-TC.js",
+  "view_range": [
+    430,
+    520
+  ]
+}
+
+Sem alterar nada, o resultado difere porque o cálculo em **TP-TC.js** é diferente do que o texto de **estudos.html** descreve. Dois pontos explicam a diferença.
+
+**1. A soma das impedâncias é vetorial (R e X), não aritmética.**
+
+Em `TP-TC.js` (~linha 449):
+
+```
+Ztotal = (1 × relacaoXRCurto) + √[ (Zcondutor + Zrelé + R_TC)² + (X_TC)² ]
+```
+
+- `R_TC` é a resistência do TC (tabela por potência nominal) × 0,20.
+- `X_TC` é a reatância do TC × 0,20.
+- Com TC 12,5 VA, `R_TC` = 0,45 × 0,2 = 0,09 e `X_TC` = 0,218 × 0,2 = 0,0436.
+
+Na prática, o cálculo fica assim:
+
+- Zcondutor + Zrelé + R_TC = 0,02016 + 0,032 + 0,09 = 0,14216.
+- Ztotal = √(0,14216² + 0,0436²) ≈ **0,1487 Ω**, mais o termo `1 × relacaoXRCurto` (em `localStorage`, vale 0 se não existir).
+- Vsat = 45,90 × 0,1487 ≈ **6,8 V**, mais 45,9 × `relacaoXRCurto`, se houver.
+
+**2. A estudos.html assume números diferentes.**
+
+O texto usa ZTC = 0,20 × 1 Ω = 0,20 Ω, uma "impedância estimada de 1 Ω", e soma tudo de forma simples (0,25216 Ω → 11,57 V). O JS não usa esse 1 Ω; usa R e X da tabela do TC.
+
+**Conclusão:** o código do JS é o cálculo "oficial", e o texto de `estudos.html` está desatualizado em relação a ele. O texto precisa mostrar:
+
+- a soma vetorial;
+- R e X do TC;
+- o termo de X/R.
+
+Ou o JS pode ser alterado para seguir o texto.
+
+Os valores exatos de `relacaoXRCurto`, `potenciaNominalTC` e `curtoSelecionada` estão no `localStorage` e podem alterar o número final. Se quiser, ajusto o texto de `estudos.html` para refletir o cálculo do JS.
