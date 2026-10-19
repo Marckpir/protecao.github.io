@@ -35,13 +35,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    const campoData = document.getElementById("dataProjeto");
-    if (campoData && !campoData.value) {
+    function obterDataAtualFormatada() {
         const hoje = new Date();
         const ano = hoje.getFullYear();
         const mes = String(hoje.getMonth() + 1).padStart(2, "0");
         const dia = String(hoje.getDate()).padStart(2, "0");
-        campoData.value = `${ano}-${mes}-${dia}`;
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    const campoData = document.getElementById("dataProjeto");
+    if (campoData) {
+        campoData.value = obterDataAtualFormatada();
     }
 
     function salvarDadosFormulario() {
@@ -61,6 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     campo.value = "";
                 }
             });
+            if (campoData) {
+                campoData.value = obterDataAtualFormatada();
+            }
             salvarDadosFormulario();
         });
     }

@@ -173,7 +173,7 @@ window.addEventListener('load', function () {
 
     // exibir os resultados nas labels correspondentes
 
-    const especificacaoTClabel = especificacaoTC ? especificacaoTC : "12.5VA10P20";
+    const especificacaoTClabel = especificacaoTC ? especificacaoTC : "12.5VA 10P20";
 
     const especificacaoCondutor = comprimentoCondutorTC ? comprimentoCondutorTC + " m" : "3 m";
     const especificacaoBitola = bitolaCondutorTC ? bitolaCondutorTC + " mm²" : "2.5 mm²";
@@ -190,17 +190,15 @@ window.addEventListener('load', function () {
     const especificacaoImpedanciaTotalDoTrechoValor = localStorage.getItem("impedanciatotaldotrecho");
     const especificacaoImpedanciaTotalDoTrecho = especificacaoImpedanciaTotalDoTrechoValor ? especificacaoImpedanciaTotalDoTrechoValor + ' Ω' : '';
 
-    const especificacaoTensaoSaturacaonominalValor = localStorage.getItem("tensaoSaturacaotrecho");
+    // Correção NBR 6856:2021: tensaoSaturacaoTC é a tensão nominal suportada (Eal), tensaoSaturacaotrecho é a calculada exigida (Ereq)
+    const especificacaoTensaoSaturacaonominalValor = localStorage.getItem("tensaoSaturacaoTC");
     const especificacaoTensaoSaturacaonominal = especificacaoTensaoSaturacaonominalValor ? especificacaoTensaoSaturacaonominalValor + ' V' : '';
 
-    const tensaoSaturacaoCalculadaTCValor = localStorage.getItem("tensaoSaturacaoTC");
+    const tensaoSaturacaoCalculadaTCValor = localStorage.getItem("tensaoSaturacaotrecho");
     const tensaoSaturacaoCalculadaTC = tensaoSaturacaoCalculadaTCValor ? tensaoSaturacaoCalculadaTCValor + ' V' : '';
 
-
-
-
-
-
+    const alfRealTCValor = localStorage.getItem("alfRealTC");
+    const alfRealTC = alfRealTCValor ? alfRealTCValor : '';
 
     document.getElementById("label-especificacao-norma-nova-html").textContent = especificacaoTClabel;
 
@@ -218,6 +216,11 @@ window.addEventListener('load', function () {
     document.getElementById("label-tensao-saturacao-nominal-html").textContent = especificacaoTensaoSaturacaonominal;
 
     document.getElementById("label-tensao-saturacao-calculada-TC-html").textContent = tensaoSaturacaoCalculadaTC;
+
+    const labelAlfReal = document.getElementById("label-alf-real-tc-html");
+    if (labelAlfReal) {
+        labelAlfReal.textContent = alfRealTC;
+    }
 
 
     //especificação nos labels das grandezas calculadas
@@ -353,12 +356,6 @@ window.addEventListener('load', function () {
 
 
 function calcularSaturacaotensaoTC() {
-
-
-
-
-
-
     const TCselecionadoBruto = parseFloat(localStorage.getItem("TCdeprotecaoSelecionada"));
     const TCselecionado = Number.isFinite(TCselecionadoBruto) && TCselecionadoBruto > 0 ? (TCselecionadoBruto / 5) : 0;
     const curtoSelecionada = parseFloat(localStorage.getItem("curtoSelecionada")) || 0;
@@ -366,149 +363,107 @@ function calcularSaturacaotensaoTC() {
     const erroSaturacaoTC = parseFloat(localStorage.getItem("erroSaturacaoTC")) || 10;
     const fatorMultiplicidadeTC = parseFloat(localStorage.getItem("fatorMultiplicidadeTC")) || 20;
 
-
-
     const comprimentoCondutorTC = parseFloat(localStorage.getItem("comprimentoCondutorTC")) || 3;
     const bitolaCondutorTC = parseFloat(localStorage.getItem("bitolaCondutorTC")) || 2.5;
     const resistividadeCondutorTC = parseFloat(localStorage.getItem("resistividadeCondutorTC")) || 6.72;
-    // const percentualBurdenTC = parseFloat(localStorage.getItem("percentualBurdenTC")) || 100;
     const potenciabobinaRele = parseFloat(localStorage.getItem("potenciabobinaRele")) || 0.2;
     const relacaoXRCurto = parseFloat(localStorage.getItem("relacaoXRCurto")) || 0;
 
-    console.log("TC selecionado:", TCselecionado);
+    console.log("TC selecionado (RTC):", TCselecionado);
 
     let impedanciadocondutor = 0;
     let impedanciadorele = 0;
     let impedanciatotaldotrecho = 0;
-
     let impedanciaburdendoTC = 0;
-    // let zburdendoTC = 0
-    let statusdasaturacaotc = 0;
+    let statusdasaturacaotc = 'nao';
 
-    //calcular impedancia do rele, se não houver valor calcula com valores padrões
-    impedanciadorele = potenciabobinaRele / Math.pow(5, 2) + 3 * (potenciabobinaRele / Math.pow(5, 2));
+    // 1. Impedância da bobina do relé para curto trifásico (bobina de fase: S / In^2, com In = 5 A)
+    // Conforme ABNT NBR 6856:2021, em falta trifásica equilibrada a corrente de neutro é nula
+    impedanciadorele = potenciabobinaRele / Math.pow(5, 2);
+    console.log("Impedância do relé:", impedanciadorele.toFixed(5), "Ω");
 
-    console.log("Impedância do rele:", impedanciadorele.toFixed(5), "Ω");
-
-    //Calcular a impedancia dos condutores, se não houver valor calcula com valores padrões
-    impedanciadocondutor = (((resistividadeCondutorTC / 1000) * (comprimentoCondutorTC * 2)));
-
+    // 2. Impedância dos condutores (TC ao relé)
+    // Se a bitola for informada e válida (> 0), calcula pela resistividade do cobre a 75°C (rho = 0.021 Ω*mm²/m)
+    // considerando loop de ida e retorno (fator 2) para conservadorismo e faltas com retorno:
+    if (bitolaCondutorTC > 0) {
+        const rhoCobre75C = 0.021; // Ω*mm²/m a 75°C conforme NBR
+        impedanciadocondutor = (rhoCobre75C * comprimentoCondutorTC * 2) / bitolaCondutorTC;
+    } else {
+        // Fallback usando resistência linear (Ω/km) se bitola não informada
+        impedanciadocondutor = ((resistividadeCondutorTC / 1000) * (comprimentoCondutorTC * 2));
+    }
     console.log("Impedância do Condutor:", impedanciadocondutor.toFixed(5), "Ω");
 
+    // 3. Resistência interna do enrolamento secundário do TC (Rct)
+    // Conforme ABNT NBR 6856:2021 / IEC 61869-2, TCs de proteção classe P possuem dispersão desprezível (Xs ≈ 0).
+    // Adota-se valor típico de ensaio/catálogo para TC de proteção de 5 A: Rct = 0.50 Ω
+    const resistenciaInternaTC = 0.50; // Ω (Rct a 75°C)
+    console.log("Resistência interna do TC (Rct):", resistenciaInternaTC.toFixed(5), "Ω");
 
-    //calcular a reatancia indutiva do TC e resistencia 
-
-    let resistenciaTC = 0.45;
-    let reatanciaIndutivaTC = 0.218;
-
-    // Tabela de valores de potência aparente, resistência e reatância indutiva
-    const tabelaTC = [
-        { potencia: 2.5, resistencia: 0.09, reatancia: 0.044 },
-        { potencia: 5, resistencia: 0.18, reatancia: 0.087 },
-        { potencia: 12.5, resistencia: 0.45, reatancia: 0.218 },
-        { potencia: 22.5, resistencia: 0.81, reatancia: 0.392 },
-        { potencia: 45, resistencia: 1.62, reatancia: 0.785 },
-        { potencia: 90, resistencia: 3.24, reatancia: 1.569 }
-    ];
-
-    // Encontrar o valor mais próximo ou igual de potência aparente na tabela
-    let potenciaSelecionada = potenciaNominalTC;
-    let itemTabela = tabelaTC.find(item => item.potencia === potenciaSelecionada);
-
-    // Se não encontrar exatamente, pega o menor valor maior ou igual
-    if (!itemTabela) {
-        itemTabela = tabelaTC.find(item => item.potencia >= potenciaSelecionada);
-    }
-
-    // Se ainda não encontrar, pega o maior valor disponível
-    if (!itemTabela) {
-        itemTabela = tabelaTC[tabelaTC.length - 1];
-    }
-    resistenciaTC = itemTabela.resistencia;
-    reatanciaIndutivaTC = itemTabela.reatancia;
-
-
-
-    const resistenciaTCamortecida = resistenciaTC * 0.20;
-    const reatanciaIndutivaTCamortecida = reatanciaIndutivaTC * 0.20;
-
-
-    console.log("Resistência TC:", resistenciaTCamortecida.toFixed(5), "Ω");
-    console.log("Reatância Indutiva TC:", reatanciaIndutivaTCamortecida.toFixed(5), "Ω");
-
-
-
-
-    // Calcular a impedância total do trecho
-
-    impedanciatotaldotrecho = (1 * relacaoXRCurto) + Math.sqrt(Math.pow(impedanciadocondutor + impedanciadorele + resistenciaTCamortecida, 2) + Math.pow(reatanciaIndutivaTCamortecida, 2));
+    // 4. Carga externa conectada (Z_b_real) e Impedância Total do circuito secundário
+    const cargaConectadaReal = impedanciadocondutor + impedanciadorele;
+    impedanciatotaldotrecho = resistenciaInternaTC + cargaConectadaReal;
     localStorage.setItem("impedanciatotaldotrecho", impedanciatotaldotrecho.toFixed(5));
+    console.log("Impedância Total do circuito secundário (Rct + Zfiação + Zrelé):", impedanciatotaldotrecho.toFixed(5), "Ω");
 
-    console.log("Impedância Total do trecho:", impedanciatotaldotrecho.toFixed(5), "Ω");
-
-
-
-    // Calcular a impedância Z burden do TC
-
-    impedanciaburdendoTC = (potenciaNominalTC / Math.pow(5, 2));
+    // 5. Carga nominal padronizada (Z burden nominal do TC) conforme NBR 6856:2021
+    impedanciaburdendoTC = potenciaNominalTC / Math.pow(5, 2);
     localStorage.setItem("impedanciaburdendoTC", impedanciaburdendoTC.toFixed(5));
+    console.log("Impedância do Burden Nominal do TC:", impedanciaburdendoTC.toFixed(5), "Ω");
 
-    console.log("Impedância do Burden do TC:", impedanciaburdendoTC.toFixed(5), "Ω");
+    // 6. Tensão limite de saturação nominal suportada pelo TC (Eal / V_sat_nom)
+    // Conforme ABNT NBR 6856:2021 / IEC 61869-2:
+    // Eal = ALF * Isn * (Rct + Zb_nom)
+    const tensaoSaturacaoNominalSuportada = fatorMultiplicidadeTC * 5 * (resistenciaInternaTC + impedanciaburdendoTC);
+    localStorage.setItem("tensaoSaturacaoTC", tensaoSaturacaoNominalSuportada.toFixed(2));
+    console.log("Tensão de saturação nominal suportada pelo TC (Eal):", tensaoSaturacaoNominalSuportada.toFixed(2), "V");
 
-
-    // console.log("Impedância do Burden do TC:", impedanciaburdenTC.toFixed(5), "Ω");
-    const tensaoSaturacaoTC = 5 * fatorMultiplicidadeTC * potenciaNominalTC / Math.pow(5, 2);
-    localStorage.setItem("tensaoSaturacaoTC", tensaoSaturacaoTC.toFixed(2));
-
-
-
-    console.log("Tensão de saturação burden (TC):", tensaoSaturacaoTC.toFixed(2), "V");
-
-
-
-
-    // Calcular a ICC refeltida no secundario do TC
+    // 7. Corrente de curto-circuito refletida no secundário do TC (Icc_sec)
     let iccrefletida = 0;
     if (!isNaN(curtoSelecionada) && !isNaN(TCselecionado) && TCselecionado > 0) {
         iccrefletida = curtoSelecionada / TCselecionado;
     }
+    console.log("Corrente de curto refletida no secundário do TC:", iccrefletida.toFixed(2), "A");
 
-    console.log("Corrente de curto refeltida no secundário do TC:", iccrefletida.toFixed(2), "A");
+    // 8. Tensão de saturação calculada / exigida pela falta (Ereq / V_sat_calc)
+    // Tensão em regime permanente simétrico: Ereq_sim = Icc_sec * Ztotal
+    let tensaoSaturacaoCalculada = iccrefletida * impedanciatotaldotrecho;
 
+    // Se houver relação X/R, aplicar o fator de sobredimensionamento transitório (1 + X/R)
+    // para garantir a não saturação na presença de componente CC aperiódica (fator de assimetria / IEEE C37.110)
+    if (!isNaN(relacaoXRCurto) && relacaoXRCurto > 0) {
+        tensaoSaturacaoCalculada = tensaoSaturacaoCalculada * (1 + relacaoXRCurto);
+        console.log("Fator transitório aplicado (1 + X/R):", (1 + relacaoXRCurto).toFixed(2));
+    }
+    localStorage.setItem("tensaoSaturacaotrecho", tensaoSaturacaoCalculada.toFixed(2));
+    console.log("Tensão de saturação calculada exigida:", tensaoSaturacaoCalculada.toFixed(2), "V");
 
-    // Calcular a tensão de saturação do TC
-    let tensaoSaturacaotrecho = 0;
+    // 9. Fator Limite de Exatidão Operacional Real (ALF_real) conforme NBR 6856:2021:
+    // ALF_real = ALF_nom * (Rct + Zb_nom) / (Rct + Zb_real)
+    const alfReal = fatorMultiplicidadeTC * ((resistenciaInternaTC + impedanciaburdendoTC) / (resistenciaInternaTC + cargaConectadaReal));
+    localStorage.setItem("alfRealTC", alfReal.toFixed(2));
+    console.log("Fator Limite de Exatidão Real (ALF_real):", alfReal.toFixed(2));
 
-    tensaoSaturacaotrecho = iccrefletida * impedanciatotaldotrecho;
-
-    localStorage.setItem("tensaoSaturacaotrecho", tensaoSaturacaotrecho.toFixed(2));
-
-
-    console.log("Tensão de saturação do trecho:", tensaoSaturacaotrecho.toFixed(2), "V");
-
-    // Comparar tensao de saturação burden com a calculada e dizer se a calculada é menor caso houver valor
-
-
-    if (!isNaN(tensaoSaturacaotrecho) && !isNaN(tensaoSaturacaoTC)) {
-        if (tensaoSaturacaotrecho > tensaoSaturacaoTC) {
+    // 10. Comparação e critério de não saturação:
+    // O TC NÃO satura se a tensão suportada (Eal) for maior ou igual à exigida (Ereq)
+    if (!isNaN(tensaoSaturacaoCalculada) && !isNaN(tensaoSaturacaoNominalSuportada)) {
+        if (tensaoSaturacaoCalculada > tensaoSaturacaoNominalSuportada) {
             statusdasaturacaotc = 'sim';
-            console.log("A tensão de saturação calculada é maior que a nominal.");
+            console.log("A tensão calculada exigida é maior que a nominal suportada: TC IRÁ SATURAR.");
         } else {
             statusdasaturacaotc = 'nao';
-            console.log("A tensão de saturação calculada é menor que a nominal.");
+            console.log("A tensão calculada exigida é menor ou igual à nominal suportada: TC NÃO IRÁ SATURAR.");
         }
     }
-
-    // Exibir o status da saturação do TC no console
-    console.log("Status da saturação do TC:", statusdasaturacaotc);
     localStorage.setItem("statusdasaturacaotc", statusdasaturacaotc);
 
-    // Exportar TC com nomenclatura de norma antiga
-    const especificacaoantiga = erroSaturacaoTC + 'B' + tensaoSaturacaoTC;
-    console.log("Especificação antiga:", especificacaoantiga);
+    // 11. Nomenclatura norma antiga equivalente (ABNT NBR 6856:1992):
+    // Na norma antiga, a classe B indicava a tensão terminal máxima com 20 x In e carga nominal:
+    // V_terminal_nom = ALF * In * Zb_nom
+    const tensaoTerminalNormaAntiga = Math.round(fatorMultiplicidadeTC * 5 * impedanciaburdendoTC);
+    const especificacaoantiga = erroSaturacaoTC + 'B' + tensaoTerminalNormaAntiga;
+    console.log("Especificação antiga equivalente:", especificacaoantiga);
     localStorage.setItem("EspecificacaoNormaAntigaTC", especificacaoantiga);
-
-
 }
 
 
@@ -558,7 +513,7 @@ function salvarOpcao() {
     localStorage.setItem("fatorMultiplicidadeTC", fatorMultiplicidadeTC);
     console.log("fatorMultiplicidadeTC exportada:", fatorMultiplicidadeTC);
 
-    const especificacaoTC = potenciaNominalTC + erroSaturacaoTC + 'P' + fatorMultiplicidadeTC;
+    const especificacaoTC = potenciaNominalTC + ' ' + erroSaturacaoTC + 'P' + fatorMultiplicidadeTC;
     console.log("especificacaoTC exportada:", especificacaoTC);
 
     if (potenciaNominalTC && erroSaturacaoTC && fatorMultiplicidadeTC) {

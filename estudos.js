@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderizarCalculoDialMotores();
 
     exibirCalculoMotoresSeTabelaPreenchida();
+    renderizarSumarioEstudo();
 
        //incluirimagensrele();
     // Recarregar a página após salvar as opções
@@ -436,10 +437,14 @@ function configurarQuebrasDinamicasImpressao() {
 
     const aplicarQuebras = () => {
         atualizarQuebrasTitulosNaImpressao();
+        ajustarTextareasParaImpressao();
+        renderizarSumarioEstudo();
     };
 
     const limparQuebras = () => {
         limparQuebrasTitulosNaImpressao();
+        restaurarTextareasAposImpressao();
+        renderizarSumarioEstudo();
     };
 
     window.addEventListener('beforeprint', aplicarQuebras);
@@ -463,6 +468,208 @@ function configurarQuebrasDinamicasImpressao() {
     }
 }
 
+function calcularPaginaTopico(titulo, temDiagrama) {
+    const texto = titulo.textContent.trim().replace(/\s+/g, ' ');
+    const id = titulo.id || '';
+    const deslocamento = temDiagrama ? 0 : -1;
+
+    // 1. Diagrama Unifilar
+    if (titulo.closest('#bloco-diagrama-unifilar') || id === 'titulo-diagrama-unifilar' || texto.includes('Diagrama Unifilar')) {
+        return 4;
+    }
+
+    // 2. Justificativa e Informações da Conexão
+    if (
+        titulo.closest('#titulo-justificativa-apresentacao') ||
+        id === 'titulo-justificativa-apresentacao' ||
+        texto.includes('Justificativa de apresentação') ||
+        texto.includes('Informações da Conexão')
+    ) {
+        return 3;
+    }
+
+    // 3. Cálculos de Transformadores (Nominais e ANSI/NANSI)
+    if (
+        texto.includes('Correntes Nominais dos Transformadores') ||
+        texto.includes('Correntes ANSI e NANSI') ||
+        id === 'titulo-calculo-trafos'
+    ) {
+        return 5 + deslocamento;
+    }
+
+    // 4. Tabela de Transformadores e Corrente de Magnetização
+    if (
+        texto.includes('Tabela Transformadores') ||
+        texto.includes('Magnetização') ||
+        id === 'titulo-tabela-trafos' ||
+        id === 'titulo-calculomagnetizacaoreal'
+    ) {
+        return 6 + deslocamento;
+    }
+
+    // 5. Dimensionamento de TCs e TPs de Proteção, Saturação e Nobreak
+    if (
+        texto.includes('Critérios para dimensionamento') ||
+        texto.includes('tensão de saturação') ||
+        texto.includes('Dimensionamento TC') ||
+        texto.includes('Dimensionamento TP') ||
+        texto.includes('Dimensionamento NOBREAK') ||
+        id === 'titulo-tc-protecao'
+    ) {
+        return 7 + deslocamento;
+    }
+
+    // 6. Curvas de Fase e Cargas Especiais (Motores)
+    if (
+        texto.includes('Curvas de Fase') ||
+        texto.includes('Cargas especiais') ||
+        texto.includes('Motores') ||
+        texto.includes('Função 51') ||
+        texto.includes('Função 50') ||
+        id === 'titulo-curvas-fase'
+    ) {
+        return 8 + deslocamento;
+    }
+
+    // 7. Curvas de Neutro, Gerador Diesel e Resumo de Parâmetros
+    if (
+        texto.includes('Curvas de Neutro') ||
+        texto.includes('51 N') ||
+        texto.includes('50N') ||
+        texto.includes('Gerador Diesel') ||
+        texto.includes('Resumo de Parâmetros') ||
+        id === 'titulo-curvas-neutro'
+    ) {
+        return 9 + deslocamento;
+    }
+
+    // 8. Parâmetros do Relé de Proteção
+    if (
+        texto.includes('Parâmetros do Relé') ||
+        id === 'tituloreles'
+    ) {
+        return 10 + deslocamento;
+    }
+
+    // 9. Plotagem da Curva de Proteção (Coordenograma)
+    if (
+        texto.includes('Plotagem Curva') ||
+        texto.includes('Coordenograma') ||
+        id === 'titulo-curva-protecao'
+    ) {
+        return 11 + deslocamento;
+    }
+
+    // 10. Notas Obrigatórias e Termo de Responsabilidade
+    if (
+        texto.includes('NOTAS OBRIGATÓRIAS') ||
+        texto.includes('TERMO DE RESPONSABILIDADE') ||
+        id === 'titulo-notas-obrigatorias'
+    ) {
+        return 12 + deslocamento;
+    }
+
+    return 3;
+}
+
+function renderizarSumarioEstudo() {
+    const sumario = document.getElementById('sumariotexto');
+    if (!sumario) {
+        return;
+    }
+
+    // Verifica se o diagrama unifilar está presente e visível
+    const diagramaBox = document.getElementById('diagramaunifilar');
+    const galeria = document.getElementById('gallery');
+    const temDiagrama = Boolean(
+        diagramaBox &&
+        diagramaBox.style.display !== 'none' &&
+        galeria &&
+        galeria.querySelector('img')
+    );
+
+    const titulos = Array.from(document.querySelectorAll('.estudos-title-block h2, .calculosfuncoes h3, .exibircalculomotores h3')).filter((titulo) => {
+        // Deve estar após o sumário no documento
+        if (!(sumario.compareDocumentPosition(titulo) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+            return false;
+        }
+
+        // Verifica visibilidade de elemento e de seus ancestrais
+        let elemento = titulo;
+        while (elemento && elemento !== document.body) {
+            const estilo = window.getComputedStyle(elemento);
+            if (estilo.display === 'none' || estilo.visibility === 'hidden') {
+                return false;
+            }
+            elemento = elemento.parentElement;
+        }
+
+        const texto = titulo.textContent.trim().replace(/\s+/g, ' ');
+        if (!texto) {
+            return false;
+        }
+
+        // Exclui subtítulos que são apenas etapas de fórmula ou cálculos internos
+        if (
+            texto.startsWith('Conversão para P.U') ||
+            texto.startsWith('Fórmula:') ||
+            texto.startsWith('Calculo do dial:') ||
+            texto.startsWith('Parâmetros Considerados') ||
+            texto.includes('Curto-Circuito Trifásico no Primário') ||
+            texto.startsWith('Impedância do Relé') ||
+            texto.startsWith('Impedância dos Condutores') ||
+            texto.startsWith('Impedância do TC') ||
+            texto.startsWith('Impedância Total') ||
+            texto.startsWith('Cálculo da Tensão de Saturação')
+        ) {
+            return false;
+        }
+
+        return true;
+    });
+
+    sumario.replaceChildren();
+
+    titulos.forEach((titulo, indice) => {
+        if (!titulo.id) {
+            titulo.id = `estudos-sumario-topico-${indice + 1}`;
+        }
+
+        const item = document.createElement('div');
+        const ehSubitem = titulo.tagName === 'H3';
+        item.className = `estudos-sumario-item${ehSubitem ? ' estudos-sumario-subitem' : ''}`;
+
+        const link = document.createElement('a');
+        link.href = `#${titulo.id}`;
+        link.textContent = titulo.textContent.trim().replace(/\s+/g, ' ');
+
+        const pontilhado = document.createElement('span');
+        pontilhado.className = 'estudos-sumario-pontilhado';
+        pontilhado.setAttribute('aria-hidden', 'true');
+
+        const pagina = document.createElement('span');
+        pagina.className = 'estudos-sumario-pagina';
+        pagina.textContent = String(calcularPaginaTopico(titulo, temDiagrama));
+
+        item.append(link, pontilhado, pagina);
+        sumario.appendChild(item);
+    });
+}
+
+function ajustarTextareasParaImpressao() {
+    document.querySelectorAll('textarea').forEach((ta) => {
+        ta.dataset.originalHeight = ta.style.height || '';
+        ta.style.height = 'auto';
+        ta.style.height = (ta.scrollHeight + 8) + 'px';
+    });
+}
+
+function restaurarTextareasAposImpressao() {
+    document.querySelectorAll('textarea').forEach((ta) => {
+        ta.style.height = ta.dataset.originalHeight || '';
+    });
+}
+
 function limparQuebrasTitulosNaImpressao() {
     document.querySelectorAll('.estudos-title-force-break-print').forEach((el) => {
         el.classList.remove('estudos-title-force-break-print');
@@ -471,17 +678,40 @@ function limparQuebrasTitulosNaImpressao() {
 
 function atualizarQuebrasTitulosNaImpressao() {
     limparQuebrasTitulosNaImpressao();
+    aplicarVisibilidadeMagnetizacaoReal();
 
-    const titulos = Array.from(document.querySelectorAll('.estudos-title-block'));
-    if (titulos.length < 4) {
-        return;
-    }
+    // Seções principais que devem iniciar em nova página de forma lógica:
+    const idsQuebraPagina = [
+        'tituloestudodeprotecao',
+        'titulo-justificativa-apresentacao',
+        'titulo-diagrama-unifilar',
+        'titulo-calculo-trafos',
+        'titulo-tabela-trafos',
+        'titulo-tc-protecao',
+        'titulo-curvas-fase',
+        'titulo-curvas-neutro',
+        'tituloreles',
+        'titulo-curva-protecao',
+        'titulo-notas-obrigatorias'
+    ];
 
-    titulos.forEach((titulo, indice) => {
-        if (indice >= 3) {
-            titulo.classList.add('estudos-title-force-break-print');
+    idsQuebraPagina.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.style.display !== 'none' && el.offsetParent !== null) {
+            el.classList.add('estudos-title-force-break-print');
         }
     });
+
+    // Se o diagrama unifilar estiver ausente ou oculto, iniciar a página no cálculo dos trafos
+    const diagramaBox = document.getElementById('diagramaunifilar');
+    const galeria = document.getElementById('gallery');
+    const semDiagrama = !diagramaBox || diagramaBox.style.display === 'none' || !galeria || !galeria.querySelector('img');
+    if (semDiagrama) {
+        const tituloTrafos = document.getElementById('titulo-calculo-trafos');
+        if (tituloTrafos) {
+            tituloTrafos.classList.add('estudos-title-force-break-print');
+        }
+    }
 }
 
 function obterPrimeiroBlocoAposTitulo(titulo, proximoTitulo) {
@@ -1853,17 +2083,22 @@ function adicionarEstilosTabelaParametrizacaoReles() {
 }
 
 function aplicarVisibilidadeMagnetizacaoReal() {
+    const blocoMagnetizacaoReal = document.getElementById('bloco-magnetizacao-real');
     const tituloMagnetizacaoReal = document.getElementById('titulo-calculomagnetizacaoreal');
     const calculoMagnetizacaoReal = document.getElementById('calculomagnetizacaoreal');
     const magnetizacaoReal = localStorage.getItem('magnetizacaoreal');
     const exibirMagnetizacaoReal = magnetizacaoReal === 'ligado';
 
-    if (tituloMagnetizacaoReal) {
-        tituloMagnetizacaoReal.style.display = exibirMagnetizacaoReal ? '' : 'none';
-    }
+    const displayValor = exibirMagnetizacaoReal ? '' : 'none';
 
+    if (blocoMagnetizacaoReal) {
+        blocoMagnetizacaoReal.style.display = displayValor;
+    }
+    if (tituloMagnetizacaoReal) {
+        tituloMagnetizacaoReal.style.display = displayValor;
+    }
     if (calculoMagnetizacaoReal) {
-        calculoMagnetizacaoReal.style.display = exibirMagnetizacaoReal ? '' : 'none';
+        calculoMagnetizacaoReal.style.display = displayValor;
     }
 }
 
@@ -1900,6 +2135,8 @@ document.addEventListener('DOMContentLoaded', function () {
             diagramaUnifilar.style.display = "none";
         }
     }
+
+    renderizarSumarioEstudo();
 });
 
 // Limpa a imagemSelecionada e a galeria

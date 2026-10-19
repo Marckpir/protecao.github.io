@@ -22,7 +22,7 @@
 </head>
 
 <body>
-        <div class="estudos-brand-row">
+        <div class="estudos-brand-row no-print">
                 <span class="estudos-brand-title" id="titulodapagina">
                         COORDINATION WEB
                 </span>
@@ -35,7 +35,7 @@
                                 points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
                 </svg>
         </div>
-        <h1>
+        <h1 class="no-print">
 
                 <button id="botaoconfightml" class="dark-mode-toggle"
                         onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
@@ -66,45 +66,13 @@
                         onclick="window.location.href='index.html';">SAIR</button>
 
         </h1>
-        <br>
+        <br class="no-print">
 
-        <div class="estudos-print-wrap">
+        <div class="estudos-print-wrap no-print">
                 <button id="estudos-print-btn" class="dark-mode-toggle estudos-print-btn">Imprimir</button>
-                <br>
         </div>
 
-        <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
-
-
-
-                <div id="controls">
-                        <button id="clearButton">🧹 Limpar Galeria</button>
-                </div>
-
-                                <div>
-
-                        <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
-                        <input class="estudos-file-input" type="file" id="imageInput" accept="image/*" multiple
-                               >
-
-                </div>
-
-         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS--------------- -->
-        <!-- <div id="controls">
-                <button id="clearButton">🧹 Limpar Galeria</button>
-        </div>
-
-        <div>
-
-                <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
-                <input class="estudos-file-input" type="file" id="imageInput" accept="image/*" multiple
-                       >
-
-        </div> -->
-
-
-
-
+        <div class="estudos-folha-selo-container">
         <div id="tabelaselo">
                 <table class="estudos-selo-table">
                         <colgroup>
@@ -267,79 +235,93 @@
                         </tr>
                 </table>
         </div>
-
-        <br><br><br><br><br><br>
-
+        </div>
 
         <div class="estudos-title-block" id="tituloestudodeprotecao">
                 <h2>ESTUDOS DE PROTEÇÃO E SELETIVIDADE</h2>
         </div>
+
         <br>
 
-        <div class="estudos-title-block">
-                <h2>Justificativa de apresentação</h2>
-        </div>
 
-        <div class="estudos-flex-col-center" id="objetivotexto">
+                <div class="estudos-title-block" id="sumarioestudodeprotecao">
+                <h2>SUMÁRIO</h2>
+                </div>
 
-                <textarea class="estudos-textarea-lg">
+                <div class="estudos-flex-col-center" id="sumariotexto">
+                    
+                </div>
+
+        <br>
+
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-justificativa-apresentacao">
+                        <h2>Justificativa de apresentação</h2>
+                </div>
+                <div class="estudos-flex-col-center" id="objetivotexto">
+                        <textarea class="estudos-textarea-lg">
         Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente de carga ao sistema, incluindo dados elétricos, cálculos, dimensionamentos, ajustes das proteções no relé e plotagem de gráficos.
-                </textarea>
+                        </textarea>
+                </div>
         </div>
 
-        <div class="estudos-title-block">
-                <h2>Informações da Conexão</h2>
-        </div>
-
-
-        <div id="tabelaparametrosiniciais">
-
-                <table>
-                        <tr>
-                                <th>Tensão de Atendimento:</th>
-                                <td id="tensao-atendimento"></td>
-                        </tr>
-                        <tr>
-                                <th>Demanda Contratada:</th>
-                                <td class="demanda-contratada-consumo"></td>
-                        </tr>
-                        <tr>
-                                <th>Fator de Potência:</th>
-                                <td id="fator-potencia"></td>
-                        </tr>
-                        <tr>
-                                <th>Icc 3∅ Ponto de Conexão:</th>
-                                <td class="curtoTC"></td>
-                        </tr>
-                        <tr>
-                                <th>Relé de Proteção:</th>
-                                <td id="rele-protecao"></td>
-                        </tr>
-                        <tr class="habilitageradoradiesel">
-                                <th>Gerador a Diesel:</th>
-                                <td id="gerador-diesel"></td>
-                        </tr>
-                </table>
-        </div>
-
-        </div>
-
-        <div class="estudos-title-block estudos-title-break-start" id="titulo-diagrama-unifilar">
-                <h2>Diagrama Unifilar:</h2>
-        </div>
-        <br>
-
-        <div class="estudos-diagrama-box" id="diagramaunifilar">
-                <div class="estudos-max210-center" id="gallery"></div>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Informações da Conexão</h2>
+                </div>
+                <div id="tabelaparametrosiniciais">
+                        <table>
+                                <tr>
+                                        <th>Tensão de Atendimento:</th>
+                                        <td id="tensao-atendimento"></td>
+                                </tr>
+                                <tr>
+                                        <th>Demanda Contratada:</th>
+                                        <td class="demanda-contratada-consumo"></td>
+                                </tr>
+                                <tr>
+                                        <th>Fator de Potência:</th>
+                                        <td id="fator-potencia"></td>
+                                </tr>
+                                <tr>
+                                        <th>Icc 3∅ Ponto de Conexão:</th>
+                                        <td class="curtoTC"></td>
+                                </tr>
+                                <tr>
+                                        <th>Relé de Proteção:</th>
+                                        <td id="rele-protecao"></td>
+                                </tr>
+                                <tr class="habilitageradoradiesel">
+                                        <th>Gerador a Diesel:</th>
+                                        <td id="gerador-diesel"></td>
+                                </tr>
+                        </table>
+                </div>
         </div>
 
         <br>
-        <div class="estudos-title-block">
-                <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
+        <div class="estudos-secao-bloco" id="bloco-diagrama-unifilar">
+                <div class="estudos-title-block estudos-title-break-start" id="titulo-diagrama-unifilar">
+                        <h2>Diagrama Unifilar:</h2>
+                </div>
+                <br>
+                <div class="estudos-diagrama-box" id="diagramaunifilar">
+                        <div class="estudos-max210-center" id="gallery"></div>
+                </div>
         </div>
-        <br>
 
-        <div id="calculotrafos">
+         <br>
+
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-calculo-trafos">
+                        <h2>Cálculo das Correntes Nominais dos Transformadores</h2>
+                </div>
+
+
+                <br>
+                <div id="calculotrafos">
+                
+                         
 
                 <div class="calculotrafos-texto-tr01">
                         <span>In TRF01 =</span>
@@ -482,16 +464,15 @@
                         </span>
                         = <span id="resultado-trf10"></span>
                 </div>
+                </div>
         </div>
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>Cálculo das Correntes ANSI e NANSI</h2>
-        </div>
-        <br>
-
-
-        <div id="calculoANSIeNANSI">
+<br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Cálculo das Correntes ANSI e NANSI</h2>
+                </div>
+<br>
+                <div id="calculoANSIeNANSI">
 
                 <div class="estudos-times-block">
                         <div class="estudos-mb-12">
@@ -711,17 +692,14 @@
 
 
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>Tabela Transformadores</h2>
         </div>
-        <br>
+<br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-tabela-trafos">
+                        <h2>Tabela Transformadores</h2>
+                </div>
 
-
-
-        <div id="tabelatransformadores">
+                <div id="tabelatransformadores">
 
                 <table>
                         <tr>
@@ -857,20 +835,15 @@
                                 <td id="i-mag-10"></td>
                         </tr>
                 </table>
-
-
+        </div>
         </div>
 
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Cálculo Corrente de Magnetização Total</h2>
+                </div>
 
-        <br>
-        <div class="estudos-title-block">
-                <h2>Cálculo Corrente de Magnetização Total</h2>
-        </div>
-        <br>
-
-
-
-        <div id="calculomagnetizacao">
+                <div id="calculomagnetizacao">
 
                 <p>Imag total = (In maior trafo × M) + (In dos demais transformadores)</strong></p>
                 <p>Onde:</p>
@@ -928,16 +901,15 @@
                         <p><strong>Imag total =</strong>
                                 <strong><span class="imag-total-norma-valor"></span> por 0,1 s ou 100 ms</strong>
                         </p>
+                </div>
         </div>
 
+        <div class="estudos-secao-bloco" id="bloco-magnetizacao-real">
+                <div class="estudos-title-block" id="titulo-calculomagnetizacaoreal">
+                        <h2>Cálculo de Magnetização Real</h2>
+                </div>
 
-        <br>
-        <div class="estudos-title-block" id="titulo-calculomagnetizacaoreal">
-                <h2>Cálculo de Magnetização Real</h2>
-        </div>
-        <br>
-
-        <div id="calculomagnetizacaoreal">
+                <div id="calculomagnetizacaoreal">
 
 
 
@@ -1059,15 +1031,14 @@
                         </div>
                 </div>
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>Critérios para dimensionamento dos transformadores de corrente (TC) de Proteção</h2>
         </div>
-        <br>
 
-        <div id=calculostc>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-tc-protecao">
+                        <h2>Critérios para dimensionamento dos transformadores de corrente (TC) de Proteção</h2>
+                </div>
+
+                <div id=calculostc>
 
                 <strong>1) Cobertura da corrente de curto-circuito:</strong>
                 <p>Para o cálculo da saturação por corrente de curto-circuito a norma prevê a capacidade do TC
@@ -1175,35 +1146,16 @@
                         seguinte especificação:</p>
                 <p>Classificação: 12,5 VA 10P20</p>
                 </p>
-
-
-
-
-
-
-
-
-
-
-
+        </div>
         </div>
 
-
-                <br>
-        <div class="estudos-title-block">
-                <h2>Calculo por tensão de saturação TCs de Proteção</h2>
-        </div>
-        <br>
-
-
-
-
-
-
-
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Calculo por tensão de saturação TCs de Proteção</h2>
+                </div>
 
         <div id="criteriocalculotcimpedancia">
-                <h2>Cálculo de Saturação dos TCs (Curto-Circuito Trifásico no Primário <span class="curtoTC"></span>)</h2>
+                <h4 class="estudos-subtitulo">Cálculo de Saturação dos TCs (Curto-Circuito Trifásico no Primário <span class="curtoTC"></span>)</h4>
                 <div>
                         <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> ×
                                 Z<sub>total</sub></p>
@@ -1224,7 +1176,7 @@
 
                 </div>
 
-                <h2>Impedância do Relé (Z<sub>relé</sub>)</h2>
+                <h4 class="estudos-subtitulo">Impedância do Relé (Z<sub>relé</sub>)</h4>
                 <p>Consumo: 0,20 VA e corrente máxima de secundário de  5 A (Fase e Neutro)</p>
                 <p>Z<sub>relé</sub> =
                                  <span class="estudos-inline-middle">
@@ -1241,10 +1193,10 @@
                                 <span class="potencia-bobina-rele estudos-block-center"></span>
                                 <span class="estudos-frac-den">5²</span>
                         </span>
-                        = <span class="resultante-impedancia-tc-neutro"></span> + <span class="resultante-impedancia-tc-fase"></span> = <strong class="resultante-impedancia-tc"></strong> Ω 
+                        = <span class="resultante-impedancia-tc-neutro"></span> + <span class="resultante-impedancia-tc-fase"></span> = <strong class="resultante-impedancia-tc"></strong> Ω
                 </p>
 
-                <h2>Impedância dos Condutores (Z<sub>fiação</sub>)</h2>
+                <h4 class="estudos-subtitulo">Impedância dos Condutores (Z<sub>fiação</sub>)</h4>
                 <p>Condutores com resistividade de <span class="condutor-resistividade"></span> Ω/km, seção de <span class="condutor-bitola"></span> mm² com <span class="condutor-comprimento"></span> metros:</p>
                 <p>Z<sub>fiação</sub> =
                                         <span class="estudos-inline-middle">
@@ -1252,7 +1204,7 @@
                                 <!-- <span class="estudos-frac-den">seção do condutor</span> -->
                         </span>
                         =
-                        
+
                                 <span class="condutor-resistividade"></span>
                                 x
                                 <span class="estudos-inline-middle">
@@ -1262,14 +1214,14 @@
                         = <strong class="resultante-impedancia-condutor"> </strong> Ω
                 </p>
 
-                <h2>Impedância do TC (Z<sub>TC</sub>)</h2>
+                <h4 class="estudos-subtitulo">Impedância do TC (Z<sub>TC</sub>)</h4>
                 <p>Utilizado <span class="porcentagem-impedancia-tc-estimada"></span> de uma impedância estimada de 1 Ω:</p>
                 <p>Z<sub>TC</sub> = <span class="porcentagem-impedancia-tc-estimada"></span> × 1 = <strong class="resultante-impedancia-tc-estimada"></strong> Ω</p>
 
-                <h2>Impedância Total</h2>
+                <h4 class="estudos-subtitulo">Impedância Total</h4>
                 <p>Z<sub>total</sub> = <span class="resultante-impedancia-tc"></span> + <span class="resultante-impedancia-condutor"></span> + <span class="resultante-impedancia-tc-estimada"></span> = <strong class="resultante-impedancia-total"></strong> Ω</p>
 
-                <h2>Cálculo da Tensão de Saturação</h2>
+                <h4 class="estudos-subtitulo">Cálculo da Tensão de Saturação</h4>
 
                   <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc (SECUNDÁRIA)</sub> ×
                                 Z<sub>total</sub></p>
@@ -1280,16 +1232,14 @@
                 <p>V<sub>sat</sub> = <span class="icc-secundaria"></span> × <span class="resultante-impedancia-total"></span> Ω = <strong class="v-sat-calculada">25,6 V</strong></p>
 
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>Dimensionamento TC</h2>
         </div>
-        <br>
 
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Dimensionamento TC</h2>
+                </div>
 
-        <div id="especificacaodotc">
+                <div id="especificacaodotc">
 
                 <div>
                         Transformador de Corrente com função de Proteção - TC<br><br>
@@ -1323,7 +1273,7 @@
                 <textarea class="estudos-textarea-md" placeholder="Observações ou justificativas técnicas do dimensionamento do TC">            
 (4) Classe de Tensão: 15 KV
 (5) Freqüência Nominal: 60 Hz;
-(6) Classe de exatidão: Norma ASA 10B50 (Com especificação 12,5 VA 10P20) ou equivalente ABNT;
+(6) Classe de exatidão: Conforme norma CEMIG no mínimo , Norma ASA 10B50 (Com especificação 12,5 VA 10P20) ou equivalente ABNT;
 (7) Fator de sobrecorrente: 50xIp;
 (8) Fator térmico: 1,2.
 
@@ -1340,16 +1290,14 @@
                                 proteção possa atuar da forma correta.</em></p>
 
         </div>
+        </div>
 
-
-        <br>
-        <div class="habilitageradoradiesel"
-                style="background:transparent; border:none; padding:0; margin:0; box-shadow:none; color:inherit; display:flex; justify-content:center; align-items:center; width:100%;">
+        <div class="habilitageradoradiesel estudos-secao-bloco"
+                style="background:transparent; border:none; padding:0; margin:0 auto; box-shadow:none; color:inherit; width:100%;">
 
                 <div class="estudos-title-block">
                         <h2>Dimensionamento TP de Proteção</h2>
                 </div>
-                <br>
 
                 <div class="dimensionamentotpprotecao">
                         <p>O sistema de proteção deve ser alimentado pela tensão secundária do(s) TP de proteção.</p>
@@ -1403,24 +1351,15 @@
 
         </div>
 
-
-        <br>
-
-
-<!-- -CODIGO NOVO 05/10/2026---------------------- -->
-
-
- <br>
-        <div 
-                style="background:transparent; border:none; padding:0; margin:0 auto; box-shadow:none; color:inherit; display:flex; flex-direction:column; justify-content:center; align-items:center; width:100%; max-width:225mm;">
+        <div class="estudos-secao-bloco"
+                style="background:transparent; border:none; padding:0; margin:0 auto; box-shadow:none; color:inherit; width:100%; max-width:225mm;">
 
                 <div class="estudos-title-block">
                         <h2>Dimensionamento NOBREAK</h2>
                 </div>
-                <br>
 
                 <div class="dimensionamentotpprotecao">
-                       
+
 
                         <textarea class="estudos-textarea-md" style="text-align:left; padding-bottom:100px;">
 Nas subestações onde for aplicável nobreak, este deve ter as seguintes características:
@@ -1446,25 +1385,12 @@ d) Faixa de temperatura mínima: 0 a 40°C.
 
         </div>
 
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-curvas-fase">
+                        <h2>Cálculo e dimensionamento Curvas de Fase</h2>
+                </div>
 
-        <br>
-
-
-
-<!--FIM DO CODIGO NOVO  -------------------- -->
-
-
-
-
-
-
-
-        <div class="estudos-title-block">
-                <h2>Cálculo e dimensionamento Curvas de Fase</h2>
-        </div>
-        <br>
-
-        <div class="calculosfuncoes">
+                <div class="calculosfuncoes">
 
                 <h3>1º Estágio - Função 51 (Sobrecorrente de fase tempo inverso)</h3>
 
@@ -1673,31 +1599,14 @@ d) Faixa de temperatura mínima: 0 a 40°C.
 
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="exibircalculomotores">
-        <br>
-        <div class="estudos-title-block">
-                <h2>Cálculo e dimensionamento Cargas especiais (Motores)</h2>
         </div>
-        <br>
 
+        <div class="exibircalculomotores estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Cálculo e dimensionamento Cargas especiais (Motores)</h2>
+                </div>
 
-        <div class="calculosfuncoes">
+                <div class="calculosfuncoes">
 
                 <h3>Calculo do dial de fase considerando os motores instalados</h3>
 
@@ -1785,7 +1694,7 @@ d) Faixa de temperatura mínima: 0 a 40°C.
 
 
         <br>
-        <div class="estudos-title-block">
+        <div class="estudos-title-block" id="titulo-curvas-neutro">
                 <h2>Cálculo e dimensionamento Curvas de Neutro</h2>
         </div>
         <br>
@@ -1855,17 +1764,14 @@ d) Faixa de temperatura mínima: 0 a 40°C.
 
                 <p><span>Tempo de atuação:</span> 0,00 s ou o menor tempo possível</p>
         </div>
+        </div>
 
-
-        <br>
-        <div class="habilitageradoradiesel" style="box-shadow: none; background-color: transparent; border: none; padding: 0;">
+        <div class="habilitageradoradiesel estudos-secao-bloco" style="box-shadow: none; background-color: transparent; border: none; padding: 0;">
                 <div class="estudos-title-block">
                         <h2>Cálculo e Parametrização - Gerador Diesel</h2>
                 </div>
-        </div>
-        <br>
 
-        <div class="calculosfuncoes habilitageradoradiesel">
+                <div class="calculosfuncoes habilitageradoradiesel">
                 <!-- <div class="habilitageradoradiesel"> -->
 
                 <p>A instalação possui geração a Diesel que entrará em operação através de paralelismo
@@ -1936,15 +1842,14 @@ d) Faixa de temperatura mínima: 0 a 40°C.
                 </div>
                 <!-- </div> -->
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>Resumo de Parâmetros</h2>
         </div>
-        <br>
 
-        <div id="tabelaresumofuncoes">
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>Resumo de Parâmetros</h2>
+                </div>
+
+                <div id="tabelaresumofuncoes">
 
                 <table class="resumo-parametros-tabela">
 
@@ -2052,46 +1957,33 @@ d) Faixa de temperatura mínima: 0 a 40°C.
                 </table>
 
         </div>
+        </div>
 
 
-        <div id="tituloreles">
-                <br>
+        <div id="tituloreles" class="estudos-secao-bloco">
                 <div class="estudos-title-block">
                         <h2>Parâmetros do Relé de Proteção</h2>
                 </div>
-                <br>
 
-
-
-
-                <div id="tabelareles" classe="tabelaparametrizacaoreles"></div>
-
-
+                <div id="tabelareles" class="tabelaparametrizacaoreles"></div>
         </div>
 
-        <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
-        <h3>Imagens carregadas:</h3>
-        <div class="estudos-max210-center" id="gallery"></div>
-        ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
-        <br>
-        <div class="estudos-title-block" id="titulo-curva-protecao">
-                <h2>Plotagem Curva de Proteção</h2>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-curva-protecao">
+                        <h2>Plotagem Curva de Proteção</h2>
+                </div>
+
+                <div id="curvaProtecao">
+                        <canvas id="grafico"></canvas>
+                </div>
         </div>
-        <br>
 
-        <div id="curvaProtecao">
-                <canvas id="grafico"></canvas>
-        </div>
-        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-notas-obrigatorias">
+                        <h2>NOTAS OBRIGATÓRIAS</h2>
+                </div>
 
-
-        <br>
-        <div class="estudos-title-block" id="titulo-curva-protecao">
-                <h2>NOTAS OBRIGATÓRIAS</h2>
-        </div>
-        <br>
-
-        <div id="notas-obrigatorias">
+                <div id="notas-obrigatorias">
 
                 a) A CEMIG fica autorizada a reproduzir cópias desse projeto para uso interno, se necessário,
                 bem como fazer arquivamento pelo processo que lhe for conveniente.<br><br>
@@ -2109,7 +2001,7 @@ d) Faixa de temperatura mínima: 0 a 40°C.
 
                 <h2>TERMO DE RESPONSABILIDADE:</h2>
 
-                e)Eu, <span class="nome-responsavel-tecnico value-label-bold" data-form-field="nomeRT"></span>, Engenheiro
+                e) Eu, <span class="nome-responsavel-tecnico value-label-bold" data-form-field="nomeRT"></span>, Engenheiro
                 Eletricista
                 CREA: <span class="crea value-label-bold" data-form-field="creaEstado"></span>,
                 Responsável técnico pelo projeto elétrico
@@ -2121,10 +2013,19 @@ d) Faixa de temperatura mínima: 0 a 40°C.
                 em caso de arguição de violação dos direitos autorais.<br><br>
 
 
-                <em><span class="cidade value-label-bold" data-form-field="cidadeEmpreendimento"></span>,
-                <span class="data value-label-bold" data-form-field="dataProjeto"></span>
-                
+                <div class="bloco-data-cidade">
+                        <em><span class="cidade value-label-bold" data-form-field="cidadeEmpreendimento"></span>,
+                        <span class="data value-label-bold" data-form-field="dataProjeto"></span></em>
+                </div>
 
+                <div class="bloco-assinatura-rt">
+                        <div class="linha-assinatura-rt"></div>
+                        <div class="nome-assinatura-rt"><span class="nome-responsavel-tecnico value-label-bold" data-form-field="nomeRT"></span></div>
+                        <div class="detalhes-assinatura-rt">Engenheiro Eletricista &bull; CREA: <span class="crea value-label-bold" data-form-field="creaEstado"></span></div>
+                        <div class="sub-assinatura-rt">Responsável Técnico pelo Estudo de Proteção</div>
+                </div>
+
+        </div>
         </div>
 
         <script src="estudos.js"></script>

@@ -199,8 +199,19 @@ h1.loaded {
     font-weight: bold;
     color: #000;
     background-color: rgb(255, 255, 255);
-    padding: 8px;
+    padding: 8px 16px;
     border-radius: 8px;
+    text-align: center;
+}
+
+@keyframes piscaverde {
+    0%, 100% { background-color: #00e676; }
+    50% { background-color: #b9f6ca; }
+}
+
+@keyframes piscavermelho {
+    0%, 100% { background-color: #ff5252; }
+    50% { background-color: #ffcdd2; }
 }
 
 .tp-tc-relay-select {

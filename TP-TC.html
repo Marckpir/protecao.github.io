@@ -250,14 +250,14 @@
 
 
     <div class="tp-tc-caption-main tp-tc-saturacao-section">
-        DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO)<br>
+        DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO - ABNT NBR 6856:2021)<br>
     </div>
- 
+
 
     <div class="tabela-container tp-tc-table-wrapper tp-tc-saturacao-section">
         <table>
             <tr>
-                <td>Potência TC de proteção (ABNT NBR 6856:2015) (VA):</td>
+                <td>Potência TC de proteção (ABNT NBR 6856:2021) (VA):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <select id="input-potencia-Nominal-TC-html" class="tp-tc-control-left">
@@ -291,7 +291,7 @@
 
             </tr>
             <tr>
-                <td>Fator de multiplicidade máximo TC de proteção:</td>
+                <td>Fator limite de exatidão nominal TC (ALF / FLE):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <select id="input-fator-multiplicidade-TC-html" class="tp-tc-control-left">
@@ -314,7 +314,7 @@
             </tr>
 
             <tr>
-                <td>Comprimento do condutor (TC ao RELÉ):</td>
+                <td>Comprimento do condutor (TC ao RELÉ) (m):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <input id="input-comprimento-Condutor-TC-html" type="text" class="tp-tc-control-left">
@@ -324,7 +324,7 @@
                 <td> <span id="label-especificacao-condutor-html"></span> </td>
             </tr>
             <tr>
-                <td>Bitola do condutor (TC ao RELÉ):</td>
+                <td>Bitola do condutor (TC ao RELÉ) (mm²):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <input id="input-bitola-Condutor-TC-html" type="text" class="tp-tc-control-left">
@@ -334,7 +334,7 @@
                 <td> <span id="label-especificacao-bitola-html"></span> </td>
             </tr>
             <tr>
-                <td>Resistividade do condutor (TC ao RELÉ):</td>
+                <td>Resistência linear condutor (TC ao RELÉ) (Ω/km):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <input id="input-resistividade-Condutor-TC-html" type="text" class="tp-tc-control-left">
@@ -344,7 +344,7 @@
                 <td> <span id="label-especificacao-resistividade-html"></span> </td>
             </tr>
             <tr>
-                <td>Potência monofásica bobina do Relé:</td>
+                <td>Potência monofásica bobina do Relé (VA):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <input id="input-potencia-bobina-rele-html" type="text" class="tp-tc-control-left">
@@ -354,7 +354,7 @@
                 <td> <span id="label-especificacao-potencia-bobina-rele-html"></span> </td>
             </tr>
             <tr>
-                <td>Relação X/R do curto-circuito assimétrico no ponto:</td>
+                <td>Relação X/R do curto-circuito no ponto (fator transitório):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <input id="input-relacao-xr-curto-html" type="text" class="tp-tc-control-left">
@@ -366,33 +366,37 @@
 
 
             <tr>
-                <td colspan="2">Especificação TC de proteção (ABNT NBR 6856:1992):</td>
+                <td colspan="2">Especificação TC de proteção (ABNT NBR 6856:1992 equivalente):</td>
 
                 <td> <span id="label-especificacao-norma-antiga-html"></span> </td>
             </tr>
             <tr>
-                <td colspan="2">Z Burden do TC:</td>
+                <td colspan="2">Z Burden nominal do TC (Zb):</td>
 
                 <td> <span id="label-burden-calculado-tc-html"></span> </td>
             </tr>
             <tr>
-                <td colspan="2">Impedância total da carga acoplada:</td>
+                <td colspan="2">Impedância total do circuito secundário (Ztotal):</td>
 
                 <td> <span id="label-impedancia-calculada-total-html"></span> </td>
             </tr>
             <tr>
-                <td colspan="2">Tensão de saturação nominal:</td>
+                <td colspan="2">Tensão de saturação nominal suportada (Eal):</td>
 
                 <td> <span id="label-tensao-saturacao-nominal-html"></span> </td>
             </tr>
             <tr>
-                <td colspan="2">Tensão de saturação Calculada:</td>
+                <td colspan="2">Tensão de saturação calculada exigida (Ereq):</td>
                 <td>
                     <div class="input-container tp-tc-input-start">
                         <label id="label-tensao-saturacao-calculada-TC-html" class="tp-tc-control-left"></label>
                         <span class="unidade"></span>
                     </div>
                 </td>
+            </tr>
+            <tr>
+                <td colspan="2">Fator limite de exatidão operacional (ALF real):</td>
+                <td> <span id="label-alf-real-tc-html"></span> </td>
             </tr>
         </table>
 
@@ -406,7 +410,7 @@
     <div id="notificacaodasaturacao" class="tp-tc-notice-wrap tp-tc-saturacao-section">
 
         <label id="label-notificacao-saturacao-tc-html" class="tp-tc-notice-label">
-            A tensão de saturação calculada é menor ou igual à nominal
+            Verificação de saturação do TC (ABNT NBR 6856:2021)
 
         </label>
 
