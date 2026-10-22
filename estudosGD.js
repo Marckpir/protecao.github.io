@@ -1201,7 +1201,7 @@ function carregarVariaveisEstudo() {
 
     //-----------------FUNÇÃO PARA CARREGA CAMPOS E CALCULOS DE CORRENTES DOS TRAFOS-------------
 
-    for (let i = 1; i <= 10; i++) { // Suporta até trafo10JSON e s-trf10
+    for (let i = 1; i <= 20; i++) { // Suporta até trafo20JSON e s-trf20
         const trafoSalvo = JSON.parse(localStorage.getItem(`trafo${i}JSON`)) || {};
         const potenciaTrafo = parseFloat(trafoSalvo.potencia) || 0;
         const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
@@ -1414,11 +1414,11 @@ function carregarVariaveisEstudo() {
 
     // Preencher campo de corrente do trafo 2
 
-    // Preencher in-trafo-2 até in-trafo-10 em ordem decrescente de corrente, desconsiderando o maior corrente intrafoindividual
+    // Preencher in-trafo-2 até in-trafo-20 em ordem decrescente de corrente, desconsiderando o maior corrente intrafoindividual
     const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {};
-    // Monta array de correntes (trafo2 a trafo10) ignorando o maior corrente
+    // Monta array de correntes (trafo2 a trafo20) ignorando o maior corrente
     let trafosArray = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const trafoKey = `trafo${i}`;
         const trafoSalvo = JSON.parse(localStorage.getItem(`${trafoKey}JSON`)) || {};
         const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
@@ -1426,14 +1426,14 @@ function carregarVariaveisEstudo() {
             trafosArray.push({ i, corrente: correntesTrafos[trafoKey].intrafoindividual, qtde: qtdeTrafo });
         }
     }
-    // Descobre o maior corrente entre trafo2 a trafo10
+    // Descobre o maior corrente entre trafo2 a trafo20
     const maiorCorrente = trafosArray.length > 0 ? Math.max(...trafosArray.map(t => t.corrente)) : null;
     // Remove o maior corrente
     trafosArray = trafosArray.filter(t => t.corrente !== maiorCorrente);
     // Ordena em ordem decrescente
     trafosArray.sort((a, b) => b.corrente - a.corrente);
 
-    // Preenche os campos in-trafo-2 até in-trafo-10 conforme ordem decrescente (sem o maior)
+    // Preenche os campos in-trafo-2 até in-trafo-20 conforme ordem decrescente (sem o maior)
     for (let idx = 0; idx < trafosArray.length; idx++) {
         const inTrafoEl = document.getElementById(`in-trafo-${idx + 2}`);
         if (inTrafoEl) {
@@ -1449,7 +1449,7 @@ function carregarVariaveisEstudo() {
         }
     }
     // Oculta os campos restantes se não houver trafo suficiente
-    for (let i = trafosArray.length + 1; i <= 10; i++) {
+    for (let i = trafosArray.length + 1; i <= 20; i++) {
         const inTrafoEl = document.getElementById(`in-trafo-${i}`);
         if (inTrafoEl) {
             inTrafoEl.style.display = 'none';

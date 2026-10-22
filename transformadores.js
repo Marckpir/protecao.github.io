@@ -469,7 +469,7 @@ function salvarOpcao() {
     // }
 
     //Armazenar todas as potencias em KVA em variaveis formato JSON e no localstorage
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const impedancia = parseFloat(document.getElementById(`impedanciahtml${i}`)?.value) || 0;
         const tempo = parseFloat(document.getElementById(`tempotrhtml${i}`)?.value) || 0;
 
@@ -580,7 +580,7 @@ function configurarBotaoLimparTrafos() {
     }
 
     botaoLimpar.addEventListener("click", function () {
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 20; i++) {
             const idsCampos = [
                 `potenciahtml${i}`,
                 `qtdehtml${i}`,
@@ -609,7 +609,7 @@ function configurarBotaoLimparTrafos() {
         calculos();
         calculaimagreal();
 
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 1; i <= 20; i++) {
             [`intrhtml${i}`, `iansihtml${i}`, `inansihtml${i}`, `imagtrhtml${i}`].forEach((id) => {
                 const resultado = document.getElementById(id);
                 if (resultado) {
@@ -720,7 +720,7 @@ window.onload = function () {
     // Controle de acesso movido para controle-acesso.js
 
     //Manter exibindo as grandezas de input dos trafos no HTML
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         if (trafoSalvo) {
             if (document.getElementById(`potenciahtml${i}`)) {
@@ -745,7 +745,7 @@ window.onload = function () {
     //Manter exibindo as correntes calculadas no HTML
     const correntestrafos = obterJSONStorage("correntestrafosJSON", {});
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         // Exibe In (corrente nominal)
         if (document.getElementById(`intrhtml${i}`) && correntestrafos[`trafo${i}`]) {
             document.getElementById(`intrhtml${i}`).textContent = correntestrafos[`trafo${i}`].intrafo
@@ -820,7 +820,7 @@ function calcularEArmazenarIntrafoEImag() {
 
     let correntestrafosJSON = {};
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         const potencia = trafoSalvo ? parseFloat(trafoSalvo.potencia) : 0;
         const qtde = trafoSalvo ? parseInt(trafoSalvo.qtde) : 0;
@@ -927,7 +927,7 @@ function calculos() {
     const qtdeArray = [];
 
     // Loop para calcular In, Imag e identificar o trafo com maior Imag
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         if (trafoSalvo) {
             const potencia = parseFloat(trafoSalvo.potencia) || 0;
@@ -965,7 +965,7 @@ function calculos() {
     }
 
     // Soma as In dos trafos, ponderando pelo trafo de maior Imag
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         if (qtdeArray[i] > 0 && inArray[i] > 0) {
             if (i === indexMaiorImag) {
                 // Para o trafo de maior Imag, soma (qtde - 1) * In
@@ -979,7 +979,7 @@ function calculos() {
 
     // Soma a potência total de todos os trafos válidos
     let somaPotenciaTotal = 0;
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
         somaPotenciaTotal += qtdeArray[i] * (parseFloat(trafoSalvo?.potencia) || 0);
     }

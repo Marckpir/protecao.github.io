@@ -1598,6 +1598,27 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
 
+function obterNomeArquivoPadronizado(tabelaSelecionada, extensao) {
+    // Nome do arquivo no padrão: MODELO_DE_REFERÊNCIA_(NOME DO RELE).ext
+    let nomeRele = "RELE";
+    const seletorTabelaEl = document.getElementById("seletorTabela");
+    if (seletorTabelaEl && seletorTabelaEl.selectedOptions && seletorTabelaEl.selectedOptions.length > 0) {
+        nomeRele = seletorTabelaEl.selectedOptions[0].textContent || nomeRele;
+    } else if (tabelaSelecionada && tabelaSelecionada.id) {
+        nomeRele = tabelaSelecionada.id;
+    }
+
+    // Remove prefixo numérico comum (ex: 01-, 1-, 101-)
+    nomeRele = nomeRele.replace(/^\s*\d+\s*[-_]\s*/, '');
+    // Remove caracteres inválidos para nome de arquivo no Windows
+    nomeRele = nomeRele.replace(/[\\/:*?"<>|]/g, '').trim();
+    if (!nomeRele) {
+        nomeRele = "RELE";
+    }
+
+    return `MODELO_DE_REFERÊNCIA_(${nomeRele}).${extensao}`;
+}
+
 function baixarPDF() {
     // Verifica se html2pdf está disponível
     if (typeof html2pdf === "undefined") {
@@ -1611,13 +1632,7 @@ function baixarPDF() {
     }
     const tabelaSelecionada = document.getElementById(seletor);
     if (tabelaSelecionada) {
-        // Busca o texto do <h2> dentro da tabela selecionada
-        let nomeArquivo = "tabela-selecionada.pdf";
-        const h2 = tabelaSelecionada.querySelector("h2");
-        if (h2 && h2.textContent) {
-            // Remove caracteres inválidos para nome de arquivo
-            nomeArquivo = h2.textContent.replace(/[\\/:*?"<>|]/g, '').trim() + ".pdf";
-        }
+        const nomeArquivo = obterNomeArquivoPadronizado(tabelaSelecionada, "pdf");
 
         tabelaSelecionada.style.display = "block";
 
@@ -1634,9 +1649,15 @@ function baixarPDF() {
             html2canvas: {
                 scale: 2,
                 useCORS: true,
-                backgroundColor: "#ffffff"
+                backgroundColor: "#ffffff",
+                scrollY: 0,
+                scrollX: 0,
+                letterRendering: true
             },
-            pagebreak: { mode: ['css', 'legacy'] },
+            pagebreak: {
+                mode: ['css', 'legacy'],
+                avoid: ['tr', '.diagramas_multifilares_container', 'thead', 'h4', '.trel-title-center', '.trel-title-center-lg']
+            },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         }).from(tabelaSelecionada).save();
 
@@ -1841,24 +1862,8 @@ async function baixarXLS() {
         coluna.width = max;
     });
 
-    // Nome do arquivo no padrão: MODELO_DE_REFERÊNCIA_(NOME DO RELE).xls
-    let nomeRele = "RELE";
-    const seletorTabelaEl = document.getElementById("seletorTabela");
-    if (seletorTabelaEl && seletorTabelaEl.selectedOptions && seletorTabelaEl.selectedOptions.length > 0) {
-        nomeRele = seletorTabelaEl.selectedOptions[0].textContent || nomeRele;
-    } else if (tabelaSelecionada.id) {
-        nomeRele = tabelaSelecionada.id;
-    }
-
-    // Remove prefixo numérico comum (ex: 101-)
-    nomeRele = nomeRele.replace(/^\s*\d+\s*[-_]\s*/, '');
-    // Remove caracteres inválidos para nome de arquivo no Windows
-    nomeRele = nomeRele.replace(/[\\/:*?"<>|]/g, '').trim();
-    if (!nomeRele) {
-        nomeRele = "RELE";
-    }
-
-    const nomeArquivo = `MODELO_DE_REFERÊNCIA_(${nomeRele}).xlsx`;
+    // Nome do arquivo no padrão: MODELO_DE_REFERÊNCIA_(NOME DO RELE).xlsx
+    const nomeArquivo = obterNomeArquivoPadronizado(tabelaSelecionada, "xlsx");
 
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob(

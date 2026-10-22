@@ -53,7 +53,9 @@ function ChartGenerator() {
     const curtoArmazenada = parseFloat(localStorage.getItem('curtoSelecionada')) || 0;
     const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {
         trafo1: {}, trafo2: {}, trafo3: {}, trafo4: {}, trafo5: {},
-        trafo6: {}, trafo7: {}, trafo8: {}, trafo9: {}, trafo10: {}
+        trafo6: {}, trafo7: {}, trafo8: {}, trafo9: {}, trafo10: {},
+        trafo11: {}, trafo12: {}, trafo13: {}, trafo14: {}, trafo15: {},
+        trafo16: {}, trafo17: {}, trafo18: {}, trafo19: {}, trafo20: {}
     };
     
     

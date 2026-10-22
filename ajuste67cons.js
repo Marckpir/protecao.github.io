@@ -811,17 +811,17 @@ window.onload = function () {
     // Cores para cada trafo (ajuste conforme necessário)
     const coresANSI = ['red','blue','green','purple','brown','pink','cyan','magenta','gray','black'];
     const coresNANSI = ['red','blue','green','purple','brown','pink','cyan','magenta','gray','black'];
-    for (let indice = 1; indice <= 10; indice++) {
+    for (let indice = 1; indice <= 20; indice++) {
         const trafo = correntesTrafosStorage[`trafo${indice}`] || {};
         const iansi = toNumberOrNull(trafo.iansi);
         const inansi = toNumberOrNull(trafo.inansi);
         const tempo = toNumberOrNull(trafo.tempo);
         correntesTrafos[`trafo${indice}`] = { iansi, inansi, tempo };
         if (iansi > 0 && tempo > 0) {
-            pontosANSI.push({ x: iansi, y: tempo, cor: coresANSI[indice-1] });
+            pontosANSI.push({ x: iansi, y: tempo, cor: coresANSI[(indice - 1) % coresANSI.length] });
         }
         if (inansi > 0 && tempo > 0) {
-            pontosNANSI.push({ x: inansi, y: tempo, cor: coresNANSI[indice-1] });
+            pontosNANSI.push({ x: inansi, y: tempo, cor: coresNANSI[(indice - 1) % coresNANSI.length] });
         }
     }
 

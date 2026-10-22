@@ -151,10 +151,43 @@ td {
 .tabela td {
     border: 2px solid #000 !important;
     border-collapse: collapse !important;
+    box-sizing: border-box;
+    line-height: 1.35;
 }
 
 .tabela table {
     border-spacing: 0 !important;
+    width: 100% !important;
+}
+
+/* Previne quebra de linhas e corte de texto no PDF e na impressão */
+.tabela tr,
+table tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    break-inside: avoid-page !important;
+}
+
+.tabela td,
+.tabela th,
+table td,
+table th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    break-inside: avoid-page !important;
+}
+
+.tabela thead,
+table thead {
+    display: table-header-group !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+.diagramas_multifilares_container {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    break-inside: avoid-page !important;
 }
 
 button {
@@ -413,17 +446,58 @@ button:hover {
     margin: 0;
 }
 
-/* Estilos específicos para impressão (estudos.html) */
+/* Estilos específicos para impressão e geração de PDF */
 @media print {
-    .diagramas_multifilares_container {
-        box-shadow: none;
-        border: 1px solid #000;
-        background-color: #fff;
-        page-break-inside: avoid;
+    body {
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
-    
+
+    .tabelarele-toolbar,
+    .tabelarele-brand-header,
+    h1 {
+        display: none !important;
+    }
+
+    .tabela {
+        display: block !important;
+    }
+
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        break-inside: avoid-page !important;
+    }
+
+    td,
+    th {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        break-inside: avoid-page !important;
+    }
+
+    thead {
+        display: table-header-group !important;
+    }
+
+    .diagramas_multifilares_container {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+        background-color: #fff !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        break-inside: avoid-page !important;
+    }
+
     .diagrama_titulo {
-        color: #000;
-        border-bottom-color: #000;
+        color: #000 !important;
+        border-bottom-color: #000 !important;
     }
 }

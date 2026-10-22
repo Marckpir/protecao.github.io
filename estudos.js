@@ -468,125 +468,11 @@ function configurarQuebrasDinamicasImpressao() {
     }
 }
 
-function calcularPaginaTopico(titulo, temDiagrama) {
-    const texto = titulo.textContent.trim().replace(/\s+/g, ' ');
-    const id = titulo.id || '';
-    const deslocamento = temDiagrama ? 0 : -1;
-
-    // 1. Diagrama Unifilar
-    if (titulo.closest('#bloco-diagrama-unifilar') || id === 'titulo-diagrama-unifilar' || texto.includes('Diagrama Unifilar')) {
-        return 4;
-    }
-
-    // 2. Justificativa e Informações da Conexão
-    if (
-        titulo.closest('#titulo-justificativa-apresentacao') ||
-        id === 'titulo-justificativa-apresentacao' ||
-        texto.includes('Justificativa de apresentação') ||
-        texto.includes('Informações da Conexão')
-    ) {
-        return 3;
-    }
-
-    // 3. Cálculos de Transformadores (Nominais e ANSI/NANSI)
-    if (
-        texto.includes('Correntes Nominais dos Transformadores') ||
-        texto.includes('Correntes ANSI e NANSI') ||
-        id === 'titulo-calculo-trafos'
-    ) {
-        return 5 + deslocamento;
-    }
-
-    // 4. Tabela de Transformadores e Corrente de Magnetização
-    if (
-        texto.includes('Tabela Transformadores') ||
-        texto.includes('Magnetização') ||
-        id === 'titulo-tabela-trafos' ||
-        id === 'titulo-calculomagnetizacaoreal'
-    ) {
-        return 6 + deslocamento;
-    }
-
-    // 5. Dimensionamento de TCs e TPs de Proteção, Saturação e Nobreak
-    if (
-        texto.includes('Critérios para dimensionamento') ||
-        texto.includes('tensão de saturação') ||
-        texto.includes('Dimensionamento TC') ||
-        texto.includes('Dimensionamento TP') ||
-        texto.includes('Dimensionamento NOBREAK') ||
-        id === 'titulo-tc-protecao'
-    ) {
-        return 7 + deslocamento;
-    }
-
-    // 6. Curvas de Fase e Cargas Especiais (Motores)
-    if (
-        texto.includes('Curvas de Fase') ||
-        texto.includes('Cargas especiais') ||
-        texto.includes('Motores') ||
-        texto.includes('Função 51') ||
-        texto.includes('Função 50') ||
-        id === 'titulo-curvas-fase'
-    ) {
-        return 8 + deslocamento;
-    }
-
-    // 7. Curvas de Neutro, Gerador Diesel e Resumo de Parâmetros
-    if (
-        texto.includes('Curvas de Neutro') ||
-        texto.includes('51 N') ||
-        texto.includes('50N') ||
-        texto.includes('Gerador Diesel') ||
-        texto.includes('Resumo de Parâmetros') ||
-        id === 'titulo-curvas-neutro'
-    ) {
-        return 9 + deslocamento;
-    }
-
-    // 8. Parâmetros do Relé de Proteção
-    if (
-        texto.includes('Parâmetros do Relé') ||
-        id === 'tituloreles'
-    ) {
-        return 10 + deslocamento;
-    }
-
-    // 9. Plotagem da Curva de Proteção (Coordenograma)
-    if (
-        texto.includes('Plotagem Curva') ||
-        texto.includes('Coordenograma') ||
-        id === 'titulo-curva-protecao'
-    ) {
-        return 11 + deslocamento;
-    }
-
-    // 10. Notas Obrigatórias e Termo de Responsabilidade
-    if (
-        texto.includes('NOTAS OBRIGATÓRIAS') ||
-        texto.includes('TERMO DE RESPONSABILIDADE') ||
-        id === 'titulo-notas-obrigatorias'
-    ) {
-        return 12 + deslocamento;
-    }
-
-    return 3;
-}
-
 function renderizarSumarioEstudo() {
     const sumario = document.getElementById('sumariotexto');
     if (!sumario) {
         return;
     }
-
-    // Verifica se o diagrama unifilar está presente e visível
-    const diagramaBox = document.getElementById('diagramaunifilar');
-    const galeria = document.getElementById('gallery');
-    const temDiagrama = Boolean(
-        diagramaBox &&
-        diagramaBox.style.display !== 'none' &&
-        galeria &&
-        galeria.querySelector('img')
-    );
 
     const titulos = Array.from(document.querySelectorAll('.estudos-title-block h2, .calculosfuncoes h3, .exibircalculomotores h3')).filter((titulo) => {
         // Deve estar após o sumário no documento
@@ -643,15 +529,7 @@ function renderizarSumarioEstudo() {
         link.href = `#${titulo.id}`;
         link.textContent = titulo.textContent.trim().replace(/\s+/g, ' ');
 
-        const pontilhado = document.createElement('span');
-        pontilhado.className = 'estudos-sumario-pontilhado';
-        pontilhado.setAttribute('aria-hidden', 'true');
-
-        const pagina = document.createElement('span');
-        pagina.className = 'estudos-sumario-pagina';
-        pagina.textContent = String(calcularPaginaTopico(titulo, temDiagrama));
-
-        item.append(link, pontilhado, pagina);
+        item.appendChild(link);
         sumario.appendChild(item);
     });
 }
@@ -840,7 +718,7 @@ function carregarVariaveisEstudo() {
 
     //-----------------FUNÇÃO PARA CARREGA CAMPOS E CALCULOS DE CORRENTES DOS TRAFOS-------------
 
-    for (let i = 1; i <= 10; i++) { // Suporta até trafo10JSON e s-trf10
+    for (let i = 1; i <= 20; i++) { // Suporta até trafo20JSON e s-trf20
         const trafoSalvo = JSON.parse(localStorage.getItem(`trafo${i}JSON`)) || {};
         const potenciaTrafo = parseFloat(trafoSalvo.potencia) || 0;
         const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
@@ -1053,11 +931,11 @@ function carregarVariaveisEstudo() {
 
     // Preencher campo de corrente do trafo 2
 
-    // Preencher in-trafo-2 até in-trafo-10 em ordem decrescente de corrente, desconsiderando o maior corrente intrafoindividual
+    // Preencher in-trafo-2 até in-trafo-20 em ordem decrescente de corrente, desconsiderando o maior corrente intrafoindividual
     const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {};
-    // Monta array de correntes (trafo2 a trafo10) ignorando o maior corrente
+    // Monta array de correntes (trafo2 a trafo20) ignorando o maior corrente
     let trafosArray = [];
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         const trafoKey = `trafo${i}`;
         const trafoSalvo = JSON.parse(localStorage.getItem(`${trafoKey}JSON`)) || {};
         const qtdeTrafo = parseFloat(trafoSalvo.qtde) || 0;
@@ -1065,14 +943,14 @@ function carregarVariaveisEstudo() {
             trafosArray.push({ i, corrente: correntesTrafos[trafoKey].intrafoindividual, qtde: qtdeTrafo });
         }
     }
-    // Descobre o maior corrente entre trafo2 a trafo10
+    // Descobre o maior corrente entre trafo2 a trafo20
     const maiorCorrente = trafosArray.length > 0 ? Math.max(...trafosArray.map(t => t.corrente)) : null;
     // Remove o maior corrente
     trafosArray = trafosArray.filter(t => t.corrente !== maiorCorrente);
     // Ordena em ordem decrescente
     trafosArray.sort((a, b) => b.corrente - a.corrente);
 
-    // Preenche os campos in-trafo-2 até in-trafo-10 conforme ordem decrescente (sem o maior)
+    // Preenche os campos in-trafo-2 até in-trafo-20 conforme ordem decrescente (sem o maior)
     for (let idx = 0; idx < trafosArray.length; idx++) {
         const inTrafoEl = document.getElementById(`in-trafo-${idx + 2}`);
         if (inTrafoEl) {
@@ -1088,7 +966,7 @@ function carregarVariaveisEstudo() {
         }
     }
     // Oculta os campos restantes se não houver trafo suficiente
-    for (let i = trafosArray.length + 1; i <= 10; i++) {
+    for (let i = trafosArray.length + 1; i <= 20; i++) {
         const inTrafoEl = document.getElementById(`in-trafo-${i}`);
         if (inTrafoEl) {
             inTrafoEl.style.display = 'none';
@@ -1953,8 +1831,8 @@ if (curtoSelecionadaTC !== null && !isNaN(curtoSelecionadaTC)) {
         // Habilitar elementos relacionados ao gerador a diesel
         habilitaGeradorEls.forEach(el => {
             el.style.display = '';
-            el.classList.add('tabelaparametrizacaoreles');
-            el.classList.add('calculogeradordiesel');
+            el.classList.remove('tabelaparametrizacaoreles');
+            el.classList.remove('calculogeradordiesel');
         });
     } else {
         habilitaGeradorEls.forEach(el => {

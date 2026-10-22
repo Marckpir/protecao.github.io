@@ -1373,12 +1373,25 @@ textarea {
         font-family: Arial, sans-serif !important;
     }
 
+    table tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        break-inside: avoid-page !important;
+    }
+
     table th,
     table td {
         border: 1px solid #000 !important;
         padding: 2px 4px !important;
         font-size: 12pt !important;
         font-family: Arial, sans-serif !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        break-inside: avoid-page !important;
+    }
+
+    table thead {
+        display: table-header-group !important;
     }
 
     /* Ajustar títulos */

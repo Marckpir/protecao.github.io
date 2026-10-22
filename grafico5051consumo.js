@@ -51,7 +51,9 @@ function ChartGenerator() {
     const curtoArmazenada = parseFloat(localStorage.getItem('curtoSelecionada')) || 0;
     const correntesTrafos = JSON.parse(localStorage.getItem('correntestrafosJSON')) || {
         trafo1: {}, trafo2: {}, trafo3: {}, trafo4: {}, trafo5: {},
-        trafo6: {}, trafo7: {}, trafo8: {}, trafo9: {}, trafo10: {}
+        trafo6: {}, trafo7: {}, trafo8: {}, trafo9: {}, trafo10: {},
+        trafo11: {}, trafo12: {}, trafo13: {}, trafo14: {}, trafo15: {},
+        trafo16: {}, trafo17: {}, trafo18: {}, trafo19: {}, trafo20: {}
     };
     
     
@@ -279,16 +281,19 @@ function ChartGenerator() {
         });
     
     
-    // Pontos I ANSI (1-10)
-    const ansiColors = ['red', 'blue', 'green', 'purple', 'brown', 'pink', 'cyan', 'magenta', 'gray', 'black'];
-    for (let i = 1; i <= 10; i++) {
+    // Pontos I ANSI (1-20)
+    const ansiColors = [
+        'red', 'blue', 'green', 'purple', 'brown', 'pink', 'cyan', 'magenta', 'gray', 'black',
+        'darkred', 'darkblue', 'darkgreen', 'indigo', 'saddlebrown', 'hotpink', 'darkcyan', 'darkmagenta', 'dimgray', 'navy'
+    ];
+    for (let i = 1; i <= 20; i++) {
         const trafo = correntesTrafos[`trafo${i}`];
         if (trafo && trafo.iansi > 0 && trafo.tempo > 0) {
             datasets.push({
                 label: `I ANSI trafo ${i} = ${trafo.iansi.toFixed(2)} A`,
                 data: [{ x: trafo.iansi, y: trafo.tempo }],
                 backgroundColor: 'orange',
-                borderColor: ansiColors[i-1],
+                borderColor: ansiColors[(i - 1) % ansiColors.length],
                 borderWidth: 2,
                 pointRadius: 5,
                 pointStyle: 'triangle',
@@ -296,16 +301,16 @@ function ChartGenerator() {
             });
         }
     }
-    
-    // Pontos I NANSI (1-10)
-    for (let i = 1; i <= 10; i++) {
+
+    // Pontos I NANSI (1-20)
+    for (let i = 1; i <= 20; i++) {
         const trafo = correntesTrafos[`trafo${i}`];
         if (trafo && trafo.inansi > 0 && trafo.tempo > 0) {
             datasets.push({
                 label: `I NANSI trafo ${i} = ${trafo.inansi.toFixed(2)} A`,
                 data: [{ x: trafo.inansi, y: trafo.tempo }],
                 backgroundColor: 'yellow',
-                borderColor: ansiColors[i-1],
+                borderColor: ansiColors[(i - 1) % ansiColors.length],
                 borderWidth: 2,
                 pointRadius: 5,
                 pointStyle: 'rectRot',
