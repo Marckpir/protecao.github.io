@@ -206,26 +206,38 @@
 
 
 
-// INICIO Controle de acesso para ocultar dimensionamento por tensão de saturação da aba TP-TC, para a categoria 'usuario'
+// INICIO Controle de acesso para ocultar dimensionamento por tensão de saturação para a categoria 'usuario'
 
-// Controle de acesso para ocultar a seção de saturação por tensão para a categoria 'usuario'
-const categoria = (localStorage.getItem('usuarioCategoria') || '').toLowerCase();
-// A div do título e a div da tabela de saturação estão próximas, então ocultamos ambas
-if (categoria === 'usuario') {
-    // Oculta o título
-    const tituloSaturacao = Array.from(document.getElementsByClassName('tp-tc-caption-main'))
-        .find(div => div.textContent && div.textContent.includes('DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO'));
-    if (tituloSaturacao) {
-        tituloSaturacao.style.display = 'none';
-    }
-    // Oculta a tabela de saturação (primeira tabela-container após o título)
-    const tabelas = document.getElementsByClassName('tabela-container');
-    for (let i = 0; i < tabelas.length; i++) {
-        if (tabelas[i].previousElementSibling === tituloSaturacao) {
-            tabelas[i].style.display = 'none';
-            break;
+function ocultarSaturacaoUsuario() {
+    const categoria = (localStorage.getItem('usuarioCategoria') || '').toLowerCase();
+    if (categoria === 'usuario') {
+        // TP-TC.html: Oculta o título e tabela de saturação
+        const tituloSaturacao = Array.from(document.getElementsByClassName('tp-tc-caption-main'))
+            .find(div => div.textContent && div.textContent.includes('DIMENSIONAMENTO TC (CRITÉRIO SATURAÇÃO POR TENSÃO'));
+        if (tituloSaturacao) {
+            tituloSaturacao.style.display = 'none';
+        }
+        const tabelas = document.getElementsByClassName('tabela-container');
+        for (let i = 0; i < tabelas.length; i++) {
+            if (tabelas[i].previousElementSibling === tituloSaturacao) {
+                tabelas[i].style.display = 'none';
+                break;
+            }
+        }
+
+        // estudos.html: Oculta o bloco de cálculo de saturação do TC
+        const blocoSaturacaoEstudos = document.getElementById('bloco-calculo-saturacao-tc') ||
+            document.getElementById('criteriocalculotcimpedancia')?.closest('.estudos-secao-bloco');
+        if (blocoSaturacaoEstudos) {
+            blocoSaturacaoEstudos.style.display = 'none';
         }
     }
 }
 
-// FIM Controle de acesso para ocultar dimensionamento por tensão de saturação da aba TP-TC, para a categoria 'usuario'
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ocultarSaturacaoUsuario);
+} else {
+    ocultarSaturacaoUsuario();
+}
+
+// FIM Controle de acesso para ocultar dimensionamento por tensão de saturação para a categoria 'usuario'

@@ -319,11 +319,37 @@ window.addEventListener('load', function () {
     // -------------------------------------------------------------------------------
     // Calculo da  corrente IP de fase somando a tolerancia a corrente nominal
 
+    const demandaContratoArmazenada = parseFloat(localStorage.getItem("demandadecontrato"));
+    const potenciaTotalTrafos = parseFloat(localStorage.getItem("potenciatotaltrafos")) || 0;
+    const potenciaMinimaCalculada = parseFloat(localStorage.getItem("potenciaMinimaSelecionada")) ||
+        ((Number.isFinite(TCdeprotecaoSelecionada) && Number.isFinite(tensaoArmazenada) && Number.isFinite(fatorpArmazenada))
+            ? (TCdeprotecaoSelecionada * 0.1 * tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada)
+            : 0);
 
-
-    //codigo novo
     var correnteprimaria = parseFloat(localStorage.getItem("Inominalfase"));
-    //fim do codigo novo
+
+    if (Number.isFinite(demandaContratoArmazenada) && Number.isFinite(tensaoArmazenada) && tensaoArmazenada > 0 && Number.isFinite(fatorpArmazenada) && fatorpArmazenada > 0) {
+        const inominalContrato = demandaContratoArmazenada / (tensaoArmazenada * Math.sqrt(3) * fatorpArmazenada);
+        const correnteMinimaTC = (Number.isFinite(TCdeprotecaoSelecionada) && TCdeprotecaoSelecionada > 0) ? (TCdeprotecaoSelecionada * 0.1) : 0;
+
+        // Não aplica a corrente nominal mínima caso a potência total dos transformadores seja menor que a demanda mínima calculada
+        if (potenciaTotalTrafos < potenciaMinimaCalculada) {
+            correnteprimaria = inominalContrato;
+            localStorage.setItem("Inominalfase", correnteprimaria.toFixed(2));
+            localStorage.setItem("demandaSelecionada", demandaContratoArmazenada);
+            localStorage.setItem("inominalminimaTC", "Não");
+        } else if (correnteMinimaTC > 0 && inominalContrato < correnteMinimaTC) {
+            correnteprimaria = correnteMinimaTC;
+            localStorage.setItem("Inominalfase", correnteprimaria.toFixed(2));
+            localStorage.setItem("demandaSelecionada", potenciaMinimaCalculada.toFixed(2));
+            localStorage.setItem("inominalminimaTC", "Sim");
+        } else {
+            correnteprimaria = inominalContrato;
+            localStorage.setItem("Inominalfase", correnteprimaria.toFixed(2));
+            localStorage.setItem("demandaSelecionada", demandaContratoArmazenada);
+            localStorage.setItem("inominalminimaTC", "Não");
+        }
+    }
 
 
 
@@ -444,6 +470,19 @@ window.addEventListener('load', function () {
     // Validar ideffaseArmazenada e tdeffaseArmazenada
     ideffasehtml.value = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada !== null) ? ideffaseArmazenada : '';
     tdeffasehtml.value = (!isNaN(tdeffaseArmazenada) && tdeffaseArmazenada !== null) ? tdeffaseArmazenada : '';
+
+    const idefFaseRealEl = document.getElementById("idef-fase-real");
+    const idefFasePuEl = document.getElementById("idef-fase-pu");
+    const tdefFaseRealEl = document.getElementById("Treal");
+    if (idefFaseRealEl) {
+        idefFaseRealEl.textContent = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada > 0) ? ideffaseArmazenada.toFixed(2) + " A" : "";
+    }
+    if (idefFasePuEl) {
+        idefFasePuEl.textContent = (!isNaN(ideffaseArmazenada) && ideffaseArmazenada > 0) ? (ideffaseArmazenada / tcDivisor).toFixed(2) + " P.U" : "";
+    }
+    if (tdefFaseRealEl) {
+        tdefFaseRealEl.textContent = (!isNaN(tdeffaseArmazenada) && tdeffaseArmazenada > 0) ? tdeffaseArmazenada.toFixed(2) + " s" : "";
+    }
 
     inominalneutrohtml.textContent = inominalneutro.toFixed(2) + " A";
 
@@ -632,32 +671,34 @@ window.addEventListener('load', function () {
 
     let passo1 = (Iinst1 - ip1) / 1000;
 
-    for (let i = 0; Iinst1 >= ip1; i++) {
-        const idefValido = !isNaN(ideffase) && ideffase !== null && ideffase !== undefined;
-        const tdefValido = !isNaN(tdeffase) && tdeffase !== null && tdeffase !== undefined;
+    if (passo1 > 0 && ip1 > 0) {
+        for (let i = 0; Iinst1 >= ip1 && i <= 1050; i++) {
+            const idefValido = !isNaN(ideffase) && ideffase !== null && ideffase !== undefined;
+            const tdefValido = !isNaN(tdeffase) && tdeffase !== null && tdeffase !== undefined;
 
-        let z1 = dial1 * (beta1 / (Math.pow(Iinst1 / ip1, alfa1) - k1));
-        let tempo = z1;
+            let z1 = dial1 * (beta1 / (Math.pow(Iinst1 / ip1, alfa1) - k1));
+            let tempo = z1;
 
-        // Se idef e tdef são válidos, e estamos na região <= ideffase, pega o menor entre z1 e tdeffase
-        if (idefValido && tdefValido && Iinst1 >= ideffase) {
-            tempo = Math.min(tempo, tdeffase);
-        }
-
-        x1.push(Iinst1);
-        y1.push(tempo);
-
-        Iinst1 -= passo1;
-        if (Iinst1 <= (ip1 - 0.9)) {
-            // Garante o último ponto em ip1
-            x1.push(ip1);
-            let z1final = dial1 * (beta1 / (Math.pow(ip1 / ip1, alfa1) - k1));
-            let tempofinal = Math.min(z1final, 1000);
-            if (idefValido && tdefValido && ip1 <= ideffase) {
-                tempofinal = Math.min(tempofinal, tdeffase);
+            // Se idef e tdef são válidos, e estamos na região <= ideffase, pega o menor entre z1 e tdeffase
+            if (idefValido && tdefValido && Iinst1 >= ideffase) {
+                tempo = Math.min(tempo, tdeffase);
             }
-            y1.push(tempofinal);
-            break;
+
+            x1.push(Iinst1);
+            y1.push(tempo);
+
+            Iinst1 -= passo1;
+            if (Iinst1 <= (ip1 - 0.9)) {
+                // Garante o último ponto em ip1
+                x1.push(ip1);
+                let z1final = dial1 * (beta1 / (Math.pow(ip1 / ip1, alfa1) - k1));
+                let tempofinal = Math.min(z1final, 1000);
+                if (idefValido && tdefValido && ip1 <= ideffase) {
+                    tempofinal = Math.min(tempofinal, tdeffase);
+                }
+                y1.push(tempofinal);
+                break;
+            }
         }
     }
     if (y1[y1.length - 1] !== 1000) {
@@ -686,32 +727,34 @@ window.addEventListener('load', function () {
         dial2 = 1000;
     }
 
-    for (let i = 0; Iinst2 >= ip2; i++) {
-        const idefValidoNeutro = !isNaN(idefneutro) && idefneutro !== null && idefneutro !== undefined;
-        const tdefValidoNeutro = !isNaN(tdefneutro) && tdefneutro !== null && tdefneutro !== undefined;
+    if (passo2 > 0 && ip2 > 0) {
+        for (let i = 0; Iinst2 >= ip2 && i <= 1050; i++) {
+            const idefValidoNeutro = !isNaN(idefneutro) && idefneutro !== null && idefneutro !== undefined;
+            const tdefValidoNeutro = !isNaN(tdefneutro) && tdefneutro !== null && tdefneutro !== undefined;
 
-        let z2 = dial2 * (beta2 / (Math.pow(Iinst2 / ip2, alfa2) - k2));
-        let tempo2 = z2;
+            let z2 = dial2 * (beta2 / (Math.pow(Iinst2 / ip2, alfa2) - k2));
+            let tempo2 = z2;
 
-        // Se idef e tdef são válidos, e estamos na região <= idefneutro, pega o menor entre z2 e tdefneutro
-        if (idefValidoNeutro && tdefValidoNeutro && Iinst2 >= idefneutro) {
-            tempo2 = Math.min(tempo2, tdefneutro);
-        }
-
-        x2.push(Iinst2);
-        y2.push(tempo2);
-
-        Iinst2 -= passo2;
-        if (Iinst2 <= (ip2)) {
-            // Garante o último ponto em ip2
-            x2.push(ip2);
-            let z2final = dial2 * (beta2 / (Math.pow(ip2 / ip2, alfa2) - k2));
-            let tempofinal2 = Math.min(z2final, 1000);
-            if (idefValidoNeutro && tdefValidoNeutro && ip2 <= idefneutro) {
-                tempofinal2 = Math.min(tempofinal2, tdefneutro);
+            // Se idef e tdef são válidos, e estamos na região <= idefneutro, pega o menor entre z2 e tdefneutro
+            if (idefValidoNeutro && tdefValidoNeutro && Iinst2 >= idefneutro) {
+                tempo2 = Math.min(tempo2, tdefneutro);
             }
-            y2.push(tempofinal2);
-            break;
+
+            x2.push(Iinst2);
+            y2.push(tempo2);
+
+            Iinst2 -= passo2;
+            if (Iinst2 <= (ip2)) {
+                // Garante o último ponto em ip2
+                x2.push(ip2);
+                let z2final = dial2 * (beta2 / (Math.pow(ip2 / ip2, alfa2) - k2));
+                let tempofinal2 = Math.min(z2final, 1000);
+                if (idefValidoNeutro && tdefValidoNeutro && ip2 <= idefneutro) {
+                    tempofinal2 = Math.min(tempofinal2, tdefneutro);
+                }
+                y2.push(tempofinal2);
+                break;
+            }
         }
     }
     if (y2[y2.length - 1] !== 1000) {
@@ -1071,9 +1114,148 @@ window.addEventListener('load', function () {
         }
     }
 
+    // Atalhos de clique para aplicar o Dial ideal ou Curva ideal com 1 clique
+    const celulaDialIdealFase = document.getElementById("celula-dial-ideal-fase");
+    if (celulaDialIdealFase && dialIdealTag && dialfasehtml) {
+        celulaDialIdealFase.addEventListener("click", function () {
+            const valorIdeal = parseFloat(dialIdealTag.textContent);
+            if (Number.isFinite(valorIdeal) && valorIdeal > 0) {
+                dialfasehtml.value = valorIdeal.toFixed(2);
+                salvarOpcao();
+            }
+        });
+    }
+
+    const celulaCurvaIdealFase = document.querySelector("#tabelafase .curva-ideal-celula");
+    if (celulaCurvaIdealFase && tipodecurvahtml) {
+        celulaCurvaIdealFase.addEventListener("click", function () {
+            tipodecurvahtml.value = "IEC-E.I";
+            salvarOpcao();
+        });
+    }
+
+    const celulaDialIdealNeutro = document.getElementById("celula-dial-ideal-neutro");
+    if (celulaDialIdealNeutro && dialidealneutro && dialcurvaneutrohtml) {
+        celulaDialIdealNeutro.addEventListener("click", function () {
+            const valorIdealN = parseFloat(dialidealneutro.textContent);
+            if (Number.isFinite(valorIdealN) && valorIdealN > 0) {
+                dialcurvaneutrohtml.value = valorIdealN.toFixed(2);
+                salvarOpcao();
+            }
+        });
+    }
+
+    const celulaCurvaIdealNeutro = document.querySelector("#tabelaneutro .curva-ideal-celula");
+    if (celulaCurvaIdealNeutro && tipodecurvaneutrohtml) {
+        celulaCurvaIdealNeutro.addEventListener("click", function () {
+            tipodecurvaneutrohtml.value = "Definite-Time";
+            salvarOpcao();
+        });
+    }
+
+    atualizarDiagnosticoCoordenacao({
+        dialFase: dialFaseEfetivo,
+        alfaFase: alfa1,
+        betaFase: beta1,
+        kFase: k1,
+        ipFase: correnteFormatada,
+        iinstFase: imagtotalformatada,
+        idefFase: ideffaseArmazenada,
+        tdefFase: tdeffaseArmazenada,
+        imagBase: imagBase,
+        tempoMag: tempomagfase,
+        curtoArmazenada: curtoArmazenada,
+        pontosANSI: pontosANSI
+    });
 
     verificarAlertaPotMinima();
 });
+
+function calcularTempoCurva51(corrente, ip, dial, alfa, beta, k, idef, tdef) {
+    if (!Number.isFinite(corrente) || !Number.isFinite(ip) || corrente <= ip || ip <= 0) {
+        return Infinity;
+    }
+    const denom = Math.pow(corrente / ip, alfa) - k;
+    let tempo = denom > 0 ? dial * (beta / denom) : Infinity;
+    if (Number.isFinite(idef) && idef > 0 && Number.isFinite(tdef) && tdef > 0 && corrente >= idef) {
+        tempo = Math.min(tempo, tdef);
+    }
+    return tempo;
+}
+
+function atualizarDiagnosticoCoordenacao(params) {
+    const painel = document.getElementById("painel-diagnostico-coordenacao");
+    if (!painel) return;
+
+    const {
+        dialFase, alfaFase, betaFase, kFase,
+        ipFase, iinstFase, idefFase, tdefFase,
+        imagBase, tempoMag, curtoArmazenada, pontosANSI
+    } = params;
+
+    const badges = [];
+
+    // 1. Verificação de Inrush (Magnetização)
+    if (Number.isFinite(imagBase) && imagBase > 0 && Number.isFinite(ipFase) && ipFase > 0) {
+        const tempoNaImag = calcularTempoCurva51(imagBase, ipFase, dialFase, alfaFase, betaFase, kFase, idefFase, tdefFase);
+        const inrushOk = iinstFase > imagBase && tempoNaImag >= (tempoMag - 0.002);
+        badges.push({
+            ok: inrushOk,
+            texto: inrushOk
+                ? `Inrush OK (${Number.isFinite(tempoNaImag) ? tempoNaImag.toFixed(2) + "s" : ">1000s"} >= ${tempoMag}s)`
+                : `Alerta Inrush: atuação em ${Number.isFinite(tempoNaImag) ? tempoNaImag.toFixed(2) + "s" : "instantâneo"}`
+        });
+    }
+
+    // 2. Verificação de Partida de Motor (se houver)
+    const motorData = JSON.parse(localStorage.getItem("motorJSON")) || {};
+    const tempoPartidaMotor = parseFloat(motorData.tempopartida);
+    const correntePartidaTotal = parseFloat(localStorage.getItem("somaCorrentePartidaOperante"));
+    if (Number.isFinite(tempoPartidaMotor) && tempoPartidaMotor > 0 && Number.isFinite(correntePartidaTotal) && correntePartidaTotal > 0) {
+        const tempoNoMotor = calcularTempoCurva51(correntePartidaTotal, ipFase, dialFase, alfaFase, betaFase, kFase, idefFase, tdefFase);
+        const motorOk = iinstFase > correntePartidaTotal && tempoNoMotor >= (tempoPartidaMotor - 0.05);
+        badges.push({
+            ok: motorOk,
+            texto: motorOk
+                ? `Partida Motor OK (${Number.isFinite(tempoNoMotor) ? tempoNoMotor.toFixed(1) + "s" : "livre"} >= ${tempoPartidaMotor}s)`
+                : `Alerta Motor: curva atua em ${Number.isFinite(tempoNoMotor) ? tempoNoMotor.toFixed(1) + "s" : "instantâneo"} (< ${tempoPartidaMotor}s)`
+        });
+    }
+
+    // 3. Verificação dos Pontos ANSI dos Transformadores
+    if (Array.isArray(pontosANSI) && pontosANSI.length > 0) {
+        let todosAnsiProtegidos = true;
+        pontosANSI.forEach((pt) => {
+            const tempoNoAnsi = calcularTempoCurva51(pt.x, ipFase, dialFase, alfaFase, betaFase, kFase, idefFase, tdefFase);
+            const atuaInstantaneo = Number.isFinite(iinstFase) && iinstFase > 0 && pt.x >= iinstFase;
+            const tempoEfetivo = atuaInstantaneo ? 0.01 : tempoNoAnsi;
+            if (tempoEfetivo > pt.y) {
+                todosAnsiProtegidos = false;
+            }
+        });
+        badges.push({
+            ok: todosAnsiProtegidos,
+            texto: todosAnsiProtegidos
+                ? `Proteção ANSI Trafos OK`
+                : `Alerta ANSI: curva acima do ponto ANSI do trafo`
+        });
+    }
+
+    // 4. Verificação de Sensibilidade ao Curto-Circuito Trifásico (Icc3f)
+    if (Number.isFinite(curtoArmazenada) && curtoArmazenada > 0 && Number.isFinite(iinstFase) && iinstFase > 0) {
+        const iccOk = iinstFase <= curtoArmazenada;
+        badges.push({
+            ok: iccOk,
+            texto: iccOk
+                ? `Sensibilidade Icc OK (Iinst <= ${curtoArmazenada}A)`
+                : `Alerta Icc: Iinst (${iinstFase.toFixed(1)}A) > Icc (${curtoArmazenada}A)`
+        });
+    }
+
+    painel.innerHTML = badges.map((b) =>
+        `<span class="diagnostico-badge ${b.ok ? "diagnostico-badge--ok" : "diagnostico-badge--alerta"}">${b.ok ? "✓" : "⚠"} ${b.texto}</span>`
+    ).join("");
+}
 
 
 //função para comparar o melhor dial entre planta com motor e sem motor 
@@ -1192,10 +1374,12 @@ function ativarLegendas() {
 
 function verificarAlertaPotMinima() {
     const status = (localStorage.getItem("inominalminimaTC") || "").trim().toLowerCase();
+    const potenciaTotalTrafos = parseFloat(localStorage.getItem("potenciatotaltrafos")) || 0;
+    const potenciaMinimaCalculada = parseFloat(localStorage.getItem("potenciaMinimaSelecionada")) || 0;
     const alertaDiv = document.querySelector(".alertapotminima-caption");
     if (!alertaDiv) return;
 
-    if (status === "sim") {
+    if (status === "sim" && potenciaTotalTrafos >= potenciaMinimaCalculada) {
         alertaDiv.classList.add("ativo");
         alertaDiv.classList.add("piscando-lento");
     } else {

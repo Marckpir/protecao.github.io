@@ -990,6 +990,8 @@ function calculos() {
         labelPotenciaTotalTrafos.textContent = somaPotenciaTotal + " kVA";
     }
 
+    
+
     // Calcula a magnetização total: maior Imag + soma das In dos demais trafos
     imagtotalformatada = maiorImag + somaInTotal;
 
@@ -997,6 +999,7 @@ function calculos() {
     imagtotalneutroformatada = imagtotalformatada * (desequilibrioSelecionada);
 
     // Salva os resultados no localStorage para uso em outros pontos do sistema
+    
     localStorage.setItem("imagtotalSelecionada", imagtotalformatada);
     localStorage.setItem("imagtotalneutroSelecionada", imagtotalneutroformatada);
     localStorage.setItem("maiortrafoimagSelecionada", maiorImag);

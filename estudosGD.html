@@ -22,7 +22,7 @@
 </head>
 
 <body>
-        <div class="estudos-brand-row">
+        <div class="estudos-brand-row no-print">
                 <span class="estudos-brand-title" id="titulodapagina">
                         COORDINATION WEB
                 </span>
@@ -35,7 +35,7 @@
                                 points="100,50,50, 50, 50,200, 200,200,200,350, 200,200" />
                 </svg>
         </div>
-        <h1>
+        <h1 class="no-print">
 
                 <button id="botaoconfightml" class="dark-mode-toggle"
                         onclick="window.location.href='config.html';">CONFIGURAÇÕES</button>
@@ -68,43 +68,11 @@
         </h1>
         <br>
 
-        <div class="estudos-print-wrap">
+        <div class="estudos-print-wrap no-print">
                 <button id="estudos-print-btn" class="dark-mode-toggle estudos-print-btn">Imprimir</button>
-                <br>
         </div>
 
-        <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
-
-
-
-                <div id="controls">
-                        <button id="clearButton">🧹 Limpar Galeria</button>
-                </div>
-
-                                <div>
-
-                        <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
-                        <input class="estudos-file-input" type="file" id="imageInput" accept="image/*" multiple
-                               >
-
-                </div>
-
-         ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS--------------- -->
-        <!-- <div id="controls">
-                <button id="clearButton">🧹 Limpar Galeria</button>
-        </div>
-
-        <div>
-
-                <h2>Inserir imagem da tela do software do relé parametrizado(opcional):</h2>
-                <input class="estudos-file-input" type="file" id="imageInput" accept="image/*" multiple
-                       >
-
-        </div> -->
-
-
-
-
+        <div class="estudos-folha-selo-container">
         <div id="tabelaselo">
                 <table class="estudos-selo-table">
                         <colgroup>
@@ -118,19 +86,10 @@
                                 <col class="estudos-col-10">
                                 <col class="estudos-col-10">
                                 <col class="estudos-col-10">
-
-
-
                         </colgroup>
                         <tr>
                                 <td class="estudos-selo-h400-top" colspan="6" rowspan="4">
-                                        <div
-                                                style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%;">
-                                                <div style="align-self: flex-start;">
-                                                        Local para selo de análise de conformidade com normas CEMIG e
-                                                        ABNT
-                                                </div>
-                                        </div>
+                                        Local para selo de análise de conformidade com normas CEMIG e ABNT
                                 </td>
                                 <td colspan="3">
                                         <div>Informações complementares</div>
@@ -156,147 +115,160 @@
                         <tr>
                                 <td colspan="3">
                                         <div>Demanda de contrato (kW)</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-local-storage-field="demandadecontrato">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-50" colspan="7">
                                         <div>Dados e logotipo do projetista (opcional)</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="dadosProjetista">
                                 </td>
                                 <td colspan="3">
                                         <div>Formato do projeto</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="formatoProjeto">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-50" colspan="10">
                                         <div>Título / conteúdo</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="tituloConteudo">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-50" colspan="4">
                                         <div>Nome do empreendimento</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="nomeEmpreendimento">
                                 </td>
                                 <td colspan="3">
                                         <div>CPF/CNPJ</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-form-field="cpfCnpjEmpreendimento">
                                 </td>
                                 <td colspan="3">
                                         <div>Finalidade</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="finalidade">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-50" colspan="4">
                                         <div>Endereço</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="enderecoEmpreendimento">
                                 </td>
                                 <td colspan="3">
                                         <div>Bairro</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-form-field="bairroEmpreendimento">
                                 </td>
                                 <td colspan="3">
                                         <div>Cidade</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="cidadeEmpreendimento">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="10">
                                         <div>Número e data da ART de projeto</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="artProjeto">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-50" colspan="4">
                                         <div>Proprietário<br>Nome</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="nomeProprietario">
                                 </td>
                                 <td colspan="3">
                                         <div>CPF/CNPJ / Identidade</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-form-field="documentoProprietario">
                                 </td>
                                 <td colspan="3">
                                         <div>Telefone</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="telefoneProprietario">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-50" colspan="4">
                                         <div>Contratante (se houver)<br>Nome</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="nomeContratante">
                                 </td>
                                 <td colspan="3">
                                         <div>CPF/CNPJ / Identidade</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-form-field="documentoContratante">
                                 </td>
                                 <td colspan="3">
                                         <div>Telefone</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="telefoneContratante">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="10">
                                         <div>Endereço completo para correspondência do PROPRIETÁRIO</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="enderecoCorrespondenciaProprietario">
                                 </td>
                         </tr>
                         <tr>
                                 <td colspan="10">
                                         <div>Endereço completo para correspondência do PROJETISTA</div>
-                                        <input class="estudos-input-w90">
+                                        <input class="estudos-input-w90" data-form-field="enderecoCorrespondenciaProjetista">
                                 </td>
                         </tr>
                         <tr>
                                 <td class="estudos-h-100" colspan="4">
                                         <div>RT (Engª)</div>
-                                        <input class="estudos-input-w90">
-                                        <input class="estudos-input-w90">
-                                        <div>Nome<br>Telefone</div>
+                                        <input class="estudos-input-w90" data-form-field="registroRT">
+                                        <div>Nome</div>
+                                        <input class="estudos-input-w90" data-form-field="nomeRT">
+                                        <div>Telefone</div>
+                                        <input class="estudos-input-w90" data-form-field="telefoneRT">
                                 </td>
                                 <td colspan="3">
                                         <div class="estudos-h-50">CREA / Estado</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-form-field="creaEstado">
                                 </td>
                                 <td colspan="1">
                                         <div class="estudos-h-50">Folha</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-selo-folha>
                                 </td>
                                 <td colspan="2">
                                         <div class="estudos-h-50">Data</div>
-                                        <input class="estudos-input-w80">
+                                        <input class="estudos-input-w80" data-form-field="dataProjeto">
                                 </td>
                         </tr>
                 </table>
         </div>
-
-        <br><br><br><br><br><br>
-
+        </div>
 
         <div class="estudos-title-block" id="tituloestudodeprotecao">
                 <h2>ESTUDOS DE PROTEÇÃO E SELETIVIDADE</h2>
         </div>
+
         <br>
 
-        <div class="estudos-title-block">
-                <h2>JUSTIFICATIVA DE APRESENTAÇÃO</h2>
+        <div class="estudos-title-block" id="sumarioestudodeprotecao">
+                <h2>SUMÁRIO</h2>
         </div>
 
-        <div class="estudos-flex-col-center" id="objetivotexto">
+        <div class="estudos-flex-col-center" id="sumariotexto">
 
-                <textarea class="estudos-textarea-lg">
+        </div>
+
+        <br>
+
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-justificativa-apresentacao">
+                        <h2>JUSTIFICATIVA DE APRESENTAÇÃO</h2>
+                </div>
+
+                <div class="estudos-flex-col-center" id="objetivotexto">
+
+                        <textarea class="estudos-textarea-lg">
         Este memorial de cálculo de proteção tem como objetivo apresentar os estudos de proteção referentes à conexão de cliente com Geração Distribuída (GD) ao sistema, incluindo dados elétricos, cálculos, dimensionamentos, ajustes das proteções no relé e plotagem de gráficos.
-                </textarea>
+                        </textarea>
+                </div>
         </div>
 
-        <div class="estudos-title-block">
-                <h2>INFORMAÇÕES DA CONEXÃO</h2>
-        </div>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>INFORMAÇÕES DA CONEXÃO</h2>
+                </div>
 
-
-        <div id="tabelaparametrosiniciais">
+                <div id="tabelaparametrosiniciais">
 
                 <table>
                         <tr>
@@ -344,39 +316,41 @@
 
         </div>
 
-        <div class="estudos-title-block estudos-title-break-start" id="titulo-diagrama-unifilar">
-                <h2>Diagrama Unifilar:</h2>
+        <div class="estudos-secao-bloco" id="bloco-diagrama-unifilar">
+                <div class="estudos-title-block estudos-title-break-start" id="titulo-diagrama-unifilar">
+                        <h2>Diagrama Unifilar:</h2>
+                </div>
+                <br>
+                <div class="estudos-diagrama-box" id="diagramaunifilar">
+                        <div class="estudos-max210-center" id="gallery"></div>
+                </div>
         </div>
-        <br>
-
-        <div class="estudos-diagrama-box" id="diagramaunifilar">
-                <div class="estudos-max210-center" id="gallery"></div>
-        </div>
-
-        <br>
-        <div class="estudos-title-block referencia-aterramento-bloco">
-                <h2>DEFINIÇÃO DE REFERÊNCIA DE ATERRAMENTO</h2>
-        </div>
-        <br>
-
-        <div class="calculosfuncoes referencia-aterramento-bloco" id="conteudo-ajustereator">
-                <p>Conforme exigido em norma foi dimensionado como <strong>referência de aterramento</strong>, os
-                        parâmetros abaixo:</p>
-                <p>Tipo de aterramento selecionado: <span id="ajustereator-tipo-estudo"></span></p>
-                <p>Potência do transformador de acoplamento: <span id="ajustereator-potencia-estudo"></span></p>
-                <p>Tensão de referência adotada: <span id="ajustereator-tensao-estudo"></span></p>
-                <p>Dimensionamento de referência para o aterramento:</p>
-                <div id="ajustereator-resultado-estudo" class="estudos-text-justify"></div>
-        </div>
-        <br>
 
         <br>
-        <div class="estudos-title-block">
-                <h2>CÁLCULO DAS CORRENTES NOMINAIS DOS TRANSFORMADORES</h2>
+        <div class="estudos-secao-bloco referencia-aterramento-bloco">
+                <div class="estudos-title-block">
+                        <h2>DEFINIÇÃO DE REFERÊNCIA DE ATERRAMENTO</h2>
+                </div>
+                <br>
+                <div class="calculosfuncoes" id="conteudo-ajustereator">
+                        <p>Conforme exigido em norma foi dimensionado como <strong>referência de aterramento</strong>, os
+                                parâmetros abaixo:</p>
+                        <p>Tipo de aterramento selecionado: <span id="ajustereator-tipo-estudo"></span></p>
+                        <p>Potência do transformador de acoplamento: <span id="ajustereator-potencia-estudo"></span></p>
+                        <p>Tensão de referência adotada: <span id="ajustereator-tensao-estudo"></span></p>
+                        <p>Dimensionamento de referência para o aterramento:</p>
+                        <div id="ajustereator-resultado-estudo" class="estudos-text-justify"></div>
+                </div>
         </div>
-        <br>
 
-        <div id="calculotrafos">
+        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-calculo-trafos">
+                        <h2>CÁLCULO DAS CORRENTES NOMINAIS DOS TRANSFORMADORES</h2>
+                </div>
+                <br>
+
+                <div id="calculotrafos">
 
                 <div class="calculotrafos-texto-tr01">
                         <span>In TRF01 =</span>
@@ -670,15 +644,17 @@
                         = <span id="resultado-trf20"></span>
                 </div>
         </div>
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>CÁLCULO DAS CORRENTES ANSI E NANSI</h2>
         </div>
+
         <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>CÁLCULO DAS CORRENTES ANSI E NANSI</h2>
+                </div>
+                <br>
 
 
-        <div id="calculoANSIeNANSI">
+                <div id="calculoANSIeNANSI">
 
                 <div class="estudos-times-block">
                         <div class="estudos-mb-12">
@@ -1108,17 +1084,18 @@
 
 
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>TABELA TRANSFORMADORES</h2>
         </div>
+
         <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-tabela-trafos">
+                        <h2>TABELA TRANSFORMADORES</h2>
+                </div>
+                <br>
 
 
 
-        <div id="tabelatransformadores">
+                <div id="tabelatransformadores">
 
                 <table>
                         <tr>
@@ -1377,17 +1354,18 @@
 
 
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>CÁLCULO CORRENTE DE MAGNETIZAÇÃO TOTAL</h2>
         </div>
+
         <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>CÁLCULO CORRENTE DE MAGNETIZAÇÃO TOTAL</h2>
+                </div>
+                <br>
 
 
 
-        <div id="calculomagnetizacao">
+                <div id="calculomagnetizacao">
 
                 <p>Imag total = (In maior trafo × M) + (In dos demais transformadores)</strong></p>
                 <p>Onde:</p>
@@ -1618,12 +1596,13 @@
 
 
         <br>
-        <div class="estudos-title-block">
-                <h2>CRITÉRIOS PARA DIMENSIONAMENTO DOS TRANSFORMADORES DE CORRENTE (TC) DE PROTEÇÃO</h2>
-        </div>
-        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-tc-protecao">
+                        <h2>CRITÉRIOS PARA DIMENSIONAMENTO DOS TRANSFORMADORES DE CORRENTE (TC) DE PROTEÇÃO</h2>
+                </div>
+                <br>
 
-        <div id=calculostc>
+                <div id="calculostc">
 
                 <strong>1) Cobertura da corrente de curto-circuito:</strong>
                 <p>Para o cálculo da saturação por corrente de curto-circuito a norma prevê a capacidade do TC
@@ -1800,75 +1779,17 @@
 
 
         </div>
-
-        <!-- <div id="criteriocalculotcimpedancia">
-                Cálculo de Saturação dos TCs (Curto-Circuito Trifásico 5000 A)
-                <div>
-                        <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> ×
-                                Z<sub>total</sub></p>
-                        <p><strong>I<sub>cc</sub> =</strong>
-                                <span class="estudos-inline-middle">
-                                        <span class="estudos-block-center">I<sub>cc3∅</sub></span>
-                                        <span class="estudos-frac-den">RTC</span>
-                                </span>
-                                =
-                                <span class="estudos-inline-middle">
-                                        <span class="estudos-block-center">5000</span>
-                                        <span class="estudos-frac-den">50</span>
-                                </span>
-                                = <strong>100,00 A</strong>
-                        </p>
-
-
-
-                </div>
-
-                <h2>Impedância do Relé (Z<sub>relé</sub>)</h2>
-                <p>Relé: SIEMENS-7SR1004-GD, Consumo: 0,20 VA / 5 A (Fase e Neutro)</p>
-                <p>Z<sub>relé</sub> =
-                        <span class="estudos-inline-middle">
-                                <span class="estudos-block-center">0,2</span>
-                                <span class="estudos-frac-den">5²</span>
-                        </span>
-                        + 3 ×
-                        <span class="estudos-inline-middle">
-                                <span class="estudos-block-center">0,2</span>
-                                <span class="estudos-frac-den">5²</span>
-                        </span>
-                        = 0,008 + 0,024 = <strong>0,0320 Ω</strong>
-                </p>
-
-                <h2>Impedância dos Condutores (Z<sub>fiação</sub>)</h2>
-                <p>Condutores de cobre de 2,5 mm² com 3 metros:</p>
-                <p>Z<sub>fiação</sub> =
-                        <span class="estudos-inline-middle">
-                                <span class="estudos-block-center">0,02 × 3</span>
-                                <span class="estudos-frac-den">2,5</span>
-                        </span>
-                        = <strong>0,0240 Ω</strong>
-                </p>
-
-                <h2>Impedância do TC (Z<sub>TC</sub>)</h2>
-                <p>Utilizado 20% de ZC = 1 Ω:</p>
-                <p>Z<sub>TC</sub> = 0,20 × 1 = <strong>0,2000 Ω</strong></p>
-
-                <h2>Impedância Total</h2>
-                <p>Z<sub>total</sub> = 0,0240 + 0,0320 + 0,2000 = <strong>0,2560 Ω</strong></p>
-
-                <h2>Cálculo da Tensão de Saturação</h2>
-                <p>V<sub>sat</sub> = 100 A × 0,2560 Ω = <strong>25,6 V</strong></p>
-
-        </div> -->
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>DIMENSIONAMENTO TC DE PROTEÇÃO</h2>
         </div>
+
         <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>DIMENSIONAMENTO TC DE PROTEÇÃO</h2>
+                </div>
+                <br>
 
 
-  <div id="especificacaodotc">
+                <div id="especificacaodotc">
 
                 <div>
                         Transformador de Corrente com função de Proteção - TC<br><br>
@@ -1898,8 +1819,8 @@
 
                 <!-- <p>O transformador de corrente definido para atender os critérios avaliados será:</p>
                 <span class="tc-especificacao"></span> -->
-                
-                <textarea class="estudos-textarea-md" placeholder="Observações ou justificativas técnicas do dimensionamento do TC">            
+
+                <textarea class="estudos-textarea-md" placeholder="Observações ou justificativas técnicas do dimensionamento do TC">
 (4) Classe de Tensão: 15 KV
 (5) Freqüência Nominal: 60 Hz;
 (6) Classe de exatidão: Norma ASA 10B50 (Com especificação 12,5 VA 10P20) ou equivalente ABNT;
@@ -1919,13 +1840,15 @@
                                 proteção possa atuar da forma correta.</em></p>
 
         </div>
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>DIMENSIONAMENTO TP DE PROTEÇÃO</h2>
         </div>
+
+
         <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>DIMENSIONAMENTO TP DE PROTEÇÃO</h2>
+                </div>
+                <br>
 
                 <div class="dimensionamentotpprotecao">
                         <p>O sistema de proteção deve ser alimentado pela tensão secundária do(s) TP de proteção.</p>
@@ -1976,14 +1899,16 @@
 
                 </textarea>
                 </div>
+        </div>
 
 
         <br>
-        <div class="estudos-title-block">
-                <h2>CÁLCULO E DIMENSIONAMENTO FUNÇÃO 67 (SOBRECORRENTE DIRECIONAL DE FASE)</h2>
-        </div>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-curvas-fase">
+                        <h2>CÁLCULO E DIMENSIONAMENTO FUNÇÃO 67 (SOBRECORRENTE DIRECIONAL DE FASE)</h2>
+                </div>
 
-        <div class="calculosfuncoes">
+                <div class="calculosfuncoes">
                 <h3>Função 67 Sentido Injeção (Sobrecorrente Direcional de fase)</h3>
 
                 <p>
@@ -2406,16 +2331,18 @@
                         <span>Tempo para atuação:</span> 0,00 s ou o menor valor possível.
                 </p>
         </div>
-
-
-
-        <br>
-        <div class="estudos-title-block">
-                <h2>CÁLCULO E DIMENSIONAMENTO FUNÇÃO 67N (SOBRECORRENTE DIRECIONAL DE NEUTRO)</h2>
         </div>
-        <br>
 
-        <div class="calculosfuncoes">
+
+
+        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-curvas-neutro">
+                        <h2>CÁLCULO E DIMENSIONAMENTO FUNÇÃO 67N (SOBRECORRENTE DIRECIONAL DE NEUTRO)</h2>
+                </div>
+                <br>
+
+                <div class="calculosfuncoes">
                 <h3>Função 67N Sentido Injeção (Sobrecorrente Direcional de Neutro)</h3>
 
                 <p>
@@ -3524,12 +3451,13 @@
 
 
         <br>
-        <div class="estudos-title-block">
-                <h2>TABELA RESUMO DOS PARÂMETROS CALCULADOS</h2>
-        </div>
-        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block">
+                        <h2>TABELA RESUMO DOS PARÂMETROS CALCULADOS</h2>
+                </div>
+                <br>
 
-        <div id="tabelaresumofuncoes">
+                <div id="tabelaresumofuncoes">
 
                 <table class="resumo-parametros-tabela">
                         <tr class="linha-tp">
@@ -4153,67 +4081,37 @@
 
 
         </div>
+        </div>
 
 
-        <div id="tituloreles">
-                <br>
+        <div id="tituloreles" class="estudos-secao-bloco">
                 <div class="estudos-title-block">
                         <h2>Parâmetros do Relé de Proteção (Painel de Interface)</h2>
                 </div>
-                <br>
 
-                <div id="tabelareles" classe="tabelaparametrizacaoreles"></div>
-
+                <div id="tabelareles" class="tabelaparametrizacaoreles"></div>
         </div>
 
-
-       
-
-        <!-- ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS-----------------
-        <h3>Imagens carregadas:</h3>
-        <div class="estudos-max210-center" id="gallery"></div>
-        ----------ESTILIZAÇÃO DE IMPORTAÇÃO DE IMAGENS----------------- -->
         <br>
-        <div class="estudos-title-block" id="titulo-curva-protecao">
-                <h2>Plotagem Curva de Proteção Sentido Consumo</h2>
-        </div>
-        <br>
-
-        <div id="curvaProtecao">
-                <canvas id="grafico"></canvas>
-        </div>
-        <br>
-
-        <br>
-        <div class="estudos-title-block" id="titulo-curva-protecao-gd">
-                <h2>Plotagem Curva de Proteção Sentido Injeção</h2>
-        </div>
-        <br>
-        <div id="curvaProtecaoGD">
-                <canvas id="graficoGD"></canvas>
-        </div>
-
-
-
-         <!-- // -----------DIV criada para o painel interno, onde serão exibidos os parâmetros do relé de proteção do painel interno
-        //conforme tabela de parametrização do estudo----------------- -->
-
-        <!-- <div id="tituloreles-painel-interno">
-                <br>
-                <div class="estudos-title-block">
-                        <h2>Parâmetros do Relé de Proteção (Painel Interno)</h2>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-curva-protecao">
+                        <h2>Plotagem Curva de Proteção Sentido Consumo</h2>
                 </div>
-                <br>
 
-        </div> -->
+                <div id="curvaProtecao">
+                        <canvas id="grafico"></canvas>
+                </div>
+        </div>
 
+        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-curva-protecao-gd">
+                        <h2>Plotagem Curva de Proteção Sentido Injeção</h2>
+                </div>
 
-
-
-
-
-
-
+                <div id="curvaProtecaoGD">
+                        <canvas id="graficoGD"></canvas>
+                </div>
         </div>
 
 
@@ -4225,13 +4123,12 @@
 
 
 
-        <br>
-        <div class="estudos-title-block" id="titulo-curva-protecao">
-                <h2>NOTAS OBRIGATÓRIAS</h2>
-        </div>
-        <br>
+        <div class="estudos-secao-bloco">
+                <div class="estudos-title-block" id="titulo-notas-obrigatorias">
+                        <h2>NOTAS OBRIGATÓRIAS</h2>
+                </div>
 
-        <div id="notas-obrigatorias">
+                <div id="notas-obrigatorias">
 
                 a) A CEMIG fica autorizada a reproduzir cópias desse projeto para uso interno, se necessário,
                 bem como fazer arquivamento pelo processo que lhe for conveniente.<br><br>
@@ -4241,7 +4138,7 @@
 
                 c) A carga declarada no projeto estará disponível para conferência no ato da ligação.<br><br>
 
-                d) A <strong class="nome-cliente">[NOME DO CLIENTE,PESSOA FISICA OU JURÍDICA]</strong>,
+                d) A <span class="nome-cliente value-label-bold" data-form-field="nomeEmpreendimento"></span>,
                 através de seu representante legal, declara que está ciente das responsabilidades legais
                 inerentes à energização acidental de circuitos elétricos da concessionária por equipamentos
                 de geração própria existentes na instalação, ou que vierem a ser instalados dentro de sua
@@ -4249,19 +4146,31 @@
 
                 <h2>TERMO DE RESPONSABILIDADE:</h2>
 
-                e)Eu, <strong class="nome-responsavel-tecnico">[NOME DO RESPONSÁVEL TÉCNICO]</strong>, Engenheiro
+                e) Eu, <span class="nome-responsavel-tecnico value-label-bold" data-form-field="nomeRT"></span>, Engenheiro
                 Eletricista
-                CREA: <span class="crea">[CREA]</span>, Responsável técnico pelo projeto elétrico
+                CREA: <span class="crea value-label-bold" data-form-field="creaEstado"></span>,
+                Responsável técnico pelo projeto elétrico
                 relativo à edificação situada na
-                <span class="endereco">[ENDEREÇO DO EMPREENDIMENTO]</span>
+                <span class="endereco value-label-bold" data-form-field="enderecoEmpreendimento"></span>
                 , declaro conhecer o disposto na Lei Federal n° 5.194/66 de 24/12/66, na Lei n° 9.695/98 de 19/02/98,
                 e nas Resoluções, Instruções Normativas e Atos do CONFEA e do CREA-MG,
                 responsabilizando-me, única e exclusivamente, administrativa e judicialmente,
                 em caso de arguição de violação dos direitos autorais.<br><br>
 
 
-                <em><span class="cidade">[CIDADE]</span>, <span class="data">[DATA]</span>.</em>
+                <div class="bloco-data-cidade">
+                        <em><span class="cidade value-label-bold" data-form-field="cidadeEmpreendimento"></span>,
+                        <span class="data value-label-bold" data-form-field="dataProjeto"></span></em>
+                </div>
 
+                <div class="bloco-assinatura-rt">
+                        <div class="linha-assinatura-rt"></div>
+                        <div class="nome-assinatura-rt"><span class="nome-responsavel-tecnico value-label-bold" data-form-field="nomeRT"></span></div>
+                        <div class="detalhes-assinatura-rt">Engenheiro Eletricista &bull; CREA: <span class="crea value-label-bold" data-form-field="creaEstado"></span></div>
+                        <div class="sub-assinatura-rt">Responsável Técnico pelo Estudo de Proteção</div>
+                </div>
+
+        </div>
         </div>
 
 

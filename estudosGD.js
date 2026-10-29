@@ -103,10 +103,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     carregarVariaveisEstudo();
+    preencherFolhaSeloComDadosFormulario();
     carregarConteudoAjusteReator();
     carregarConteudoAjuste32();
     carregarConteudoAjuste51V();
     carregarConteudosAjustesGDComplementares();
+    renderizarSumarioEstudo();
 
     //incluirimagensrele();
     // Recarregar a página após salvar as opções
@@ -959,10 +961,14 @@ function configurarQuebrasDinamicasImpressao() {
 
     const aplicarQuebras = () => {
         atualizarQuebrasTitulosNaImpressao();
+        ajustarTextareasParaImpressao();
+        renderizarSumarioEstudo();
     };
 
     const limparQuebras = () => {
         limparQuebrasTitulosNaImpressao();
+        restaurarTextareasAposImpressao();
+        renderizarSumarioEstudo();
     };
 
     window.addEventListener('beforeprint', aplicarQuebras);
@@ -986,6 +992,20 @@ function configurarQuebrasDinamicasImpressao() {
     }
 }
 
+function ajustarTextareasParaImpressao() {
+    document.querySelectorAll('textarea').forEach((ta) => {
+        ta.dataset.originalHeight = ta.style.height || '';
+        ta.style.height = 'auto';
+        ta.style.height = (ta.scrollHeight + 8) + 'px';
+    });
+}
+
+function restaurarTextareasAposImpressao() {
+    document.querySelectorAll('textarea').forEach((ta) => {
+        ta.style.height = ta.dataset.originalHeight || '';
+    });
+}
+
 function limparQuebrasTitulosNaImpressao() {
     document.querySelectorAll('.estudos-title-force-break-print').forEach((el) => {
         el.classList.remove('estudos-title-force-break-print');
@@ -995,15 +1015,155 @@ function limparQuebrasTitulosNaImpressao() {
 function atualizarQuebrasTitulosNaImpressao() {
     limparQuebrasTitulosNaImpressao();
 
-    const titulos = Array.from(document.querySelectorAll('.estudos-title-block'));
-    if (titulos.length < 4) {
+    // Seções principais que devem iniciar em nova página de forma lógica:
+    const idsQuebraPagina = [
+        'tituloestudodeprotecao',
+        'titulo-justificativa-apresentacao',
+        'titulo-diagrama-unifilar',
+        'titulo-calculo-trafos',
+        'titulo-tabela-trafos',
+        'titulo-tc-protecao',
+        'titulo-curvas-fase',
+        'titulo-curvas-neutro',
+        'tituloreles',
+        'titulo-curva-protecao',
+        'titulo-curva-protecao-gd',
+        'titulo-notas-obrigatorias'
+    ];
+
+    idsQuebraPagina.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.style.display !== 'none' && el.offsetParent !== null) {
+            el.classList.add('estudos-title-force-break-print');
+        }
+    });
+
+    // Se o diagrama unifilar estiver ausente ou oculto, iniciar a página no cálculo dos trafos
+    const diagramaBox = document.getElementById('diagramaunifilar');
+    const galeria = document.getElementById('gallery');
+    const semDiagrama = !diagramaBox || diagramaBox.style.display === 'none' || !galeria || !galeria.querySelector('img');
+    if (semDiagrama) {
+        const tituloTrafos = document.getElementById('titulo-calculo-trafos');
+        if (tituloTrafos) {
+            tituloTrafos.classList.add('estudos-title-force-break-print');
+        }
+    }
+}
+
+function obterJSONStorageSeguro(chave, fallback = null) {
+    const valorBruto = localStorage.getItem(chave);
+    if (!valorBruto) {
+        return fallback;
+    }
+
+    try {
+        return JSON.parse(valorBruto);
+    } catch (erro) {
+        return fallback;
+    }
+}
+
+function preencherFolhaSeloComDadosFormulario() {
+    const campoFolha = document.querySelector('#tabelaselo [data-selo-folha]');
+    if (campoFolha) {
+        campoFolha.value = '1/1';
+    }
+
+    const dadosFormulario = obterJSONStorageSeguro('formularioProjetoDados', {});
+    if (!dadosFormulario || typeof dadosFormulario !== 'object' || Array.isArray(dadosFormulario)) {
         return;
     }
 
-    titulos.forEach((titulo, indice) => {
-        if (indice >= 3) {
-            titulo.classList.add('estudos-title-force-break-print');
+    document.querySelectorAll('[data-form-field]').forEach((campo) => {
+        const nomeCampo = campo.dataset.formField;
+        const valor = dadosFormulario[nomeCampo];
+        if (typeof valor === 'string') {
+            let valorExibido = valor;
+            if (nomeCampo === 'dataProjeto' && /^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+                const [ano, mes, dia] = valor.split('-');
+                valorExibido = `${dia}/${mes}/${ano}`;
+            }
+
+            if (campo instanceof HTMLInputElement) {
+                campo.value = valorExibido;
+            } else {
+                campo.textContent = valorExibido;
+            }
         }
+    });
+
+    const demandaContrato = localStorage.getItem('demandadecontrato');
+    const campoDemandaContrato = document.querySelector(
+        '#tabelaselo [data-local-storage-field="demandadecontrato"]'
+    );
+    if (campoDemandaContrato && demandaContrato !== null) {
+        campoDemandaContrato.value = `${demandaContrato} KW`;
+    }
+}
+
+function renderizarSumarioEstudo() {
+    const sumario = document.getElementById('sumariotexto');
+    if (!sumario) {
+        return;
+    }
+
+    const titulos = Array.from(document.querySelectorAll('.estudos-title-block h2, .calculosfuncoes h3')).filter((titulo) => {
+        // Deve estar após o sumário no documento
+        if (!(sumario.compareDocumentPosition(titulo) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+            return false;
+        }
+
+        // Verifica visibilidade de elemento e de seus ancestrais
+        let elemento = titulo;
+        while (elemento && elemento !== document.body) {
+            const estilo = window.getComputedStyle(elemento);
+            if (estilo.display === 'none' || estilo.visibility === 'hidden') {
+                return false;
+            }
+            elemento = elemento.parentElement;
+        }
+
+        const texto = titulo.textContent.trim().replace(/\s+/g, ' ');
+        if (!texto) {
+            return false;
+        }
+
+        // Exclui subtítulos que são apenas etapas de fórmula ou cálculos internos
+        if (
+            texto.startsWith('Conversão para P.U') ||
+            texto.startsWith('Fórmula:') ||
+            texto.startsWith('Calculo do dial:') ||
+            texto.startsWith('Parâmetros Considerados') ||
+            texto.includes('Curto-Circuito Trifásico') ||
+            texto.startsWith('Impedância do Relé') ||
+            texto.startsWith('Impedância dos Condutores') ||
+            texto.startsWith('Impedância do TC') ||
+            texto.startsWith('Impedância Total') ||
+            texto.startsWith('Cálculo da Tensão de Saturação')
+        ) {
+            return false;
+        }
+
+        return true;
+    });
+
+    sumario.replaceChildren();
+
+    titulos.forEach((titulo, indice) => {
+        if (!titulo.id) {
+            titulo.id = `estudos-sumario-topico-${indice + 1}`;
+        }
+
+        const item = document.createElement('div');
+        const ehSubitem = titulo.tagName === 'H3';
+        item.className = `estudos-sumario-item${ehSubitem ? ' estudos-sumario-subitem' : ''}`;
+
+        const link = document.createElement('a');
+        link.href = `#${titulo.id}`;
+        link.textContent = titulo.textContent.trim().replace(/\s+/g, ' ');
+
+        item.appendChild(link);
+        sumario.appendChild(item);
     });
 }
 
@@ -2482,6 +2642,8 @@ document.addEventListener('DOMContentLoaded', function () {
             diagramaUnifilar.style.display = "none";
         }
     }
+
+    renderizarSumarioEstudo();
 });
 
 // Limpa a imagemSelecionada e a galeria

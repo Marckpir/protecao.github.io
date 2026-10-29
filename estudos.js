@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
     renderizarCalculoDialMotores();
 
     exibirCalculoMotoresSeTabelaPreenchida();
+    aplicarVisibilidadeSaturacaoTC();
     renderizarSumarioEstudo();
 
        //incluirimagensrele();
@@ -552,11 +553,13 @@ function limparQuebrasTitulosNaImpressao() {
     document.querySelectorAll('.estudos-title-force-break-print').forEach((el) => {
         el.classList.remove('estudos-title-force-break-print');
     });
+    aplicarVisibilidadeSaturacaoTC();
 }
 
 function atualizarQuebrasTitulosNaImpressao() {
     limparQuebrasTitulosNaImpressao();
     aplicarVisibilidadeMagnetizacaoReal();
+    aplicarVisibilidadeSaturacaoTC();
 
     // Seções principais que devem iniciar em nova página de forma lógica:
     const idsQuebraPagina = [
@@ -1980,8 +1983,22 @@ function aplicarVisibilidadeMagnetizacaoReal() {
     }
 }
 
+function aplicarVisibilidadeSaturacaoTC() {
+    const categoria = (localStorage.getItem('usuarioCategoria') || '').toLowerCase();
+    const blocoSaturacao = document.getElementById('bloco-calculo-saturacao-tc') ||
+        document.getElementById('criteriocalculotcimpedancia')?.closest('.estudos-secao-bloco');
+    if (blocoSaturacao) {
+        if (categoria === 'usuario') {
+            blocoSaturacao.style.display = 'none';
+        } else {
+            blocoSaturacao.style.display = '';
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     aplicarVisibilidadeMagnetizacaoReal();
+    aplicarVisibilidadeSaturacaoTC();
 
     const gallery = document.getElementById("gallery");
     const tituloDiagramaUnifilar = document.getElementById("titulo-diagrama-unifilar");

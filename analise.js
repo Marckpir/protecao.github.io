@@ -334,6 +334,50 @@ async function copiarUltimasLinhasTabelaAtalho() {
     }
 }
 
+function montarTextoTabelaAtividadeDiversa() {
+    const tabelaAtividade = document.getElementById('tabela-atividade-diversa');
+    if (!tabelaAtividade) {
+        return '';
+    }
+
+    const linha = tabelaAtividade.querySelector('tbody tr');
+    if (!linha) {
+        return '';
+    }
+
+    const colunas = Array.from(linha.querySelectorAll('td'));
+    return colunas.map((celula) => obterTextoCelulaTabelaAtalho(celula)).join('\t');
+}
+
+async function copiarLinhaTabelaAtividadeDiversa() {
+    const texto = montarTextoTabelaAtividadeDiversa();
+    if (!texto.trim()) {
+        window.alert('Não foi possível localizar linha para copiar.');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(texto);
+        window.alert('Linha copiada com sucesso!');
+        return;
+    } catch {
+        const areaTemporaria = document.createElement('textarea');
+        areaTemporaria.value = texto;
+        areaTemporaria.style.position = 'fixed';
+        areaTemporaria.style.left = '-99999px';
+        document.body.appendChild(areaTemporaria);
+        areaTemporaria.select();
+        const copiado = document.execCommand('copy');
+        document.body.removeChild(areaTemporaria);
+
+        if (copiado) {
+            window.alert('Linha copiada com sucesso!');
+        } else {
+            window.alert('Não foi possível copiar automaticamente.');
+        }
+    }
+}
+
 function converterNumeroEntrada(valor) {
     if (valor === null || valor === undefined) {
         return NaN;
@@ -1201,6 +1245,23 @@ window.onload = function () {
         btnCopiarAtalhosUltimasLinhas.dataset.bound = 'true';
     }
 
+    const btnCopiarAtividadeDiversa = document.getElementById('btnCopiarAtividadeDiversa');
+    if (btnCopiarAtividadeDiversa && btnCopiarAtividadeDiversa.dataset.bound !== 'true') {
+        btnCopiarAtividadeDiversa.addEventListener('click', copiarLinhaTabelaAtividadeDiversa);
+        btnCopiarAtividadeDiversa.dataset.bound = 'true';
+    }
+
+    const selectAtividadeDiversa = document.getElementById('select-atividade-diversa');
+    if (selectAtividadeDiversa) {
+        const atividadeSalva = localStorage.getItem('atividade_diversa_termo');
+        if (atividadeSalva) {
+            selectAtividadeDiversa.value = atividadeSalva;
+        }
+        selectAtividadeDiversa.addEventListener('change', function () {
+            localStorage.setItem('atividade_diversa_termo', this.value);
+        });
+    }
+
     // Controle de acesso movido para controle-acesso.js
 
     //--persistir os valores ajustados no html
@@ -1799,7 +1860,7 @@ function gerarPDF() {
     y += 6;
     doc.text("Núcleo Técnico", 20, y, { maxWidth: 170, align: "justify" });
     y += 6;
-    doc.text("Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM", 20, y, { maxWidth: 170, align: "justify" });
+    doc.text("PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT", 20, y, { maxWidth: 170, align: "justify" });
     y += 6;
     doc.text("www.cemig.com.br", 20, y, { maxWidth: 170, align: "justify" });
 
@@ -2006,7 +2067,7 @@ Salientamos a importância de que essas alterações sejam feitas de forma imedi
 Att.
 
 Núcleo Técnico
-Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM
+PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT
 www.cemig.com.br`;
 }
 

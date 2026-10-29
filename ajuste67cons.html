@@ -55,7 +55,7 @@
 
     </h1>
     <br>
-    <div class="aj67-subtitle">FUNÇÕES PARA AJUSTES DE
+    <div class="aj67-subtitle">FUNÇÕES AJUSTES DE
         PROTEÇÃO GD</div>
     <br>
     <div class="aj67-func-row">
@@ -141,10 +141,12 @@
                                     </select>
                                 </div>
                             </td>
-                            <td></td>
-                            <td>
+                            <td class="curva-ideal-celula" title="Clique para aplicar a curva ideal calculada" style="cursor: pointer;">
+                                <b>Curva ideal calculada</b>
+                                <div><label id="curva-fase-ideal-html" style="cursor: pointer;"></label></div>
+                            </td>
+                            <td colspan="2">
                                 <label id="curva-fase-ajustada-html"></label>
-                                <span id="curva-fase-ideal-html" style="display:none;"></span>
                             </td>
                         </tr>
 
@@ -152,18 +154,18 @@
                             <td>Dial:</td>
                             <td>
                                 <div class="input-container">
-                                    <input type="number" id="dialfasehtml" step="0.1" min="0">
+                                    <input type="number" id="dialfasehtml" step="0.01" min="0.01">
                                 </div>
                             </td>
 
 
-                            <td class="dial-ideal-celula"><b>Dial ideal
+                            <td class="dial-ideal-celula" id="celula-dial-ideal-fase" title="Clique para usar o Dial ideal calculado" style="cursor: pointer;"><b>Dial ideal
                                     calculado</b>
                                 <div class="input-container">
-                                    <label id="dialideal"></label>
+                                    <label id="dialideal" style="cursor: pointer;"></label>
                                 </div>
                             </td>
-                            <td id="dialrealfase"></td>
+                            <td id="dialrealfase" colspan="2"></td>
 
 
                         </tr>
@@ -194,15 +196,15 @@
                         </tr>
 
                         <tr>
-                            <td>Simular Imag:</td>
+                            <td>Simular Imag (A):</td>
                             <td>
                                 <div class="input-container">
-                                    <input type="number" id="imagsimuladahtml">
+                                    <input type="number" id="imagsimuladahtml" step="0.01" min="0">
                                     <span class="unidade"></span>
                                 </div>
                             </td>
 
-                            <td class="exibirmagreal"><b>Magnetização real
+                            <td class="exibirmagreal" colspan="3"><b>Magnetização real
                                     calculada</b>
                                 <div class="input-container">
                                     <label id="imagrealcalculadahtml"></label>
@@ -211,29 +213,34 @@
                         </tr>
 
                         <tr>
-                            <td>I def fase:</td>
+                            <td>I def fase (A):</td>
                             <td>
                                 <div class="input-container">
-                                    <input type="number" id="idef-fase-html">
+                                    <input type="number" id="idef-fase-html" step="0.01" min="0">
                                 </div>
                             </td>
                             <td>
                                 <div class="input-container">
-                                    <label id="IPpercentual"></label>
+                                    <label id="idef-fase-nominal"></label>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-container">
-                                    <label id="IPreal"></label>
+                                    <label id="idef-fase-real"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-container">
+                                    <label id="idef-fase-pu"></label>
                                 </div>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>T def fase:</td>
+                            <td>T def fase (s):</td>
                             <td>
                                 <div class="input-container">
-                                    <input type="number" id="tdef-fase-html">
+                                    <input type="number" id="tdef-fase-html" step="0.01" min="0">
                                 </div>
                             </td>
                             <td>
@@ -241,7 +248,7 @@
                                     <label id="Tpercentual"></label>
                                 </div>
                             </td>
-                            <td>
+                            <td colspan="2">
                                 <div class="input-container">
                                     <label id="Treal"></label>
                                 </div>
@@ -313,28 +320,30 @@
                                     </select>
                                 </div>
                             </td>
-                            <td></td>
-                            <td>
+                            <td class="curva-ideal-celula" title="Clique para aplicar a curva ideal calculada" style="cursor: pointer;">
+                                <b>Curva ideal calculada</b>
+                                <div><label id="curva-neutro-ideal-html" style="cursor: pointer;"></label></div>
+                            </td>
+                            <td colspan="2">
                                 <label id="curva-neutro-ajustada-html"></label>
-                                <span id="curva-neutro-ideal-html" style="display:none;"></span>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>Dial:</td>
+                            <td>Dial (s):</td>
                             <td>
                                 <div class="input-container">
-                                    <input type="number" id="dialcurvaneutrohtml">
+                                    <input type="number" id="dialcurvaneutrohtml" step="0.01" min="0.01">
                                     <span class="unidade"></span>
                                 </div>
                             </td>
-                            <td class="dial-ideal-celula"><b>Dial ideal
+                            <td class="dial-ideal-celula" id="celula-dial-ideal-neutro" title="Clique para usar o Dial ideal calculado" style="cursor: pointer;"><b>Dial ideal
                                     calculado</b>
                                 <div class="input-container">
-                                    <label id="dialidealneutro"></label>
+                                    <label id="dialidealneutro" style="cursor: pointer;"></label>
                                 </div>
                             </td>
-                            <td id="dialrealneutro"></td>
+                            <td id="dialrealneutro" colspan="2"></td>
                         </tr>
 
                         <tr>
@@ -375,7 +384,7 @@
                                     <label type="number" id="Idefneutropercentual"></label>
                                 </div>
                             </td>
-                            <td>
+                            <td colspan="2">
                                 <div class="input-container">
                                     <label id="Idefrealneutro"></label>
                                 </div>
@@ -391,12 +400,12 @@
                             </td>
                             <td>
                                 <div class="input-container">
-                                    <label type="number" id="IPpercentual"></label>
+                                    <label type="number" id="Tdefneutropercentual"></label>
                                 </div>
                             </td>
-                            <td>
+                            <td colspan="2">
                                 <div class="input-container">
-                                    <label id="IPreal"></label>
+                                    <label id="Tdefrealneutro"></label>
                                 </div>
                             </td>
                         </tr>
@@ -407,6 +416,7 @@
         </div>
 
         <div class="grafico-container">
+            <div id="painel-diagnostico-coordenacao" class="painel-diagnostico-coordenacao"></div>
             <canvas id="grafico"></canvas>
         </div>
 

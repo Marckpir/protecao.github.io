@@ -211,13 +211,20 @@ body {
 #tabelaatalho tbody,
 #tabelaatalho tr,
 #tabelaatalho th,
-#tabelaatalho td {
+#tabelaatalho td,
+#tabela-atividade-diversa,
+#tabela-atividade-diversa thead,
+#tabela-atividade-diversa tbody,
+#tabela-atividade-diversa tr,
+#tabela-atividade-diversa th,
+#tabela-atividade-diversa td {
     background: #fff !important;
     color: #000 !important;
     border-color: #000 !important;
 }
 
-#tabelaatalho input {
+#tabelaatalho input,
+#tabela-atividade-diversa select {
     background: #fff !important;
     color: #000 !important;
 }
@@ -677,6 +684,7 @@ th, td{
 /* Realce sutil ao passar o mouse sobre linhas de tabela (legibilidade) */
 .analise-table tbody tr:hover td,
 #tabelaatalho tbody tr:hover td,
+#tabela-atividade-diversa tbody tr:hover td,
 .analise-parametros-wrap tbody tr:hover td {
     filter: brightness(0.97);
 }

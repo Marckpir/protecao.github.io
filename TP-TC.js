@@ -828,7 +828,9 @@ function dimensionarTCconformenorma() {
     // caso não tenha sido preenchido pelo usuario, se a demanda preenchida for menor que a potencia minima 
     //então uma variavel armazena a potencia preenchida(selecionada) que sera demanda de contrato e a potencia minima é salva no localStorage
 
-    if (demandaSelecionada < potenciaMinima) {
+    const potenciaTotalTrafos = parseFloat(localStorage.getItem("potenciatotaltrafos")) || 0;
+
+    if (demandaSelecionada < potenciaMinima && potenciaTotalTrafos >= potenciaMinima) {
         localStorage.setItem("demandaSelecionada", potenciaMinima.toFixed(2));
         localStorage.setItem("demandadecontrato", demandaSelecionada);
 
@@ -837,7 +839,7 @@ function dimensionarTCconformenorma() {
         localStorage.setItem("demandadecontrato", demandaSelecionada);
     }
 
-    //compara potencia de GD minima com a POTENCIA DE GD selecionada, se a demanda selecionada for menor que a potencia minima 
+    //compara potencia de GD minima com a POTENCIA DE GD selecionada, se a demanda selecionada for menor que a potencia minima
     //então uma variavel armazena a potencia selecionada que sera demanda GD de contrato e a potencia minima é salva no localStorage
 
     if (potenciaGDSelecionada < potenciaMinima) {
@@ -864,12 +866,15 @@ function dimensionarTCconformenorma() {
 
 
     // Verifica se a corrente nominal de demanda (consumo) é menor que a corrente mínima do TC dimensionado
-    // ou do TC selecionado, se for o valor é substituído pela corrente mínima do TC dimensionado 
-    // ou do TC selecionado, escolhendo o maior valor entre os dois, e uma variável armazena se 
+    // ou do TC selecionado, se for o valor é substituído pela corrente mínima do TC dimensionado
+    // ou do TC selecionado, escolhendo o maior valor entre os dois, e uma variável armazena se
     // a corrente nominal de consumo foi ajustada para atender a corrente mínima do TC dimensionado ou do TC selecionado
+    // Não aplica a corrente nominal mínima caso a potência total dos transformadores seja menor que a demanda mínima calculada
 
     let inominalminimaTC;
-    if (inominalDemanda < correntedeconsumominimaSelecionado && correntedeconsumominimaSelecionado > 0) {
+    if (potenciaTotalTrafos < potenciaMinima) {
+        inominalminimaTC = "Não";
+    } else if (inominalDemanda < correntedeconsumominimaSelecionado && correntedeconsumominimaSelecionado > 0) {
         inominalDemanda = correntedeconsumominimaSelecionado;
 
 

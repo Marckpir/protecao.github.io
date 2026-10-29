@@ -260,6 +260,46 @@
             <button id="btnCopiarAtalhosUltimasLinhas" class="copiar-button" type="button">Copiar</button>
         </div>
 
+        <br><br>
+
+        <table id="tabela-atividade-diversa"
+            style="width:100%; border-collapse:collapse; background:#fff; color:#000; font-size:1em; border:2px solid #000;">
+            <thead>
+                <tr style="background:#ffffff; color:#000;">
+                    <th colspan="14" style="padding:8px; border:1px solid #000;">REALIZAR ATIVIDADE DIVERSA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding:8px; border:1px solid #000;">REALIZAR ATIVIDADE DIVERSA</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="padding:8px; border:1px solid #000;">C057514</td>
+                    <td style="padding:8px; border:1px solid #000;">C057514</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td class="dataplanejada" style="padding:8px; border:1px solid #000;">03.02.2026</td>
+                    <td style="padding:8px; border:1px solid #000;">1</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td class="dataplanejada" style="padding:8px; border:1px solid #000;">03.02.2026</td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="border:1px solid #000;"></td>
+                    <td style="padding:4px 8px; border:1px solid #000;">
+                        <select id="select-atividade-diversa" style="width:100%; padding:4px 6px; font-size:1em; font-weight:bold; border:1px solid #ccc; background:#fff; color:#000;">
+                            <option value="EMAIL">EMAIL</option>
+                            <option value="TELEFONE">TELEFONE</option>
+                            <option value="REUNIÃO">REUNIÃO</option>
+                            <option value="CORREÇÃO SIMPLES">CORREÇÃO SIMPLES</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 10px; text-align: center;">
+            <button id="btnCopiarAtividadeDiversa" class="copiar-button" type="button">Copiar</button>
+        </div>
+
     </div>
 
     <br><br>
@@ -380,7 +420,7 @@
         <div class="footer">
             Att.<br>
             Núcleo Técnico<br>
-            Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM<br>
+            PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT<br>
             <a href="https://www.cemig.com.br" target="_blank">www.cemig.com.br</a>
         </div>
 
@@ -733,6 +773,18 @@
             if (tipoAnalise) {
                 const tipoAnaliseEl = document.getElementById('tipodeanalise');
                 if (tipoAnaliseEl) tipoAnaliseEl.textContent = tipoAnalise;
+            }
+
+            // Preenche seleção atividade diversa
+            const selectAtividade = document.getElementById('select-atividade-diversa');
+            const atividadePersistida = localStorage.getItem('atividade_diversa_termo');
+            if (selectAtividade && atividadePersistida) {
+                selectAtividade.value = atividadePersistida;
+            }
+            if (selectAtividade) {
+                selectAtividade.addEventListener('change', function () {
+                    localStorage.setItem('atividade_diversa_termo', this.value);
+                });
             }
 
 
