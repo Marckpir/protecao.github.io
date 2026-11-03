@@ -2067,7 +2067,7 @@ Salientamos a importância de que essas alterações sejam feitas de forma imedi
 Att.
 
 Núcleo Técnico
-Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM
+PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT
 www.cemig.com.br`;
 }
 
