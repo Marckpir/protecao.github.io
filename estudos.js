@@ -1298,122 +1298,155 @@ if (curtoSelecionadaTC !== null && !isNaN(curtoSelecionadaTC)) {
     });
     // -----------------FIM DIMENSIONAMENTO DE TC-------------------------------------------
 
-//-----INICIO DIMENSIONAMENTO DE TC POR SATURAÇÃO -----------------
+//-----INICIO DIMENSIONAMENTO DE TC POR SATURAÇÃO (ABNT NBR 6856:2021) -----------------
 
+    // 1. Coleta e normalização de parâmetros do TC e do circuito secundário
+    const rawIpSat = localStorage.getItem('tcPrimarioSaturacao') ||
+                     localStorage.getItem('TCdeprotecaoEscolhido') ||
+                     localStorage.getItem('TCdeprotecaoSelecionada') || '100';
+    const numIpSat = parseFloat(rawIpSat) || 100;
 
-    let potenciaBobinaRele = localStorage.getItem('potenciabobinaRele');
-    const potenciabobinareleEls = document.querySelectorAll('.potencia-bobina-rele');
-    potenciabobinareleEls.forEach(el => {
-        if (potenciaBobinaRele !== null) {
-            el.textContent = potenciaBobinaRele;
+    const rawIsSat = localStorage.getItem('correnteSecundariaTC') || '5';
+    const numIsSat = parseFloat(rawIsSat) || 5;
+
+    const numRtcSat = numIsSat > 0 ? (numIpSat / numIsSat) : 20;
+
+    const numSbSat = parseFloat(localStorage.getItem('potenciaNominalTC')) || 25;
+    const numErroSat = parseFloat(localStorage.getItem('erroSaturacaoTC')) || 10;
+    const numAlfSat = parseFloat(localStorage.getItem('fatorMultiplicidadeTC')) || 20;
+
+    const numCompSat = parseFloat(localStorage.getItem('comprimentoCondutorTC')) || 3;
+    const numBitolaSat = parseFloat(localStorage.getItem('bitolaCondutorTC')) || 2.5;
+    const numRcabSat = parseFloat(localStorage.getItem('resistividadeCondutorTC')) || 6.72;
+
+    const rawSreleSat = localStorage.getItem('potenciabobinaRele');
+    const numSreleSat = (rawSreleSat !== null && !isNaN(parseFloat(rawSreleSat))) ? parseFloat(rawSreleSat) : 0.50;
+
+    const numXrSat = parseFloat(localStorage.getItem('relacaoXRCurto')) || 0;
+    const numKtcSat = parseFloat(localStorage.getItem('ktcFatorImpedancia')) || 0.20;
+
+    const rawIccSat = localStorage.getItem('curtoSelecionada') ||
+                      localStorage.getItem('curtoTC') ||
+                      localStorage.getItem('curtoCalculada') || '5000';
+    const numIccSat = parseFloat(rawIccSat) || 5000;
+
+    // 2. Cálculos Normativos (ABNT NBR 6856:2021)
+    // Impedância dos cabos: ida e volta
+    const numZcaboSat = 2 * (numCompSat / 1000) * numRcabSat;
+    // Impedância interna do TC
+    const numZtcSat = (numKtcSat * numSbSat) / Math.pow(numIsSat, 2);
+    // Impedância do relé
+    const numZreleSat = numSreleSat / Math.pow(numIsSat, 2);
+    // Burden nominal
+    const numZbSat = numSbSat / Math.pow(numIsSat, 2);
+    // Impedância total secundária
+    const numZtotalSat = numZcaboSat + numZtcSat + numZreleSat;
+
+    // Corrente secundária de curto-circuito
+    const numIsecCcSat = numRtcSat > 0 ? (numIccSat / numRtcSat) : 0;
+
+    // Tensão requerida pela falta com fator assimétrico (1 + X/R)
+    let numVreqSat = numIsecCcSat * numZtotalSat;
+    if (numXrSat > 0) {
+        numVreqSat = numVreqSat * (1 + numXrSat);
+    }
+    // Margem normativa de 20%
+    const numVreqMargemSat = 1.2 * numVreqSat;
+
+    // Tensão nominal de saturação suportada pelo TC
+    const numVsatSat = numIsSat > 0 ? ((numSbSat * numAlfSat) / numIsSat) : 0;
+
+    // Fator limite de exatidão real (ALF real)
+    const numAlfRealSat = numZtotalSat > 0 ? (numAlfSat * (numZtcSat + numZbSat) / numZtotalSat) : 0;
+
+    // Equivalência norma antiga ABNT NBR 6856:1992
+    const numVtermAntigaSat = Math.round(numAlfSat * numIsSat * numZbSat);
+    const textoNormaAntigaSat = `${numErroSat}B${numVtermAntigaSat}`;
+    const textoNormaNovaSat = `${numSbSat} VA ${numErroSat}P${numAlfSat}`;
+
+    // Avaliação de Saturação
+    const aprovadoSaturacao = (numIccSat > 0) ? (numVsatSat >= numVreqMargemSat) : true;
+
+    // 3. Preenchimento de Todos os Elementos da Tabela e Memória no HTML
+    const setAllText = (selector, val) => {
+        document.querySelectorAll(selector).forEach(el => { el.textContent = val; });
+    };
+
+    setAllText('.saturacao-estudos-ip', numIpSat.toString());
+    setAllText('.saturacao-estudos-is', numIsSat.toString());
+    setAllText('.saturacao-estudos-rtc', numRtcSat.toFixed(0));
+    setAllText('.saturacao-estudos-especificacao-nova', textoNormaNovaSat);
+    setAllText('.saturacao-estudos-sb', numSbSat.toString());
+    setAllText('.saturacao-estudos-erro', numErroSat.toString());
+    setAllText('.saturacao-estudos-alf', numAlfSat.toString());
+    setAllText('.saturacao-estudos-especificacao-antiga', textoNormaAntigaSat);
+    setAllText('.saturacao-estudos-vterm-antiga', numVtermAntigaSat.toString());
+
+    setAllText('.saturacao-estudos-icc', numIccSat.toString());
+    setAllText('.saturacao-estudos-xr', numXrSat.toFixed(2));
+    setAllText('.saturacao-estudos-fator-xr', (1 + numXrSat).toFixed(2));
+    setAllText('.saturacao-estudos-ktc', numKtcSat.toFixed(2));
+    setAllText('.saturacao-estudos-comprimento', numCompSat.toString());
+    setAllText('.saturacao-estudos-bitola', numBitolaSat.toString());
+    setAllText('.saturacao-estudos-resistividade', numRcabSat.toFixed(2));
+    setAllText('.saturacao-estudos-potencia-rele', numSreleSat.toFixed(2));
+
+    setAllText('.saturacao-estudos-zcabo', numZcaboSat.toFixed(5));
+    setAllText('.saturacao-estudos-num-ztc', (numKtcSat * numSbSat).toFixed(2));
+    setAllText('.saturacao-estudos-ztc', numZtcSat.toFixed(5));
+    setAllText('.saturacao-estudos-zrele', numZreleSat.toFixed(5));
+    setAllText('.saturacao-estudos-zb', numZbSat.toFixed(5));
+    setAllText('.saturacao-estudos-ztotal', numZtotalSat.toFixed(5));
+
+    setAllText('.saturacao-estudos-isec', numIsecCcSat.toFixed(2));
+    setAllText('.saturacao-estudos-vreq', numVreqSat.toFixed(2));
+    setAllText('.saturacao-estudos-vreq-margem', numVreqMargemSat.toFixed(2));
+    setAllText('.saturacao-estudos-num-vsat', (numSbSat * numAlfSat).toFixed(0));
+    setAllText('.saturacao-estudos-vsat', numVsatSat.toFixed(2));
+    setAllText('.saturacao-estudos-alf-real', numAlfRealSat.toFixed(2));
+
+    // Compatibilidade com classes anteriores
+    setAllText('.potencia-bobina-rele', numSreleSat.toString());
+    setAllText('.resultante-impedancia-tc-neutro', (numSreleSat / Math.pow(5, 2)).toFixed(5));
+    setAllText('.resultante-impedancia-tc-fase', ((numSreleSat / Math.pow(5, 2)) * 3).toFixed(5));
+    setAllText('.resultante-impedancia-tc', numZreleSat.toFixed(5));
+    setAllText('.condutor-resistividade', numRcabSat.toString());
+    setAllText('.condutor-bitola', numBitolaSat.toString());
+    setAllText('.condutor-comprimento', numCompSat.toString());
+    setAllText('.resultante-impedancia-condutor', numZcaboSat.toFixed(5));
+    setAllText('.resultante-impedancia-tc-estimada', numZtcSat.toFixed(5));
+    setAllText('.porcentagem-impedancia-tc-estimada', `${(numKtcSat * 100).toFixed(0)}%`);
+    setAllText('.resultante-impedancia-total', numZtotalSat.toFixed(5));
+    setAllText('.icc-secundaria', numIsecCcSat.toFixed(2));
+    setAllText('.v-sat-calculada', numVsatSat.toFixed(2) + ' V');
+
+    // 4. Atualização do Card de Parecer Técnico de Saturação
+    const statusCard = document.getElementById('estudos-saturacao-status-card');
+    const statusTitle = document.getElementById('estudos-saturacao-status-title');
+    const statusDetail = document.getElementById('estudos-saturacao-status-detail');
+    const statusBadge = document.getElementById('estudos-saturacao-status-badge');
+
+    if (statusCard && statusTitle && statusDetail && statusBadge) {
+        if (numIccSat <= 0) {
+            statusCard.className = 'estudos-saturacao-status-card estudos-saturacao-status-card--aprovado';
+            statusTitle.textContent = 'Aguardando Nível de Curto-Circuito (Icc)';
+            statusDetail.innerHTML = 'Informe o valor da corrente de curto-circuito na aba de dimensionamento para análise do risco de saturação.';
+            statusBadge.className = 'estudos-saturacao-status-badge estudos-saturacao-status-badge--verde';
+            statusBadge.textContent = 'AGUARDANDO DADOS';
+        } else if (aprovadoSaturacao) {
+            statusCard.className = 'estudos-saturacao-status-card estudos-saturacao-status-card--aprovado';
+            statusTitle.textContent = 'TC Aprovado - Não Satura sob Falta (ABNT NBR 6856:2021)';
+            statusDetail.innerHTML = `A tensão limite nominal suportada pelo TC (<strong>V<sub>sat</sub> = ${numVsatSat.toFixed(2)} V</strong>) é superior à tensão exigida pela falta com margem de segurança de 20% (<strong>1,2 × V<sub>req</sub> = ${numVreqMargemSat.toFixed(2)} V</strong>).<br>O fator de exatidão real é <strong>ALF<sub>real</sub> = ${numAlfRealSat.toFixed(2)}</strong> (suporta até ${(numAlfRealSat * numIsSat).toFixed(1)} A no secundário sem distorção), operando na região linear e garantindo atuação seletiva e confiável do relé.`;
+            statusBadge.className = 'estudos-saturacao-status-badge estudos-saturacao-status-badge--verde';
+            statusBadge.textContent = 'APROVADO';
+        } else {
+            statusCard.className = 'estudos-saturacao-status-card estudos-saturacao-status-card--reprovado';
+            statusTitle.textContent = 'TC Reprovado - Risco de Saturação sob Curto-Circuito (ABNT NBR 6856:2021)';
+            statusDetail.innerHTML = `A tensão exigida sob falta com margem de segurança de 20% (<strong>1,2 × V<sub>req</sub> = ${numVreqMargemSat.toFixed(2)} V</strong>) supera a capacidade nominal suportada pelo TC (<strong>V<sub>sat</sub> = ${numVsatSat.toFixed(2)} V</strong>).<br>O fator de exatidão operacional real é <strong>ALF<sub>real</sub> = ${numAlfRealSat.toFixed(2)}</strong>, insuficiente para a corrente secundária de falta (${numIsecCcSat.toFixed(1)} A = ${(numIsecCcSat / numIsSat).toFixed(1)} × I<sub>s</sub>). O TC sofrerá saturação severa, podendo inibir ou atrasar a atuação do relé de proteção.`;
+            statusBadge.className = 'estudos-saturacao-status-badge estudos-saturacao-status-badge--vermelho';
+            statusBadge.textContent = 'RISCO DE SATURAÇÃO';
         }
-    });
-
-
-
-    //calculo das resultantes de impedancia do TC de proteção
-
-
-            const resultanteImpedanciaTCneutro = parseFloat(potenciaBobinaRele) / Math.pow(5, 2);
-    const resultanteImpedancianeutroEls = document.querySelectorAll('.resultante-impedancia-tc-neutro');
-    resultanteImpedancianeutroEls.forEach(el => {
-        if (resultanteImpedanciaTCneutro !== null) {
-            el.textContent = resultanteImpedanciaTCneutro.toFixed(5);
-        }
-    });
-
-
-    const resultanteImpedanciaTCfase = parseFloat(potenciaBobinaRele) / Math.pow(5, 2)*3;
-    const resultanteImpedanciafaseEls = document.querySelectorAll('.resultante-impedancia-tc-fase');
-    resultanteImpedanciafaseEls.forEach(el => {
-        if (resultanteImpedanciaTCfase !== null) {
-            el.textContent = resultanteImpedanciaTCfase.toFixed(5);
-        }
-    });
-
-
-    //resultante da soma das duas impedancias 
-
-
-    const resultanteImpedanciaTC = parseFloat(resultanteImpedanciaTCneutro + resultanteImpedanciaTCfase);
-    const resultanteImpedanciaTCEls = document.querySelectorAll('.resultante-impedancia-tc');
-    resultanteImpedanciaTCEls.forEach(el => {
-        if (resultanteImpedanciaTC !== null) {
-            el.textContent = resultanteImpedanciaTC.toFixed(5);
-        }
-    });
-
-
-    //preencher o campo resistividade do codutor no html com a informação do localStorage
-    let resistividadeCondutor = localStorage.getItem('resistividadeCondutorTC');
-    const resistividadeCondutorEls = document.querySelectorAll('.condutor-resistividade');
-    resistividadeCondutorEls.forEach(el => {
-        if (resistividadeCondutor !== null) {
-            el.textContent = resistividadeCondutor;
-        }
-    });
-
-
-    //preencher o campo bitola condutor-bitola no html com a informação do localStorage 
-    let bitolaCondutor = localStorage.getItem('bitolaCondutorTC');
-    const bitolaCondutorEls = document.querySelectorAll('.condutor-bitola');
-    bitolaCondutorEls.forEach(el => {
-        if (bitolaCondutor !== null) {
-            el.textContent = bitolaCondutor;
-        }
-    });
-
-
-    //preencher o campo comprimento do condutor condutor-comprimento no html com a informação do localStorage 
-    let comprimentoCondutor = localStorage.getItem('comprimentoCondutorTC');
-    const comprimentoCondutorEls = document.querySelectorAll('.condutor-comprimento');
-    comprimentoCondutorEls.forEach(el => {
-        if (comprimentoCondutor !== null) {
-            el.textContent = comprimentoCondutor;
-        }
-    });
-
-    // Calcular e preencher a impedância resultante do condutor
-    const resultanteImpedanciaCondutor = (parseFloat(resistividadeCondutor) * parseFloat(comprimentoCondutor)) / 1000;
-    const resultanteImpedanciaCondutorEls = document.querySelectorAll('.resultante-impedancia-condutor');
-    resultanteImpedanciaCondutorEls.forEach(el => {
-        if (!isNaN(resultanteImpedanciaCondutor)) {
-            el.textContent = resultanteImpedanciaCondutor.toFixed(5);
-        }
-    });
-
-    // Preencher a impedância estimada do TC
-    const resultanteImpedanciaTCEstimadaEls = document.querySelectorAll('.resultante-impedancia-tc-estimada');
-    resultanteImpedanciaTCEstimadaEls.forEach(el => {
-        el.textContent = (0.50 * 1).toFixed(5);
-    });
-
-    // Preencher a porcentagem da impedância estimada do TC
-    const porcentagemImpedanciaTCEstimadaEls = document.querySelectorAll('.porcentagem-impedancia-tc-estimada');
-    porcentagemImpedanciaTCEstimadaEls.forEach(el => {
-        el.textContent = '50%';
-    });
-
-    // Calcular e preencher a impedância total
-    const resultanteImpedanciaTotal = resultanteImpedanciaCondutor + (0.50 * 1) + parseFloat(document.querySelector('.resultante-impedancia-tc').textContent || 0);
-    const resultanteImpedanciaTotalEls = document.querySelectorAll('.resultante-impedancia-total');
-    resultanteImpedanciaTotalEls.forEach(el => {
-        if (!isNaN(resultanteImpedanciaTotal)) {
-            el.textContent = resultanteImpedanciaTotal.toFixed(5);
-        }
-    });
-
-
-    //preencher o campo v-sat-calculada
-    const iccSecundaria = parseFloat(document.querySelector('.icc-secundaria').textContent || 0);
-    const resultanteImpedanciaTotalValor = parseFloat(document.querySelector('.resultante-impedancia-total').textContent || 0);
-    const vSatCalculadaEls = document.querySelectorAll('.v-sat-calculada');
-    vSatCalculadaEls.forEach(el => {
-        if (!isNaN(iccSecundaria) && !isNaN(resultanteImpedanciaTotalValor)) {
-            el.textContent = (iccSecundaria * resultanteImpedanciaTotalValor).toFixed(2) + ' V';
-        }
-    });
-
+    }
 
 //------ FIM DIMENSIONAMENTO DE TC POR SATURAÇÃO -----------------
 

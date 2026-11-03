@@ -1662,94 +1662,272 @@
                 <br><br>
 
                 <p><strong>5) Critério Normativo</strong>
-                <p>Conforme a ND-5.3 e a ABNT NBR 6856, o TC deve ter no mínimo a
-                        seguinte especificação:</p>
-                <p>Classificação: 12,5 VA 10P20</p>
+                <p>
+                        Os TC de proteção devem apresentar classificação mínima 12,5 VA 10P20,
+                         conforme ABNT NBR 6856. A carga secundária, expressa em VA, bem como a 
+                         relação de transformação devem ser especificadas pelo responsável técnico.
+                          O projeto deve considerar as condições específicas da instalação e assegurar 
+                          que não ocorrerá sobrecarga ou saturação dos TC 
+                          (para o maior valor de curto-circuito).</p>
+                <p></p>
                 </p>
         </div>
         </div>
 
-        <div class="estudos-secao-bloco">
-                <div class="estudos-title-block">
-                        <h2>Calculo por tensão de saturação TCs de Proteção</h2>
+        <div class="estudos-secao-bloco" id="bloco-calculo-saturacao-tc">
+                <div class="estudos-title-block" id="titulo-calculo-saturacao-tc">
+                        <h2>Cálculo por Tensão de Saturação TCs de Proteção</h2>
                 </div>
 
         <div id="criteriocalculotcimpedancia">
-                <h4 class="estudos-subtitulo">Cálculo de Saturação dos TCs (Curto-Circuito Trifásico no Primário <span class="curtoTC"></span>)</h4>
-                <div>
-                        <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc</sub> ×
-                                Z<sub>total</sub></p>
-                        <p><strong>I<sub>cc</sub> =</strong>
+                <!-- SATURACAO TC INICIO NOVO -->
+                <p class="estudos-text-justify">
+                        O dimensionamento dos Transformadores de Corrente (TC) de proteção quanto ao fenômeno de saturação é realizado com base nos critérios estabelecidos pela norma vigente <strong>ABNT NBR 6856:2021</strong> (Transformadores de corrente - Especificação e ensaios) e a correlação técnica com a norma <strong>ABNT NBR 6856:1992</strong>. O objetivo fundamental é assegurar que a tensão exigida no secundário durante a ocorrência do curto-circuito máximo — considerando a componente transitória aperiódica (fator de assimetria 1 + X/R) — não ultrapasse a capacidade de tensão do núcleo magnético do TC com margem de segurança normativa de 20%, garantindo operação linear e reprodução fiel da corrente primária para correta atuação do relé de proteção.
+                </p>
+
+                <h4 class="estudos-subtitulo">1. Dados e Parâmetros Considerados do TC e Circuito Secundário</h4>
+                <table class="estudos-saturacao-tabela">
+                        <tbody>
+                                <tr>
+                                        <th>Corrente Nominal Primária (Ip) / Secundária (Is):</th>
+                                        <td><span class="saturacao-estudos-ip tc-corrente-primaria">100</span> / <span class="saturacao-estudos-is">5</span> A &nbsp;|&nbsp; RTC = <strong class="saturacao-estudos-rtc rtc-valor-absoluto">20</strong>:1</td>
+                                </tr>
+                                <tr>
+                                        <th>Especificação ABNT NBR 6856:2021:</th>
+                                        <td><strong class="saturacao-estudos-especificacao-nova">25VA 10P20</strong> (Sb = <span class="saturacao-estudos-sb">25</span> VA, Erro = <span class="saturacao-estudos-erro">10</span>%, ALF = <span class="saturacao-estudos-alf">20</span>)</td>
+                                </tr>
+                                <tr>
+                                        <th>Especificação Equivalente ABNT NBR 6856:1992:</th>
+                                        <td><strong class="saturacao-estudos-especificacao-antiga">10B200</strong> (Tensão terminal padronizada = <span class="saturacao-estudos-vterm-antiga">200</span> V)</td>
+                                </tr>
+                                <tr>
+                                        <th>Corrente de Curto-Circuito Máxima Simétrica Primária (Icc3∅):</th>
+                                        <td><strong class="curtoTC saturacao-estudos-icc">5000 A</strong></td>
+                                </tr>
+                                <tr>
+                                        <th>Relação Transitória de Curto-Circuito (X/R):</th>
+                                        <td><span class="saturacao-estudos-xr">0</span> &nbsp;(Fator de Assimetria Transitório 1 + X/R = <strong class="saturacao-estudos-fator-xr">1,00</strong>)</td>
+                                </tr>
+                                <tr>
+                                        <th>Fator de Impedância Interna do TC (kTC):</th>
+                                        <td><span class="saturacao-estudos-ktc">0,20</span> (conforme ABNT NBR 6856 / IEC 61869-2)</td>
+                                </tr>
+                                <tr>
+                                        <th>Condutores Secundários de Interligação (TC ao Relé):</th>
+                                        <td>Comp. = <span class="condutor-comprimento saturacao-estudos-comprimento">20</span> m &nbsp;|&nbsp; Bitola = <span class="condutor-bitola saturacao-estudos-bitola">2,5</span> mm² &nbsp;|&nbsp; Rcab = <span class="condutor-resistividade saturacao-estudos-resistividade">7,41</span> Ω/km</td>
+                                </tr>
+                                <tr>
+                                        <th>Consumo Monofásico da Bobina do Relé (Srelé):</th>
+                                        <td><span class="potencia-bobina-rele saturacao-estudos-potencia-rele">0,50</span> VA (com Is = 5 A)</td>
+                                </tr>
+                        </tbody>
+                </table>
+
+                <h4 class="estudos-subtitulo">2. Memória de Cálculo das Impedâncias do Circuito Secundário</h4>
+
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>a) Impedância dos Condutores de Interligação (Fiação de Ida e Volta - Z<sub>cabo</sub>):</strong></p>
+                        <p>
+                                Z<sub>cabo</sub> = 2 ×
                                 <span class="estudos-inline-middle">
-                                        <span class="estudos-block-center">I<sub>cc3∅</sub></span>
+                                        <span class="estudos-block-center">L (m)</span>
+                                        <span class="estudos-frac-den">1000</span>
+                                </span>
+                                × R<sub>cab</sub> (Ω/km)
+                                = 2 ×
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center saturacao-estudos-comprimento">20</span>
+                                        <span class="estudos-frac-den">1000</span>
+                                </span>
+                                × <span class="saturacao-estudos-resistividade">7,41</span>
+                                = <strong class="resultante-impedancia-condutor saturacao-estudos-zcabo">0,29640</strong> Ω
+                        </p>
+                </div>
+
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>b) Impedância Interna do Enrolamento Secundário do TC (Z<sub>TC</sub>):</strong></p>
+                        <p class="estudos-text-justify" style="font-size: 0.9em; color: #444; margin: 4px 0 8px 0;">
+                                Conforme prescreve a ABNT NBR 6856, a impedância interna do enrolamento secundário de um TC de proteção classe P é modelada em função do fator k<sub>TC</sub> = 0,20 e da potência nominal de carga (Sb):
+                        </p>
+                        <p>
+                                Z<sub>TC</sub> =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">k<sub>TC</sub> × S<sub>b</sub></span>
+                                        <span class="estudos-frac-den">I<sub>s</sub>²</span>
+                                </span>
+                                =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center"><span class="saturacao-estudos-ktc">0,20</span> × <span class="saturacao-estudos-sb">25</span></span>
+                                        <span class="estudos-frac-den">5²</span>
+                                </span>
+                                =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center saturacao-estudos-num-ztc">5,00</span>
+                                        <span class="estudos-frac-den">25</span>
+                                </span>
+                                = <strong class="resultante-impedancia-tc-estimada saturacao-estudos-ztc">0,20000</strong> Ω
+                        </p>
+                </div>
+
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>c) Impedância da Bobina de Corrente do Relé (Z<sub>relé</sub>):</strong></p>
+                        <p class="estudos-text-justify" style="font-size: 0.9em; color: #444; margin: 4px 0 8px 0;">
+                                Em condição de falta trifásica equilibrada, a corrente secundária circula pelas bobinas de fase e a corrente no condutor de neutro é nula:
+                        </p>
+                        <p>
+                                Z<sub>relé</sub> =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">S<sub>relé</sub> (VA)</span>
+                                        <span class="estudos-frac-den">I<sub>s</sub>²</span>
+                                </span>
+                                =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center saturacao-estudos-potencia-rele">0,50</span>
+                                        <span class="estudos-frac-den">5²</span>
+                                </span>
+                                = <strong class="resultante-impedancia-tc saturacao-estudos-zrele">0,02000</strong> Ω
+                        </p>
+                </div>
+
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>d) Impedância de Carga Nominal Padronizada (Burden Nominal Z<sub>b</sub>):</strong></p>
+                        <p>
+                                Z<sub>b</sub> =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">S<sub>b</sub> (VA)</span>
+                                        <span class="estudos-frac-den">I<sub>s</sub>²</span>
+                                </span>
+                                =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center saturacao-estudos-sb">25</span>
+                                        <span class="estudos-frac-den">5²</span>
+                                </span>
+                                = <strong class="saturacao-estudos-zb">1,00000</strong> Ω
+                        </p>
+                </div>
+
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>e) Impedância Total Conectada ao Secundário do TC (Z<sub>total</sub>):</strong></p>
+                        <p>
+                                Z<sub>total</sub> = Z<sub>cabo</sub> + Z<sub>TC</sub> + Z<sub>relé</sub>
+                                = <span class="saturacao-estudos-zcabo">0,29640</span> + <span class="saturacao-estudos-ztc">0,20000</span> + <span class="saturacao-estudos-zrele">0,02000</span>
+                                = <strong class="resultante-impedancia-total saturacao-estudos-ztotal">0,51640</strong> Ω
+                        </p>
+                </div>
+
+                <h4 class="estudos-subtitulo">3. Memória de Cálculo das Correntes e Tensões de Saturação</h4>
+
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>a) Corrente Secundária de Curto-Circuito (I<sub>sec,cc</sub>):</strong></p>
+                        <p>
+                                I<sub>sec,cc</sub> =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">I<sub>cc3∅</sub> (A)</span>
                                         <span class="estudos-frac-den">RTC</span>
                                 </span>
                                 =
                                 <span class="estudos-inline-middle">
-                                        <span class= "estudos-block-center curtoTC"></span>
-                                        <span class="estudos-frac-den rtc-valor-absoluto"></span>
+                                        <span class="estudos-block-center curtoTC saturacao-estudos-icc">5000 A</span>
+                                        <span class="estudos-frac-den rtc-valor-absoluto saturacao-estudos-rtc">20</span>
                                 </span>
-                                = <strong class="icc-secundaria"></strong>
+                                = <strong class="icc-secundaria saturacao-estudos-isec">250,00</strong> A
                         </p>
-
-
-
                 </div>
 
-                <h4 class="estudos-subtitulo">Impedância do Relé (Z<sub>relé</sub>)</h4>
-                <p>Consumo: 0,20 VA e corrente máxima de secundário de  5 A (Fase e Neutro)</p>
-                <p>Z<sub>relé</sub> =
-                                 <span class="estudos-inline-middle">
-                                <span class="estudos-block-center">P(VA)</span>
-                                <span class="estudos-frac-den">I²</span>
-                        </span>
-                        =
-                        <span class="estudos-inline-middle">
-                                <span class="potencia-bobina-rele estudos-block-center"></span>
-                                <span class="estudos-frac-den">5²</span>
-                        </span>
-                        + 3 ×
-                        <span class="estudos-inline-middle">
-                                <span class="potencia-bobina-rele estudos-block-center"></span>
-                                <span class="estudos-frac-den">5²</span>
-                        </span>
-                        = <span class="resultante-impedancia-tc-neutro"></span> + <span class="resultante-impedancia-tc-fase"></span> = <strong class="resultante-impedancia-tc"></strong> Ω
-                </p>
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>b) Tensão Requerida sob Falta no Secundário (V<sub>req</sub>):</strong></p>
+                        <p>
+                                V<sub>req</sub> = I<sub>sec,cc</sub> × Z<sub>total</sub> × (1 + X/R)
+                                = <span class="saturacao-estudos-isec">250,00</span> A × <span class="saturacao-estudos-ztotal">0,51640</span> Ω × <span class="saturacao-estudos-fator-xr">1,00</span>
+                                = <strong class="saturacao-estudos-vreq">129,10</strong> V
+                        </p>
+                </div>
 
-                <h4 class="estudos-subtitulo">Impedância dos Condutores (Z<sub>fiação</sub>)</h4>
-                <p>Condutores com resistividade de <span class="condutor-resistividade"></span> Ω/km, seção de <span class="condutor-bitola"></span> mm² com <span class="condutor-comprimento"></span> metros:</p>
-                <p>Z<sub>fiação</sub> =
-                                        <span class="estudos-inline-middle">
-                                <span class="estudos-block-center"> Z do condutor (Ω/km) x distancia em metros (k<sub>m</sub>)</span>
-                                <!-- <span class="estudos-frac-den">seção do condutor</span> -->
-                        </span>
-                        =
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>c) Tensão Requerida com Margem de Segurança Normativa de 20% (V<sub>req,margem</sub>):</strong></p>
+                        <p class="estudos-text-justify" style="font-size: 0.9em; color: #444; margin: 4px 0 8px 0;">
+                                Conforme recomendado pelas normas de proteção para considerar transitórios e dispersão magnética:
+                        </p>
+                        <p>
+                                V<sub>req,margem</sub> = 1,2 × V<sub>req</sub>
+                                = 1,2 × <span class="saturacao-estudos-vreq">129,10</span> V
+                                = <strong class="saturacao-estudos-vreq-margem">154,92</strong> V
+                        </p>
+                </div>
 
-                                <span class="condutor-resistividade"></span>
-                                x
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>d) Tensão Limite de Saturação Suportada pelo TC (V<sub>sat</sub>):</strong></p>
+                        <p class="estudos-text-justify" style="font-size: 0.9em; color: #444; margin: 4px 0 8px 0;">
+                                Máxima tensão eficaz secundária que o TC suporta na sua classe de exatidão antes da saturação do núcleo:
+                        </p>
+                        <p>
+                                V<sub>sat</sub> =
                                 <span class="estudos-inline-middle">
-                                <span class="condutor-comprimento"></span>
-                                <span class="estudos-frac-den">1000</span>
-                        </span>
-                        = <strong class="resultante-impedancia-condutor"> </strong> Ω
-                </p>
+                                        <span class="estudos-block-center">S<sub>b</sub> (VA) × ALF</span>
+                                        <span class="estudos-frac-den">I<sub>s</sub> (A)</span>
+                                </span>
+                                =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center"><span class="saturacao-estudos-sb">25</span> × <span class="saturacao-estudos-alf">20</span></span>
+                                        <span class="estudos-frac-den">5</span>
+                                </span>
+                                =
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center saturacao-estudos-num-vsat">500</span>
+                                        <span class="estudos-frac-den">5</span>
+                                </span>
+                                = <strong class="v-sat-calculada saturacao-estudos-vsat">100,00</strong>
+                        </p>
+                </div>
 
-                <h4 class="estudos-subtitulo">Impedância do TC (Z<sub>TC</sub>)</h4>
-                <p>Utilizado <span class="porcentagem-impedancia-tc-estimada"></span> de uma impedância estimada de 1 Ω:</p>
-                <p>Z<sub>TC</sub> = <span class="porcentagem-impedancia-tc-estimada"></span> × 1 = <strong class="resultante-impedancia-tc-estimada"></strong> Ω</p>
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>e) Fator Limite de Exatidão Operacional Real (ALF<sub>real</sub>):</strong></p>
+                        <p class="estudos-text-justify" style="font-size: 0.9em; color: #444; margin: 4px 0 8px 0;">
+                                Fator real de sobrecorrente que o TC é capaz de fornecer na impedância total conectada:
+                        </p>
+                        <p>
+                                ALF<sub>real</sub> = ALF ×
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center">Z<sub>TC</sub> + Z<sub>b</sub></span>
+                                        <span class="estudos-frac-den">Z<sub>total</sub></span>
+                                </span>
+                                = <span class="saturacao-estudos-alf">20</span> ×
+                                <span class="estudos-inline-middle">
+                                        <span class="estudos-block-center"><span class="saturacao-estudos-ztc">0,20000</span> + <span class="saturacao-estudos-zb">1,00000</span></span>
+                                        <span class="estudos-frac-den saturacao-estudos-ztotal">0,51640</span>
+                                </span>
+                                = <strong class="saturacao-estudos-alf-real">46,48</strong>
+                        </p>
+                </div>
 
-                <h4 class="estudos-subtitulo">Impedância Total</h4>
-                <p>Z<sub>total</sub> = <span class="resultante-impedancia-tc"></span> + <span class="resultante-impedancia-condutor"></span> + <span class="resultante-impedancia-tc-estimada"></span> = <strong class="resultante-impedancia-total"></strong> Ω</p>
+                <div class="estudos-saturacao-bloco-formula">
+                        <p><strong>f) Especificação Equivalente pela Norma Antiga (ABNT NBR 6856:1992):</strong></p>
+                        <p>
+                                Tensão Terminal Padronizada (20 × Is em Zb): &nbsp;
+                                V<sub>terminal</sub> = ALF × I<sub>s</sub> × Z<sub>b</sub> = 20 × 5 × <span class="saturacao-estudos-zb">1,00000</span> = <strong class="saturacao-estudos-vterm-antiga">200</strong> V
+                                &nbsp;⟹&nbsp; Classe <strong><span class="saturacao-estudos-especificacao-antiga">10B200</span></strong>
+                        </p>
+                </div>
 
-                <h4 class="estudos-subtitulo">Cálculo da Tensão de Saturação</h4>
+                <h4 class="estudos-subtitulo">4. Avaliação Normativa e Parecer Técnico de Não Saturação (ABNT NBR 6856:2021)</h4>
 
-                  <p><strong>Fórmula:</strong> V<sub>sat</sub> = I<sub>cc (SECUNDÁRIA)</sub> ×
-                                Z<sub>total</sub></p>
+                <div id="estudos-saturacao-status-card" class="estudos-saturacao-status-card estudos-saturacao-status-card--aprovado">
+                        <div id="estudos-saturacao-status-title" class="estudos-saturacao-status-title">
+                                TC Aprovado - Não Satura sob Falta (ABNT NBR 6856:2021)
+                        </div>
+                        <div id="estudos-saturacao-status-detail" class="estudos-saturacao-status-detail">
+                                A tensão limite nominal suportada pelo TC (<strong>V<sub>sat</sub> = <span class="saturacao-estudos-vsat">100,00</span> V</strong>) é superior à tensão exigida pela falta com margem de segurança de 20% (<strong>1,2 × V<sub>req</sub> = <span class="saturacao-estudos-vreq-margem">154,92</span> V</strong>).<br>
+                                O fator de exatidão real é <strong>ALF<sub>real</sub> = <span class="saturacao-estudos-alf-real">46,48</span></strong>, operando na região linear e garantindo atuação seletiva e confiável do relé.
+                        </div>
+                        <div>
+                                <span id="estudos-saturacao-status-badge" class="estudos-saturacao-status-badge estudos-saturacao-status-badge--verde">APROVADO</span>
+                        </div>
+                </div>
+
+        <!-- SATURACAO TC FIM -->
                         
 
 
-
-                <p>V<sub>sat</sub> = <span class="icc-secundaria"></span> × <span class="resultante-impedancia-total"></span> Ω = <strong class="v-sat-calculada">25,6 V</strong></p>
 
         </div>
         </div>
@@ -1793,9 +1971,7 @@
                 <textarea class="estudos-textarea-md" placeholder="Observações ou justificativas técnicas do dimensionamento do TC">            
 (4) Classe de Tensão: 15 KV
 (5) Freqüência Nominal: 60 Hz;
-(6) Classe de exatidão: Conforme norma CEMIG no mínimo , Norma ASA 10B50 (Com especificação 12,5 VA 10P20) ou equivalente ABNT;
-(7) Fator de sobrecorrente: 50xIp;
-(8) Fator térmico: 1,2.
+(6) Fator térmico: 1,2.
 
 
 

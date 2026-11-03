@@ -350,6 +350,11 @@ body[data-user-role="tecnico"] .tp-tc-saturacao-section {
     display: block !important;
 }
 
+body[data-user-role="admin"] .tp-tc-redim-container.tp-tc-saturacao-section,
+body[data-user-role="tecnico"] .tp-tc-redim-container.tp-tc-saturacao-section {
+    display: grid !important;
+}
+
 
 
 
@@ -554,3 +559,200 @@ text-align: right;
 
 
 }
+
+/* ==========================================================================
+   ESTILOS AVANÇADOS: DIMENSIONAMENTO TC (SATURAÇÃO POR TENSÃO - NBR 6856:2021)
+   ========================================================================== */
+
+.tp-tc-saturacao-header-bloco {
+    background: #c6f7c6 !important;
+    color: #0d470d !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 14px !important;
+    border-radius: 8px !important;
+    border-left: 6px solid #1b5e20 !important;
+}
+
+.tp-tc-status-card {
+    width: 95% !important;
+    max-width: 1160px;
+    margin: 18px auto !important;
+    padding: 18px 24px !important;
+    border-radius: 14px !important;
+    box-sizing: border-box;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14) !important;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tp-tc-status-card--aprovado {
+    background: linear-gradient(135deg, #e8fbe8 0%, #cbf3cb 100%) !important;
+    border: 2.5px solid #2e7d32 !important;
+    color: #1b5e20 !important;
+}
+
+.tp-tc-status-card--reprovado {
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%) !important;
+    border: 2.5px solid #c62828 !important;
+    color: #b71c1c !important;
+}
+
+.tp-tc-status-title {
+    font-size: 19px !important;
+    font-weight: 800 !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tp-tc-status-detail {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    color: #1a1a1a !important;
+    line-height: 1.5;
+    margin: 6px 0 !important;
+}
+
+.tp-tc-status-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.tp-tc-status-badge--verde {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+.tp-tc-status-badge--vermelho {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+.tp-tc-redim-container {
+    width: 95% !important;
+    max-width: 1160px;
+    margin: 18px auto 10px !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    gap: 18px !important;
+    box-sizing: border-box;
+}
+
+.tp-tc-redim-card {
+    background: #ffffff !important;
+    border: 2px solid #a5d6a7 !important;
+    border-radius: 14px !important;
+    padding: 18px 20px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    text-align: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tp-tc-redim-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.tp-tc-redim-card h4 {
+    margin: 0 0 12px 0 !important;
+    color: #1b5e20 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    border-bottom: 2px solid #e8f5e9 !important;
+    padding-bottom: 8px !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tp-tc-redim-body {
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    color: #2e3d2e !important;
+    flex-grow: 1;
+}
+
+.tp-tc-redim-item {
+    margin: 6px 0 !important;
+    padding: 3px 0 !important;
+}
+
+.tp-tc-redim-item strong {
+    color: #0b400b !important;
+}
+
+.tp-tc-redim-comprovacao {
+    background: #f1f8e9;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 13px;
+    border-left: 4px solid #66bb6a;
+}
+
+.tp-tc-btn-aplicar-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 16px 0 0 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.tp-tc-btn-aplicar {
+    margin: 0 auto !important;
+    background-color: rgb(2, 68, 2) !important;
+    color: #fff9a6 !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.4px;
+    border-radius: 8px !important;
+    padding: 10px 24px !important;
+    height: auto !important;
+    min-height: 42px !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    line-height: 1.3 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s !important;
+    border: 1.5px solid #1c641c !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    align-self: center !important;
+    box-sizing: border-box !important;
+}
+
+.tp-tc-btn-aplicar:hover {
+    background-color: #0f850f !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(15, 133, 15, 0.3) !important;
+}
+
+.tp-tc-badge-valor {
+    font-weight: bold;
+    color: #004d00;
+    background: #e0f2e0;
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid #b3e6b3;
+    display: inline-block;
+}
+

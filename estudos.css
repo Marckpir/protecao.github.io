@@ -780,6 +780,165 @@ h1.loaded {
     text-align: left;
 }
 
+/* ==========================================================================
+   ESTILOS AVANÇADOS: CÁLCULO DE SATURAÇÃO DOS TCS (ABNT NBR 6856:2021)
+   ========================================================================== */
+
+.estudos-saturacao-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 20px 0;
+    font-size: 0.95em;
+    background: #ffffff;
+    border: 1px solid #c8d6e5;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.estudos-saturacao-tabela th,
+.estudos-saturacao-tabela td {
+    padding: 7px 12px;
+    border: 1px solid #dcdde1;
+    text-align: left;
+}
+
+.estudos-saturacao-tabela th {
+    background: #eef5ee;
+    font-weight: bold;
+    color: #1b4332;
+    width: 48%;
+}
+
+.estudos-saturacao-tabela td {
+    color: #1a1a1a;
+}
+
+.estudos-saturacao-tabela tr:nth-child(even) td {
+    background: #fbfdfb;
+}
+
+.estudos-saturacao-bloco-formula {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-left: 4px solid #2e7d32;
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin: 12px 0 16px 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.estudos-saturacao-bloco-formula p {
+    margin: 6px 0;
+    line-height: 1.6;
+}
+
+.estudos-saturacao-status-card {
+    width: 100%;
+    margin: 18px auto;
+    padding: 16px 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.estudos-saturacao-status-card--aprovado {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid #2e7d32;
+    color: #1b5e20;
+}
+
+.estudos-saturacao-status-card--reprovado {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 2px solid #c62828;
+    color: #b71c1c;
+}
+
+.estudos-saturacao-status-title {
+    font-size: 1.15em;
+    font-weight: 800;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.estudos-saturacao-status-detail {
+    font-size: 0.95em;
+    font-weight: 500;
+    color: #222222;
+    line-height: 1.5;
+    margin: 6px 0;
+}
+
+.estudos-saturacao-status-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 700;
+    margin-top: 6px;
+}
+
+.estudos-saturacao-status-badge--verde {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+.estudos-saturacao-status-badge--vermelho {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+.estudos-saturacao-redim-container {
+    width: 100%;
+    margin: 16px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.estudos-saturacao-redim-card {
+    background: #ffffff;
+    border: 1.5px solid #a5d6a7;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.estudos-saturacao-redim-card h5 {
+    margin: 0 0 10px 0;
+    color: #1b5e20;
+    font-size: 1em;
+    font-weight: 700;
+    border-bottom: 1.5px solid #e8f5e9;
+    padding-bottom: 6px;
+}
+
+.estudos-saturacao-redim-body {
+    font-size: 0.9em;
+    line-height: 1.55;
+    color: #2e3d2e;
+}
+
+.estudos-saturacao-redim-item {
+    margin: 5px 0;
+}
+
+.estudos-saturacao-redim-comprovacao {
+    background: #f1f8e9;
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+    font-size: 0.88em;
+    border-left: 3px solid #66bb6a;
+    line-height: 1.45;
+}
+
+body[data-user-role="usuario"] #bloco-calculo-saturacao-tc,
+body[data-user-role="usuario"] #titulo-calculo-saturacao-tc,
 body[data-user-role="usuario"] #criteriocalculotcimpedancia {
     display: none !important;
 }
@@ -1628,6 +1787,15 @@ textarea {
     /* Respeitar rigorosamente elementos ocultados por regra de visibilidade */
     [style*="display: none"],
     [style*="display:none"],
+    #bloco-calculo-saturacao-tc[style*="display: none"],
+    #bloco-calculo-saturacao-tc[style*="display:none"],
+    #titulo-calculo-saturacao-tc[style*="display: none"],
+    #titulo-calculo-saturacao-tc[style*="display:none"],
+    #criteriocalculotcimpedancia[style*="display: none"],
+    #criteriocalculotcimpedancia[style*="display:none"],
+    body[data-user-role="usuario"] #bloco-calculo-saturacao-tc,
+    body[data-user-role="usuario"] #titulo-calculo-saturacao-tc,
+    body[data-user-role="usuario"] #criteriocalculotcimpedancia,
     #bloco-magnetizacao-real[style*="display: none"],
     #bloco-magnetizacao-real[style*="display:none"],
     #titulo-calculomagnetizacaoreal[style*="display: none"],

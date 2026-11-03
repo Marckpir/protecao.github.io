@@ -1860,7 +1860,7 @@ function gerarPDF() {
     y += 6;
     doc.text("Núcleo Técnico", 20, y, { maxWidth: 170, align: "justify" });
     y += 6;
-    doc.text("PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT", 20, y, { maxWidth: 170, align: "justify" });
+    doc.text("Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM", 20, y, { maxWidth: 170, align: "justify" });
     y += 6;
     doc.text("www.cemig.com.br", 20, y, { maxWidth: 170, align: "justify" });
 
@@ -2067,7 +2067,7 @@ Salientamos a importância de que essas alterações sejam feitas de forma imedi
 Att.
 
 Núcleo Técnico
-PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT
+Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM
 www.cemig.com.br`;
 }
 
