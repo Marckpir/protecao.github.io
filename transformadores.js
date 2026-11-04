@@ -468,8 +468,11 @@ function salvarOpcao() {
     //     return;
     // }
 
-    //Armazenar todas as potencias em KVA em variaveis formato JSON e no localstorage
-    for (let i = 1; i <= 20; i++) {
+    // Armazenar dados dos transformadores preenchidos na tabela dinâmica
+    const tbodyTrafos = document.getElementById("trafo-detalhes-body");
+    const linhasTrafos = tbodyTrafos ? Array.from(tbodyTrafos.querySelectorAll("tr")) : [];
+
+    for (let i = 1; i <= linhasTrafos.length; i++) {
         const impedancia = parseFloat(document.getElementById(`impedanciahtml${i}`)?.value) || 0;
         const tempo = parseFloat(document.getElementById(`tempotrhtml${i}`)?.value) || 0;
 
@@ -493,6 +496,16 @@ function salvarOpcao() {
             tempo: tempo || ""
         };
         localStorage.setItem(`trafo${i}JSON`, JSON.stringify(trafo));
+    }
+
+    for (let k = linhasTrafos.length + 1; k <= 20; k++) {
+        localStorage.setItem(`trafo${k}JSON`, JSON.stringify({
+            potencia: "",
+            qtde: "",
+            z: "",
+            imin: "",
+            tempo: ""
+        }));
     }
 
 
@@ -580,22 +593,18 @@ function configurarBotaoLimparTrafos() {
     }
 
     botaoLimpar.addEventListener("click", function () {
-        for (let i = 1; i <= 20; i++) {
-            const idsCampos = [
-                `potenciahtml${i}`,
-                `qtdehtml${i}`,
-                `impedanciahtml${i}`,
-                `fatoriminhtml${i}`,
-                `tempotrhtml${i}`
-            ];
+        const confirmar = window.confirm("Deseja realmente limpar todos os transformadores cadastrados?");
+        if (!confirmar) {
+            return;
+        }
 
-            idsCampos.forEach((id) => {
-                const campo = document.getElementById(id);
-                if (campo) {
-                    campo.value = "";
-                }
-            });
+        const tbody = document.getElementById("trafo-detalhes-body");
+        if (tbody) {
+            tbody.innerHTML = "";
+            tbody.appendChild(criarLinhaTrafo({}, 1));
+        }
 
+        for (let i = 1; i <= TRAFOS_MAX_COUNT; i++) {
             localStorage.setItem(`trafo${i}JSON`, JSON.stringify({
                 potencia: "",
                 qtde: "",
@@ -605,18 +614,11 @@ function configurarBotaoLimparTrafos() {
             }));
         }
 
+        renumerarTabelaTrafos();
+        salvarDadosTrafosTemporarios();
         calcularEArmazenarIntrafoEImag();
         calculos();
         calculaimagreal();
-
-        for (let i = 1; i <= 20; i++) {
-            [`intrhtml${i}`, `iansihtml${i}`, `inansihtml${i}`, `imagtrhtml${i}`].forEach((id) => {
-                const resultado = document.getElementById(id);
-                if (resultado) {
-                    resultado.textContent = "";
-                }
-            });
-        }
 
         ["imagtotal", "imagtotalneutro", "imagrealfase", "imagrealneutro"].forEach((id) => {
             const resultado = document.getElementById(id);
@@ -625,9 +627,8 @@ function configurarBotaoLimparTrafos() {
             }
         });
 
-        const tabelaTrafos = document.querySelector(".magnetizacao-table");
-        const primeiroCampo = tabelaTrafos?.querySelector('input[type="number"]');
-        primeiroCampo?.dispatchEvent(new Event("input", { bubbles: true }));
+        const primeiroCampo = document.getElementById("potenciahtml1");
+        primeiroCampo?.focus();
     });
 }
 
@@ -669,37 +670,247 @@ function configurarMagnetizacaoRealToggle() {
     });
 }
 
-function configurarExibicaoProgressivaTrafos() {
-    const tabelaTrafos = document.querySelector(".magnetizacao-table");
-    if (!tabelaTrafos) {
-        return;
+const TRAFOS_MAX_COUNT = 20;
+
+function criarLinhaTrafo(dados = {}, indice = 1) {
+    const tr = document.createElement("tr");
+
+    // Coluna 1: Ações (Rótulo do Trafo + Botão Remover)
+    const tdAcoes = document.createElement("td");
+    const wrapper = document.createElement("div");
+    wrapper.className = "trafo-cell-actions";
+
+    const label = document.createElement("span");
+    label.className = "trafo-label";
+    label.textContent = `TRAFO ${indice}:`;
+    wrapper.appendChild(label);
+
+    const botaoRemover = document.createElement("button");
+    botaoRemover.type = "button";
+    botaoRemover.className = "trafo-remove-row";
+    botaoRemover.textContent = "Remover";
+    botaoRemover.addEventListener("click", function () {
+        tr.remove();
+        const tbody = document.getElementById("trafo-detalhes-body");
+        if (tbody && tbody.querySelectorAll("tr").length === 0) {
+            tbody.appendChild(criarLinhaTrafo({}, 1));
+        }
+        renumerarTabelaTrafos();
+        salvarDadosTrafosTemporarios();
+        calcularEArmazenarIntrafoEImag();
+        calculos();
+        calculaimagreal();
+    });
+    wrapper.appendChild(botaoRemover);
+    tdAcoes.appendChild(wrapper);
+    tr.appendChild(tdAcoes);
+
+    // Campos de Entrada (Inputs)
+    const camposInputs = [
+        { field: "potencia", idPrefix: "potenciahtml", val: dados.potencia },
+        { field: "qtde", idPrefix: "qtdehtml", val: dados.qtde },
+        { field: "z", idPrefix: "impedanciahtml", val: dados.z },
+        { field: "imin", idPrefix: "fatoriminhtml", val: dados.imin },
+        { field: "tempo", idPrefix: "tempotrhtml", val: dados.tempo }
+    ];
+
+    camposInputs.forEach(({ field, idPrefix, val }) => {
+        const td = document.createElement("td");
+        const divContainer = document.createElement("div");
+        divContainer.className = "input-container";
+        const input = document.createElement("input");
+        input.type = "number";
+        input.id = `${idPrefix}${indice}`;
+        input.dataset.field = field;
+        input.value = (val !== undefined && val !== null) ? val : "";
+        input.addEventListener("input", function () {
+            salvarDadosTrafosTemporarios();
+            calcularEArmazenarIntrafoEImag();
+            calculos();
+            calculaimagreal();
+        });
+        divContainer.appendChild(input);
+        td.appendChild(divContainer);
+        tr.appendChild(td);
+    });
+
+    // Campos de Saída (Labels)
+    const camposLabels = [
+        { idPrefix: "intrhtml", field: "in" },
+        { idPrefix: "iansihtml", field: "iansi" },
+        { idPrefix: "inansihtml", field: "inansi" },
+        { idPrefix: "imagtrhtml", field: "imag" }
+    ];
+
+    camposLabels.forEach(({ idPrefix, field }) => {
+        const td = document.createElement("td");
+        const divContainer = document.createElement("div");
+        divContainer.className = "input-container";
+        const lbl = document.createElement("label");
+        lbl.id = `${idPrefix}${indice}`;
+        lbl.htmlFor = `${idPrefix}${indice}`;
+        lbl.dataset.field = field;
+        divContainer.appendChild(lbl);
+        td.appendChild(divContainer);
+        tr.appendChild(td);
+    });
+
+    return tr;
+}
+
+function renumerarTabelaTrafos() {
+    const tbody = document.getElementById("trafo-detalhes-body");
+    if (!tbody) return;
+
+    const linhas = Array.from(tbody.querySelectorAll("tr"));
+    linhas.forEach((linha, idx) => {
+        const i = idx + 1;
+        const label = linha.querySelector(".trafo-label");
+        if (label) {
+            label.textContent = `TRAFO ${i}:`;
+        }
+
+        const inputPot = linha.querySelector('input[data-field="potencia"]');
+        if (inputPot) inputPot.id = `potenciahtml${i}`;
+
+        const inputQtde = linha.querySelector('input[data-field="qtde"]');
+        if (inputQtde) inputQtde.id = `qtdehtml${i}`;
+
+        const inputZ = linha.querySelector('input[data-field="z"]');
+        if (inputZ) inputZ.id = `impedanciahtml${i}`;
+
+        const inputImin = linha.querySelector('input[data-field="imin"]');
+        if (inputImin) inputImin.id = `fatoriminhtml${i}`;
+
+        const inputTempo = linha.querySelector('input[data-field="tempo"]');
+        if (inputTempo) inputTempo.id = `tempotrhtml${i}`;
+
+        const lblIn = linha.querySelector('label[data-field="in"]');
+        if (lblIn) {
+            lblIn.id = `intrhtml${i}`;
+            lblIn.htmlFor = `intrhtml${i}`;
+        }
+
+        const lblIansi = linha.querySelector('label[data-field="iansi"]');
+        if (lblIansi) {
+            lblIansi.id = `iansihtml${i}`;
+            lblIansi.htmlFor = `iansihtml${i}`;
+        }
+
+        const lblInansi = linha.querySelector('label[data-field="inansi"]');
+        if (lblInansi) {
+            lblInansi.id = `inansihtml${i}`;
+            lblInansi.htmlFor = `inansihtml${i}`;
+        }
+
+        const lblImag = linha.querySelector('label[data-field="imag"]');
+        if (lblImag) {
+            lblImag.id = `imagtrhtml${i}`;
+            lblImag.htmlFor = `imagtrhtml${i}`;
+        }
+    });
+
+    for (let k = linhas.length + 1; k <= TRAFOS_MAX_COUNT; k++) {
+        localStorage.setItem(`trafo${k}JSON`, JSON.stringify({
+            potencia: "",
+            qtde: "",
+            z: "",
+            imin: "",
+            tempo: ""
+        }));
+    }
+}
+
+function salvarDadosTrafosTemporarios() {
+    const tbody = document.getElementById("trafo-detalhes-body");
+    const linhas = tbody ? Array.from(tbody.querySelectorAll("tr")) : [];
+
+    for (let i = 1; i <= linhas.length; i++) {
+        const trafo = {
+            potencia: document.getElementById(`potenciahtml${i}`)?.value || "",
+            qtde: document.getElementById(`qtdehtml${i}`)?.value || "",
+            z: document.getElementById(`impedanciahtml${i}`)?.value || "",
+            imin: document.getElementById(`fatoriminhtml${i}`)?.value || "",
+            tempo: document.getElementById(`tempotrhtml${i}`)?.value || ""
+        };
+        localStorage.setItem(`trafo${i}JSON`, JSON.stringify(trafo));
     }
 
-    const linhas = Array.from(tabelaTrafos.querySelectorAll("tbody tr"));
-    const atualizarVisibilidade = () => {
-        let linhaAnteriorCompleta = true;
+    for (let k = linhas.length + 1; k <= TRAFOS_MAX_COUNT; k++) {
+        localStorage.setItem(`trafo${k}JSON`, JSON.stringify({
+            potencia: "",
+            qtde: "",
+            z: "",
+            imin: "",
+            tempo: ""
+        }));
+    }
+}
 
-        linhas.forEach((linha) => {
-            linha.hidden = !linhaAnteriorCompleta;
+function configurarTabelaTrafosDinamica() {
+    const tbody = document.getElementById("trafo-detalhes-body");
+    const botaoAdicionar = document.getElementById("adicionarTrafoBtn");
+    if (!tbody) return;
 
-            const campos = Array.from(linha.querySelectorAll('input[type="number"]'));
-            linhaAnteriorCompleta = linhaAnteriorCompleta
-                && campos.length > 0
-                && campos.every((campo) => campo.value.trim() !== "");
+    tbody.innerHTML = "";
+
+    const trafosEncontrados = [];
+    for (let i = 1; i <= TRAFOS_MAX_COUNT; i++) {
+        const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
+        if (trafoSalvo) {
+            const temDados = Object.values(trafoSalvo).some(
+                (v) => v !== "" && v !== null && v !== undefined && v !== 0 && v !== "0"
+            );
+            if (temDados) {
+                trafosEncontrados.push({ indice: i, dados: trafoSalvo });
+            }
+        }
+    }
+
+    if (trafosEncontrados.length > 0) {
+        trafosEncontrados.forEach((item, idx) => {
+            tbody.appendChild(criarLinhaTrafo(item.dados, idx + 1));
         });
-    };
+    } else {
+        tbody.appendChild(criarLinhaTrafo({}, 1));
+    }
 
-    tabelaTrafos.addEventListener("input", atualizarVisibilidade);
-    atualizarVisibilidade();
+    renumerarTabelaTrafos();
+
+    if (botaoAdicionar) {
+        botaoAdicionar.addEventListener("click", function () {
+            const linhas = tbody.querySelectorAll("tr");
+            if (linhas.length >= TRAFOS_MAX_COUNT) {
+                alert(`Limite máximo de ${TRAFOS_MAX_COUNT} transformadores atingido.`);
+                return;
+            }
+
+            const ultimaLinha = linhas[linhas.length - 1];
+            if (ultimaLinha) {
+                const inputPot = ultimaLinha.querySelector('input[data-field="potencia"]');
+                if (inputPot && inputPot.value.trim() === "") {
+                    alert("Preencha a potência do transformador atual antes de adicionar uma nova linha.");
+                    inputPot.focus();
+                    return;
+                }
+            }
+
+            const novaLinha = criarLinhaTrafo({}, linhas.length + 1);
+            tbody.appendChild(novaLinha);
+            renumerarTabelaTrafos();
+            const novoInputPot = novaLinha.querySelector('input[data-field="potencia"]');
+            if (novoInputPot) novoInputPot.focus();
+        });
+    }
+
+    salvarDadosTrafosTemporarios();
+    calcularEArmazenarIntrafoEImag();
+    calculos();
+    calculaimagreal();
 }
 
 //Carregar nos campos do HTML todos os valores calculados e armazenados no local storage
 window.onload = function () {
-    calculaimagreal();
-    calcularEArmazenarIntrafoEImag();
-    calculos();
-    // calculoGerador();
-
     const headerTitulo = document.querySelector("h1");
     if (headerTitulo) {
         headerTitulo.classList.add("loaded");
@@ -710,66 +921,11 @@ window.onload = function () {
     configurarMagnetizacaoRealToggle();
     configurarBotaoLimparTrafos();
     configurarTabelaMotoresDetalhada();
-    let motorPreenchidoPelaTabela2 = false;
+    configurarTabelaTrafosDinamica();
 
     const botaoParametro = document.getElementById("botaotrafohtml");
     if (botaoParametro) {
         botaoParametro.classList.add("nav-active");
-    }
-
-    // Controle de acesso movido para controle-acesso.js
-
-    //Manter exibindo as grandezas de input dos trafos no HTML
-    for (let i = 1; i <= 20; i++) {
-        const trafoSalvo = obterJSONStorage(`trafo${i}JSON`, null);
-        if (trafoSalvo) {
-            if (document.getElementById(`potenciahtml${i}`)) {
-                document.getElementById(`potenciahtml${i}`).value = trafoSalvo.potencia || "";
-            }
-            if (document.getElementById(`qtdehtml${i}`)) {
-                document.getElementById(`qtdehtml${i}`).value = trafoSalvo.qtde || "";
-            }
-            if (document.getElementById(`impedanciahtml${i}`)) {
-                document.getElementById(`impedanciahtml${i}`).value = trafoSalvo.z || "";
-            }
-            if (document.getElementById(`fatoriminhtml${i}`)) {
-                document.getElementById(`fatoriminhtml${i}`).value = trafoSalvo.imin || "";
-            }
-            if (document.getElementById(`tempotrhtml${i}`)) {
-                document.getElementById(`tempotrhtml${i}`).value = trafoSalvo.tempo || "";
-            }
-        }
-    }
-    configurarExibicaoProgressivaTrafos();
-
-    //Manter exibindo as correntes calculadas no HTML
-    const correntestrafos = obterJSONStorage("correntestrafosJSON", {});
-
-    for (let i = 1; i <= 20; i++) {
-        // Exibe In (corrente nominal)
-        if (document.getElementById(`intrhtml${i}`) && correntestrafos[`trafo${i}`]) {
-            document.getElementById(`intrhtml${i}`).textContent = correntestrafos[`trafo${i}`].intrafo
-                ? correntestrafos[`trafo${i}`].intrafoindividual.toFixed(2) + " A"
-                : "";
-        }
-        // Exibe Imag (corrente de magnetização)
-        if (document.getElementById(`imagtrhtml${i}`) && correntestrafos[`trafo${i}`]) {
-            document.getElementById(`imagtrhtml${i}`).textContent = correntestrafos[`trafo${i}`].imag
-                ? correntestrafos[`trafo${i}`].imagindividual.toFixed(2) + " A"
-                : "";
-        }
-        // Exibe IANSI (corrente ANSI)
-        if (document.getElementById(`iansihtml${i}`) && correntestrafos[`trafo${i}`]) {
-            document.getElementById(`iansihtml${i}`).textContent = correntestrafos[`trafo${i}`].iansi
-                ? correntestrafos[`trafo${i}`].iansi.toFixed(2) + " A"
-                : "";
-        }
-        // Exibe INANSI (corrente ANSI neutro)
-        if (document.getElementById(`inansihtml${i}`) && correntestrafos[`trafo${i}`]) {
-            document.getElementById(`inansihtml${i}`).textContent = correntestrafos[`trafo${i}`].inansi
-                ? correntestrafos[`trafo${i}`].inansi.toFixed(2) + " A"
-                : "";
-        }
     }
 
     //carregar imag total no HTML
@@ -826,61 +982,42 @@ function calcularEArmazenarIntrafoEImag() {
         const qtde = trafoSalvo ? parseInt(trafoSalvo.qtde) : 0;
         const imin = trafoSalvo ? parseFloat(trafoSalvo.imin) : 0;
         const tempo = trafoSalvo ? parseFloat(trafoSalvo.tempo) : 0;
-        // const intrafoindividual = potencia / (tensaoArmazenada * Math.sqrt(3));
-        let intrafo = 0;
-        if (potencia > 0 && qtde > 0 && tempo > 0) {
-            intrafo = ((qtde * potencia) / (tensaoArmazenada * Math.sqrt(3)));
-        }
-
-
-
-        const imag = intrafo * imin;
-        // const imagindividual = intrafoindividual * imin;
-
         const impedancia = trafoSalvo ? (parseFloat(trafoSalvo.z) || 0) : 0;
-        // const iansitrafo = impedancia > 0 ? (100 / impedancia) * intrafoindividual : 0;
-        // const inansi = iansitrafo * 0.58;
-
-        // let intrafoindividual = 0;
-        // let imagindividual = 0;
-        // if (potencia > 0 && qtde > 0) {
-        //     intrafoindividual = potencia / (tensaoArmazenada * Math.sqrt(3));
-        //     imagindividual = intrafoindividual * imin;
-        // }
-
-
-
-
-
-        //         let iansitrafo = 0;
-        // let inansi = 0;
-        // if (impedancia > 0 && potencia > 0 && qtde > 0) {
-        //     iansitrafo = (100 / impedancia) * intrafoindividual;
-        //     inansi = iansitrafo * 0.58;
-        // }
-
 
         let intrafoindividual = 0;
         let imagindividual = 0;
         let iansitrafo = 0;
         let inansi = 0;
 
-        if (potencia > 0 && qtde > 0 && tempo > 0) {
+        if (potencia > 0 && qtde > 0 && tensaoArmazenada > 0) {
             intrafoindividual = potencia / (tensaoArmazenada * Math.sqrt(3));
             imagindividual = intrafoindividual * imin;
             if (impedancia > 0) {
                 iansitrafo = (100 / impedancia) * intrafoindividual;
                 inansi = iansitrafo * 0.58;
             }
-            // tempo já está preenchido, pode usar normalmente
-        } else {
-            // Se quiser, pode zerar ou tratar os valores aqui
         }
 
+        const intrafo = intrafoindividual * qtde;
+        const imag = imagindividual * qtde;
 
-
-
-
+        // Atualizar labels no HTML
+        const elIn = document.getElementById(`intrhtml${i}`);
+        if (elIn) {
+            elIn.textContent = intrafoindividual > 0 ? intrafoindividual.toFixed(2) + " A" : "";
+        }
+        const elIansi = document.getElementById(`iansihtml${i}`);
+        if (elIansi) {
+            elIansi.textContent = iansitrafo > 0 ? iansitrafo.toFixed(2) + " A" : "";
+        }
+        const elInansi = document.getElementById(`inansihtml${i}`);
+        if (elInansi) {
+            elInansi.textContent = inansi > 0 ? inansi.toFixed(2) + " A" : "";
+        }
+        const elImag = document.getElementById(`imagtrhtml${i}`);
+        if (elImag) {
+            elImag.textContent = imagindividual > 0 ? imagindividual.toFixed(2) + " A" : "";
+        }
 
         correntestrafosJSON[`trafo${i}`] = {
             intrafo: isNaN(intrafo) ? 0 : intrafo,

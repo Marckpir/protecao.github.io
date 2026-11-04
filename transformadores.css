@@ -346,21 +346,40 @@ td input[type="text"] {
     flex: 1;
 }
 
-.motor-remove-row {
+.motor-remove-row,
+.trafo-remove-row {
     width: auto !important;
     height: 32px !important;
     margin: 0 !important;
     padding: 0 8px;
     font-size: 12px !important;
+    color: yellow !important;
+    font-weight: bold !important;
 }
 
-.motor-table-controls {
+.trafo-cell-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.trafo-label {
+    font-weight: bold;
+    color: #1c641c;
+    font-size: 13px;
+}
+
+.motor-table-controls,
+.trafo-table-controls {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
 }
 
-#adicionarMotorBtn {
+#adicionarMotorBtn,
+#adicionarTrafoBtn {
     width: auto !important;
     min-width: 130px;
     height: 36px !important;
@@ -488,8 +507,9 @@ td label {
     background: #d6f5d6 !important;
 }
 /* --- FIM PADRÃO VISUAL DE TABELAS (PRIORIDADE FINAL) --- */
-/* --- FORÇA COR PRETA EM TODAS AS TDs DE TABELAS MODERNAS --- */
-.tabela-container > table td, .tabela-container > table td * {
+/* --- FORÇA COR PRETA EM TODAS AS TDs DE TABELAS MODERNAS (EXCETO BOTOES DE ACAO) --- */
+.tabela-container > table td,
+.tabela-container > table td *:not(.trafo-remove-row):not(.motor-remove-row) {
     color: #111 !important;
 }
 /* --- FIM --- */
@@ -869,6 +889,16 @@ td label {
 
 
 
-/* --- FIM --- */
+/* --- ESTILO ESPECIFICO DO BOTAO REMOVER (TEXTO AMARELO) --- */
+.tabela-container table td button.trafo-remove-row,
+.tabela-container table td button.motor-remove-row,
+.tabela-motor-container table td button.motor-remove-row,
+button.trafo-remove-row,
+button.motor-remove-row,
+.trafo-remove-row,
+.motor-remove-row {
+    color: #fff700 !important;
+    font-weight: bold !important;
+}
 
 /* --- FIM --- */
