@@ -76,16 +76,37 @@
                 <tr>
                     <td>TENSÃO DA CONEXÃO:</td>
                     <td class="cell-right">
-                        <select id="tensaoprimaria" size="1" class="field-left field-gap-11">
-                            <!-- <option>13.2</option> -->
-                            <option>13.8</option>
-                            <option>22.0</option>
-                            <option>34.5</option>
-                            <option>0.220</option>
-                            <option>0.380</option>
-                            <option>0.440</option>
+                        <div class="input-container" style="display: flex; flex-direction: column; gap: 6px; width: 100%; align-items: stretch;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%;">
+                                <label for="tensaoprimaria_mt" style="font-weight: 600; font-size: 11px; min-width: 28px; color: inherit;">MT:</label>
+                                <select id="tensaoprimaria_mt" size="1" class="field-left" style="width: 100%; font-size: 12px; height: 26px; padding: 2px;">
+                                    <option value="">Selecione MT</option>
+                                    <option value="13.8">13.8 kV</option>
+                                    <option value="22.0">22.0 kV</option>
+                                    <option value="34.5">34.5 kV</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%;">
+                                <label for="tensaoprimaria_bt" style="font-weight: 600; font-size: 11px; min-width: 28px; color: inherit;">BT:</label>
+                                <select id="tensaoprimaria_bt" size="1" class="field-left" style="width: 100%; font-size: 12px; height: 26px; padding: 2px;">
+                                    <option value="">Selecione BT</option>
+                                    <option value="0.220">0.220 kV (220 V)</option>
+                                    <option value="0.380">0.380 kV (380 V)</option>
+                                    <option value="0.440">0.440 kV (440 V)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Campo oculto sincronizado para manter 100% de compatibilidade com id="tensaoprimaria" -->
+                        <select id="tensaoprimaria" style="display: none;">
+                            <option value="">Selecione</option>
+                            <option value="13.8">13.8</option>
+                            <option value="22.0">22.0</option>
+                            <option value="34.5">34.5</option>
+                            <option value="0.220">0.220</option>
+                            <option value="0.380">0.380</option>
+                            <option value="0.440">0.440</option>
                         </select>
-                        <span class="unidade"></span><br>
                     </td>
                     <td id="valorAjustadoTensaoPrimaria"></td>
                 </tr>

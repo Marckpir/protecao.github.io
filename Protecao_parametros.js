@@ -32,8 +32,22 @@ function salvarOpcao() {
 
     //inicializa duas variaveis do tipo constante, um obtem o valor da ID meu select
     //que corresponde ao valor armazenado no campo de selecao e a outra armazena o valor desse campo
+    const tensaoMT = document.getElementById("tensaoprimaria_mt");
+    const tensaoBT = document.getElementById("tensaoprimaria_bt");
     const tensao = document.getElementById("tensaoprimaria");
-    const tensaoSelecionada = tensao.value;
+
+    let tensaoSelecionada = "";
+    if (tensaoMT && tensaoMT.value) {
+        tensaoSelecionada = tensaoMT.value;
+    } else if (tensaoBT && tensaoBT.value) {
+        tensaoSelecionada = tensaoBT.value;
+    } else if (tensao && tensao.value) {
+        tensaoSelecionada = tensao.value;
+    }
+
+    if (tensao) {
+        tensao.value = tensaoSelecionada;
+    }
     localStorage.setItem("tensaoSelecionada", tensaoSelecionada);
 
     //-----------------------------------------------------------------------------------------
@@ -332,6 +346,39 @@ function configurarNavegacaoHeader() {
     });
 }
 
+function configurarTensaoConexaoMTBT() {
+    const tensaoMT = document.getElementById("tensaoprimaria_mt");
+    const tensaoBT = document.getElementById("tensaoprimaria_bt");
+    const tensaoHidden = document.getElementById("tensaoprimaria");
+    const valorAjustado = document.getElementById("valorAjustadoTensaoPrimaria");
+
+    if (!tensaoMT || !tensaoBT) return;
+
+    tensaoMT.addEventListener("change", function () {
+        if (this.value) {
+            tensaoBT.value = "";
+            if (tensaoHidden) tensaoHidden.value = this.value;
+            if (valorAjustado) valorAjustado.textContent = this.value + " KV";
+        } else if (!tensaoBT.value) {
+            if (tensaoHidden) tensaoHidden.value = "";
+            if (valorAjustado) valorAjustado.textContent = "-";
+        }
+    });
+
+    tensaoBT.addEventListener("change", function () {
+        if (this.value) {
+            tensaoMT.value = "";
+            if (tensaoHidden) tensaoHidden.value = this.value;
+            if (valorAjustado) valorAjustado.textContent = this.value + " KV";
+        } else if (!tensaoMT.value) {
+            if (tensaoHidden) tensaoHidden.value = "";
+            if (valorAjustado) valorAjustado.textContent = "-";
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", configurarTensaoConexaoMTBT);
+
 
 window.onload = function () {
     // -----------------manter o botão vermelho selecionado-------------------
@@ -372,10 +419,25 @@ window.onload = function () {
 
 
     const tensao = document.getElementById("tensaoprimaria");
+    const tensaoMT = document.getElementById("tensaoprimaria_mt");
+    const tensaoBT = document.getElementById("tensaoprimaria_bt");
     const tensaoSalva = localStorage.getItem("tensaoSelecionada");
 
     if (tensaoSalva) {
-        tensao.value = tensaoSalva;
+        if (tensao) {
+            tensao.value = tensaoSalva;
+        }
+        const valoresMT = ["13.8", "22.0", "34.5", "13.2"];
+        const valoresBT = ["0.220", "0.380", "0.440"];
+        if (tensaoMT && tensaoBT) {
+            if (valoresMT.includes(String(tensaoSalva))) {
+                tensaoMT.value = tensaoSalva;
+                tensaoBT.value = "";
+            } else if (valoresBT.includes(String(tensaoSalva))) {
+                tensaoBT.value = tensaoSalva;
+                tensaoMT.value = "";
+            }
+        }
     }
     //-----------------------------------------------------------------------------------------
 
