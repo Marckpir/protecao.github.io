@@ -1647,25 +1647,279 @@ searchInput.addEventListener('keydown', function (event) {
         }
     }
 
+    function extrairValorPropriedade(obj, chavesPossiveis, padroesRegex) {
+        if (!obj || typeof obj !== 'object') return null;
+
+        // 1. Busca direta pelas chaves candidatas (case-insensitive)
+        const chavesLower = chavesPossiveis.map(function (c) { return c.toLowerCase(); });
+        for (const [chave, valor] of Object.entries(obj)) {
+            if (chavesLower.includes(chave.toLowerCase())) {
+                if (valor !== null && valor !== undefined && String(valor).trim() !== '') {
+                    return valor;
+                }
+            }
+        }
+
+        // 2. Busca por padrões de regex nos nomes das propriedades
+        if (padroesRegex && padroesRegex.length > 0) {
+            for (const [chave, valor] of Object.entries(obj)) {
+                for (const reg of padroesRegex) {
+                    if (reg.test(chave)) {
+                        if (valor !== null && valor !== undefined && String(valor).trim() !== '') {
+                            return valor;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    async function buscarNotaFinalidade(nsVal) {
+        if (!nsVal) return null;
+        const nsLimpa = String(nsVal).trim();
+        if (!nsLimpa) return null;
+
+        // Gera variações de busca da NS/Nota
+        const candidatos = [nsLimpa];
+        const apenasDigitos = nsLimpa.replace(/\D/g, '');
+        if (apenasDigitos && apenasDigitos !== nsLimpa) {
+            candidatos.push(apenasDigitos);
+        }
+        if (apenasDigitos && (apenasDigitos.length === 10 || apenasDigitos.length === 9 || apenasDigitos.length === 8)) {
+            candidatos.push(apenasDigitos.padStart(10, '0'));
+            candidatos.push(apenasDigitos.padStart(12, '0'));
+        }
+        if (nsLimpa.includes(',') || nsLimpa.includes(';') || nsLimpa.includes(' ')) {
+            const primeira = nsLimpa.split(/[,\s;]+/)[0].trim();
+            if (primeira && !candidatos.includes(primeira)) {
+                candidatos.push(primeira);
+                const primDigitos = primeira.replace(/\D/g, '');
+                if (primDigitos && !candidatos.includes(primDigitos)) {
+                    candidatos.push(primDigitos);
+                }
+            }
+        }
+
+        const tabelas = ['notas_finalidade', 'nota_finalidade', 'notas_finalidades'];
+        const colunasNotaPadrao = [
+            'nota', 'ns', 'numero_nota', 'num_nota', 'n_nota',
+            'nota_servico', 'nota_finalidade', 'notafinalidade',
+            'ordem', 'cod_nota', 'numero', 'num_ns', 'numero_ns'
+        ];
+
+        console.log('[notas_finalidade] Iniciando busca para termos:', candidatos);
+
+        for (const tabela of tabelas) {
+            let colunasReais = [];
+            try {
+                const { data: amostra, error: errAmostra } = await sbRT
+                    .from(tabela)
+                    .select('*')
+                    .limit(1);
+
+                if (errAmostra) {
+                    console.warn(`[notas_finalidade] Tabela ${tabela} retornou erro ao inspecionar colunas:`, errAmostra.message || errAmostra);
+                } else if (amostra && amostra.length > 0) {
+                    colunasReais = Object.keys(amostra[0]);
+                    console.log(`[notas_finalidade] Tabela ${tabela} encontrada. Colunas:`, colunasReais);
+                }
+            } catch (e) {
+                console.warn(`[notas_finalidade] Exceção na tabela ${tabela}:`, e);
+            }
+
+            // Identifica colunas que podem representar o número da nota
+            let colunasParaTestar = colunasNotaPadrao;
+            if (colunasReais.length > 0) {
+                const identificadas = colunasReais.filter(function (c) {
+                    return /^(nota|ns|num.*nota|numero.*nota|n.*nota|nota.*servico|ordem|cod.*nota|numero)$/i.test(c) ||
+                        c.toLowerCase().includes('nota') ||
+                        c.toLowerCase().includes('ns');
+                });
+                if (identificadas.length > 0) {
+                    colunasParaTestar = [...new Set([...identificadas, ...colunasNotaPadrao])];
+                }
+            }
+
+            for (const col of colunasParaTestar) {
+                for (const val of candidatos) {
+                    // 1. Busca exata por texto
+                    try {
+                        const res = await sbRT.from(tabela).select('*').eq(col, val).limit(1);
+                        if (!res.error && res.data && res.data.length > 0) {
+                            console.log(`[notas_finalidade] Encontrado em [${tabela}] coluna [${col}] = '${val}':`, res.data[0]);
+                            return { registro: res.data[0], tabela: tabela };
+                        }
+                    } catch (e) {}
+
+                    // 2. Busca exata por número se numérico
+                    if (!isNaN(Number(val))) {
+                        try {
+                            const resNum = await sbRT.from(tabela).select('*').eq(col, Number(val)).limit(1);
+                            if (!resNum.error && resNum.data && resNum.data.length > 0) {
+                                console.log(`[notas_finalidade] Encontrado em [${tabela}] coluna [${col}] = (numérico) ${val}:`, resNum.data[0]);
+                                return { registro: resNum.data[0], tabela: tabela };
+                            }
+                        } catch (e) {}
+                    }
+
+                    // 3. Busca com ilike (zeros à esquerda ou caracteres adicionais)
+                    try {
+                        const resLike = await sbRT.from(tabela).select('*').ilike(col, `%${val}%`).limit(1);
+                        if (!resLike.error && resLike.data && resLike.data.length > 0) {
+                            console.log(`[notas_finalidade] Encontrado em [${tabela}] coluna [${col}] com ilike '%${val}%':`, resLike.data[0]);
+                            return { registro: resLike.data[0], tabela: tabela };
+                        }
+                    } catch (e) {}
+                }
+            }
+        }
+
+        console.warn(`[notas_finalidade] Registro não localizado para ${nsVal} nas tabelas pesquisadas.`);
+        return null;
+    }
+
+    async function preencherNotaOperacaoPorNS(nsManual) {
+        const ns = (nsManual || numeroNSInputRT.value || localStorage.getItem('numeroNS') || '').trim();
+        if (!ns) {
+            console.warn('[notas_finalidade] Nenhuma NS informada.');
+            return;
+        }
+
+        try {
+            console.log('[notas_finalidade] Buscando dados para NS:', ns);
+            const resultadoBusca = await buscarNotaFinalidade(ns);
+            if (!resultadoBusca || !resultadoBusca.registro) {
+                console.warn('[notas_finalidade] Nenhum dado retornado para a NS:', ns);
+                return;
+            }
+
+            const registro = resultadoBusca.registro;
+            console.log('[notas_finalidade] Processando registro:', registro);
+
+            // 1. Preenchimento de IN (Instalação)
+            const inValor = extrairValorPropriedade(
+                registro,
+                [
+                    'in', 'instalacao', 'num_instalacao', 'numero_instalacao', 'uc',
+                    'unidade_consumidora', 'in_operacao', 'cod_instalacao', 'num_inst',
+                    'instalacao_in', 'num_in', 'parceiro', 'cliente', 'in_gemini', 'instalacao_uc'
+                ],
+                [/^(in|uc|instalacao|num.*instal|n.*instal|in_operacao|cod.*instal)$/i, /.*instal.*/i]
+            );
+
+            if (inValor !== null && inValor !== undefined) {
+                const strIn = String(inValor).trim();
+                const inEl = document.getElementById('in-operacao');
+                if (inEl) {
+                    inEl.textContent = strIn;
+                }
+                localStorage.setItem('UCgemini', strIn);
+                console.log('[notas_finalidade] IN atualizado:', strIn);
+            }
+
+            // 2. Preenchimento de Alimentador
+            const alimValor = extrairValorPropriedade(
+                registro,
+                [
+                    'alimentador', 'alim', 'nome_alimentador', 'cod_alimentador',
+                    'alimentador_operacao', 'circuito', 'sed', 'subestacao', 'nome_alim', 'cod_alim'
+                ],
+                [/^(alimentador|alim|nome.*alimentador|cod.*alimentador|alimentador_operacao|circuito|sed)$/i, /.*alim.*/i]
+            );
+
+            if (alimValor !== null && alimValor !== undefined) {
+                const strAlim = String(alimValor).trim();
+                const alimEl = document.getElementById('alimentador-operacao');
+                if (alimEl) {
+                    alimEl.textContent = strAlim;
+                }
+                localStorage.setItem('ALIMENTADORgemini', strAlim);
+                console.log('[notas_finalidade] Alimentador atualizado:', strAlim);
+            }
+
+            // 3. Preenchimento de Tensão
+            const tensaoValor = extrairValorPropriedade(
+                registro,
+                [
+                    'tensao', 'nivel_tensao', 'tensao_kv', 'tensao_operacao',
+                    'kv', 'voltagem', 'classe_tensao', 'tensao_nominal', 'tensao_at'
+                ],
+                [/^(tensao|nivel.*tensao|tensao.*kv|tensao.*operacao|kv|voltagem|classe.*tensao)$/i, /.*tensao.*/i]
+            );
+
+            if (tensaoValor !== null && tensaoValor !== undefined) {
+                let strTensao = String(tensaoValor).trim();
+                const tensaoLimpa = strTensao.replace(/kv/gi, '').trim();
+                if (!strTensao.toUpperCase().includes('KV')) {
+                    strTensao = strTensao + ' KV';
+                }
+                const tensaoEl = document.getElementById('tensao-operacao');
+                if (tensaoEl) {
+                    tensaoEl.textContent = strTensao;
+                }
+                localStorage.setItem('TENSAOgemini', tensaoLimpa);
+                console.log('[notas_finalidade] Tensão atualizada:', strTensao);
+            }
+
+            // 4. Preenchimento de curtoSelecionada no localStorage com o valor de icc_3f
+            const icc3fValor = extrairValorPropriedade(
+                registro,
+                [
+                    'icc_3f', 'icc3f', 'icc_trifasica', 'icc_trifasico', 'icc_3fase',
+                    'curto_3f', 'curto', 'icc', 'ik3', 'icc_tri', 'icc_trif', 'icc_3_fases'
+                ],
+                [/^(icc.*3f.*|icc3f|icc.*tri.*|curto.*3f.*|curto|icc|ik3)$/i, /.*icc.*/i]
+            );
+
+            if (icc3fValor !== null && icc3fValor !== undefined) {
+                const strIcc = String(icc3fValor).trim();
+                localStorage.setItem('curtoSelecionada', strIcc);
+                console.log('[notas_finalidade] curtoSelecionada atualizado no localStorage:', strIcc);
+            }
+        } catch (err) {
+            console.error('Erro ao consultar dados de notas_finalidade:', err);
+        }
+    }
+
+    window.preencherNotaOperacaoPorNS = preencherNotaOperacaoPorNS;
+
+    function dispararConsultasPorNS() {
+        preencherRTPorNS();
+        preencherDataInicioPlanejadoPorNS();
+        preencherNotaOperacaoPorNS();
+    }
+
     let debounceTimerRT = null;
     numeroNSInputRT.addEventListener('input', function () {
         clearTimeout(debounceTimerRT);
-        debounceTimerRT = setTimeout(function () {
-            preencherRTPorNS();
-            preencherDataInicioPlanejadoPorNS();
-        }, 600);
+        debounceTimerRT = setTimeout(dispararConsultasPorNS, 250);
     });
     numeroNSInputRT.addEventListener('blur', function () {
-        preencherRTPorNS();
-        preencherDataInicioPlanejadoPorNS();
+        clearTimeout(debounceTimerRT);
+        dispararConsultasPorNS();
+    });
+    numeroNSInputRT.addEventListener('change', function () {
+        clearTimeout(debounceTimerRT);
+        dispararConsultasPorNS();
+    });
+    numeroNSInputRT.addEventListener('paste', function () {
+        clearTimeout(debounceTimerRT);
+        setTimeout(dispararConsultasPorNS, 50);
     });
     numeroNSInputRT.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             clearTimeout(debounceTimerRT);
-            preencherRTPorNS();
-            preencherDataInicioPlanejadoPorNS();
+            dispararConsultasPorNS();
         }
     });
+
+    // Execução automática inicial caso já haja NS preenchida ou salva em localStorage
+    const nsInicial = (numeroNSInputRT.value || localStorage.getItem('numeroNS') || '').trim();
+    if (nsInicial) {
+        dispararConsultasPorNS();
+    }
 })();
 
 
@@ -2067,7 +2321,7 @@ Salientamos a importância de que essas alterações sejam feitas de forma imedi
 Att.
 
 Núcleo Técnico
-PLANEJAMENTO E ENGENHARIA DA DISTRIBUIÇÃO-GERÊNCIA DE NÚCLEO TÉCNICO-PE/NT
+Processos Especiais de Expansão e Manutenção de Média e Baixa Tensão – PE/EM
 www.cemig.com.br`;
 }
 

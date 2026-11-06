@@ -2388,45 +2388,72 @@ textarea {
         padding-top: 1px !important;
     }
 
-    /* Diagramas multifilares (se houver) */
+    /* Diagramas multifilares (se houver) na impressão - Centralização exata */
+    #tituloreles {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    #tabelareles,
+    .tabelaparametrizacaoreles {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+    }
+
+    #tabelareles br {
+        display: none !important;
+    }
+
     .diagramas_multifilares_container {
         max-width: 190mm !important;
         width: 190mm !important;
-        height: 275mm !important;
+        height: 255mm !important;
         margin: 0 auto !important;
         padding: 0 !important;
         background-color: transparent !important;
         border: none !important;
         box-shadow: none !important;
         page-break-before: always !important;
+        break-before: page !important;
+        page-break-after: always !important;
+        break-after: page !important;
         page-break-inside: avoid !important;
+        break-inside: avoid !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: space-between !important;
         align-items: center !important;
         position: relative !important;
+        box-sizing: border-box !important;
     }
 
     .diagrama_titulo {
         text-align: center !important;
         width: 100% !important;
         display: block !important;
-        font-size: 1.2em !important;
-        margin: 5mm 0 !important;
+        margin: 0 !important;
+        padding: 2mm 0 !important;
+        font-size: 1.15em !important;
+        color: #024402 !important;
+        box-sizing: border-box !important;
     }
 
     .diagrama_wrapper {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 220mm !important;
+        height: 170mm !important;
+        transform: translate(-50%, -50%) rotate(-90deg) !important;
+        transform-origin: center center !important;
+        margin: 0 !important;
+        padding: 0 !important;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
         background-color: transparent !important;
         border: none !important;
-        padding: 0 !important;
-        width: 260mm !important;
-        height: 180mm !important;
-        transform: rotate(-90deg) !important;
-        transform-origin: center !important;
-        flex-grow: 1 !important;
+        box-sizing: border-box !important;
     }
 
     .diagrama_img {
@@ -2435,6 +2462,7 @@ textarea {
         width: auto !important;
         height: auto !important;
         display: block !important;
+        margin: auto !important;
         object-fit: contain !important;
         image-rendering: -webkit-optimize-contrast !important;
         image-rendering: crisp-edges !important;
@@ -2448,8 +2476,11 @@ textarea {
         text-align: center !important;
         width: 100% !important;
         display: block !important;
-        margin-bottom: 5mm !important;
+        margin: 0 !important;
+        padding: 2mm 0 !important;
         font-size: 0.9em !important;
+        color: #333333 !important;
+        box-sizing: border-box !important;
     }
 }
 
